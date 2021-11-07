@@ -103,62 +103,62 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Avisos: ',
                       style: TextStyle(color: Colors.grey, fontSize: 16),
                     ),
-                    SizedBox(height: 5.0),
+                    const SizedBox(height: 5.0),
                     loteswithprocesos.cosecha != null
                         ? Row(children: [
                             Container(
                               width: 15.0,
                               height: 15.0,
-                              decoration: new BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.orange,
                                 shape: BoxShape.circle,
                               ),
                             ),
                             SizedBox(width: margin),
-                            Text(
+                            const Text(
                               'Cosecha pendiente ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ])
-                        : SizedBox(),
+                        : const SizedBox(),
                     loteswithprocesos.poda != null
                         ? Row(children: [
                             Container(
                               width: 15.0,
                               height: 15.0,
-                              decoration: new BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.orange,
                                 shape: BoxShape.circle,
                               ),
                             ),
                             SizedBox(width: margin),
-                            Text(
+                            const Text(
                               'Poda pendiente ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ])
-                        : SizedBox(),
+                        : const SizedBox(),
                     loteswithprocesos.plateo != null
                         ? Row(children: [
                             Container(
                               width: 15.0,
                               height: 15.0,
-                              decoration: new BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.orange,
                                 shape: BoxShape.circle,
                               ),
                             ),
                             SizedBox(width: margin),
-                            Text(
+                            const Text(
                               'Plateo pendiente ',
                               style: TextStyle(fontSize: 16),
                             ),
                           ])
-                        : SizedBox(),
+                        : const SizedBox(),
                   ],
                 ),
               ],
@@ -177,7 +177,7 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
         height: 50.0,
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
-          borderRadius: new BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(10.0),
           color: Colors.white,
           border: Border.all(
             color: Colors.blue, //                   <--- border color
@@ -190,7 +190,7 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
           //      offset: Offset(0, 2))
           // ],
         ),
-        child: Center(
+        child: const Center(
             child: Text(
           'Ingresar Lote',
           style: TextStyle(color: Colors.blue, fontSize: 20),

@@ -13,14 +13,14 @@ class Lotes extends Table {
 
 class LoteWithProcesos {
   final Lote lote;
-  final Cosecha cosecha;
-  final Plateo plateo;
-  final Poda poda;
+  final Cosecha? cosecha;
+  final Plateo? plateo;
+  final Poda? poda;
 
   LoteWithProcesos({
     required this.lote,
-    required this.cosecha,
-    required this.plateo,
-    required this.poda,
+    this.cosecha,
+    this.plateo,
+    this.poda,
   });
 }

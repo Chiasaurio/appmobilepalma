@@ -22,7 +22,7 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
     return into(lotes).insert(lote);
   }
 
-  addLotes(List<Insertable<Lote>> listalotes) async {
+  Future<bool> addLotes(List<Insertable<Lote>> listalotes) async {
     try {
       await batch((b) {
         for (final lote in listalotes) {
@@ -37,8 +37,10 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
           );
         }
       });
+      return true;
     } catch (e) {
       print(e);
+      return false;
     }
   }
 
@@ -69,9 +71,9 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
     return rows.map((resultRow) {
       return LoteWithProcesos(
           lote: resultRow.readTable(lotes),
-          cosecha: resultRow.readTable(cosechas),
-          plateo: resultRow.readTable(plateos),
-          poda: resultRow.readTable(podas));
+          cosecha: resultRow.readTableOrNull(cosechas),
+          plateo: resultRow.readTableOrNull(plateos),
+          poda: resultRow.readTableOrNull(podas));
     }).toList();
   }
 }

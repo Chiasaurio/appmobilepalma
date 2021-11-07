@@ -130,7 +130,7 @@ class FincaPage extends StatelessWidget {
               TableRow(
                 children: [
                   _crearBotonRedondeado3(
-                      'Sincronizar', 'sincronizar', Icons.art_track, context),
+                      'Sincronizar', '/sincronizar', Icons.art_track, context),
                 ],
               )
             ],

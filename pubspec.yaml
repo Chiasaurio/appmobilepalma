@@ -33,7 +33,10 @@ dependencies:
   drift: ^1.0.1
   sqlite3_flutter_libs: ^0.5.0
   path_provider: ^2.0.0
+  http: ^0.13.4
   path: ^1.8.0
+  dio: ^4.0.1
+  flutter_secure_storage: ^4.2.1
   flutter:
     sdk: flutter
 

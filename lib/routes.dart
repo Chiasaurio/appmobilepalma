@@ -1,5 +1,6 @@
 import 'package:apppalma/Home/home_screen.dart';
 import 'package:apppalma/LotesList/presentation/lotes_page.dart';
+import 'package:apppalma/Sync/sincronizar_page.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -12,6 +13,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => FincaPage());
       case '/lotes':
         return MaterialPageRoute(builder: (_) => EscogerLotePage());
+      case '/sincronizar':
+        return MaterialPageRoute(builder: (_) => SincronizacionPage());
       default:
         return _errorScreen();
     }
