@@ -1608,18 +1608,13 @@ class $CosechaDiariaTable extends CosechaDiaria
 }
 
 class Enfermedade extends DataClass implements Insertable<Enfermedade> {
-  final int id;
   final String nombreEnfermedad;
   final String procedimientoEnfermedad;
   Enfermedade(
-      {required this.id,
-      required this.nombreEnfermedad,
-      required this.procedimientoEnfermedad});
+      {required this.nombreEnfermedad, required this.procedimientoEnfermedad});
   factory Enfermedade.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Enfermedade(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       nombreEnfermedad: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}nombre_enfermedad'])!,
       procedimientoEnfermedad: const StringType().mapFromDatabaseResponse(
@@ -1629,7 +1624,6 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
     map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad);
     map['procedimiento_enfermedad'] = Variable<String>(procedimientoEnfermedad);
     return map;
@@ -1637,7 +1631,6 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
 
   EnfermedadesCompanion toCompanion(bool nullToAbsent) {
     return EnfermedadesCompanion(
-      id: Value(id),
       nombreEnfermedad: Value(nombreEnfermedad),
       procedimientoEnfermedad: Value(procedimientoEnfermedad),
     );
@@ -1647,7 +1640,6 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Enfermedade(
-      id: serializer.fromJson<int>(json['id']),
       nombreEnfermedad: serializer.fromJson<String>(json['nombreEnfermedad']),
       procedimientoEnfermedad:
           serializer.fromJson<String>(json['procedimientoEnfermedad']),
@@ -1657,7 +1649,6 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
       'nombreEnfermedad': serializer.toJson<String>(nombreEnfermedad),
       'procedimientoEnfermedad':
           serializer.toJson<String>(procedimientoEnfermedad),
@@ -1665,11 +1656,8 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
   }
 
   Enfermedade copyWith(
-          {int? id,
-          String? nombreEnfermedad,
-          String? procedimientoEnfermedad}) =>
+          {String? nombreEnfermedad, String? procedimientoEnfermedad}) =>
       Enfermedade(
-        id: id ?? this.id,
         nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
         procedimientoEnfermedad:
             procedimientoEnfermedad ?? this.procedimientoEnfermedad,
@@ -1677,7 +1665,6 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
   @override
   String toString() {
     return (StringBuffer('Enfermedade(')
-          ..write('id: $id, ')
           ..write('nombreEnfermedad: $nombreEnfermedad, ')
           ..write('procedimientoEnfermedad: $procedimientoEnfermedad')
           ..write(')'))
@@ -1685,39 +1672,32 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, nombreEnfermedad, procedimientoEnfermedad);
+  int get hashCode => Object.hash(nombreEnfermedad, procedimientoEnfermedad);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Enfermedade &&
-          other.id == this.id &&
           other.nombreEnfermedad == this.nombreEnfermedad &&
           other.procedimientoEnfermedad == this.procedimientoEnfermedad);
 }
 
 class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
-  final Value<int> id;
   final Value<String> nombreEnfermedad;
   final Value<String> procedimientoEnfermedad;
   const EnfermedadesCompanion({
-    this.id = const Value.absent(),
     this.nombreEnfermedad = const Value.absent(),
     this.procedimientoEnfermedad = const Value.absent(),
   });
   EnfermedadesCompanion.insert({
-    this.id = const Value.absent(),
     required String nombreEnfermedad,
     required String procedimientoEnfermedad,
   })  : nombreEnfermedad = Value(nombreEnfermedad),
         procedimientoEnfermedad = Value(procedimientoEnfermedad);
   static Insertable<Enfermedade> custom({
-    Expression<int>? id,
     Expression<String>? nombreEnfermedad,
     Expression<String>? procedimientoEnfermedad,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
       if (nombreEnfermedad != null) 'nombre_enfermedad': nombreEnfermedad,
       if (procedimientoEnfermedad != null)
         'procedimiento_enfermedad': procedimientoEnfermedad,
@@ -1725,11 +1705,9 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
   }
 
   EnfermedadesCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? nombreEnfermedad,
+      {Value<String>? nombreEnfermedad,
       Value<String>? procedimientoEnfermedad}) {
     return EnfermedadesCompanion(
-      id: id ?? this.id,
       nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
       procedimientoEnfermedad:
           procedimientoEnfermedad ?? this.procedimientoEnfermedad,
@@ -1739,9 +1717,6 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
     if (nombreEnfermedad.present) {
       map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad.value);
     }
@@ -1755,7 +1730,6 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
   @override
   String toString() {
     return (StringBuffer('EnfermedadesCompanion(')
-          ..write('id: $id, ')
           ..write('nombreEnfermedad: $nombreEnfermedad, ')
           ..write('procedimientoEnfermedad: $procedimientoEnfermedad')
           ..write(')'))
@@ -1768,10 +1742,6 @@ class $EnfermedadesTable extends Enfermedades
   final GeneratedDatabase _db;
   final String? _alias;
   $EnfermedadesTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
-      'id', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _nombreEnfermedadMeta =
       const VerificationMeta('nombreEnfermedad');
   late final GeneratedColumn<String?> nombreEnfermedad =
@@ -1784,7 +1754,7 @@ class $EnfermedadesTable extends Enfermedades
           typeName: 'TEXT', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, nombreEnfermedad, procedimientoEnfermedad];
+      [nombreEnfermedad, procedimientoEnfermedad];
   @override
   String get aliasedName => _alias ?? 'enfermedades';
   @override
@@ -1794,9 +1764,6 @@ class $EnfermedadesTable extends Enfermedades
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
     if (data.containsKey('nombre_enfermedad')) {
       context.handle(
           _nombreEnfermedadMeta,
@@ -1817,7 +1784,7 @@ class $EnfermedadesTable extends Enfermedades
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {nombreEnfermedad};
   @override
   Enfermedade map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Enfermedade.fromData(data,
@@ -4649,16 +4616,16 @@ class RegistroEnfermedadData extends DataClass
   final DateTime fechaRegistro;
   final DateTime horaRegistro;
   final int idPalma;
-  final int idEnfermedad;
-  final int idEtapaEnfermedad;
+  final String nombreEnfermedad;
+  final int? idEtapaEnfermedad;
   final String? observaciones;
   RegistroEnfermedadData(
       {required this.id,
       required this.fechaRegistro,
       required this.horaRegistro,
       required this.idPalma,
-      required this.idEnfermedad,
-      required this.idEtapaEnfermedad,
+      required this.nombreEnfermedad,
+      this.idEtapaEnfermedad,
       this.observaciones});
   factory RegistroEnfermedadData.fromData(Map<String, dynamic> data,
       {String? prefix}) {
@@ -4672,10 +4639,10 @@ class RegistroEnfermedadData extends DataClass
           .mapFromDatabaseResponse(data['${effectivePrefix}hora_registro'])!,
       idPalma: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_palma'])!,
-      idEnfermedad: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_enfermedad'])!,
+      nombreEnfermedad: const StringType().mapFromDatabaseResponse(
+          data['${effectivePrefix}nombre_enfermedad'])!,
       idEtapaEnfermedad: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}id_etapa_enfermedad'])!,
+          data['${effectivePrefix}id_etapa_enfermedad']),
       observaciones: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}observaciones']),
     );
@@ -4687,8 +4654,10 @@ class RegistroEnfermedadData extends DataClass
     map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
     map['hora_registro'] = Variable<DateTime>(horaRegistro);
     map['id_palma'] = Variable<int>(idPalma);
-    map['id_enfermedad'] = Variable<int>(idEnfermedad);
-    map['id_etapa_enfermedad'] = Variable<int>(idEtapaEnfermedad);
+    map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad);
+    if (!nullToAbsent || idEtapaEnfermedad != null) {
+      map['id_etapa_enfermedad'] = Variable<int?>(idEtapaEnfermedad);
+    }
     if (!nullToAbsent || observaciones != null) {
       map['observaciones'] = Variable<String?>(observaciones);
     }
@@ -4701,8 +4670,10 @@ class RegistroEnfermedadData extends DataClass
       fechaRegistro: Value(fechaRegistro),
       horaRegistro: Value(horaRegistro),
       idPalma: Value(idPalma),
-      idEnfermedad: Value(idEnfermedad),
-      idEtapaEnfermedad: Value(idEtapaEnfermedad),
+      nombreEnfermedad: Value(nombreEnfermedad),
+      idEtapaEnfermedad: idEtapaEnfermedad == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idEtapaEnfermedad),
       observaciones: observaciones == null && nullToAbsent
           ? const Value.absent()
           : Value(observaciones),
@@ -4717,8 +4688,8 @@ class RegistroEnfermedadData extends DataClass
       fechaRegistro: serializer.fromJson<DateTime>(json['fechaRegistro']),
       horaRegistro: serializer.fromJson<DateTime>(json['horaRegistro']),
       idPalma: serializer.fromJson<int>(json['idPalma']),
-      idEnfermedad: serializer.fromJson<int>(json['idEnfermedad']),
-      idEtapaEnfermedad: serializer.fromJson<int>(json['idEtapaEnfermedad']),
+      nombreEnfermedad: serializer.fromJson<String>(json['nombreEnfermedad']),
+      idEtapaEnfermedad: serializer.fromJson<int?>(json['idEtapaEnfermedad']),
       observaciones: serializer.fromJson<String?>(json['observaciones']),
     );
   }
@@ -4730,8 +4701,8 @@ class RegistroEnfermedadData extends DataClass
       'fechaRegistro': serializer.toJson<DateTime>(fechaRegistro),
       'horaRegistro': serializer.toJson<DateTime>(horaRegistro),
       'idPalma': serializer.toJson<int>(idPalma),
-      'idEnfermedad': serializer.toJson<int>(idEnfermedad),
-      'idEtapaEnfermedad': serializer.toJson<int>(idEtapaEnfermedad),
+      'nombreEnfermedad': serializer.toJson<String>(nombreEnfermedad),
+      'idEtapaEnfermedad': serializer.toJson<int?>(idEtapaEnfermedad),
       'observaciones': serializer.toJson<String?>(observaciones),
     };
   }
@@ -4741,7 +4712,7 @@ class RegistroEnfermedadData extends DataClass
           DateTime? fechaRegistro,
           DateTime? horaRegistro,
           int? idPalma,
-          int? idEnfermedad,
+          String? nombreEnfermedad,
           int? idEtapaEnfermedad,
           String? observaciones}) =>
       RegistroEnfermedadData(
@@ -4749,7 +4720,7 @@ class RegistroEnfermedadData extends DataClass
         fechaRegistro: fechaRegistro ?? this.fechaRegistro,
         horaRegistro: horaRegistro ?? this.horaRegistro,
         idPalma: idPalma ?? this.idPalma,
-        idEnfermedad: idEnfermedad ?? this.idEnfermedad,
+        nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
         idEtapaEnfermedad: idEtapaEnfermedad ?? this.idEtapaEnfermedad,
         observaciones: observaciones ?? this.observaciones,
       );
@@ -4760,7 +4731,7 @@ class RegistroEnfermedadData extends DataClass
           ..write('fechaRegistro: $fechaRegistro, ')
           ..write('horaRegistro: $horaRegistro, ')
           ..write('idPalma: $idPalma, ')
-          ..write('idEnfermedad: $idEnfermedad, ')
+          ..write('nombreEnfermedad: $nombreEnfermedad, ')
           ..write('idEtapaEnfermedad: $idEtapaEnfermedad, ')
           ..write('observaciones: $observaciones')
           ..write(')'))
@@ -4769,7 +4740,7 @@ class RegistroEnfermedadData extends DataClass
 
   @override
   int get hashCode => Object.hash(id, fechaRegistro, horaRegistro, idPalma,
-      idEnfermedad, idEtapaEnfermedad, observaciones);
+      nombreEnfermedad, idEtapaEnfermedad, observaciones);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4778,7 +4749,7 @@ class RegistroEnfermedadData extends DataClass
           other.fechaRegistro == this.fechaRegistro &&
           other.horaRegistro == this.horaRegistro &&
           other.idPalma == this.idPalma &&
-          other.idEnfermedad == this.idEnfermedad &&
+          other.nombreEnfermedad == this.nombreEnfermedad &&
           other.idEtapaEnfermedad == this.idEtapaEnfermedad &&
           other.observaciones == this.observaciones);
 }
@@ -4789,15 +4760,15 @@ class RegistroEnfermedadCompanion
   final Value<DateTime> fechaRegistro;
   final Value<DateTime> horaRegistro;
   final Value<int> idPalma;
-  final Value<int> idEnfermedad;
-  final Value<int> idEtapaEnfermedad;
+  final Value<String> nombreEnfermedad;
+  final Value<int?> idEtapaEnfermedad;
   final Value<String?> observaciones;
   const RegistroEnfermedadCompanion({
     this.id = const Value.absent(),
     this.fechaRegistro = const Value.absent(),
     this.horaRegistro = const Value.absent(),
     this.idPalma = const Value.absent(),
-    this.idEnfermedad = const Value.absent(),
+    this.nombreEnfermedad = const Value.absent(),
     this.idEtapaEnfermedad = const Value.absent(),
     this.observaciones = const Value.absent(),
   });
@@ -4806,21 +4777,20 @@ class RegistroEnfermedadCompanion
     required DateTime fechaRegistro,
     required DateTime horaRegistro,
     required int idPalma,
-    required int idEnfermedad,
-    required int idEtapaEnfermedad,
+    required String nombreEnfermedad,
+    this.idEtapaEnfermedad = const Value.absent(),
     this.observaciones = const Value.absent(),
   })  : fechaRegistro = Value(fechaRegistro),
         horaRegistro = Value(horaRegistro),
         idPalma = Value(idPalma),
-        idEnfermedad = Value(idEnfermedad),
-        idEtapaEnfermedad = Value(idEtapaEnfermedad);
+        nombreEnfermedad = Value(nombreEnfermedad);
   static Insertable<RegistroEnfermedadData> custom({
     Expression<int>? id,
     Expression<DateTime>? fechaRegistro,
     Expression<DateTime>? horaRegistro,
     Expression<int>? idPalma,
-    Expression<int>? idEnfermedad,
-    Expression<int>? idEtapaEnfermedad,
+    Expression<String>? nombreEnfermedad,
+    Expression<int?>? idEtapaEnfermedad,
     Expression<String?>? observaciones,
   }) {
     return RawValuesInsertable({
@@ -4828,7 +4798,7 @@ class RegistroEnfermedadCompanion
       if (fechaRegistro != null) 'fecha_registro': fechaRegistro,
       if (horaRegistro != null) 'hora_registro': horaRegistro,
       if (idPalma != null) 'id_palma': idPalma,
-      if (idEnfermedad != null) 'id_enfermedad': idEnfermedad,
+      if (nombreEnfermedad != null) 'nombre_enfermedad': nombreEnfermedad,
       if (idEtapaEnfermedad != null) 'id_etapa_enfermedad': idEtapaEnfermedad,
       if (observaciones != null) 'observaciones': observaciones,
     });
@@ -4839,15 +4809,15 @@ class RegistroEnfermedadCompanion
       Value<DateTime>? fechaRegistro,
       Value<DateTime>? horaRegistro,
       Value<int>? idPalma,
-      Value<int>? idEnfermedad,
-      Value<int>? idEtapaEnfermedad,
+      Value<String>? nombreEnfermedad,
+      Value<int?>? idEtapaEnfermedad,
       Value<String?>? observaciones}) {
     return RegistroEnfermedadCompanion(
       id: id ?? this.id,
       fechaRegistro: fechaRegistro ?? this.fechaRegistro,
       horaRegistro: horaRegistro ?? this.horaRegistro,
       idPalma: idPalma ?? this.idPalma,
-      idEnfermedad: idEnfermedad ?? this.idEnfermedad,
+      nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
       idEtapaEnfermedad: idEtapaEnfermedad ?? this.idEtapaEnfermedad,
       observaciones: observaciones ?? this.observaciones,
     );
@@ -4868,11 +4838,11 @@ class RegistroEnfermedadCompanion
     if (idPalma.present) {
       map['id_palma'] = Variable<int>(idPalma.value);
     }
-    if (idEnfermedad.present) {
-      map['id_enfermedad'] = Variable<int>(idEnfermedad.value);
+    if (nombreEnfermedad.present) {
+      map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad.value);
     }
     if (idEtapaEnfermedad.present) {
-      map['id_etapa_enfermedad'] = Variable<int>(idEtapaEnfermedad.value);
+      map['id_etapa_enfermedad'] = Variable<int?>(idEtapaEnfermedad.value);
     }
     if (observaciones.present) {
       map['observaciones'] = Variable<String?>(observaciones.value);
@@ -4887,7 +4857,7 @@ class RegistroEnfermedadCompanion
           ..write('fechaRegistro: $fechaRegistro, ')
           ..write('horaRegistro: $horaRegistro, ')
           ..write('idPalma: $idPalma, ')
-          ..write('idEnfermedad: $idEnfermedad, ')
+          ..write('nombreEnfermedad: $nombreEnfermedad, ')
           ..write('idEtapaEnfermedad: $idEtapaEnfermedad, ')
           ..write('observaciones: $observaciones')
           ..write(')'))
@@ -4920,16 +4890,16 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
   late final GeneratedColumn<int?> idPalma = GeneratedColumn<int?>(
       'id_palma', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
-  final VerificationMeta _idEnfermedadMeta =
-      const VerificationMeta('idEnfermedad');
-  late final GeneratedColumn<int?> idEnfermedad = GeneratedColumn<int?>(
-      'id_enfermedad', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _nombreEnfermedadMeta =
+      const VerificationMeta('nombreEnfermedad');
+  late final GeneratedColumn<String?> nombreEnfermedad =
+      GeneratedColumn<String?>('nombre_enfermedad', aliasedName, false,
+          typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _idEtapaEnfermedadMeta =
       const VerificationMeta('idEtapaEnfermedad');
   late final GeneratedColumn<int?> idEtapaEnfermedad = GeneratedColumn<int?>(
-      'id_etapa_enfermedad', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      'id_etapa_enfermedad', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _observacionesMeta =
       const VerificationMeta('observaciones');
   late final GeneratedColumn<String?> observaciones = GeneratedColumn<String?>(
@@ -4941,7 +4911,7 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
         fechaRegistro,
         horaRegistro,
         idPalma,
-        idEnfermedad,
+        nombreEnfermedad,
         idEtapaEnfermedad,
         observaciones
       ];
@@ -4980,21 +4950,19 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
     } else if (isInserting) {
       context.missing(_idPalmaMeta);
     }
-    if (data.containsKey('id_enfermedad')) {
+    if (data.containsKey('nombre_enfermedad')) {
       context.handle(
-          _idEnfermedadMeta,
-          idEnfermedad.isAcceptableOrUnknown(
-              data['id_enfermedad']!, _idEnfermedadMeta));
+          _nombreEnfermedadMeta,
+          nombreEnfermedad.isAcceptableOrUnknown(
+              data['nombre_enfermedad']!, _nombreEnfermedadMeta));
     } else if (isInserting) {
-      context.missing(_idEnfermedadMeta);
+      context.missing(_nombreEnfermedadMeta);
     }
     if (data.containsKey('id_etapa_enfermedad')) {
       context.handle(
           _idEtapaEnfermedadMeta,
           idEtapaEnfermedad.isAcceptableOrUnknown(
               data['id_etapa_enfermedad']!, _idEtapaEnfermedadMeta));
-    } else if (isInserting) {
-      context.missing(_idEtapaEnfermedadMeta);
     }
     if (data.containsKey('observaciones')) {
       context.handle(

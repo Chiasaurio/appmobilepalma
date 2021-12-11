@@ -1,3 +1,4 @@
+import 'package:apppalma/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/moor/tables/lotes_table.dart';
@@ -198,8 +199,10 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
         )),
       ),
       onTap: () {
-        Navigator.pushNamed(context, 'lote',
-            arguments: loteswithprocesos.lote.nombreLote);
+        print(loteswithprocesos.lote.nombreLote);
+        BlocProvider.of<LoteDetailCubit>(context)
+            .loteEscogido(loteswithprocesos.lote);
+        Navigator.pushNamed(context, '/lote');
       },
     );
   }

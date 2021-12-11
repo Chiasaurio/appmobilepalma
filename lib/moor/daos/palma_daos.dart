@@ -81,14 +81,14 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     }).toList();
   }
 
-  Future<Palma> obtenerPalma(
+  Future<Palma?> obtenerPalma(
       String nombrelote, int numerolinea, int numeroenlinea) {
     return (select(palmas)
           ..where((c) =>
               c.nombreLote.equals(nombrelote) &
               c.numerolinea.equals(numerolinea) &
               c.numeroenlinea.equals(numeroenlinea)))
-        .getSingle();
+        .getSingleOrNull();
   }
 
   Future<int> getPalmaId(Insertable<Palma> palma) async {
@@ -106,8 +106,8 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       int numerolinea,
       int numeroenlinea,
       DateTime fecha,
-      int idEnfermedad,
-      int idEtapa,
+      String nombreEnfermedad,
+      int? idEtapa,
       String tratamiento,
       String observaciones) async {
     String estadoPalma;
@@ -133,16 +133,16 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
             estadopalma: Value(estadoPalma));
         final resp = await insertPalma(nuevaPalma);
         print('RESP ---> $resp');
-        Palma palma2 =
+        Palma? palma2 =
             await obtenerPalma(nombrelote, numerolinea, numeroenlinea);
-        idPalma = palma2.id;
+        idPalma = palma2!.id;
       } else {
         idPalma = palma.id;
       }
       final registroenfermedad = RegistroEnfermedadCompanion(
           fechaRegistro: Value(fecha),
           idPalma: Value(idPalma),
-          idEnfermedad: Value(idEnfermedad),
+          nombreEnfermedad: Value(nombreEnfermedad),
           idEtapaEnfermedad: Value(idEtapa),
           observaciones: Value(observaciones));
       await insertarEnfermedad(registroenfermedad);

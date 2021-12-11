@@ -6,14 +6,14 @@ class RegistroEnfermedad extends Table {
   DateTimeColumn get fechaRegistro => dateTime()();
   DateTimeColumn get horaRegistro => dateTime()();
   IntColumn get idPalma => integer()();
-  IntColumn get idEnfermedad => integer()();
-  IntColumn get idEtapaEnfermedad => integer()();
+  TextColumn get nombreEnfermedad => text()();
+  IntColumn get idEtapaEnfermedad => integer().nullable()();
   TextColumn get observaciones => text().nullable()();
 
   @override
   List<String> get customConstraints => [
         'FOREIGN KEY(id_palma) REFERENCES palmas(id)',
-        'FOREIGN KEY(id_enfermedad) REFERENCES enfermedades(id)',
+        'FOREIGN KEY(nombre_enfermedad) REFERENCES enfermedades(nombre_enfermedad)',
         'FOREIGN KEY(id_etapa_enfermedad) REFERENCES etapas(id)',
       ];
 }

@@ -6,8 +6,9 @@ import 'package:dio/dio.dart';
 class Api {
   static final _storage = secure.FlutterSecureStorage();
   final _baseUrl = 'http://10.0.2.2:3000/';
+  // final _baseUrl = 'http://192.168.42.233:3000/';
   final token =
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiY2NfdXN1YXJpbyI6IjEwOTg3NjU0MzIiLCJyb2wiOiJhZG1pbiJ9LCJpYXQiOjE2MzYyMjc5OTksIm5iZiI6MTYzNjIyNzk5OSwiZXhwIjoxNjM2MzE0Mzk5fQ.QlP3UBCcsQZci651UedSSUohCZ8mIvhiQT7_wPxCS9lmzaWiLnUvWBSPpWUSL8DefbN8Ux0fsuOHBwB6kzPH_kOA7_njyTPPSvDK2eD0eu-EFsOzpxveOZBkvOUCM__IWbjvbImDXzAbYrMqpX1GtxC8qCuTExOgkBNglOtzlJE';
+      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiY2NfdXN1YXJpbyI6IjEwOTg3NjU0MzIiLCJyb2wiOiJhZG1pbiJ9LCJpYXQiOjE2MzkyNTcyMjUsIm5iZiI6MTYzOTI1NzIyNSwiZXhwIjoxNjM5MzQzNjI1fQ.cO5PUKPWVBON_JD1bk8F-fF9iEciP1-HhVBAgLtAvKQKWYkKeqyRAgQ7QUa2miXNYKNLMTJ8HY4xksK49mAViPTAjh-4fuMx6M73-du6d8dy8xZ8EEcao0goJlZlYDBRwZXRKdI4IFYo1fVbBHVQSCG-GKmn4IwlfKU5u5cd8MI";
   static final Dio _dio = Dio();
   static final Map<String, String> _headers = Map();
   static final Api _instance = Api._();

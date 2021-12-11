@@ -2,11 +2,10 @@ import 'package:apppalma/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
 class Enfermedades extends Table {
-  IntColumn get id => integer()();
   TextColumn get nombreEnfermedad => text()();
   TextColumn get procedimientoEnfermedad => text()();
-
-  Set<Column> get primaryKey => {id};
+  @override
+  Set<Column> get primaryKey => {nombreEnfermedad};
 }
 
 class Etapas extends Table {
@@ -15,6 +14,7 @@ class Etapas extends Table {
       text().customConstraint('REFERENCES enfermedades(nombre_enfermedad)')();
   TextColumn get nombreEtapa => text()();
   TextColumn get procedimientoEtapa => text()();
+  @override
   Set<Column> get primaryKey => {id};
 }
 

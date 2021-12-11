@@ -1,35 +1,46 @@
 import 'dart:convert';
 
+import 'package:apppalma/api.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 import 'package:http/http.dart' as http;
 
 class SyncEnfermedades {
-  final _baseUrl = 'http://10.0.2.2:3000';
-  final token =
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiY2NfdXN1YXJpbyI6IjEwOTg3NjU0MzIiLCJyb2wiOiJhZG1pbiJ9LCJpYXQiOjE2MzYyMjc5OTksIm5iZiI6MTYzNjIyNzk5OSwiZXhwIjoxNjM2MzE0Mzk5fQ.QlP3UBCcsQZci651UedSSUohCZ8mIvhiQT7_wPxCS9lmzaWiLnUvWBSPpWUSL8DefbN8Ux0fsuOHBwB6kzPH_kOA7_njyTPPSvDK2eD0eu-EFsOzpxveOZBkvOUCM__IWbjvbImDXzAbYrMqpX1GtxC8qCuTExOgkBNglOtzlJE';
+  final Api _apiInstance = Api.getInstance();
 
   Future<List<Insertable<Enfermedade>>> getEnfermedadesRemoteSource() async {
     List dataenfermedades;
-    var url = Uri.parse('$_baseUrl/enfermedadesTodas');
-    final response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    dataenfermedades = json.decode(response.body);
+    final resp = await _apiInstance.get('enfermedadesTodas');
+    dataenfermedades = resp['data'];
+    print(dataenfermedades);
     List<Insertable<Enfermedade>> enfermedades = [];
-    dataenfermedades.forEach((element) {
+    for (var element in dataenfermedades) {
       EnfermedadesCompanion aux = EnfermedadesCompanion(
           nombreEnfermedad: Value(element['nombre_enfermedad']),
           procedimientoEnfermedad: Value(
               element['procedimiento_tratamiento_enfermedad'] ??
                   'no tiene procedimiento'));
       enfermedades.add(aux);
-    });
+    }
     return enfermedades;
   }
 
+  Future<List<Insertable<Etapa>>> getEtapasEnfermedades() async {
+    List dataetapas;
+    final resp = await _apiInstance.get('enfermedad-etapas');
+    dataetapas = resp['data'];
+    print(dataetapas);
+    List<Insertable<Etapa>> etapas = [];
+    for (var element in dataetapas) {
+      EtapasCompanion aux = EtapasCompanion(
+          id: Value(element['id_etapa_enfermedad']),
+          nombreEnfermedad: Value(element['nombre_enfermedad']),
+          nombreEtapa: Value(element['etapa_enfermedad']),
+          procedimientoEtapa: Value(element['tratamiento_etapa_enfermedad']));
+      etapas.add(aux);
+    }
+    return etapas;
+  }
   // postRegistrosDeEnfermedadYTratamientos() async {
   //   final palmas = await palmasBloc.obtenerTodasPalmas();
   //   final registrosenfermedades = await palmasBloc.obtenerEnfermedades();
@@ -79,26 +90,5 @@ class SyncEnfermedades {
     List jsonList = [];
     list.map((item) => jsonList.add(item.toJson())).toList();
     return jsonList;
-  }
-
-  Future<List<Insertable<Etapa>>> getEtapasEnfermedades() async {
-    List dataetapas;
-    var url = Uri.parse('$_baseUrl/enfermedad-etapas');
-    final response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    // debugPrint(response.body);
-    dataetapas = json.decode(response.body);
-    List<Insertable<Etapa>> etapas = [];
-    dataetapas.forEach((element) {
-      EtapasCompanion aux = EtapasCompanion(
-          nombreEnfermedad: Value(element['nombre_enfermedad']),
-          nombreEtapa: Value(element['etapa_enfermedad']),
-          procedimientoEtapa: Value(element['tratamiento_etapa_enfermedad']));
-      etapas.add(aux);
-    });
-    return etapas;
   }
 }

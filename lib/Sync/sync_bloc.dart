@@ -25,22 +25,23 @@ class SyncBloc {
     }
   }
 
-  // insertarEnfermedades(Function callbackestado) async {
-  //   try {
-  //     callbackestado('Agregando enfermedades');
-  //     EnfermedadesBloc enfermedadesBloc = EnfermedadesBloc();
-
-  //     List<Insertable<Enfermedade>> dataenfermedades =
-  //         await syncenfermedades.getEnfermedadesRemoteSource();
-  //     List<Insertable<Etapa>> dataetapas =
-  //         await syncenfermedades.getEtapasEnfermedades();
-
-  //     enfermedadesBloc.addEnfermedades(dataenfermedades, dataetapas);
-  //   } catch (e) {
-  //     print("error enfermedades");
-  //     print(e);
-  //   }
-  // }
+  Future<Map<String, List>> insertarEnfermedades() async {
+    try {
+      List<Insertable<Enfermedade>> dataenfermedades =
+          await syncenfermedades.getEnfermedadesRemoteSource();
+      List<Insertable<Etapa>> dataetapas =
+          await syncenfermedades.getEtapasEnfermedades();
+      Map<String, List> map = {
+        "enfermedades": dataenfermedades,
+        "etapas": dataetapas
+      };
+      return map;
+      // enfermedadesBloc.addEnfermedades(dataenfermedades, dataetapas);
+    } catch (e) {
+      print(e);
+      return {};
+    }
+  }
 
   // insertarPlagas(Function callbackestado) async {
   //   try {

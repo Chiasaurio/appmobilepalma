@@ -54,7 +54,7 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
             onConflict: DoUpdate(
               (_) => etapa,
               // upsert will happen if it conflicts with columnA and columnB
-              target: [etapas.nombreEnfermedad, etapas.nombreEtapa],
+              target: [etapas.id],
             ),
           );
         }
@@ -64,7 +64,7 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
     }
   }
 
-  Stream<List<EnfermedadConEtapas>> obtenerEnfermedadConEtapas() {
+  Future<List<EnfermedadConEtapas>> obtenerEnfermedadConEtapas() async {
     final rows = (select(enfermedades)
           ..orderBy([
             (t) => OrderingTerm(
@@ -81,11 +81,9 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
         .watch()
         .map((rows) {
           final groupedData = <Enfermedade, List<Etapa>>{};
-
           for (final row in rows) {
             final enfermedad = row.readTable(enfermedades);
-            final etapa = row.readTable(etapas);
-
+            final etapa = row.readTableOrNull(etapas);
             final list = groupedData.putIfAbsent(enfermedad, () => []);
             if (etapa != null) list.add(etapa);
           }
@@ -94,15 +92,15 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
               EnfermedadConEtapas(enfermedad: entry.key, etapas: entry.value)
           ];
         });
-
-    return rows;
+    final resp = await rows.first;
+    return resp;
   }
 
-  Future<Enfermedade> obtenerEnfermedad(int enfermedadId) {
-    return (select(enfermedades)..where((c) => c.id.equals(enfermedadId)))
-        .getSingle();
-  }
-
+//  Future<Enfermedade> obtenerEnfermedad(int //enfermedadId) {
+//    return (select(enfermedades)..where((c) => c.id.//equals(enfermedadId)))
+//        .getSingle();
+//  }
+//
   Future<Etapa> obtenerEtapa(int etapaId) {
     return (select(etapas)..where((c) => c.id.equals(etapaId))).getSingle();
   }

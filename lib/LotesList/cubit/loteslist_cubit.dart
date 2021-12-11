@@ -1,3 +1,4 @@
+import 'package:apppalma/main.dart';
 import 'package:apppalma/moor/daos/lote_dao.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/moor/tables/lotes_table.dart';
@@ -9,7 +10,7 @@ part 'loteslist_state.dart';
 
 class LoteslistCubit extends Cubit<LoteslistState> {
   LoteslistCubit() : super(LoteslistInitial());
-  final AppDatabase db = AppDatabase();
+  final db = getIt<AppDatabase>();
 
   Future<void> obtenerTodosLotesWithProcesos() async {
     final LoteDao loteDao = db.loteDao;

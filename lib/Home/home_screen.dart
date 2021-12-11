@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 
+import '../size_config.dart';
+
 class FincaPage extends StatelessWidget {
   final DateTime fecha =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -14,6 +16,8 @@ class FincaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
@@ -129,7 +133,7 @@ class FincaPage extends StatelessWidget {
               // ),
               TableRow(
                 children: [
-                  _crearBotonRedondeado3(
+                  _crearBotonRedondeado2(
                       'Sincronizar', '/sincronizar', Icons.art_track, context),
                 ],
               )
@@ -143,12 +147,12 @@ class FincaPage extends StatelessWidget {
     return GestureDetector(
       child: Container(
           height: height * 0.09,
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: Color(0xFF95D5B2),
+              color: const Color(0xFF95D5B2),
               borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                     color: Colors.grey, blurRadius: 2, offset: Offset(0, 1))
               ]),
@@ -156,10 +160,11 @@ class FincaPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(opcion,
-                    style: TextStyle(color: Colors.black, fontSize: 18.0)),
-                SizedBox(width: 30),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
+                    style:
+                        const TextStyle(color: Colors.black, fontSize: 18.0)),
+                const SizedBox(width: 30),
+                const Padding(
+                  padding: EdgeInsets.only(right: 8.0),
                   child: Icon(
                     Icons.keyboard_arrow_right,
                     color: Colors.black,
@@ -172,39 +177,39 @@ class FincaPage extends StatelessWidget {
     );
   }
 
-  Widget _crearBotonRedondeado3(
-      String opcion, String ruta, IconData icon, BuildContext context) {
-    return GestureDetector(
-      child: Container(
-          height: height * 0.09,
-          margin: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.lightBlue,
-                    blurRadius: 1,
-                    offset: Offset(0, 1))
-              ]),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(opcion,
-                    style: TextStyle(color: Colors.black, fontSize: 18.0)),
-                SizedBox(width: 30),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(
-                    Icons.keyboard_arrow_right,
-                    color: Colors.black,
-                  ),
-                ),
-              ])),
-      onTap: () {
-        Navigator.pushNamed(context, ruta);
-      },
-    );
-  }
+  // Widget _crearBotonRedondeado3(
+  //     String opcion, String ruta, IconData icon, BuildContext context) {
+  //   return GestureDetector(
+  //     child: Container(
+  //         height: height * 0.09,
+  //         margin: EdgeInsets.all(10.0),
+  //         decoration: BoxDecoration(
+  //             shape: BoxShape.rectangle,
+  //             color: Colors.blue,
+  //             borderRadius: BorderRadius.circular(10.0),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                   color: Colors.lightBlue,
+  //                   blurRadius: 1,
+  //                   offset: Offset(0, 1))
+  //             ]),
+  //         child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(opcion,
+  //                   style: TextStyle(color: Colors.black, fontSize: 18.0)),
+  //               SizedBox(width: 30),
+  //               Padding(
+  //                 padding: const EdgeInsets.only(right: 8.0),
+  //                 child: Icon(
+  //                   Icons.keyboard_arrow_right,
+  //                   color: Colors.black,
+  //                 ),
+  //               ),
+  //             ])),
+  //     onTap: () {
+  //       Navigator.pushNamed(context, ruta);
+  //     },
+  //   );
+  // }
 }

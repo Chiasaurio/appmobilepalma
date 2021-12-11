@@ -1,3 +1,4 @@
+import 'package:apppalma/Enfermedad/cubit/enfermedad_cubit.dart';
 import 'package:apppalma/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/components/appbar.dart';
 import 'package:flutter/material.dart';
@@ -129,8 +130,16 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
   }
 
   _sincrozinar() async {
-    msg = 'Agregando lotes';
+    setState(() {
+      msg = 'Agregando lotes';
+    });
     final lotes = await syncBloc.insertarLotes();
     BlocProvider.of<LoteslistCubit>(context).addLotesFromServerToLocal(lotes);
+    setState(() {
+      msg = 'Agregando enfermedades';
+    });
+    final map = await syncBloc.insertarEnfermedades();
+    BlocProvider.of<EnfermedadCubit>(context)
+        .addEnfermedadyEtapasFromServerToLocal(map);
   }
 }

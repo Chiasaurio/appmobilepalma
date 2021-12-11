@@ -3,27 +3,26 @@ import 'package:flutter/material.dart';
 
 import 'dart:ui';
 
-class LotePage extends StatefulWidget {
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
-  _LotePageState createState() => _LotePageState();
+  _BodyState createState() => _BodyState();
 }
 
-class _LotePageState extends State<LotePage> {
+class _BodyState extends State<Body> {
   // final podaBloc = new PodasBloc();
   // final plateoBloc = new PlateosBloc();
   // final cosechaBloc = new CosechasBloc();
 
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
-  var margin;
+  late double width;
+  late double height;
+  late double altoCard;
+  late double anchoCard;
+  late double margin;
   String nombrelote = '';
-  String ruta = '';
   @override
   Widget build(BuildContext context) {
-    // nombrelote = ModalRoute.of(context).settings.arguments;
-    // ruta = ModalRoute.of(context).settings.name;
     // cosechaBloc.obtenerCosechaActiva(nombrelote);
     // podaBloc.obtenerPodaActiva(nombrelote);
     // plateoBloc.obtenerPlateoActivo(nombrelote);
@@ -35,28 +34,23 @@ class _LotePageState extends State<LotePage> {
     anchoCard = width * 0.7;
     margin = anchoCard * 0.04;
 
-    return Scaffold(
-      appBar: AppBarWidget.getAppBar(nombrelote, ruta, context),
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _buildTitulo1(),
-                  _buildMenu(context),
-                  _buildTitulo2(),
-                  _buildMenu2(context)
-                ],
-              ),
-            ),
-          ],
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildTitulo1(),
+              _buildMenu(context),
+              _buildTitulo2(),
+              _buildMenu2(context)
+            ],
+          ),
         ),
-      ),
-    );
+      ],
+    ));
   }
 
   Widget _buildTitulo1() {
@@ -131,18 +125,18 @@ class _LotePageState extends State<LotePage> {
           TableRow(
             children: [
               _crearBotonRedondeado2(
-                  'Palmas', 'lote/palmas', Icons.art_track, context),
+                  'Palmas', '/lote/palmas', Icons.art_track, context),
             ],
           ),
           TableRow(
             children: [
               _crearBotonRedondeado2(
-                  'Censo', 'lote/censo', Icons.art_track, context),
+                  'Censo', '/lote/censo', Icons.art_track, context),
             ],
           ),
           TableRow(
             children: [
-              _crearBotonRedondeado2('Aplicaciones', 'lote/aplicaciones',
+              _crearBotonRedondeado2('Aplicaciones', '/lote/aplicaciones',
                   Icons.art_track, context),
             ],
           )
