@@ -4614,7 +4614,7 @@ class RegistroEnfermedadData extends DataClass
     implements Insertable<RegistroEnfermedadData> {
   final int id;
   final DateTime fechaRegistro;
-  final DateTime horaRegistro;
+  final DateTime? horaRegistro;
   final int idPalma;
   final String nombreEnfermedad;
   final int? idEtapaEnfermedad;
@@ -4622,7 +4622,7 @@ class RegistroEnfermedadData extends DataClass
   RegistroEnfermedadData(
       {required this.id,
       required this.fechaRegistro,
-      required this.horaRegistro,
+      this.horaRegistro,
       required this.idPalma,
       required this.nombreEnfermedad,
       this.idEtapaEnfermedad,
@@ -4636,7 +4636,7 @@ class RegistroEnfermedadData extends DataClass
       fechaRegistro: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fecha_registro'])!,
       horaRegistro: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}hora_registro'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}hora_registro']),
       idPalma: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id_palma'])!,
       nombreEnfermedad: const StringType().mapFromDatabaseResponse(
@@ -4652,7 +4652,9 @@ class RegistroEnfermedadData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
-    map['hora_registro'] = Variable<DateTime>(horaRegistro);
+    if (!nullToAbsent || horaRegistro != null) {
+      map['hora_registro'] = Variable<DateTime?>(horaRegistro);
+    }
     map['id_palma'] = Variable<int>(idPalma);
     map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad);
     if (!nullToAbsent || idEtapaEnfermedad != null) {
@@ -4668,7 +4670,9 @@ class RegistroEnfermedadData extends DataClass
     return RegistroEnfermedadCompanion(
       id: Value(id),
       fechaRegistro: Value(fechaRegistro),
-      horaRegistro: Value(horaRegistro),
+      horaRegistro: horaRegistro == null && nullToAbsent
+          ? const Value.absent()
+          : Value(horaRegistro),
       idPalma: Value(idPalma),
       nombreEnfermedad: Value(nombreEnfermedad),
       idEtapaEnfermedad: idEtapaEnfermedad == null && nullToAbsent
@@ -4686,7 +4690,7 @@ class RegistroEnfermedadData extends DataClass
     return RegistroEnfermedadData(
       id: serializer.fromJson<int>(json['id']),
       fechaRegistro: serializer.fromJson<DateTime>(json['fechaRegistro']),
-      horaRegistro: serializer.fromJson<DateTime>(json['horaRegistro']),
+      horaRegistro: serializer.fromJson<DateTime?>(json['horaRegistro']),
       idPalma: serializer.fromJson<int>(json['idPalma']),
       nombreEnfermedad: serializer.fromJson<String>(json['nombreEnfermedad']),
       idEtapaEnfermedad: serializer.fromJson<int?>(json['idEtapaEnfermedad']),
@@ -4699,7 +4703,7 @@ class RegistroEnfermedadData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'fechaRegistro': serializer.toJson<DateTime>(fechaRegistro),
-      'horaRegistro': serializer.toJson<DateTime>(horaRegistro),
+      'horaRegistro': serializer.toJson<DateTime?>(horaRegistro),
       'idPalma': serializer.toJson<int>(idPalma),
       'nombreEnfermedad': serializer.toJson<String>(nombreEnfermedad),
       'idEtapaEnfermedad': serializer.toJson<int?>(idEtapaEnfermedad),
@@ -4758,7 +4762,7 @@ class RegistroEnfermedadCompanion
     extends UpdateCompanion<RegistroEnfermedadData> {
   final Value<int> id;
   final Value<DateTime> fechaRegistro;
-  final Value<DateTime> horaRegistro;
+  final Value<DateTime?> horaRegistro;
   final Value<int> idPalma;
   final Value<String> nombreEnfermedad;
   final Value<int?> idEtapaEnfermedad;
@@ -4775,19 +4779,18 @@ class RegistroEnfermedadCompanion
   RegistroEnfermedadCompanion.insert({
     this.id = const Value.absent(),
     required DateTime fechaRegistro,
-    required DateTime horaRegistro,
+    this.horaRegistro = const Value.absent(),
     required int idPalma,
     required String nombreEnfermedad,
     this.idEtapaEnfermedad = const Value.absent(),
     this.observaciones = const Value.absent(),
   })  : fechaRegistro = Value(fechaRegistro),
-        horaRegistro = Value(horaRegistro),
         idPalma = Value(idPalma),
         nombreEnfermedad = Value(nombreEnfermedad);
   static Insertable<RegistroEnfermedadData> custom({
     Expression<int>? id,
     Expression<DateTime>? fechaRegistro,
-    Expression<DateTime>? horaRegistro,
+    Expression<DateTime?>? horaRegistro,
     Expression<int>? idPalma,
     Expression<String>? nombreEnfermedad,
     Expression<int?>? idEtapaEnfermedad,
@@ -4807,7 +4810,7 @@ class RegistroEnfermedadCompanion
   RegistroEnfermedadCompanion copyWith(
       {Value<int>? id,
       Value<DateTime>? fechaRegistro,
-      Value<DateTime>? horaRegistro,
+      Value<DateTime?>? horaRegistro,
       Value<int>? idPalma,
       Value<String>? nombreEnfermedad,
       Value<int?>? idEtapaEnfermedad,
@@ -4833,7 +4836,7 @@ class RegistroEnfermedadCompanion
       map['fecha_registro'] = Variable<DateTime>(fechaRegistro.value);
     }
     if (horaRegistro.present) {
-      map['hora_registro'] = Variable<DateTime>(horaRegistro.value);
+      map['hora_registro'] = Variable<DateTime?>(horaRegistro.value);
     }
     if (idPalma.present) {
       map['id_palma'] = Variable<int>(idPalma.value);
@@ -4884,8 +4887,8 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
   final VerificationMeta _horaRegistroMeta =
       const VerificationMeta('horaRegistro');
   late final GeneratedColumn<DateTime?> horaRegistro =
-      GeneratedColumn<DateTime?>('hora_registro', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+      GeneratedColumn<DateTime?>('hora_registro', aliasedName, true,
+          typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _idPalmaMeta = const VerificationMeta('idPalma');
   late final GeneratedColumn<int?> idPalma = GeneratedColumn<int?>(
       'id_palma', aliasedName, false,
@@ -4941,8 +4944,6 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
           _horaRegistroMeta,
           horaRegistro.isAcceptableOrUnknown(
               data['hora_registro']!, _horaRegistroMeta));
-    } else if (isInserting) {
-      context.missing(_horaRegistroMeta);
     }
     if (data.containsKey('id_palma')) {
       context.handle(_idPalmaMeta,

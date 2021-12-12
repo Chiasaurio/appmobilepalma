@@ -4,7 +4,7 @@ import 'package:drift/drift.dart';
 class RegistroEnfermedad extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get fechaRegistro => dateTime()();
-  DateTimeColumn get horaRegistro => dateTime()();
+  DateTimeColumn get horaRegistro => dateTime().nullable()();
   IntColumn get idPalma => integer()();
   TextColumn get nombreEnfermedad => text()();
   IntColumn get idEtapaEnfermedad => integer().nullable()();

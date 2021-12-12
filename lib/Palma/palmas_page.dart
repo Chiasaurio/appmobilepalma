@@ -1,4 +1,5 @@
 import 'package:apppalma/components/appbar.dart';
+import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 
@@ -33,8 +34,10 @@ class _PalmaPageState extends State<PalmaPage> {
     anchoCard = width * 0.7;
 
     return Scaffold(
-        body: ListView(
+        // appBar: AppBarWidget.getAppBar(nombrelote, ruta, context),
+        body: Column(
       children: <Widget>[
+        const HeaderApp(),
         Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
@@ -52,7 +55,7 @@ class _PalmaPageState extends State<PalmaPage> {
         TableRow(
           children: [
             _crearBotonRedondeado('Estado palmas leidas',
-                'lote/palmas/estadopalmas', Icons.art_track, context),
+                '/lote/palmas/estadopalmas', Icons.art_track, context),
           ],
         ),
         TableRow(

@@ -20,7 +20,7 @@ class GreyButton extends StatelessWidget {
           //   end: Alignment.centerLeft,
           //   colors: deliveryGradients,
           // )
-          color: DeliveryColors.darkgrey,
+          color: AppPalmaColors.darkgrey,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

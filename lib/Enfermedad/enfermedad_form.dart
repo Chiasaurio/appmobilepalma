@@ -63,15 +63,16 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
     // enfermedadBloc.obtenerTodasEnfermedadesConEtapas();
 
     return Scaffold(
+        appBar: AppBarWidget.getAppBar(nombrelote, ruta, context),
         body: SingleChildScrollView(
-      child: Column(children: <Widget>[
-        buildEnfermedadForm(),
-        // card(),
-        SizedBox(height: altoCard * 0.1),
-        // _buildRegistrarCosecha(context),
-        buildRegistarEnfermedad(context),
-      ]),
-    ));
+          child: Column(children: <Widget>[
+            buildEnfermedadForm(),
+            // card(),
+            SizedBox(height: altoCard * 0.1),
+            // _buildRegistrarCosecha(context),
+            buildRegistarEnfermedad(context),
+          ]),
+        ));
   }
 
   Widget buildEnfermedadForm() {
@@ -461,10 +462,11 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
           etapa?.id,
           enfermedadconetapas!.enfermedad.procedimientoEnfermedad,
           observaciones ?? '');
-      // Navigator.of(context).popUntil(ModalRoute.withName('lote/censo'));
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
     } catch (e) {
       // Navigator.of(context).popUntil(ModalRoute.withName('lote/censo'));
-      print('Error $e');
       registroFallidoToast('pailas');
     }
   }

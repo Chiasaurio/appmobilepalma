@@ -132,10 +132,8 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
             numeroenlinea: Value(numeroenlinea),
             estadopalma: Value(estadoPalma));
         final resp = await insertPalma(nuevaPalma);
-        print('RESP ---> $resp');
-        Palma? palma2 =
-            await obtenerPalma(nombrelote, numerolinea, numeroenlinea);
-        idPalma = palma2!.id;
+
+        idPalma = resp;
       } else {
         idPalma = palma.id;
       }
@@ -196,10 +194,10 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     return true;
   }
 
-  Future<RegistroTratamientoData> obtenerTratamiento(
+  Future<RegistroTratamientoData?> obtenerTratamiento(
       RegistroEnfermedadData registroenfermedad) {
     return (select(registroTratamiento)
           ..where((c) => c.idRegistroEnfermedad.equals(registroenfermedad.id)))
-        .getSingle();
+        .getSingleOrNull();
   }
 }

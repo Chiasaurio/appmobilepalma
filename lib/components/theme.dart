@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DeliveryColors {
+class AppPalmaColors {
   static const purple = Color(0xFF5117AC);
   static const green = Color(0xFF20D0C4);
   static const white = Color(0xFFFFFFFF);

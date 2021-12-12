@@ -20,7 +20,7 @@ class SigpaButton extends StatelessWidget {
           //   end: Alignment.centerLeft,
           //   colors: deliveryGradients,
           // )
-          color: DeliveryColors.blue,
+          color: AppPalmaColors.blue,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

@@ -4,8 +4,11 @@ import 'package:apppalma/Enfermedad/enfermedad_page.dart';
 import 'package:apppalma/Home/home_screen.dart';
 import 'package:apppalma/LoteDetail/ui/lote_page.dart';
 import 'package:apppalma/LotesList/presentation/lotes_page.dart';
+import 'package:apppalma/Palma/PalmasList/palmas_list.dart';
 import 'package:apppalma/Sync/sincronizar_page.dart';
 import 'package:flutter/material.dart';
+
+import 'Palma/palmas_page.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -28,9 +31,11 @@ class Routes {
       case 'lote/censo/enfermedad':
         return MaterialPageRoute(
             builder: (_) => EnfermedadPage(routeName: settings.name!));
-      case 'lote/censo/enfermedad':
+      case '/lote/palmas':
+        return MaterialPageRoute(builder: (_) => PalmaPage());
+      case '/lote/palmas/estadopalmas':
         return MaterialPageRoute(
-            builder: (_) => EnfermedadPage(routeName: settings.name!));
+            builder: (_) => PalmasList(routeName: settings.name!));
 
       // case 'lote/censo/plaga':
       //   return MaterialPageRoute(

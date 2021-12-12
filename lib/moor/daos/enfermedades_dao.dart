@@ -96,12 +96,14 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
     return resp;
   }
 
-//  Future<Enfermedade> obtenerEnfermedad(int //enfermedadId) {
-//    return (select(enfermedades)..where((c) => c.id.//equals(enfermedadId)))
-//        .getSingle();
-//  }
-//
-  Future<Etapa> obtenerEtapa(int etapaId) {
-    return (select(etapas)..where((c) => c.id.equals(etapaId))).getSingle();
+  Future<Enfermedade> obtenerEnfermedad(String nombreEnfermedad) {
+    return (select(enfermedades)
+          ..where((c) => c.nombreEnfermedad.equals(nombreEnfermedad)))
+        .getSingle();
+  }
+
+  Future<Etapa?> obtenerEtapa(int? etapaId) {
+    return (select(etapas)..where((c) => c.id.equals(etapaId)))
+        .getSingleOrNull();
   }
 }
