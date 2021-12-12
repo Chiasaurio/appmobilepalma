@@ -2,6 +2,7 @@ import 'package:apppalma/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/Palma/PalmasList/body.dart';
 import 'package:apppalma/Palma/cubit/palma_cubit.dart';
 import 'package:apppalma/components/appbar.dart';
+import 'package:apppalma/components/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:ui';
@@ -37,11 +38,20 @@ class _PalmasListState extends State<PalmasList> {
     return BlocBuilder<PalmaCubit, PalmaState>(
       builder: (context, state) {
         return Scaffold(
-            appBar: AppBarWidget.getAppBar('', '', context),
             body: state is PalmasLoteLoaded
-                ? Body(palmas: state.palmas)
-                : const Center(
-                    child: CircularProgressIndicator(),
+                ? Column(
+                    children: [
+                      const HeaderApp(),
+                      Body(palmas: state.palmas),
+                    ],
+                  )
+                : Column(
+                    children: const [
+                      HeaderApp(),
+                      Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ],
                   ));
       },
     );

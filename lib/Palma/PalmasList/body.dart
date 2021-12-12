@@ -21,13 +21,12 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    altoCard = height * 0.5; //150,
+    altoCard = height * 0.7; //150,
     anchoCard = width;
     margin = anchoCard * 0.04;
     return SingleChildScrollView(
         child: Column(children: <Widget>[
       seleccionarPalmas(),
-      _buildContinuar(context),
     ]));
   }
 
@@ -72,13 +71,12 @@ class _BodyState extends State<Body> {
                   // ),
                 ]),
           ),
-          Container(
-              child: Column(children: <Widget>[
-            widget.palmas != null
+          Column(children: <Widget>[
+            widget.palmas.isNotEmpty
                 ? buildTabla()
-                : Text('no hay palmas registradas para este lote'),
+                : const Text('no hay palmas registradas para este lote'),
             SizedBox(height: margin),
-          ])),
+          ]),
         ]));
   }
 
@@ -133,100 +131,6 @@ class _BodyState extends State<Body> {
           ),
         ),
       ),
-    );
-  }
-  // title: ,
-  //Construye la tabla de palmas con los valores de la List<Palma> palmas
-  // Widget buildTabla() {
-  //   return Container(
-  //       height: altoCard,
-  //       child: SingleChildScrollView(
-  //         child: DataTable(
-  //           columnSpacing: anchoCard * 0.1,
-  //           showCheckboxColumn: true,
-  //           sortColumnIndex: 0,
-  //           columns: [
-  //             DataColumn(
-  //               label: Text("Linea",
-  //                   style: TextStyle(
-  //                     color: Colors.black,
-  //                     fontSize: 16,
-  //                   )),
-  //             ),
-  //             DataColumn(
-  //               label: Text("Numero",
-  //                   style: TextStyle(
-  //                     color: Colors.black,
-  //                     fontSize: 16,
-  //                   )),
-  //             ),
-  //             DataColumn(
-  //               label: Text("Estado",
-  //                   style: TextStyle(
-  //                     color: Colors.black,
-  //                     fontSize: 16,
-  //                   )),
-  //             ),
-  //           ],
-  //           rows: widget.palmas!
-  //               .map(
-  //                 (palma) => DataRow(
-  //                     selected: palmaseleccionada != null &&
-  //                             palmaseleccionada!.id == palma.id
-  //                         ? true
-  //                         : false,
-  //                     onSelectChanged: (b) {
-  //                       setState(() {
-  //                         palmaseleccionada = palma;
-  //                       });
-  //                     },
-  //                     cells: [
-  //                       DataCell(Center(
-  //                         child: Text(palma.numerolinea.toString(),
-  //                             style: TextStyle(
-  //                               color: Colors.black,
-  //                               fontSize: 16,
-  //                             )),
-  //                       )),
-  //                       DataCell(Center(
-  //                         child: Text(palma.numeroenlinea.toString(),
-  //                             style: TextStyle(
-  //                               color: Colors.black,
-  //                               fontSize: 16,
-  //                             )),
-  //                       )),
-  //                       DataCell(Center(
-  //                         child: Text(palma.estadopalma,
-  //                             style:
-  //                                 TextStyle(color: Colors.black, fontSize: 16)),
-  //                       )),
-  //                     ]),
-  //               )
-  //               .toList(),
-  //         ),
-  //       ));
-  // }
-
-//Boton de continuar para llenar el formulario del tratamiento.
-  Widget _buildContinuar(BuildContext context) {
-    return ElevatedButton(
-      child: const Text(
-        'Continuar',
-        style: TextStyle(color: Colors.white, fontSize: 16),
-      ),
-      onPressed: () {
-        if (palmaseleccionada != null) {
-          //    Navigator.push(
-          // context,
-          // MaterialPageRoute(
-          //     builder: (context) => EnfermedadForm(
-          //         palgaArgumentos: PalmaArguments(
-          //             widget.nombreLote, lineapalma!, numeropalma!))));
-          // }
-          // Navigator.pushNamed(context, 'lote/palmas/estadopalma/registrospalma',
-          //     arguments: palmaseleccionada);
-        }
-      },
     );
   }
 
