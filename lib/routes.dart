@@ -1,5 +1,7 @@
 import 'package:apppalma/Censo/ui/censo_page.dart';
-import 'package:apppalma/Enfermedad/enfermedad_form.dart';
+import 'package:apppalma/Cosechas/ui/cosecha_page.dart';
+import 'package:apppalma/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
+import 'package:apppalma/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
 import 'package:apppalma/Enfermedad/enfermedad_page.dart';
 import 'package:apppalma/Home/home_screen.dart';
 import 'package:apppalma/LoteDetail/ui/lote_page.dart';
@@ -36,7 +38,18 @@ class Routes {
       case '/lote/palmas/estadopalmas':
         return MaterialPageRoute(
             builder: (_) => PalmasList(routeName: settings.name!));
-
+      case '/lote/cosechas':
+        return MaterialPageRoute(
+          builder: (_) => const CosechaPage(),
+        );
+      case '/lote/cosechas/registrocosechas':
+        return MaterialPageRoute(
+          builder: (_) => RegistroCosechasDiarias(routeName: settings.name!),
+        );
+      case '/lote/cosechas/finalizarcosecha':
+        return MaterialPageRoute(
+          builder: (_) => FinalizarCosechaPage(routeName: settings.name!),
+        );
       // case 'lote/censo/plaga':
       //   return MaterialPageRoute(
       //       builder: (_) => CensoPage(routeName: settings.name!));

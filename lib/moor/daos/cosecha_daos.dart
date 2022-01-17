@@ -32,11 +32,11 @@ class CosechaDao extends DatabaseAccessor<AppDatabase> with _$CosechaDaoMixin {
         .watchSingle();
   }
 
-  Future<Cosecha> getCosechaActiva(String nombrelote) {
+  Future<Cosecha?> getCosechaActiva(String nombrelote) {
     return (select(cosechas)
           ..where((c) =>
               c.completada.equals(false) & c.nombreLote.equals(nombrelote)))
-        .getSingle();
+        .getSingleOrNull();
   }
 
   Future insertCosecha(Insertable<Cosecha> cosecha) =>

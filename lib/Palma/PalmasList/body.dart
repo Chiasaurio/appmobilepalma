@@ -39,45 +39,27 @@ class _BodyState extends State<Body> {
   Widget buildPalmas() {
     return Container(
         margin: EdgeInsets.all(margin),
-        child: Column(children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(margin),
-            width: anchoCard,
-            padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            'Todas palmas registradas',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.black87.withOpacity(0.8),
-                                fontSize: 25,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ]),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: <Widget>[
-                  //     Expanded(
-                  //       child:Text('Tabla de todas las palmas leídas:',textAlign: TextAlign.start, style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
-                  //     ),
-                  //   ]
-                  // ),
-                ]),
-          ),
-          Column(children: <Widget>[
-            widget.palmas.isNotEmpty
-                ? buildTabla()
-                : const Text('no hay palmas registradas para este lote'),
-            SizedBox(height: margin),
-          ]),
-        ]));
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Column(children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Todas palmas registradas',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            color: Colors.black87.withOpacity(0.8),
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ]),
+              ]),
+              widget.palmas.isNotEmpty
+                  ? buildTabla()
+                  : const Text('no hay palmas registradas para este lote'),
+            ]));
   }
 
   Widget buildTabla() {
