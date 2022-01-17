@@ -99,17 +99,17 @@ class _BodyState extends State<Body> {
             TableRow(
               children: [
                 _crearBotonRedondeado(
-                    'Cosechas', 'lote/cosechas', Icons.art_track, context),
+                    'Cosechas', '/lote/cosechas', Icons.art_track, context),
                 _crearBotonRedondeado(
-                    'Podas', 'lote/podas', Icons.art_track, context),
+                    'Podas', '/lote/podas', Icons.art_track, context),
                 // _crearBotonRedondeado('Fertilizacion','lote/fertilizaciones', Icons.art_track, context),
               ],
             ),
             TableRow(
               children: [
                 _crearBotonRedondeado(
-                    'Plateo', 'lote/plateos', Icons.art_track, context),
-                _crearBotonRedondeado('Fertilizacion', 'lote/fertilizaciones',
+                    'Plateo', '/lote/plateos', Icons.art_track, context),
+                _crearBotonRedondeado('Fertilizacion', '/lote/fertilizaciones',
                     Icons.art_track, context),
               ],
             )

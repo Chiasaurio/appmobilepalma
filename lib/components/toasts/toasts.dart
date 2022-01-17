@@ -11,7 +11,7 @@ void registroExitosoToast() {
   );
 }
 
-void registroExitosoToast2(String msg) {
+void successMessageToast(String msg) {
   Fluttertoast.showToast(
     msg: msg,
     toastLength: Toast.LENGTH_LONG,
