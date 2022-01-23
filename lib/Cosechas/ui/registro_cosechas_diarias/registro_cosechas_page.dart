@@ -28,7 +28,7 @@ class _RegistroCosechasDiariasState extends State<RegistroCosechasDiarias> {
         return Scaffold(
           body: Column(
             children: [
-              const HeaderApp(),
+              HeaderApp(ruta: widget.routeName),
               Body(cosechasDiarias: state.cosechasDiarias!),
             ],
           ),

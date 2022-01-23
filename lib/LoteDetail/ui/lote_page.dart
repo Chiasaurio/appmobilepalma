@@ -1,6 +1,7 @@
 import 'package:apppalma/LoteDetail/ui/body.dart';
 import 'package:apppalma/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/components/appbar.dart';
+import 'package:apppalma/components/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:ui';
@@ -16,25 +17,15 @@ class LotePage extends StatefulWidget {
 }
 
 class _LotePageState extends State<LotePage> {
-  // final podaBloc = new PodasBloc();
-  // final plateoBloc = new PlateosBloc();
-  // final cosechaBloc = new CosechasBloc();
-
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
-  var margin;
-  String nombrelote = '';
+  String ruta = '/lote';
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoteDetailCubit, LoteDetailState>(
       builder: (context, state) {
         return Scaffold(
-            appBar: state is LoteChoosed
-                ? AppBarWidget.getAppBar(
-                    state.lote.nombreLote, widget.routeName, context)
-                : AppBarWidget.getAppBar(nombrelote, widget.routeName, context),
+            appBar: HeaderApp(
+              ruta: ruta,
+            ),
             body: state is LoteChoosed
                 ? const Body()
                 : const Center(

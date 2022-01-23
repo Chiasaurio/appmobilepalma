@@ -10,7 +10,12 @@ import 'package:apppalma/utils/utils.dart' as utils;
 
 class CosechaDiariaPage extends StatefulWidget {
   final Cosecha cosecha;
-  const CosechaDiariaPage({Key? key, required this.cosecha}) : super(key: key);
+  final String routeName;
+  const CosechaDiariaPage(
+      {Key? key,
+      required this.cosecha,
+      this.routeName = '/lote/cosechas/registrardiarias'})
+      : super(key: key);
 
   @override
   _CosechaDiariaPageState createState() => _CosechaDiariaPageState();
@@ -32,15 +37,19 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
 
   late Cosecha cosecha;
   late String nombrelote;
-  DateTime fecha =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   var width;
   var height;
   var altoCard;
   var anchoCard;
   var margin;
+  DateTime fecha =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  TimeOfDay horaSalida = TimeOfDay.now();
+
   @override
   void initState() {
+    fecha = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, horaSalida.hour, horaSalida.minute);
     cosecha = widget.cosecha;
     nombrelote = cosecha.nombreLote;
     super.initState();
@@ -57,7 +66,9 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
     return Scaffold(
       body: Column(
         children: [
-          const HeaderApp(),
+          HeaderApp(
+            ruta: widget.routeName,
+          ),
           SingleChildScrollView(
             child: Column(children: <Widget>[
               buildDatosViaje(context),

@@ -38,21 +38,18 @@ class _PalmasListState extends State<PalmasList> {
     return BlocBuilder<PalmaCubit, PalmaState>(
       builder: (context, state) {
         return Scaffold(
-            body: state is PalmasLoteLoaded
-                ? Column(
-                    children: [
-                      const HeaderApp(),
-                      Body(palmas: state.palmas),
-                    ],
-                  )
-                : Column(
-                    children: const [
-                      HeaderApp(),
-                      Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ],
-                  ));
+            body: Column(
+          children: [
+            HeaderApp(
+              ruta: widget.routeName,
+            ),
+            state is PalmasLoteLoaded
+                ? Body(palmas: state.palmas)
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+          ],
+        ));
       },
     );
   }

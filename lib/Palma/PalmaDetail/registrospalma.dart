@@ -7,7 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PalmaDetalleScreen extends StatefulWidget {
   final Palma palma;
-  const PalmaDetalleScreen({Key? key, required this.palma}) : super(key: key);
+  final String routeName;
+  const PalmaDetalleScreen(
+      {Key? key,
+      required this.palma,
+      this.routeName = 'lote/palmas/palmadetalle'})
+      : super(key: key);
 
   @override
   _PalmaDetalleScreenState createState() => _PalmaDetalleScreenState();
@@ -34,7 +39,9 @@ class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
       body: palmaConProcesos != null
           ? Column(
               children: [
-                const HeaderApp(),
+                HeaderApp(
+                  ruta: widget.routeName,
+                ),
                 Body(palmaConProcesos: palmaConProcesos!)
               ],
             )

@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FinalizarCosechaPage extends StatefulWidget {
   final String routeName;
 
+  static const route = '/lote/cosechas/finalizarcosecha';
+
   const FinalizarCosechaPage({Key? key, required this.routeName})
       : super(key: key);
 
@@ -21,10 +23,9 @@ class _FinalizarCosechaPageState extends State<FinalizarCosechaPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Cosecha? cosecha;
-
   late DateTime fechasalida;
-
   TimeOfDay horaSalida = TimeOfDay.now();
+
   @override
   void initState() {
     fechasalida = DateTime(DateTime.now().year, DateTime.now().month,
@@ -50,7 +51,7 @@ class _FinalizarCosechaPageState extends State<FinalizarCosechaPage> {
         body: SingleChildScrollView(
       child: Column(
         children: [
-          const HeaderApp(),
+          HeaderApp(ruta: widget.routeName),
           _buildFinalizarCosecha(context),
         ],
       ),
@@ -64,7 +65,6 @@ class _FinalizarCosechaPageState extends State<FinalizarCosechaPage> {
       });
     }
 
-    ;
     return Container(
         height: height * 0.5,
         margin: EdgeInsets.all(margin),
