@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 class Api {
   static final _storage = secure.FlutterSecureStorage();
   // final _baseUrl = 'http://10.0.2.2:3000/';
-  final _baseUrl = 'http://192.168.20.27:3000/';
+  final _baseUrl = 'http://192.168.42.173:3000/';
   final token =
       "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiY2NfdXN1YXJpbyI6IjEwOTg3NjU0MzIiLCJyb2wiOiJhZG1pbiJ9LCJpYXQiOjE2MzkyNTcyMjUsIm5iZiI6MTYzOTI1NzIyNSwiZXhwIjoxNjM5MzQzNjI1fQ.cO5PUKPWVBON_JD1bk8F-fF9iEciP1-HhVBAgLtAvKQKWYkKeqyRAgQ7QUa2miXNYKNLMTJ8HY4xksK49mAViPTAjh-4fuMx6M73-du6d8dy8xZ8EEcao0goJlZlYDBRwZXRKdI4IFYo1fVbBHVQSCG-GKmn4IwlfKU5u5cd8MI";
   static final Dio _dio = Dio();

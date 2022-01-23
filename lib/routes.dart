@@ -40,9 +40,13 @@ class Routes {
             builder: (_) => PalmasList(routeName: settings.name!));
       case '/lote/cosechas':
         return MaterialPageRoute(
-          builder: (_) => const CosechaPage(),
+          builder: (_) => CosechaPage(routeName: settings.name!),
         );
       case '/lote/cosechas/registrocosechas':
+        return MaterialPageRoute(
+          builder: (_) => RegistroCosechasDiarias(routeName: settings.name!),
+        );
+      case '/lote/cosechas/registrardiarias':
         return MaterialPageRoute(
           builder: (_) => RegistroCosechasDiarias(routeName: settings.name!),
         );

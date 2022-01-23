@@ -16,7 +16,7 @@ class _BodyState extends State<Body> {
   late double altoCard;
   late double anchoCard;
   Palma? palmaseleccionada;
-  var formatter = DateFormat('yyyy-MM-dd');
+  var formatter = DateFormat('yyyy-MM-dd hh:mm');
   late double margin;
   @override
   Widget build(BuildContext context) {
@@ -25,14 +25,6 @@ class _BodyState extends State<Body> {
     altoCard = height * 0.7; //150,
     anchoCard = width;
     margin = anchoCard * 0.04;
-    return
-        // SingleChildScrollView(
-        //     child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-        listCosechasDiarias();
-    // ]));
-  }
-
-  Widget listCosechasDiarias() {
     return Flexible(
       child: ListView.builder(
         shrinkWrap: true,
@@ -42,16 +34,12 @@ class _BodyState extends State<Body> {
         },
       ),
     );
+    // ]));
   }
 
   Widget cosechaDiariaTile(CosechaDiariaData cosechaDiaria) {
     return GestureDetector(
-      onTap: () {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => PalmaDetalleScreen(palma: palma)));
-      },
+      onTap: () {},
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),

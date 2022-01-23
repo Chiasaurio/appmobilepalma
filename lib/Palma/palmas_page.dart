@@ -1,13 +1,15 @@
-import 'package:apppalma/components/appbar.dart';
 import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:ui';
-
 import 'cubit/palma_cubit.dart';
 
 class PalmaPage extends StatefulWidget {
+  final String routeName;
+
+  const PalmaPage({Key? key, this.routeName = 'lote/palmas/palmadetalle'})
+      : super(key: key);
+
   @override
   _PalmaPageState createState() => _PalmaPageState();
 }
@@ -37,7 +39,9 @@ class _PalmaPageState extends State<PalmaPage> {
         // appBar: AppBarWidget.getAppBar(nombrelote, ruta, context),
         body: Column(
       children: <Widget>[
-        const HeaderApp(),
+        HeaderApp(
+          ruta: widget.routeName,
+        ),
         Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),

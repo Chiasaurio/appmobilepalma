@@ -8,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'cosecha_activa/cosechaactiva_page.dart';
 
 class CosechaPage extends StatefulWidget {
-  const CosechaPage({Key? key}) : super(key: key);
+  final String routeName;
+  const CosechaPage({Key? key, required this.routeName}) : super(key: key);
 
   @override
   _CosechaPageState createState() => _CosechaPageState();
@@ -34,7 +35,9 @@ class _CosechaPageState extends State<CosechaPage> {
     return Scaffold(
       body: Column(
         children: [
-          const HeaderApp(),
+          HeaderApp(
+            ruta: widget.routeName,
+          ),
           crearContenido(),
         ],
       ),
