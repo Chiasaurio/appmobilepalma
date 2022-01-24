@@ -5,6 +5,7 @@ import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/modules/Palma/cubit/palma_cubit.dart';
 import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
+import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/routes.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class AppPalma extends StatelessWidget {
           BlocProvider<EnfermedadCubit>(create: (context) => EnfermedadCubit()),
           BlocProvider<CosechaCubit>(create: (context) => CosechaCubit()),
           BlocProvider<PlateosCubit>(create: (context) => PlateosCubit()),
+          BlocProvider<PodasCubit>(create: (context) => PodasCubit()),
         ],
         child: const MaterialApp(
           title: 'Smart Spotter',
