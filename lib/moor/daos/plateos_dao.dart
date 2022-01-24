@@ -9,11 +9,11 @@ class PlateoDao extends DatabaseAccessor<AppDatabase> with _$PlateoDaoMixin {
   final AppDatabase db;
   PlateoDao(this.db) : super(db);
 
-  Future<Plateo> getPlateoActivo(String nombrelote) {
+  Future<Plateo?> getPlateoActivo(String nombrelote) {
     return (select(plateos)
           ..where((c) =>
               c.completado.equals(false) & c.nombreLote.equals(nombrelote)))
-        .getSingle();
+        .getSingleOrNull();
   }
 
   Future insertPlateo(Insertable<Plateo> plateo) =>

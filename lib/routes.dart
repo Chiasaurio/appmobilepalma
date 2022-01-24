@@ -1,16 +1,18 @@
-import 'package:apppalma/Censo/ui/censo_page.dart';
-import 'package:apppalma/Cosechas/ui/cosecha_page.dart';
-import 'package:apppalma/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
-import 'package:apppalma/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
-import 'package:apppalma/Enfermedad/enfermedad_page.dart';
-import 'package:apppalma/Home/home_screen.dart';
-import 'package:apppalma/LoteDetail/ui/lote_page.dart';
-import 'package:apppalma/LotesList/presentation/lotes_page.dart';
-import 'package:apppalma/Palma/PalmasList/palmas_list.dart';
-import 'package:apppalma/Sync/sincronizar_page.dart';
+import 'package:apppalma/modules/Censo/ui/censo_page.dart';
+import 'package:apppalma/modules/Cosechas/ui/cosecha_page.dart';
+import 'package:apppalma/modules/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
+import 'package:apppalma/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
+import 'package:apppalma/modules/Enfermedad/enfermedad_page.dart';
+import 'package:apppalma/modules/Home/home_screen.dart';
+import 'package:apppalma/modules/LoteDetail/ui/lote_page.dart';
+import 'package:apppalma/modules/LotesList/presentation/lotes_page.dart';
+import 'package:apppalma/modules/Palma/PalmasList/palmas_list.dart';
+import 'package:apppalma/modules/Plateos/ui/plateo_page.dart';
+import 'package:apppalma/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
+import 'package:apppalma/modules/Sync/sincronizar_page.dart';
 import 'package:flutter/material.dart';
 
-import 'Palma/palmas_page.dart';
+import '/modules/Palma/palmas_page.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -46,13 +48,17 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => RegistroCosechasDiarias(routeName: settings.name!),
         );
-      case '/lote/cosechas/registrardiarias':
-        return MaterialPageRoute(
-          builder: (_) => RegistroCosechasDiarias(routeName: settings.name!),
-        );
       case '/lote/cosechas/finalizarcosecha':
         return MaterialPageRoute(
           builder: (_) => FinalizarCosechaPage(routeName: settings.name!),
+        );
+      case '/lote/plateos':
+        return MaterialPageRoute(
+          builder: (_) => PlateoPage(routeName: settings.name!),
+        );
+      case '/lote/plateos/registroplateos':
+        return MaterialPageRoute(
+          builder: (_) => RegistroPlateosDiarios(routeName: settings.name!),
         );
       // case 'lote/censo/plaga':
       //   return MaterialPageRoute(

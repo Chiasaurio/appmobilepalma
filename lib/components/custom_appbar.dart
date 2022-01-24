@@ -1,4 +1,4 @@
-import 'package:apppalma/LoteDetail/cubit/lote_detail_cubit.dart';
+import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/components/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
