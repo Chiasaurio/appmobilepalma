@@ -10,11 +10,11 @@ class PodaDao extends DatabaseAccessor<AppDatabase> with _$PodaDaoMixin {
   final AppDatabase db;
   PodaDao(this.db) : super(db);
 
-  Future<Poda> getPodaActiva(String nombrelote) {
+  Future<Poda?> getPodaActiva(String nombrelote) {
     return (select(podas)
           ..where((c) =>
               c.completada.equals(false) & c.nombreLote.equals(nombrelote)))
-        .getSingle();
+        .getSingleOrNull();
   }
 
   Future insertPoda(Insertable<Poda> poda) => into(podas).insert(poda);

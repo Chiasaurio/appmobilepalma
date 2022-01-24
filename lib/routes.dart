@@ -9,6 +9,8 @@ import 'package:apppalma/modules/LotesList/presentation/lotes_page.dart';
 import 'package:apppalma/modules/Palma/PalmasList/palmas_list.dart';
 import 'package:apppalma/modules/Plateos/ui/plateo_page.dart';
 import 'package:apppalma/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
+import 'package:apppalma/modules/Podas/ui/poda_page.dart';
+import 'package:apppalma/modules/Podas/ui/registro_podas_diarias/registro_podas_diarias.dart';
 import 'package:apppalma/modules/Sync/sincronizar_page.dart';
 import 'package:flutter/material.dart';
 
@@ -59,6 +61,14 @@ class Routes {
       case '/lote/plateos/registroplateos':
         return MaterialPageRoute(
           builder: (_) => RegistroPlateosDiarios(routeName: settings.name!),
+        );
+      case '/lote/podas':
+        return MaterialPageRoute(
+          builder: (_) => PodaPage(routeName: settings.name!),
+        );
+      case '/lote/podas/registropodas':
+        return MaterialPageRoute(
+          builder: (_) => RegistroPodasDiarias(routeName: settings.name!),
         );
       // case 'lote/censo/plaga':
       //   return MaterialPageRoute(
