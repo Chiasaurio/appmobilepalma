@@ -164,7 +164,7 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.red)),
                   onTap: () => Navigator.pushNamed(
-                      context, 'lote/podas/finalizarpoda',
+                      context, '/lote/podas/finalizarpoda',
                       arguments: poda),
                 )
               ],

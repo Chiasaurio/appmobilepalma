@@ -45,30 +45,19 @@ class _CosechaPageState extends State<CosechaPage> {
   }
 
   Widget crearContenido() {
-    return SingleChildScrollView(
-      child: BlocListener<CosechaCubit, CosechaStateLoaded>(
-        listener: (context, state) {
-          setState(() {
-            if (state is CosechaStateLoaded) {
-              cosecha = state.cosecha;
-              setState(() {});
-            }
-          });
-        },
-        child: BlocBuilder<CosechaCubit, CosechaStateLoaded>(
+    return SingleChildScrollView(child:
+        BlocBuilder<CosechaCubit, CosechaStateLoaded>(
             builder: (context, state) {
-          if (state.isLoaded) {
-            cosecha = state.cosecha;
-            return state.cosecha != null
-                ? CosechaActivaVista(cosecha: cosecha!)
-                : NuevaCosechaPage(nombrelote: nombreLote);
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        }),
-      ),
-    );
+      if (state.isLoaded) {
+        cosecha = state.cosecha;
+        return state.cosecha != null
+            ? CosechaActivaVista(cosecha: cosecha!)
+            : NuevaCosechaPage(nombrelote: nombreLote);
+      } else {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+    }));
   }
 }

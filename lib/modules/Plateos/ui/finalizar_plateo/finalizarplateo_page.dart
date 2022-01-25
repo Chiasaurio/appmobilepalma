@@ -71,45 +71,26 @@ class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
         height: height * 0.5,
         margin: EdgeInsets.all(margin),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: anchoCard,
-              padding: EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Expanded(
-                      child: Text('Ingrese la fecha de salida del lote',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20, /*fontWeight: FontWeight.bold*/
-                          )),
-                    ),
-                  ]),
-            ),
-            SizedBox(height: altoCard * 0.1),
-            Container(
-                padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
-                margin: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: const <Widget>[
-                          Icon(Icons.calendar_today),
-                          Text('Fecha de salida',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16)),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        child: FechaWidget(
-                            fecha: fechasalida, callback: callback)),
-                  ],
+            const Text('Ingrese la fecha de salida del lote',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20, /*fontWeight: FontWeight.bold*/
                 )),
+            SizedBox(height: altoCard * 0.1),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text('Fecha de salida',
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                const SizedBox(
+                  height: 20,
+                ),
+                FechaWidget(fecha: fechasalida, callback: callback),
+              ],
+            ),
             SizedBox(height: altoCard * 0.3),
             MainButton(
               text: 'Finalizar plateo',

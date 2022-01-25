@@ -64,7 +64,6 @@ class _PodaPageState extends State<PodaPage> {
         setState(() {
           if (state is PodasStateLoaded) {
             poda = state.poda;
-            setState(() {});
           }
         });
       }, builder: (context, state) {

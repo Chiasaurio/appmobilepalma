@@ -2,24 +2,25 @@ import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/components/main_button.dart';
 import 'package:apppalma/components/widgets/fecha.dart';
 import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
+import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/utils/confirmacion_alerta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FinalizarPlateoPage extends StatefulWidget {
+class FinalizarPodaPage extends StatefulWidget {
   final String routeName;
 
-  const FinalizarPlateoPage({
+  const FinalizarPodaPage({
     Key? key,
     required this.routeName,
   }) : super(key: key);
 
   @override
-  _FinalizarPlateoPageState createState() => _FinalizarPlateoPageState();
+  _FinalizarPodaPageState createState() => _FinalizarPodaPageState();
 }
 
-class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
+class _FinalizarPodaPageState extends State<FinalizarPodaPage> {
   late DateTime fechasalida;
   TimeOfDay horaSalida = TimeOfDay.now();
 
@@ -75,7 +76,7 @@ class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
           children: <Widget>[
             Container(
               width: anchoCard,
-              padding: EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
+              padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const <Widget>[
@@ -90,34 +91,25 @@ class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
                   ]),
             ),
             SizedBox(height: altoCard * 0.1),
-            Container(
-                padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
-                margin: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: const <Widget>[
-                          Icon(Icons.calendar_today),
-                          Text('Fecha de salida',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16)),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        child: FechaWidget(
-                            fecha: fechasalida, callback: callback)),
-                  ],
-                )),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text('Fecha de salida',
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                const SizedBox(
+                  height: 20,
+                ),
+                FechaWidget(fecha: fechasalida, callback: callback),
+              ],
+            ),
             SizedBox(height: altoCard * 0.3),
             MainButton(
-              text: 'Finalizar plateo',
+              text: 'Finalizar poda',
               press: () {
                 ConfirmacionAlerta().confimarcionAlerta(context, () {
-                  final state = BlocProvider.of<PlateosCubit>(context).state;
-                  BlocProvider.of<PlateosCubit>(context)
-                      .finalizarPlateo(state.plateo!, fechasalida);
+                  final state = BlocProvider.of<PodasCubit>(context).state;
+                  BlocProvider.of<PodasCubit>(context)
+                      .finalizarPoda(state.poda!, fechasalida);
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pop(context);
