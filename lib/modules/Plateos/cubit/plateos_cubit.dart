@@ -65,6 +65,6 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
     plateoDao.updatePlateo(
         plateo.copyWith(fechaSalida: fechasalida, completado: true));
     obtenerPlateoActivo(plateo.nombreLote);
-    successMessageToast('El plateo se finalizo correctamente');
+    // successMessageToast('El plateo se finalizo correctamente');
   }
 }

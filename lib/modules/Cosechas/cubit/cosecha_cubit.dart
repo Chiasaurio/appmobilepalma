@@ -78,6 +78,6 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
     cosechaDao.updateCosecha(
         cosecha.copyWith(fechaSalida: fechasalida, completada: true));
     obtenerCosechaActiva(cosecha.nombreLote);
-    successMessageToast('La cosecha se finalizo correctamente');
+    // successMessageToast('La cosecha se finalizo correctamente');
   }
 }

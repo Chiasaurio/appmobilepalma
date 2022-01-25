@@ -1,3 +1,4 @@
+import 'package:apppalma/components/toasts/toasts.dart';
 import 'package:apppalma/moor/daos/podas_dao.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
@@ -55,5 +56,13 @@ class PodasCubit extends Cubit<PodasStateLoaded> {
     );
     await podaDao.insertPoda(poda);
     obtenerPodaActiva(nombrelote);
+  }
+
+  finalizarPoda(Poda poda, DateTime fechasalida) {
+    final PodaDao cosechaDao = db.podaDao;
+    cosechaDao
+        .updatePoda(poda.copyWith(fechaSalida: fechasalida, completada: true));
+    obtenerPodaActiva(poda.nombreLote);
+    // successMessageToast('La poda se finalizo correctamente');
   }
 }

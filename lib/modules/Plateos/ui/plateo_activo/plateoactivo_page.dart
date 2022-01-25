@@ -171,7 +171,7 @@ class _PlateoActivoVistaState extends State<PlateoActivoVista> {
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.red)),
                   onTap: () => Navigator.pushNamed(
-                      context, 'lote/plateos/finalizarplateo',
+                      context, '/lote/plateos/finalizarplateo',
                       arguments: plateo),
                 )
               ],

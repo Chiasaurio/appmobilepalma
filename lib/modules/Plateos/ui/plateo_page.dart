@@ -64,7 +64,6 @@ class _PlateoPageState extends State<PlateoPage> {
         setState(() {
           if (state is PlateosStateLoaded) {
             plateo = state.plateo;
-            setState(() {});
           }
         });
       }, builder: (context, state) {
