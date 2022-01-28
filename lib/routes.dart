@@ -7,6 +7,7 @@ import 'package:apppalma/modules/Home/home_screen.dart';
 import 'package:apppalma/modules/LoteDetail/ui/lote_page.dart';
 import 'package:apppalma/modules/LotesList/presentation/lotes_page.dart';
 import 'package:apppalma/modules/Palma/PalmasList/palmas_list.dart';
+import 'package:apppalma/modules/Plagas/plagas/ui/plaga_page.dart';
 import 'package:apppalma/modules/Plateos/ui/finalizar_plateo/finalizarplateo_page.dart';
 import 'package:apppalma/modules/Plateos/ui/plateo_page.dart';
 import 'package:apppalma/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
@@ -36,7 +37,7 @@ class Routes {
       case '/lote/censo':
         return MaterialPageRoute(
             builder: (_) => CensoPage(routeName: settings.name!));
-      case 'lote/censo/enfermedad':
+      case '/lote/censo/enfermedad':
         return MaterialPageRoute(
             builder: (_) => EnfermedadPage(routeName: settings.name!));
       case '/lote/palmas':
@@ -79,6 +80,10 @@ class Routes {
       case '/lote/podas/finalizarpoda':
         return MaterialPageRoute(
           builder: (_) => FinalizarPodaPage(routeName: settings.name!),
+        );
+      case '/lote/censo/registrarplaga':
+        return MaterialPageRoute(
+          builder: (_) => PlagaPage(routeName: settings.name!),
         );
       // case 'lote/censo/plaga':
       //   return MaterialPageRoute(

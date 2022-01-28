@@ -112,7 +112,7 @@ class _BodyState extends State<Body> {
   Widget makeListaCensos(CensoData censo) {
     return Card(
         elevation: 2.0,
-        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
         child: Padding(
           padding: EdgeInsets.fromLTRB(margin, margin, 0.0, margin),
           child: Row(
@@ -125,30 +125,9 @@ class _BodyState extends State<Body> {
                     censoseleccionado = censo;
                     _opcionesBottomSheet(context);
                   },
-                  child: Icon(Icons.more_vert),
+                  child: const Icon(Icons.more_vert),
                 ),
               )
-              // Column(
-              //   // crossAxisAlignment: CrossAxisAlignment.end,
-              //   // mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     Container(
-              //       // padding: EdgeInsets.fromLTRB(anchoCard*0.2, 0.0, 0.0, 0.0),
-              //       width: anchoCard * 0.4,
-              //       child: Checkbox(
-              //           value: censoseleccionado != null
-              //               ? censoseleccionado.idCenso == censo.idCenso
-              //                   ? true
-              //                   : false
-              //               : false,
-              //           onChanged: (bool value) {
-              //             setState(() {
-              //               censoseleccionado = censo;
-              //             });
-              //           }),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ));
@@ -182,13 +161,6 @@ class _BodyState extends State<Body> {
           ],
         ),
         SizedBox(height: margin * 0.5),
-        // Row(
-        //   children: <Widget>[
-        //     Text('Etapa', style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-        //     Text(' ${censo.etapaPlaga}', style: TextStyle(color: Colors.black, fontSize: 18), textAlign: TextAlign.start,),
-        //   ],
-        // ),
-        SizedBox(height: margin * 0.5),
         Row(
           children: <Widget>[
             const Text('Sector',
@@ -206,7 +178,7 @@ class _BodyState extends State<Body> {
                 style: TextStyle(fontSize: 16.0, color: Colors.grey)),
             Text(
               ' ${censo.estadoPlaga}',
-              style: TextStyle(color: Colors.orange, fontSize: 18),
+              style: const TextStyle(color: Colors.orange, fontSize: 18),
               textAlign: TextAlign.start,
             ),
           ],
@@ -283,13 +255,13 @@ class _BodyState extends State<Body> {
         TableRow(
           children: [
             _crearBotonRedondeado('Registrar enfermedad',
-                'lote/censo/enfermedad', Icons.art_track, context),
+                '/lote/censo/enfermedad', Icons.art_track, context),
           ],
         ),
         TableRow(
           children: [
             _crearBotonRedondeado('Registrar plaga',
-                'lote/censo/registrarplaga', Icons.art_track, context),
+                '/lote/censo/registrarplaga', Icons.art_track, context),
           ],
         ),
         // TableRow(

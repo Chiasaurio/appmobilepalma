@@ -91,7 +91,7 @@ class _FinalizarCosechaPageState extends State<FinalizarCosechaPage> {
             MainButton(
               text: 'Finalizar cosecha',
               press: () {
-                ConfirmacionAlerta().confimarcionAlerta(context, () {
+                ConfirmacionAlerta().confirmacionAlerta(context, () {
                   final state = BlocProvider.of<CosechaCubit>(context).state;
                   BlocProvider.of<CosechaCubit>(context)
                       .finalizarCosecha(state.cosecha!, fechasalida);

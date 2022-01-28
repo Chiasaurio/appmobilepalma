@@ -9,27 +9,30 @@ class SyncEnfermedades {
   final Api _apiInstance = Api.getInstance();
 
   Future<List<Insertable<Enfermedade>>> getEnfermedadesRemoteSource() async {
-    List dataenfermedades;
-    final resp = await _apiInstance.get('enfermedadesTodas');
-    dataenfermedades = resp['data'];
-    print(dataenfermedades);
-    List<Insertable<Enfermedade>> enfermedades = [];
-    for (var element in dataenfermedades) {
-      EnfermedadesCompanion aux = EnfermedadesCompanion(
-          nombreEnfermedad: Value(element['nombre_enfermedad']),
-          procedimientoEnfermedad: Value(
-              element['procedimiento_tratamiento_enfermedad'] ??
-                  'no tiene procedimiento'));
-      enfermedades.add(aux);
+    try {
+      List dataenfermedades;
+      final resp = await _apiInstance.get('enfermedadesTodas');
+      dataenfermedades = resp['data'];
+      List<Insertable<Enfermedade>> enfermedades = [];
+      for (var element in dataenfermedades) {
+        EnfermedadesCompanion aux = EnfermedadesCompanion(
+            nombreEnfermedad: Value(element['nombre_enfermedad']),
+            procedimientoEnfermedad: Value(
+                element['procedimiento_tratamiento_enfermedad'] ??
+                    'no tiene procedimiento'));
+        enfermedades.add(aux);
+      }
+      return enfermedades;
+    } catch (e) {
+      print(e);
+      return [];
     }
-    return enfermedades;
   }
 
   Future<List<Insertable<Etapa>>> getEtapasEnfermedades() async {
     List dataetapas;
     final resp = await _apiInstance.get('enfermedad-etapas');
     dataetapas = resp['data'];
-    print(dataetapas);
     List<Insertable<Etapa>> etapas = [];
     for (var element in dataetapas) {
       EtapasCompanion aux = EtapasCompanion(

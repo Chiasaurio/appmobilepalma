@@ -36,8 +36,6 @@ class _EnfermedadPageState extends State<EnfermedadPage>
 
   @override
   Widget build(BuildContext context) {
-    // route = 'Registrar enfermedad';
-
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -46,13 +44,6 @@ class _EnfermedadPageState extends State<EnfermedadPage>
               Text('ruta', style: TextStyle(fontSize: 12)),
               Text('nombrelote'),
             ]),
-        // bottom: TabBar(
-        //   controller: _tabController,
-        //   tabs: <Widget>[
-        //     Tab(text: 'palma individual'),
-        //     Tab(text: 'grupo de palmas'),
-        //   ],
-        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -60,10 +51,6 @@ class _EnfermedadPageState extends State<EnfermedadPage>
           nombreLote: nombreLote,
         ),
       ),
-      // TabBarView(controller: _tabController, children: <Widget>[
-      //   PalmaIndividualView(nombrelote: nombrelote),
-      //   GrupoPalmasView(nombrelote: nombrelote),
-      // ]),
     );
   }
 }
