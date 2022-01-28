@@ -95,7 +95,7 @@ class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
             MainButton(
               text: 'Finalizar plateo',
               press: () {
-                ConfirmacionAlerta().confimarcionAlerta(context, () {
+                ConfirmacionAlerta().confirmacionAlerta(context, () {
                   final state = BlocProvider.of<PlateosCubit>(context).state;
                   BlocProvider.of<PlateosCubit>(context)
                       .finalizarPlateo(state.plateo!, fechasalida);

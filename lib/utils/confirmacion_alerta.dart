@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ConfirmacionAlerta {
-  void confimarcionAlerta(BuildContext context, Function() onPress) {
+  void confirmacionAlerta(BuildContext context, Function() onPress) {
     showDialog(
         context: context,
         barrierDismissible: true,

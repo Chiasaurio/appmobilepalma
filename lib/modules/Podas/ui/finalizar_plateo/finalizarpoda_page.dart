@@ -106,7 +106,7 @@ class _FinalizarPodaPageState extends State<FinalizarPodaPage> {
             MainButton(
               text: 'Finalizar poda',
               press: () {
-                ConfirmacionAlerta().confimarcionAlerta(context, () {
+                ConfirmacionAlerta().confirmacionAlerta(context, () {
                   final state = BlocProvider.of<PodasCubit>(context).state;
                   BlocProvider.of<PodasCubit>(context)
                       .finalizarPoda(state.poda!, fechasalida);

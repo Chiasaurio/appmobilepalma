@@ -16,7 +16,7 @@ part 'plagas_daos.g.dart';
 class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
   PlagasDao(AppDatabase db) : super(db);
 
-  Stream<List<PlagaConEtapas>> obtenerPlagaConEtapas() {
+  Future<List<PlagaConEtapas>> obtenerPlagaConEtapas() async {
     final rows = (select(plagas)
           ..orderBy([
             (t) => OrderingTerm(
@@ -34,8 +34,7 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
 
           for (final row in rows) {
             final plaga = row.readTable(plagas);
-            final etapa = row.readTable(etapasPlaga);
-
+            final etapa = row.readTableOrNull(etapasPlaga);
             final list = groupedData.putIfAbsent(plaga, () => []);
             if (etapa != null) list.add(etapa);
           }
@@ -44,8 +43,9 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
               PlagaConEtapas(plaga: entry.key, etapas: entry.value)
           ];
         });
+    final resp = await rows.first;
 
-    return rows;
+    return resp;
   }
 
   Future<void> insertPlagas(List<Insertable<Plaga>> listaplagas,
@@ -79,8 +79,6 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
         }
       });
     } catch (e) {
-      print('2');
-
       print(e);
     }
   }
@@ -136,7 +134,7 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
 
   Future updateCenso(Insertable<CensoData> c) => update(censo).replace(c);
 
-  Future insertCensoDePlaga(
+  Future<void> insertCensoDePlaga(
       DateTime fechacenso,
       bool presencialote,
       bool presenciasector,
@@ -145,27 +143,32 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
       String observacion,
       String nombreCientifico,
       String nombrelote,
-      List<EtapasPlagaData> etapasseleccionadas) {
-    final c = CensoCompanion(
-      fechaCenso: Value(fechacenso),
-      presenciaLote: Value(presencialote),
-      presenciaSector: Value(presenciasector),
-      lineaLimite1: Value(linealimite1),
-      lineaLimite2: Value(linealimite2),
-      observacionCenso: Value(observacion),
-      nombrePlaga: Value(nombreCientifico),
-      nombreLote: Value(nombrelote),
-    );
+      List<EtapasPlagaData> etapasseleccionadas) async {
+    try {
+      final c = CensoCompanion(
+        fechaCenso: Value(fechacenso),
+        presenciaLote: Value(presencialote),
+        presenciaSector: Value(presenciasector),
+        lineaLimite1: Value(linealimite1),
+        lineaLimite2: Value(linealimite2),
+        observacionCenso: Value(observacion),
+        nombrePlaga: Value(nombreCientifico),
+        nombreLote: Value(nombrelote),
+      );
 
-    return transaction(() async {
-      var id = await into(censo).insert(c);
-      // CensoData ultimoid = await getIdCenso().getSingle();
-      List<Insertable<CensoEtapasPlagaData>> etapas =
-          getCensoEtapasCompanion(id, etapasseleccionadas);
-      await batch((batch) {
-        batch.insertAll(censoEtapasPlaga, etapas);
+      return transaction(() async {
+        var id = await into(censo).insert(c);
+        print(id);
+        // CensoData ultimoid = await getIdCenso().getSingle();
+        List<Insertable<CensoEtapasPlagaData>> etapas =
+            getCensoEtapasCompanion(id, etapasseleccionadas);
+        await batch((batch) {
+          batch.insertAll(censoEtapasPlaga, etapas);
+        });
       });
-    });
+    } catch (e) {
+      print('2 $e');
+    }
   }
 
   List<Insertable<CensoEtapasPlagaData>> getCensoEtapasCompanion(

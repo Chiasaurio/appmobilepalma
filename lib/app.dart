@@ -4,6 +4,7 @@ import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/modules/Palma/cubit/palma_cubit.dart';
+import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/moor/moor_database.dart';
@@ -30,6 +31,7 @@ class AppPalma extends StatelessWidget {
           BlocProvider<CensosCubit>(create: (context) => CensosCubit()),
           BlocProvider<PalmaCubit>(create: (context) => PalmaCubit()),
           BlocProvider<EnfermedadCubit>(create: (context) => EnfermedadCubit()),
+          BlocProvider<PlagasCubit>(create: (context) => PlagasCubit()),
           BlocProvider<CosechaCubit>(create: (context) => CosechaCubit()),
           BlocProvider<PlateosCubit>(create: (context) => PlateosCubit()),
           BlocProvider<PodasCubit>(create: (context) => PodasCubit()),

@@ -1,6 +1,7 @@
 import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
 import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/components/appbar.dart';
+import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -141,5 +142,11 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
     final map = await syncBloc.insertarEnfermedades();
     BlocProvider.of<EnfermedadCubit>(context)
         .addEnfermedadyEtapasFromServerToLocal(map);
+    setState(() {
+      msg = 'Agregando plagas';
+    });
+    final plagas = await syncBloc.insertarPlagas();
+    BlocProvider.of<PlagasCubit>(context)
+        .addPlagayEtapasFromServerToLocal(plagas);
   }
 }
