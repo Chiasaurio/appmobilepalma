@@ -12,4 +12,6 @@ mixin _$PalmaDaoMixin on DatabaseAccessor<AppDatabase> {
       attachedDatabase.registroEnfermedad;
   $RegistroTratamientoTable get registroTratamiento =>
       attachedDatabase.registroTratamiento;
+  $EnfermedadesTable get enfermedades => attachedDatabase.enfermedades;
+  $EtapasTable get etapas => attachedDatabase.etapas;
 }

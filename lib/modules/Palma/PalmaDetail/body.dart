@@ -1,3 +1,4 @@
+import 'package:apppalma/constants.dart';
 import 'package:apppalma/modules/Palma/PalmaDetail/registrospalma.dart';
 import 'package:apppalma/components/appbar.dart';
 import 'package:apppalma/moor/moor_database.dart';
@@ -21,11 +22,11 @@ class _BodyState extends State<Body> {
   late String nombrelote;
   late String ruta;
   Map<String, Color> etiquetacolor = {
-    'enferma': Colors.orange,
-    'tratamiento': Colors.yellow,
-    'alta': Colors.green,
-    'Pendiente por erradicar': Colors.red,
-    'Pendiente por tratar': Colors.yellow,
+    EstadosPalma.sana: Colors.green,
+    EstadosPalma.enTratamiento: Colors.orange,
+    EstadosPalma.alta: Colors.green,
+    EstadosPalma.pendientePorErradicar: Colors.red,
+    EstadosPalma.pendientePorTratar: Colors.yellow,
   };
 
   late double width;
@@ -126,15 +127,26 @@ class _BodyState extends State<Body> {
                 // mainAxisAlignment: MainAxisAlignment.},
                 children: <Widget>[
                   registrotratamiento != null
-                      ? Text(
-                          registrotratamiento!.idProductoAgroquimico.toString(),
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 18),
-                          textAlign: TextAlign.center,
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'id producto: ${registrotratamiento!.idProductoAgroquimico}',
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 18),
+                            ),
+                            Text(
+                              'tipo control: ${registrotratamiento!.tipoControl}',
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 18),
+                            ),
+                          ],
                         )
-                      : const Text(
-                          'No hay un registro de tratamiento para \nesta palma',
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                      : const Flexible(
+                          child: Text(
+                            'No hay un registro de tratamiento para \nesta palma',
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ),
                         )
                 ],
               ),
@@ -174,6 +186,7 @@ class _BodyState extends State<Body> {
             ),
           ],
         ),
+        const SizedBox(height: 10.0),
         // SizedBox(height: altoCard*0.1),
         etapa != null
             ? Column(

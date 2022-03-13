@@ -7,4 +7,5 @@ class AppPalmaColors {
   static const grey = Color(0xfff1f1f1);
   static const darkgrey = Color(0xff878488);
   static const blue = Color(0xff0093ff);
+  static const error = Color(0xffFF0000);
 }

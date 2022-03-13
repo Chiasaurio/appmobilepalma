@@ -37,13 +37,15 @@ class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: palmaConProcesos != null
-          ? Column(
-              children: [
-                HeaderApp(
-                  ruta: widget.routeName,
-                ),
-                Body(palmaConProcesos: palmaConProcesos!)
-              ],
+          ? SingleChildScrollView(
+              child: Column(
+                children: [
+                  HeaderApp(
+                    ruta: widget.routeName,
+                  ),
+                  Body(palmaConProcesos: palmaConProcesos!)
+                ],
+              ),
             )
           : const Center(
               child: CircularProgressIndicator(),

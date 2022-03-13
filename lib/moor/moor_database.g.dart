@@ -4200,16 +4200,18 @@ class $PodaDiariaTable extends PodaDiaria
 
 class ProductoAgroquimicoData extends DataClass
     implements Insertable<ProductoAgroquimicoData> {
-  final int id;
+  final int idProductoAgroquimico;
   final String nombreProductoAgroquimico;
   final String tipoProductoAgroquimico;
+  final String claseProducto;
   final String ingredienteActivoProductoAgroquimico;
   final int periodoCarenciaProductoAgroquimico;
   final String presentacionProductoAgroquimico;
   ProductoAgroquimicoData(
-      {required this.id,
+      {required this.idProductoAgroquimico,
       required this.nombreProductoAgroquimico,
       required this.tipoProductoAgroquimico,
+      required this.claseProducto,
       required this.ingredienteActivoProductoAgroquimico,
       required this.periodoCarenciaProductoAgroquimico,
       required this.presentacionProductoAgroquimico});
@@ -4217,12 +4219,14 @@ class ProductoAgroquimicoData extends DataClass
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return ProductoAgroquimicoData(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      idProductoAgroquimico: const IntType().mapFromDatabaseResponse(
+          data['${effectivePrefix}id_producto_agroquimico'])!,
       nombreProductoAgroquimico: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}nombre_producto_agroquimico'])!,
       tipoProductoAgroquimico: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}tipo_producto_agroquimico'])!,
+      claseProducto: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}clase_producto'])!,
       ingredienteActivoProductoAgroquimico: const StringType()
           .mapFromDatabaseResponse(data[
               '${effectivePrefix}ingrediente_activo_producto_agroquimico'])!,
@@ -4237,11 +4241,12 @@ class ProductoAgroquimicoData extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
     map['nombre_producto_agroquimico'] =
         Variable<String>(nombreProductoAgroquimico);
     map['tipo_producto_agroquimico'] =
         Variable<String>(tipoProductoAgroquimico);
+    map['clase_producto'] = Variable<String>(claseProducto);
     map['ingrediente_activo_producto_agroquimico'] =
         Variable<String>(ingredienteActivoProductoAgroquimico);
     map['periodo_carencia_producto_agroquimico'] =
@@ -4253,9 +4258,10 @@ class ProductoAgroquimicoData extends DataClass
 
   ProductoAgroquimicoCompanion toCompanion(bool nullToAbsent) {
     return ProductoAgroquimicoCompanion(
-      id: Value(id),
+      idProductoAgroquimico: Value(idProductoAgroquimico),
       nombreProductoAgroquimico: Value(nombreProductoAgroquimico),
       tipoProductoAgroquimico: Value(tipoProductoAgroquimico),
+      claseProducto: Value(claseProducto),
       ingredienteActivoProductoAgroquimico:
           Value(ingredienteActivoProductoAgroquimico),
       periodoCarenciaProductoAgroquimico:
@@ -4268,11 +4274,13 @@ class ProductoAgroquimicoData extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ProductoAgroquimicoData(
-      id: serializer.fromJson<int>(json['id']),
+      idProductoAgroquimico:
+          serializer.fromJson<int>(json['idProductoAgroquimico']),
       nombreProductoAgroquimico:
           serializer.fromJson<String>(json['nombreProductoAgroquimico']),
       tipoProductoAgroquimico:
           serializer.fromJson<String>(json['tipoProductoAgroquimico']),
+      claseProducto: serializer.fromJson<String>(json['claseProducto']),
       ingredienteActivoProductoAgroquimico: serializer
           .fromJson<String>(json['ingredienteActivoProductoAgroquimico']),
       periodoCarenciaProductoAgroquimico:
@@ -4285,11 +4293,12 @@ class ProductoAgroquimicoData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
       'nombreProductoAgroquimico':
           serializer.toJson<String>(nombreProductoAgroquimico),
       'tipoProductoAgroquimico':
           serializer.toJson<String>(tipoProductoAgroquimico),
+      'claseProducto': serializer.toJson<String>(claseProducto),
       'ingredienteActivoProductoAgroquimico':
           serializer.toJson<String>(ingredienteActivoProductoAgroquimico),
       'periodoCarenciaProductoAgroquimico':
@@ -4300,18 +4309,21 @@ class ProductoAgroquimicoData extends DataClass
   }
 
   ProductoAgroquimicoData copyWith(
-          {int? id,
+          {int? idProductoAgroquimico,
           String? nombreProductoAgroquimico,
           String? tipoProductoAgroquimico,
+          String? claseProducto,
           String? ingredienteActivoProductoAgroquimico,
           int? periodoCarenciaProductoAgroquimico,
           String? presentacionProductoAgroquimico}) =>
       ProductoAgroquimicoData(
-        id: id ?? this.id,
+        idProductoAgroquimico:
+            idProductoAgroquimico ?? this.idProductoAgroquimico,
         nombreProductoAgroquimico:
             nombreProductoAgroquimico ?? this.nombreProductoAgroquimico,
         tipoProductoAgroquimico:
             tipoProductoAgroquimico ?? this.tipoProductoAgroquimico,
+        claseProducto: claseProducto ?? this.claseProducto,
         ingredienteActivoProductoAgroquimico:
             ingredienteActivoProductoAgroquimico ??
                 this.ingredienteActivoProductoAgroquimico,
@@ -4324,9 +4336,10 @@ class ProductoAgroquimicoData extends DataClass
   @override
   String toString() {
     return (StringBuffer('ProductoAgroquimicoData(')
-          ..write('id: $id, ')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
           ..write('nombreProductoAgroquimico: $nombreProductoAgroquimico, ')
           ..write('tipoProductoAgroquimico: $tipoProductoAgroquimico, ')
+          ..write('claseProducto: $claseProducto, ')
           ..write(
               'ingredienteActivoProductoAgroquimico: $ingredienteActivoProductoAgroquimico, ')
           ..write(
@@ -4339,9 +4352,10 @@ class ProductoAgroquimicoData extends DataClass
 
   @override
   int get hashCode => Object.hash(
-      id,
+      idProductoAgroquimico,
       nombreProductoAgroquimico,
       tipoProductoAgroquimico,
+      claseProducto,
       ingredienteActivoProductoAgroquimico,
       periodoCarenciaProductoAgroquimico,
       presentacionProductoAgroquimico);
@@ -4349,9 +4363,10 @@ class ProductoAgroquimicoData extends DataClass
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ProductoAgroquimicoData &&
-          other.id == this.id &&
+          other.idProductoAgroquimico == this.idProductoAgroquimico &&
           other.nombreProductoAgroquimico == this.nombreProductoAgroquimico &&
           other.tipoProductoAgroquimico == this.tipoProductoAgroquimico &&
+          other.claseProducto == this.claseProducto &&
           other.ingredienteActivoProductoAgroquimico ==
               this.ingredienteActivoProductoAgroquimico &&
           other.periodoCarenciaProductoAgroquimico ==
@@ -4362,29 +4377,33 @@ class ProductoAgroquimicoData extends DataClass
 
 class ProductoAgroquimicoCompanion
     extends UpdateCompanion<ProductoAgroquimicoData> {
-  final Value<int> id;
+  final Value<int> idProductoAgroquimico;
   final Value<String> nombreProductoAgroquimico;
   final Value<String> tipoProductoAgroquimico;
+  final Value<String> claseProducto;
   final Value<String> ingredienteActivoProductoAgroquimico;
   final Value<int> periodoCarenciaProductoAgroquimico;
   final Value<String> presentacionProductoAgroquimico;
   const ProductoAgroquimicoCompanion({
-    this.id = const Value.absent(),
+    this.idProductoAgroquimico = const Value.absent(),
     this.nombreProductoAgroquimico = const Value.absent(),
     this.tipoProductoAgroquimico = const Value.absent(),
+    this.claseProducto = const Value.absent(),
     this.ingredienteActivoProductoAgroquimico = const Value.absent(),
     this.periodoCarenciaProductoAgroquimico = const Value.absent(),
     this.presentacionProductoAgroquimico = const Value.absent(),
   });
   ProductoAgroquimicoCompanion.insert({
-    this.id = const Value.absent(),
+    this.idProductoAgroquimico = const Value.absent(),
     required String nombreProductoAgroquimico,
     required String tipoProductoAgroquimico,
+    required String claseProducto,
     required String ingredienteActivoProductoAgroquimico,
     required int periodoCarenciaProductoAgroquimico,
     required String presentacionProductoAgroquimico,
   })  : nombreProductoAgroquimico = Value(nombreProductoAgroquimico),
         tipoProductoAgroquimico = Value(tipoProductoAgroquimico),
+        claseProducto = Value(claseProducto),
         ingredienteActivoProductoAgroquimico =
             Value(ingredienteActivoProductoAgroquimico),
         periodoCarenciaProductoAgroquimico =
@@ -4392,19 +4411,22 @@ class ProductoAgroquimicoCompanion
         presentacionProductoAgroquimico =
             Value(presentacionProductoAgroquimico);
   static Insertable<ProductoAgroquimicoData> custom({
-    Expression<int>? id,
+    Expression<int>? idProductoAgroquimico,
     Expression<String>? nombreProductoAgroquimico,
     Expression<String>? tipoProductoAgroquimico,
+    Expression<String>? claseProducto,
     Expression<String>? ingredienteActivoProductoAgroquimico,
     Expression<int>? periodoCarenciaProductoAgroquimico,
     Expression<String>? presentacionProductoAgroquimico,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (idProductoAgroquimico != null)
+        'id_producto_agroquimico': idProductoAgroquimico,
       if (nombreProductoAgroquimico != null)
         'nombre_producto_agroquimico': nombreProductoAgroquimico,
       if (tipoProductoAgroquimico != null)
         'tipo_producto_agroquimico': tipoProductoAgroquimico,
+      if (claseProducto != null) 'clase_producto': claseProducto,
       if (ingredienteActivoProductoAgroquimico != null)
         'ingrediente_activo_producto_agroquimico':
             ingredienteActivoProductoAgroquimico,
@@ -4417,18 +4439,21 @@ class ProductoAgroquimicoCompanion
   }
 
   ProductoAgroquimicoCompanion copyWith(
-      {Value<int>? id,
+      {Value<int>? idProductoAgroquimico,
       Value<String>? nombreProductoAgroquimico,
       Value<String>? tipoProductoAgroquimico,
+      Value<String>? claseProducto,
       Value<String>? ingredienteActivoProductoAgroquimico,
       Value<int>? periodoCarenciaProductoAgroquimico,
       Value<String>? presentacionProductoAgroquimico}) {
     return ProductoAgroquimicoCompanion(
-      id: id ?? this.id,
+      idProductoAgroquimico:
+          idProductoAgroquimico ?? this.idProductoAgroquimico,
       nombreProductoAgroquimico:
           nombreProductoAgroquimico ?? this.nombreProductoAgroquimico,
       tipoProductoAgroquimico:
           tipoProductoAgroquimico ?? this.tipoProductoAgroquimico,
+      claseProducto: claseProducto ?? this.claseProducto,
       ingredienteActivoProductoAgroquimico:
           ingredienteActivoProductoAgroquimico ??
               this.ingredienteActivoProductoAgroquimico,
@@ -4442,8 +4467,9 @@ class ProductoAgroquimicoCompanion
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (idProductoAgroquimico.present) {
+      map['id_producto_agroquimico'] =
+          Variable<int>(idProductoAgroquimico.value);
     }
     if (nombreProductoAgroquimico.present) {
       map['nombre_producto_agroquimico'] =
@@ -4452,6 +4478,9 @@ class ProductoAgroquimicoCompanion
     if (tipoProductoAgroquimico.present) {
       map['tipo_producto_agroquimico'] =
           Variable<String>(tipoProductoAgroquimico.value);
+    }
+    if (claseProducto.present) {
+      map['clase_producto'] = Variable<String>(claseProducto.value);
     }
     if (ingredienteActivoProductoAgroquimico.present) {
       map['ingrediente_activo_producto_agroquimico'] =
@@ -4471,9 +4500,10 @@ class ProductoAgroquimicoCompanion
   @override
   String toString() {
     return (StringBuffer('ProductoAgroquimicoCompanion(')
-          ..write('id: $id, ')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
           ..write('nombreProductoAgroquimico: $nombreProductoAgroquimico, ')
           ..write('tipoProductoAgroquimico: $tipoProductoAgroquimico, ')
+          ..write('claseProducto: $claseProducto, ')
           ..write(
               'ingredienteActivoProductoAgroquimico: $ingredienteActivoProductoAgroquimico, ')
           ..write(
@@ -4490,12 +4520,11 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
   final GeneratedDatabase _db;
   final String? _alias;
   $ProductoAgroquimicoTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
-      'id', aliasedName, false,
-      typeName: 'INTEGER',
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+  final VerificationMeta _idProductoAgroquimicoMeta =
+      const VerificationMeta('idProductoAgroquimico');
+  late final GeneratedColumn<int?> idProductoAgroquimico =
+      GeneratedColumn<int?>('id_producto_agroquimico', aliasedName, false,
+          typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _nombreProductoAgroquimicoMeta =
       const VerificationMeta('nombreProductoAgroquimico');
   late final GeneratedColumn<String?> nombreProductoAgroquimico =
@@ -4507,6 +4536,11 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
   late final GeneratedColumn<String?> tipoProductoAgroquimico =
       GeneratedColumn<String?>('tipo_producto_agroquimico', aliasedName, false,
           typeName: 'TEXT', requiredDuringInsert: true);
+  final VerificationMeta _claseProductoMeta =
+      const VerificationMeta('claseProducto');
+  late final GeneratedColumn<String?> claseProducto = GeneratedColumn<String?>(
+      'clase_producto', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _ingredienteActivoProductoAgroquimicoMeta =
       const VerificationMeta('ingredienteActivoProductoAgroquimico');
   late final GeneratedColumn<String?> ingredienteActivoProductoAgroquimico =
@@ -4527,9 +4561,10 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
           typeName: 'TEXT', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
-        id,
+        idProductoAgroquimico,
         nombreProductoAgroquimico,
         tipoProductoAgroquimico,
+        claseProducto,
         ingredienteActivoProductoAgroquimico,
         periodoCarenciaProductoAgroquimico,
         presentacionProductoAgroquimico
@@ -4544,8 +4579,11 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('id_producto_agroquimico')) {
+      context.handle(
+          _idProductoAgroquimicoMeta,
+          idProductoAgroquimico.isAcceptableOrUnknown(
+              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
     }
     if (data.containsKey('nombre_producto_agroquimico')) {
       context.handle(
@@ -4564,6 +4602,14 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
               _tipoProductoAgroquimicoMeta));
     } else if (isInserting) {
       context.missing(_tipoProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('clase_producto')) {
+      context.handle(
+          _claseProductoMeta,
+          claseProducto.isAcceptableOrUnknown(
+              data['clase_producto']!, _claseProductoMeta));
+    } else if (isInserting) {
+      context.missing(_claseProductoMeta);
     }
     if (data.containsKey('ingrediente_activo_producto_agroquimico')) {
       context.handle(
@@ -4596,7 +4642,7 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {idProductoAgroquimico};
   @override
   ProductoAgroquimicoData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
