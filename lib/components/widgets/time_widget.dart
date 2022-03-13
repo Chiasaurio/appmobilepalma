@@ -44,7 +44,7 @@ class _HoraWidgetState extends State<HoraWidget> {
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
           suffixIcon: Icon(Icons.calendar_today),
-          labelText: 'Fecha',
+          labelText: 'Hora',
           labelStyle: TextStyle(fontSize: 18),
           // hintText: campo,
           border: OutlineInputBorder(

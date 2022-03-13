@@ -15,14 +15,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final f = new DateFormat('yyyy-MM-dd');
+  final f = DateFormat('yyyy-MM-dd');
   List<CensoData> censos = [];
   CensoData? censoseleccionado;
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
-  var margin;
+  late double width;
+  late double height;
+  late double altoCard;
+  late double anchoCard;
+  late double margin;
 
   @override
   Widget build(BuildContext context) {
@@ -33,40 +33,40 @@ class _BodyState extends State<Body> {
     margin = anchoCard * 0.04;
 
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
-        child: Column(
-          children: [buildCensosFumigados(), _buildMenu(context)],
+        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [buildCensosFumigados(), _buildMenu(context)],
+          ),
         ));
   }
 
   Widget buildCensosFumigados() {
-    return SizedBox(
-      height: 300,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "Lista de censos fumigados",
-                  style: TextStyle(
-                      color: Colors.black87.withOpacity(0.8),
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 20),
-          LimitedBox(
-            maxHeight: 200.0,
-            child: getCensosFumigados(),
-          ),
-          const Divider(
-            color: Colors.black,
-          ),
-        ],
-      ),
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                "Lista de censos fumigados",
+                style: TextStyle(
+                    color: Colors.black87.withOpacity(0.8),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 20),
+        LimitedBox(
+          maxHeight: 200.0,
+          child: getCensosFumigados(),
+        ),
+        const Divider(
+          color: Colors.black,
+        ),
+      ],
     );
   }
 
@@ -116,17 +116,15 @@ class _BodyState extends State<Body> {
         child: Padding(
           padding: EdgeInsets.fromLTRB(margin, margin, 0.0, margin),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               contenidoCenso(censo),
-              Padding(
-                padding: EdgeInsets.fromLTRB(anchoCard * 0.2, 0.0, 0.0, 0.0),
-                child: TextButton(
-                  onPressed: () {
-                    censoseleccionado = censo;
-                    _opcionesBottomSheet(context);
-                  },
-                  child: const Icon(Icons.more_vert),
-                ),
+              TextButton(
+                onPressed: () {
+                  censoseleccionado = censo;
+                  _opcionesBottomSheet(context);
+                },
+                child: const Icon(Icons.more_vert),
               )
             ],
           ),

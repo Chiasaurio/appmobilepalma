@@ -40,22 +40,20 @@ class _BodyState extends State<Body> {
     return Container(
         margin: EdgeInsets.all(margin),
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Column(children: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Todas palmas registradas',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black87.withOpacity(0.8),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ]),
-              ]),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Todas palmas registradas',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          color: Colors.black87.withOpacity(0.8),
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ]),
               widget.palmas.isNotEmpty
                   ? buildTabla()
                   : const Text('no hay palmas registradas para este lote'),
@@ -63,15 +61,10 @@ class _BodyState extends State<Body> {
   }
 
   Widget buildTabla() {
-    return SizedBox(
-      height: altoCard,
-      child: ListView.builder(
-        itemCount: widget.palmas.length,
-        itemBuilder: (context, index) {
-          return palmaTile(widget.palmas[index]);
-        },
-      ),
-    );
+    return Column(
+        children: widget.palmas.map((e) {
+      return palmaTile(e);
+    }).toList());
   }
 
   Widget palmaTile(Palma palma) {
@@ -100,29 +93,21 @@ class _BodyState extends State<Body> {
                   Text('Estado de palma: '),
                 ],
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(palma.numerolinea.toString()),
-                  Text(palma.numeroenlinea.toString()),
-                  Text(palma.estadopalma),
-                ],
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(palma.numerolinea.toString()),
+                    Text(palma.numeroenlinea.toString()),
+                    Text(palma.estadopalma),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  onSelectedRow(bool selected, Palma palma) {
-    setState(() {
-      if (selected) {
-        palmaseleccionada = palma;
-      } else {
-        palmaseleccionada = null;
-      }
-    });
   }
 }

@@ -31,7 +31,7 @@ class ProductoAgroquimicoDao extends DatabaseAccessor<AppDatabase>
             onConflict: DoUpdate(
               (_) => producto,
               // upsert will happen if it conflicts with columnA and columnB
-              target: [productoAgroquimico.nombreProductoAgroquimico],
+              target: [productoAgroquimico.idProductoAgroquimico],
             ),
           );
         }

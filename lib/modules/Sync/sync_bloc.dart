@@ -1,20 +1,18 @@
-import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/modules/Sync/sync_files/sync_enfermedades.dart';
 import 'package:apppalma/modules/Sync/sync_files/sync_lotes.dart';
 import 'package:apppalma/moor/moor_database.dart';
-import 'package:apppalma/moor/tables/plagas_table.dart';
 import 'package:drift/drift.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'sync_files/sync_agroquimicos.dart';
 import 'sync_files/sync_plagas.dart';
 
 class SyncBloc {
   SyncLotes synclotes = SyncLotes();
   SyncEnfermedades syncenfermedades = SyncEnfermedades();
   SyncPlagas syncplagas = SyncPlagas();
-  // SyncProductosAgroquimicos syncproductos = SyncProductosAgroquimicos();
+  SyncProductosAgroquimicos syncproductos = SyncProductosAgroquimicos();
 
-  Future<List<Insertable<Lote>>> insertarLotes() async {
+  Future<List<Insertable<Lote>>> getLotesRemote() async {
     try {
       List<Insertable<Lote>> datalotes = await synclotes.getLotesRemoteSource();
       return datalotes;
@@ -23,7 +21,7 @@ class SyncBloc {
     }
   }
 
-  Future<Map<String, List>> insertarEnfermedades() async {
+  Future<Map<String, List>> getEnfermedadesConEtapasRemote() async {
     try {
       List<Insertable<Enfermedade>> dataenfermedades =
           await syncenfermedades.getEnfermedadesRemoteSource();
@@ -39,12 +37,23 @@ class SyncBloc {
     }
   }
 
-  Future<Map<String, List>> insertarPlagas() async {
+  Future<Map<String, List>> getPlagasRemote() async {
     try {
       List<Insertable<Plaga>> dataplagas = await syncplagas.getPlagas();
       List<Insertable<EtapasPlagaData>> dataetapas =
           await syncplagas.getEtapasPlagas();
       Map<String, List> map = {"plagas": dataplagas, "etapas": dataetapas};
+      return map;
+    } catch (e) {
+      return {};
+    }
+  }
+
+  Future<Map<String, List>> getAgroquimicosRemote() async {
+    try {
+      List<Insertable<ProductoAgroquimicoData>> dataproductos =
+          await syncproductos.getProductos();
+      Map<String, List> map = {"productos": dataproductos};
       return map;
     } catch (e) {
       return {};

@@ -1,14 +1,13 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:apppalma/env.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as secure;
 import 'package:dio/dio.dart';
 
 class Api {
   static final _storage = secure.FlutterSecureStorage();
-  final _baseUrl = 'http://10.0.2.2:3000/';
-  // final _baseUrl = 'http://192.168.42.173:3000/';
-  final token =
-      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiY2NfdXN1YXJpbyI6IjEwOTg3NjU0MzIiLCJyb2wiOiJhZG1pbiJ9LCJpYXQiOjE2NDMzMzIzOTgsIm5iZiI6MTY0MzMzMjM5OCwiZXhwIjoxNjQzNDE4Nzk4fQ.PABkr9iP_zZd5vAITeXQyt1ZY5Tzoy9f4tmEigogkiPC5rEUUrh8_nRSYGfNR5q8LV-QtDUTJnGRRjHSdatHvMgqJnGUkQxzDmjSq7iQ8SGlPxPoidYRTGgNgCNRd7k1FKBtJDjMl_akmsIGOnFnQnayytMJyMnLBZGLdjjjD54";
+  // final _baseUrl = 'http://10.0.2.2:3000/';
+  final _baseUrl = baseUrl;
   static final Dio _dio = Dio();
   static final Map<String, String> _headers = Map();
   static final Api _instance = Api._();
@@ -24,11 +23,10 @@ class Api {
     _headers[HttpHeaders.contentTypeHeader] = 'application/json';
     _headers[HttpHeaders.acceptHeader] = 'application/json';
     var jwt = await _storage.read(key: 'token');
-    jwt = token;
     final username = await _storage.read(key: 'username');
     final password = await _storage.read(key: 'password');
     // var auth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
-    var auth = 'Bearer $token';
+    var auth = 'Bearer $jwt';
     if (jwt != null) {
       _headers[HttpHeaders.authorizationHeader] = auth;
     }

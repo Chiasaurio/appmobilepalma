@@ -39,8 +39,8 @@ class _PlagaFormState extends State<PlagaForm> {
   late double margin;
   bool? presencialote;
   bool? presenciasector;
-  int? linealimite1;
-  int? linealimite2;
+  String? linealimite1;
+  String? linealimite2;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -310,10 +310,10 @@ class _PlagaFormState extends State<PlagaForm> {
   }
 
   Widget _buildTipo() {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Radio<String>(
               value: 'lote',
@@ -323,8 +323,8 @@ class _PlagaFormState extends State<PlagaForm> {
                   presencialote = true;
                   presenciasector = false;
                   ubicacionfoco = valor;
-                  linealimite1 = 0;
-                  linealimite2 = 0;
+                  linealimite1 = "0";
+                  linealimite2 = "0";
                 });
               },
             ),
@@ -332,9 +332,7 @@ class _PlagaFormState extends State<PlagaForm> {
                 style: TextStyle(fontSize: 20.0, color: Colors.black)),
           ],
         ),
-        const SizedBox(width: 10.0),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Radio<String>(
               value: 'sector',
@@ -413,9 +411,9 @@ class _PlagaFormState extends State<PlagaForm> {
       },
       onChanged: (String value) {
         if (campo == 'Desde linea') {
-          linealimite1 = int.parse(value);
+          linealimite1 = value;
         } else {
-          linealimite2 = int.parse(value);
+          linealimite2 = value;
         }
       },
     );
@@ -562,14 +560,14 @@ class _PlagaFormState extends State<PlagaForm> {
           fechacenso,
           presencialote!,
           presenciasector!,
-          linealimite1!,
-          linealimite2!,
+          int.parse(linealimite1!),
+          int.parse(linealimite2!),
           observacion,
           plagaconetapas!.plaga.nombreComunPlaga,
           widget.nombreLote,
           etapasseleccionadas);
-      // Navigator.of(context).pop();
-      // Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
     } catch (e) {
       registroFallidoToast('pailas');
     }

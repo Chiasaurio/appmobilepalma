@@ -29,7 +29,7 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
   String? observaciones;
   bool advertenciaetapa = false;
   late Palma palma;
-  DateTime _fechaRegistro = DateTime.now();
+  late DateTime _fechaRegistro;
   TimeOfDay _horaRegistro = TimeOfDay.now();
   late double width;
   late double height;
@@ -42,6 +42,13 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
   late int numeroenlinea;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    _fechaRegistro = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, _horaRegistro.hour, _horaRegistro.minute);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -290,8 +297,8 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
         children: <Widget>[
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(10),
-              child: Text('Seleccione la etapa:',
+              margin: const EdgeInsets.all(10),
+              child: const Text('Seleccione la etapa:',
                   style: TextStyle(fontSize: 16.0, color: Colors.grey)),
             ),
           ),

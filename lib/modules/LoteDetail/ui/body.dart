@@ -11,10 +11,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  // final podaBloc = new PodasBloc();
-  // final plateoBloc = new PlateosBloc();
-  // final cosechaBloc = new CosechasBloc();
-
   late double width;
   late double height;
   late double altoCard;
@@ -23,10 +19,6 @@ class _BodyState extends State<Body> {
   String nombrelote = '';
   @override
   Widget build(BuildContext context) {
-    // cosechaBloc.obtenerCosechaActiva(nombrelote);
-    // podaBloc.obtenerPodaActiva(nombrelote);
-    // plateoBloc.obtenerPlateoActivo(nombrelote);
-
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
@@ -63,7 +55,7 @@ class _BodyState extends State<Body> {
               "Gestión productiva",
               style: TextStyle(
                   color: Colors.black87.withOpacity(0.8),
-                  fontSize: 35,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
           )
@@ -82,7 +74,7 @@ class _BodyState extends State<Body> {
               "Gestión fitosanitaria",
               style: TextStyle(
                   color: Colors.black87.withOpacity(0.8),
-                  fontSize: 35,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
           )
@@ -92,7 +84,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget _buildMenu(context) {
-    return Container(
+    return SizedBox(
         width: width * 0.6,
         child: Table(
           children: [
@@ -118,7 +110,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget _buildMenu2(context) {
-    return Container(
+    return SizedBox(
       width: width * 0.8,
       child: Table(
         children: [
@@ -154,7 +146,7 @@ class _BodyState extends State<Body> {
           margin: EdgeInsets.all(margin * 0.5),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              borderRadius: new BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(10.0),
               color: Colors.white,
               border: Border.all(
                 color: Colors.green, //                   <--- border color
@@ -164,22 +156,19 @@ class _BodyState extends State<Body> {
                 BoxShadow(
                     color: Colors.grey[200]!,
                     blurRadius: 5,
-                    offset: Offset(0, 7))
+                    offset: const Offset(0, 7))
               ]),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 1.0),
-                //   child: Icon( icon, color: Colors.black,),
-                // ),
-                Text(
-                  opcion,
-                  style: TextStyle(fontSize: 16),
+                Flexible(
+                  child: Text(
+                    opcion,
+                    style: const TextStyle(fontSize: 14),
+                  ),
                 ),
               ])),
       onTap: () {
-        print(nombrelote);
         Navigator.pushNamed(context, ruta, arguments: nombrelote);
       },
     );
@@ -190,7 +179,7 @@ class _BodyState extends State<Body> {
     return GestureDetector(
       child: Container(
           height: height * 0.09,
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               color: Colors.blue[100],
@@ -199,7 +188,7 @@ class _BodyState extends State<Body> {
                 BoxShadow(
                     color: Colors.grey[200]!,
                     blurRadius: 5,
-                    offset: Offset(0, 7))
+                    offset: const Offset(0, 7))
               ]),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

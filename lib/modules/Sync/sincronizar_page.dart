@@ -2,6 +2,7 @@ import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
 import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/components/appbar.dart';
 import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
+import 'package:apppalma/modules/Productos_Agroquimicos/cubit/agroquimicos_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -134,19 +135,25 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
     setState(() {
       msg = 'Agregando lotes';
     });
-    final lotes = await syncBloc.insertarLotes();
+    final lotes = await syncBloc.getLotesRemote();
     BlocProvider.of<LoteslistCubit>(context).addLotesFromServerToLocal(lotes);
     setState(() {
       msg = 'Agregando enfermedades';
     });
-    final map = await syncBloc.insertarEnfermedades();
+    final enfermedades = await syncBloc.getEnfermedadesConEtapasRemote();
     BlocProvider.of<EnfermedadCubit>(context)
-        .addEnfermedadyEtapasFromServerToLocal(map);
+        .addEnfermedadyEtapasFromServerToLocal(enfermedades);
     setState(() {
       msg = 'Agregando plagas';
     });
-    final plagas = await syncBloc.insertarPlagas();
+    final plagas = await syncBloc.getPlagasRemote();
     BlocProvider.of<PlagasCubit>(context)
         .addPlagayEtapasFromServerToLocal(plagas);
+    setState(() {
+      msg = 'Agregando agroquimicos';
+    });
+    final agroquimicos = await syncBloc.getAgroquimicosRemote();
+    BlocProvider.of<AgroquimicosCubit>(context)
+        .addProductosFromServerToLocal(agroquimicos);
   }
 }

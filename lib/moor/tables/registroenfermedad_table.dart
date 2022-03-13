@@ -20,10 +20,14 @@ class RegistroEnfermedad extends Table {
 
 class PalmaConEnfermedad {
   final Palma palma;
-  final RegistroEnfermedadData enfermedad;
+  final RegistroEnfermedadData registroEnfermedad;
+  final Enfermedade enfermedad;
+  final Etapa? etapa;
 
   PalmaConEnfermedad({
     required this.palma,
+    required this.registroEnfermedad,
     required this.enfermedad,
+    this.etapa,
   });
 }
