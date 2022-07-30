@@ -10,3 +10,13 @@ class CensosListLoaded extends CensosState {
 
   CensosListLoaded({required this.censos});
 }
+
+class CensoPendienteEscogido extends CensosState {
+  final CensoData censo;
+
+  CensoPendienteEscogido({required this.censo});
+  @override
+  List<Object> get props => [
+        censo,
+      ];
+}

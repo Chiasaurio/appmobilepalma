@@ -40,14 +40,17 @@ class _AplicacionesPageState extends State<AplicacionesPage> {
       children: [
         TableRow(
           children: [
-            _crearBotonRedondeado('Registrar tratamiento',
-                '/lote/aplicaciones/palmasenfermas', Icons.art_track, context),
+            _crearBotonRedondeado('Registrar plaga',
+                '/lote/censo/registrarplaga', Icons.art_track, context),
           ],
         ),
         TableRow(
           children: [
-            _crearBotonRedondeado('Registrar fumigación',
-                '/lote/aplicaciones/fumigacion', Icons.art_track, context),
+            _crearBotonRedondeado(
+                'Registrar fumigación',
+                '/lote/aplicaciones/censospendientes',
+                Icons.art_track,
+                context),
           ],
         ),
       ],

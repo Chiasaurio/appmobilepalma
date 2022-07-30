@@ -18,7 +18,7 @@ class CensoPage extends StatefulWidget {
 class _CensoPageState extends State<CensoPage> {
   @override
   void initState() {
-    BlocProvider.of<CensosCubit>(context).obtenerCensosFumigados();
+    // BlocProvider.of<CensosCubit>(context).obtenerCensosFumigados();
     super.initState();
   }
 

@@ -28,9 +28,7 @@ class TratamientoCubit extends Cubit<TratamientoState> {
 
   Future<void> obtenerProductos(PalmaConEnfermedad palma) async {
     final ProductoAgroquimicoDao productosDao = db.productoAgroquimicoDao;
-
     List<ProductoAgroquimicoData> productos = await productosDao.getProductos();
-
     emit(PalmaEnfermaEscogida(palmaEnferma: palma, productos: productos));
   }
 

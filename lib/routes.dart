@@ -4,6 +4,7 @@ import 'package:apppalma/modules/Cosechas/ui/cosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
 import 'package:apppalma/modules/Enfermedad/enfermedad_page.dart';
+import 'package:apppalma/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
 import 'package:apppalma/modules/Home/home_screen.dart';
 import 'package:apppalma/modules/Login/ui/login_page.dart';
 import 'package:apppalma/modules/LoteDetail/ui/lote_page.dart';
@@ -16,9 +17,11 @@ import 'package:apppalma/modules/Plateos/ui/registro_plateos_diarios/registro_pl
 import 'package:apppalma/modules/Podas/ui/poda_page.dart';
 import 'package:apppalma/modules/Podas/ui/registro_podas_diarias/registro_podas_diarias.dart';
 import 'package:apppalma/modules/Sync/sincronizar_page.dart';
+import 'package:apppalma/modules/Viajes/ui/screens/viajes_page.dart';
 import 'package:flutter/material.dart';
 
 import '/modules/Palma/palmas_page.dart';
+import 'modules/Fumigaciones/ui/fumigacion/registrar_fumigacion_page.dart';
 import 'modules/Podas/ui/finalizar_plateo/finalizarpoda_page.dart';
 import 'modules/Splash/splash_screen.dart';
 import 'modules/Tratamientos/ui/palmas_enfermas/palmas_enfermas_page.dart';
@@ -33,6 +36,11 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/finca':
         return MaterialPageRoute(builder: (_) => FincaPage());
+      case '/viajes':
+        return MaterialPageRoute(
+            builder: (_) => ViajesPage(
+                  routeName: settings.name!,
+                ));
       case '/lotes':
         return MaterialPageRoute(builder: (_) => EscogerLotePage());
       case '/sincronizar':
@@ -98,6 +106,14 @@ class Routes {
       case '/lote/aplicaciones/palmasenfermas':
         return MaterialPageRoute(
           builder: (_) => PalmasEnfermasPage(routeName: settings.name!),
+        );
+      case '/lote/aplicaciones/censospendientes':
+        return MaterialPageRoute(
+          builder: (_) => CensosPendientesPage(routeName: settings.name!),
+        );
+      case '/lote/plagas/registrarfumigacion':
+        return MaterialPageRoute(
+          builder: (_) => RegistrarFumigacionPage(routeName: settings.name!),
         );
       // case 'lote/censo/plaga':
       //   return MaterialPageRoute(
