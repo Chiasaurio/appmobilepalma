@@ -1,4 +1,4 @@
-import 'package:apppalma/components/custom_appbar.dart';
+import 'package:apppalma/components/secondary_button.dart';
 import 'package:apppalma/components/toasts/toasts.dart';
 import 'package:apppalma/components/widgets/fecha.dart';
 import 'package:apppalma/modules/Tratamientos/cubit/tratamiento_cubit.dart';
@@ -334,16 +334,16 @@ class _TratamientoFormState extends State<TratamientoForm> {
     return ButtonTheme(
         height: 50,
         minWidth: 200,
-        child: RaisedButton(
+        child: SecondaryButton(
           // shape: RoundedRectangleBorder(
           //   borderRadius: BorderRadius.circular(30)
           // ),
-          child: Text(
-            'Registrar tratamiento',
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          color: Colors.blue[100],
-          onPressed: () {
+          // child: const Text(
+          text: 'Registrar tratamiento',
+          //   style: TextStyle(color: Colors.black, fontSize: 16),
+          // ),
+          // color: Colors.blue[100],
+          press: () {
             _submitTratamiento(context);
           },
         ));

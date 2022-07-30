@@ -36,153 +36,9 @@ class _BodyState extends State<Body> {
         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
         child: SingleChildScrollView(
           child: Column(
-            children: [buildCensosFumigados(), _buildMenu(context)],
+            children: [_buildMenu(context)],
           ),
         ));
-  }
-
-  Widget buildCensosFumigados() {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                "Lista de censos fumigados",
-                style: TextStyle(
-                    color: Colors.black87.withOpacity(0.8),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600),
-              ),
-            )
-          ],
-        ),
-        const SizedBox(height: 20),
-        LimitedBox(
-          maxHeight: 200.0,
-          child: getCensosFumigados(),
-        ),
-        const Divider(
-          color: Colors.black,
-        ),
-      ],
-    );
-  }
-
-  Widget getCensosFumigados() {
-    return BlocBuilder<CensosCubit, CensosState>(
-      builder: (context, state) {
-        if (state is CensosListLoaded) {
-          if (state.censos.isNotEmpty) {
-            censos = state.censos;
-            return dataBody(context);
-          } else {
-            return Text(
-              'No hay censos fumigados',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  color: Colors.black87.withOpacity(1),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600),
-            );
-          }
-          // return Text('hola');
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
-
-    // return cosecha != null? CosechaActivaVista( cosecha: cosecha ) : NuevaCosechaPage(  nombrelote: nombrelote );
-  }
-
-  ListView dataBody(BuildContext context) {
-    return ListView.builder(
-        // padding: const EdgeInsets.all(8),
-        itemCount: censos.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeListaCensos(censos[index]);
-        });
-  }
-  // value: censoseleccionado != null? censoseleccionado.id == censo.id? true : false : false,
-
-  Widget makeListaCensos(CensoData censo) {
-    return Card(
-        elevation: 2.0,
-        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(margin, margin, 0.0, margin),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              contenidoCenso(censo),
-              TextButton(
-                onPressed: () {
-                  censoseleccionado = censo;
-                  _opcionesBottomSheet(context);
-                },
-                child: const Icon(Icons.more_vert),
-              )
-            ],
-          ),
-        ));
-  }
-
-  Widget contenidoCenso(CensoData censo) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            const Text('Fecha registro:',
-                style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-            Text(
-              f.format(censo.fechaCenso),
-              style: const TextStyle(color: Colors.black, fontSize: 18),
-              textAlign: TextAlign.start,
-            ),
-          ],
-        ),
-        SizedBox(height: margin * 0.5),
-        Row(
-          children: <Widget>[
-            const Text('Plaga:',
-                style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-            Text(
-              ' ${censo.nombrePlaga}',
-              style: const TextStyle(color: Colors.black, fontSize: 18),
-              textAlign: TextAlign.start,
-            ),
-          ],
-        ),
-        SizedBox(height: margin * 0.5),
-        Row(
-          children: <Widget>[
-            const Text('Sector',
-                style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-            Text(
-              ' ${censo.lineaLimite1} - ${censo.lineaLimite2}',
-              style: const TextStyle(color: Colors.black, fontSize: 18),
-              textAlign: TextAlign.start,
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            const Text('Estado',
-                style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-            Text(
-              ' ${censo.estadoPlaga}',
-              style: const TextStyle(color: Colors.orange, fontSize: 18),
-              textAlign: TextAlign.start,
-            ),
-          ],
-        ),
-      ],
-    );
   }
 
   void _opcionesBottomSheet(context) {
@@ -258,10 +114,11 @@ class _BodyState extends State<Body> {
         ),
         TableRow(
           children: [
-            _crearBotonRedondeado('Registrar plaga',
-                '/lote/censo/registrarplaga', Icons.art_track, context),
+            _crearBotonRedondeado('Registrar tratamiento',
+                '/lote/aplicaciones/palmasenfermas', Icons.art_track, context),
           ],
         ),
+
         // TableRow(
         //   children:[
         //     _crearBotonRedondeado('Registrar hongo','censo/registrarhongo', Icons.art_track, context),

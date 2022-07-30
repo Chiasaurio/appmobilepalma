@@ -12,11 +12,21 @@ class FumigacionDao extends DatabaseAccessor<AppDatabase>
   FumigacionDao(this.db) : super(db);
 
   Future insertarAplicacion(
-      Insertable<Aplicacione> aplicacion, CensoData censo) {
-    return transaction(() async {
-      await into(aplicaciones).insert(aplicacion);
-      await updateCenso(censo.copyWith(estadoPlaga: 'fumigado'));
-    });
+      Insertable<Aplicacione> aplicacion, CensoData censo) async {
+    try {
+      return transaction(() async {
+        await into(aplicaciones).insert(aplicacion);
+        await updateCenso(censo.copyWith(estadoPlaga: 'fumigado'));
+      });
+    } catch (e) {
+      print('$e');
+    }
+  }
+
+  Future<List<Aplicacione>> obtenerTodasAplicaciones() {
+    return (select(aplicaciones)
+          ..orderBy([(t) => OrderingTerm(expression: t.fechaAplicacion)]))
+        .get();
   }
 
   Future updateCenso(Insertable<CensoData> censoobjeto) =>
