@@ -5,11 +5,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart' as secure;
 import 'package:dio/dio.dart';
 
 class Api {
-  static final _storage = secure.FlutterSecureStorage();
-  // final _baseUrl = 'http://10.0.2.2:3000/';
+  final _storage = const secure.FlutterSecureStorage();
   final _baseUrl = baseUrl;
   static final Dio _dio = Dio();
-  static final Map<String, String> _headers = Map();
+  final Map<String, String> _headers = {};
   static final Api _instance = Api._();
 
   /// Constructor privado de la Api
@@ -47,22 +46,6 @@ class Api {
       await setHeaders();
       Map<String, dynamic> resp = new Map();
       print('$_baseUrl$path');
-      final response = await _dio.get('$_baseUrl$path',
-          options: Options(headers: _headers, responseType: ResponseType.json));
-      resp['data'] = response.data;
-      return resp;
-    } on DioError catch (e) {
-      return {'success': false};
-    }
-  }
-
-  //second get without contentTypeHeader
-  Future<Map<String, dynamic>> getModified(String path) async {
-    try {
-      await setHeaders();
-      Map<String, dynamic> resp = new Map();
-      print('$_baseUrl$path');
-      _headers.remove(HttpHeaders.contentTypeHeader);
       final response = await _dio.get('$_baseUrl$path',
           options: Options(headers: _headers, responseType: ResponseType.json));
       resp['data'] = response.data;

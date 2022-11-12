@@ -22,28 +22,14 @@ class PodaDao extends DatabaseAccessor<AppDatabase> with _$PodaDaoMixin {
   Future deletePoda(Insertable<Poda> poda) => delete(podas).delete(poda);
 
   Future<List<PodaDiariaData>> getPodasDiarias(int id) {
-    return (select(podaDiaria)
-          ..where((c) => c.idPoda.equals(id))
-          ..orderBy(
-            ([
-              (t) => OrderingTerm(expression: t.idPoda, mode: OrderingMode.asc),
-            ]),
-          ))
-        .get();
+    return (select(podaDiaria)..where((c) => c.idPoda.equals(id))).get();
   }
 
   Future insertPodaDiaria(Insertable<PodaDiariaData> podadiaria) =>
       into(podaDiaria).insert(podadiaria);
 
   Future<List<Poda>> getPodasFinalizadas() {
-    return (select(podas)
-          ..orderBy([
-            (t) => OrderingTerm(
-                expression: t.fechaSalida, mode: OrderingMode.desc),
-            (t) => OrderingTerm(expression: t.nombreLote)
-          ])
-          ..where((tbl) => tbl.completada.equals(true)))
-        .get();
+    return (select(podas)..where((tbl) => tbl.completada.equals(true))).get();
   }
 }
 

@@ -13,6 +13,7 @@ class LoteslistCubit extends Cubit<LoteslistState> {
   final db = getIt<AppDatabase>();
 
   Future<void> obtenerTodosLotesWithProcesos() async {
+    emit(LoteslistInitial());
     final LoteDao loteDao = db.loteDao;
     List<LoteWithProcesos> lotes = await loteDao.getLotesWithProcesos();
     emit(LotesListLoaded(lotes: lotes));

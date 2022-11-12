@@ -1,8 +1,11 @@
 import 'package:apppalma/components/main_button.dart';
 import 'package:apppalma/components/widgets/fecha.dart';
 import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
+import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
 
 class NuevaPodaPage extends StatefulWidget {
   final String nombrelote;
@@ -93,5 +96,6 @@ class _NuevaPodaPageState extends State<NuevaPodaPage> {
   void _submit() {
     BlocProvider.of<PodasCubit>(context)
         .comenzarNuevaPoda(widget.nombrelote, fecha);
+    recargarLote(context);
   }
 }

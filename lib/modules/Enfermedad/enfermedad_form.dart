@@ -383,7 +383,7 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Expanded(child: Text('Etapa: ')),
+                          const Expanded(child: Text('Etapa: ')),
                           Expanded(
                             child: Text(
                               etapa!.nombreEtapa,
@@ -401,7 +401,7 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
                     Expanded(
                       child: Text(
                         observaciones ?? 'no hay observaciones',
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.bold),
@@ -413,11 +413,11 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Expanded(child: Text('Linea palma: ')),
+                    const Expanded(child: Text('Linea palma: ')),
                     Expanded(
                       child: Text(
                         numerolinea.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.bold),

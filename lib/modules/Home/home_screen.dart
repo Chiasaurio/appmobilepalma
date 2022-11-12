@@ -1,3 +1,5 @@
+import 'package:apppalma/modules/Home/components/header_curvo_widget.dart';
+import 'package:apppalma/modules/Home/painter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
@@ -28,12 +30,9 @@ class FincaPage extends StatelessWidget {
     // loteBloc.obtenerTodosLotesWithProcesos();
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(''),
-      // ),
       body: Stack(
         children: <Widget>[
-          _fondoApp(),
+          const HeaderCurvo(),
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -43,6 +42,7 @@ class FincaPage extends StatelessWidget {
               ],
             ),
           ),
+          // ),
         ],
       ),
     );
@@ -50,17 +50,16 @@ class FincaPage extends StatelessWidget {
 
   Widget _fondoApp() {
     final gradiente = Container(
-      width: double.infinity,
-      height: double.infinity,
-      // decoration: BoxDecoration(
-      //     gradient: LinearGradient(
-      //         begin: FractionalOffset(0.0, 0.6),
-      //         end: FractionalOffset(0.0, 12.0),
-      //         colors: [
-      //       Color.fromRGBO(52, 54, 101, 1.0),
-      //       Color.fromRGBO(35, 37, 57, 1.0)
-      //     ])),
-    );
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: FractionalOffset(0.0, 0.6),
+                end: FractionalOffset(0.0, 12.0),
+                colors: [
+              Color.fromRGBO(52, 54, 101, 1.0),
+              Color.fromRGBO(35, 37, 57, 1.0),
+            ])));
 
     final cajaRosa = Transform.rotate(
         angle: -5 * pi / 6.0,
@@ -68,10 +67,13 @@ class FincaPage extends StatelessWidget {
           height: altoCard * 2,
           width: altoCard,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(150),
-            // gradient: LinearGradient(
-            //     colors: [Color(0xFF2D6A4F), Color(0xFF2D6A4F)])
-          ),
+              image: const DecorationImage(
+                image: NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN4HJhnJo07reTM0Lta1HoTollHloqsqRUVw&usqp=CAU'),
+              ),
+              borderRadius: BorderRadius.circular(150),
+              gradient: LinearGradient(
+                  colors: [Color(0xFF2D6A4F), Color(0xFF2D6A4F)])),
         ));
 
     return Stack(
@@ -88,7 +90,7 @@ class FincaPage extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(margin, 0.0, margin, margin),
       child: Column(
         children: <Widget>[
-          Row(children: <Widget>[
+          Row(children: const <Widget>[
             Expanded(
               child: Text(
                 'Finca \nCampoalegre',
@@ -99,7 +101,7 @@ class FincaPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.fromLTRB(anchoCard * 0.3, margin, 0.0, 0.0),
             child: Text(DateFormat('yMMMMEEEEd', 'es').format(fecha),
-                style: TextStyle(color: Colors.white, fontSize: 15)),
+                style: const TextStyle(color: Colors.white, fontSize: 15)),
           )
         ],
       ),
@@ -122,7 +124,7 @@ class FincaPage extends StatelessWidget {
               TableRow(
                 children: [
                   _crearBotonRedondeado2(
-                      'Viajes de fruto', 'viajes', Icons.art_track, context),
+                      'Viajes de fruto', '/viajes', Icons.art_track, context),
                 ],
               ),
               // TableRow(
@@ -131,6 +133,12 @@ class FincaPage extends StatelessWidget {
               //         Icons.art_track, context),
               //   ],
               // ),
+              TableRow(
+                children: [
+                  _crearBotonRedondeado2('Registrar precipitacion', '/viajes',
+                      Icons.art_track, context),
+                ],
+              ),
               TableRow(
                 children: [
                   _crearBotonRedondeado2(

@@ -49,26 +49,25 @@ class _FechaWidgetState extends State<FechaWidget> {
 
   Widget _buildFecha(BuildContext context) {
     return TextFormField(
-      readOnly: true,
-      style: const TextStyle(fontSize: 20),
-      textAlign: TextAlign.start,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-        suffixIcon: Icon(Icons.calendar_today),
-        labelText: 'Fecha',
-        labelStyle: TextStyle(fontSize: 18),
-        // hintText: campo,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-      ),
-      enableInteractiveSelection: false,
-      controller: _inputFieldDateController,
-      validator: (value) => value == null ? 'Este campo es requerido' : null,
-      // onTap: () {
-      //   FocusScope.of(context).requestFocus(FocusNode());
-      //   _selectDate(context);
-      // }
-    );
+        readOnly: true,
+        style: const TextStyle(fontSize: 20),
+        textAlign: TextAlign.start,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(
+          suffixIcon: Icon(Icons.calendar_today),
+          labelText: 'Fecha',
+          labelStyle: TextStyle(fontSize: 18),
+          // hintText: campo,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+        ),
+        enableInteractiveSelection: false,
+        controller: _inputFieldDateController,
+        validator: (value) => value == null ? 'Este campo es requerido' : null,
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+          _selectDate(context);
+        });
   }
 
   _selectDate(BuildContext context) async {

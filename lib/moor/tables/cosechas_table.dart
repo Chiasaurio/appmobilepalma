@@ -9,7 +9,7 @@ class Cosechas extends Table {
   IntColumn get cantidadRacimos => integer()();
   IntColumn get kilos => integer()();
   IntColumn get idViaje => integer().nullable()();
-  BoolColumn get completada => boolean().withDefault(Constant(false))();
+  BoolColumn get completada => boolean().withDefault(const Constant(false))();
 }
 
 class CosechaDiaria extends Table {

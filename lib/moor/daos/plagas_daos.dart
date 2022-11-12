@@ -17,11 +17,7 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
   PlagasDao(AppDatabase db) : super(db);
 
   Future<List<PlagaConEtapas>> obtenerPlagaConEtapas() async {
-    final rows = (select(plagas)
-          ..orderBy([
-            (t) => OrderingTerm(
-                expression: t.nombreComunPlaga, mode: OrderingMode.asc),
-          ]))
+    final rows = (select(plagas))
         .join(
           [
             leftOuterJoin(etapasPlaga,
@@ -52,31 +48,34 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
       List<Insertable<EtapasPlagaData>> listaetapas) async {
     try {
       await batch((b) {
-        for (final plaga in listaplagas) {
-          b.insert(
-            plagas,
-            plaga,
-            onConflict: DoUpdate(
-              (_) => plaga,
-              // upsert will happen if it conflicts with columnA and columnB
-              target: [plagas.nombreComunPlaga],
-            ),
-          );
-        }
+        b.insertAllOnConflictUpdate(plagas, listaplagas);
+
+        // for (final plaga in listaplagas) {
+        //   b.insert(
+        //     plagas,s
+        //     plaga,
+        //     onConflict: DoUpdate(
+        //       (_) => plaga,
+        //       // upsert will happen if it conflicts with columnA and columnB
+        //       target: [plagas.nombreComunPlaga],
+        //     ),
+        //   );
+        // }
       });
       await batch((b) {
-        for (final etapa in listaetapas) {
-          b.insert(
-            etapasPlaga,
-            etapa,
-            onConflict: DoUpdate(
-              (_) => etapa,
-              // upsert will happen if it conflicts with columnA and columnB
-              target: [etapasPlaga.nombrePlaga, etapasPlaga.nombreEtapa],
-            ),
-          );
-          // mode: InsertMode.insertOrReplace);
-        }
+        b.insertAllOnConflictUpdate(etapasPlaga, listaetapas);
+        // for (final etapa in listaetapas) {
+        //   b.insert(
+        //     etapasPlaga,
+        //     etapa,
+        //     onConflict: DoUpdate(
+        //       (_) => etapa,
+        //       // upsert will happen if it conflicts with columnA and columnB
+        //       target: [etapasPlaga.nombrePlaga, etapasPlaga.nombreEtapa],
+        //     ),
+        //   );
+        //   // mode: InsertMode.insertOrReplace);
+        // }
       });
     } catch (e) {
       print(e);
@@ -94,30 +93,16 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
   }
 
   Future<List<CensoData>> obtenerTodosCensos() {
-    return (select(censo)
-          ..orderBy([(t) => OrderingTerm(expression: t.fechaCenso)]))
-        .get();
+    return (select(censo)).get();
   }
 
   Future<List<CensoData>> getCensosPendientes() {
-    return (select(censo)
-          ..orderBy([
-            (t) =>
-                OrderingTerm(expression: t.fechaCenso, mode: OrderingMode.desc),
-            (t) => OrderingTerm(expression: t.nombreLote)
-          ])
-          ..where((tbl) => tbl.estadoPlaga.equals('pendiente')))
+    return (select(censo)..where((tbl) => tbl.estadoPlaga.equals('pendiente')))
         .get();
   }
 
   Future<List<CensoData>> getCensosFumigados() {
-    return (select(censo)
-          ..orderBy([
-            (t) =>
-                OrderingTerm(expression: t.fechaCenso, mode: OrderingMode.desc),
-            (t) => OrderingTerm(expression: t.nombreLote)
-          ])
-          ..where((tbl) => tbl.estadoPlaga.equals('fumigado')))
+    return (select(censo)..where((tbl) => tbl.estadoPlaga.equals('fumigado')))
         .get();
   }
 

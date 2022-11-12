@@ -6,7 +6,7 @@ class Viajes extends Table {
   DateTimeColumn get horaSalida => dateTime().nullable()();
   IntColumn get cantidadRacimos => integer()();
   IntColumn get kilos => integer().nullable()();
-  IntColumn get kilosExtractora => integer().nullable()();
+  RealColumn get kilosExtractora => real().nullable()();
   BoolColumn get completado => boolean().withDefault(Constant(false))();
   // @override
   // Set<Column> get primaryKey => {id, nombreLote};

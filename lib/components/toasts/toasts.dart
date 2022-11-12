@@ -15,6 +15,7 @@ void registroExitosoToast() {
 void successMessageToast(String msg) {
   Fluttertoast.showToast(
     msg: msg,
+    gravity: ToastGravity.BOTTOM,
     toastLength: Toast.LENGTH_LONG,
     webBgColor: "#e74c3c",
     backgroundColor: Colors.green,
@@ -25,6 +26,7 @@ void successMessageToast(String msg) {
 void registroFallidoToast(String msg) {
   Fluttertoast.showToast(
     msg: msg,
+    gravity: ToastGravity.BOTTOM,
     toastLength: Toast.LENGTH_LONG,
     webBgColor: "#e74c3c",
     backgroundColor: Colors.red,

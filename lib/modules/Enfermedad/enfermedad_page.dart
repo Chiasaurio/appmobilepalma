@@ -23,7 +23,7 @@ class _EnfermedadPageState extends State<EnfermedadPage>
         .obtenerTodasEnfermedadesConEtapas();
     final state = BlocProvider.of<LoteDetailCubit>(context).state;
     if (state is LoteChoosed) {
-      nombreLote = state.lote.nombreLote;
+      nombreLote = state.lote.lote.nombreLote;
     }
     super.initState();
   }

@@ -63,7 +63,7 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
   finalizarPlateo(Plateo plateo, DateTime fechasalida) {
     final PlateoDao plateoDao = db.plateoDao;
     plateoDao.updatePlateo(
-        plateo.copyWith(fechaSalida: fechasalida, completado: true));
+        plateo.copyWith(fechaSalida: Value(fechasalida), completado: true));
     obtenerPlateoActivo(plateo.nombreLote);
     // successMessageToast('El plateo se finalizo correctamente');
   }

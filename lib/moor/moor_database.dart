@@ -23,11 +23,12 @@ import 'package:apppalma/moor/tables/podas_table.dart';
 import 'package:apppalma/moor/tables/productoagroquimico_table.dart';
 import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
 import 'package:apppalma/moor/tables/registrotratamiento_table.dart';
-import 'package:apppalma/moor/tables/viajes_moor.dart';
+import 'package:apppalma/moor/tables/viajes_table.dart';
 import 'daos/palma_daos.dart';
 import 'daos/plateos_dao.dart';
 import 'daos/podas_dao.dart';
 import 'daos/producto_dao.dart';
+import 'daos/viajes_dao.dart';
 
 part 'moor_database.g.dart';
 
@@ -72,7 +73,8 @@ LazyDatabase _openConnection() {
   PlagasDao,
   PodaDao,
   PlateoDao,
-  ProductoAgroquimicoDao
+  ProductoAgroquimicoDao,
+  ViajesDao
 ])
 class AppDatabase extends _$AppDatabase {
   // we tell the database where to store the data with this constructor

@@ -2,10 +2,9 @@ import 'package:apppalma/components/toasts/toasts.dart';
 import 'package:apppalma/moor/daos/cosecha_daos.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
-import 'package:bloc/bloc.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
 
@@ -15,9 +14,11 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
   CosechaCubit() : super(const CosechaStateLoaded());
   final db = getIt<AppDatabase>();
 
-  obtenerCosechasFinalizadas() async {
+  Future<List<Cosecha>> obtenerCosechasFinalizadas() async {
     final CosechaDao cosechaDao = db.cosechaDao;
     List<Cosecha> cosechas = await cosechaDao.getCosechasFinalizadas();
+    cosechas.removeWhere((element) => element.idViaje != null);
+    return cosechas;
     // emit()
   }
 
@@ -76,8 +77,8 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
   finalizarCosecha(Cosecha cosecha, DateTime fechasalida) {
     final CosechaDao cosechaDao = db.cosechaDao;
     cosechaDao.updateCosecha(
-        cosecha.copyWith(fechaSalida: fechasalida, completada: true));
+        cosecha.copyWith(fechaSalida: Value(fechasalida), completada: true));
     obtenerCosechaActiva(cosecha.nombreLote);
-    // successMessageToast('La cosecha se finalizo correctamente');
+    successMessageToast('La cosecha se finalizo correctamente');
   }
 }

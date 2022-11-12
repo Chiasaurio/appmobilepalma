@@ -10,9 +10,7 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
   EnfermedadesDao(AppDatabase db) : super(db);
 
   Future<List<Enfermedade>> getEnfermedades() {
-    return (select(enfermedades)
-          ..orderBy([(t) => OrderingTerm(expression: t.nombreEnfermedad)]))
-        .get();
+    return (select(enfermedades)).get();
   }
 
   Future insertEnfermedad(Insertable<Enfermedade> enfermedad) =>
@@ -34,30 +32,32 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
       List<Insertable<Etapa>> listaetapas) async {
     try {
       await batch((b) {
-        for (final enfermedad in listaenfermedades) {
-          b.insert(
-            enfermedades,
-            enfermedad,
-            onConflict: DoUpdate(
-              (_) => enfermedad,
-              // upsert will happen if it conflicts with columnA and columnB
-              target: [enfermedades.nombreEnfermedad],
-            ),
-          );
-        }
+        b.insertAllOnConflictUpdate(enfermedades, listaenfermedades);
+        // for (final enfermedad in listaenfermedades) {
+        //   b.insert(
+        //     enfermedades,
+        //     enfermedad,
+        //     onConflict: DoUpdate(
+        //       (_) => enfermedad,
+        //       // upsert will happen if it conflicts with columnA and columnB
+        //       target: [enfermedades.nombreEnfermedad],
+        //     ),
+        //   );
+        // }
       });
       await batch((b) {
-        for (final etapa in listaetapas) {
-          b.insert(
-            etapas,
-            etapa,
-            onConflict: DoUpdate(
-              (_) => etapa,
-              // upsert will happen if it conflicts with columnA and columnB
-              target: [etapas.id],
-            ),
-          );
-        }
+        b.insertAllOnConflictUpdate(etapas, listaetapas);
+        // for (final etapa in listaetapas) {
+        //   b.insert(
+        //     etapas,
+        //     etapa,
+        //     onConflict: DoUpdate(
+        //       (_) => etapa,
+        //       // upsert will happen if it conflicts with columnA and columnB
+        //       target: [etapas.id],
+        //     ),
+        //   );
+        // }
       });
     } catch (e) {
       print(e);
@@ -65,11 +65,7 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<List<EnfermedadConEtapas>> obtenerEnfermedadConEtapas() async {
-    final rows = (select(enfermedades)
-          ..orderBy([
-            (t) => OrderingTerm(
-                expression: t.nombreEnfermedad, mode: OrderingMode.asc),
-          ]))
+    final rows = (select(enfermedades))
         .join(
           [
             leftOuterJoin(
@@ -103,7 +99,7 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<Etapa?> obtenerEtapa(int? etapaId) {
-    return (select(etapas)..where((c) => c.id.equals(etapaId)))
+    return (select(etapas)..where((c) => c.id.equals(etapaId!)))
         .getSingleOrNull();
   }
 }

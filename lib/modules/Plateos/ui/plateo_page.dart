@@ -30,7 +30,7 @@ class _PlateoPageState extends State<PlateoPage> {
   void initState() {
     final state = BlocProvider.of<LoteDetailCubit>(context).state;
     if (state is LoteChoosed) {
-      nombreLote = state.lote.nombreLote;
+      nombreLote = state.lote.lote.nombreLote;
     }
     BlocProvider.of<PlateosCubit>(context).obtenerPlateoActivo(nombreLote);
     super.initState();
