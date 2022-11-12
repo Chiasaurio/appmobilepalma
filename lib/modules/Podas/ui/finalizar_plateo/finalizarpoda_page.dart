@@ -8,6 +8,8 @@ import 'package:apppalma/utils/confirmacion_alerta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../utils/recargar_lote_detail.dart';
+
 class FinalizarPodaPage extends StatefulWidget {
   final String routeName;
 
@@ -110,6 +112,8 @@ class _FinalizarPodaPageState extends State<FinalizarPodaPage> {
                   final state = BlocProvider.of<PodasCubit>(context).state;
                   BlocProvider.of<PodasCubit>(context)
                       .finalizarPoda(state.poda!, fechasalida);
+                  recargarLote(context);
+                  Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pop(context);

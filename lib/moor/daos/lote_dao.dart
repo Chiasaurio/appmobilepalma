@@ -13,9 +13,7 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
 
   // Future insertarEnfermedad( Insertable<RegistroEnfermedadData> registroenfermedad) => into(registroEnfermedad).insert(registroenfermedad);
   Future<List<Lote>> getLotes() {
-    return (select(lotes)
-          ..orderBy([(t) => OrderingTerm(expression: t.nombreLote)]))
-        .get();
+    return (select(lotes)).get();
   }
 
   Future<int> addLote(LotesCompanion lote) {
@@ -25,17 +23,18 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
   Future<bool> addLotes(List<Insertable<Lote>> listalotes) async {
     try {
       await batch((b) {
-        for (final lote in listalotes) {
-          b.insert(
-            lotes,
-            lote,
-            onConflict: DoUpdate(
-              (_) => lote,
-              // upsert will happen if it conflicts with columnA and columnB
-              target: [lotes.nombreLote],
-            ),
-          );
-        }
+        b.insertAllOnConflictUpdate(lotes, listalotes);
+        // for (final lote in listalotes) {
+        //   b.insert(
+        //     lotes,
+        //     lote,
+        //     onConflict: DoUpdate(
+        //       (_) => lote,
+        //       // upsert will happen if it conflicts with columnA and columnB
+        //       target: [lotes.nombreLote],
+        //     ),
+        //   );
+        // }
       });
       return true;
     } catch (e) {
@@ -44,14 +43,34 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
     }
   }
 
+  Future<LoteWithProcesos> getSingleLote(int id) async {
+    final lote = await (select(lotes)..where((c) => c.id.equals(id))).join(
+      [
+        leftOuterJoin(
+            cosechas,
+            cosechas.nombreLote.equalsExp(lotes.nombreLote) &
+                cosechas.completada.equals(false)),
+        leftOuterJoin(
+            plateos,
+            plateos.nombreLote.equalsExp(lotes.nombreLote) &
+                plateos.completado.equals(false)),
+        leftOuterJoin(
+            podas,
+            podas.nombreLote.equalsExp(lotes.nombreLote) &
+                podas.completada.equals(false)),
+      ],
+      // ).get();
+    ).getSingleOrNull();
+    // return lote!.readTable(lotes);
+    return LoteWithProcesos(
+        lote: lote!.readTable(lotes),
+        cosecha: lote.readTableOrNull(cosechas),
+        plateo: lote.readTableOrNull(plateos),
+        poda: lote.readTableOrNull(podas));
+  }
+
   Future<List<LoteWithProcesos>> getLotesWithProcesos() async {
-    final rows = await (select(lotes)
-          ..orderBy(
-            ([
-              (t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc),
-            ]),
-          ))
-        .join(
+    final rows = await (select(lotes)).join(
       [
         leftOuterJoin(
             cosechas,

@@ -15,13 +15,7 @@ class CosechaDao extends DatabaseAccessor<AppDatabase> with _$CosechaDaoMixin {
   }
 
   Future<List<Cosecha>> getCosechasFinalizadas() {
-    return (select(cosechas)
-          ..orderBy([
-            (t) => OrderingTerm(
-                expression: t.fechaSalida, mode: OrderingMode.desc),
-            (t) => OrderingTerm(expression: t.nombreLote)
-          ])
-          ..where((tbl) => tbl.completada.equals(true)))
+    return (select(cosechas)..where((tbl) => tbl.completada.equals(true)))
         .get();
   }
 
@@ -81,15 +75,7 @@ class CosechaDiariaDao extends DatabaseAccessor<AppDatabase>
   // }
 
   Future<List<CosechaDiariaData>> getCosechasDiarias(int id) {
-    return (select(cosechaDiaria)
-          ..where((c) => c.idCosecha.equals(id))
-          ..orderBy(
-            ([
-              (t) =>
-                  OrderingTerm(expression: t.idCosecha, mode: OrderingMode.asc),
-            ]),
-          ))
-        .get();
+    return (select(cosechaDiaria)..where((c) => c.idCosecha.equals(id))).get();
   }
 
   Stream<List<CosechaDiariaData>> watchCosechaDiaria() =>

@@ -1,5 +1,4 @@
 import 'package:apppalma/components/custom_appbar.dart';
-import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/modules/Plagas/plagas/ui/plaga_form.dart';
@@ -21,7 +20,7 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
     BlocProvider.of<PlagasCubit>(context).obtenerTodasPlagasConEtapas();
     final state = BlocProvider.of<LoteDetailCubit>(context).state;
     if (state is LoteChoosed) {
-      nombreLote = state.lote.nombreLote;
+      nombreLote = state.lote.lote.nombreLote;
     }
     super.initState();
   }

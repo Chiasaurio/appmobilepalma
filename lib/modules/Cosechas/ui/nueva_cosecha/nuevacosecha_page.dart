@@ -1,8 +1,12 @@
 import 'package:apppalma/modules/Cosechas/cubit/cosecha_cubit.dart';
 import 'package:apppalma/components/main_button.dart';
 import 'package:apppalma/components/widgets/fecha.dart';
+import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
+import '../../../LotesList/cubit/loteslist_cubit.dart';
 
 class NuevaCosechaPage extends StatefulWidget {
   final String nombrelote;
@@ -87,5 +91,7 @@ class _NuevaCosechaPageState extends State<NuevaCosechaPage> {
   void _submit() {
     BlocProvider.of<CosechaCubit>(context)
         .comenzarNuevaCosecha(widget.nombrelote, fecha);
+    //Recargar lista de lotes
+    recargarLote(context);
   }
 }

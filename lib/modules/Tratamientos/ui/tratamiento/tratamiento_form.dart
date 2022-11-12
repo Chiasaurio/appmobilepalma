@@ -78,7 +78,10 @@ class _TratamientoFormState extends State<TratamientoForm> {
         buildTratamientoForm(),
         // card(),
         SizedBox(height: altoCard * 0.1),
-        buildRegistrarTratamiento(context),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: buildRegistrarTratamiento(context),
+        ),
       ]),
     );
   }

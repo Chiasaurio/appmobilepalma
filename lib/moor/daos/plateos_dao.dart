@@ -24,15 +24,7 @@ class PlateoDao extends DatabaseAccessor<AppDatabase> with _$PlateoDaoMixin {
       delete(plateos).delete(plateo);
 
   Future<List<PlateoDiarioData>> getPlateosDiarios(int id) {
-    return (select(plateoDiario)
-          ..where((c) => c.idPlateo.equals(id))
-          ..orderBy(
-            ([
-              (t) =>
-                  OrderingTerm(expression: t.idPlateo, mode: OrderingMode.asc),
-            ]),
-          ))
-        .get();
+    return (select(plateoDiario)..where((c) => c.idPlateo.equals(id))).get();
   }
 
   Future insertPlateoDiario(Insertable<PlateoDiarioData> plateodiario) =>

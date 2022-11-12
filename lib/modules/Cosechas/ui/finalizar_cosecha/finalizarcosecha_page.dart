@@ -4,8 +4,11 @@ import 'package:apppalma/components/main_button.dart';
 import 'package:apppalma/components/widgets/fecha.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/utils/confirmacion_alerta.dart';
+import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
 
 class FinalizarCosechaPage extends StatefulWidget {
   final String routeName;
@@ -95,6 +98,8 @@ class _FinalizarCosechaPageState extends State<FinalizarCosechaPage> {
                   final state = BlocProvider.of<CosechaCubit>(context).state;
                   BlocProvider.of<CosechaCubit>(context)
                       .finalizarCosecha(state.cosecha!, fechasalida);
+                  recargarLote(context);
+                  Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pop(context);

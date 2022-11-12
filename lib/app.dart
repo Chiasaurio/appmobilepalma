@@ -12,10 +12,14 @@ import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/modules/Productos_Agroquimicos/cubit/agroquimicos_cubit.dart';
 import 'package:apppalma/modules/Tratamientos/cubit/tratamiento_cubit.dart';
+import 'package:apppalma/modules/Viajes/ui/peso_extractora/cubit/peso_extractora_cubit.dart';
+import 'package:apppalma/modules/Viajes/ui/primera_pagina/cubit/viajes_pendientes_cubit.dart';
 import 'package:apppalma/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'modules/Viajes/cubit/viaje_cubit.dart';
 
 class AppPalma extends StatelessWidget {
   const AppPalma({Key? key}) : super(key: key);
@@ -45,6 +49,11 @@ class AppPalma extends StatelessWidget {
           BlocProvider<PodasCubit>(create: (context) => PodasCubit()),
           BlocProvider<TratamientoCubit>(
               create: (context) => TratamientoCubit()),
+          BlocProvider<ViajeCubit>(create: (context) => ViajeCubit()),
+          BlocProvider<ViajesPendientesCubit>(
+              create: (context) => ViajesPendientesCubit()),
+          BlocProvider<PesoExtractoraCubit>(
+              create: (context) => PesoExtractoraCubit()),
         ],
         child: const MaterialApp(
           title: 'Smart Spotter',

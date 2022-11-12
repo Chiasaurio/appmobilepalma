@@ -36,7 +36,7 @@ class _HeaderAppState extends State<HeaderApp> {
     return BlocBuilder<LoteDetailCubit, LoteDetailState>(
       builder: (context, state) {
         if (state is LoteChoosed) {
-          nombreLote = state.lote.nombreLote;
+          nombreLote = state.lote.lote.nombreLote;
         }
         return AppBar(
           backgroundColor: AppPalmaColors.blue,

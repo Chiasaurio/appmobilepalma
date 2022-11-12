@@ -60,8 +60,8 @@ class PodasCubit extends Cubit<PodasStateLoaded> {
 
   finalizarPoda(Poda poda, DateTime fechasalida) {
     final PodaDao cosechaDao = db.podaDao;
-    cosechaDao
-        .updatePoda(poda.copyWith(fechaSalida: fechasalida, completada: true));
+    cosechaDao.updatePoda(
+        poda.copyWith(fechaSalida: Value(fechasalida), completada: true));
     obtenerPodaActiva(poda.nombreLote);
     // successMessageToast('La poda se finalizo correctamente');
   }

@@ -79,7 +79,10 @@ class _FumigacionFormState extends State<FumigacionForm> {
         buildFumigacionForm(),
         // card(),
         SizedBox(height: altoCard * 0.1),
-        _buildRegistrarFumigacion(context),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 100.0, left: 20, right: 20),
+          child: _buildRegistrarFumigacion(context),
+        ),
       ]),
     );
   }
@@ -259,6 +262,11 @@ class _FumigacionFormState extends State<FumigacionForm> {
           }),
         ),
         GestureDetector(
+          onTap: (() {
+            setState(() {
+              unidades = 'gr';
+            });
+          }),
           child: Container(
               margin: const EdgeInsets.all(1),
               padding: const EdgeInsets.all(15),
@@ -272,13 +280,13 @@ class _FumigacionFormState extends State<FumigacionForm> {
               child: const Text('gr',
                   style: TextStyle(fontSize: 15.0),
                   textAlign: TextAlign.center)),
-          onTap: (() {
-            setState(() {
-              unidades = 'gr';
-            });
-          }),
         ),
         GestureDetector(
+          onTap: (() {
+            setState(() {
+              unidades = 'ml';
+            });
+          }),
           child: Container(
               margin: const EdgeInsets.all(1),
               padding: const EdgeInsets.all(15),
@@ -292,11 +300,6 @@ class _FumigacionFormState extends State<FumigacionForm> {
               child: const Text('ml',
                   style: TextStyle(fontSize: 15.0),
                   textAlign: TextAlign.center)),
-          onTap: (() {
-            setState(() {
-              unidades = 'ml';
-            });
-          }),
         ),
       ],
     );
@@ -445,7 +448,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
                     });
                   },
                 ),
-                const Text('triplelavado1',
+                const Text('Lavado del envase',
                     textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.black, fontSize: 16)),
               ],
@@ -461,7 +464,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
                     });
                   },
                 ),
-                const Text('triplelavado2',
+                const Text('Lavado del equipo',
                     textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.black, fontSize: 16)),
               ],
@@ -477,7 +480,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
                     });
                   },
                 ),
-                const Text('triplelavado3',
+                const Text('Lavado del lugar',
                     textAlign: TextAlign.start,
                     style: TextStyle(color: Colors.black, fontSize: 16)),
               ],

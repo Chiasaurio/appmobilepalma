@@ -4,6 +4,7 @@ import 'package:apppalma/components/widgets/fecha.dart';
 import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/utils/confirmacion_alerta.dart';
+import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -99,6 +100,8 @@ class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
                   final state = BlocProvider.of<PlateosCubit>(context).state;
                   BlocProvider.of<PlateosCubit>(context)
                       .finalizarPlateo(state.plateo!, fechasalida);
+                  recargarLote(context);
+                  Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.pop(context);

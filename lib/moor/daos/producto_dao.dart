@@ -11,10 +11,7 @@ class ProductoAgroquimicoDao extends DatabaseAccessor<AppDatabase>
   ProductoAgroquimicoDao(this.db) : super(db);
 
   Future<List<ProductoAgroquimicoData>> getProductos() {
-    return (select(productoAgroquimico)
-          ..orderBy(
-              [(t) => OrderingTerm(expression: t.nombreProductoAgroquimico)]))
-        .get();
+    return (select(productoAgroquimico)).get();
   }
 
   Future insertProducto(Insertable<ProductoAgroquimicoData> producto) =>
@@ -24,17 +21,18 @@ class ProductoAgroquimicoDao extends DatabaseAccessor<AppDatabase>
       List<Insertable<ProductoAgroquimicoData>> listaproductos) async {
     try {
       await batch((b) {
-        for (final producto in listaproductos) {
-          b.insert(
-            productoAgroquimico,
-            producto,
-            onConflict: DoUpdate(
-              (_) => producto,
-              // upsert will happen if it conflicts with columnA and columnB
-              target: [productoAgroquimico.idProductoAgroquimico],
-            ),
-          );
-        }
+        b.insertAllOnConflictUpdate(productoAgroquimico, listaproductos);
+        // for (final producto in listaproductos) {
+        //   b.insert(
+        //     productoAgroquimico,
+        //     producto,
+        //     onConflict: DoUpdate(
+        //       (_) => producto,
+        //       // upsert will happen if it conflicts with columnA and columnB
+        //       target: [productoAgroquimico.idProductoAgroquimico],
+        //     ),
+        //   );
+        // }
       });
     } catch (e) {
       print(e);

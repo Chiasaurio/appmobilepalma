@@ -3,10 +3,10 @@
 part of 'moor_database.dart';
 
 // **************************************************************************
-// MoorGenerator
+// DriftDatabaseGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: type=lint
 class Aplicacione extends DataClass implements Insertable<Aplicacione> {
   final int id;
   final double dosis;
@@ -16,7 +16,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
   final String ccUsuario;
   final int idCenso;
   final int idProductoAgroquimico;
-  Aplicacione(
+  const Aplicacione(
       {required this.id,
       required this.dosis,
       required this.area,
@@ -25,27 +25,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       required this.ccUsuario,
       required this.idCenso,
       required this.idProductoAgroquimico});
-  factory Aplicacione.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Aplicacione(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      dosis: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dosis'])!,
-      area: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}area'])!,
-      fechaAplicacion: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_aplicacion'])!,
-      fechaReingreso: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_reingreso'])!,
-      ccUsuario: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}cc_usuario'])!,
-      idCenso: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_censo'])!,
-      idProductoAgroquimico: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}id_producto_agroquimico'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -284,50 +263,59 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
 
 class $AplicacionesTable extends Aplicaciones
     with TableInfo<$AplicacionesTable, Aplicacione> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $AplicacionesTable(this._db, [this._alias]);
+  $AplicacionesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _dosisMeta = const VerificationMeta('dosis');
-  late final GeneratedColumn<double?> dosis = GeneratedColumn<double?>(
+  @override
+  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
       'dosis', aliasedName, false,
-      typeName: 'REAL', requiredDuringInsert: true);
+      type: DriftSqlType.double, requiredDuringInsert: true);
   final VerificationMeta _areaMeta = const VerificationMeta('area');
-  late final GeneratedColumn<int?> area = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> area = GeneratedColumn<int>(
       'area', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _fechaAplicacionMeta =
       const VerificationMeta('fechaAplicacion');
-  late final GeneratedColumn<DateTime?> fechaAplicacion =
-      GeneratedColumn<DateTime?>('fecha_aplicacion', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaAplicacion =
+      GeneratedColumn<DateTime>('fecha_aplicacion', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _fechaReingresoMeta =
       const VerificationMeta('fechaReingreso');
-  late final GeneratedColumn<DateTime?> fechaReingreso =
-      GeneratedColumn<DateTime?>('fecha_reingreso', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaReingreso =
+      GeneratedColumn<DateTime>('fecha_reingreso', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _ccUsuarioMeta = const VerificationMeta('ccUsuario');
-  late final GeneratedColumn<String?> ccUsuario = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
       'cc_usuario', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _idCensoMeta = const VerificationMeta('idCenso');
-  late final GeneratedColumn<int?> idCenso = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
       'id_censo', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES censo(id)');
   final VerificationMeta _idProductoAgroquimicoMeta =
       const VerificationMeta('idProductoAgroquimico');
-  late final GeneratedColumn<int?> idProductoAgroquimico =
-      GeneratedColumn<int?>('id_producto_agroquimico', aliasedName, false,
-          typeName: 'INTEGER',
-          requiredDuringInsert: true,
-          $customConstraints: 'REFERENCES producto_agroquimico(id)');
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES producto_agroquimico(id)');
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -406,13 +394,30 @@ class $AplicacionesTable extends Aplicaciones
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Aplicacione map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Aplicacione.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Aplicacione(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      dosis: attachedDatabase.options.types
+          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
+      area: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}area'])!,
+      fechaAplicacion: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_aplicacion'])!,
+      fechaReingreso: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_reingreso'])!,
+      ccUsuario: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}cc_usuario'])!,
+      idCenso: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+      idProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+    );
   }
 
   @override
   $AplicacionesTable createAlias(String alias) {
-    return $AplicacionesTable(_db, alias);
+    return $AplicacionesTable(attachedDatabase, alias);
   }
 }
 
@@ -427,7 +432,7 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   final String nombreLote;
   final String nombrePlaga;
   final String estadoPlaga;
-  CensoData(
+  const CensoData(
       {required this.idCenso,
       required this.fechaCenso,
       required this.presenciaLote,
@@ -438,31 +443,6 @@ class CensoData extends DataClass implements Insertable<CensoData> {
       required this.nombreLote,
       required this.nombrePlaga,
       required this.estadoPlaga});
-  factory CensoData.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return CensoData(
-      idCenso: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_censo'])!,
-      fechaCenso: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_censo'])!,
-      presenciaLote: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}presencia_lote'])!,
-      presenciaSector: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}presencia_sector'])!,
-      lineaLimite1: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}linea_limite1'])!,
-      lineaLimite2: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}linea_limite2'])!,
-      observacionCenso: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}observacion_censo']),
-      nombreLote: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_lote'])!,
-      nombrePlaga: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_plaga'])!,
-      estadoPlaga: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}estado_plaga'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -473,7 +453,7 @@ class CensoData extends DataClass implements Insertable<CensoData> {
     map['linea_limite1'] = Variable<int>(lineaLimite1);
     map['linea_limite2'] = Variable<int>(lineaLimite2);
     if (!nullToAbsent || observacionCenso != null) {
-      map['observacion_censo'] = Variable<String?>(observacionCenso);
+      map['observacion_censo'] = Variable<String>(observacionCenso);
     }
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['nombre_plaga'] = Variable<String>(nombrePlaga);
@@ -538,7 +518,7 @@ class CensoData extends DataClass implements Insertable<CensoData> {
           bool? presenciaSector,
           int? lineaLimite1,
           int? lineaLimite2,
-          String? observacionCenso,
+          Value<String?> observacionCenso = const Value.absent(),
           String? nombreLote,
           String? nombrePlaga,
           String? estadoPlaga}) =>
@@ -549,7 +529,9 @@ class CensoData extends DataClass implements Insertable<CensoData> {
         presenciaSector: presenciaSector ?? this.presenciaSector,
         lineaLimite1: lineaLimite1 ?? this.lineaLimite1,
         lineaLimite2: lineaLimite2 ?? this.lineaLimite2,
-        observacionCenso: observacionCenso ?? this.observacionCenso,
+        observacionCenso: observacionCenso.present
+            ? observacionCenso.value
+            : this.observacionCenso,
         nombreLote: nombreLote ?? this.nombreLote,
         nombrePlaga: nombrePlaga ?? this.nombrePlaga,
         estadoPlaga: estadoPlaga ?? this.estadoPlaga,
@@ -645,7 +627,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
     Expression<bool>? presenciaSector,
     Expression<int>? lineaLimite1,
     Expression<int>? lineaLimite2,
-    Expression<String?>? observacionCenso,
+    Expression<String>? observacionCenso,
     Expression<String>? nombreLote,
     Expression<String>? nombrePlaga,
     Expression<String>? estadoPlaga,
@@ -711,7 +693,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
       map['linea_limite2'] = Variable<int>(lineaLimite2.value);
     }
     if (observacionCenso.present) {
-      map['observacion_censo'] = Variable<String?>(observacionCenso.value);
+      map['observacion_censo'] = Variable<String>(observacionCenso.value);
     }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
@@ -744,66 +726,77 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
 }
 
 class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CensoTable(this._db, [this._alias]);
+  $CensoTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idCensoMeta = const VerificationMeta('idCenso');
-  late final GeneratedColumn<int?> idCenso = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
       'id_censo', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _fechaCensoMeta = const VerificationMeta('fechaCenso');
-  late final GeneratedColumn<DateTime?> fechaCenso = GeneratedColumn<DateTime?>(
+  @override
+  late final GeneratedColumn<DateTime> fechaCenso = GeneratedColumn<DateTime>(
       'fecha_censo', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _presenciaLoteMeta =
       const VerificationMeta('presenciaLote');
-  late final GeneratedColumn<bool?> presenciaLote = GeneratedColumn<bool?>(
+  @override
+  late final GeneratedColumn<bool> presenciaLote = GeneratedColumn<bool>(
       'presencia_lote', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (presencia_lote IN (0, 1))',
-      defaultValue: Constant(false));
+      defaultValue: const Constant(false));
   final VerificationMeta _presenciaSectorMeta =
       const VerificationMeta('presenciaSector');
-  late final GeneratedColumn<bool?> presenciaSector = GeneratedColumn<bool?>(
+  @override
+  late final GeneratedColumn<bool> presenciaSector = GeneratedColumn<bool>(
       'presencia_sector', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (presencia_sector IN (0, 1))',
-      defaultValue: Constant(true));
+      defaultValue: const Constant(true));
   final VerificationMeta _lineaLimite1Meta =
       const VerificationMeta('lineaLimite1');
-  late final GeneratedColumn<int?> lineaLimite1 = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> lineaLimite1 = GeneratedColumn<int>(
       'linea_limite1', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _lineaLimite2Meta =
       const VerificationMeta('lineaLimite2');
-  late final GeneratedColumn<int?> lineaLimite2 = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> lineaLimite2 = GeneratedColumn<int>(
       'linea_limite2', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _observacionCensoMeta =
       const VerificationMeta('observacionCenso');
-  late final GeneratedColumn<String?> observacionCenso =
-      GeneratedColumn<String?>('observacion_censo', aliasedName, true,
-          typeName: 'TEXT', requiredDuringInsert: false);
+  @override
+  late final GeneratedColumn<String> observacionCenso = GeneratedColumn<String>(
+      'observacion_censo', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
-  late final GeneratedColumn<String?> nombreLote = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _nombrePlagaMeta =
       const VerificationMeta('nombrePlaga');
-  late final GeneratedColumn<String?> nombrePlaga = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombrePlaga = GeneratedColumn<String>(
       'nombre_plaga', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _estadoPlagaMeta =
       const VerificationMeta('estadoPlaga');
-  late final GeneratedColumn<String?> estadoPlaga = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> estadoPlaga = GeneratedColumn<String>(
       'estado_plaga', aliasedName, false,
-      typeName: 'TEXT',
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
-      defaultValue: Constant('pendiente'));
+      defaultValue: const Constant('pendiente'));
   @override
   List<GeneratedColumn> get $columns => [
         idCenso,
@@ -901,13 +894,34 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   Set<GeneratedColumn> get $primaryKey => {idCenso};
   @override
   CensoData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return CensoData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CensoData(
+      idCenso: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+      fechaCenso: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_censo'])!,
+      presenciaLote: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_lote'])!,
+      presenciaSector: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_sector'])!,
+      lineaLimite1: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite1'])!,
+      lineaLimite2: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite2'])!,
+      observacionCenso: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}observacion_censo']),
+      nombreLote: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      nombrePlaga: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_plaga'])!,
+      estadoPlaga: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}estado_plaga'])!,
+    );
   }
 
   @override
   $CensoTable createAlias(String alias) {
-    return $CensoTable(_db, alias);
+    return $CensoTable(attachedDatabase, alias);
   }
 }
 
@@ -920,7 +934,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   final int kilos;
   final int? idViaje;
   final bool completada;
-  Cosecha(
+  const Cosecha(
       {required this.id,
       required this.nombreLote,
       required this.fechaIngreso,
@@ -929,27 +943,6 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
       required this.kilos,
       this.idViaje,
       required this.completada});
-  factory Cosecha.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Cosecha(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      nombreLote: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_lote'])!,
-      fechaIngreso: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_ingreso'])!,
-      fechaSalida: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_salida']),
-      cantidadRacimos: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}cantidad_racimos'])!,
-      kilos: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}kilos'])!,
-      idViaje: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_viaje']),
-      completada: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}completada'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -957,12 +950,12 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
-      map['fecha_salida'] = Variable<DateTime?>(fechaSalida);
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida);
     }
     map['cantidad_racimos'] = Variable<int>(cantidadRacimos);
     map['kilos'] = Variable<int>(kilos);
     if (!nullToAbsent || idViaje != null) {
-      map['id_viaje'] = Variable<int?>(idViaje);
+      map['id_viaje'] = Variable<int>(idViaje);
     }
     map['completada'] = Variable<bool>(completada);
     return map;
@@ -1018,19 +1011,19 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
           {int? id,
           String? nombreLote,
           DateTime? fechaIngreso,
-          DateTime? fechaSalida,
+          Value<DateTime?> fechaSalida = const Value.absent(),
           int? cantidadRacimos,
           int? kilos,
-          int? idViaje,
+          Value<int?> idViaje = const Value.absent(),
           bool? completada}) =>
       Cosecha(
         id: id ?? this.id,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
-        fechaSalida: fechaSalida ?? this.fechaSalida,
+        fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
         cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
         kilos: kilos ?? this.kilos,
-        idViaje: idViaje ?? this.idViaje,
+        idViaje: idViaje.present ? idViaje.value : this.idViaje,
         completada: completada ?? this.completada,
       );
   @override
@@ -1101,10 +1094,10 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
     Expression<int>? id,
     Expression<String>? nombreLote,
     Expression<DateTime>? fechaIngreso,
-    Expression<DateTime?>? fechaSalida,
+    Expression<DateTime>? fechaSalida,
     Expression<int>? cantidadRacimos,
     Expression<int>? kilos,
-    Expression<int?>? idViaje,
+    Expression<int>? idViaje,
     Expression<bool>? completada,
   }) {
     return RawValuesInsertable({
@@ -1153,7 +1146,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
       map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso.value);
     }
     if (fechaSalida.present) {
-      map['fecha_salida'] = Variable<DateTime?>(fechaSalida.value);
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida.value);
     }
     if (cantidadRacimos.present) {
       map['cantidad_racimos'] = Variable<int>(cantidadRacimos.value);
@@ -1162,7 +1155,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
       map['kilos'] = Variable<int>(kilos.value);
     }
     if (idViaje.present) {
-      map['id_viaje'] = Variable<int?>(idViaje.value);
+      map['id_viaje'] = Variable<int>(idViaje.value);
     }
     if (completada.present) {
       map['completada'] = Variable<bool>(completada.value);
@@ -1187,49 +1180,58 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
 }
 
 class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CosechasTable(this._db, [this._alias]);
+  $CosechasTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
-  late final GeneratedColumn<String?> nombreLote = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
-  late final GeneratedColumn<DateTime?> fechaIngreso =
-      GeneratedColumn<DateTime?>('fecha_ingreso', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _fechaSalidaMeta =
       const VerificationMeta('fechaSalida');
-  late final GeneratedColumn<DateTime?> fechaSalida =
-      GeneratedColumn<DateTime?>('fecha_salida', aliasedName, true,
-          typeName: 'INTEGER', requiredDuringInsert: false);
+  @override
+  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
+      'fecha_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
   final VerificationMeta _cantidadRacimosMeta =
       const VerificationMeta('cantidadRacimos');
-  late final GeneratedColumn<int?> cantidadRacimos = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
       'cantidad_racimos', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _kilosMeta = const VerificationMeta('kilos');
-  late final GeneratedColumn<int?> kilos = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
       'kilos', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _idViajeMeta = const VerificationMeta('idViaje');
-  late final GeneratedColumn<int?> idViaje = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idViaje = GeneratedColumn<int>(
       'id_viaje', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: DriftSqlType.int, requiredDuringInsert: false);
   final VerificationMeta _completadaMeta = const VerificationMeta('completada');
-  late final GeneratedColumn<bool?> completada = GeneratedColumn<bool?>(
+  @override
+  late final GeneratedColumn<bool> completada = GeneratedColumn<bool>(
       'completada', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (completada IN (0, 1))',
-      defaultValue: Constant(false));
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -1306,13 +1308,30 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Cosecha map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Cosecha.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Cosecha(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreLote: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      fechaIngreso: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      fechaSalida: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
+      cantidadRacimos: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
+      kilos: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}kilos'])!,
+      idViaje: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_viaje']),
+      completada: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}completada'])!,
+    );
   }
 
   @override
   $CosechasTable createAlias(String alias) {
-    return $CosechasTable(_db, alias);
+    return $CosechasTable(attachedDatabase, alias);
   }
 }
 
@@ -1323,28 +1342,12 @@ class CosechaDiariaData extends DataClass
   final DateTime fechaIngreso;
   final int kilos;
   final int cantidadRacimos;
-  CosechaDiariaData(
+  const CosechaDiariaData(
       {required this.id,
       required this.idCosecha,
       required this.fechaIngreso,
       required this.kilos,
       required this.cantidadRacimos});
-  factory CosechaDiariaData.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return CosechaDiariaData(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      idCosecha: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_cosecha'])!,
-      fechaIngreso: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_ingreso'])!,
-      kilos: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}kilos'])!,
-      cantidadRacimos: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}cantidad_racimos'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1518,35 +1521,41 @@ class CosechaDiariaCompanion extends UpdateCompanion<CosechaDiariaData> {
 
 class $CosechaDiariaTable extends CosechaDiaria
     with TableInfo<$CosechaDiariaTable, CosechaDiariaData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CosechaDiariaTable(this._db, [this._alias]);
+  $CosechaDiariaTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _idCosechaMeta = const VerificationMeta('idCosecha');
-  late final GeneratedColumn<int?> idCosecha = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idCosecha = GeneratedColumn<int>(
       'id_cosecha', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES cosechas(id)');
   final VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
-  late final GeneratedColumn<DateTime?> fechaIngreso =
-      GeneratedColumn<DateTime?>('fecha_ingreso', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _kilosMeta = const VerificationMeta('kilos');
-  late final GeneratedColumn<int?> kilos = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
       'kilos', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _cantidadRacimosMeta =
       const VerificationMeta('cantidadRacimos');
-  late final GeneratedColumn<int?> cantidadRacimos = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
       'cantidad_racimos', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, idCosecha, fechaIngreso, kilos, cantidadRacimos];
@@ -1597,30 +1606,32 @@ class $CosechaDiariaTable extends CosechaDiaria
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   CosechaDiariaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return CosechaDiariaData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CosechaDiariaData(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idCosecha: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_cosecha'])!,
+      fechaIngreso: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      kilos: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}kilos'])!,
+      cantidadRacimos: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
+    );
   }
 
   @override
   $CosechaDiariaTable createAlias(String alias) {
-    return $CosechaDiariaTable(_db, alias);
+    return $CosechaDiariaTable(attachedDatabase, alias);
   }
 }
 
 class Enfermedade extends DataClass implements Insertable<Enfermedade> {
   final String nombreEnfermedad;
   final String procedimientoEnfermedad;
-  Enfermedade(
+  const Enfermedade(
       {required this.nombreEnfermedad, required this.procedimientoEnfermedad});
-  factory Enfermedade.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Enfermedade(
-      nombreEnfermedad: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}nombre_enfermedad'])!,
-      procedimientoEnfermedad: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}procedimiento_enfermedad'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1739,19 +1750,22 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
 
 class $EnfermedadesTable extends Enfermedades
     with TableInfo<$EnfermedadesTable, Enfermedade> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $EnfermedadesTable(this._db, [this._alias]);
+  $EnfermedadesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _nombreEnfermedadMeta =
       const VerificationMeta('nombreEnfermedad');
-  late final GeneratedColumn<String?> nombreEnfermedad =
-      GeneratedColumn<String?>('nombre_enfermedad', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
+      'nombre_enfermedad', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _procedimientoEnfermedadMeta =
       const VerificationMeta('procedimientoEnfermedad');
-  late final GeneratedColumn<String?> procedimientoEnfermedad =
-      GeneratedColumn<String?>('procedimiento_enfermedad', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> procedimientoEnfermedad =
+      GeneratedColumn<String>('procedimiento_enfermedad', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [nombreEnfermedad, procedimientoEnfermedad];
@@ -1787,13 +1801,19 @@ class $EnfermedadesTable extends Enfermedades
   Set<GeneratedColumn> get $primaryKey => {nombreEnfermedad};
   @override
   Enfermedade map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Enfermedade.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Enfermedade(
+      nombreEnfermedad: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
+      procedimientoEnfermedad: attachedDatabase.options.types.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}procedimiento_enfermedad'])!,
+    );
   }
 
   @override
   $EnfermedadesTable createAlias(String alias) {
-    return $EnfermedadesTable(_db, alias);
+    return $EnfermedadesTable(attachedDatabase, alias);
   }
 }
 
@@ -1802,24 +1822,11 @@ class Etapa extends DataClass implements Insertable<Etapa> {
   final String nombreEnfermedad;
   final String nombreEtapa;
   final String procedimientoEtapa;
-  Etapa(
+  const Etapa(
       {required this.id,
       required this.nombreEnfermedad,
       required this.nombreEtapa,
       required this.procedimientoEtapa});
-  factory Etapa.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Etapa(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      nombreEnfermedad: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}nombre_enfermedad'])!,
-      nombreEtapa: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_etapa'])!,
-      procedimientoEtapa: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}procedimiento_etapa'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1973,30 +1980,35 @@ class EtapasCompanion extends UpdateCompanion<Etapa> {
 }
 
 class $EtapasTable extends Etapas with TableInfo<$EtapasTable, Etapa> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $EtapasTable(this._db, [this._alias]);
+  $EtapasTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: DriftSqlType.int, requiredDuringInsert: false);
   final VerificationMeta _nombreEnfermedadMeta =
       const VerificationMeta('nombreEnfermedad');
-  late final GeneratedColumn<String?> nombreEnfermedad =
-      GeneratedColumn<String?>('nombre_enfermedad', aliasedName, false,
-          typeName: 'TEXT',
-          requiredDuringInsert: true,
-          $customConstraints: 'REFERENCES enfermedades(nombre_enfermedad)');
+  @override
+  late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
+      'nombre_enfermedad', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES enfermedades(nombre_enfermedad)');
   final VerificationMeta _nombreEtapaMeta =
       const VerificationMeta('nombreEtapa');
-  late final GeneratedColumn<String?> nombreEtapa = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreEtapa = GeneratedColumn<String>(
       'nombre_etapa', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _procedimientoEtapaMeta =
       const VerificationMeta('procedimientoEtapa');
-  late final GeneratedColumn<String?> procedimientoEtapa =
-      GeneratedColumn<String?>('procedimiento_etapa', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> procedimientoEtapa =
+      GeneratedColumn<String>('procedimiento_etapa', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, nombreEnfermedad, nombreEtapa, procedimientoEtapa];
@@ -2043,13 +2055,22 @@ class $EtapasTable extends Etapas with TableInfo<$EtapasTable, Etapa> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Etapa map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Etapa.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Etapa(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreEnfermedad: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
+      nombreEtapa: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_etapa'])!,
+      procedimientoEtapa: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}procedimiento_etapa'])!,
+    );
   }
 
   @override
   $EtapasTable createAlias(String alias) {
-    return $EtapasTable(_db, alias);
+    return $EtapasTable(attachedDatabase, alias);
   }
 }
 
@@ -2058,25 +2079,11 @@ class EtapasPlagaData extends DataClass implements Insertable<EtapasPlagaData> {
   final String nombrePlaga;
   final String nombreEtapa;
   final String procedimientoEtapa;
-  EtapasPlagaData(
+  const EtapasPlagaData(
       {required this.idEtapasPlaga,
       required this.nombrePlaga,
       required this.nombreEtapa,
       required this.procedimientoEtapa});
-  factory EtapasPlagaData.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return EtapasPlagaData(
-      idEtapasPlaga: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_etapas_plaga'])!,
-      nombrePlaga: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_plaga'])!,
-      nombreEtapa: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_etapa'])!,
-      procedimientoEtapa: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}procedimiento_etapa'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2231,33 +2238,38 @@ class EtapasPlagaCompanion extends UpdateCompanion<EtapasPlagaData> {
 
 class $EtapasPlagaTable extends EtapasPlaga
     with TableInfo<$EtapasPlagaTable, EtapasPlagaData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $EtapasPlagaTable(this._db, [this._alias]);
+  $EtapasPlagaTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idEtapasPlagaMeta =
       const VerificationMeta('idEtapasPlaga');
-  late final GeneratedColumn<int?> idEtapasPlaga = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idEtapasPlaga = GeneratedColumn<int>(
       'id_etapas_plaga', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nombrePlagaMeta =
       const VerificationMeta('nombrePlaga');
-  late final GeneratedColumn<String?> nombrePlaga = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombrePlaga = GeneratedColumn<String>(
       'nombre_plaga', aliasedName, false,
-      typeName: 'TEXT',
+      type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES plagas(nombre_comun_plaga)');
   final VerificationMeta _nombreEtapaMeta =
       const VerificationMeta('nombreEtapa');
-  late final GeneratedColumn<String?> nombreEtapa = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreEtapa = GeneratedColumn<String>(
       'nombre_etapa', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _procedimientoEtapaMeta =
       const VerificationMeta('procedimientoEtapa');
-  late final GeneratedColumn<String?> procedimientoEtapa =
-      GeneratedColumn<String?>('procedimiento_etapa', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> procedimientoEtapa =
+      GeneratedColumn<String>('procedimiento_etapa', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [idEtapasPlaga, nombrePlaga, nombreEtapa, procedimientoEtapa];
@@ -2307,13 +2319,22 @@ class $EtapasPlagaTable extends EtapasPlaga
   Set<GeneratedColumn> get $primaryKey => {idEtapasPlaga};
   @override
   EtapasPlagaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return EtapasPlagaData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return EtapasPlagaData(
+      idEtapasPlaga: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_etapas_plaga'])!,
+      nombrePlaga: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_plaga'])!,
+      nombreEtapa: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_etapa'])!,
+      procedimientoEtapa: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}procedimiento_etapa'])!,
+    );
   }
 
   @override
   $EtapasPlagaTable createAlias(String alias) {
-    return $EtapasPlagaTable(_db, alias);
+    return $EtapasPlagaTable(attachedDatabase, alias);
   }
 }
 
@@ -2322,24 +2343,11 @@ class Lote extends DataClass implements Insertable<Lote> {
   final String nombreLote;
   final int hectareas;
   final int numeropalmas;
-  Lote(
+  const Lote(
       {required this.id,
       required this.nombreLote,
       required this.hectareas,
       required this.numeropalmas});
-  factory Lote.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Lote(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      nombreLote: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_lote'])!,
-      hectareas: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}hectareas'])!,
-      numeropalmas: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}numeropalmas'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2488,28 +2496,33 @@ class LotesCompanion extends UpdateCompanion<Lote> {
 }
 
 class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $LotesTable(this._db, [this._alias]);
+  $LotesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
-  late final GeneratedColumn<String?> nombreLote = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _hectareasMeta = const VerificationMeta('hectareas');
-  late final GeneratedColumn<int?> hectareas = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> hectareas = GeneratedColumn<int>(
       'hectareas', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _numeropalmasMeta =
       const VerificationMeta('numeropalmas');
-  late final GeneratedColumn<int?> numeropalmas = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> numeropalmas = GeneratedColumn<int>(
       'numeropalmas', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, nombreLote, hectareas, numeropalmas];
@@ -2554,13 +2567,22 @@ class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Lote map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Lote.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Lote(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreLote: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      hectareas: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}hectareas'])!,
+      numeropalmas: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}numeropalmas'])!,
+    );
   }
 
   @override
   $LotesTable createAlias(String alias) {
-    return $LotesTable(_db, alias);
+    return $LotesTable(attachedDatabase, alias);
   }
 }
 
@@ -2570,27 +2592,12 @@ class Palma extends DataClass implements Insertable<Palma> {
   final int numerolinea;
   final int numeroenlinea;
   final String estadopalma;
-  Palma(
+  const Palma(
       {required this.id,
       required this.nombreLote,
       required this.numerolinea,
       required this.numeroenlinea,
       required this.estadopalma});
-  factory Palma.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Palma(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      nombreLote: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_lote'])!,
-      numerolinea: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}numerolinea'])!,
-      numeroenlinea: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}numeroenlinea'])!,
-      estadopalma: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}estadopalma'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2763,34 +2770,40 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
 }
 
 class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PalmasTable(this._db, [this._alias]);
+  $PalmasTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
-  late final GeneratedColumn<String?> nombreLote = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _numerolineaMeta =
       const VerificationMeta('numerolinea');
-  late final GeneratedColumn<int?> numerolinea = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> numerolinea = GeneratedColumn<int>(
       'numerolinea', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _numeroenlineaMeta =
       const VerificationMeta('numeroenlinea');
-  late final GeneratedColumn<int?> numeroenlinea = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> numeroenlinea = GeneratedColumn<int>(
       'numeroenlinea', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _estadopalmaMeta =
       const VerificationMeta('estadopalma');
-  late final GeneratedColumn<String?> estadopalma = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> estadopalma = GeneratedColumn<String>(
       'estadopalma', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, nombreLote, numerolinea, numeroenlinea, estadopalma];
@@ -2845,26 +2858,30 @@ class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Palma map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Palma.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Palma(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreLote: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      numerolinea: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}numerolinea'])!,
+      numeroenlinea: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}numeroenlinea'])!,
+      estadopalma: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}estadopalma'])!,
+    );
   }
 
   @override
   $PalmasTable createAlias(String alias) {
-    return $PalmasTable(_db, alias);
+    return $PalmasTable(attachedDatabase, alias);
   }
 }
 
 class Plaga extends DataClass implements Insertable<Plaga> {
   final String nombreComunPlaga;
-  Plaga({required this.nombreComunPlaga});
-  factory Plaga.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Plaga(
-      nombreComunPlaga: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}nombre_comun_plaga'])!,
-    );
-  }
+  const Plaga({required this.nombreComunPlaga});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2953,14 +2970,16 @@ class PlagasCompanion extends UpdateCompanion<Plaga> {
 }
 
 class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlagasTable(this._db, [this._alias]);
+  $PlagasTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _nombreComunPlagaMeta =
       const VerificationMeta('nombreComunPlaga');
-  late final GeneratedColumn<String?> nombreComunPlaga =
-      GeneratedColumn<String?>('nombre_comun_plaga', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> nombreComunPlaga = GeneratedColumn<String>(
+      'nombre_comun_plaga', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [nombreComunPlaga];
   @override
@@ -2987,13 +3006,16 @@ class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
   Set<GeneratedColumn> get $primaryKey => {nombreComunPlaga};
   @override
   Plaga map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Plaga.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Plaga(
+      nombreComunPlaga: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_comun_plaga'])!,
+    );
   }
 
   @override
   $PlagasTable createAlias(String alias) {
-    return $PlagasTable(_db, alias);
+    return $PlagasTable(attachedDatabase, alias);
   }
 }
 
@@ -3004,39 +3026,23 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   final DateTime? fechaSalida;
   final int cantidadPlateada;
   final bool completado;
-  Plateo(
+  const Plateo(
       {this.id,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
       required this.cantidadPlateada,
       required this.completado});
-  factory Plateo.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Plateo(
-      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
-      nombreLote: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_lote'])!,
-      fechaIngreso: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_ingreso'])!,
-      fechaSalida: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_salida']),
-      cantidadPlateada: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}cantidad_plateada'])!,
-      completado: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}completado'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (!nullToAbsent || id != null) {
-      map['id'] = Variable<int?>(id);
+      map['id'] = Variable<int>(id);
     }
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
-      map['fecha_salida'] = Variable<DateTime?>(fechaSalida);
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida);
     }
     map['cantidad_plateada'] = Variable<int>(cantidadPlateada);
     map['completado'] = Variable<bool>(completado);
@@ -3082,17 +3088,17 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   }
 
   Plateo copyWith(
-          {int? id,
+          {Value<int?> id = const Value.absent(),
           String? nombreLote,
           DateTime? fechaIngreso,
-          DateTime? fechaSalida,
+          Value<DateTime?> fechaSalida = const Value.absent(),
           int? cantidadPlateada,
           bool? completado}) =>
       Plateo(
-        id: id ?? this.id,
+        id: id.present ? id.value : this.id,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
-        fechaSalida: fechaSalida ?? this.fechaSalida,
+        fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
         cantidadPlateada: cantidadPlateada ?? this.cantidadPlateada,
         completado: completado ?? this.completado,
       );
@@ -3150,10 +3156,10 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
         fechaIngreso = Value(fechaIngreso),
         cantidadPlateada = Value(cantidadPlateada);
   static Insertable<Plateo> custom({
-    Expression<int?>? id,
+    Expression<int>? id,
     Expression<String>? nombreLote,
     Expression<DateTime>? fechaIngreso,
-    Expression<DateTime?>? fechaSalida,
+    Expression<DateTime>? fechaSalida,
     Expression<int>? cantidadPlateada,
     Expression<bool>? completado,
   }) {
@@ -3188,7 +3194,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int?>(id.value);
+      map['id'] = Variable<int>(id.value);
     }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
@@ -3197,7 +3203,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
       map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso.value);
     }
     if (fechaSalida.present) {
-      map['fecha_salida'] = Variable<DateTime?>(fechaSalida.value);
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida.value);
     }
     if (cantidadPlateada.present) {
       map['cantidad_plateada'] = Variable<int>(cantidadPlateada.value);
@@ -3223,38 +3229,45 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
 }
 
 class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlateosTable(this._db, [this._alias]);
+  $PlateosTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, true,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
-  late final GeneratedColumn<String?> nombreLote = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
-  late final GeneratedColumn<DateTime?> fechaIngreso =
-      GeneratedColumn<DateTime?>('fecha_ingreso', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _fechaSalidaMeta =
       const VerificationMeta('fechaSalida');
-  late final GeneratedColumn<DateTime?> fechaSalida =
-      GeneratedColumn<DateTime?>('fecha_salida', aliasedName, true,
-          typeName: 'INTEGER', requiredDuringInsert: false);
+  @override
+  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
+      'fecha_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
   final VerificationMeta _cantidadPlateadaMeta =
       const VerificationMeta('cantidadPlateada');
-  late final GeneratedColumn<int?> cantidadPlateada = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> cantidadPlateada = GeneratedColumn<int>(
       'cantidad_plateada', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _completadoMeta = const VerificationMeta('completado');
-  late final GeneratedColumn<bool?> completado = GeneratedColumn<bool?>(
+  @override
+  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
       'completado', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (completado IN (0, 1))',
       defaultValue: Constant(false));
@@ -3316,13 +3329,26 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Plateo map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Plateo.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Plateo(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id']),
+      nombreLote: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      fechaIngreso: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      fechaSalida: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
+      cantidadPlateada: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_plateada'])!,
+      completado: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
+    );
   }
 
   @override
   $PlateosTable createAlias(String alias) {
-    return $PlateosTable(_db, alias);
+    return $PlateosTable(attachedDatabase, alias);
   }
 }
 
@@ -3333,28 +3359,12 @@ class PlateoDiarioData extends DataClass
   final DateTime fecha;
   final int cantidadPlateada;
   final String tipoPlateo;
-  PlateoDiarioData(
+  const PlateoDiarioData(
       {required this.id,
       required this.idPlateo,
       required this.fecha,
       required this.cantidadPlateada,
       required this.tipoPlateo});
-  factory PlateoDiarioData.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return PlateoDiarioData(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      idPlateo: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_plateo'])!,
-      fecha: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha'])!,
-      cantidadPlateada: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}cantidad_plateada'])!,
-      tipoPlateo: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_plateo'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3528,34 +3538,40 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
 
 class $PlateoDiarioTable extends PlateoDiario
     with TableInfo<$PlateoDiarioTable, PlateoDiarioData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlateoDiarioTable(this._db, [this._alias]);
+  $PlateoDiarioTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _idPlateoMeta = const VerificationMeta('idPlateo');
-  late final GeneratedColumn<int?> idPlateo = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idPlateo = GeneratedColumn<int>(
       'id_plateo', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES plateos(id)');
   final VerificationMeta _fechaMeta = const VerificationMeta('fecha');
-  late final GeneratedColumn<DateTime?> fecha = GeneratedColumn<DateTime?>(
+  @override
+  late final GeneratedColumn<DateTime> fecha = GeneratedColumn<DateTime>(
       'fecha', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _cantidadPlateadaMeta =
       const VerificationMeta('cantidadPlateada');
-  late final GeneratedColumn<int?> cantidadPlateada = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> cantidadPlateada = GeneratedColumn<int>(
       'cantidad_plateada', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _tipoPlateoMeta = const VerificationMeta('tipoPlateo');
-  late final GeneratedColumn<String?> tipoPlateo = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> tipoPlateo = GeneratedColumn<String>(
       'tipo_plateo', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, idPlateo, fecha, cantidadPlateada, tipoPlateo];
@@ -3606,13 +3622,24 @@ class $PlateoDiarioTable extends PlateoDiario
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PlateoDiarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return PlateoDiarioData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PlateoDiarioData(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idPlateo: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_plateo'])!,
+      fecha: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
+      cantidadPlateada: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_plateada'])!,
+      tipoPlateo: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}tipo_plateo'])!,
+    );
   }
 
   @override
   $PlateoDiarioTable createAlias(String alias) {
-    return $PlateoDiarioTable(_db, alias);
+    return $PlateoDiarioTable(attachedDatabase, alias);
   }
 }
 
@@ -3623,30 +3650,13 @@ class Poda extends DataClass implements Insertable<Poda> {
   final DateTime? fechaSalida;
   final int cantidadPodada;
   final bool completada;
-  Poda(
+  const Poda(
       {required this.id,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
       required this.cantidadPodada,
       required this.completada});
-  factory Poda.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Poda(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      nombreLote: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nombre_lote'])!,
-      fechaIngreso: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_ingreso'])!,
-      fechaSalida: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_salida']),
-      cantidadPodada: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}cantidad_podada'])!,
-      completada: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}completada'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3654,7 +3664,7 @@ class Poda extends DataClass implements Insertable<Poda> {
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
-      map['fecha_salida'] = Variable<DateTime?>(fechaSalida);
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida);
     }
     map['cantidad_podada'] = Variable<int>(cantidadPodada);
     map['completada'] = Variable<bool>(completada);
@@ -3703,14 +3713,14 @@ class Poda extends DataClass implements Insertable<Poda> {
           {int? id,
           String? nombreLote,
           DateTime? fechaIngreso,
-          DateTime? fechaSalida,
+          Value<DateTime?> fechaSalida = const Value.absent(),
           int? cantidadPodada,
           bool? completada}) =>
       Poda(
         id: id ?? this.id,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
-        fechaSalida: fechaSalida ?? this.fechaSalida,
+        fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
         cantidadPodada: cantidadPodada ?? this.cantidadPodada,
         completada: completada ?? this.completada,
       );
@@ -3771,7 +3781,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
     Expression<int>? id,
     Expression<String>? nombreLote,
     Expression<DateTime>? fechaIngreso,
-    Expression<DateTime?>? fechaSalida,
+    Expression<DateTime>? fechaSalida,
     Expression<int>? cantidadPodada,
     Expression<bool>? completada,
   }) {
@@ -3815,7 +3825,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
       map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso.value);
     }
     if (fechaSalida.present) {
-      map['fecha_salida'] = Variable<DateTime?>(fechaSalida.value);
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida.value);
     }
     if (cantidadPodada.present) {
       map['cantidad_podada'] = Variable<int>(cantidadPodada.value);
@@ -3841,38 +3851,45 @@ class PodasCompanion extends UpdateCompanion<Poda> {
 }
 
 class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PodasTable(this._db, [this._alias]);
+  $PodasTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
-  late final GeneratedColumn<String?> nombreLote = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
-  late final GeneratedColumn<DateTime?> fechaIngreso =
-      GeneratedColumn<DateTime?>('fecha_ingreso', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _fechaSalidaMeta =
       const VerificationMeta('fechaSalida');
-  late final GeneratedColumn<DateTime?> fechaSalida =
-      GeneratedColumn<DateTime?>('fecha_salida', aliasedName, true,
-          typeName: 'INTEGER', requiredDuringInsert: false);
+  @override
+  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
+      'fecha_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
   final VerificationMeta _cantidadPodadaMeta =
       const VerificationMeta('cantidadPodada');
-  late final GeneratedColumn<int?> cantidadPodada = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> cantidadPodada = GeneratedColumn<int>(
       'cantidad_podada', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _completadaMeta = const VerificationMeta('completada');
-  late final GeneratedColumn<bool?> completada = GeneratedColumn<bool?>(
+  @override
+  late final GeneratedColumn<bool> completada = GeneratedColumn<bool>(
       'completada', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (completada IN (0, 1))',
       defaultValue: Constant(false));
@@ -3934,13 +3951,26 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Poda map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Poda.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Poda(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreLote: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      fechaIngreso: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      fechaSalida: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
+      cantidadPodada: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_podada'])!,
+      completada: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}completada'])!,
+    );
   }
 
   @override
   $PodasTable createAlias(String alias) {
-    return $PodasTable(_db, alias);
+    return $PodasTable(attachedDatabase, alias);
   }
 }
 
@@ -3949,24 +3979,11 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
   final int idPoda;
   final DateTime fechaIngreso;
   final int cantidadPodada;
-  PodaDiariaData(
+  const PodaDiariaData(
       {required this.id,
       required this.idPoda,
       required this.fechaIngreso,
       required this.cantidadPodada});
-  factory PodaDiariaData.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return PodaDiariaData(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      idPoda: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_poda'])!,
-      fechaIngreso: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_ingreso'])!,
-      cantidadPodada: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}cantidad_podada'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -4119,31 +4136,36 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
 
 class $PodaDiariaTable extends PodaDiaria
     with TableInfo<$PodaDiariaTable, PodaDiariaData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PodaDiariaTable(this._db, [this._alias]);
+  $PodaDiariaTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _idPodaMeta = const VerificationMeta('idPoda');
-  late final GeneratedColumn<int?> idPoda = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idPoda = GeneratedColumn<int>(
       'id_poda', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES podas(id)');
   final VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
-  late final GeneratedColumn<DateTime?> fechaIngreso =
-      GeneratedColumn<DateTime?>('fecha_ingreso', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _cantidadPodadaMeta =
       const VerificationMeta('cantidadPodada');
-  late final GeneratedColumn<int?> cantidadPodada = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> cantidadPodada = GeneratedColumn<int>(
       'cantidad_podada', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [id, idPoda, fechaIngreso, cantidadPodada];
@@ -4188,13 +4210,22 @@ class $PodaDiariaTable extends PodaDiaria
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   PodaDiariaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return PodaDiariaData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PodaDiariaData(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idPoda: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_poda'])!,
+      fechaIngreso: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      cantidadPodada: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_podada'])!,
+    );
   }
 
   @override
   $PodaDiariaTable createAlias(String alias) {
-    return $PodaDiariaTable(_db, alias);
+    return $PodaDiariaTable(attachedDatabase, alias);
   }
 }
 
@@ -4207,7 +4238,7 @@ class ProductoAgroquimicoData extends DataClass
   final String ingredienteActivoProductoAgroquimico;
   final int periodoCarenciaProductoAgroquimico;
   final String presentacionProductoAgroquimico;
-  ProductoAgroquimicoData(
+  const ProductoAgroquimicoData(
       {required this.idProductoAgroquimico,
       required this.nombreProductoAgroquimico,
       required this.tipoProductoAgroquimico,
@@ -4215,29 +4246,6 @@ class ProductoAgroquimicoData extends DataClass
       required this.ingredienteActivoProductoAgroquimico,
       required this.periodoCarenciaProductoAgroquimico,
       required this.presentacionProductoAgroquimico});
-  factory ProductoAgroquimicoData.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return ProductoAgroquimicoData(
-      idProductoAgroquimico: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}id_producto_agroquimico'])!,
-      nombreProductoAgroquimico: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}nombre_producto_agroquimico'])!,
-      tipoProductoAgroquimico: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}tipo_producto_agroquimico'])!,
-      claseProducto: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}clase_producto'])!,
-      ingredienteActivoProductoAgroquimico: const StringType()
-          .mapFromDatabaseResponse(data[
-              '${effectivePrefix}ingrediente_activo_producto_agroquimico'])!,
-      periodoCarenciaProductoAgroquimico: const IntType()
-          .mapFromDatabaseResponse(
-              data['${effectivePrefix}periodo_carencia_producto_agroquimico'])!,
-      presentacionProductoAgroquimico: const StringType()
-          .mapFromDatabaseResponse(
-              data['${effectivePrefix}presentacion_producto_agroquimico'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -4517,48 +4525,55 @@ class ProductoAgroquimicoCompanion
 
 class $ProductoAgroquimicoTable extends ProductoAgroquimico
     with TableInfo<$ProductoAgroquimicoTable, ProductoAgroquimicoData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ProductoAgroquimicoTable(this._db, [this._alias]);
+  $ProductoAgroquimicoTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idProductoAgroquimicoMeta =
       const VerificationMeta('idProductoAgroquimico');
-  late final GeneratedColumn<int?> idProductoAgroquimico =
-      GeneratedColumn<int?>('id_producto_agroquimico', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: false);
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   final VerificationMeta _nombreProductoAgroquimicoMeta =
       const VerificationMeta('nombreProductoAgroquimico');
-  late final GeneratedColumn<String?> nombreProductoAgroquimico =
-      GeneratedColumn<String?>(
-          'nombre_producto_agroquimico', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> nombreProductoAgroquimico =
+      GeneratedColumn<String>('nombre_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _tipoProductoAgroquimicoMeta =
       const VerificationMeta('tipoProductoAgroquimico');
-  late final GeneratedColumn<String?> tipoProductoAgroquimico =
-      GeneratedColumn<String?>('tipo_producto_agroquimico', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> tipoProductoAgroquimico =
+      GeneratedColumn<String>('tipo_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _claseProductoMeta =
       const VerificationMeta('claseProducto');
-  late final GeneratedColumn<String?> claseProducto = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> claseProducto = GeneratedColumn<String>(
       'clase_producto', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _ingredienteActivoProductoAgroquimicoMeta =
       const VerificationMeta('ingredienteActivoProductoAgroquimico');
-  late final GeneratedColumn<String?> ingredienteActivoProductoAgroquimico =
-      GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> ingredienteActivoProductoAgroquimico =
+      GeneratedColumn<String>(
           'ingrediente_activo_producto_agroquimico', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+          type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _periodoCarenciaProductoAgroquimicoMeta =
       const VerificationMeta('periodoCarenciaProductoAgroquimico');
-  late final GeneratedColumn<int?> periodoCarenciaProductoAgroquimico =
-      GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> periodoCarenciaProductoAgroquimico =
+      GeneratedColumn<int>(
           'periodo_carencia_producto_agroquimico', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+          type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _presentacionProductoAgroquimicoMeta =
       const VerificationMeta('presentacionProductoAgroquimico');
-  late final GeneratedColumn<String?> presentacionProductoAgroquimico =
-      GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> presentacionProductoAgroquimico =
+      GeneratedColumn<String>(
           'presentacion_producto_agroquimico', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+          type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         idProductoAgroquimico,
@@ -4646,13 +4661,33 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
   @override
   ProductoAgroquimicoData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    return ProductoAgroquimicoData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProductoAgroquimicoData(
+      idProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      nombreProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}nombre_producto_agroquimico'])!,
+      tipoProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}tipo_producto_agroquimico'])!,
+      claseProducto: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}clase_producto'])!,
+      ingredienteActivoProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}ingrediente_activo_producto_agroquimico'])!,
+      periodoCarenciaProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}periodo_carencia_producto_agroquimico'])!,
+      presentacionProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}presentacion_producto_agroquimico'])!,
+    );
   }
 
   @override
   $ProductoAgroquimicoTable createAlias(String alias) {
-    return $ProductoAgroquimicoTable(_db, alias);
+    return $ProductoAgroquimicoTable(attachedDatabase, alias);
   }
 }
 
@@ -4665,7 +4700,7 @@ class RegistroEnfermedadData extends DataClass
   final String nombreEnfermedad;
   final int? idEtapaEnfermedad;
   final String? observaciones;
-  RegistroEnfermedadData(
+  const RegistroEnfermedadData(
       {required this.id,
       required this.fechaRegistro,
       this.horaRegistro,
@@ -4673,41 +4708,21 @@ class RegistroEnfermedadData extends DataClass
       required this.nombreEnfermedad,
       this.idEtapaEnfermedad,
       this.observaciones});
-  factory RegistroEnfermedadData.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return RegistroEnfermedadData(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      fechaRegistro: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_registro'])!,
-      horaRegistro: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}hora_registro']),
-      idPalma: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_palma'])!,
-      nombreEnfermedad: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}nombre_enfermedad'])!,
-      idEtapaEnfermedad: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}id_etapa_enfermedad']),
-      observaciones: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}observaciones']),
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
     if (!nullToAbsent || horaRegistro != null) {
-      map['hora_registro'] = Variable<DateTime?>(horaRegistro);
+      map['hora_registro'] = Variable<DateTime>(horaRegistro);
     }
     map['id_palma'] = Variable<int>(idPalma);
     map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad);
     if (!nullToAbsent || idEtapaEnfermedad != null) {
-      map['id_etapa_enfermedad'] = Variable<int?>(idEtapaEnfermedad);
+      map['id_etapa_enfermedad'] = Variable<int>(idEtapaEnfermedad);
     }
     if (!nullToAbsent || observaciones != null) {
-      map['observaciones'] = Variable<String?>(observaciones);
+      map['observaciones'] = Variable<String>(observaciones);
     }
     return map;
   }
@@ -4760,19 +4775,23 @@ class RegistroEnfermedadData extends DataClass
   RegistroEnfermedadData copyWith(
           {int? id,
           DateTime? fechaRegistro,
-          DateTime? horaRegistro,
+          Value<DateTime?> horaRegistro = const Value.absent(),
           int? idPalma,
           String? nombreEnfermedad,
-          int? idEtapaEnfermedad,
-          String? observaciones}) =>
+          Value<int?> idEtapaEnfermedad = const Value.absent(),
+          Value<String?> observaciones = const Value.absent()}) =>
       RegistroEnfermedadData(
         id: id ?? this.id,
         fechaRegistro: fechaRegistro ?? this.fechaRegistro,
-        horaRegistro: horaRegistro ?? this.horaRegistro,
+        horaRegistro:
+            horaRegistro.present ? horaRegistro.value : this.horaRegistro,
         idPalma: idPalma ?? this.idPalma,
         nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
-        idEtapaEnfermedad: idEtapaEnfermedad ?? this.idEtapaEnfermedad,
-        observaciones: observaciones ?? this.observaciones,
+        idEtapaEnfermedad: idEtapaEnfermedad.present
+            ? idEtapaEnfermedad.value
+            : this.idEtapaEnfermedad,
+        observaciones:
+            observaciones.present ? observaciones.value : this.observaciones,
       );
   @override
   String toString() {
@@ -4836,11 +4855,11 @@ class RegistroEnfermedadCompanion
   static Insertable<RegistroEnfermedadData> custom({
     Expression<int>? id,
     Expression<DateTime>? fechaRegistro,
-    Expression<DateTime?>? horaRegistro,
+    Expression<DateTime>? horaRegistro,
     Expression<int>? idPalma,
     Expression<String>? nombreEnfermedad,
-    Expression<int?>? idEtapaEnfermedad,
-    Expression<String?>? observaciones,
+    Expression<int>? idEtapaEnfermedad,
+    Expression<String>? observaciones,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -4882,7 +4901,7 @@ class RegistroEnfermedadCompanion
       map['fecha_registro'] = Variable<DateTime>(fechaRegistro.value);
     }
     if (horaRegistro.present) {
-      map['hora_registro'] = Variable<DateTime?>(horaRegistro.value);
+      map['hora_registro'] = Variable<DateTime>(horaRegistro.value);
     }
     if (idPalma.present) {
       map['id_palma'] = Variable<int>(idPalma.value);
@@ -4891,10 +4910,10 @@ class RegistroEnfermedadCompanion
       map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad.value);
     }
     if (idEtapaEnfermedad.present) {
-      map['id_etapa_enfermedad'] = Variable<int?>(idEtapaEnfermedad.value);
+      map['id_etapa_enfermedad'] = Variable<int>(idEtapaEnfermedad.value);
     }
     if (observaciones.present) {
-      map['observaciones'] = Variable<String?>(observaciones.value);
+      map['observaciones'] = Variable<String>(observaciones.value);
     }
     return map;
   }
@@ -4916,44 +4935,52 @@ class RegistroEnfermedadCompanion
 
 class $RegistroEnfermedadTable extends RegistroEnfermedad
     with TableInfo<$RegistroEnfermedadTable, RegistroEnfermedadData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RegistroEnfermedadTable(this._db, [this._alias]);
+  $RegistroEnfermedadTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _fechaRegistroMeta =
       const VerificationMeta('fechaRegistro');
-  late final GeneratedColumn<DateTime?> fechaRegistro =
-      GeneratedColumn<DateTime?>('fecha_registro', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaRegistro =
+      GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _horaRegistroMeta =
       const VerificationMeta('horaRegistro');
-  late final GeneratedColumn<DateTime?> horaRegistro =
-      GeneratedColumn<DateTime?>('hora_registro', aliasedName, true,
-          typeName: 'INTEGER', requiredDuringInsert: false);
+  @override
+  late final GeneratedColumn<DateTime> horaRegistro = GeneratedColumn<DateTime>(
+      'hora_registro', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
   final VerificationMeta _idPalmaMeta = const VerificationMeta('idPalma');
-  late final GeneratedColumn<int?> idPalma = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idPalma = GeneratedColumn<int>(
       'id_palma', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _nombreEnfermedadMeta =
       const VerificationMeta('nombreEnfermedad');
-  late final GeneratedColumn<String?> nombreEnfermedad =
-      GeneratedColumn<String?>('nombre_enfermedad', aliasedName, false,
-          typeName: 'TEXT', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
+      'nombre_enfermedad', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _idEtapaEnfermedadMeta =
       const VerificationMeta('idEtapaEnfermedad');
-  late final GeneratedColumn<int?> idEtapaEnfermedad = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idEtapaEnfermedad = GeneratedColumn<int>(
       'id_etapa_enfermedad', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: DriftSqlType.int, requiredDuringInsert: false);
   final VerificationMeta _observacionesMeta =
       const VerificationMeta('observaciones');
-  late final GeneratedColumn<String?> observaciones = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
       'observaciones', aliasedName, true,
-      typeName: 'TEXT', requiredDuringInsert: false);
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -5024,13 +5051,28 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   RegistroEnfermedadData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return RegistroEnfermedadData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RegistroEnfermedadData(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      fechaRegistro: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
+      horaRegistro: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_registro']),
+      idPalma: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_palma'])!,
+      nombreEnfermedad: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
+      idEtapaEnfermedad: attachedDatabase.options.types.read(
+          DriftSqlType.int, data['${effectivePrefix}id_etapa_enfermedad']),
+      observaciones: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}observaciones']),
+    );
   }
 
   @override
   $RegistroEnfermedadTable createAlias(String alias) {
-    return $RegistroEnfermedadTable(_db, alias);
+    return $RegistroEnfermedadTable(attachedDatabase, alias);
   }
 }
 
@@ -5043,7 +5085,7 @@ class RegistroTratamientoData extends DataClass
   final double dosis;
   final String? descripcionProcedimiento;
   final DateTime fechaRegistro;
-  RegistroTratamientoData(
+  const RegistroTratamientoData(
       {required this.id,
       required this.idRegistroEnfermedad,
       required this.idProductoAgroquimico,
@@ -5051,26 +5093,6 @@ class RegistroTratamientoData extends DataClass
       required this.dosis,
       this.descripcionProcedimiento,
       required this.fechaRegistro});
-  factory RegistroTratamientoData.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return RegistroTratamientoData(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      idRegistroEnfermedad: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}id_registro_enfermedad'])!,
-      idProductoAgroquimico: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}id_producto_agroquimico'])!,
-      tipoControl: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}tipo_control'])!,
-      dosis: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dosis'])!,
-      descripcionProcedimiento: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}descripcion_procedimiento']),
-      fechaRegistro: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}fecha_registro'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -5081,7 +5103,7 @@ class RegistroTratamientoData extends DataClass
     map['dosis'] = Variable<double>(dosis);
     if (!nullToAbsent || descripcionProcedimiento != null) {
       map['descripcion_procedimiento'] =
-          Variable<String?>(descripcionProcedimiento);
+          Variable<String>(descripcionProcedimiento);
     }
     map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
     return map;
@@ -5138,7 +5160,7 @@ class RegistroTratamientoData extends DataClass
           int? idProductoAgroquimico,
           String? tipoControl,
           double? dosis,
-          String? descripcionProcedimiento,
+          Value<String?> descripcionProcedimiento = const Value.absent(),
           DateTime? fechaRegistro}) =>
       RegistroTratamientoData(
         id: id ?? this.id,
@@ -5147,8 +5169,9 @@ class RegistroTratamientoData extends DataClass
             idProductoAgroquimico ?? this.idProductoAgroquimico,
         tipoControl: tipoControl ?? this.tipoControl,
         dosis: dosis ?? this.dosis,
-        descripcionProcedimiento:
-            descripcionProcedimiento ?? this.descripcionProcedimiento,
+        descripcionProcedimiento: descripcionProcedimiento.present
+            ? descripcionProcedimiento.value
+            : this.descripcionProcedimiento,
         fechaRegistro: fechaRegistro ?? this.fechaRegistro,
       );
   @override
@@ -5224,7 +5247,7 @@ class RegistroTratamientoCompanion
     Expression<int>? idProductoAgroquimico,
     Expression<String>? tipoControl,
     Expression<double>? dosis,
-    Expression<String?>? descripcionProcedimiento,
+    Expression<String>? descripcionProcedimiento,
     Expression<DateTime>? fechaRegistro,
   }) {
     return RawValuesInsertable({
@@ -5283,7 +5306,7 @@ class RegistroTratamientoCompanion
     }
     if (descripcionProcedimiento.present) {
       map['descripcion_procedimiento'] =
-          Variable<String?>(descripcionProcedimiento.value);
+          Variable<String>(descripcionProcedimiento.value);
     }
     if (fechaRegistro.present) {
       map['fecha_registro'] = Variable<DateTime>(fechaRegistro.value);
@@ -5308,48 +5331,56 @@ class RegistroTratamientoCompanion
 
 class $RegistroTratamientoTable extends RegistroTratamiento
     with TableInfo<$RegistroTratamientoTable, RegistroTratamientoData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RegistroTratamientoTable(this._db, [this._alias]);
+  $RegistroTratamientoTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _idRegistroEnfermedadMeta =
       const VerificationMeta('idRegistroEnfermedad');
-  late final GeneratedColumn<int?> idRegistroEnfermedad = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idRegistroEnfermedad = GeneratedColumn<int>(
       'id_registro_enfermedad', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES registro_enfermedad(id)');
   final VerificationMeta _idProductoAgroquimicoMeta =
       const VerificationMeta('idProductoAgroquimico');
-  late final GeneratedColumn<int?> idProductoAgroquimico =
-      GeneratedColumn<int?>('id_producto_agroquimico', aliasedName, false,
-          typeName: 'INTEGER',
-          requiredDuringInsert: true,
-          $customConstraints: 'REFERENCES producto_agroquimico(id)');
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES producto_agroquimico(id)');
   final VerificationMeta _tipoControlMeta =
       const VerificationMeta('tipoControl');
-  late final GeneratedColumn<String?> tipoControl = GeneratedColumn<String?>(
+  @override
+  late final GeneratedColumn<String> tipoControl = GeneratedColumn<String>(
       'tipo_control', aliasedName, false,
-      typeName: 'TEXT', requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _dosisMeta = const VerificationMeta('dosis');
-  late final GeneratedColumn<double?> dosis = GeneratedColumn<double?>(
+  @override
+  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
       'dosis', aliasedName, false,
-      typeName: 'REAL', requiredDuringInsert: true);
+      type: DriftSqlType.double, requiredDuringInsert: true);
   final VerificationMeta _descripcionProcedimientoMeta =
       const VerificationMeta('descripcionProcedimiento');
-  late final GeneratedColumn<String?> descripcionProcedimiento =
-      GeneratedColumn<String?>('descripcion_procedimiento', aliasedName, true,
-          typeName: 'TEXT', requiredDuringInsert: false);
+  @override
+  late final GeneratedColumn<String> descripcionProcedimiento =
+      GeneratedColumn<String>('descripcion_procedimiento', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _fechaRegistroMeta =
       const VerificationMeta('fechaRegistro');
-  late final GeneratedColumn<DateTime?> fechaRegistro =
-      GeneratedColumn<DateTime?>('fecha_registro', aliasedName, false,
-          typeName: 'INTEGER', requiredDuringInsert: true);
+  @override
+  late final GeneratedColumn<DateTime> fechaRegistro =
+      GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -5426,13 +5457,29 @@ class $RegistroTratamientoTable extends RegistroTratamiento
   @override
   RegistroTratamientoData map(Map<String, dynamic> data,
       {String? tablePrefix}) {
-    return RegistroTratamientoData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RegistroTratamientoData(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idRegistroEnfermedad: attachedDatabase.options.types.read(
+          DriftSqlType.int, data['${effectivePrefix}id_registro_enfermedad'])!,
+      idProductoAgroquimico: attachedDatabase.options.types.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      tipoControl: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}tipo_control'])!,
+      dosis: attachedDatabase.options.types
+          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
+      descripcionProcedimiento: attachedDatabase.options.types.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}descripcion_procedimiento']),
+      fechaRegistro: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
+    );
   }
 
   @override
   $RegistroTratamientoTable createAlias(String alias) {
-    return $RegistroTratamientoTable(_db, alias);
+    return $RegistroTratamientoTable(attachedDatabase, alias);
   }
 }
 
@@ -5442,9 +5489,9 @@ class Viaje extends DataClass implements Insertable<Viaje> {
   final DateTime? horaSalida;
   final int cantidadRacimos;
   final int? kilos;
-  final int? kilosExtractora;
+  final double? kilosExtractora;
   final bool completado;
-  Viaje(
+  const Viaje(
       {required this.id,
       required this.horaCargue,
       this.horaSalida,
@@ -5452,39 +5499,20 @@ class Viaje extends DataClass implements Insertable<Viaje> {
       this.kilos,
       this.kilosExtractora,
       required this.completado});
-  factory Viaje.fromData(Map<String, dynamic> data, {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return Viaje(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      horaCargue: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}hora_cargue'])!,
-      horaSalida: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}hora_salida']),
-      cantidadRacimos: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}cantidad_racimos'])!,
-      kilos: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}kilos']),
-      kilosExtractora: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}kilos_extractora']),
-      completado: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}completado'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['hora_cargue'] = Variable<DateTime>(horaCargue);
     if (!nullToAbsent || horaSalida != null) {
-      map['hora_salida'] = Variable<DateTime?>(horaSalida);
+      map['hora_salida'] = Variable<DateTime>(horaSalida);
     }
     map['cantidad_racimos'] = Variable<int>(cantidadRacimos);
     if (!nullToAbsent || kilos != null) {
-      map['kilos'] = Variable<int?>(kilos);
+      map['kilos'] = Variable<int>(kilos);
     }
     if (!nullToAbsent || kilosExtractora != null) {
-      map['kilos_extractora'] = Variable<int?>(kilosExtractora);
+      map['kilos_extractora'] = Variable<double>(kilosExtractora);
     }
     map['completado'] = Variable<bool>(completado);
     return map;
@@ -5516,7 +5544,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
       horaSalida: serializer.fromJson<DateTime?>(json['horaSalida']),
       cantidadRacimos: serializer.fromJson<int>(json['cantidadRacimos']),
       kilos: serializer.fromJson<int?>(json['kilos']),
-      kilosExtractora: serializer.fromJson<int?>(json['kilosExtractora']),
+      kilosExtractora: serializer.fromJson<double?>(json['kilosExtractora']),
       completado: serializer.fromJson<bool>(json['completado']),
     );
   }
@@ -5529,7 +5557,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
       'horaSalida': serializer.toJson<DateTime?>(horaSalida),
       'cantidadRacimos': serializer.toJson<int>(cantidadRacimos),
       'kilos': serializer.toJson<int?>(kilos),
-      'kilosExtractora': serializer.toJson<int?>(kilosExtractora),
+      'kilosExtractora': serializer.toJson<double?>(kilosExtractora),
       'completado': serializer.toJson<bool>(completado),
     };
   }
@@ -5537,18 +5565,20 @@ class Viaje extends DataClass implements Insertable<Viaje> {
   Viaje copyWith(
           {int? id,
           DateTime? horaCargue,
-          DateTime? horaSalida,
+          Value<DateTime?> horaSalida = const Value.absent(),
           int? cantidadRacimos,
-          int? kilos,
-          int? kilosExtractora,
+          Value<int?> kilos = const Value.absent(),
+          Value<double?> kilosExtractora = const Value.absent(),
           bool? completado}) =>
       Viaje(
         id: id ?? this.id,
         horaCargue: horaCargue ?? this.horaCargue,
-        horaSalida: horaSalida ?? this.horaSalida,
+        horaSalida: horaSalida.present ? horaSalida.value : this.horaSalida,
         cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
-        kilos: kilos ?? this.kilos,
-        kilosExtractora: kilosExtractora ?? this.kilosExtractora,
+        kilos: kilos.present ? kilos.value : this.kilos,
+        kilosExtractora: kilosExtractora.present
+            ? kilosExtractora.value
+            : this.kilosExtractora,
         completado: completado ?? this.completado,
       );
   @override
@@ -5587,7 +5617,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
   final Value<DateTime?> horaSalida;
   final Value<int> cantidadRacimos;
   final Value<int?> kilos;
-  final Value<int?> kilosExtractora;
+  final Value<double?> kilosExtractora;
   final Value<bool> completado;
   const ViajesCompanion({
     this.id = const Value.absent(),
@@ -5611,10 +5641,10 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
   static Insertable<Viaje> custom({
     Expression<int>? id,
     Expression<DateTime>? horaCargue,
-    Expression<DateTime?>? horaSalida,
+    Expression<DateTime>? horaSalida,
     Expression<int>? cantidadRacimos,
-    Expression<int?>? kilos,
-    Expression<int?>? kilosExtractora,
+    Expression<int>? kilos,
+    Expression<double>? kilosExtractora,
     Expression<bool>? completado,
   }) {
     return RawValuesInsertable({
@@ -5634,7 +5664,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
       Value<DateTime?>? horaSalida,
       Value<int>? cantidadRacimos,
       Value<int?>? kilos,
-      Value<int?>? kilosExtractora,
+      Value<double?>? kilosExtractora,
       Value<bool>? completado}) {
     return ViajesCompanion(
       id: id ?? this.id,
@@ -5657,16 +5687,16 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
       map['hora_cargue'] = Variable<DateTime>(horaCargue.value);
     }
     if (horaSalida.present) {
-      map['hora_salida'] = Variable<DateTime?>(horaSalida.value);
+      map['hora_salida'] = Variable<DateTime>(horaSalida.value);
     }
     if (cantidadRacimos.present) {
       map['cantidad_racimos'] = Variable<int>(cantidadRacimos.value);
     }
     if (kilos.present) {
-      map['kilos'] = Variable<int?>(kilos.value);
+      map['kilos'] = Variable<int>(kilos.value);
     }
     if (kilosExtractora.present) {
-      map['kilos_extractora'] = Variable<int?>(kilosExtractora.value);
+      map['kilos_extractora'] = Variable<double>(kilosExtractora.value);
     }
     if (completado.present) {
       map['completado'] = Variable<bool>(completado.value);
@@ -5690,41 +5720,49 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
 }
 
 class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ViajesTable(this._db, [this._alias]);
+  $ViajesTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _horaCargueMeta = const VerificationMeta('horaCargue');
-  late final GeneratedColumn<DateTime?> horaCargue = GeneratedColumn<DateTime?>(
+  @override
+  late final GeneratedColumn<DateTime> horaCargue = GeneratedColumn<DateTime>(
       'hora_cargue', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   final VerificationMeta _horaSalidaMeta = const VerificationMeta('horaSalida');
-  late final GeneratedColumn<DateTime?> horaSalida = GeneratedColumn<DateTime?>(
+  @override
+  late final GeneratedColumn<DateTime> horaSalida = GeneratedColumn<DateTime>(
       'hora_salida', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
   final VerificationMeta _cantidadRacimosMeta =
       const VerificationMeta('cantidadRacimos');
-  late final GeneratedColumn<int?> cantidadRacimos = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
       'cantidad_racimos', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _kilosMeta = const VerificationMeta('kilos');
-  late final GeneratedColumn<int?> kilos = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
       'kilos', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: DriftSqlType.int, requiredDuringInsert: false);
   final VerificationMeta _kilosExtractoraMeta =
       const VerificationMeta('kilosExtractora');
-  late final GeneratedColumn<int?> kilosExtractora = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<double> kilosExtractora = GeneratedColumn<double>(
       'kilos_extractora', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: DriftSqlType.double, requiredDuringInsert: false);
   final VerificationMeta _completadoMeta = const VerificationMeta('completado');
-  late final GeneratedColumn<bool?> completado = GeneratedColumn<bool?>(
+  @override
+  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
       'completado', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (completado IN (0, 1))',
       defaultValue: Constant(false));
@@ -5795,13 +5833,28 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Viaje map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return Viaje.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Viaje(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      horaCargue: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_cargue'])!,
+      horaSalida: attachedDatabase.options.types
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_salida']),
+      cantidadRacimos: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
+      kilos: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}kilos']),
+      kilosExtractora: attachedDatabase.options.types.read(
+          DriftSqlType.double, data['${effectivePrefix}kilos_extractora']),
+      completado: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
+    );
   }
 
   @override
   $ViajesTable createAlias(String alias) {
-    return $ViajesTable(_db, alias);
+    return $ViajesTable(attachedDatabase, alias);
   }
 }
 
@@ -5810,22 +5863,10 @@ class CensoEtapasPlagaData extends DataClass
   final int idCensoEtapasplaga;
   final int idCenso;
   final int idEtapasplaga;
-  CensoEtapasPlagaData(
+  const CensoEtapasPlagaData(
       {required this.idCensoEtapasplaga,
       required this.idCenso,
       required this.idEtapasplaga});
-  factory CensoEtapasPlagaData.fromData(Map<String, dynamic> data,
-      {String? prefix}) {
-    final effectivePrefix = prefix ?? '';
-    return CensoEtapasPlagaData(
-      idCensoEtapasplaga: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}id_censo_etapasplaga'])!,
-      idCenso: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_censo'])!,
-      idEtapasplaga: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_etapasplaga'])!,
-    );
-  }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -5957,25 +5998,29 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
 
 class $CensoEtapasPlagaTable extends CensoEtapasPlaga
     with TableInfo<$CensoEtapasPlagaTable, CensoEtapasPlagaData> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CensoEtapasPlagaTable(this._db, [this._alias]);
+  $CensoEtapasPlagaTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idCensoEtapasplagaMeta =
       const VerificationMeta('idCensoEtapasplaga');
-  late final GeneratedColumn<int?> idCensoEtapasplaga = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idCensoEtapasplaga = GeneratedColumn<int>(
       'id_censo_etapasplaga', aliasedName, false,
-      typeName: 'INTEGER',
+      type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _idCensoMeta = const VerificationMeta('idCenso');
-  late final GeneratedColumn<int?> idCenso = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
       'id_censo', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   final VerificationMeta _idEtapasplagaMeta =
       const VerificationMeta('idEtapasplaga');
-  late final GeneratedColumn<int?> idEtapasplaga = GeneratedColumn<int?>(
+  @override
+  late final GeneratedColumn<int> idEtapasplaga = GeneratedColumn<int>(
       'id_etapasplaga', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [idCensoEtapasplaga, idCenso, idEtapasplaga];
@@ -6016,18 +6061,25 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
   Set<GeneratedColumn> get $primaryKey => {idCensoEtapasplaga};
   @override
   CensoEtapasPlagaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return CensoEtapasPlagaData.fromData(data,
-        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CensoEtapasPlagaData(
+      idCensoEtapasplaga: attachedDatabase.options.types.read(
+          DriftSqlType.int, data['${effectivePrefix}id_censo_etapasplaga'])!,
+      idCenso: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+      idEtapasplaga: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_etapasplaga'])!,
+    );
   }
 
   @override
   $CensoEtapasPlagaTable createAlias(String alias) {
-    return $CensoEtapasPlagaTable(_db, alias);
+    return $CensoEtapasPlagaTable(attachedDatabase, alias);
   }
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {
-  _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  _$AppDatabase(QueryExecutor e) : super(e);
   late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
   late final $CensoTable censo = $CensoTable(this);
   late final $CosechasTable cosechas = $CosechasTable(this);
@@ -6064,8 +6116,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final PlateoDao plateoDao = PlateoDao(this as AppDatabase);
   late final ProductoAgroquimicoDao productoAgroquimicoDao =
       ProductoAgroquimicoDao(this as AppDatabase);
+  late final ViajesDao viajesDao = ViajesDao(this as AppDatabase);
   @override
-  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+  Iterable<TableInfo<Table, dynamic>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         aplicaciones,

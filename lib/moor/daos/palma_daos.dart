@@ -20,59 +20,31 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   PalmaDao(this.db) : super(db);
 
   Future<List<Palma>> obtenerPalmas(String nombrelote) {
-    return (select(palmas)
-          ..orderBy([
-            (t) =>
-                OrderingTerm(expression: t.numerolinea, mode: OrderingMode.asc),
-            (t) => OrderingTerm(expression: t.numeroenlinea)
-          ])
-          ..where((tbl) => tbl.nombreLote.equals(nombrelote)))
+    return (select(palmas)..where((tbl) => tbl.nombreLote.equals(nombrelote)))
         .get();
   }
 
   Future<List<Palma>> obtenerTodasPalmas() {
-    return (select(palmas)
-          ..orderBy([
-            (t) =>
-                OrderingTerm(expression: t.numerolinea, mode: OrderingMode.asc),
-            (t) => OrderingTerm(expression: t.numeroenlinea)
-          ]))
-        .get();
+    return (select(palmas)).get();
   }
 
   Future<List<RegistroEnfermedadData>> obtenerSoloRegistrosEnfermedad(
       int idPalma) {
-    return (select(registroEnfermedad)
-          ..where((c) => c.idPalma.equals(idPalma))
-          ..orderBy([
-            (t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc),
-          ]))
+    return (select(registroEnfermedad)..where((c) => c.idPalma.equals(idPalma)))
         .get();
   }
 
   Future<List<RegistroEnfermedadData>> obtenerRegistrosEnfermedad() {
-    return (select(registroEnfermedad)
-          ..orderBy([
-            (t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc),
-          ]))
-        .get();
+    return (select(registroEnfermedad)).get();
   }
 
   Future<List<RegistroTratamientoData>> obtenerRegistrosTratamiento() {
-    return (select(registroTratamiento)
-          ..orderBy([
-            (t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc),
-          ]))
-        .get();
+    return (select(registroTratamiento)).get();
   }
 
   Future<List<EnfermedadConTratamiento>>
       obtenerEnfermedadesyTratamientos() async {
-    final rows = await (select(registroEnfermedad)
-          ..orderBy([
-            (t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc),
-          ]))
-        .join(
+    final rows = await (select(registroEnfermedad)).join(
       [
         leftOuterJoin(
             registroTratamiento,
@@ -163,9 +135,6 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   Future<List<PalmaConEnfermedad>> obtenerPalmasConEnfermedad(
       String nombrelote) async {
     final rows = await (select(palmas)
-          ..orderBy([
-            (t) => OrderingTerm(expression: t.id, mode: OrderingMode.asc),
-          ])
           ..where((tbl) =>
               tbl.nombreLote.equals(nombrelote) &
               tbl.estadopalma.equals('Pendiente por tratar')))
@@ -200,7 +169,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   }
 
   Future<Etapa?> obtenerEtapa(int? etapaId) {
-    return (select(etapas)..where((c) => c.id.equals(etapaId)))
+    return (select(etapas)..where((c) => c.id.equals(etapaId!)))
         .getSingleOrNull();
   }
 

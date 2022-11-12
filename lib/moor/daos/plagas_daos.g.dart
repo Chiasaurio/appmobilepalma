@@ -13,10 +13,10 @@ mixin _$PlagasDaoMixin on DatabaseAccessor<AppDatabase> {
   $CensoEtapasPlagaTable get censoEtapasPlaga =>
       attachedDatabase.censoEtapasPlaga;
   Selectable<CensoData> getIdCenso() {
-    return customSelect('SELECT * FROM censo ORDER BY id_censo DESC LIMIT 1;',
+    return customSelect('SELECT * FROM censo ORDER BY id_censo DESC LIMIT 1',
         variables: [],
         readsFrom: {
           censo,
-        }).map(censo.mapFromRow);
+        }).asyncMap(censo.mapFromRow);
   }
 }

@@ -28,7 +28,7 @@ class _TratamientoPageState extends State<TratamientoPage> {
         String nombreLote = '';
         final state = BlocProvider.of<LoteDetailCubit>(context).state;
         if (state is LoteChoosed) {
-          nombreLote = state.lote.nombreLote;
+          nombreLote = state.lote.lote.nombreLote;
         }
         BlocProvider.of<TratamientoCubit>(context)
             .obtenerPalmasEnfermas(nombreLote);

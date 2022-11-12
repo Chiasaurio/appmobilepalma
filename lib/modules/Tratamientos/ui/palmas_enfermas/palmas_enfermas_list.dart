@@ -77,76 +77,68 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const TratamientoPage()));
       },
-      child: Card(
-        elevation: 2.0,
-        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Fecha registro:',
-                      style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-                  const Text('Linea:',
-                      style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-                  const Text('Numero',
-                      style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  const Text('Enfermedad',
-                      style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  palma.etapa != null
-                      ? const Text('Etapa',
-                          style: TextStyle(fontSize: 16.0, color: Colors.grey))
-                      : const SizedBox(),
-                  const SizedBox(
-                    width: 30,
-                  )
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    f.format(palma.registroEnfermedad.fechaRegistro),
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    '${palma.palma.numerolinea}',
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    '${palma.palma.numeroenlinea}',
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
-                    textAlign: TextAlign.start,
-                  ),
-                  Text(
-                    ' ${palma.enfermedad.nombreEnfermedad}',
-                    style: const TextStyle(color: Colors.orange, fontSize: 18),
-                    textAlign: TextAlign.start,
-                  ),
-                  palma.etapa != null
-                      ? Text(
-                          ' ${palma.etapa!.nombreEtapa}',
-                          style: const TextStyle(
-                              color: Colors.orange, fontSize: 18),
-                          textAlign: TextAlign.start,
-                        )
-                      : const SizedBox()
-                ],
-              ),
-            ],
+      child: SizedBox(
+        width: double.infinity,
+        child: Card(
+          elevation: 2.0,
+          margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Fecha registro:',
+                    style: TextStyle(fontSize: 16.0, color: Colors.grey)),
+                Text(
+                  f.format(palma.registroEnfermedad.fechaRegistro),
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  textAlign: TextAlign.start,
+                ),
+                const Text('Linea:',
+                    style: TextStyle(fontSize: 16.0, color: Colors.grey)),
+                Text(
+                  '${palma.palma.numerolinea}',
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  textAlign: TextAlign.start,
+                ),
+                const Text('Numero',
+                    style: TextStyle(fontSize: 16.0, color: Colors.grey)),
+                Text(
+                  '${palma.palma.numeroenlinea}',
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                const Text('Enfermedad',
+                    style: TextStyle(fontSize: 16.0, color: Colors.grey)),
+                Text(
+                  ' ${palma.enfermedad.nombreEnfermedad}',
+                  style: const TextStyle(color: Colors.orange, fontSize: 18),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                palma.etapa != null
+                    ? const Text('Etapa',
+                        style: TextStyle(fontSize: 16.0, color: Colors.grey))
+                    : const SizedBox(),
+                palma.etapa != null
+                    ? Text(
+                        ' ${palma.etapa!.nombreEtapa}',
+                        style:
+                            const TextStyle(color: Colors.orange, fontSize: 18),
+                        textAlign: TextAlign.start,
+                      )
+                    : const SizedBox(),
+                const SizedBox(
+                  width: 30,
+                ),
+              ],
+            ),
           ),
         ),
       ),

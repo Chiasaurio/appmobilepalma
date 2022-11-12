@@ -24,9 +24,7 @@ class FumigacionDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<List<Aplicacione>> obtenerTodasAplicaciones() {
-    return (select(aplicaciones)
-          ..orderBy([(t) => OrderingTerm(expression: t.fechaAplicacion)]))
-        .get();
+    return (select(aplicaciones)).get();
   }
 
   Future updateCenso(Insertable<CensoData> censoobjeto) =>

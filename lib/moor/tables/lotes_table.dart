@@ -1,5 +1,6 @@
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:drift/drift.dart';
+import 'package:equatable/equatable.dart';
 
 class Lotes extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -11,7 +12,7 @@ class Lotes extends Table {
   List<String> get customConstraints => ['UNIQUE (nombre_lote)'];
 }
 
-class LoteWithProcesos {
+class LoteWithProcesos extends Equatable {
   final Lote lote;
   final Cosecha? cosecha;
   final Plateo? plateo;
@@ -23,4 +24,7 @@ class LoteWithProcesos {
     this.plateo,
     this.poda,
   });
+
+  @override
+  List<Object?> get props => [lote, cosecha, plateo, poda];
 }

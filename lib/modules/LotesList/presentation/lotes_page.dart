@@ -5,6 +5,8 @@ import 'package:apppalma/moor/tables/lotes_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../LoteDetail/ui/lote_page.dart';
+
 class EscogerLotePage extends StatefulWidget {
   @override
   _EscogerLotePageState createState() => _EscogerLotePageState();
@@ -32,9 +34,6 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
     altoCard = height * 0.3; //150,
     anchoCard = width * 0.9;
     margin = anchoCard * 0.04;
-    // loteBloc.addLote();
-    // loteBloc.obtenerTodosLotesWithProcesos();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Finca CampoAlegre'),
@@ -74,18 +73,20 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
         padding: EdgeInsets.all(margin),
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
-          borderRadius: new BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(10.0),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                color: Colors.grey[400]!, blurRadius: 5, offset: Offset(0, 2))
+                color: Colors.grey[400]!,
+                blurRadius: 5,
+                offset: const Offset(0, 2))
           ],
         ),
         child: ExpansionTile(
             key: PageStorageKey<Lote>(loteswithprocesos.lote),
             title: Text(
               loteswithprocesos.lote.nombreLote,
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: const TextStyle(color: Colors.black, fontSize: 20),
               textAlign: TextAlign.start,
             ),
             children: <Widget>[
@@ -181,15 +182,9 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
           borderRadius: BorderRadius.circular(10.0),
           color: Colors.white,
           border: Border.all(
-            color: Colors.blue, //                   <--- border color
+            color: Colors.blue,
             width: 1.0,
           ),
-          // boxShadow: [
-          //  BoxShadow(
-          //      color: Colors.grey[400],
-          //      blurRadius: 5,
-          //      offset: Offset(0, 2))
-          // ],
         ),
         child: const Center(
             child: Text(
@@ -199,10 +194,16 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
         )),
       ),
       onTap: () {
-        print(loteswithprocesos.lote.nombreLote);
         BlocProvider.of<LoteDetailCubit>(context)
-            .loteEscogido(loteswithprocesos.lote);
-        Navigator.pushNamed(context, '/lote');
+            .loteEscogido(loteswithprocesos);
+        // Navigator.pushNamed(context, '/lote');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                LotePage(routeName: '/lote', lote: loteswithprocesos),
+          ),
+        );
       },
     );
   }

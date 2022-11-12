@@ -3,13 +3,14 @@ import 'package:apppalma/components/widgets/fecha.dart';
 import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../utils/recargar_lote_detail.dart';
 
 class NuevoPlateoView extends StatefulWidget {
   final String nombrelote;
   const NuevoPlateoView({Key? key, required this.nombrelote}) : super(key: key);
 
   @override
-  _NuevoPlateoViewState createState() => _NuevoPlateoViewState();
+  State<NuevoPlateoView> createState() => _NuevoPlateoViewState();
 }
 
 class _NuevoPlateoViewState extends State<NuevoPlateoView> {
@@ -48,8 +49,8 @@ class _NuevoPlateoViewState extends State<NuevoPlateoView> {
   Widget buildNuevaPodaForm() {
     return Container(
         height: altoCard,
-        padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
-        margin: EdgeInsets.all(10),
+        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
+        margin: const EdgeInsets.all(10),
         child: Form(
             key: formKey,
             child: Column(
@@ -94,5 +95,6 @@ class _NuevoPlateoViewState extends State<NuevoPlateoView> {
   void _submit() {
     BlocProvider.of<PlateosCubit>(context)
         .comenzarNuevoPlateo(widget.nombrelote, fecha);
+    recargarLote(context);
   }
 }
