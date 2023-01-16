@@ -1,3 +1,4 @@
+import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
 import 'package:apppalma/modules/Censo/cubit/censos_cubit.dart';
 import 'package:apppalma/modules/Cosechas/cubit/cosecha_cubit.dart';
 import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
@@ -54,6 +55,8 @@ class AppPalma extends StatelessWidget {
               create: (context) => ViajesPendientesCubit()),
           BlocProvider<PesoExtractoraCubit>(
               create: (context) => PesoExtractoraCubit()),
+          BlocProvider<SyncToServerCubit>(
+              create: (context) => SyncToServerCubit()),
         ],
         child: const MaterialApp(
           title: 'Smart Spotter',

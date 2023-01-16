@@ -10,6 +10,7 @@ class Cosechas extends Table {
   IntColumn get kilos => integer()();
   IntColumn get idViaje => integer().nullable()();
   BoolColumn get completada => boolean().withDefault(const Constant(false))();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }
 
 class CosechaDiaria extends Table {
@@ -19,6 +20,7 @@ class CosechaDiaria extends Table {
   DateTimeColumn get fechaIngreso => dateTime()();
   IntColumn get kilos => integer()();
   IntColumn get cantidadRacimos => integer()();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }
 
 class CosechaDiariaWithCosecha {
@@ -28,5 +30,15 @@ class CosechaDiariaWithCosecha {
   CosechaDiariaWithCosecha({
     required this.cosecha,
     required this.cosechadiaria,
+  });
+}
+
+class CosechaConCosechasDiarias {
+  final Cosecha cosecha;
+  final List<CosechaDiariaData> cosechasdiarias;
+
+  CosechaConCosechasDiarias({
+    required this.cosecha,
+    required this.cosechasdiarias,
   });
 }

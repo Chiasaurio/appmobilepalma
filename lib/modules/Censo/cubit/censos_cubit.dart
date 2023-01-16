@@ -27,7 +27,8 @@ class CensosCubit extends Cubit<CensosState> {
 
   Future<void> daraltaCenso(CensoData censo) async {
     final PlagasDao plagasDao = db.plagasDao;
-    plagasDao.updateCenso(censo.copyWith(estadoPlaga: 'eliminado'));
+    plagasDao.updateCenso(
+        censo.copyWith(estadoPlaga: 'eliminado', sincronizado: false));
     obtenerTodosCensos();
   }
 

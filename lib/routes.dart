@@ -1,3 +1,4 @@
+import 'package:apppalma/SyncToServer/ui/sincronizar_a_servidor_page.dart';
 import 'package:apppalma/modules/Aplicaciones/aplicaciones_page.dart';
 import 'package:apppalma/modules/Censo/ui/censo_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/cosecha_page.dart';
@@ -56,6 +57,11 @@ class Routes {
         return MaterialPageRoute(builder: (_) => EscogerLotePage());
       case '/sincronizar':
         return MaterialPageRoute(builder: (_) => SincronizacionPage());
+      case '/sinctoserver':
+        return MaterialPageRoute(
+            builder: (_) => SyncToServerPage(
+                  routeName: settings.name!,
+                ));
       case '/lote/censo':
         return MaterialPageRoute(
             builder: (_) => CensoPage(routeName: settings.name!));

@@ -36,7 +36,8 @@ class PodasCubit extends Cubit<PodasStateLoaded> {
       idPoda: Value(poda.id),
     );
     await podaDao.insertPodaDiaria(podaDiariaCompanion);
-    podaDao.updatePoda(poda.copyWith(cantidadPodada: nuevasPodas));
+    podaDao.updatePoda(
+        poda.copyWith(cantidadPodada: nuevasPodas, sincronizado: false));
     obtenerPodaActiva(poda.nombreLote);
   }
 
@@ -59,8 +60,8 @@ class PodasCubit extends Cubit<PodasStateLoaded> {
   }
 
   finalizarPoda(Poda poda, DateTime fechasalida) {
-    final PodaDao cosechaDao = db.podaDao;
-    cosechaDao.updatePoda(
+    final PodaDao podaDao = db.podaDao;
+    podaDao.updatePoda(
         poda.copyWith(fechaSalida: Value(fechasalida), completada: true));
     obtenerPodaActiva(poda.nombreLote);
     // successMessageToast('La poda se finalizo correctamente');

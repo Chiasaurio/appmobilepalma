@@ -9,6 +9,7 @@ class Palmas extends Table {
   IntColumn get numerolinea => integer()();
   IntColumn get numeroenlinea => integer()();
   TextColumn get estadopalma => text()();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 
   static String mapEntryToJson(Palma entry) {
     return json.encode(entry.toJson());

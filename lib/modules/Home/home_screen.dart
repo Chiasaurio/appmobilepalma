@@ -113,38 +113,18 @@ class FincaPage extends StatelessWidget {
         width: width * 0.8,
         child: Padding(
           padding: EdgeInsets.fromLTRB(0.0, altoCard * 0.2, 0.0, 0.0),
-          child: Table(
+          child: Column(
             children: [
-              TableRow(
-                children: [
-                  _crearBotonRedondeado2(
-                      'Ver lotes', '/lotes', Icons.art_track, context),
-                ],
-              ),
-              TableRow(
-                children: [
-                  _crearBotonRedondeado2(
-                      'Viajes de fruto', '/viajes', Icons.art_track, context),
-                ],
-              ),
-              // TableRow(
-              //   children: [
-              //     _crearBotonRedondeado2('Pluviometro', 'formularioejemplo',
-              //         Icons.art_track, context),
-              //   ],
-              // ),
-              TableRow(
-                children: [
-                  _crearBotonRedondeado2('Registrar precipitacion', '/viajes',
-                      Icons.art_track, context),
-                ],
-              ),
-              TableRow(
-                children: [
-                  _crearBotonRedondeado2(
-                      'Sincronizar', '/sincronizar', Icons.art_track, context),
-                ],
-              )
+              _crearBotonRedondeado2(
+                  'Ver lotes', '/lotes', Icons.art_track, context),
+              _crearBotonRedondeado2(
+                  'Viajes de fruto', '/viajes', Icons.art_track, context),
+              _crearBotonRedondeado2('Registrar precipitacion', '/viajes',
+                  Icons.art_track, context),
+              _crearBotonRedondeado2(
+                  'Sincronizar', '/sincronizar', Icons.art_track, context),
+              _crearBotonRedondeado2(
+                  'Sincronizar dos', '/sinctoserver', Icons.art_track, context),
             ],
           ),
         ));

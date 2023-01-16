@@ -9,8 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'sync_bloc.dart';
 
 class SincronizacionPage extends StatefulWidget {
+  const SincronizacionPage({Key? key}) : super(key: key);
+
   @override
-  _SincronizacionPageState createState() => _SincronizacionPageState();
+  State<SincronizacionPage> createState() => _SincronizacionPageState();
 }
 
 class _SincronizacionPageState extends State<SincronizacionPage> {

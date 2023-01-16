@@ -9,6 +9,7 @@ class RegistroEnfermedad extends Table {
   TextColumn get nombreEnfermedad => text()();
   IntColumn get idEtapaEnfermedad => integer().nullable()();
   TextColumn get observaciones => text().nullable()();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 
   @override
   List<String> get customConstraints => [
