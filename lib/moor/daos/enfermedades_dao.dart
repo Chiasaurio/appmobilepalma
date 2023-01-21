@@ -22,9 +22,9 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
       Insertable<Enfermedade> enfermedad, List<Insertable<Etapa>> listaetapas) {
     return transaction(() async {
       await into(enfermedades).insert(enfermedad);
-      listaetapas.forEach((element) async {
+      for (var element in listaetapas) {
         await into(etapas).insert(element);
-      });
+      }
     });
   }
 
@@ -33,35 +33,11 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
     try {
       await batch((b) {
         b.insertAllOnConflictUpdate(enfermedades, listaenfermedades);
-        // for (final enfermedad in listaenfermedades) {
-        //   b.insert(
-        //     enfermedades,
-        //     enfermedad,
-        //     onConflict: DoUpdate(
-        //       (_) => enfermedad,
-        //       // upsert will happen if it conflicts with columnA and columnB
-        //       target: [enfermedades.nombreEnfermedad],
-        //     ),
-        //   );
-        // }
       });
       await batch((b) {
         b.insertAllOnConflictUpdate(etapas, listaetapas);
-        // for (final etapa in listaetapas) {
-        //   b.insert(
-        //     etapas,
-        //     etapa,
-        //     onConflict: DoUpdate(
-        //       (_) => etapa,
-        //       // upsert will happen if it conflicts with columnA and columnB
-        //       target: [etapas.id],
-        //     ),
-        //   );
-        // }
       });
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
   }
 
   Future<List<EnfermedadConEtapas>> obtenerEnfermedadConEtapas() async {

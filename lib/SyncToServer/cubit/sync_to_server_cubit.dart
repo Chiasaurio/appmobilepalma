@@ -70,7 +70,7 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       List<PlateoConPlateosDiarias> plateoConDiarias = [];
       final plateos = await plateoDao.getPlateosForSync();
       for (var p in plateos) {
-        final plateosDiarias = await plateoDao.getPlateosDiariasForSync(p!.id!);
+        final plateosDiarias = await plateoDao.getPlateosDiariasForSync(p!.id);
         plateoConDiarias.add(
             PlateoConPlateosDiarias(plateo: p, plateosDiarias: plateosDiarias));
       }

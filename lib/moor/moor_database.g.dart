@@ -2494,6 +2494,303 @@ class $EtapasPlagaTable extends EtapasPlaga
   }
 }
 
+class ErradicacionData extends DataClass
+    implements Insertable<ErradicacionData> {
+  final int id;
+  final int idPalma;
+  final String? causaErradicacion;
+  final DateTime fechaRegistro;
+  final bool sincronizado;
+  const ErradicacionData(
+      {required this.id,
+      required this.idPalma,
+      this.causaErradicacion,
+      required this.fechaRegistro,
+      required this.sincronizado});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['id_palma'] = Variable<int>(idPalma);
+    if (!nullToAbsent || causaErradicacion != null) {
+      map['causa_erradicacion'] = Variable<String>(causaErradicacion);
+    }
+    map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
+    map['sincronizado'] = Variable<bool>(sincronizado);
+    return map;
+  }
+
+  ErradicacionCompanion toCompanion(bool nullToAbsent) {
+    return ErradicacionCompanion(
+      id: Value(id),
+      idPalma: Value(idPalma),
+      causaErradicacion: causaErradicacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(causaErradicacion),
+      fechaRegistro: Value(fechaRegistro),
+      sincronizado: Value(sincronizado),
+    );
+  }
+
+  factory ErradicacionData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ErradicacionData(
+      id: serializer.fromJson<int>(json['id']),
+      idPalma: serializer.fromJson<int>(json['idPalma']),
+      causaErradicacion:
+          serializer.fromJson<String?>(json['causaErradicacion']),
+      fechaRegistro: serializer.fromJson<DateTime>(json['fechaRegistro']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idPalma': serializer.toJson<int>(idPalma),
+      'causaErradicacion': serializer.toJson<String?>(causaErradicacion),
+      'fechaRegistro': serializer.toJson<DateTime>(fechaRegistro),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
+    };
+  }
+
+  ErradicacionData copyWith(
+          {int? id,
+          int? idPalma,
+          Value<String?> causaErradicacion = const Value.absent(),
+          DateTime? fechaRegistro,
+          bool? sincronizado}) =>
+      ErradicacionData(
+        id: id ?? this.id,
+        idPalma: idPalma ?? this.idPalma,
+        causaErradicacion: causaErradicacion.present
+            ? causaErradicacion.value
+            : this.causaErradicacion,
+        fechaRegistro: fechaRegistro ?? this.fechaRegistro,
+        sincronizado: sincronizado ?? this.sincronizado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ErradicacionData(')
+          ..write('id: $id, ')
+          ..write('idPalma: $idPalma, ')
+          ..write('causaErradicacion: $causaErradicacion, ')
+          ..write('fechaRegistro: $fechaRegistro, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, idPalma, causaErradicacion, fechaRegistro, sincronizado);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ErradicacionData &&
+          other.id == this.id &&
+          other.idPalma == this.idPalma &&
+          other.causaErradicacion == this.causaErradicacion &&
+          other.fechaRegistro == this.fechaRegistro &&
+          other.sincronizado == this.sincronizado);
+}
+
+class ErradicacionCompanion extends UpdateCompanion<ErradicacionData> {
+  final Value<int> id;
+  final Value<int> idPalma;
+  final Value<String?> causaErradicacion;
+  final Value<DateTime> fechaRegistro;
+  final Value<bool> sincronizado;
+  const ErradicacionCompanion({
+    this.id = const Value.absent(),
+    this.idPalma = const Value.absent(),
+    this.causaErradicacion = const Value.absent(),
+    this.fechaRegistro = const Value.absent(),
+    this.sincronizado = const Value.absent(),
+  });
+  ErradicacionCompanion.insert({
+    this.id = const Value.absent(),
+    required int idPalma,
+    this.causaErradicacion = const Value.absent(),
+    required DateTime fechaRegistro,
+    this.sincronizado = const Value.absent(),
+  })  : idPalma = Value(idPalma),
+        fechaRegistro = Value(fechaRegistro);
+  static Insertable<ErradicacionData> custom({
+    Expression<int>? id,
+    Expression<int>? idPalma,
+    Expression<String>? causaErradicacion,
+    Expression<DateTime>? fechaRegistro,
+    Expression<bool>? sincronizado,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idPalma != null) 'id_palma': idPalma,
+      if (causaErradicacion != null) 'causa_erradicacion': causaErradicacion,
+      if (fechaRegistro != null) 'fecha_registro': fechaRegistro,
+      if (sincronizado != null) 'sincronizado': sincronizado,
+    });
+  }
+
+  ErradicacionCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? idPalma,
+      Value<String?>? causaErradicacion,
+      Value<DateTime>? fechaRegistro,
+      Value<bool>? sincronizado}) {
+    return ErradicacionCompanion(
+      id: id ?? this.id,
+      idPalma: idPalma ?? this.idPalma,
+      causaErradicacion: causaErradicacion ?? this.causaErradicacion,
+      fechaRegistro: fechaRegistro ?? this.fechaRegistro,
+      sincronizado: sincronizado ?? this.sincronizado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idPalma.present) {
+      map['id_palma'] = Variable<int>(idPalma.value);
+    }
+    if (causaErradicacion.present) {
+      map['causa_erradicacion'] = Variable<String>(causaErradicacion.value);
+    }
+    if (fechaRegistro.present) {
+      map['fecha_registro'] = Variable<DateTime>(fechaRegistro.value);
+    }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ErradicacionCompanion(')
+          ..write('id: $id, ')
+          ..write('idPalma: $idPalma, ')
+          ..write('causaErradicacion: $causaErradicacion, ')
+          ..write('fechaRegistro: $fechaRegistro, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ErradicacionTable extends Erradicacion
+    with TableInfo<$ErradicacionTable, ErradicacionData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ErradicacionTable(this.attachedDatabase, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+  final VerificationMeta _idPalmaMeta = const VerificationMeta('idPalma');
+  @override
+  late final GeneratedColumn<int> idPalma = GeneratedColumn<int>(
+      'id_palma', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  final VerificationMeta _causaErradicacionMeta =
+      const VerificationMeta('causaErradicacion');
+  @override
+  late final GeneratedColumn<String> causaErradicacion =
+      GeneratedColumn<String>('causa_erradicacion', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  final VerificationMeta _fechaRegistroMeta =
+      const VerificationMeta('fechaRegistro');
+  @override
+  late final GeneratedColumn<DateTime> fechaRegistro =
+      GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  final VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
+      defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, idPalma, causaErradicacion, fechaRegistro, sincronizado];
+  @override
+  String get aliasedName => _alias ?? 'erradicacion';
+  @override
+  String get actualTableName => 'erradicacion';
+  @override
+  VerificationContext validateIntegrity(Insertable<ErradicacionData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_palma')) {
+      context.handle(_idPalmaMeta,
+          idPalma.isAcceptableOrUnknown(data['id_palma']!, _idPalmaMeta));
+    } else if (isInserting) {
+      context.missing(_idPalmaMeta);
+    }
+    if (data.containsKey('causa_erradicacion')) {
+      context.handle(
+          _causaErradicacionMeta,
+          causaErradicacion.isAcceptableOrUnknown(
+              data['causa_erradicacion']!, _causaErradicacionMeta));
+    }
+    if (data.containsKey('fecha_registro')) {
+      context.handle(
+          _fechaRegistroMeta,
+          fechaRegistro.isAcceptableOrUnknown(
+              data['fecha_registro']!, _fechaRegistroMeta));
+    } else if (isInserting) {
+      context.missing(_fechaRegistroMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ErradicacionData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ErradicacionData(
+      id: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idPalma: attachedDatabase.options.types
+          .read(DriftSqlType.int, data['${effectivePrefix}id_palma'])!,
+      causaErradicacion: attachedDatabase.options.types.read(
+          DriftSqlType.string, data['${effectivePrefix}causa_erradicacion']),
+      fechaRegistro: attachedDatabase.options.types.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
+      sincronizado: attachedDatabase.options.types
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    );
+  }
+
+  @override
+  $ErradicacionTable createAlias(String alias) {
+    return $ErradicacionTable(attachedDatabase, alias);
+  }
+}
+
 class Lote extends DataClass implements Insertable<Lote> {
   final int id;
   final String nombreLote;
@@ -3214,7 +3511,7 @@ class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
 }
 
 class Plateo extends DataClass implements Insertable<Plateo> {
-  final int? id;
+  final int id;
   final String nombreLote;
   final DateTime fechaIngreso;
   final DateTime? fechaSalida;
@@ -3222,7 +3519,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   final bool completado;
   final bool sincronizado;
   const Plateo(
-      {this.id,
+      {required this.id,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
@@ -3232,9 +3529,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (!nullToAbsent || id != null) {
-      map['id'] = Variable<int>(id);
-    }
+    map['id'] = Variable<int>(id);
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
@@ -3248,7 +3543,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
 
   PlateosCompanion toCompanion(bool nullToAbsent) {
     return PlateosCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      id: Value(id),
       nombreLote: Value(nombreLote),
       fechaIngreso: Value(fechaIngreso),
       fechaSalida: fechaSalida == null && nullToAbsent
@@ -3264,7 +3559,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Plateo(
-      id: serializer.fromJson<int?>(json['id']),
+      id: serializer.fromJson<int>(json['id']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
@@ -3277,7 +3572,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int?>(id),
+      'id': serializer.toJson<int>(id),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
@@ -3288,7 +3583,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   }
 
   Plateo copyWith(
-          {Value<int?> id = const Value.absent(),
+          {int? id,
           String? nombreLote,
           DateTime? fechaIngreso,
           Value<DateTime?> fechaSalida = const Value.absent(),
@@ -3296,7 +3591,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
           bool? completado,
           bool? sincronizado}) =>
       Plateo(
-        id: id.present ? id.value : this.id,
+        id: id ?? this.id,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
@@ -3335,7 +3630,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
 }
 
 class PlateosCompanion extends UpdateCompanion<Plateo> {
-  final Value<int?> id;
+  final Value<int> id;
   final Value<String> nombreLote;
   final Value<DateTime> fechaIngreso;
   final Value<DateTime?> fechaSalida;
@@ -3383,7 +3678,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   }
 
   PlateosCompanion copyWith(
-      {Value<int?>? id,
+      {Value<int>? id,
       Value<String>? nombreLote,
       Value<DateTime>? fechaIngreso,
       Value<DateTime?>? fechaSalida,
@@ -3451,7 +3746,7 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, true,
+      'id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
@@ -3569,7 +3864,7 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Plateo(
       id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id']),
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       nombreLote: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       fechaIngreso: attachedDatabase.options.types.read(
@@ -6566,6 +6861,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $EnfermedadesTable enfermedades = $EnfermedadesTable(this);
   late final $EtapasTable etapas = $EtapasTable(this);
   late final $EtapasPlagaTable etapasPlaga = $EtapasPlagaTable(this);
+  late final $ErradicacionTable erradicacion = $ErradicacionTable(this);
   late final $LotesTable lotes = $LotesTable(this);
   late final $PalmasTable palmas = $PalmasTable(this);
   late final $PlagasTable plagas = $PlagasTable(this);
@@ -6587,6 +6883,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       CosechaDiariaDao(this as AppDatabase);
   late final EnfermedadesDao enfermedadesDao =
       EnfermedadesDao(this as AppDatabase);
+  late final ErradicacionesDao erradicacionesDao =
+      ErradicacionesDao(this as AppDatabase);
   late final FumigacionDao fumigacionDao = FumigacionDao(this as AppDatabase);
   late final LoteDao loteDao = LoteDao(this as AppDatabase);
   late final PalmaDao palmaDao = PalmaDao(this as AppDatabase);
@@ -6608,6 +6906,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         enfermedades,
         etapas,
         etapasPlaga,
+        erradicacion,
         lotes,
         palmas,
         plagas,

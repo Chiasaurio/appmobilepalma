@@ -65,7 +65,7 @@ class _PalmaPageState extends State<PalmaPage> {
         TableRow(
           children: [
             _crearBotonRedondeado('Registrar erradicacion',
-                'lote/palmas/erradicacion', Icons.art_track, context),
+                '/lote/palmas/erradicar', Icons.art_track, context),
           ],
         ),
         TableRow(

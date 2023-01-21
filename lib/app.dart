@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'modules/Erradicaciones/cubit/erradicacion_cubit.dart';
 import 'modules/Viajes/cubit/viaje_cubit.dart';
 
 class AppPalma extends StatelessWidget {
@@ -30,41 +31,43 @@ class AppPalma extends StatelessWidget {
     // final authenticationRepository = AuthenticationRepository();
     // final userRepository = UserRepository();
     return MultiBlocProvider(
-        providers: [
-          // BlocProvider<UserBloc>(create: (context) => UserBloc()),
-          BlocProvider<AuthenticationBloc>(
-              create: (context) =>
-                  AuthenticationBloc()..add(const AuthenticationChange())),
-          BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
-          BlocProvider<LoteslistCubit>(create: (context) => LoteslistCubit()),
-          BlocProvider<LoteDetailCubit>(create: (context) => LoteDetailCubit()),
-          BlocProvider<CensosCubit>(create: (context) => CensosCubit()),
-          BlocProvider<PalmaCubit>(create: (context) => PalmaCubit()),
-          BlocProvider<EnfermedadCubit>(create: (context) => EnfermedadCubit()),
-          BlocProvider<AgroquimicosCubit>(
-              create: (context) => AgroquimicosCubit()),
-          BlocProvider<PlagasCubit>(create: (context) => PlagasCubit()),
-          BlocProvider<CosechaCubit>(create: (context) => CosechaCubit()),
-          BlocProvider<PlateosCubit>(create: (context) => PlateosCubit()),
-          BlocProvider<FumigacionCubit>(create: (context) => FumigacionCubit()),
-          BlocProvider<PodasCubit>(create: (context) => PodasCubit()),
-          BlocProvider<TratamientoCubit>(
-              create: (context) => TratamientoCubit()),
-          BlocProvider<ViajeCubit>(create: (context) => ViajeCubit()),
-          BlocProvider<ViajesPendientesCubit>(
-              create: (context) => ViajesPendientesCubit()),
-          BlocProvider<PesoExtractoraCubit>(
-              create: (context) => PesoExtractoraCubit()),
-          BlocProvider<SyncToServerCubit>(
-              create: (context) => SyncToServerCubit()),
-        ],
-        child: const MaterialApp(
-          title: 'Smart Spotter',
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/splash',
-          localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-          supportedLocales: [Locale('en')],
-          onGenerateRoute: Routes.generateRoutes,
-        ));
+      providers: [
+        // BlocProvider<UserBloc>(create: (context) => UserBloc()),
+        BlocProvider<AuthenticationBloc>(
+            create: (context) =>
+                AuthenticationBloc()..add(const AuthenticationChange())),
+        BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+        BlocProvider<LoteslistCubit>(create: (context) => LoteslistCubit()),
+        BlocProvider<LoteDetailCubit>(create: (context) => LoteDetailCubit()),
+        BlocProvider<CensosCubit>(create: (context) => CensosCubit()),
+        BlocProvider<PalmaCubit>(create: (context) => PalmaCubit()),
+        BlocProvider<EnfermedadCubit>(create: (context) => EnfermedadCubit()),
+        BlocProvider<ErradicacionCubit>(
+            create: (context) => ErradicacionCubit()),
+        BlocProvider<AgroquimicosCubit>(
+            create: (context) => AgroquimicosCubit()),
+        BlocProvider<PlagasCubit>(create: (context) => PlagasCubit()),
+        BlocProvider<CosechaCubit>(create: (context) => CosechaCubit()),
+        BlocProvider<PlateosCubit>(create: (context) => PlateosCubit()),
+        BlocProvider<FumigacionCubit>(create: (context) => FumigacionCubit()),
+        BlocProvider<PodasCubit>(create: (context) => PodasCubit()),
+        BlocProvider<TratamientoCubit>(create: (context) => TratamientoCubit()),
+        BlocProvider<ViajeCubit>(create: (context) => ViajeCubit()),
+        BlocProvider<ViajesPendientesCubit>(
+            create: (context) => ViajesPendientesCubit()),
+        BlocProvider<PesoExtractoraCubit>(
+            create: (context) => PesoExtractoraCubit()),
+        BlocProvider<SyncToServerCubit>(
+            create: (context) => SyncToServerCubit()),
+      ],
+      child: const MaterialApp(
+        title: 'Smart Spotter',
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/splash',
+        localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+        supportedLocales: [Locale('en')],
+        onGenerateRoute: Routes.generateRoutes,
+      ),
+    );
   }
 }

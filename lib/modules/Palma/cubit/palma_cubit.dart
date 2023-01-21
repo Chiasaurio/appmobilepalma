@@ -4,9 +4,7 @@ import 'package:apppalma/main.dart';
 import 'package:apppalma/moor/daos/enfermedades_dao.dart';
 import 'package:apppalma/moor/daos/palma_daos.dart';
 import 'package:apppalma/moor/moor_database.dart';
-import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'palma_state.dart';
 

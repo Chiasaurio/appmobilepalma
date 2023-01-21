@@ -5,6 +5,7 @@ import 'package:apppalma/modules/Cosechas/ui/cosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
 import 'package:apppalma/modules/Enfermedad/enfermedad_page.dart';
+import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/erradicacion-page.dart';
 import 'package:apppalma/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
 import 'package:apppalma/modules/Home/home_screen.dart';
 import 'package:apppalma/modules/Login/ui/login_page.dart';
@@ -129,9 +130,9 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => RegistrarFumigacionPage(routeName: settings.name!),
         );
-      // case 'lote/censo/plaga':
-      //   return MaterialPageRoute(
-      //       builder: (_) => CensoPage(routeName: settings.name!));
+      case '/lote/palmas/erradicar':
+        return MaterialPageRoute(
+            builder: (_) => ErradicacionPage(routeName: settings.name!));
       default:
         return _errorScreen();
     }

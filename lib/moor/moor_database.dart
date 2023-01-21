@@ -6,6 +6,7 @@ import 'package:apppalma/moor/daos/enfermedades_dao.dart';
 import 'package:apppalma/moor/daos/fumigacion_dao.dart';
 import 'package:apppalma/moor/daos/lote_dao.dart';
 import 'package:apppalma/moor/daos/plagas_daos.dart';
+import 'package:apppalma/moor/tables/erradicacion_table.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,6 +25,7 @@ import 'package:apppalma/moor/tables/productoagroquimico_table.dart';
 import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
 import 'package:apppalma/moor/tables/registrotratamiento_table.dart';
 import 'package:apppalma/moor/tables/viajes_table.dart';
+import 'daos/erradicaciones_dao.dart';
 import 'daos/palma_daos.dart';
 import 'daos/plateos_dao.dart';
 import 'daos/podas_dao.dart';
@@ -51,6 +53,7 @@ LazyDatabase _openConnection() {
   Enfermedades,
   Etapas,
   EtapasPlaga,
+  Erradicacion,
   Lotes,
   Palmas,
   Plagas,
@@ -67,6 +70,7 @@ LazyDatabase _openConnection() {
   CosechaDao,
   CosechaDiariaDao,
   EnfermedadesDao,
+  ErradicacionesDao,
   FumigacionDao,
   LoteDao,
   PalmaDao,

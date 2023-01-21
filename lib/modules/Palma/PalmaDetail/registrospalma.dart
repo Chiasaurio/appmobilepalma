@@ -15,7 +15,7 @@ class PalmaDetalleScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  _PalmaDetalleScreenState createState() => _PalmaDetalleScreenState();
+  State<PalmaDetalleScreen> createState() => _PalmaDetalleScreenState();
 }
 
 class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
@@ -29,7 +29,6 @@ class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
   getProcesosPalma(Palma palma) async {
     palmaConProcesos =
         await BlocProvider.of<PalmaCubit>(context).obtenerProcesosPalma(palma);
-    print(palmaConProcesos);
     setState(() {});
   }
 

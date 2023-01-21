@@ -1,4 +1,3 @@
-import 'package:apppalma/moor/daos/enfermedades_dao.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/moor/tables/enfermedades_table.dart';
 import 'package:apppalma/moor/tables/palmas_table.dart';
@@ -69,6 +68,46 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
               c.numerolinea.equals(numerolinea) &
               c.numeroenlinea.equals(numeroenlinea)))
         .getSingleOrNull();
+  }
+
+  Future<PalmaValidada?> obtenerPalmaConRegistros(
+      String nombrelote, int numerolinea, int numeroenlinea) async {
+    final resultRow = await (select(palmas)
+          ..where((c) =>
+                  c.nombreLote.equals(nombrelote) &
+                  c.numerolinea.equals(numerolinea) &
+                  c.numeroenlinea.equals(numeroenlinea)
+              // &
+              // c.estadopalma.equals("Erradicada").not()
+              ))
+        .join(
+      [
+        leftOuterJoin(registroEnfermedad,
+            registroEnfermedad.idPalma.equalsExp(palmas.id)),
+      ],
+    ).getSingleOrNull();
+    if (resultRow != null) {
+      // for (var resultRow in rows) {
+      final nombreEnfermedad =
+          resultRow.readTableOrNull(registroEnfermedad)?.nombreEnfermedad;
+      final idEtapa =
+          resultRow.readTableOrNull(registroEnfermedad)?.idEtapaEnfermedad;
+      var enfermedad;
+      if (nombreEnfermedad != null) {
+        enfermedad = await obtenerEnfermedad(nombreEnfermedad);
+      }
+      var etapa;
+      if (idEtapa != null) {
+        etapa = await obtenerEtapa(idEtapa);
+      }
+      var palma = PalmaValidada(
+          palma: resultRow.readTable(palmas),
+          registroEnfermedad: resultRow.readTableOrNull(registroEnfermedad),
+          enfermedad: enfermedad,
+          etapa: etapa);
+      return palma;
+    }
+    return null;
   }
 
   Future<int> getPalmaId(Insertable<Palma> palma) async {

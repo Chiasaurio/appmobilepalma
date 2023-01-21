@@ -1,10 +1,9 @@
-import 'package:apppalma/components/toasts/toasts.dart';
 import 'package:apppalma/moor/daos/plateos_dao.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
-import 'package:bloc/bloc.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
 
@@ -21,7 +20,7 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
     final Plateo? plateo = await plateoDao.getPlateoActivo(nombrelote);
     List<PlateoDiarioData> plateosDiarios = [];
     if (plateo != null) {
-      plateosDiarios = await obtenerPlateosDiarios(plateo.id!);
+      plateosDiarios = await obtenerPlateosDiarios(plateo.id);
     }
     emit(PlateosStateLoaded(
         plateo: plateo, plateosDiarios: plateosDiarios, isLoaded: true));
@@ -53,7 +52,7 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
       cantidadPlateada: Value(cantidad),
       fecha: Value(fecha),
       tipoPlateo: Value(tipo),
-      idPlateo: Value(plateo.id!),
+      idPlateo: Value(plateo.id),
     );
     await plateoDao.insertPlateoDiario(plateoDiarioCompanion);
     plateoDao.updatePlateo(plateo.copyWith(cantidadPlateada: nuevosPlateos));

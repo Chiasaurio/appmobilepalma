@@ -20,3 +20,17 @@ class Palmas extends Table {
         'FOREIGN KEY(nombre_lote) REFERENCES lotes(nombre_lote)',
       ];
 }
+
+class PalmaValidada {
+  final Palma palma;
+  final RegistroEnfermedadData? registroEnfermedad;
+  final Enfermedade? enfermedad;
+  final Etapa? etapa;
+
+  PalmaValidada({
+    required this.palma,
+    this.registroEnfermedad,
+    this.enfermedad,
+    this.etapa,
+  });
+}
