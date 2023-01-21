@@ -18,9 +18,7 @@ class _CardPendientesState extends State<CardPendientes> {
   Widget build(BuildContext context) {
     return BlocConsumer<SyncToServerCubit, SyncToServerState>(
       listener: (context, state) {
-        print('------');
         setState(() {});
-        // TODO: implement listener
       },
       builder: (context, state) {
         return Container(

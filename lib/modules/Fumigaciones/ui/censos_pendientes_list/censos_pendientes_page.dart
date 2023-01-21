@@ -1,10 +1,8 @@
 import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/modules/Censo/cubit/censos_cubit.dart';
-import 'package:apppalma/modules/Fumigaciones/cubit/fumigacion_cubit.dart';
 import 'package:apppalma/modules/Fumigaciones/ui/censos_pendientes_list/censos_plaga_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:apppalma/modules/Fumigaciones/ui/fumigacion/fumigacion_form.dart';
 
 import '../fumigacion/registrar_fumigacion_page.dart';
 

@@ -7,9 +7,8 @@ import 'package:intl/intl.dart';
 class PlateoActivoVista extends StatefulWidget {
   final Plateo plateo;
   const PlateoActivoVista({Key? key, required this.plateo}) : super(key: key);
-
   @override
-  _PlateoActivoVistaState createState() => _PlateoActivoVistaState();
+  State<PlateoActivoVista> createState() => _PlateoActivoVistaState();
 }
 
 class _PlateoActivoVistaState extends State<PlateoActivoVista> {

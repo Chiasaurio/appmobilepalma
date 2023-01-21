@@ -50,9 +50,7 @@ class AuthenticationRepository {
         _controller.add(AuthenticationStatus.authenticated);
       }
       return res.statusCode!;
-    } on Exception catch (e) {
-      print('$e as');
-
+    } on Exception catch (_) {
       return 401;
     }
   }

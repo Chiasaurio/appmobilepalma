@@ -19,8 +19,8 @@ class ConfirmacionAlerta {
                   onPressed: () {},
                 ),
                 TextButton(
-                  child: const Text('Ok'),
                   onPressed: onPress,
+                  child: const Text('Ok'),
                 )
               ]);
         });

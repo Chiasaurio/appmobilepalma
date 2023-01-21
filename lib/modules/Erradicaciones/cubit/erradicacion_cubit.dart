@@ -1,6 +1,5 @@
 import 'package:apppalma/constants.dart';
 import 'package:apppalma/moor/daos/erradicaciones_dao.dart';
-import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
 import 'package:apppalma/utils/form_status.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
@@ -69,7 +68,6 @@ class ErradicacionCubit extends Cubit<ErradicacionState> {
       successMessageToast('Se realizó el registro exitosamente');
       emit(ErradicacionInitial());
     } catch (e) {
-      print(e);
       emit(state.copyWith(status: FormStatus.submissionFailure));
     }
   }

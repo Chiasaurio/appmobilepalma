@@ -1,8 +1,8 @@
 import 'package:apppalma/modules/Login/models/email.dart';
 import 'package:apppalma/modules/Login/models/password.dart';
 import 'package:apppalma/modules/Login/resources/authentication_repository.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 part 'login_state.dart';

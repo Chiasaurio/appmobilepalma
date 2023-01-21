@@ -19,7 +19,7 @@ class FumigacionForm extends StatefulWidget {
     required this.productos,
   }) : super(key: key);
   @override
-  _FumigacionFormState createState() => _FumigacionFormState();
+  State<FumigacionForm> createState() => _FumigacionFormState();
 }
 
 class _FumigacionFormState extends State<FumigacionForm> {
@@ -164,8 +164,8 @@ class _FumigacionFormState extends State<FumigacionForm> {
       List<DropdownMenuItem<ProductoAgroquimicoData>> lista = [];
       for (var producto in productos) {
         lista.add(DropdownMenuItem(
-          child: Text(producto.nombreProductoAgroquimico),
           value: producto,
+          child: Text(producto.nombreProductoAgroquimico),
         ));
       }
       return lista;
@@ -242,6 +242,11 @@ class _FumigacionFormState extends State<FumigacionForm> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
+          onTap: (() {
+            setState(() {
+              unidades = 'cm3';
+            });
+          }),
           child: Container(
               margin: const EdgeInsets.all(1),
               padding: const EdgeInsets.all(15),
@@ -255,11 +260,6 @@ class _FumigacionFormState extends State<FumigacionForm> {
               child: const Text('cm3',
                   style: TextStyle(fontSize: 15.0),
                   textAlign: TextAlign.center)),
-          onTap: (() {
-            setState(() {
-              unidades = 'cm3';
-            });
-          }),
         ),
         GestureDetector(
           onTap: (() {
@@ -643,6 +643,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
           censo,
           producto!.idProductoAgroquimico,
           area!);
+      if (!mounted) return;
       Navigator.of(context).pop();
     } catch (e) {
       registroFallidoToast('$e');

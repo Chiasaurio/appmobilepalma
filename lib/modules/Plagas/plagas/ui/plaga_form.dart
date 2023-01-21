@@ -16,7 +16,7 @@ class PlagaForm extends StatefulWidget {
     required this.nombreLote,
   }) : super(key: key);
   @override
-  _PlagaFormState createState() => _PlagaFormState();
+  State<PlagaForm> createState() => _PlagaFormState();
 }
 
 class _PlagaFormState extends State<PlagaForm> {
@@ -86,7 +86,7 @@ class _PlagaFormState extends State<PlagaForm> {
                   : const SizedBox(),
               buildTipo(),
               SizedBox(height: altoCard * 0.1),
-              ubicacionfoco == 'sector' ? buildCamposFoco() : SizedBox(),
+              ubicacionfoco == 'sector' ? buildCamposFoco() : const SizedBox(),
               SizedBox(height: altoCard * 0.1),
             ],
           ),
@@ -121,8 +121,8 @@ class _PlagaFormState extends State<PlagaForm> {
       List<DropdownMenuItem<PlagaConEtapas>> lista = [];
       for (var plagaconetapas in plagas!) {
         lista.add(DropdownMenuItem(
-          child: Text(plagaconetapas.plaga.nombreComunPlaga),
           value: plagaconetapas,
+          child: Text(plagaconetapas.plaga.nombreComunPlaga),
         ));
       }
       return lista;
@@ -202,7 +202,8 @@ class _PlagaFormState extends State<PlagaForm> {
                       });
                     },
                   ),
-                  title: Text(e.nombreEtapa, style: TextStyle(fontSize: 20.0)));
+                  title: Text(e.nombreEtapa,
+                      style: const TextStyle(fontSize: 20.0)));
             }).toList(),
           ))
 
@@ -360,7 +361,6 @@ class _PlagaFormState extends State<PlagaForm> {
       });
     }
 
-    ;
     return Column(children: <Widget>[
       Row(
         children: <Widget>[
@@ -566,6 +566,7 @@ class _PlagaFormState extends State<PlagaForm> {
           plagaconetapas!.plaga.nombreComunPlaga,
           widget.nombreLote,
           etapasseleccionadas);
+      if (!mounted) return;
       Navigator.of(context).pop();
       Navigator.of(context).pop();
     } catch (e) {

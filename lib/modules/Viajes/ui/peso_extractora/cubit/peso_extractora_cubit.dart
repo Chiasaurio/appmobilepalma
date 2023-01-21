@@ -1,7 +1,7 @@
 import 'package:apppalma/moor/daos/viajes_dao.dart';
-import 'package:bloc/bloc.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../components/toasts/toasts.dart';
 import '../../../../../main.dart';

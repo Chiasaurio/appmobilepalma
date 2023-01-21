@@ -9,20 +9,29 @@ class PalmaPage extends StatefulWidget {
 
   const PalmaPage({Key? key, this.routeName = 'lote/palmas/palmadetalle'})
       : super(key: key);
-
   @override
-  _PalmaPageState createState() => _PalmaPageState();
+  State<PalmaPage> createState() => _PalmaPageState();
 }
 
 class _PalmaPageState extends State<PalmaPage> {
-  final palmaBloc = new PalmaCubit();
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
+  final palmaBloc = PalmaCubit();
+  late double margin;
+  late double anchoCard;
+  late double altoCard;
+  late double width;
+  late double height;
   late String nombrelote;
   late String ruta;
   late Palma palmaseleccionada;
+  @override
+  void initState() {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    altoCard = height * 0.4; //150,
+    anchoCard = width;
+    margin = anchoCard * 0.02;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +92,7 @@ class _PalmaPageState extends State<PalmaPage> {
     return GestureDetector(
       child: Container(
           height: height * 0.09,
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               color: Colors.blue[100],
               borderRadius: BorderRadius.circular(50.0)),
@@ -91,10 +100,11 @@ class _PalmaPageState extends State<PalmaPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(opcion,
-                    style: TextStyle(color: Colors.black, fontSize: 18.0)),
-                SizedBox(width: 30),
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
+                    style:
+                        const TextStyle(color: Colors.black, fontSize: 18.0)),
+                const SizedBox(width: 30),
+                const Padding(
+                  padding: EdgeInsets.only(right: 8.0),
                   child: Icon(
                     Icons.keyboard_arrow_right,
                     color: Colors.black,

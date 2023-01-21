@@ -1,6 +1,5 @@
 part of 'loteslist_cubit.dart';
 
-@immutable
 abstract class LoteslistState {}
 
 class LoteslistInitial extends LoteslistState {}

@@ -1,11 +1,11 @@
 import 'package:apppalma/modules/Erradicaciones/cubit/erradicacion_cubit.dart';
-import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/components/erradicacion-con-causa-widget.dart';
-import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/components/orientacion-dropdown.dart';
+import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/components/erradicacion_con_causa_widget.dart';
+import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/components/orientacion_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apppalma/utils/utils.dart' as utils;
 
-import 'components/erradicacion-sin-causa-widget.dart';
+import 'components/erradicacion_sin_causa_widget.dart';
 
 class Body extends StatefulWidget {
   final String nombreLote;

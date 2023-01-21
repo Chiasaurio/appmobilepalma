@@ -1,7 +1,5 @@
 import 'package:apppalma/components/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 
 class MainButton extends StatelessWidget {
   final String text;

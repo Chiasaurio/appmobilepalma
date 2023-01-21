@@ -14,11 +14,11 @@ class ListaCosechas extends StatefulWidget {
 
 class _ListaCosechasState extends State<ListaCosechas> {
   int totalkilos = 0;
-  var margin;
-  var anchoCard;
-  var altoCard;
-  var width;
-  var height;
+  late double margin;
+  late double anchoCard;
+  late double altoCard;
+  late double width;
+  late double height;
   List<Cosecha>? cosechas;
   List<Cosecha> cosechasseleccionadas = [];
   void loadCosechasFinalizadas() async {
@@ -29,6 +29,11 @@ class _ListaCosechasState extends State<ListaCosechas> {
 
   @override
   void initState() {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    altoCard = height * 0.4; //150,
+    anchoCard = width;
+    margin = anchoCard * 0.02;
     loadCosechasFinalizadas();
     super.initState();
   }

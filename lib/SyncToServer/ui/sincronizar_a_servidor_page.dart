@@ -33,9 +33,9 @@ class _SyncToServerPageState extends State<SyncToServerPage> {
               widget.routeName,
               style: const TextStyle(fontSize: 14),
             ),
-            Text(
+            const Text(
               nombreFinca,
-              style: const TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14),
             ),
           ],
         ),

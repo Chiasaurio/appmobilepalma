@@ -1,33 +1,39 @@
 import 'package:apppalma/modules/Home/components/header_curvo_widget.dart';
-import 'package:apppalma/modules/Home/painter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:math';
 
 import '../../size_config.dart';
 
-class FincaPage extends StatelessWidget {
+class FincaPage extends StatefulWidget {
+  const FincaPage({super.key});
+
+  @override
+  State<FincaPage> createState() => _FincaPageState();
+}
+
+class _FincaPageState extends State<FincaPage> {
   final DateTime fecha =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
-  var margin;
+  late double margin;
+  late double anchoCard;
+  late double altoCard;
+  late double width;
+  late double height;
+
+  @override
+  void initState() {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    altoCard = height * 0.4; //150,
+    anchoCard = width;
+    margin = anchoCard * 0.02;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-
-    altoCard = height * 0.6; //150,
-    anchoCard = width * 0.7;
-    margin = anchoCard * 0.04;
-
-    // loteBloc.obtenerTodosLotesWithProcesos();
 
     return Scaffold(
       body: Stack(
@@ -45,43 +51,6 @@ class FincaPage extends StatelessWidget {
           // ),
         ],
       ),
-    );
-  }
-
-  Widget _fondoApp() {
-    final gradiente = Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: FractionalOffset(0.0, 0.6),
-                end: FractionalOffset(0.0, 12.0),
-                colors: [
-              Color.fromRGBO(52, 54, 101, 1.0),
-              Color.fromRGBO(35, 37, 57, 1.0),
-            ])));
-
-    final cajaRosa = Transform.rotate(
-        angle: -5 * pi / 6.0,
-        child: Container(
-          height: altoCard * 2,
-          width: altoCard,
-          decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN4HJhnJo07reTM0Lta1HoTollHloqsqRUVw&usqp=CAU'),
-              ),
-              borderRadius: BorderRadius.circular(150),
-              gradient: LinearGradient(
-                  colors: [Color(0xFF2D6A4F), Color(0xFF2D6A4F)])),
-        ));
-
-    return Stack(
-      children: <Widget>[
-        // gradiente,
-        Positioned(
-            top: -altoCard * 0.6, left: -altoCard * 0.15, child: cajaRosa)
-      ],
     );
   }
 
@@ -109,7 +78,7 @@ class FincaPage extends StatelessWidget {
   }
 
   Widget _buildMenu(context) {
-    return Container(
+    return SizedBox(
         width: width * 0.8,
         child: Padding(
           padding: EdgeInsets.fromLTRB(0.0, altoCard * 0.2, 0.0, 0.0),
@@ -164,40 +133,4 @@ class FincaPage extends StatelessWidget {
       },
     );
   }
-
-  // Widget _crearBotonRedondeado3(
-  //     String opcion, String ruta, IconData icon, BuildContext context) {
-  //   return GestureDetector(
-  //     child: Container(
-  //         height: height * 0.09,
-  //         margin: EdgeInsets.all(10.0),
-  //         decoration: BoxDecoration(
-  //             shape: BoxShape.rectangle,
-  //             color: Colors.blue,
-  //             borderRadius: BorderRadius.circular(10.0),
-  //             boxShadow: [
-  //               BoxShadow(
-  //                   color: Colors.lightBlue,
-  //                   blurRadius: 1,
-  //                   offset: Offset(0, 1))
-  //             ]),
-  //         child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(opcion,
-  //                   style: TextStyle(color: Colors.black, fontSize: 18.0)),
-  //               SizedBox(width: 30),
-  //               Padding(
-  //                 padding: const EdgeInsets.only(right: 8.0),
-  //                 child: Icon(
-  //                   Icons.keyboard_arrow_right,
-  //                   color: Colors.black,
-  //                 ),
-  //               ),
-  //             ])),
-  //     onTap: () {
-  //       Navigator.pushNamed(context, ruta);
-  //     },
-  //   );
-  // }
 }

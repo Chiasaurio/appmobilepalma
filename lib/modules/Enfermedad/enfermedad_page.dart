@@ -10,7 +10,7 @@ class EnfermedadPage extends StatefulWidget {
 
   const EnfermedadPage({Key? key, required this.routeName}) : super(key: key);
   @override
-  _EnfermedadPageState createState() => _EnfermedadPageState();
+  State<EnfermedadPage> createState() => _EnfermedadPageState();
 }
 
 class _EnfermedadPageState extends State<EnfermedadPage>

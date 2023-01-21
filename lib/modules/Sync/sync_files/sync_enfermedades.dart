@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:apppalma/api.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:drift/drift.dart';
-import 'package:http/http.dart' as http;
 
 class SyncEnfermedades {
   final Api _apiInstance = Api.getInstance();
@@ -24,7 +21,6 @@ class SyncEnfermedades {
       }
       return enfermedades;
     } catch (e) {
-      print(e);
       return [];
     }
   }

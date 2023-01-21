@@ -1,11 +1,8 @@
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/Palma/PalmasList/body.dart';
 import 'package:apppalma/modules/Palma/cubit/palma_cubit.dart';
-import 'package:apppalma/components/appbar.dart';
 import 'package:apppalma/components/custom_appbar.dart';
 import 'package:flutter/material.dart';
-
-import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +11,7 @@ class PalmasList extends StatefulWidget {
 
   const PalmasList({Key? key, required this.routeName}) : super(key: key);
   @override
-  _PalmasListState createState() => _PalmasListState();
+  State<PalmasList> createState() => _PalmasListState();
 }
 
 class _PalmasListState extends State<PalmasList> {

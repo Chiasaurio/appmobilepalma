@@ -6,23 +6,20 @@ class AplicacionesPage extends StatefulWidget {
 
   const AplicacionesPage({Key? key, required this.routeName}) : super(key: key);
   @override
-  _AplicacionesPageState createState() => _AplicacionesPageState();
+  State<AplicacionesPage> createState() => _AplicacionesPageState();
 }
 
 class _AplicacionesPageState extends State<AplicacionesPage> {
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
+  late double height;
+
+  @override
+  void initState() {
+    height = MediaQuery.of(context).size.height;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-
-    altoCard = height * 0.4; //150,
-    anchoCard = width * 0.7;
-
     return Scaffold(
         appBar: HeaderApp(ruta: widget.routeName),
         body: ListView(
@@ -62,7 +59,7 @@ class _AplicacionesPageState extends State<AplicacionesPage> {
     return GestureDetector(
       child: Container(
           height: height * 0.09,
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               color: Colors.blue[100],
               borderRadius: BorderRadius.circular(50.0)),

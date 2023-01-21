@@ -5,7 +5,7 @@ class HeaderCurvo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       // decoration: const BoxDecoration(
       //   image: DecorationImage(
       //     image: NetworkImage(

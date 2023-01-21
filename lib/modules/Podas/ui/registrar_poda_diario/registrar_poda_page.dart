@@ -15,7 +15,7 @@ class PodaDiariaPage extends StatefulWidget {
       this.routeName = '/lote/podas/registrardiarios'})
       : super(key: key);
   @override
-  _PodaDiariaPageState createState() => _PodaDiariaPageState();
+  State<PodaDiariaPage> createState() => _PodaDiariaPageState();
 }
 
 class _PodaDiariaPageState extends State<PodaDiariaPage> {

@@ -7,14 +7,12 @@ class HoraWidget extends StatefulWidget {
 
   HoraWidget({Key? key, required this.hora, required this.callback})
       : super(key: key);
-
   @override
-  _HoraWidgetState createState() => _HoraWidgetState();
+  State<HoraWidget> createState() => _HoraWidgetState();
 }
 
 class _HoraWidgetState extends State<HoraWidget> {
   late TimeOfDay _hora;
-  late String _hour, _minute, _time;
   late double width;
   late double height;
   late double altoCard;

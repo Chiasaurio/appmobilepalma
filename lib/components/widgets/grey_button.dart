@@ -15,11 +15,6 @@ class GreyButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          // gradient: LinearGradient(
-          //   begin: Alignment.centerRight,
-          //   end: Alignment.centerLeft,
-          //   colors: deliveryGradients,
-          // )
           color: AppPalmaColors.darkgrey,
         ),
         child: Padding(
@@ -31,7 +26,6 @@ class GreyButton extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
-            // textAlign: TextAlign.center,
           ),
         ),
       ),

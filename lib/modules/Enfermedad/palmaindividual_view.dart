@@ -8,29 +8,31 @@ class PalmaIndividualView extends StatefulWidget {
   final String nombreLote;
   const PalmaIndividualView({Key? key, required this.nombreLote})
       : super(key: key);
-
   @override
-  _PalmaIndividualViewState createState() => _PalmaIndividualViewState();
+  State<PalmaIndividualView> createState() => _PalmaIndividualViewState();
 }
 
 class _PalmaIndividualViewState extends State<PalmaIndividualView> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  var margin;
-  var width;
-  var height;
+  late double margin;
+  late double width;
+  late double height;
   int? lineapalma;
   int? numeropalma;
   String? nombrelote;
   String? orientacion;
   List<String> orientaciones = ['NORTE-SUR', 'SUR-NORTE', 'ORIENTE-OCCIDENTE'];
-
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     margin = width * 0.04;
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Column(
       children: <Widget>[
@@ -42,19 +44,17 @@ class _PalmaIndividualViewState extends State<PalmaIndividualView> {
   }
 
   Widget buildIngresarDatos(context) {
-    return Container(
-        // margin: EdgeInsets.all(margin),
-        child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: height * 0.0009),
-                buildLineaPalma(),
-                buildNumeroPalma(),
-                buildOrientacion(),
-              ],
-            )));
+    return Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: height * 0.0009),
+            buildLineaPalma(),
+            buildNumeroPalma(),
+            buildOrientacion(),
+          ],
+        ));
   }
 
   Widget buildLineaPalma() {
@@ -71,7 +71,7 @@ class _PalmaIndividualViewState extends State<PalmaIndividualView> {
 
   Widget buildNumeroPalma() {
     return Container(
-        margin: EdgeInsets.all(5.0),
+        margin: const EdgeInsets.all(5.0),
         child: Column(children: <Widget>[
           Row(
             children: <Widget>[
@@ -88,7 +88,7 @@ class _PalmaIndividualViewState extends State<PalmaIndividualView> {
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         labelText: campo,
-        labelStyle: TextStyle(fontSize: 18),
+        labelStyle: const TextStyle(fontSize: 18),
         // hintText: campo,
         border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -113,17 +113,17 @@ class _PalmaIndividualViewState extends State<PalmaIndividualView> {
   Widget buildOrientacion() {
     List<DropdownMenuItem<String>> getOpcionesDropdown() {
       List<DropdownMenuItem<String>> lista = [];
-      orientaciones.forEach((ece) {
+      for (var ece in orientaciones) {
         lista.add(DropdownMenuItem(
-          child: Text(ece),
           value: ece,
+          child: Text(ece),
         ));
-      });
+      }
       return lista;
     }
 
     return Container(
-        margin: EdgeInsets.all(5.0),
+        margin: const EdgeInsets.all(5.0),
         child: Row(children: <Widget>[
           // Icon(Icons.select_all),
           Expanded(

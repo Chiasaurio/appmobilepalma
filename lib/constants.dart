@@ -10,7 +10,7 @@ class EstadosPalma {
   static const sana = 'Sana';
 }
 
-final String nombreFinca = 'FINCA CAMPOALEGRE';
+const String nombreFinca = 'FINCA CAMPOALEGRE';
 
 const kPrimaryColor = Color(0xFF2D6A4F);
 const kBackgroundColor = Color.fromARGB(168, 245, 245, 245);

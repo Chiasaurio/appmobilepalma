@@ -13,7 +13,6 @@ class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = SizeConfig.screenHeight;
     final paddingTop = SizeConfig.paddingTop;
     return BlocBuilder<LoteDetailCubit, LoteDetailState>(
       builder: (context, state) {
@@ -23,7 +22,7 @@ class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
               height: double.infinity,
               width: double.infinity,
               child: CustomPaint(
-                painter: _HeaderWavePainter(this.height),
+                painter: _HeaderWavePainter(height),
               ),
             ),
             Positioned(
@@ -34,7 +33,7 @@ class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: kPrimaryColor, shape: BoxShape.circle),
                     child: IconButton(
                         splashColor: kPrimaryColor,
@@ -49,13 +48,13 @@ class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   textHeader(state),
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: kPrimaryColor, shape: BoxShape.circle),
                     child: IconButton(
                         splashColor: kPrimaryColor,
                         splashRadius: 10,
                         onPressed: () {},
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back_ios_new,
                           color: kPrimaryColor,
                         )),
@@ -70,7 +69,6 @@ class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget textHeader(LoteDetailState state) {
-    final height = SizeConfig.screenHeight;
     if (state is LoteChoosed) {
       return Text(
         state.lote.lote.nombreLote,
@@ -83,7 +81,6 @@ class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(height);
 }
 

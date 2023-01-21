@@ -1,5 +1,4 @@
 import 'package:apppalma/modules/LoteDetail/ui/components/header_lote_widget.dart';
-import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/moor/tables/lotes_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +36,6 @@ class _LotePageState extends State<LotePage> {
           _lote = state.lote;
         }
         setState(() {});
-        // TODO: implement listener
       },
       child: Scaffold(
         appBar: HeaderLote(

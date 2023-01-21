@@ -2,9 +2,8 @@ import 'package:apppalma/main.dart';
 import 'package:apppalma/moor/daos/enfermedades_dao.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/moor/tables/enfermedades_table.dart';
-import 'package:bloc/bloc.dart';
 import 'package:drift/drift.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'enfermedad_state.dart';
 
@@ -13,8 +12,8 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
   final db = getIt<AppDatabase>();
 
   Future<void> obtenerEnfermedades() async {
-    final EnfermedadesDao enfermedadDao = db.enfermedadesDao;
-    List<Enfermedade> enfermedades = await enfermedadDao.getEnfermedades();
+    // final EnfermedadesDao enfermedadDao = db.enfermedadesDao;
+    // List<Enfermedade> enfermedades = await enfermedadDao.getEnfermedades();
     // emit(EnfermedadesLoaded(enfermedades: enfermedades));
   }
 

@@ -19,9 +19,7 @@ class FumigacionDao extends DatabaseAccessor<AppDatabase>
         await updateCenso(
             censo.copyWith(estadoPlaga: 'fumigado', sincronizado: false));
       });
-    } catch (e) {
-      print('$e');
-    }
+    } catch (_) {}
   }
 
   Future<List<Aplicacione>> obtenerTodasAplicaciones() {

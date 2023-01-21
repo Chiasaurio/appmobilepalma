@@ -60,7 +60,6 @@ class TratamientoCubit extends Cubit<TratamientoState> {
         return false;
       }
     } catch (e) {
-      print('error en bloc $e');
       return false;
     }
   }

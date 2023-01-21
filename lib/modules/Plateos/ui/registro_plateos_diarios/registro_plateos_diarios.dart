@@ -9,9 +9,8 @@ class RegistroPlateosDiarios extends StatefulWidget {
 
   const RegistroPlateosDiarios({Key? key, required this.routeName})
       : super(key: key);
-
   @override
-  _RegistroPlateosDiariosState createState() => _RegistroPlateosDiariosState();
+  State<RegistroPlateosDiarios> createState() => _RegistroPlateosDiariosState();
 }
 
 class _RegistroPlateosDiariosState extends State<RegistroPlateosDiarios> {

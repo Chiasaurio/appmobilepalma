@@ -92,11 +92,11 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
           resultRow.readTableOrNull(registroEnfermedad)?.nombreEnfermedad;
       final idEtapa =
           resultRow.readTableOrNull(registroEnfermedad)?.idEtapaEnfermedad;
-      var enfermedad;
+      Enfermedade? enfermedad;
       if (nombreEnfermedad != null) {
         enfermedad = await obtenerEnfermedad(nombreEnfermedad);
       }
-      var etapa;
+      Etapa? etapa;
       if (idEtapa != null) {
         etapa = await obtenerEtapa(idEtapa);
       }
@@ -108,12 +108,6 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       return palma;
     }
     return null;
-  }
-
-  Future<int> getPalmaId(Insertable<Palma> palma) async {
-    Map map = palma.toColumns(true);
-    print(map);
-    return 0;
   }
 
   Future insertPalma(Insertable<Palma> palma) => into(palmas).insert(palma);
@@ -166,9 +160,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
             observaciones: Value(observaciones));
         await insertarEnfermedad(registroenfermedad);
       });
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
   }
 
   Future<List<PalmaConEnfermedad>> obtenerPalmasConEnfermedad(

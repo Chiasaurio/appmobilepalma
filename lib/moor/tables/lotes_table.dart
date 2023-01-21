@@ -18,7 +18,7 @@ class LoteWithProcesos extends Equatable {
   final Plateo? plateo;
   final Poda? poda;
 
-  LoteWithProcesos({
+  const LoteWithProcesos({
     required this.lote,
     this.cosecha,
     this.plateo,

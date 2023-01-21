@@ -1,7 +1,9 @@
 part of 'censos_cubit.dart';
 
-@immutable
-abstract class CensosState {}
+abstract class CensosState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
 
 class CensosInitial extends CensosState {}
 

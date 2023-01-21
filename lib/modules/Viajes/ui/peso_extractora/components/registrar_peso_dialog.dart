@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../components/main_button.dart';
-import '../../../cubit/viaje_cubit.dart';
 import '../../primera_pagina/cubit/viajes_pendientes_cubit.dart';
 
 registrarPesoDialog(

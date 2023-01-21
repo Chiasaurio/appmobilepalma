@@ -15,9 +15,8 @@ class FinalizarPlateoPage extends StatefulWidget {
     Key? key,
     required this.routeName,
   }) : super(key: key);
-
   @override
-  _FinalizarPlateoPageState createState() => _FinalizarPlateoPageState();
+  State<FinalizarPlateoPage> createState() => _FinalizarPlateoPageState();
 }
 
 class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
@@ -67,7 +66,6 @@ class _FinalizarPlateoPageState extends State<FinalizarPlateoPage> {
       });
     }
 
-    ;
     return Container(
         height: height * 0.5,
         margin: EdgeInsets.all(margin),

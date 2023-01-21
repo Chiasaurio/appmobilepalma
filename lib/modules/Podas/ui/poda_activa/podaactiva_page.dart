@@ -9,7 +9,7 @@ class PodaActivaPage extends StatefulWidget {
   const PodaActivaPage({Key? key, required this.poda}) : super(key: key);
 
   @override
-  _PodaActivaPageState createState() => _PodaActivaPageState();
+  State<PodaActivaPage> createState() => _PodaActivaPageState();
 }
 
 class _PodaActivaPageState extends State<PodaActivaPage> {

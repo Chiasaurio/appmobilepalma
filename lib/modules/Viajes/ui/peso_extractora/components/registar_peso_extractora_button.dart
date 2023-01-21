@@ -21,7 +21,6 @@ class _RegistrarPesoExtractoraButtonState
         if (state.pesoExtractora > 0) {
           return MainButton(
             press: () {
-              print('it goes');
               registrarPesoDialog(context);
             },
             text: 'Registrar peso',

@@ -18,7 +18,7 @@ class SincronizacionPage extends StatefulWidget {
 class _SincronizacionPageState extends State<SincronizacionPage> {
   final DateTime fecha =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-  SyncBloc syncBloc = new SyncBloc();
+  SyncBloc syncBloc = SyncBloc();
 
   late double width;
   late double height;
@@ -95,7 +95,7 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
   }
 
   Widget _buildMenu(context) {
-    return Container(
+    return SizedBox(
         width: width * 0.8,
         child: Padding(
             padding: EdgeInsets.fromLTRB(0.0, altoCard * 0.2, 0.0, 0.0),
@@ -138,23 +138,27 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
       msg = 'Agregando lotes';
     });
     final lotes = await syncBloc.getLotesRemote();
+    if (!mounted) return;
     BlocProvider.of<LoteslistCubit>(context).addLotesFromServerToLocal(lotes);
     setState(() {
       msg = 'Agregando enfermedades';
     });
     final enfermedades = await syncBloc.getEnfermedadesConEtapasRemote();
+    if (!mounted) return;
     BlocProvider.of<EnfermedadCubit>(context)
         .addEnfermedadyEtapasFromServerToLocal(enfermedades);
     setState(() {
       msg = 'Agregando plagas';
     });
     final plagas = await syncBloc.getPlagasRemote();
+    if (!mounted) return;
     BlocProvider.of<PlagasCubit>(context)
         .addPlagayEtapasFromServerToLocal(plagas);
     setState(() {
       msg = 'Agregando agroquimicos';
     });
     final agroquimicos = await syncBloc.getAgroquimicosRemote();
+    if (!mounted) return;
     BlocProvider.of<AgroquimicosCubit>(context)
         .addProductosFromServerToLocal(agroquimicos);
   }

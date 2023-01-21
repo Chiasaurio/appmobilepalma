@@ -15,9 +15,8 @@ class EnfermedadForm extends StatefulWidget {
     Key? key,
     required this.palgaArgumentos,
   }) : super(key: key);
-
   @override
-  _EnfermedadFormState createState() => _EnfermedadFormState();
+  State<EnfermedadForm> createState() => _EnfermedadFormState();
 }
 
 class _EnfermedadFormState extends State<EnfermedadForm> {
@@ -62,7 +61,7 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
     anchoCard = width;
     margin = anchoCard * 0.04;
     otraenfermedad = EnfermedadConEtapas(
-        enfermedad: Enfermedade(
+        enfermedad: const Enfermedade(
             nombreEnfermedad: 'Otra', procedimientoEnfermedad: 'otro'),
         etapas: []);
     // enfermedades.add(otraenfermedad);
@@ -182,7 +181,7 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
         children: <Widget>[
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: const Text('Seleccione la enfermedad:',
                   style: TextStyle(
                     fontSize: 20.0,
@@ -219,12 +218,12 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
   Widget _buildEnfermedad() {
     List<DropdownMenuItem<EnfermedadConEtapas>> getOpcionesDropdown() {
       List<DropdownMenuItem<EnfermedadConEtapas>> lista = [];
-      enfermedades.forEach((ece) {
+      for (var ece in enfermedades) {
         lista.add(DropdownMenuItem(
-          child: Text(ece.enfermedad.nombreEnfermedad),
           value: ece,
+          child: Text(ece.enfermedad.nombreEnfermedad),
         ));
-      });
+      }
       return lista;
     }
 
@@ -305,8 +304,8 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
         ],
       ),
       Container(
-        padding: EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
-        margin: EdgeInsets.all(5.0),
+        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
+        margin: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           border: advertenciaetapa
               ? Border.all(color: Colors.red)
@@ -387,7 +386,7 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
                           Expanded(
                             child: Text(
                               etapa!.nombreEtapa,
-                              style: TextStyle(color: Colors.red),
+                              style: const TextStyle(color: Colors.red),
                             ),
                           )
                         ],

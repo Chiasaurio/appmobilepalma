@@ -5,7 +5,7 @@ import 'package:apppalma/modules/Cosechas/ui/cosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
 import 'package:apppalma/modules/Enfermedad/enfermedad_page.dart';
-import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/erradicacion-page.dart';
+import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/erradicacion_page.dart';
 import 'package:apppalma/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
 import 'package:apppalma/modules/Home/home_screen.dart';
 import 'package:apppalma/modules/Login/ui/login_page.dart';
@@ -31,14 +31,13 @@ import 'modules/Viajes/ui/primera_pagina/screens/viajes_pendientes_page.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
-    final args = settings.arguments;
     switch (settings.name) {
       case '/splash':
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case '/auth-options':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/finca':
-        return MaterialPageRoute(builder: (_) => FincaPage());
+        return MaterialPageRoute(builder: (_) => const FincaPage());
       case '/viajes':
         return MaterialPageRoute(
             builder: (_) => ViajesPendientesPage(
@@ -55,9 +54,9 @@ class Routes {
                   routeName: settings.name!,
                 ));
       case '/lotes':
-        return MaterialPageRoute(builder: (_) => EscogerLotePage());
+        return MaterialPageRoute(builder: (_) => const EscogerLotePage());
       case '/sincronizar':
-        return MaterialPageRoute(builder: (_) => SincronizacionPage());
+        return MaterialPageRoute(builder: (_) => const SincronizacionPage());
       case '/sinctoserver':
         return MaterialPageRoute(
             builder: (_) => SyncToServerPage(
@@ -70,7 +69,7 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => EnfermedadPage(routeName: settings.name!));
       case '/lote/palmas':
-        return MaterialPageRoute(builder: (_) => PalmaPage());
+        return MaterialPageRoute(builder: (_) => const PalmaPage());
       case '/lote/palmas/estadopalmas':
         return MaterialPageRoute(
             builder: (_) => PalmasList(routeName: settings.name!));

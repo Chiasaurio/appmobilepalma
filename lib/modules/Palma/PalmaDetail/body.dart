@@ -1,6 +1,5 @@
 import 'package:apppalma/constants.dart';
 import 'package:apppalma/modules/Palma/PalmaDetail/registrospalma.dart';
-import 'package:apppalma/components/appbar.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +8,7 @@ class Body extends StatefulWidget {
 
   const Body({Key? key, required this.palmaConProcesos}) : super(key: key);
   @override
-  _BodyState createState() => _BodyState();
+  State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
@@ -202,14 +201,15 @@ class _BodyState extends State<Body> {
                     children: <Widget>[
                       Text(
                         etapa!.nombreEtapa,
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 18),
                         textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                 ],
               )
-            : SizedBox(),
+            : const SizedBox(),
       ],
     );
   }
@@ -218,7 +218,7 @@ class _BodyState extends State<Body> {
     return Container(
       width: 18,
       height: 18,
-      margin: EdgeInsets.fromLTRB(0.0, 0.0, 10, 0.0),
+      margin: const EdgeInsets.fromLTRB(0.0, 0.0, 10, 0.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: etiquetacolor[palma.estadopalma],

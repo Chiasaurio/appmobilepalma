@@ -29,7 +29,6 @@ class SyncProductosAgroquimicos {
       }
       return productos;
     } catch (e) {
-      print(e);
       return [];
     }
   }

@@ -15,7 +15,7 @@ class PlateoDiarioPage extends StatefulWidget {
       this.routeName = '/lote/plateos/registrardiarios'})
       : super(key: key);
   @override
-  _PlateoDiarioPageState createState() => _PlateoDiarioPageState();
+  State<PlateoDiarioPage> createState() => _PlateoDiarioPageState();
 }
 
 class _PlateoDiarioPageState extends State<PlateoDiarioPage> {

@@ -34,8 +34,6 @@ class ProductoAgroquimicoDao extends DatabaseAccessor<AppDatabase>
         //   );
         // }
       });
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
   }
 }

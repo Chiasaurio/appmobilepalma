@@ -1,6 +1,5 @@
 part of 'enfermedad_cubit.dart';
 
-@immutable
 abstract class EnfermedadState {}
 
 class EnfermedadInitial extends EnfermedadState {}

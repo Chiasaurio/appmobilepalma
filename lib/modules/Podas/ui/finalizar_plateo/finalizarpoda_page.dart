@@ -1,7 +1,6 @@
 import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/components/main_button.dart';
 import 'package:apppalma/components/widgets/fecha.dart';
-import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/utils/confirmacion_alerta.dart';
@@ -17,9 +16,8 @@ class FinalizarPodaPage extends StatefulWidget {
     Key? key,
     required this.routeName,
   }) : super(key: key);
-
   @override
-  _FinalizarPodaPageState createState() => _FinalizarPodaPageState();
+  State<FinalizarPodaPage> createState() => _FinalizarPodaPageState();
 }
 
 class _FinalizarPodaPageState extends State<FinalizarPodaPage> {
@@ -69,7 +67,6 @@ class _FinalizarPodaPageState extends State<FinalizarPodaPage> {
       });
     }
 
-    ;
     return Container(
         height: height * 0.5,
         margin: EdgeInsets.all(margin),
