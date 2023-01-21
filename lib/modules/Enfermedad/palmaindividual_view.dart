@@ -23,16 +23,12 @@ class _PalmaIndividualViewState extends State<PalmaIndividualView> {
   String? nombrelote;
   String? orientacion;
   List<String> orientaciones = ['NORTE-SUR', 'SUR-NORTE', 'ORIENTE-OCCIDENTE'];
-  @override
-  void initState() {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    margin = width * 0.04;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    margin = width * 0.04;
     return SingleChildScrollView(
         child: Column(
       children: <Widget>[

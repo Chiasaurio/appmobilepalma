@@ -61,7 +61,9 @@ class _PlateoPageState extends State<PlateoPage> {
       child: BlocConsumer<PlateosCubit, PlateosStateLoaded>(
           listener: (context, state) {
         setState(() {
-          plateo = state.plateo;
+          if (state is PlateosStateLoaded) {
+            plateo = state.plateo;
+          }
         });
       }, builder: (context, state) {
         if (state.isLoaded) {

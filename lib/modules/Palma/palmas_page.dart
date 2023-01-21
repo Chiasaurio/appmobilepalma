@@ -23,18 +23,14 @@ class _PalmaPageState extends State<PalmaPage> {
   late String nombrelote;
   late String ruta;
   late Palma palmaseleccionada;
+
   @override
-  void initState() {
+  Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     altoCard = height * 0.4; //150,
     anchoCard = width;
     margin = anchoCard * 0.02;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     nombrelote = '';
     palmaBloc.obtenerPalmasLote(nombrelote);
     ruta = '';

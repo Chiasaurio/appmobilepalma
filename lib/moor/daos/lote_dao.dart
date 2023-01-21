@@ -38,7 +38,6 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
       });
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

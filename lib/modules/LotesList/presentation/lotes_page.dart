@@ -25,17 +25,17 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
 
   @override
   void initState() {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    altoCard = height * 0.4; //150,
-    anchoCard = width;
-    margin = anchoCard * 0.02;
     BlocProvider.of<LoteslistCubit>(context).obtenerTodosLotesWithProcesos();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    altoCard = height * 0.4; //150,
+    anchoCard = width;
+    margin = anchoCard * 0.02;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Finca CampoAlegre'),
