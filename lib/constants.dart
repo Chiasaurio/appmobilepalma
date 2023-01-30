@@ -10,6 +10,12 @@ class EstadosPalma {
   static const sana = 'Sana';
 }
 
+class EstadosPlaga {
+  static const pendientePorFumigar = 'Pendiente por fumigar';
+  static const fumigado = 'Fumigado';
+  static const eliminado = 'En tratamiento';
+}
+
 const String nombreFinca = 'FINCA CAMPOALEGRE';
 
 const kPrimaryColor = Color(0xFF2D6A4F);

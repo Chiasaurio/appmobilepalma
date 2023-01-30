@@ -30,6 +30,7 @@ import 'daos/palma_daos.dart';
 import 'daos/plateos_dao.dart';
 import 'daos/podas_dao.dart';
 import 'daos/producto_dao.dart';
+import 'daos/registroenfermedad_dao.dart';
 import 'daos/viajes_dao.dart';
 
 part 'moor_database.g.dart';
@@ -78,6 +79,7 @@ LazyDatabase _openConnection() {
   PodaDao,
   PlateoDao,
   ProductoAgroquimicoDao,
+  RegistroEnfermedadDao,
   ViajesDao
 ])
 class AppDatabase extends _$AppDatabase {

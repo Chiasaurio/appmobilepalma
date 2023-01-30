@@ -82,8 +82,8 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
               ))
         .join(
       [
-        leftOuterJoin(registroEnfermedad,
-            registroEnfermedad.idPalma.equalsExp(palmas.id)),
+        // leftOuterJoin(registroEnfermedad,
+        //     registroEnfermedad.idPalma.equalsExp(palmas.id)),
       ],
     ).getSingleOrNull();
     if (resultRow != null) {
@@ -132,10 +132,10 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       }
       final palma = await obtenerPalma(nombrelote, numerolinea, numeroenlinea);
       if (palma != null) {
-        final registro = await obtenerSoloRegistrosEnfermedad(palma.id);
-        if (registro != null) {
-          estadoPalma = 'Reincidente';
-        }
+        // final registro = await obtenerSoloRegistrosEnfermedad(palma.id);
+        // if (registro != null) {
+        //   estadoPalma = 'Reincidente';
+        // }
       }
       return transaction(() async {
         int idPalma;
@@ -149,16 +149,16 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
 
           idPalma = resp;
         } else {
-          idPalma = palma.id;
+          // idPalma = palma.id;
         }
-        final registroenfermedad = RegistroEnfermedadCompanion(
-            fechaRegistro: Value(fecha),
-            horaRegistro: Value(fecha),
-            idPalma: Value(idPalma),
-            nombreEnfermedad: Value(nombreEnfermedad),
-            idEtapaEnfermedad: Value(idEtapa),
-            observaciones: Value(observaciones));
-        await insertarEnfermedad(registroenfermedad);
+        // final registroenfermedad = RegistroEnfermedadCompanion(
+        //     fechaRegistro: Value(fecha),
+        //     horaRegistro: Value(fecha),
+        //     idPalma: Value(idPalma),
+        //     nombreEnfermedad: Value(nombreEnfermedad),
+        //     idEtapaEnfermedad: Value(idEtapa),
+        //     observaciones: Value(observaciones));
+        // await insertarEnfermedad(registroenfermedad);
       });
     } catch (_) {}
   }
@@ -171,8 +171,8 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
               tbl.estadopalma.equals('Pendiente por tratar')))
         .join(
       [
-        leftOuterJoin(registroEnfermedad,
-            registroEnfermedad.idPalma.equalsExp(palmas.id)),
+        // leftOuterJoin(registroEnfermedad,
+        //     registroEnfermedad.idPalma.equalsExp(palmas.id)),
       ],
     ).get();
     List<PalmaConEnfermedad> result = [];
@@ -209,10 +209,11 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     return await into(registroEnfermedad).insert(registroenfermedad);
   }
 
-  Future<RegistroEnfermedadData> obtenerRegistroEnfermedad(Palma palma) {
-    return (select(registroEnfermedad)
-          ..where((c) => c.idPalma.equals(palma.id)))
-        .getSingle();
+  Future<RegistroEnfermedadData?> obtenerRegistroEnfermedad(Palma palma) {
+    // return (select(registroEnfermedad)
+    //       ..where((c) => c.idPalma.equals(palma.id)))
+    //     .getSingleOrNull();
+    return Future.value(null);
   }
 
   Future<bool> insertarTratamiento(

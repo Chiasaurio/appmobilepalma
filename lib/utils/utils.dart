@@ -1,9 +1,7 @@
- bool isNumeric( String s ) {
+bool isNumeric(String s) {
+  if (s.isEmpty) return false;
 
-   if (s.isEmpty) return false;
+  final n = num.tryParse(s);
 
-   final n = num.tryParse(s);
-
-   return (n == null) ? false : true;
-
- }
+  return (n == null) ? false : true;
+}

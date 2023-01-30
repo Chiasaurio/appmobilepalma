@@ -21,6 +21,11 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     final cosechasPendientes = await getCosechasPendientesSincronizar();
     final podasPendientes = await getPodasPendientesSincronizar();
     final plateosPendientes = await getPlateosPendientesSincronizar();
+
+    // final palmasPendientes = await getPalmasPendientesSincronizar();
+    // final enfermedadesPendientes = await getEnfermedadesPendientesSincronizar();
+
+    //Fitosanitarias
     emit(state.copyWith(
         cosechasConDiariasPendientes: cosechasPendientes,
         podasConDiariasPendientes: podasPendientes,

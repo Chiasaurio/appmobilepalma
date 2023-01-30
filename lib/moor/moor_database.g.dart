@@ -3040,15 +3040,13 @@ class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
 }
 
 class Palma extends DataClass implements Insertable<Palma> {
-  final int id;
   final String nombreLote;
   final int numerolinea;
   final int numeroenlinea;
   final String estadopalma;
   final bool sincronizado;
   const Palma(
-      {required this.id,
-      required this.nombreLote,
+      {required this.nombreLote,
       required this.numerolinea,
       required this.numeroenlinea,
       required this.estadopalma,
@@ -3056,7 +3054,6 @@ class Palma extends DataClass implements Insertable<Palma> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['numerolinea'] = Variable<int>(numerolinea);
     map['numeroenlinea'] = Variable<int>(numeroenlinea);
@@ -3067,7 +3064,6 @@ class Palma extends DataClass implements Insertable<Palma> {
 
   PalmasCompanion toCompanion(bool nullToAbsent) {
     return PalmasCompanion(
-      id: Value(id),
       nombreLote: Value(nombreLote),
       numerolinea: Value(numerolinea),
       numeroenlinea: Value(numeroenlinea),
@@ -3080,7 +3076,6 @@ class Palma extends DataClass implements Insertable<Palma> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Palma(
-      id: serializer.fromJson<int>(json['id']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       numerolinea: serializer.fromJson<int>(json['numerolinea']),
       numeroenlinea: serializer.fromJson<int>(json['numeroenlinea']),
@@ -3092,7 +3087,6 @@ class Palma extends DataClass implements Insertable<Palma> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'numerolinea': serializer.toJson<int>(numerolinea),
       'numeroenlinea': serializer.toJson<int>(numeroenlinea),
@@ -3102,14 +3096,12 @@ class Palma extends DataClass implements Insertable<Palma> {
   }
 
   Palma copyWith(
-          {int? id,
-          String? nombreLote,
+          {String? nombreLote,
           int? numerolinea,
           int? numeroenlinea,
           String? estadopalma,
           bool? sincronizado}) =>
       Palma(
-        id: id ?? this.id,
         nombreLote: nombreLote ?? this.nombreLote,
         numerolinea: numerolinea ?? this.numerolinea,
         numeroenlinea: numeroenlinea ?? this.numeroenlinea,
@@ -3119,7 +3111,6 @@ class Palma extends DataClass implements Insertable<Palma> {
   @override
   String toString() {
     return (StringBuffer('Palma(')
-          ..write('id: $id, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('numerolinea: $numerolinea, ')
           ..write('numeroenlinea: $numeroenlinea, ')
@@ -3131,12 +3122,11 @@ class Palma extends DataClass implements Insertable<Palma> {
 
   @override
   int get hashCode => Object.hash(
-      id, nombreLote, numerolinea, numeroenlinea, estadopalma, sincronizado);
+      nombreLote, numerolinea, numeroenlinea, estadopalma, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Palma &&
-          other.id == this.id &&
           other.nombreLote == this.nombreLote &&
           other.numerolinea == this.numerolinea &&
           other.numeroenlinea == this.numeroenlinea &&
@@ -3145,14 +3135,12 @@ class Palma extends DataClass implements Insertable<Palma> {
 }
 
 class PalmasCompanion extends UpdateCompanion<Palma> {
-  final Value<int> id;
   final Value<String> nombreLote;
   final Value<int> numerolinea;
   final Value<int> numeroenlinea;
   final Value<String> estadopalma;
   final Value<bool> sincronizado;
   const PalmasCompanion({
-    this.id = const Value.absent(),
     this.nombreLote = const Value.absent(),
     this.numerolinea = const Value.absent(),
     this.numeroenlinea = const Value.absent(),
@@ -3160,7 +3148,6 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
     this.sincronizado = const Value.absent(),
   });
   PalmasCompanion.insert({
-    this.id = const Value.absent(),
     required String nombreLote,
     required int numerolinea,
     required int numeroenlinea,
@@ -3171,7 +3158,6 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
         numeroenlinea = Value(numeroenlinea),
         estadopalma = Value(estadopalma);
   static Insertable<Palma> custom({
-    Expression<int>? id,
     Expression<String>? nombreLote,
     Expression<int>? numerolinea,
     Expression<int>? numeroenlinea,
@@ -3179,7 +3165,6 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
     Expression<bool>? sincronizado,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
       if (nombreLote != null) 'nombre_lote': nombreLote,
       if (numerolinea != null) 'numerolinea': numerolinea,
       if (numeroenlinea != null) 'numeroenlinea': numeroenlinea,
@@ -3189,14 +3174,12 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
   }
 
   PalmasCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? nombreLote,
+      {Value<String>? nombreLote,
       Value<int>? numerolinea,
       Value<int>? numeroenlinea,
       Value<String>? estadopalma,
       Value<bool>? sincronizado}) {
     return PalmasCompanion(
-      id: id ?? this.id,
       nombreLote: nombreLote ?? this.nombreLote,
       numerolinea: numerolinea ?? this.numerolinea,
       numeroenlinea: numeroenlinea ?? this.numeroenlinea,
@@ -3208,9 +3191,6 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
     }
@@ -3232,7 +3212,6 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
   @override
   String toString() {
     return (StringBuffer('PalmasCompanion(')
-          ..write('id: $id, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('numerolinea: $numerolinea, ')
           ..write('numeroenlinea: $numeroenlinea, ')
@@ -3248,13 +3227,6 @@ class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $PalmasTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
   @override
   late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
@@ -3289,7 +3261,7 @@ class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
       defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns =>
-      [id, nombreLote, numerolinea, numeroenlinea, estadopalma, sincronizado];
+      [nombreLote, numerolinea, numeroenlinea, estadopalma, sincronizado];
   @override
   String get aliasedName => _alias ?? 'palmas';
   @override
@@ -3299,9 +3271,6 @@ class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
     if (data.containsKey('nombre_lote')) {
       context.handle(
           _nombreLoteMeta,
@@ -3344,13 +3313,12 @@ class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey =>
+      {nombreLote, numerolinea, numeroenlinea};
   @override
   Palma map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Palma(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       nombreLote: attachedDatabase.options.types
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       numerolinea: attachedDatabase.options.types
@@ -6893,6 +6861,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final PlateoDao plateoDao = PlateoDao(this as AppDatabase);
   late final ProductoAgroquimicoDao productoAgroquimicoDao =
       ProductoAgroquimicoDao(this as AppDatabase);
+  late final RegistroEnfermedadDao registroEnfermedadDao =
+      RegistroEnfermedadDao(this as AppDatabase);
   late final ViajesDao viajesDao = ViajesDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, dynamic>> get allTables =>

@@ -14,12 +14,12 @@ class _AplicacionesPageState extends State<AplicacionesPage> {
 
   @override
   void initState() {
-    height = MediaQuery.of(context).size.height;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: HeaderApp(ruta: widget.routeName),
         body: ListView(

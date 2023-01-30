@@ -50,7 +50,7 @@ class _BodyState extends State<Body> {
     nombrelote = palma.nombreLote;
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    altoCard = height * 0.5; //150,
+    altoCard = height * 0.5;
     anchoCard = width * 0.9;
     margin = anchoCard * 0.04;
 
@@ -67,15 +67,6 @@ class _BodyState extends State<Body> {
   Widget crearContenido() {
     return Card(
         elevation: 2.0,
-        // child: Container(
-        //   width: anchoCard,
-        //   height: altoCard,
-        //   margin: EdgeInsets.symmetric(horizontal: 10.0),
-        //   padding: EdgeInsets.symmetric(horizontal: 30),
-        //   decoration: BoxDecoration(
-        //       shape: BoxShape.rectangle,
-        //       borderRadius: new BorderRadius.circular(10.0),
-        //       color: Colors.white),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 11),
           child: Column(
@@ -103,12 +94,13 @@ class _BodyState extends State<Body> {
                   style: TextStyle(color: Colors.grey, fontSize: 16)),
               const SizedBox(height: 5.0),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   crearEtiqueta(),
                   Text(
                     palma.estadopalma,
                     style: const TextStyle(color: Colors.black, fontSize: 18),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.start,
                   ),
                 ],
               ),
@@ -117,13 +109,9 @@ class _BodyState extends State<Body> {
               const SizedBox(height: 20),
               const Text('Tratamiento',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16 /*fontWeight: FontWeight.bold*/)),
+                  style: TextStyle(color: Colors.grey, fontSize: 16)),
               const SizedBox(height: 5.0),
               Row(
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
-                // mainAxisAlignment: MainAxisAlignment.},
                 children: <Widget>[
                   registrotratamiento != null
                       ? Column(
@@ -152,15 +140,8 @@ class _BodyState extends State<Body> {
               const SizedBox(height: 15.0),
               const Text('Observaciones',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16 /*fontWeight: FontWeight.bold*/)),
+                  style: TextStyle(color: Colors.grey, fontSize: 16)),
               const SizedBox(height: 5.0),
-              // Text(
-              //   // registroenfermedad.ob,
-              //   style: TextStyle(color: Colors.black, fontSize: 18),
-              //   textAlign: TextAlign.center,
-              // ),
             ],
           ),
         ));
@@ -171,22 +152,24 @@ class _BodyState extends State<Body> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text('Enfermedad',
-            textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.grey,
                 fontSize: 16 /*fontWeight: FontWeight.bold*/)),
         const SizedBox(height: 5.0),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              enfermedad != null ? enfermedad!.nombreEnfermedad : 'asdasd',
-              style: const TextStyle(color: Colors.black, fontSize: 18),
-              textAlign: TextAlign.center,
+            Flexible(
+              child: Text(
+                enfermedad != null
+                    ? enfermedad!.nombreEnfermedad
+                    : 'No hay un registro de enfermedad reciente',
+                style: const TextStyle(color: Colors.black, fontSize: 18),
+              ),
             ),
           ],
         ),
         const SizedBox(height: 10.0),
-        // SizedBox(height: altoCard*0.1),
         etapa != null
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +204,7 @@ class _BodyState extends State<Body> {
       margin: const EdgeInsets.fromLTRB(0.0, 0.0, 10, 0.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: etiquetacolor[palma.estadopalma],
+        color: etiquetacolor[palma.estadopalma] ?? Colors.purple,
       ),
     );
   }

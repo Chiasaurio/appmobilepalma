@@ -47,14 +47,19 @@ class PalmaCubit extends Cubit<PalmaState> {
   Future<PalmaConProcesos> obtenerProcesosPalma(Palma palma) async {
     final PalmaDao palmaDao = db.palmaDao;
     final EnfermedadesDao enfermedadDao = db.enfermedadesDao;
-    final RegistroEnfermedadData registroenfermedad =
+    final RegistroEnfermedadData? registroenfermedad =
         await palmaDao.obtenerRegistroEnfermedad(palma);
-    final Enfermedade enfermedad = await enfermedadDao
-        .obtenerEnfermedad(registroenfermedad.nombreEnfermedad);
-    final Etapa? etapa =
-        await enfermedadDao.obtenerEtapa(registroenfermedad.idEtapaEnfermedad);
-    final RegistroTratamientoData? registrotratamiento =
-        await palmaDao.obtenerTratamiento(registroenfermedad);
+    Enfermedade? enfermedad;
+    Etapa? etapa;
+    RegistroTratamientoData? registrotratamiento;
+    if (registroenfermedad != null) {
+      enfermedad = await enfermedadDao
+          .obtenerEnfermedad(registroenfermedad.nombreEnfermedad);
+      etapa = await enfermedadDao
+          .obtenerEtapa(registroenfermedad.idEtapaEnfermedad);
+      registrotratamiento =
+          await palmaDao.obtenerTratamiento(registroenfermedad);
+    }
 
     PalmaConProcesos palmaconprocesos = PalmaConProcesos(
         palma: palma,

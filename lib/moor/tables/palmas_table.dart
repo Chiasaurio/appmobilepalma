@@ -4,7 +4,6 @@ import 'package:apppalma/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
 class Palmas extends Table {
-  IntColumn get id => integer().autoIncrement()();
   TextColumn get nombreLote => text()();
   IntColumn get numerolinea => integer()();
   IntColumn get numeroenlinea => integer()();
@@ -14,6 +13,13 @@ class Palmas extends Table {
   static String mapEntryToJson(Palma entry) {
     return json.encode(entry.toJson());
   }
+
+  @override
+  Set<Column> get primaryKey => {
+        nombreLote,
+        numerolinea,
+        numeroenlinea,
+      };
 
   @override
   List<String> get customConstraints => [

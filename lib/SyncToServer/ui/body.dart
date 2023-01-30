@@ -18,6 +18,7 @@ class _BodyState extends State<Body> {
     //   builder: (context, state) {
     return Column(
       children: const [
+        Text("Registros por sincronizar"),
         CardPendientes(),
       ],
     );

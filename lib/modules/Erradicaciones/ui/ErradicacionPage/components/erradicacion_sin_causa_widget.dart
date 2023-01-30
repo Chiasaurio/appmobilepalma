@@ -2,8 +2,6 @@ import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/components/s
 import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/components/validated_palma_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../components/theme.dart';
 import '../../../../../moor/tables/palmas_table.dart';
 import '../../../cubit/erradicacion_cubit.dart';
 
@@ -93,34 +91,5 @@ class _ErradicacionSinCausaWidgetState
       return true;
     }
     return false;
-  }
-
-  Widget registrarErradicacion() {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-        child: SizedBox(
-            width: double.infinity,
-            height: 45,
-            child: TextButton(
-              style: TextButton.styleFrom(
-                  backgroundColor: AppPalmaColors.blue,
-                  disabledBackgroundColor: AppPalmaColors.grey,
-                  minimumSize: const Size(88, 36),
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(24.0)),
-                  )),
-              onPressed: registrarErradicacionEnabled()
-                  ? () {
-                      BlocProvider.of<ErradicacionCubit>(context)
-                          .erradicarPalma();
-                    }
-                  : null,
-              child: const Text('Registrar erradicacion',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16.0,
-                      color: Colors.white)),
-            )));
   }
 }

@@ -78,7 +78,6 @@ class ErradicacionCubit extends Cubit<ErradicacionState> {
     final e = ErradicacionCompanion(
       causaErradicacion: Value(causa),
       fechaRegistro: Value(fechaRegistro),
-      idPalma: Value(state.palma!.palma.id),
     );
     erradicacionesDao.insertErradicacion(e);
     palmaDao.updatePalma(state.palma!.palma
