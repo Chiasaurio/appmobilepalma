@@ -28,7 +28,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   }
 
   Future<List<RegistroEnfermedadData>> obtenerSoloRegistrosEnfermedad(
-      int idPalma) {
+      String idPalma) {
     return (select(registroEnfermedad)..where((c) => c.idPalma.equals(idPalma)))
         .get();
   }
@@ -111,6 +111,10 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   }
 
   Future insertPalma(Insertable<Palma> palma) => into(palmas).insert(palma);
+  Future insertPalmaOrUpdate(Insertable<Palma> palma) =>
+      into(palmas).insertOnConflictUpdate(
+        palma,
+      );
   Future updatePalma(Insertable<Palma> palma) => update(palmas).replace(palma);
   Future deletePalma(Insertable<Palma> palma) => delete(palmas).delete(palma);
 
@@ -141,6 +145,9 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
         int idPalma;
         if (palma == null) {
           final nuevaPalma = PalmasCompanion(
+              identificador: Value(numeroenlinea.toString() +
+                  numerolinea.toString() +
+                  nombrelote),
               nombreLote: Value(nombrelote),
               numerolinea: Value(numerolinea),
               numeroenlinea: Value(numeroenlinea),
@@ -171,16 +178,17 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
               tbl.estadopalma.equals('Pendiente por tratar')))
         .join(
       [
-        // leftOuterJoin(registroEnfermedad,
-        //     registroEnfermedad.idPalma.equalsExp(palmas.id)),
+        leftOuterJoin(registroEnfermedad,
+            registroEnfermedad.idPalma.equalsExp(palmas.identificador)),
       ],
     ).get();
     List<PalmaConEnfermedad> result = [];
     for (var resultRow in rows) {
       final nombreEnfermedad =
-          resultRow.readTable(registroEnfermedad).nombreEnfermedad;
-      final idEtapa = resultRow.readTable(registroEnfermedad).idEtapaEnfermedad;
-      final enfermedad = await obtenerEnfermedad(nombreEnfermedad);
+          resultRow.readTableOrNull(registroEnfermedad)?.nombreEnfermedad;
+      final idEtapa =
+          resultRow.readTableOrNull(registroEnfermedad)?.idEtapaEnfermedad;
+      final enfermedad = await obtenerEnfermedad(nombreEnfermedad!);
       final etapa = await obtenerEtapa(idEtapa);
       var palma = PalmaConEnfermedad(
           palma: resultRow.readTable(palmas),
@@ -209,11 +217,10 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     return await into(registroEnfermedad).insert(registroenfermedad);
   }
 
-  Future<RegistroEnfermedadData?> obtenerRegistroEnfermedad(Palma palma) {
-    // return (select(registroEnfermedad)
-    //       ..where((c) => c.idPalma.equals(palma.id)))
-    //     .getSingleOrNull();
-    return Future.value(null);
+  Future<List<RegistroEnfermedadData>> obtenerRegistroEnfermedad(Palma palma) {
+    return (select(registroEnfermedad)
+          ..where((c) => c.idPalma.equals(palma.identificador)))
+        .get();
   }
 
   Future<bool> insertarTratamiento(

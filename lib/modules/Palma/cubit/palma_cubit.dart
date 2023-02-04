@@ -47,26 +47,30 @@ class PalmaCubit extends Cubit<PalmaState> {
   Future<PalmaConProcesos> obtenerProcesosPalma(Palma palma) async {
     final PalmaDao palmaDao = db.palmaDao;
     final EnfermedadesDao enfermedadDao = db.enfermedadesDao;
-    final RegistroEnfermedadData? registroenfermedad =
+    final List<RegistroEnfermedadData> registroenfermedad =
         await palmaDao.obtenerRegistroEnfermedad(palma);
-    Enfermedade? enfermedad;
-    Etapa? etapa;
-    RegistroTratamientoData? registrotratamiento;
-    if (registroenfermedad != null) {
-      enfermedad = await enfermedadDao
-          .obtenerEnfermedad(registroenfermedad.nombreEnfermedad);
-      etapa = await enfermedadDao
-          .obtenerEtapa(registroenfermedad.idEtapaEnfermedad);
-      registrotratamiento =
-          await palmaDao.obtenerTratamiento(registroenfermedad);
+    List<RegistroEnfermedadDatos> registroenfermedaddatos = [];
+    for (var r in registroenfermedad) {
+      Enfermedade? enfermedad;
+      Etapa? etapa;
+      RegistroTratamientoData? registrotratamiento;
+      enfermedad = await enfermedadDao.obtenerEnfermedad(r.nombreEnfermedad);
+      if (r.idEtapaEnfermedad != null) {
+        etapa = await enfermedadDao.obtenerEtapa(r.idEtapaEnfermedad!);
+      }
+      registrotratamiento = await palmaDao.obtenerTratamiento(r);
+
+      final registroConDatos = RegistroEnfermedadDatos(
+          registroenfermedad: r,
+          etapa: etapa,
+          enfermedad: enfermedad,
+          registrotratamiento: registrotratamiento);
+      registroenfermedaddatos.add(registroConDatos);
     }
 
     PalmaConProcesos palmaconprocesos = PalmaConProcesos(
-        palma: palma,
-        registroenfermedad: registroenfermedad,
-        registrotratamiento: registrotratamiento,
-        enfermedad: enfermedad,
-        etapa: etapa);
+        palma: palma, registroenfermedaddatos: registroenfermedaddatos);
+
     return palmaconprocesos;
   }
 }

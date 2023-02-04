@@ -8,6 +8,7 @@ class Palmas extends Table {
   IntColumn get numerolinea => integer()();
   IntColumn get numeroenlinea => integer()();
   TextColumn get estadopalma => text()();
+  TextColumn get identificador => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 
   static String mapEntryToJson(Palma entry) {
@@ -16,9 +17,11 @@ class Palmas extends Table {
 
   @override
   Set<Column> get primaryKey => {
-        nombreLote,
-        numerolinea,
-        numeroenlinea,
+        identificador
+        //       id,
+        //       nombreLote,
+        //       numerolinea,
+        //       numeroenlinea,
       };
 
   @override

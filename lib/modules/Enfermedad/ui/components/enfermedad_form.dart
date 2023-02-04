@@ -9,8 +9,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class EnfermedadDataForm extends StatefulWidget {
+  final List<EnfermedadConEtapas>? enfermedades;
   final Function() setState;
-  const EnfermedadDataForm({super.key, required this.setState});
+  const EnfermedadDataForm(
+      {super.key, required this.setState, required this.enfermedades});
 
   @override
   State<EnfermedadDataForm> createState() => _EnfermedadDataFormState();
@@ -26,6 +28,14 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
   late List<EnfermedadConEtapas> enfermedades;
   final _formKey = GlobalKey<FormBuilderState>();
   final _radiokey = GlobalKey<FormFieldState>();
+
+  @override
+  void initState() {
+    enfermedades = List.from(widget.enfermedades!);
+    enfermedades.add(EnfermedadConEtapas.otraEnfermedad());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
@@ -87,13 +97,18 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
             });
           },
           validator: (value) {
-            if (value != null) {
-              if (value.length < 5) {
-                return 'Minimo 5 caracteres';
+            if (enfermedadconetapas != null &&
+                enfermedadconetapas!.enfermedad.nombreEnfermedad == "Otra") {
+              if (value != null) {
+                if (value.length < 5) {
+                  return 'Minimo 5 caracteres';
+                }
+                return null;
+              } else {
+                return 'Ingrese la descripción';
               }
-              return null;
             } else {
-              return 'Ingrese la causa';
+              return null;
             }
           },
         )),
@@ -105,24 +120,9 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
     return Row(
       children: <Widget>[
         Expanded(
-          child: getEnfermedades(),
+          child: _buildEnfermedad(),
         ),
       ],
-    );
-  }
-
-  Widget getEnfermedades() {
-    return BlocBuilder<EnfermedadCubit, EnfermedadState>(
-      builder: (context, state) {
-        if (state.enfermedades != null) {
-          enfermedades = state.enfermedades!;
-          return _buildEnfermedad();
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
     );
   }
 

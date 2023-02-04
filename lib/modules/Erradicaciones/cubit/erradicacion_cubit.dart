@@ -51,6 +51,9 @@ class ErradicacionCubit extends Cubit<ErradicacionState> {
           emit(ErradicacionInitial());
         } else {
           final palmaNueva = PalmasCompanion(
+            identificador: Value(state.numeroPalma!.toString() +
+                state.lineaPalma!.toString() +
+                state.nombreLote!),
             numeroenlinea: Value(state.numeroPalma!),
             numerolinea: Value(state.lineaPalma!),
             nombreLote: Value(state.nombreLote!),

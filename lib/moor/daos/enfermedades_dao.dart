@@ -74,8 +74,8 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
         .getSingle();
   }
 
-  Future<Etapa?> obtenerEtapa(int? etapaId) {
-    return (select(etapas)..where((c) => c.id.equals(etapaId!)))
+  Future<Etapa?> obtenerEtapa(int etapaId) {
+    return (select(etapas)..where((c) => c.id.equals(etapaId)))
         .getSingleOrNull();
   }
 }

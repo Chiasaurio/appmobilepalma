@@ -1,3 +1,4 @@
+import 'package:apppalma/constants.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/moor/daos/enfermedades_dao.dart';
 import 'package:apppalma/moor/daos/palma_daos.dart';
@@ -18,7 +19,15 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
   final db = getIt<AppDatabase>();
 
   initCubit(String nombreLote) {
-    emit(state.copyWith(nombreLote: nombreLote));
+    emit(state.copyWith(
+      nombreLote: nombreLote,
+    ));
+  }
+
+  resetState() {
+    emit(EnfermedadState(
+      nombreLote: state.nombreLote,
+    ));
   }
 
   observacionesChanged(String value) {
@@ -45,26 +54,51 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
     DateTime fecha,
   ) async {
     try {
+      final PalmaDao palmaDao = db.palmaDao;
+      String estadoPalma = '';
+      final palmaExistente = await palmaDao.obtenerPalma(
+          state.nombreLote!, state.lineaPalma!, state.numeroPalma!);
+      if (palmaExistente != null) {
+        if (palmaExistente.estadopalma == EstadosPalma.pendientePorErradicar) {
+          estadoPalma = EstadosPalma.pendientePorErradicar;
+        } else if (palmaExistente.estadopalma == EstadosPalma.erradicada) {
+          estadoPalma = EstadosPalma.erradicada;
+        } else {
+          estadoPalma = EstadosPalma.reincidente;
+        }
+      } else {
+        if (state.enfermedadSeleccionada!.procedimientoEnfermedad ==
+            "Erradicación") {
+          estadoPalma = EstadosPalma.pendientePorErradicar;
+        } else {
+          estadoPalma = EstadosPalma.pendientePorTratar;
+        }
+      }
       final RegistroEnfermedadDao registroEnfermedadDao =
           db.registroEnfermedadDao;
-      final PalmaDao palmaDao = db.palmaDao;
+      final idPalma = state.numeroPalma!.toString() +
+          state.lineaPalma!.toString() +
+          state.nombreLote!;
       final palmaNueva = PalmasCompanion(
+        identificador: Value(idPalma),
         numeroenlinea: Value(state.numeroPalma!),
         numerolinea: Value(state.lineaPalma!),
         nombreLote: Value(state.nombreLote!),
-        estadopalma: const Value("sdsd"),
+        estadopalma: Value(estadoPalma),
       );
 
-      final id = await palmaDao.insertPalma(palmaNueva);
+      await palmaDao.insertPalmaOrUpdate(palmaNueva);
+
       final regitroEnf = RegistroEnfermedadCompanion(
-        idPalma: Value(id),
+        idPalma: Value(idPalma),
         fechaRegistro: Value(fecha),
         horaRegistro: Value(fecha),
-        idEtapaEnfermedad: Value(state.etapaSeleccionada!.id),
+        idEtapaEnfermedad: Value(state.etapaSeleccionada?.id),
         nombreEnfermedad: Value(state.enfermedadSeleccionada!.nombreEnfermedad),
         observaciones: Value(state.observaciones),
       );
       await registroEnfermedadDao.insertRegistroEnfermedad(regitroEnf);
+      emit(state.copyWith(status: FormStatus.submissionSuccess));
       registroExitosoToast();
     } catch (e) {
       registroFallidoToast('Error al realizar el registro');

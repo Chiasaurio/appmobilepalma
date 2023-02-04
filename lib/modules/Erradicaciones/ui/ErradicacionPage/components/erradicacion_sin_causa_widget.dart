@@ -70,8 +70,8 @@ class _ErradicacionSinCausaWidgetState
       ),
       validator: (value) {
         if (value != null) {
-          if (value.length < 10) {
-            return 'Minimo 10 caracteres';
+          if (value.length < 5) {
+            return 'Minimo 5 caracteres';
           }
           return null;
         } else {
