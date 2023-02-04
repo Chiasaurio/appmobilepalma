@@ -49,7 +49,6 @@ class FumigacionCubit extends Cubit<FumigacionState> {
       emit(state.copyWith(status: FormStatus.submissionSuccess));
       registroExitosoToast();
     } catch (e) {
-      print(e);
       emit(state.copyWith(status: FormStatus.submissionFailure));
       registroFallidoToast('$e');
       throw Error();

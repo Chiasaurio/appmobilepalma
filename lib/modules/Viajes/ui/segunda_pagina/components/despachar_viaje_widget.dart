@@ -11,26 +11,31 @@ class DespacharViajeWidget extends StatefulWidget {
 }
 
 class _DespacharViajeWidgetState extends State<DespacharViajeWidget> {
-  var margin;
-  var anchoCard;
-  var altoCard;
-  var width;
-  var height;
+  late double margin;
+  late double anchoCard;
+  late double altoCard;
+  late double width;
+  late double height;
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     altoCard = height * 0.4; //150,
     anchoCard = width;
     margin = anchoCard * 0.02;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocConsumer<ViajeCubit, ViajeInitial>(
       listener: (context, state) {
-        final aux = state.cosechasDelViaje;
-        print(aux.length);
+        // final aux = state.cosechasDelViaje;
       },
       builder: (context, state) {
         if (state.cosechasDelViaje.isEmpty) {
-          return Text('Debe seleccionar por lo menos una cosecha');
+          return const Text('Debe seleccionar por lo menos una cosecha');
         } else {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),

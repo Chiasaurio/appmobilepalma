@@ -1,7 +1,7 @@
 import 'package:apppalma/modules/Login/models/user.dart';
 import 'package:apppalma/modules/Login/resources/authentication_repository.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 part 'authentication_event.dart';

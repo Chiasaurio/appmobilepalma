@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 class Body extends StatefulWidget {
   final List<Palma> palmas;
   const Body({Key? key, required this.palmas}) : super(key: key);
-
   @override
-  _BodyState createState() => _BodyState();
+  State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
@@ -37,27 +36,29 @@ class _BodyState extends State<Body> {
 
   //Titulo de la tabla
   Widget buildPalmas() {
-    return Container(
-        margin: EdgeInsets.all(margin),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Todas palmas registradas',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black87.withOpacity(0.8),
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ]),
-              widget.palmas.isNotEmpty
-                  ? buildTabla()
-                  : const Text('no hay palmas registradas para este lote'),
-            ]));
+    return SingleChildScrollView(
+      child: Container(
+          margin: EdgeInsets.all(margin),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Todas palmas registradas',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            color: Colors.black87.withOpacity(0.8),
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ]),
+                widget.palmas.isNotEmpty
+                    ? buildTabla()
+                    : const Text('no hay palmas registradas para este lote'),
+              ])),
+    );
   }
 
   Widget buildTabla() {

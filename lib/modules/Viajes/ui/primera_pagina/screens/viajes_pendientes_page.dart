@@ -1,12 +1,10 @@
 import 'package:apppalma/components/main_button.dart';
-import 'package:apppalma/modules/Viajes/cubit/viaje_cubit.dart';
 import 'package:apppalma/modules/Viajes/ui/primera_pagina/cubit/viajes_pendientes_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../components/theme.dart';
 import '../../../../../constants.dart';
-import '../../../../../moor/moor_database.dart';
 import '../components/body.dart';
 
 class ViajesPendientesPage extends StatefulWidget {
@@ -38,9 +36,9 @@ class _ViajesPendientesPageState extends State<ViajesPendientesPage> {
               widget.routeName,
               style: const TextStyle(fontSize: 14),
             ),
-            Text(
+            const Text(
               nombreFinca,
-              style: const TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14),
             ),
           ],
         ),

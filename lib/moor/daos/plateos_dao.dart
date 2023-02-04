@@ -29,6 +29,16 @@ class PlateoDao extends DatabaseAccessor<AppDatabase> with _$PlateoDaoMixin {
 
   Future insertPlateoDiario(Insertable<PlateoDiarioData> plateodiario) =>
       into(plateoDiario).insert(plateodiario);
+
+  Future<List<Plateo?>> getPlateosForSync() {
+    return (select(plateos)..where((c) => c.sincronizado.equals(false))).get();
+  }
+
+  Future<List<PlateoDiarioData>> getPlateosDiariasForSync(int id) {
+    return (select(plateoDiario)
+          ..where((p) => p.idPlateo.equals(id) & p.sincronizado.equals(false)))
+        .get();
+  }
 }
 
 // @UseDao(tables: [CosechaDiaria, Cosechas])

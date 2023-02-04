@@ -54,11 +54,11 @@
 //     _censosfumigadosController.sink.add(censos);
 //   }
 
-//   daraltaCenso(CensoData censo) {
-//     final PlagasDao plagasDao = db.plagasDao;
-//     plagasDao.updateCenso(censo.copyWith(estadoPlaga: 'eliminado'));
-//     obtenerCensosFumigados();
-//   }
+  // daraltaCenso(CensoData censo) {
+  //   final PlagasDao plagasDao = db.plagasDao;
+  //   plagasDao.updateCenso(censo.copyWith(estadoPlaga: 'eliminado'));
+  //   obtenerCensosFumigados();
+  // }
 
 //   insertarCenso(
 //       DateTime fechacenso,

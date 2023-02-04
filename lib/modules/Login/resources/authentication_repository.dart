@@ -11,7 +11,7 @@ enum AuthenticationStatus { unknown, authenticated, unauthenticated, error }
 
 class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>();
-  final _storage = secure.FlutterSecureStorage();
+  final _storage = const secure.FlutterSecureStorage();
   final _baseUrl = baseUrl;
   final Dio _dio = Dio();
   Map<String, String> cookies = {};
@@ -50,9 +50,7 @@ class AuthenticationRepository {
         _controller.add(AuthenticationStatus.authenticated);
       }
       return res.statusCode!;
-    } on Exception catch (e) {
-      print('$e as');
-
+    } on Exception catch (_) {
       return 401;
     }
   }

@@ -1,6 +1,5 @@
 import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
-import 'package:apppalma/modules/Palma/cubit/palma_cubit.dart';
 import 'package:apppalma/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

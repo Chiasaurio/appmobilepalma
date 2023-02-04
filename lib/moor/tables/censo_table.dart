@@ -14,6 +14,7 @@ class Censo extends Table {
   TextColumn get nombrePlaga => text()();
   TextColumn get estadoPlaga =>
       text().withDefault(const Constant('pendiente'))();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }
 
 class CensoEtapasPlaga extends Table {

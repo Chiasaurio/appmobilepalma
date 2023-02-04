@@ -7,9 +7,8 @@ import 'package:intl/intl.dart';
 class CosechaActivaVista extends StatefulWidget {
   final Cosecha cosecha;
   const CosechaActivaVista({Key? key, required this.cosecha}) : super(key: key);
-
   @override
-  _CosechaActivaVistaState createState() => _CosechaActivaVistaState();
+  State<CosechaActivaVista> createState() => _CosechaActivaVistaState();
 }
 
 class _CosechaActivaVistaState extends State<CosechaActivaVista> {

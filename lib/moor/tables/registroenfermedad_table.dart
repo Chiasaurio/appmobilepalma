@@ -5,14 +5,15 @@ class RegistroEnfermedad extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get fechaRegistro => dateTime()();
   DateTimeColumn get horaRegistro => dateTime().nullable()();
-  IntColumn get idPalma => integer()();
+  TextColumn get idPalma => text()();
   TextColumn get nombreEnfermedad => text()();
   IntColumn get idEtapaEnfermedad => integer().nullable()();
   TextColumn get observaciones => text().nullable()();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 
   @override
   List<String> get customConstraints => [
-        'FOREIGN KEY(id_palma) REFERENCES palmas(id)',
+        'FOREIGN KEY(id_palma) REFERENCES palmas(identificador)',
         'FOREIGN KEY(nombre_enfermedad) REFERENCES enfermedades(nombre_enfermedad)',
         'FOREIGN KEY(id_etapa_enfermedad) REFERENCES etapas(id)',
       ];

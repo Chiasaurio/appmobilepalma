@@ -79,7 +79,8 @@ class ViajeCubit extends Cubit<ViajeInitial> {
       //actualizar estado de cosecha
       final CosechaDao cosechaDao = db.cosechaDao;
       for (var c in state.cosechasDelViaje) {
-        cosechaDao.updateCosecha(c.copyWith(idViaje: Value(idViaje)));
+        cosechaDao.updateCosecha(
+            c.copyWith(idViaje: Value(idViaje), sincronizado: false));
       }
       successMessageToast('Viaje enviado con éxito');
       emit(state.copyWith(status: FormStatus.submissionSuccess));

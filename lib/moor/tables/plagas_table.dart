@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 class Plagas extends Table {
   TextColumn get nombreComunPlaga => text()();
 
+  @override
   Set<Column> get primaryKey => {nombreComunPlaga};
 }
 

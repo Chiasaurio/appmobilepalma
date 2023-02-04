@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../components/form_datos_viaje.dart';
 
 class Body extends StatefulWidget {
+  const Body({super.key});
+
   @override
-  _BodyState createState() => _BodyState();
+  State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
@@ -14,20 +16,24 @@ class _BodyState extends State<Body> {
   //     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   int totalkilos = 0;
-  var margin;
-  var anchoCard;
-  var altoCard;
-  var width;
-  var height;
-
+  late double margin;
+  late double anchoCard;
+  late double altoCard;
+  late double width;
+  late double height;
   @override
-  Widget build(BuildContext context) {
-    // cosechaBloc.obtenerCosechasFinalizadas();
+  void initState() {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     altoCard = height * 0.4; //150,
     anchoCard = width;
     margin = anchoCard * 0.02;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // cosechaBloc.obtenerCosechasFinalizadas();
 
     return SingleChildScrollView(
       child: Column(children: <Widget>[

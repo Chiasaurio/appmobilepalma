@@ -9,12 +9,10 @@ import 'package:apppalma/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:apppalma/main.dart';
-
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(AppPalma());
+    await tester.pumpWidget(const AppPalma());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

@@ -7,7 +7,7 @@ void main() {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(AppPalma());
+  runApp(const AppPalma());
 }
 
 GetIt getIt = GetIt.instance;

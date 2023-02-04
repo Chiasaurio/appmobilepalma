@@ -1,4 +1,3 @@
-import 'package:apppalma/modules/Palma/PalmaDetail/registrospalma.dart';
 import 'package:apppalma/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:apppalma/modules/Tratamientos/ui/tratamiento/tratamiento_page.dart';
 import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
@@ -13,7 +12,7 @@ class PalmasEnfermasList extends StatefulWidget {
       {Key? key, required this.routeName, required this.palmasEnfermas})
       : super(key: key);
   @override
-  _PalmasEnfermasListState createState() => _PalmasEnfermasListState();
+  State<PalmasEnfermasList> createState() => _PalmasEnfermasListState();
 }
 
 class _PalmasEnfermasListState extends State<PalmasEnfermasList> {

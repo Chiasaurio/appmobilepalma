@@ -70,8 +70,7 @@ class _NuevoPlateoViewState extends State<NuevoPlateoView> {
       });
     }
 
-    return Container(
-        child: Column(children: <Widget>[
+    return Column(children: <Widget>[
       Row(
         children: <Widget>[
           Expanded(
@@ -81,7 +80,7 @@ class _NuevoPlateoViewState extends State<NuevoPlateoView> {
           )),
         ],
       )
-    ]));
+    ]);
   }
 
   Widget botonNuevoPlateo() {

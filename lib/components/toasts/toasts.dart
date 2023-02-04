@@ -5,7 +5,7 @@ void registroExitosoToast() {
   Fluttertoast.showToast(
     msg: "El registro se realizó correctamente",
     toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.CENTER,
+    gravity: ToastGravity.BOTTOM,
     webBgColor: "#e74c3c",
     backgroundColor: Colors.green,
     timeInSecForIosWeb: 10,
@@ -39,7 +39,7 @@ void finalizarProcesoExitosoToast() {
     msg: "El proceso finalizó correctamente",
     toastLength: Toast.LENGTH_LONG,
     // webBgColor: "#e74c3c",
-    backgroundColor: Color.fromRGBO(82, 190, 30, 0.2),
+    backgroundColor: const Color.fromRGBO(82, 190, 30, 0.2),
     timeInSecForIosWeb: 10,
   );
 }

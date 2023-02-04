@@ -9,9 +9,8 @@ class RegistroCosechasDiarias extends StatefulWidget {
 
   const RegistroCosechasDiarias({Key? key, required this.routeName})
       : super(key: key);
-
   @override
-  _RegistroCosechasDiariasState createState() =>
+  State<RegistroCosechasDiarias> createState() =>
       _RegistroCosechasDiariasState();
 }
 

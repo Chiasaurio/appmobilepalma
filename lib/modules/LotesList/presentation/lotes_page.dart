@@ -8,19 +8,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../LoteDetail/ui/lote_page.dart';
 
 class EscogerLotePage extends StatefulWidget {
+  const EscogerLotePage({super.key});
   @override
-  _EscogerLotePageState createState() => _EscogerLotePageState();
+  State<EscogerLotePage> createState() => _EscogerLotePageState();
 }
 
 class _EscogerLotePageState extends State<EscogerLotePage> {
   late List<LoteWithProcesos> loteswithprocesos;
   late Lote lote;
   late List<Lote> lotes;
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
-  var margin;
+  late double margin;
+  late double anchoCard;
+  late double altoCard;
+  late double width;
+  late double height;
+
   @override
   void initState() {
     BlocProvider.of<LoteslistCubit>(context).obtenerTodosLotesWithProcesos();
@@ -31,9 +33,9 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    altoCard = height * 0.3; //150,
-    anchoCard = width * 0.9;
-    margin = anchoCard * 0.04;
+    altoCard = height * 0.4; //150,
+    anchoCard = width;
+    margin = anchoCard * 0.02;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Finca CampoAlegre'),

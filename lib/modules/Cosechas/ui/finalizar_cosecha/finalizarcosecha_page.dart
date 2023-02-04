@@ -8,16 +8,13 @@ import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
-
 class FinalizarCosechaPage extends StatefulWidget {
   final String routeName;
 
   const FinalizarCosechaPage({Key? key, required this.routeName})
       : super(key: key);
-
   @override
-  _FinalizarCosechaPageState createState() => _FinalizarCosechaPageState();
+  State<FinalizarCosechaPage> createState() => _FinalizarCosechaPageState();
 }
 
 class _FinalizarCosechaPageState extends State<FinalizarCosechaPage> {

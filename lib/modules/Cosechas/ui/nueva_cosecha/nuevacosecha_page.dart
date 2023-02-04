@@ -5,16 +5,12 @@ import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
-import '../../../LotesList/cubit/loteslist_cubit.dart';
-
 class NuevaCosechaPage extends StatefulWidget {
   final String nombrelote;
   const NuevaCosechaPage({Key? key, required this.nombrelote})
       : super(key: key);
-
   @override
-  _NuevaCosechaPageState createState() => _NuevaCosechaPageState();
+  State<NuevaCosechaPage> createState() => _NuevaCosechaPageState();
 }
 
 class _NuevaCosechaPageState extends State<NuevaCosechaPage> {

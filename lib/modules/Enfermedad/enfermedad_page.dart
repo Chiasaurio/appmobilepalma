@@ -1,16 +1,16 @@
+import 'package:apppalma/components/widgets/appbar_custom.dart';
 import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
+import 'package:apppalma/modules/Enfermedad/ui/body.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'palmaindividual_view.dart';
 
 class EnfermedadPage extends StatefulWidget {
   final String routeName;
 
   const EnfermedadPage({Key? key, required this.routeName}) : super(key: key);
   @override
-  _EnfermedadPageState createState() => _EnfermedadPageState();
+  State<EnfermedadPage> createState() => _EnfermedadPageState();
 }
 
 class _EnfermedadPageState extends State<EnfermedadPage>
@@ -24,31 +24,28 @@ class _EnfermedadPageState extends State<EnfermedadPage>
     final state = BlocProvider.of<LoteDetailCubit>(context).state;
     if (state is LoteChoosed) {
       nombreLote = state.lote.lote.nombreLote;
+      BlocProvider.of<EnfermedadCubit>(context).initCubit(nombreLote);
     }
     super.initState();
   }
 
   @override
   void dispose() {
-    // _tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
-              Text('ruta', style: TextStyle(fontSize: 12)),
-              Text('nombrelote'),
-            ]),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: PalmaIndividualView(
-          nombreLote: nombreLote,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: const WhiteAppBar(title: "Registrar enfermedad"),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Body(nombreLote: nombreLote),
         ),
       ),
     );

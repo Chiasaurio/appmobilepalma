@@ -8,9 +8,8 @@ class FechaWidget extends StatefulWidget {
 
   FechaWidget({Key? key, required this.fecha, required this.callback})
       : super(key: key);
-
   @override
-  _FechaWidgetState createState() => _FechaWidgetState();
+  State<FechaWidget> createState() => _FechaWidgetState();
 }
 
 class _FechaWidgetState extends State<FechaWidget> {
@@ -57,7 +56,6 @@ class _FechaWidgetState extends State<FechaWidget> {
           suffixIcon: Icon(Icons.calendar_today),
           labelText: 'Fecha',
           labelStyle: TextStyle(fontSize: 18),
-          // hintText: campo,
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
         ),

@@ -1,6 +1,5 @@
 part of 'palma_cubit.dart';
 
-@immutable
 abstract class PalmaState {}
 
 class PalmaInitial extends PalmaState {}

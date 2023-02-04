@@ -32,14 +32,14 @@ class _DatosViajesPageState extends State<DatosViajesPage> {
               widget.routeName,
               style: const TextStyle(fontSize: 14),
             ),
-            Text(
+            const Text(
               nombreFinca,
-              style: const TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14),
             ),
           ],
         ),
       ),
-      body: Body(),
+      body: const Body(),
       floatingActionButton: const Padding(
         padding: EdgeInsets.all(8.0),
         child: FinalizarViajeButton(),

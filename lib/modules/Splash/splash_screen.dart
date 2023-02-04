@@ -16,7 +16,6 @@ class SplashScreen extends StatelessWidget {
         backgroundColor: AppPalmaColors.grey,
         body: BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) async {
-            print(state.status);
             if (state.status == AuthenticationStatus.authenticated) {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil('/finca', (_) => false);

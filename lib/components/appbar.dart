@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class AppBarWidget {
   static getAppBar(String nombrelote, String ruta, BuildContext context) {
-    double margin = MediaQuery.of(context).size.width * 0.04;
     List<Widget> actions = [
       IconButton(
         icon: const Icon(Icons.home),

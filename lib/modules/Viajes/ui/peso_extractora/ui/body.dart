@@ -2,8 +2,6 @@ import 'package:apppalma/modules/Viajes/ui/peso_extractora/cubit/peso_extractora
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../cubit/viaje_cubit.dart';
-
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
@@ -16,8 +14,6 @@ class _BodyState extends State<Body> {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   int pesoExtractora = 0;
-  //if true is Kg else gr
-  bool? _unidades;
 
   final TextEditingController _pesoController = TextEditingController();
   @override

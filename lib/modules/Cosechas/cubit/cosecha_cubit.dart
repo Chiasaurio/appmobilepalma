@@ -66,12 +66,12 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
           kilos: Value(kilos),
           idCosecha: Value(cosecha.id));
       await cosechaDiariaDao.insertCosechaDiaria(cosechaDiariaCompanion);
-      cosechaDao.updateCosecha(
-          cosecha.copyWith(cantidadRacimos: nuevosRacimos, kilos: nuevosKilos));
+      cosechaDao.updateCosecha(cosecha.copyWith(
+          cantidadRacimos: nuevosRacimos,
+          kilos: nuevosKilos,
+          sincronizado: false));
       obtenerCosechaActiva(cosecha.nombreLote);
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
   }
 
   finalizarCosecha(Cosecha cosecha, DateTime fechasalida) {

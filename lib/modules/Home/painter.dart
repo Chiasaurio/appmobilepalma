@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class MyPainter extends CustomPainter {
   @override
@@ -9,7 +8,7 @@ class MyPainter extends CustomPainter {
     // canvas.drawLine(Offset.zero, const Offset(20, 20), Paint());
     // canvas.drawCircle(const Offset(20, 100), radius, paint);
     var paint = Paint()
-      ..color = Color(0xFF2D6A4F)
+      ..color = const Color(0xFF2D6A4F)
       ..strokeWidth = 15;
 
     var path = Path();
@@ -23,12 +22,10 @@ class MyPainter extends CustomPainter {
     // path.lineTo(0, size.height);
 
     canvas.drawPath(path, paint);
-    // TODO: implement paint
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
     return false;
   }
 }

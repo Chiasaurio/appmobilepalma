@@ -1,7 +1,5 @@
 import 'package:apppalma/components/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 
 class MainButton extends StatelessWidget {
   final String text;
@@ -21,9 +19,9 @@ class MainButton extends StatelessWidget {
         height: 45,
         child: TextButton(
           style: TextButton.styleFrom(
-              primary: Colors.white,
-              minimumSize: Size(88, 36),
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              foregroundColor: Colors.white,
+              minimumSize: const Size(88, 36),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               backgroundColor: AppPalmaColors.blue,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(24.0)),

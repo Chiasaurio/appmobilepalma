@@ -20,7 +20,6 @@ class _FinalizarViajeButtonState extends State<FinalizarViajeButton> {
         if (state.horaCarga != '' && state.horaSalida != '') {
           return MainButton(
             press: () {
-              print('it goes');
               showFinalizarViajeDialog(context);
             },
             text: 'Finalizar viaje',

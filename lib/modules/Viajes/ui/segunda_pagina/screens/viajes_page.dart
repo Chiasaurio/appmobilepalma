@@ -34,13 +34,13 @@ class _NuevoViajePageState extends State<NuevoViajePage> {
                 widget.routeName,
                 style: const TextStyle(fontSize: 14),
               ),
-              Text(
+              const Text(
                 nombreFinca,
-                style: const TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: 14),
               ),
             ],
           ),
         ),
-        body: Body());
+        body: const Body());
   }
 }

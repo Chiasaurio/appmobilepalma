@@ -22,8 +22,8 @@ class Api {
     _headers[HttpHeaders.contentTypeHeader] = 'application/json';
     _headers[HttpHeaders.acceptHeader] = 'application/json';
     var jwt = await _storage.read(key: 'token');
-    final username = await _storage.read(key: 'username');
-    final password = await _storage.read(key: 'password');
+    // final username = await _storage.read(key: 'username');
+    // final password = await _storage.read(key: 'password');
     // var auth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
     var auth = 'Bearer $jwt';
     if (jwt != null) {
@@ -44,13 +44,12 @@ class Api {
   Future<Map<String, dynamic>> get(String path) async {
     try {
       await setHeaders();
-      Map<String, dynamic> resp = new Map();
-      print('$_baseUrl$path');
+      Map<String, dynamic> resp = {};
       final response = await _dio.get('$_baseUrl$path',
           options: Options(headers: _headers, responseType: ResponseType.json));
       resp['data'] = response.data;
       return resp;
-    } on DioError catch (e) {
+    } on DioError catch (_) {
       return {'success': false};
     }
   }

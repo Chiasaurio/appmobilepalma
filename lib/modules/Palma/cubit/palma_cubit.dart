@@ -4,9 +4,7 @@ import 'package:apppalma/main.dart';
 import 'package:apppalma/moor/daos/enfermedades_dao.dart';
 import 'package:apppalma/moor/daos/palma_daos.dart';
 import 'package:apppalma/moor/moor_database.dart';
-import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'palma_state.dart';
 
@@ -49,21 +47,30 @@ class PalmaCubit extends Cubit<PalmaState> {
   Future<PalmaConProcesos> obtenerProcesosPalma(Palma palma) async {
     final PalmaDao palmaDao = db.palmaDao;
     final EnfermedadesDao enfermedadDao = db.enfermedadesDao;
-    final RegistroEnfermedadData registroenfermedad =
+    final List<RegistroEnfermedadData> registroenfermedad =
         await palmaDao.obtenerRegistroEnfermedad(palma);
-    final Enfermedade enfermedad = await enfermedadDao
-        .obtenerEnfermedad(registroenfermedad.nombreEnfermedad);
-    final Etapa? etapa =
-        await enfermedadDao.obtenerEtapa(registroenfermedad.idEtapaEnfermedad);
-    final RegistroTratamientoData? registrotratamiento =
-        await palmaDao.obtenerTratamiento(registroenfermedad);
+    List<RegistroEnfermedadDatos> registroenfermedaddatos = [];
+    for (var r in registroenfermedad) {
+      Enfermedade? enfermedad;
+      Etapa? etapa;
+      RegistroTratamientoData? registrotratamiento;
+      enfermedad = await enfermedadDao.obtenerEnfermedad(r.nombreEnfermedad);
+      if (r.idEtapaEnfermedad != null) {
+        etapa = await enfermedadDao.obtenerEtapa(r.idEtapaEnfermedad!);
+      }
+      registrotratamiento = await palmaDao.obtenerTratamiento(r);
+
+      final registroConDatos = RegistroEnfermedadDatos(
+          registroenfermedad: r,
+          etapa: etapa,
+          enfermedad: enfermedad,
+          registrotratamiento: registrotratamiento);
+      registroenfermedaddatos.add(registroConDatos);
+    }
 
     PalmaConProcesos palmaconprocesos = PalmaConProcesos(
-        palma: palma,
-        registroenfermedad: registroenfermedad,
-        registrotratamiento: registrotratamiento,
-        enfermedad: enfermedad,
-        etapa: etapa);
+        palma: palma, registroenfermedaddatos: registroenfermedaddatos);
+
     return palmaconprocesos;
   }
 }

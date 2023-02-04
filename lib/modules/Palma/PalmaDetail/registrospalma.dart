@@ -2,6 +2,7 @@ import 'package:apppalma/modules/Palma/PalmaDetail/body.dart';
 import 'package:apppalma/modules/Palma/cubit/palma_cubit.dart';
 import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/moor/moor_database.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,7 @@ class PalmaDetalleScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  _PalmaDetalleScreenState createState() => _PalmaDetalleScreenState();
+  State<PalmaDetalleScreen> createState() => _PalmaDetalleScreenState();
 }
 
 class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
@@ -29,7 +30,6 @@ class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
   getProcesosPalma(Palma palma) async {
     palmaConProcesos =
         await BlocProvider.of<PalmaCubit>(context).obtenerProcesosPalma(palma);
-    print(palmaConProcesos);
     setState(() {});
   }
 
@@ -54,18 +54,43 @@ class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
   }
 }
 
-class PalmaConProcesos {
-  Palma palma;
-  RegistroEnfermedadData? registroenfermedad;
-  Enfermedade? enfermedad;
-  Etapa? etapa;
-  RegistroTratamientoData? registrotratamiento;
+class PalmaConProcesos extends Equatable {
+  final Palma palma;
+  final List<RegistroEnfermedadDatos> registroenfermedaddatos;
 
-  PalmaConProcesos({
+  const PalmaConProcesos({
     required this.palma,
+    required this.registroenfermedaddatos,
+  });
+  @override
+  List<Object?> get props => [palma, registroenfermedaddatos];
+}
+
+class RegistroEnfermedadDatos extends Equatable {
+  final RegistroEnfermedadData registroenfermedad;
+  final Enfermedade? enfermedad;
+  final Etapa? etapa;
+  final RegistroTratamientoData? registrotratamiento;
+  final bool isExpanded;
+
+  const RegistroEnfermedadDatos({
     required this.registroenfermedad,
-    required this.registrotratamiento,
     required this.etapa,
     required this.enfermedad,
+    required this.registrotratamiento,
+    this.isExpanded = false,
   });
+
+  RegistroEnfermedadDatos changeExpanded({bool? expanded}) {
+    return RegistroEnfermedadDatos(
+        registroenfermedad: registroenfermedad,
+        etapa: etapa,
+        enfermedad: enfermedad,
+        registrotratamiento: registrotratamiento,
+        isExpanded: expanded ?? isExpanded);
+  }
+
+  @override
+  List<Object?> get props =>
+      [registroenfermedad, etapa, enfermedad, registrotratamiento, isExpanded];
 }

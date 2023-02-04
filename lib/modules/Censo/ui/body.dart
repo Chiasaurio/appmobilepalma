@@ -1,17 +1,14 @@
 import 'package:apppalma/modules/Censo/cubit/censos_cubit.dart';
-import 'package:apppalma/components/appbar.dart';
 import 'package:apppalma/components/toasts/toasts.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import 'dart:ui';
-
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
   @override
-  _BodyState createState() => _BodyState();
+  State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
@@ -41,41 +38,41 @@ class _BodyState extends State<Body> {
         ));
   }
 
-  void _opcionesBottomSheet(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: altoCard,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                // ListTile(
-                //   contentPadding: EdgeInsets.all(10.0),
-                //   // leading: Icon(Icons.storage),
-                //   title: Text('Ver registros de cosecha',
-                //       textAlign: TextAlign.center),
-                //   // onTap: () => Navigator.pushNamed( context , 'lote/cosechas/registrocosechas',  arguments: cosecha),
-                // ),
-                Divider(),
-                ListTile(
-                    contentPadding: EdgeInsets.all(10.0),
-                    // leading: Icon(Icons.save_alt),
-                    title: Text(
-                      'Dar de alta',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.green[900],
-                        fontSize: 20,
-                      ),
-                    ),
-                    onTap: () => dardealta()),
-                Divider(),
-              ],
-            ),
-          );
-        });
-  }
+  // void _opcionesBottomSheet(context) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return Container(
+  //           height: altoCard,
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.center,
+  //             children: <Widget>[
+  //               // ListTile(
+  //               //   contentPadding: EdgeInsets.all(10.0),
+  //               //   // leading: Icon(Icons.storage),
+  //               //   title: Text('Ver registros de cosecha',
+  //               //       textAlign: TextAlign.center),
+  //               //   // onTap: () => Navigator.pushNamed( context , 'lote/cosechas/registrocosechas',  arguments: cosecha),
+  //               // ),
+  //               Divider(),
+  //               ListTile(
+  //                   contentPadding: EdgeInsets.all(10.0),
+  //                   // leading: Icon(Icons.save_alt),
+  //                   title: Text(
+  //                     'Dar de alta',
+  //                     textAlign: TextAlign.center,
+  //                     style: TextStyle(
+  //                       color: Colors.green[900],
+  //                       fontSize: 20,
+  //                     ),
+  //                   ),
+  //                   onTap: () => dardealta()),
+  //               Divider(),
+  //             ],
+  //           ),
+  //         );
+  //       });
+  // }
 
   void dardealta() {
     if (censoseleccionado == null) return;
@@ -84,7 +81,7 @@ class _BodyState extends State<Body> {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
-            title: Text('Confirmar dar de alta'),
+            title: const Text('Confirmar dar de alta'),
             content: Text(
                 'Esta seguro que desea dar de alta el censo de ${censoseleccionado!.nombrePlaga} en el sector ${censoseleccionado!.lineaLimite1} - ${censoseleccionado!.lineaLimite2} '),
             actions: [
@@ -141,7 +138,8 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(opcion,
-                    style: TextStyle(color: Colors.black, fontSize: 18.0)),
+                    style:
+                        const TextStyle(color: Colors.black, fontSize: 18.0)),
                 const SizedBox(width: 30),
                 const Padding(
                   padding: EdgeInsets.only(right: 8.0),

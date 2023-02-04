@@ -6,14 +6,13 @@ import 'package:apppalma/modules/Plateos/ui/plateo_activo/plateoactivo_page.dart
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 class PlateoPage extends StatefulWidget {
   final String routeName;
 
   const PlateoPage({Key? key, required this.routeName}) : super(key: key);
   @override
-  _PlateoPageState createState() => _PlateoPageState();
+  State<PlateoPage> createState() => _PlateoPageState();
 }
 
 class _PlateoPageState extends State<PlateoPage> {

@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class EstadosPalma {
   static const pendientePorTratar = 'Pendiente por tratar';
@@ -8,9 +8,23 @@ class EstadosPalma {
   static const erradicada = 'Erradicada';
   static const alta = 'Alta';
   static const sana = 'Sana';
+
+  static Map<String, Color> etiquetacolor = {
+    EstadosPalma.sana: Colors.green,
+    EstadosPalma.enTratamiento: Colors.orange,
+    EstadosPalma.alta: Colors.green,
+    EstadosPalma.pendientePorErradicar: Colors.red,
+    EstadosPalma.pendientePorTratar: Colors.yellow,
+  };
 }
 
-final String nombreFinca = 'FINCA CAMPOALEGRE';
+class EstadosPlaga {
+  static const pendientePorFumigar = 'Pendiente por fumigar';
+  static const fumigado = 'Fumigado';
+  static const eliminado = 'En tratamiento';
+}
+
+const String nombreFinca = 'FINCA CAMPOALEGRE';
 
 const kPrimaryColor = Color(0xFF2D6A4F);
 const kBackgroundColor = Color.fromARGB(168, 245, 245, 245);

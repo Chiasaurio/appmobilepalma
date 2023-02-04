@@ -9,20 +9,25 @@ class ProductoQuimico extends StatefulWidget {
       {Key? key, required this.callbackproducto, required this.productos})
       : super(key: key);
   @override
-  _ProductoQuimicoState createState() => _ProductoQuimicoState();
+  State<ProductoQuimico> createState() => _ProductoQuimicoState();
 }
 
 class _ProductoQuimicoState extends State<ProductoQuimico> {
-  var width;
-  var height;
-  var altoCard;
-  var anchoCard;
-  var margin;
+  late double margin;
+  late double anchoCard;
+  late double altoCard;
+  late double width;
+  late double height;
   String? unidades;
   late List<ProductoAgroquimicoData> productos;
   ProductoAgroquimicoData? producto;
   @override
   void initState() {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+    altoCard = height * 0.3; //150,
+    anchoCard = width;
+    margin = anchoCard * 0.04;
     productos = widget.productos;
     super.initState();
   }
@@ -70,8 +75,8 @@ class _ProductoQuimicoState extends State<ProductoQuimico> {
       List<DropdownMenuItem<ProductoAgroquimicoData>> lista = [];
       for (var producto in productos) {
         lista.add(DropdownMenuItem(
-          child: Text(producto.nombreProductoAgroquimico),
           value: producto,
+          child: Text(producto.nombreProductoAgroquimico),
         ));
       }
       return lista;

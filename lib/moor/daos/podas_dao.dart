@@ -31,76 +31,14 @@ class PodaDao extends DatabaseAccessor<AppDatabase> with _$PodaDaoMixin {
   Future<List<Poda>> getPodasFinalizadas() {
     return (select(podas)..where((tbl) => tbl.completada.equals(true))).get();
   }
+
+  Future<List<Poda?>> getPodasForSync() {
+    return (select(podas)..where((c) => c.sincronizado.equals(false))).get();
+  }
+
+  Future<List<PodaDiariaData>> getPodasDiariasForSync(int id) {
+    return (select(podaDiaria)
+          ..where((p) => p.idPoda.equals(id) & p.sincronizado.equals(false)))
+        .get();
+  }
 }
-
-// Stream<Cosecha> watchCosechaActiva(String nombrelote) {
-//   return (select(cosechas)
-//         ..where((c) =>
-//             c.completada.equals(false) & c.nombreLote.equals(nombrelote)))
-//       .watchSingle();
-// }
-
-// Future<Cosecha> getCosechaActiva(String nombrelote) {
-//   return (select(cosechas)
-//         ..where((c) =>
-//             c.completada.equals(false) & c.nombreLote.equals(nombrelote)))
-//       .getSingle();
-// }
-
-// Future insertCosecha(Insertable<Cosecha> cosecha) =>
-//     into(cosechas).insert(cosecha);
-// Future updateCosecha(Insertable<Cosecha> cosecha) =>
-//     update(cosechas).replace(cosecha);
-// Future deleteCosecha(Insertable<Cosecha> cosecha) =>
-//     delete(cosechas).delete(cosecha);
-
-// @UseDao(tables: [CosechaDiaria, Cosechas])
-// class CosechaDiariaDao extends DatabaseAccessor<AppDatabase>
-//     with _$CosechaDiariaDaoMixin {
-//   final AppDatabase db;
-//   CosechaDiariaDao(this.db) : super(db);
-
-//   //   Stream<List<CosechaDiariaWithCosecha>> watchAllCosechas() {
-//   //     return (select(cosechaDiaria)
-//   //         ..orderBy(
-//   //           ([
-//   //             (t) =>
-//   //                 OrderingTerm(expression: t.idCosecha, mode: OrderingMode.asc),
-//   //           ]),
-//   //         ))
-//   //       .join(
-//   //         [
-//   //           leftOuterJoin(cosechas, cosechas.id.equalsExp(cosechaDiaria.idCosecha)),
-//   //         ],
-//   //       )
-//   //       .watch()
-//   //       .map(
-//   //         (rows) => rows.map(
-//   //           (row) {
-//   //             return CosechaDiariaWithCosecha(
-//   //               cosecha: row.readTable(cosechas),
-//   //               cosechadiaria: row.readTable(cosechaDiaria),
-//   //             );
-//   //           },
-//   //         ).toList(),
-//   //       );
-
-//   // }
-
-//   Future<List<CosechaDiariaData>> getCosechasDiarias(int id) {
-//     return (select(cosechaDiaria)
-//           ..where((c) => c.idCosecha.equals(id))
-//           ..orderBy(
-//             ([
-//               (t) =>
-//                   OrderingTerm(expression: t.idCosecha, mode: OrderingMode.asc),
-//             ]),
-//           ))
-//         .get();
-//   }
-
-//   Stream<List<CosechaDiariaData>> watchCosechaDiaria() =>
-//       select(cosechaDiaria).watch();
-//   Future insertCosechaDiaria(Insertable<CosechaDiariaData> cosechadiaria) =>
-//       into(cosechaDiaria).insert(cosechadiaria);
-// }

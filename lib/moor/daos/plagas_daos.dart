@@ -77,18 +77,16 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
         //   // mode: InsertMode.insertOrReplace);
         // }
       });
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
   }
 
   Future insertPlagaConEtapas(
       Insertable<Plaga> plaga, List<Insertable<EtapasPlagaData>> listaetapas) {
     return transaction(() async {
       await into(plagas).insert(plaga);
-      listaetapas.forEach((element) async {
+      for (var element in listaetapas) {
         await into(etapasPlaga).insert(element);
-      });
+      }
     });
   }
 
@@ -143,7 +141,6 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
 
       return transaction(() async {
         var id = await into(censo).insert(c);
-        print(id);
         // CensoData ultimoid = await getIdCenso().getSingle();
         List<Insertable<CensoEtapasPlagaData>> etapas =
             getCensoEtapasCompanion(id, etapasseleccionadas);
@@ -151,21 +148,19 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
           batch.insertAll(censoEtapasPlaga, etapas);
         });
       });
-    } catch (e) {
-      print('2 $e');
-    }
+    } catch (_) {}
   }
 
   List<Insertable<CensoEtapasPlagaData>> getCensoEtapasCompanion(
       int idCenso, List<EtapasPlagaData> etapasseleccionadas) {
     List<Insertable<CensoEtapasPlagaData>> etapas = [];
-    etapasseleccionadas.forEach((e) {
+    for (var e in etapasseleccionadas) {
       CensoEtapasPlagaCompanion aux = CensoEtapasPlagaCompanion(
         idCenso: Value(idCenso),
         idEtapasplaga: Value(e.idEtapasPlaga),
       );
       etapas.add(aux);
-    });
+    }
     return etapas;
   }
 }

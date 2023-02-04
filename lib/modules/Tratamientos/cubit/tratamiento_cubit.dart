@@ -3,9 +3,9 @@ import 'package:apppalma/moor/daos/palma_daos.dart';
 import 'package:apppalma/moor/daos/producto_dao.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
-import 'package:bloc/bloc.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
 
@@ -60,13 +60,13 @@ class TratamientoCubit extends Cubit<TratamientoState> {
         return false;
       }
     } catch (e) {
-      print('error en bloc $e');
       return false;
     }
   }
 
   actualizarPalma(Palma palma, String estadopalma) {
     final PalmaDao palmaDao = db.palmaDao;
-    palmaDao.updatePalma(palma.copyWith(estadopalma: estadopalma));
+    palmaDao.updatePalma(
+        palma.copyWith(estadopalma: estadopalma, sincronizado: false));
   }
 }

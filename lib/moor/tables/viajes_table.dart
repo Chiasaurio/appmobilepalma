@@ -7,7 +7,8 @@ class Viajes extends Table {
   IntColumn get cantidadRacimos => integer()();
   IntColumn get kilos => integer().nullable()();
   RealColumn get kilosExtractora => real().nullable()();
-  BoolColumn get completado => boolean().withDefault(Constant(false))();
+  BoolColumn get completado => boolean().withDefault(const Constant(false))();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   // @override
   // Set<Column> get primaryKey => {id, nombreLote};
 }

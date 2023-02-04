@@ -10,4 +10,5 @@ class Aplicaciones extends Table {
   IntColumn get idCenso => integer().customConstraint('REFERENCES censo(id)')();
   IntColumn get idProductoAgroquimico =>
       integer().customConstraint('REFERENCES producto_agroquimico(id)')();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }

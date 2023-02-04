@@ -22,6 +22,13 @@ class EnfermedadConEtapas {
   final Enfermedade enfermedad;
   final List<Etapa> etapas;
 
+  factory EnfermedadConEtapas.otraEnfermedad() {
+    return EnfermedadConEtapas(
+        enfermedad: const Enfermedade(
+            nombreEnfermedad: "Otra", procedimientoEnfermedad: ""),
+        etapas: []);
+  }
+
   EnfermedadConEtapas({
     required this.enfermedad,
     required this.etapas,

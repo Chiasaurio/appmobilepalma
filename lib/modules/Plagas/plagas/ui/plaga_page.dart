@@ -9,8 +9,9 @@ class PlagaPage extends StatefulWidget {
   final String routeName;
 
   const PlagaPage({Key? key, required this.routeName}) : super(key: key);
+
   @override
-  _PlagaPageState createState() => _PlagaPageState();
+  State<PlagaPage> createState() => _PlagaPageState();
 }
 
 class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {

@@ -7,9 +7,8 @@ class ControlBiologico extends StatefulWidget {
   const ControlBiologico(
       {Key? key, required this.callbackproducto, required this.productos})
       : super(key: key);
-
   @override
-  _ControlBiologicoState createState() => _ControlBiologicoState();
+  State<ControlBiologico> createState() => _ControlBiologicoState();
 }
 
 class _ControlBiologicoState extends State<ControlBiologico> {
@@ -66,17 +65,17 @@ class _ControlBiologicoState extends State<ControlBiologico> {
   Widget _buildProducto() {
     List<DropdownMenuItem<ProductoAgroquimicoData>> getOpcionesDropdown() {
       List<DropdownMenuItem<ProductoAgroquimicoData>> lista = [];
-      productos.forEach((producto) {
+      for (var producto in productos) {
         lista.add(DropdownMenuItem(
-          child: Text(producto.nombreProductoAgroquimico),
           value: producto,
+          child: Text(producto.nombreProductoAgroquimico),
         ));
-      });
+      }
       return lista;
     }
 
     return Container(
-        padding: EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
+        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(10),

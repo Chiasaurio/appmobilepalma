@@ -14,9 +14,8 @@ class CosechaDiariaPage extends StatefulWidget {
       required this.cosecha,
       this.routeName = '/lote/cosechas/registrardiarias'})
       : super(key: key);
-
   @override
-  _CosechaDiariaPageState createState() => _CosechaDiariaPageState();
+  State<CosechaDiariaPage> createState() => _CosechaDiariaPageState();
 }
 
 class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
@@ -90,7 +89,7 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
               children: <Widget>[
                 Container(
                   width: anchoCard,
-                  padding: EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
+                  padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const <Widget>[
@@ -190,7 +189,7 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
         BlocProvider.of<CosechaCubit>(context)
             .insertarCosechaDiaria(fecha, racimos, kilos, cosecha);
         Navigator.pop(context);
-      } catch (e) {}
+      } catch (_) {}
     }
   }
 }

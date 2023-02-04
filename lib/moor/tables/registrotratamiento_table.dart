@@ -11,6 +11,7 @@ class RegistroTratamiento extends Table {
   RealColumn get dosis => real()();
   TextColumn get descripcionProcedimiento => text().nullable()();
   DateTimeColumn get fechaRegistro => dateTime()();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }
 
 class EnfermedadConTratamiento {

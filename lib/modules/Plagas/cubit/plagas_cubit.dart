@@ -2,11 +2,10 @@ import 'package:apppalma/components/toasts/toasts.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/moor/daos/plagas_daos.dart';
 import 'package:apppalma/moor/moor_database.dart';
-import 'package:apppalma/moor/tables/enfermedades_table.dart';
 import 'package:apppalma/moor/tables/plagas_table.dart';
-import 'package:bloc/bloc.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'plagas_state.dart';
 
@@ -51,7 +50,6 @@ class PlagasCubit extends Cubit<PlagasState> {
           nombrelote,
           etapasseleccionadas);
     } catch (e) {
-      print('1 $e');
       registroFallidoToast(e.toString());
     }
   }

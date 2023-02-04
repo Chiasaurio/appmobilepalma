@@ -22,7 +22,7 @@ class TratamientoForm extends StatefulWidget {
       this.routeName = '/lote/aplicaciones/registrartratamiento'})
       : super(key: key);
   @override
-  _TratamientoFormState createState() => _TratamientoFormState();
+  State<TratamientoForm> createState() => _TratamientoFormState();
 }
 
 class _TratamientoFormState extends State<TratamientoForm> {
@@ -270,6 +270,11 @@ class _TratamientoFormState extends State<TratamientoForm> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         GestureDetector(
+          onTap: (() {
+            setState(() {
+              unidades = 'cm3';
+            });
+          }),
           child: Container(
               margin: const EdgeInsets.all(1),
               padding: const EdgeInsets.all(15),
@@ -283,13 +288,13 @@ class _TratamientoFormState extends State<TratamientoForm> {
               child: const Text('cm3',
                   style: TextStyle(fontSize: 15.0),
                   textAlign: TextAlign.center)),
-          onTap: (() {
-            setState(() {
-              unidades = 'cm3';
-            });
-          }),
         ),
         GestureDetector(
+          onTap: (() {
+            setState(() {
+              unidades = 'gr';
+            });
+          }),
           child: Container(
               margin: const EdgeInsets.all(1),
               padding: const EdgeInsets.all(15),
@@ -303,13 +308,13 @@ class _TratamientoFormState extends State<TratamientoForm> {
               child: const Text('gr',
                   style: TextStyle(fontSize: 15.0),
                   textAlign: TextAlign.center)),
-          onTap: (() {
-            setState(() {
-              unidades = 'gr';
-            });
-          }),
         ),
         GestureDetector(
+          onTap: (() {
+            setState(() {
+              unidades = 'ml';
+            });
+          }),
           child: Container(
               margin: const EdgeInsets.all(1),
               padding: const EdgeInsets.all(15),
@@ -323,11 +328,6 @@ class _TratamientoFormState extends State<TratamientoForm> {
               child: const Text('ml',
                   style: TextStyle(fontSize: 15.0),
                   textAlign: TextAlign.center)),
-          onTap: (() {
-            setState(() {
-              unidades = 'ml';
-            });
-          }),
         ),
       ],
     );
@@ -440,7 +440,7 @@ class _TratamientoFormState extends State<TratamientoForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Expanded(child: Text('Producto: ')),
+                    const Expanded(child: Text('Producto: ')),
                     Expanded(
                       child: tipocontrol == 'quimico'
                           ? Text(
@@ -546,13 +546,13 @@ class _TratamientoFormState extends State<TratamientoForm> {
                 fecha);
       }
       if (resp) {
+        if (!mounted) return;
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       } else {
         registroFallidoToast('Error registrando el tratamiento');
       }
     } catch (e) {
-      print('error on method $e');
       registroFallidoToast(e.toString());
     }
   }

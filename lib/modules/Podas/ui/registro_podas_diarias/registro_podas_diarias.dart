@@ -11,7 +11,7 @@ class RegistroPodasDiarias extends StatefulWidget {
       : super(key: key);
 
   @override
-  _RegistroPodasDiariasState createState() => _RegistroPodasDiariasState();
+  State<RegistroPodasDiarias> createState() => _RegistroPodasDiariasState();
 }
 
 class _RegistroPodasDiariasState extends State<RegistroPodasDiarias> {
