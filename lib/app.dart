@@ -19,8 +19,6 @@ import 'package:apppalma/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'modules/Erradicaciones/cubit/erradicacion_cubit.dart';
 import 'modules/Viajes/cubit/viaje_cubit.dart';
 
 class AppPalma extends StatelessWidget {
@@ -42,8 +40,8 @@ class AppPalma extends StatelessWidget {
         BlocProvider<CensosCubit>(create: (context) => CensosCubit()),
         BlocProvider<PalmaCubit>(create: (context) => PalmaCubit()),
         BlocProvider<EnfermedadCubit>(create: (context) => EnfermedadCubit()),
-        BlocProvider<ErradicacionCubit>(
-            create: (context) => ErradicacionCubit()),
+        // BlocProvider<ErradicacionCubit>(
+        //     create: (context) => ErradicacionCubit()),
         BlocProvider<AgroquimicosCubit>(
             create: (context) => AgroquimicosCubit()),
         BlocProvider<PlagasCubit>(create: (context) => PlagasCubit()),

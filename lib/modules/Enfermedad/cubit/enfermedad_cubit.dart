@@ -58,7 +58,10 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
       String estadoPalma = '';
       final palmaExistente = await palmaDao.obtenerPalma(
           state.nombreLote!, state.lineaPalma!, state.numeroPalma!);
-      if (palmaExistente != null) {
+      if (state.enfermedadSeleccionada!.procedimientoEnfermedad ==
+          "Erradicación") {
+        estadoPalma = EstadosPalma.pendientePorErradicar;
+      } else if (palmaExistente != null) {
         if (palmaExistente.estadopalma == EstadosPalma.pendientePorErradicar) {
           estadoPalma = EstadosPalma.pendientePorErradicar;
         } else if (palmaExistente.estadopalma == EstadosPalma.erradicada) {
@@ -67,12 +70,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
           estadoPalma = EstadosPalma.reincidente;
         }
       } else {
-        if (state.enfermedadSeleccionada!.procedimientoEnfermedad ==
-            "Erradicación") {
-          estadoPalma = EstadosPalma.pendientePorErradicar;
-        } else {
-          estadoPalma = EstadosPalma.pendientePorTratar;
-        }
+        estadoPalma = EstadosPalma.pendientePorTratar;
       }
       final RegistroEnfermedadDao registroEnfermedadDao =
           db.registroEnfermedadDao;

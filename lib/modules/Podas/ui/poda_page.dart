@@ -62,9 +62,7 @@ class _PodaPageState extends State<PodaPage> {
       child: BlocConsumer<PodasCubit, PodasStateLoaded>(
           listener: (context, state) {
         setState(() {
-          if (state is PodasStateLoaded) {
-            poda = state.poda;
-          }
+          poda = state.poda;
         });
       }, builder: (context, state) {
         if (state.isLoaded) {

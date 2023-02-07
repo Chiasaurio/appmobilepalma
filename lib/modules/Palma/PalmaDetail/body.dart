@@ -1,8 +1,6 @@
-import 'package:apppalma/constants.dart';
 import 'package:apppalma/modules/Palma/PalmaDetail/registrospalma.dart';
 import 'package:apppalma/modules/Palma/PalmaDetail/ui/components/card_palma.dart';
 import 'package:apppalma/modules/Palma/PalmaDetail/ui/components/list_registro_enfermedades.dart';
-import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -14,7 +12,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late Palma palma;
+  late PalmaConProcesos palma;
 
   late String nombrelote;
   late String ruta;
@@ -28,14 +26,14 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    palma = widget.palmaConProcesos.palma;
+    palma = widget.palmaConProcesos;
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    nombrelote = palma.nombreLote;
+    nombrelote = palma.palma.nombreLote;
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     altoCard = height * 0.5;
@@ -55,7 +53,7 @@ class _BodyState extends State<Body> {
   Widget crearContenido() {
     return Column(
       children: [
-        CardPalma(palma: palma),
+        CardPalma(palma: palma.palma),
         RegistroEnfermedadesList(
             registros: widget.palmaConProcesos.registroenfermedaddatos)
       ],

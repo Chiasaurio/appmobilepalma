@@ -5,12 +5,10 @@ import 'package:apppalma/modules/Cosechas/ui/cosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
 import 'package:apppalma/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
 import 'package:apppalma/modules/Enfermedad/enfermedad_page.dart';
-import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/erradicacion_page.dart';
 import 'package:apppalma/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
 import 'package:apppalma/modules/Home/home_screen.dart';
 import 'package:apppalma/modules/Login/ui/login_page.dart';
 import 'package:apppalma/modules/LotesList/presentation/lotes_page.dart';
-import 'package:apppalma/modules/Palma/PalmasList/palmas_list.dart';
 import 'package:apppalma/modules/Plagas/plagas/ui/plaga_page.dart';
 import 'package:apppalma/modules/Plateos/ui/finalizar_plateo/finalizarplateo_page.dart';
 import 'package:apppalma/modules/Plateos/ui/plateo_page.dart';
@@ -20,7 +18,7 @@ import 'package:apppalma/modules/Podas/ui/registro_podas_diarias/registro_podas_
 import 'package:apppalma/modules/Sync/sincronizar_page.dart';
 import 'package:flutter/material.dart';
 
-import '/modules/Palma/palmas_page.dart';
+import 'modules/Palma/ui/palmas_page.dart';
 import 'modules/Fumigaciones/ui/fumigacion/registrar_fumigacion_page.dart';
 import 'modules/Podas/ui/finalizar_plateo/finalizarpoda_page.dart';
 import 'modules/Splash/splash_screen.dart';
@@ -69,10 +67,10 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => EnfermedadPage(routeName: settings.name!));
       case '/lote/palmas':
-        return MaterialPageRoute(builder: (_) => const PalmaPage());
-      case '/lote/palmas/estadopalmas':
-        return MaterialPageRoute(
-            builder: (_) => PalmasList(routeName: settings.name!));
+        return MaterialPageRoute(builder: (_) => const PalmasPage());
+      // case '/lote/palmas/estadopalmas':
+      //   return MaterialPageRoute(
+      //       builder: (_) => PalmasList(routeName: settings.name!));
       case '/lote/cosechas':
         return MaterialPageRoute(
           builder: (_) => CosechaPage(routeName: settings.name!),
@@ -129,9 +127,9 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => RegistrarFumigacionPage(routeName: settings.name!),
         );
-      case '/lote/palmas/erradicar':
-        return MaterialPageRoute(
-            builder: (_) => ErradicacionPage(routeName: settings.name!));
+      // case '/lote/palmas/erradicar':
+      //   return MaterialPageRoute(
+      //       builder: (_) => ErradicacionPage(routeName: settings.name!));
       default:
         return _errorScreen();
     }

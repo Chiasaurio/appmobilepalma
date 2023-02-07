@@ -33,6 +33,8 @@ class _OrientacionPalmaDropwdownState extends State<OrientacionPalmaDropwdown> {
       Expanded(
           child: DropdownButtonFormField<String>(
         decoration: const InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           label: Text(
             "Orientación",
             style: TextStyle(fontSize: 15),
