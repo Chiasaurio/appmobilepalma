@@ -158,13 +158,10 @@ class _PlagaFormState extends State<PlagaForm> {
 
   Widget buildEtapas() {
     if (plagaconetapas != null) {
-      if (plagaconetapas!.etapas != null) {
-        return _buildEtapas();
-      }
+      return _buildEtapas();
     } else {
       return const SizedBox();
     }
-    return const SizedBox();
   }
 
   Widget _buildEtapas() {

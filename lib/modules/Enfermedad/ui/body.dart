@@ -1,6 +1,5 @@
 import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
 import 'package:apppalma/modules/Enfermedad/ui/components/enfermedad_form.dart';
-import 'package:apppalma/modules/Erradicaciones/ui/ErradicacionPage/components/orientacion_dropdown.dart';
 import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:apppalma/utils/utils.dart' as utils;

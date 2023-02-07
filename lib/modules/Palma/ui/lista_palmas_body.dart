@@ -1,44 +1,62 @@
-import 'package:apppalma/modules/Palma/PalmaDetail/registrospalma.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Body extends StatefulWidget {
-  final List<Palma> palmas;
-  const Body({Key? key, required this.palmas}) : super(key: key);
+import '../../LoteDetail/cubit/lote_detail_cubit.dart';
+import '../cubit/palma_cubit.dart';
+import 'components/palma_seleccionada_info.dart';
+
+class PalmasLoteList extends StatefulWidget {
+  const PalmasLoteList({Key? key}) : super(key: key);
   @override
-  State<Body> createState() => _BodyState();
+  State<PalmasLoteList> createState() => _PalmasLoteListState();
 }
 
-class _BodyState extends State<Body> {
-  late double width;
-  late double height;
-  late double altoCard;
-  late double anchoCard;
-  Palma? palmaseleccionada;
-  late double margin;
+class _PalmasLoteListState extends State<PalmasLoteList> {
+  late String nombreLote;
+  @override
+  void initState() {
+    final state = BlocProvider.of<LoteDetailCubit>(context).state;
+    if (state is LoteChoosed) {
+      nombreLote = state.lote.lote.nombreLote;
+    }
+    BlocProvider.of<PalmaCubit>(context).obtenerPalmasLote(nombreLote);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    altoCard = height * 0.7; //150,
-    anchoCard = width;
-    margin = anchoCard * 0.04;
-    return SingleChildScrollView(
-        child: Column(children: <Widget>[
-      seleccionarPalmas(),
-    ]));
+    return SingleChildScrollView(child: BlocBuilder<PalmaCubit, PalmaState>(
+      builder: (context, state) {
+        if (state.palmaSeleccionada != null) {
+          return PalmaSeleccionadaInfo(palma: state.palmaSeleccionada!);
+        } else {
+          return seleccionarPalmas();
+        }
+      },
+    ));
   }
 
   //StreamBuilder que obtiene las palmas de PalmaBloc
   Widget seleccionarPalmas() {
-    return buildPalmas();
+    return BlocBuilder<PalmaCubit, PalmaState>(
+      builder: (context, state) {
+        if (state.palmas != null) {
+          return buildPalmas(state.palmas!);
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 
   //Titulo de la tabla
-  Widget buildPalmas() {
+  Widget buildPalmas(List<Palma> palmas) {
     return SingleChildScrollView(
       child: Container(
-          margin: EdgeInsets.all(margin),
+          margin: const EdgeInsets.all(15),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -54,16 +72,16 @@ class _BodyState extends State<Body> {
                             fontWeight: FontWeight.w600),
                       ),
                     ]),
-                widget.palmas.isNotEmpty
-                    ? buildTabla()
+                palmas.isNotEmpty
+                    ? buildTabla(palmas)
                     : const Text('no hay palmas registradas para este lote'),
               ])),
     );
   }
 
-  Widget buildTabla() {
+  Widget buildTabla(List<Palma> palmas) {
     return Column(
-        children: widget.palmas.map((e) {
+        children: palmas.map((e) {
       return palmaTile(e);
     }).toList());
   }
@@ -71,10 +89,9 @@ class _BodyState extends State<Body> {
   Widget palmaTile(Palma palma) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => PalmaDetalleScreen(palma: palma)));
+        BlocProvider.of<PalmaCubit>(context).palmaSeleccionadaChanged(palma);
+        BlocProvider.of<PalmaCubit>(context).obtenerProcesosPalma(
+            numeroLinea: palma.numerolinea, numeroPalma: palma.numeroenlinea);
       },
       child: Card(
         shape: RoundedRectangleBorder(

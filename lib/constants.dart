@@ -24,9 +24,16 @@ class EstadosPlaga {
   static const eliminado = 'En tratamiento';
 }
 
+class ProcedimientosEnfermedad {
+  static const erradicacion = 'Erradicación';
+}
+
 const String nombreFinca = 'FINCA CAMPOALEGRE';
 
 const kPrimaryColor = Color(0xFF2D6A4F);
-const kBackgroundColor = Color.fromARGB(168, 245, 245, 245);
+const kBackgroundColor = Color.fromARGB(248, 245, 245, 245);
 const kYellowColor = Color.fromRGBO(255, 235, 59, 1);
 const kRedColor = Color.fromARGB(255, 210, 20, 20);
+const kpurpleColor = Color(0xff526BF6);
+const kblueColor = Color(0xff67ACF2);
+const kDefualtBlueColor = Colors.blue;

@@ -2497,23 +2497,28 @@ class $EtapasPlagaTable extends EtapasPlaga
 class ErradicacionData extends DataClass
     implements Insertable<ErradicacionData> {
   final int id;
-  final int idPalma;
+  final String idPalma;
   final String? causaErradicacion;
+  final String? observaciones;
   final DateTime fechaRegistro;
   final bool sincronizado;
   const ErradicacionData(
       {required this.id,
       required this.idPalma,
       this.causaErradicacion,
+      this.observaciones,
       required this.fechaRegistro,
       required this.sincronizado});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['id_palma'] = Variable<int>(idPalma);
+    map['id_palma'] = Variable<String>(idPalma);
     if (!nullToAbsent || causaErradicacion != null) {
       map['causa_erradicacion'] = Variable<String>(causaErradicacion);
+    }
+    if (!nullToAbsent || observaciones != null) {
+      map['observaciones'] = Variable<String>(observaciones);
     }
     map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
     map['sincronizado'] = Variable<bool>(sincronizado);
@@ -2527,6 +2532,9 @@ class ErradicacionData extends DataClass
       causaErradicacion: causaErradicacion == null && nullToAbsent
           ? const Value.absent()
           : Value(causaErradicacion),
+      observaciones: observaciones == null && nullToAbsent
+          ? const Value.absent()
+          : Value(observaciones),
       fechaRegistro: Value(fechaRegistro),
       sincronizado: Value(sincronizado),
     );
@@ -2537,9 +2545,10 @@ class ErradicacionData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ErradicacionData(
       id: serializer.fromJson<int>(json['id']),
-      idPalma: serializer.fromJson<int>(json['idPalma']),
+      idPalma: serializer.fromJson<String>(json['idPalma']),
       causaErradicacion:
           serializer.fromJson<String?>(json['causaErradicacion']),
+      observaciones: serializer.fromJson<String?>(json['observaciones']),
       fechaRegistro: serializer.fromJson<DateTime>(json['fechaRegistro']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
@@ -2549,8 +2558,9 @@ class ErradicacionData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'idPalma': serializer.toJson<int>(idPalma),
+      'idPalma': serializer.toJson<String>(idPalma),
       'causaErradicacion': serializer.toJson<String?>(causaErradicacion),
+      'observaciones': serializer.toJson<String?>(observaciones),
       'fechaRegistro': serializer.toJson<DateTime>(fechaRegistro),
       'sincronizado': serializer.toJson<bool>(sincronizado),
     };
@@ -2558,8 +2568,9 @@ class ErradicacionData extends DataClass
 
   ErradicacionData copyWith(
           {int? id,
-          int? idPalma,
+          String? idPalma,
           Value<String?> causaErradicacion = const Value.absent(),
+          Value<String?> observaciones = const Value.absent(),
           DateTime? fechaRegistro,
           bool? sincronizado}) =>
       ErradicacionData(
@@ -2568,6 +2579,8 @@ class ErradicacionData extends DataClass
         causaErradicacion: causaErradicacion.present
             ? causaErradicacion.value
             : this.causaErradicacion,
+        observaciones:
+            observaciones.present ? observaciones.value : this.observaciones,
         fechaRegistro: fechaRegistro ?? this.fechaRegistro,
         sincronizado: sincronizado ?? this.sincronizado,
       );
@@ -2577,6 +2590,7 @@ class ErradicacionData extends DataClass
           ..write('id: $id, ')
           ..write('idPalma: $idPalma, ')
           ..write('causaErradicacion: $causaErradicacion, ')
+          ..write('observaciones: $observaciones, ')
           ..write('fechaRegistro: $fechaRegistro, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -2584,8 +2598,8 @@ class ErradicacionData extends DataClass
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, idPalma, causaErradicacion, fechaRegistro, sincronizado);
+  int get hashCode => Object.hash(id, idPalma, causaErradicacion, observaciones,
+      fechaRegistro, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2593,35 +2607,40 @@ class ErradicacionData extends DataClass
           other.id == this.id &&
           other.idPalma == this.idPalma &&
           other.causaErradicacion == this.causaErradicacion &&
+          other.observaciones == this.observaciones &&
           other.fechaRegistro == this.fechaRegistro &&
           other.sincronizado == this.sincronizado);
 }
 
 class ErradicacionCompanion extends UpdateCompanion<ErradicacionData> {
   final Value<int> id;
-  final Value<int> idPalma;
+  final Value<String> idPalma;
   final Value<String?> causaErradicacion;
+  final Value<String?> observaciones;
   final Value<DateTime> fechaRegistro;
   final Value<bool> sincronizado;
   const ErradicacionCompanion({
     this.id = const Value.absent(),
     this.idPalma = const Value.absent(),
     this.causaErradicacion = const Value.absent(),
+    this.observaciones = const Value.absent(),
     this.fechaRegistro = const Value.absent(),
     this.sincronizado = const Value.absent(),
   });
   ErradicacionCompanion.insert({
     this.id = const Value.absent(),
-    required int idPalma,
+    required String idPalma,
     this.causaErradicacion = const Value.absent(),
+    this.observaciones = const Value.absent(),
     required DateTime fechaRegistro,
     this.sincronizado = const Value.absent(),
   })  : idPalma = Value(idPalma),
         fechaRegistro = Value(fechaRegistro);
   static Insertable<ErradicacionData> custom({
     Expression<int>? id,
-    Expression<int>? idPalma,
+    Expression<String>? idPalma,
     Expression<String>? causaErradicacion,
+    Expression<String>? observaciones,
     Expression<DateTime>? fechaRegistro,
     Expression<bool>? sincronizado,
   }) {
@@ -2629,6 +2648,7 @@ class ErradicacionCompanion extends UpdateCompanion<ErradicacionData> {
       if (id != null) 'id': id,
       if (idPalma != null) 'id_palma': idPalma,
       if (causaErradicacion != null) 'causa_erradicacion': causaErradicacion,
+      if (observaciones != null) 'observaciones': observaciones,
       if (fechaRegistro != null) 'fecha_registro': fechaRegistro,
       if (sincronizado != null) 'sincronizado': sincronizado,
     });
@@ -2636,14 +2656,16 @@ class ErradicacionCompanion extends UpdateCompanion<ErradicacionData> {
 
   ErradicacionCompanion copyWith(
       {Value<int>? id,
-      Value<int>? idPalma,
+      Value<String>? idPalma,
       Value<String?>? causaErradicacion,
+      Value<String?>? observaciones,
       Value<DateTime>? fechaRegistro,
       Value<bool>? sincronizado}) {
     return ErradicacionCompanion(
       id: id ?? this.id,
       idPalma: idPalma ?? this.idPalma,
       causaErradicacion: causaErradicacion ?? this.causaErradicacion,
+      observaciones: observaciones ?? this.observaciones,
       fechaRegistro: fechaRegistro ?? this.fechaRegistro,
       sincronizado: sincronizado ?? this.sincronizado,
     );
@@ -2656,10 +2678,13 @@ class ErradicacionCompanion extends UpdateCompanion<ErradicacionData> {
       map['id'] = Variable<int>(id.value);
     }
     if (idPalma.present) {
-      map['id_palma'] = Variable<int>(idPalma.value);
+      map['id_palma'] = Variable<String>(idPalma.value);
     }
     if (causaErradicacion.present) {
       map['causa_erradicacion'] = Variable<String>(causaErradicacion.value);
+    }
+    if (observaciones.present) {
+      map['observaciones'] = Variable<String>(observaciones.value);
     }
     if (fechaRegistro.present) {
       map['fecha_registro'] = Variable<DateTime>(fechaRegistro.value);
@@ -2676,6 +2701,7 @@ class ErradicacionCompanion extends UpdateCompanion<ErradicacionData> {
           ..write('id: $id, ')
           ..write('idPalma: $idPalma, ')
           ..write('causaErradicacion: $causaErradicacion, ')
+          ..write('observaciones: $observaciones, ')
           ..write('fechaRegistro: $fechaRegistro, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -2698,15 +2724,21 @@ class $ErradicacionTable extends Erradicacion
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _idPalmaMeta = const VerificationMeta('idPalma');
   @override
-  late final GeneratedColumn<int> idPalma = GeneratedColumn<int>(
+  late final GeneratedColumn<String> idPalma = GeneratedColumn<String>(
       'id_palma', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   final VerificationMeta _causaErradicacionMeta =
       const VerificationMeta('causaErradicacion');
   @override
   late final GeneratedColumn<String> causaErradicacion =
       GeneratedColumn<String>('causa_erradicacion', aliasedName, true,
           type: DriftSqlType.string, requiredDuringInsert: false);
+  final VerificationMeta _observacionesMeta =
+      const VerificationMeta('observaciones');
+  @override
+  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
+      'observaciones', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   final VerificationMeta _fechaRegistroMeta =
       const VerificationMeta('fechaRegistro');
   @override
@@ -2723,8 +2755,14 @@ class $ErradicacionTable extends Erradicacion
       defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
       defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, idPalma, causaErradicacion, fechaRegistro, sincronizado];
+  List<GeneratedColumn> get $columns => [
+        id,
+        idPalma,
+        causaErradicacion,
+        observaciones,
+        fechaRegistro,
+        sincronizado
+      ];
   @override
   String get aliasedName => _alias ?? 'erradicacion';
   @override
@@ -2748,6 +2786,12 @@ class $ErradicacionTable extends Erradicacion
           _causaErradicacionMeta,
           causaErradicacion.isAcceptableOrUnknown(
               data['causa_erradicacion']!, _causaErradicacionMeta));
+    }
+    if (data.containsKey('observaciones')) {
+      context.handle(
+          _observacionesMeta,
+          observaciones.isAcceptableOrUnknown(
+              data['observaciones']!, _observacionesMeta));
     }
     if (data.containsKey('fecha_registro')) {
       context.handle(
@@ -2775,9 +2819,11 @@ class $ErradicacionTable extends Erradicacion
       id: attachedDatabase.options.types
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       idPalma: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_palma'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}id_palma'])!,
       causaErradicacion: attachedDatabase.options.types.read(
           DriftSqlType.string, data['${effectivePrefix}causa_erradicacion']),
+      observaciones: attachedDatabase.options.types
+          .read(DriftSqlType.string, data['${effectivePrefix}observaciones']),
       fechaRegistro: attachedDatabase.options.types.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
       sincronizado: attachedDatabase.options.types

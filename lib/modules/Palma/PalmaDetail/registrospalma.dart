@@ -1,10 +1,8 @@
 import 'package:apppalma/modules/Palma/PalmaDetail/body.dart';
-import 'package:apppalma/modules/Palma/cubit/palma_cubit.dart';
 import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/moor/moor_database.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PalmaDetalleScreen extends StatefulWidget {
   final Palma palma;
@@ -28,8 +26,8 @@ class _PalmaDetalleScreenState extends State<PalmaDetalleScreen> {
   }
 
   getProcesosPalma(Palma palma) async {
-    palmaConProcesos =
-        await BlocProvider.of<PalmaCubit>(context).obtenerProcesosPalma(palma);
+    // palmaConProcesos =
+    //     await BlocProvider.of<PalmaCubit>(context).obtenerProcesosPalma(palma);
     setState(() {});
   }
 

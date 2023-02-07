@@ -16,13 +16,7 @@ class Palmas extends Table {
   }
 
   @override
-  Set<Column> get primaryKey => {
-        identificador
-        //       id,
-        //       nombreLote,
-        //       numerolinea,
-        //       numeroenlinea,
-      };
+  Set<Column> get primaryKey => {identificador};
 
   @override
   List<String> get customConstraints => [
