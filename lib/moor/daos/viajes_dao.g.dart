@@ -2,10 +2,7 @@
 
 part of 'viajes_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$ViajesDaoMixin on DatabaseAccessor<AppDatabase> {
   $ViajesTable get viajes => attachedDatabase.viajes;
 }

@@ -2,10 +2,7 @@
 
 part of 'cosecha_daos.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$CosechaDaoMixin on DatabaseAccessor<AppDatabase> {
   $CosechasTable get cosechas => attachedDatabase.cosechas;
   $CosechaDiariaTable get cosechaDiaria => attachedDatabase.cosechaDiaria;

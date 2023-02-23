@@ -2,10 +2,7 @@
 
 part of 'plagas_daos.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$PlagasDaoMixin on DatabaseAccessor<AppDatabase> {
   $PlagasTable get plagas => attachedDatabase.plagas;
   $EtapasPlagaTable get etapasPlaga => attachedDatabase.etapasPlaga;

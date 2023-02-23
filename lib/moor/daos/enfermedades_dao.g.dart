@@ -2,10 +2,7 @@
 
 part of 'enfermedades_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$EnfermedadesDaoMixin on DatabaseAccessor<AppDatabase> {
   $EnfermedadesTable get enfermedades => attachedDatabase.enfermedades;
   $EtapasTable get etapas => attachedDatabase.etapas;

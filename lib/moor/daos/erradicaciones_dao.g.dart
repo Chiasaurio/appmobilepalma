@@ -2,10 +2,7 @@
 
 part of 'erradicaciones_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$ErradicacionesDaoMixin on DatabaseAccessor<AppDatabase> {
   $ErradicacionTable get erradicacion => attachedDatabase.erradicacion;
 }
