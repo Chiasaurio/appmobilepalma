@@ -1,8 +1,9 @@
 import 'package:apppalma/modules/Censo/ui/body.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
-import 'package:apppalma/components/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../components/widgets/header_gradient.dart';
 
 class CensoPage extends StatefulWidget {
   final String routeName;
@@ -26,7 +27,11 @@ class _CensoPageState extends State<CensoPage> {
         if (state is LoteChoosed) {
           return Scaffold(
               body: Column(children: [
-            HeaderApp(
+            // HeaderApp(
+            //   ruta: widget.routeName,
+            // ),
+            HeaderGradient(
+              title: "Opciónes de censo",
               ruta: widget.routeName,
             ),
             const Body(),

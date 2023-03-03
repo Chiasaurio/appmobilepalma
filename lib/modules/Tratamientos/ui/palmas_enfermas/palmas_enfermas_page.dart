@@ -1,9 +1,9 @@
-import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../components/widgets/header_gradient.dart';
 import 'palmas_enfermas_list.dart';
 
 class PalmasEnfermasPage extends StatefulWidget {
@@ -32,20 +32,27 @@ class _TratamientoPageState extends State<PalmasEnfermasPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderApp(ruta: widget.routeName),
-      body: BlocBuilder<TratamientoCubit, TratamientoState>(
-        builder: (context, state) {
-          if (state is PalmasEnfermasLoaded) {
-            return PalmasEnfermasList(
-              routeName: widget.routeName,
-              palmasEnfermas: state.palmasEnfermas,
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      // appBar: HeaderApp(ruta: widget.routeName),
+      body: Column(
+        children: [
+          HeaderGradient(
+            title: "Lista de palmas",
+            ruta: widget.routeName,
+          ),
+          BlocBuilder<TratamientoCubit, TratamientoState>(
+            builder: (context, state) {
+              if (state.status == TratamientoStatus.loaded) {
+                return PalmasEnfermasList(
+                  palmasEnfermas: state.palmasEnfermas!,
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
