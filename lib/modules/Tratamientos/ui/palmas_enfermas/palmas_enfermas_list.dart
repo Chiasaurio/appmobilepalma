@@ -6,21 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class PalmasEnfermasList extends StatefulWidget {
-  final String routeName;
   final List<PalmaConEnfermedad> palmasEnfermas;
-  const PalmasEnfermasList(
-      {Key? key, required this.routeName, required this.palmasEnfermas})
+  const PalmasEnfermasList({Key? key, required this.palmasEnfermas})
       : super(key: key);
   @override
   State<PalmasEnfermasList> createState() => _PalmasEnfermasListState();
 }
 
 class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
-  late double width;
-  late double height;
-  late double altoCard;
-  late double anchoCard;
-  late double margin;
   List<PalmaConEnfermedad> palmas = [];
   PalmaConEnfermedad? palmaseleccionada;
   final f = DateFormat('yyyy-MM-dd');
@@ -28,11 +21,6 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
   @override
   Widget build(BuildContext context) {
     palmas = widget.palmasEnfermas;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    altoCard = height * 0.4; //150,
-    anchoCard = width;
-    margin = anchoCard * 0.02;
 
     return buildPalmas();
   }
@@ -40,25 +28,20 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
   //Titulo de la tabla
   Widget buildPalmas() {
     return Container(
-        margin: EdgeInsets.all(margin),
+        margin: const EdgeInsets.all(20),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Palmas enfermas",
-                      style: TextStyle(
-                          color: Colors.black87.withOpacity(0.8),
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ]),
+              const Text(
+                "Seleccione la palma a tratar.",
+                style: TextStyle(
+                  fontSize: 17,
+                ),
+              ),
               palmas.isNotEmpty
                   ? buildTabla()
                   : const Text('no hay palmas registradas para este lote'),
-              SizedBox(height: margin),
+              const SizedBox(height: 20),
             ]));
   }
 
@@ -71,7 +54,7 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
 
   Widget palmaTile(PalmaConEnfermedad palma) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         BlocProvider.of<TratamientoCubit>(context).obtenerProductos(palma);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const TratamientoPage()));
@@ -80,7 +63,7 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
         width: double.infinity,
         child: Card(
           elevation: 2.0,
-          margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          margin: const EdgeInsets.symmetric(vertical: 6.0),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Column(
@@ -149,7 +132,7 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
         elevation: 2.0,
         margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(margin, margin, 0.0, margin),
+          padding: const EdgeInsets.fromLTRB(10, 10, 0.0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -181,7 +164,7 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
             ),
           ],
         ),
-        SizedBox(height: margin * 0.5),
+        const SizedBox(height: 20),
         Row(
           children: <Widget>[
             const Text('Linea:',
@@ -196,7 +179,7 @@ class _PalmasEnfermasListState extends State<PalmasEnfermasList> {
             ),
           ],
         ),
-        SizedBox(height: margin * 0.5),
+        const SizedBox(height: 20),
         Row(
           children: <Widget>[
             const Text('Numero',

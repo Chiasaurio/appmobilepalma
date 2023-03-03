@@ -2,11 +2,193 @@
 
 part of 'moor_database.dart';
 
-// **************************************************************************
-// DriftDatabaseGenerator
-// **************************************************************************
-
 // ignore_for_file: type=lint
+class $AplicacionesTable extends Aplicaciones
+    with TableInfo<$AplicacionesTable, Aplicacione> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AplicacionesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _dosisMeta = const VerificationMeta('dosis');
+  @override
+  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
+      'dosis', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _areaMeta = const VerificationMeta('area');
+  @override
+  late final GeneratedColumn<int> area = GeneratedColumn<int>(
+      'area', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fechaAplicacionMeta =
+      const VerificationMeta('fechaAplicacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaAplicacion =
+      GeneratedColumn<DateTime>('fecha_aplicacion', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _fechaReingresoMeta =
+      const VerificationMeta('fechaReingreso');
+  @override
+  late final GeneratedColumn<DateTime> fechaReingreso =
+      GeneratedColumn<DateTime>('fecha_reingreso', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _ccUsuarioMeta =
+      const VerificationMeta('ccUsuario');
+  @override
+  late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
+      'cc_usuario', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _idCensoMeta =
+      const VerificationMeta('idCenso');
+  @override
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
+      'id_censo', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES censo(id)');
+  static const VerificationMeta _idProductoAgroquimicoMeta =
+      const VerificationMeta('idProductoAgroquimico');
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES producto_agroquimico(id)');
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        dosis,
+        area,
+        fechaAplicacion,
+        fechaReingreso,
+        ccUsuario,
+        idCenso,
+        idProductoAgroquimico,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'aplicaciones';
+  @override
+  String get actualTableName => 'aplicaciones';
+  @override
+  VerificationContext validateIntegrity(Insertable<Aplicacione> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('dosis')) {
+      context.handle(
+          _dosisMeta, dosis.isAcceptableOrUnknown(data['dosis']!, _dosisMeta));
+    } else if (isInserting) {
+      context.missing(_dosisMeta);
+    }
+    if (data.containsKey('area')) {
+      context.handle(
+          _areaMeta, area.isAcceptableOrUnknown(data['area']!, _areaMeta));
+    } else if (isInserting) {
+      context.missing(_areaMeta);
+    }
+    if (data.containsKey('fecha_aplicacion')) {
+      context.handle(
+          _fechaAplicacionMeta,
+          fechaAplicacion.isAcceptableOrUnknown(
+              data['fecha_aplicacion']!, _fechaAplicacionMeta));
+    } else if (isInserting) {
+      context.missing(_fechaAplicacionMeta);
+    }
+    if (data.containsKey('fecha_reingreso')) {
+      context.handle(
+          _fechaReingresoMeta,
+          fechaReingreso.isAcceptableOrUnknown(
+              data['fecha_reingreso']!, _fechaReingresoMeta));
+    } else if (isInserting) {
+      context.missing(_fechaReingresoMeta);
+    }
+    if (data.containsKey('cc_usuario')) {
+      context.handle(_ccUsuarioMeta,
+          ccUsuario.isAcceptableOrUnknown(data['cc_usuario']!, _ccUsuarioMeta));
+    } else if (isInserting) {
+      context.missing(_ccUsuarioMeta);
+    }
+    if (data.containsKey('id_censo')) {
+      context.handle(_idCensoMeta,
+          idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
+    } else if (isInserting) {
+      context.missing(_idCensoMeta);
+    }
+    if (data.containsKey('id_producto_agroquimico')) {
+      context.handle(
+          _idProductoAgroquimicoMeta,
+          idProductoAgroquimico.isAcceptableOrUnknown(
+              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_idProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Aplicacione map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Aplicacione(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      dosis: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
+      area: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}area'])!,
+      fechaAplicacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_aplicacion'])!,
+      fechaReingreso: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_reingreso'])!,
+      ccUsuario: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cc_usuario'])!,
+      idCenso: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+      idProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    );
+  }
+
+  @override
+  $AplicacionesTable createAlias(String alias) {
+    return $AplicacionesTable(attachedDatabase, alias);
+  }
+}
+
 class Aplicacione extends DataClass implements Insertable<Aplicacione> {
   final int id;
   final double dosis;
@@ -282,141 +464,194 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
   }
 }
 
-class $AplicacionesTable extends Aplicaciones
-    with TableInfo<$AplicacionesTable, Aplicacione> {
+class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $AplicacionesTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _dosisMeta = const VerificationMeta('dosis');
-  @override
-  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
-      'dosis', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
-  final VerificationMeta _areaMeta = const VerificationMeta('area');
-  @override
-  late final GeneratedColumn<int> area = GeneratedColumn<int>(
-      'area', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _fechaAplicacionMeta =
-      const VerificationMeta('fechaAplicacion');
-  @override
-  late final GeneratedColumn<DateTime> fechaAplicacion =
-      GeneratedColumn<DateTime>('fecha_aplicacion', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _fechaReingresoMeta =
-      const VerificationMeta('fechaReingreso');
-  @override
-  late final GeneratedColumn<DateTime> fechaReingreso =
-      GeneratedColumn<DateTime>('fecha_reingreso', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _ccUsuarioMeta = const VerificationMeta('ccUsuario');
-  @override
-  late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
-      'cc_usuario', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _idCensoMeta = const VerificationMeta('idCenso');
+  $CensoTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idCensoMeta =
+      const VerificationMeta('idCenso');
   @override
   late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
       'id_censo', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES censo(id)');
-  final VerificationMeta _idProductoAgroquimicoMeta =
-      const VerificationMeta('idProductoAgroquimico');
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _fechaCensoMeta =
+      const VerificationMeta('fechaCenso');
   @override
-  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
-      'id_producto_agroquimico', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES producto_agroquimico(id)');
-  final VerificationMeta _sincronizadoMeta =
+  late final GeneratedColumn<DateTime> fechaCenso = GeneratedColumn<DateTime>(
+      'fecha_censo', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _presenciaLoteMeta =
+      const VerificationMeta('presenciaLote');
+  @override
+  late final GeneratedColumn<bool> presenciaLote =
+      GeneratedColumn<bool>('presencia_lote', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("presencia_lote" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _presenciaSectorMeta =
+      const VerificationMeta('presenciaSector');
+  @override
+  late final GeneratedColumn<bool> presenciaSector =
+      GeneratedColumn<bool>('presencia_sector', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("presencia_sector" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(true));
+  static const VerificationMeta _lineaLimite1Meta =
+      const VerificationMeta('lineaLimite1');
+  @override
+  late final GeneratedColumn<int> lineaLimite1 = GeneratedColumn<int>(
+      'linea_limite1', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lineaLimite2Meta =
+      const VerificationMeta('lineaLimite2');
+  @override
+  late final GeneratedColumn<int> lineaLimite2 = GeneratedColumn<int>(
+      'linea_limite2', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _observacionCensoMeta =
+      const VerificationMeta('observacionCenso');
+  @override
+  late final GeneratedColumn<String> observacionCenso = GeneratedColumn<String>(
+      'observacion_censo', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
+      'nombre_lote', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _nombrePlagaMeta =
+      const VerificationMeta('nombrePlaga');
+  @override
+  late final GeneratedColumn<String> nombrePlaga = GeneratedColumn<String>(
+      'nombre_plaga', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _estadoPlagaMeta =
+      const VerificationMeta('estadoPlaga');
+  @override
+  late final GeneratedColumn<String> estadoPlaga = GeneratedColumn<String>(
+      'estado_plaga', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('pendiente'));
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
-        id,
-        dosis,
-        area,
-        fechaAplicacion,
-        fechaReingreso,
-        ccUsuario,
         idCenso,
-        idProductoAgroquimico,
+        fechaCenso,
+        presenciaLote,
+        presenciaSector,
+        lineaLimite1,
+        lineaLimite2,
+        observacionCenso,
+        nombreLote,
+        nombrePlaga,
+        estadoPlaga,
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'aplicaciones';
+  String get aliasedName => _alias ?? 'censo';
   @override
-  String get actualTableName => 'aplicaciones';
+  String get actualTableName => 'censo';
   @override
-  VerificationContext validateIntegrity(Insertable<Aplicacione> instance,
+  VerificationContext validateIntegrity(Insertable<CensoData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('dosis')) {
-      context.handle(
-          _dosisMeta, dosis.isAcceptableOrUnknown(data['dosis']!, _dosisMeta));
-    } else if (isInserting) {
-      context.missing(_dosisMeta);
-    }
-    if (data.containsKey('area')) {
-      context.handle(
-          _areaMeta, area.isAcceptableOrUnknown(data['area']!, _areaMeta));
-    } else if (isInserting) {
-      context.missing(_areaMeta);
-    }
-    if (data.containsKey('fecha_aplicacion')) {
-      context.handle(
-          _fechaAplicacionMeta,
-          fechaAplicacion.isAcceptableOrUnknown(
-              data['fecha_aplicacion']!, _fechaAplicacionMeta));
-    } else if (isInserting) {
-      context.missing(_fechaAplicacionMeta);
-    }
-    if (data.containsKey('fecha_reingreso')) {
-      context.handle(
-          _fechaReingresoMeta,
-          fechaReingreso.isAcceptableOrUnknown(
-              data['fecha_reingreso']!, _fechaReingresoMeta));
-    } else if (isInserting) {
-      context.missing(_fechaReingresoMeta);
-    }
-    if (data.containsKey('cc_usuario')) {
-      context.handle(_ccUsuarioMeta,
-          ccUsuario.isAcceptableOrUnknown(data['cc_usuario']!, _ccUsuarioMeta));
-    } else if (isInserting) {
-      context.missing(_ccUsuarioMeta);
-    }
     if (data.containsKey('id_censo')) {
       context.handle(_idCensoMeta,
           idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
-    } else if (isInserting) {
-      context.missing(_idCensoMeta);
     }
-    if (data.containsKey('id_producto_agroquimico')) {
+    if (data.containsKey('fecha_censo')) {
       context.handle(
-          _idProductoAgroquimicoMeta,
-          idProductoAgroquimico.isAcceptableOrUnknown(
-              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+          _fechaCensoMeta,
+          fechaCenso.isAcceptableOrUnknown(
+              data['fecha_censo']!, _fechaCensoMeta));
     } else if (isInserting) {
-      context.missing(_idProductoAgroquimicoMeta);
+      context.missing(_fechaCensoMeta);
+    }
+    if (data.containsKey('presencia_lote')) {
+      context.handle(
+          _presenciaLoteMeta,
+          presenciaLote.isAcceptableOrUnknown(
+              data['presencia_lote']!, _presenciaLoteMeta));
+    }
+    if (data.containsKey('presencia_sector')) {
+      context.handle(
+          _presenciaSectorMeta,
+          presenciaSector.isAcceptableOrUnknown(
+              data['presencia_sector']!, _presenciaSectorMeta));
+    }
+    if (data.containsKey('linea_limite1')) {
+      context.handle(
+          _lineaLimite1Meta,
+          lineaLimite1.isAcceptableOrUnknown(
+              data['linea_limite1']!, _lineaLimite1Meta));
+    } else if (isInserting) {
+      context.missing(_lineaLimite1Meta);
+    }
+    if (data.containsKey('linea_limite2')) {
+      context.handle(
+          _lineaLimite2Meta,
+          lineaLimite2.isAcceptableOrUnknown(
+              data['linea_limite2']!, _lineaLimite2Meta));
+    } else if (isInserting) {
+      context.missing(_lineaLimite2Meta);
+    }
+    if (data.containsKey('observacion_censo')) {
+      context.handle(
+          _observacionCensoMeta,
+          observacionCenso.isAcceptableOrUnknown(
+              data['observacion_censo']!, _observacionCensoMeta));
+    }
+    if (data.containsKey('nombre_lote')) {
+      context.handle(
+          _nombreLoteMeta,
+          nombreLote.isAcceptableOrUnknown(
+              data['nombre_lote']!, _nombreLoteMeta));
+    } else if (isInserting) {
+      context.missing(_nombreLoteMeta);
+    }
+    if (data.containsKey('nombre_plaga')) {
+      context.handle(
+          _nombrePlagaMeta,
+          nombrePlaga.isAcceptableOrUnknown(
+              data['nombre_plaga']!, _nombrePlagaMeta));
+    } else if (isInserting) {
+      context.missing(_nombrePlagaMeta);
+    }
+    if (data.containsKey('estado_plaga')) {
+      context.handle(
+          _estadoPlagaMeta,
+          estadoPlaga.isAcceptableOrUnknown(
+              data['estado_plaga']!, _estadoPlagaMeta));
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -428,35 +663,39 @@ class $AplicacionesTable extends Aplicaciones
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {idCenso};
   @override
-  Aplicacione map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CensoData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Aplicacione(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      dosis: attachedDatabase.options.types
-          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
-      area: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}area'])!,
-      fechaAplicacion: attachedDatabase.options.types.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_aplicacion'])!,
-      fechaReingreso: attachedDatabase.options.types.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_reingreso'])!,
-      ccUsuario: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}cc_usuario'])!,
-      idCenso: attachedDatabase.options.types
+    return CensoData(
+      idCenso: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
-      idProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
-      sincronizado: attachedDatabase.options.types
+      fechaCenso: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_censo'])!,
+      presenciaLote: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_lote'])!,
+      presenciaSector: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_sector'])!,
+      lineaLimite1: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite1'])!,
+      lineaLimite2: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite2'])!,
+      observacionCenso: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}observacion_censo']),
+      nombreLote: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      nombrePlaga: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_plaga'])!,
+      estadoPlaga: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}estado_plaga'])!,
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $AplicacionesTable createAlias(String alias) {
-    return $AplicacionesTable(attachedDatabase, alias);
+  $CensoTable createAlias(String alias) {
+    return $CensoTable(attachedDatabase, alias);
   }
 }
 
@@ -786,155 +1025,104 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
   }
 }
 
-class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
+class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CensoTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idCensoMeta = const VerificationMeta('idCenso');
+  $CosechasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
-      'id_censo', aliasedName, false,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _fechaCensoMeta = const VerificationMeta('fechaCenso');
-  @override
-  late final GeneratedColumn<DateTime> fechaCenso = GeneratedColumn<DateTime>(
-      'fecha_censo', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _presenciaLoteMeta =
-      const VerificationMeta('presenciaLote');
-  @override
-  late final GeneratedColumn<bool> presenciaLote = GeneratedColumn<bool>(
-      'presencia_lote', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (presencia_lote IN (0, 1))',
-      defaultValue: const Constant(false));
-  final VerificationMeta _presenciaSectorMeta =
-      const VerificationMeta('presenciaSector');
-  @override
-  late final GeneratedColumn<bool> presenciaSector = GeneratedColumn<bool>(
-      'presencia_sector', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (presencia_sector IN (0, 1))',
-      defaultValue: const Constant(true));
-  final VerificationMeta _lineaLimite1Meta =
-      const VerificationMeta('lineaLimite1');
-  @override
-  late final GeneratedColumn<int> lineaLimite1 = GeneratedColumn<int>(
-      'linea_limite1', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _lineaLimite2Meta =
-      const VerificationMeta('lineaLimite2');
-  @override
-  late final GeneratedColumn<int> lineaLimite2 = GeneratedColumn<int>(
-      'linea_limite2', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _observacionCensoMeta =
-      const VerificationMeta('observacionCenso');
-  @override
-  late final GeneratedColumn<String> observacionCenso = GeneratedColumn<String>(
-      'observacion_censo', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
   @override
   late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _nombrePlagaMeta =
-      const VerificationMeta('nombrePlaga');
+  static const VerificationMeta _fechaIngresoMeta =
+      const VerificationMeta('fechaIngreso');
   @override
-  late final GeneratedColumn<String> nombrePlaga = GeneratedColumn<String>(
-      'nombre_plaga', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _estadoPlagaMeta =
-      const VerificationMeta('estadoPlaga');
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _fechaSalidaMeta =
+      const VerificationMeta('fechaSalida');
   @override
-  late final GeneratedColumn<String> estadoPlaga = GeneratedColumn<String>(
-      'estado_plaga', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      defaultValue: const Constant('pendiente'));
-  final VerificationMeta _sincronizadoMeta =
+  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
+      'fecha_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _cantidadRacimosMeta =
+      const VerificationMeta('cantidadRacimos');
+  @override
+  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
+      'cantidad_racimos', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kilosMeta = const VerificationMeta('kilos');
+  @override
+  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
+      'kilos', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _idViajeMeta =
+      const VerificationMeta('idViaje');
+  @override
+  late final GeneratedColumn<int> idViaje = GeneratedColumn<int>(
+      'id_viaje', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _completadaMeta =
+      const VerificationMeta('completada');
+  @override
+  late final GeneratedColumn<bool> completada =
+      GeneratedColumn<bool>('completada', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("completada" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
-        idCenso,
-        fechaCenso,
-        presenciaLote,
-        presenciaSector,
-        lineaLimite1,
-        lineaLimite2,
-        observacionCenso,
+        id,
         nombreLote,
-        nombrePlaga,
-        estadoPlaga,
+        fechaIngreso,
+        fechaSalida,
+        cantidadRacimos,
+        kilos,
+        idViaje,
+        completada,
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'censo';
+  String get aliasedName => _alias ?? 'cosechas';
   @override
-  String get actualTableName => 'censo';
+  String get actualTableName => 'cosechas';
   @override
-  VerificationContext validateIntegrity(Insertable<CensoData> instance,
+  VerificationContext validateIntegrity(Insertable<Cosecha> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_censo')) {
-      context.handle(_idCensoMeta,
-          idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
-    }
-    if (data.containsKey('fecha_censo')) {
-      context.handle(
-          _fechaCensoMeta,
-          fechaCenso.isAcceptableOrUnknown(
-              data['fecha_censo']!, _fechaCensoMeta));
-    } else if (isInserting) {
-      context.missing(_fechaCensoMeta);
-    }
-    if (data.containsKey('presencia_lote')) {
-      context.handle(
-          _presenciaLoteMeta,
-          presenciaLote.isAcceptableOrUnknown(
-              data['presencia_lote']!, _presenciaLoteMeta));
-    }
-    if (data.containsKey('presencia_sector')) {
-      context.handle(
-          _presenciaSectorMeta,
-          presenciaSector.isAcceptableOrUnknown(
-              data['presencia_sector']!, _presenciaSectorMeta));
-    }
-    if (data.containsKey('linea_limite1')) {
-      context.handle(
-          _lineaLimite1Meta,
-          lineaLimite1.isAcceptableOrUnknown(
-              data['linea_limite1']!, _lineaLimite1Meta));
-    } else if (isInserting) {
-      context.missing(_lineaLimite1Meta);
-    }
-    if (data.containsKey('linea_limite2')) {
-      context.handle(
-          _lineaLimite2Meta,
-          lineaLimite2.isAcceptableOrUnknown(
-              data['linea_limite2']!, _lineaLimite2Meta));
-    } else if (isInserting) {
-      context.missing(_lineaLimite2Meta);
-    }
-    if (data.containsKey('observacion_censo')) {
-      context.handle(
-          _observacionCensoMeta,
-          observacionCenso.isAcceptableOrUnknown(
-              data['observacion_censo']!, _observacionCensoMeta));
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('nombre_lote')) {
       context.handle(
@@ -944,19 +1132,43 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
     } else if (isInserting) {
       context.missing(_nombreLoteMeta);
     }
-    if (data.containsKey('nombre_plaga')) {
+    if (data.containsKey('fecha_ingreso')) {
       context.handle(
-          _nombrePlagaMeta,
-          nombrePlaga.isAcceptableOrUnknown(
-              data['nombre_plaga']!, _nombrePlagaMeta));
+          _fechaIngresoMeta,
+          fechaIngreso.isAcceptableOrUnknown(
+              data['fecha_ingreso']!, _fechaIngresoMeta));
     } else if (isInserting) {
-      context.missing(_nombrePlagaMeta);
+      context.missing(_fechaIngresoMeta);
     }
-    if (data.containsKey('estado_plaga')) {
+    if (data.containsKey('fecha_salida')) {
       context.handle(
-          _estadoPlagaMeta,
-          estadoPlaga.isAcceptableOrUnknown(
-              data['estado_plaga']!, _estadoPlagaMeta));
+          _fechaSalidaMeta,
+          fechaSalida.isAcceptableOrUnknown(
+              data['fecha_salida']!, _fechaSalidaMeta));
+    }
+    if (data.containsKey('cantidad_racimos')) {
+      context.handle(
+          _cantidadRacimosMeta,
+          cantidadRacimos.isAcceptableOrUnknown(
+              data['cantidad_racimos']!, _cantidadRacimosMeta));
+    } else if (isInserting) {
+      context.missing(_cantidadRacimosMeta);
+    }
+    if (data.containsKey('kilos')) {
+      context.handle(
+          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
+    } else if (isInserting) {
+      context.missing(_kilosMeta);
+    }
+    if (data.containsKey('id_viaje')) {
+      context.handle(_idViajeMeta,
+          idViaje.isAcceptableOrUnknown(data['id_viaje']!, _idViajeMeta));
+    }
+    if (data.containsKey('completada')) {
+      context.handle(
+          _completadaMeta,
+          completada.isAcceptableOrUnknown(
+              data['completada']!, _completadaMeta));
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -968,39 +1180,35 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idCenso};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  CensoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Cosecha map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CensoData(
-      idCenso: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
-      fechaCenso: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_censo'])!,
-      presenciaLote: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_lote'])!,
-      presenciaSector: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_sector'])!,
-      lineaLimite1: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite1'])!,
-      lineaLimite2: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite2'])!,
-      observacionCenso: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}observacion_censo']),
-      nombreLote: attachedDatabase.options.types
+    return Cosecha(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
-      nombrePlaga: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_plaga'])!,
-      estadoPlaga: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}estado_plaga'])!,
-      sincronizado: attachedDatabase.options.types
+      fechaIngreso: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      fechaSalida: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
+      cantidadRacimos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
+      kilos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kilos'])!,
+      idViaje: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_viaje']),
+      completada: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}completada'])!,
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $CensoTable createAlias(String alias) {
-    return $CensoTable(attachedDatabase, alias);
+  $CosechasTable createAlias(String alias) {
+    return $CosechasTable(attachedDatabase, alias);
   }
 }
 
@@ -1279,99 +1487,79 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
   }
 }
 
-class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
+class $CosechaDiariaTable extends CosechaDiaria
+    with TableInfo<$CosechaDiariaTable, CosechaDiariaData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CosechasTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $CosechaDiariaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idCosechaMeta =
+      const VerificationMeta('idCosecha');
   @override
-  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
-      'nombre_lote', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _fechaIngresoMeta =
+  late final GeneratedColumn<int> idCosecha = GeneratedColumn<int>(
+      'id_cosecha', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES cosechas(id)');
+  static const VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
   @override
   late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
       'fecha_ingreso', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _fechaSalidaMeta =
-      const VerificationMeta('fechaSalida');
+  static const VerificationMeta _kilosMeta = const VerificationMeta('kilos');
   @override
-  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
-      'fecha_salida', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _cantidadRacimosMeta =
+  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
+      'kilos', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _cantidadRacimosMeta =
       const VerificationMeta('cantidadRacimos');
   @override
   late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
       'cantidad_racimos', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _kilosMeta = const VerificationMeta('kilos');
-  @override
-  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
-      'kilos', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _idViajeMeta = const VerificationMeta('idViaje');
-  @override
-  late final GeneratedColumn<int> idViaje = GeneratedColumn<int>(
-      'id_viaje', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  final VerificationMeta _completadaMeta = const VerificationMeta('completada');
-  @override
-  late final GeneratedColumn<bool> completada = GeneratedColumn<bool>(
-      'completada', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (completada IN (0, 1))',
-      defaultValue: const Constant(false));
-  final VerificationMeta _sincronizadoMeta =
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        nombreLote,
-        fechaIngreso,
-        fechaSalida,
-        cantidadRacimos,
-        kilos,
-        idViaje,
-        completada,
-        sincronizado
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, idCosecha, fechaIngreso, kilos, cantidadRacimos, sincronizado];
   @override
-  String get aliasedName => _alias ?? 'cosechas';
+  String get aliasedName => _alias ?? 'cosecha_diaria';
   @override
-  String get actualTableName => 'cosechas';
+  String get actualTableName => 'cosecha_diaria';
   @override
-  VerificationContext validateIntegrity(Insertable<Cosecha> instance,
+  VerificationContext validateIntegrity(Insertable<CosechaDiariaData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('nombre_lote')) {
-      context.handle(
-          _nombreLoteMeta,
-          nombreLote.isAcceptableOrUnknown(
-              data['nombre_lote']!, _nombreLoteMeta));
+    if (data.containsKey('id_cosecha')) {
+      context.handle(_idCosechaMeta,
+          idCosecha.isAcceptableOrUnknown(data['id_cosecha']!, _idCosechaMeta));
     } else if (isInserting) {
-      context.missing(_nombreLoteMeta);
+      context.missing(_idCosechaMeta);
     }
     if (data.containsKey('fecha_ingreso')) {
       context.handle(
@@ -1381,11 +1569,11 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
     } else if (isInserting) {
       context.missing(_fechaIngresoMeta);
     }
-    if (data.containsKey('fecha_salida')) {
+    if (data.containsKey('kilos')) {
       context.handle(
-          _fechaSalidaMeta,
-          fechaSalida.isAcceptableOrUnknown(
-              data['fecha_salida']!, _fechaSalidaMeta));
+          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
+    } else if (isInserting) {
+      context.missing(_kilosMeta);
     }
     if (data.containsKey('cantidad_racimos')) {
       context.handle(
@@ -1394,22 +1582,6 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
               data['cantidad_racimos']!, _cantidadRacimosMeta));
     } else if (isInserting) {
       context.missing(_cantidadRacimosMeta);
-    }
-    if (data.containsKey('kilos')) {
-      context.handle(
-          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
-    } else if (isInserting) {
-      context.missing(_kilosMeta);
-    }
-    if (data.containsKey('id_viaje')) {
-      context.handle(_idViajeMeta,
-          idViaje.isAcceptableOrUnknown(data['id_viaje']!, _idViajeMeta));
-    }
-    if (data.containsKey('completada')) {
-      context.handle(
-          _completadaMeta,
-          completada.isAcceptableOrUnknown(
-              data['completada']!, _completadaMeta));
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -1423,33 +1595,27 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Cosecha map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CosechaDiariaData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Cosecha(
-      id: attachedDatabase.options.types
+    return CosechaDiariaData(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nombreLote: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
-      fechaIngreso: attachedDatabase.options.types.read(
+      idCosecha: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_cosecha'])!,
+      fechaIngreso: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
-      fechaSalida: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
-      cantidadRacimos: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
-      kilos: attachedDatabase.options.types
+      kilos: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}kilos'])!,
-      idViaje: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_viaje']),
-      completada: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}completada'])!,
-      sincronizado: attachedDatabase.options.types
+      cantidadRacimos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $CosechasTable createAlias(String alias) {
-    return $CosechasTable(attachedDatabase, alias);
+  $CosechaDiariaTable createAlias(String alias) {
+    return $CosechaDiariaTable(attachedDatabase, alias);
   }
 }
 
@@ -1658,128 +1824,72 @@ class CosechaDiariaCompanion extends UpdateCompanion<CosechaDiariaData> {
   }
 }
 
-class $CosechaDiariaTable extends CosechaDiaria
-    with TableInfo<$CosechaDiariaTable, CosechaDiariaData> {
+class $EnfermedadesTable extends Enfermedades
+    with TableInfo<$EnfermedadesTable, Enfermedade> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $CosechaDiariaTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $EnfermedadesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _nombreEnfermedadMeta =
+      const VerificationMeta('nombreEnfermedad');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idCosechaMeta = const VerificationMeta('idCosecha');
+  late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
+      'nombre_enfermedad', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _procedimientoEnfermedadMeta =
+      const VerificationMeta('procedimientoEnfermedad');
   @override
-  late final GeneratedColumn<int> idCosecha = GeneratedColumn<int>(
-      'id_cosecha', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES cosechas(id)');
-  final VerificationMeta _fechaIngresoMeta =
-      const VerificationMeta('fechaIngreso');
-  @override
-  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
-      'fecha_ingreso', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _kilosMeta = const VerificationMeta('kilos');
-  @override
-  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
-      'kilos', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _cantidadRacimosMeta =
-      const VerificationMeta('cantidadRacimos');
-  @override
-  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
-      'cantidad_racimos', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _sincronizadoMeta =
-      const VerificationMeta('sincronizado');
-  @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<String> procedimientoEnfermedad =
+      GeneratedColumn<String>('procedimiento_enfermedad', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, idCosecha, fechaIngreso, kilos, cantidadRacimos, sincronizado];
+      [nombreEnfermedad, procedimientoEnfermedad];
   @override
-  String get aliasedName => _alias ?? 'cosecha_diaria';
+  String get aliasedName => _alias ?? 'enfermedades';
   @override
-  String get actualTableName => 'cosecha_diaria';
+  String get actualTableName => 'enfermedades';
   @override
-  VerificationContext validateIntegrity(Insertable<CosechaDiariaData> instance,
+  VerificationContext validateIntegrity(Insertable<Enfermedade> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('id_cosecha')) {
-      context.handle(_idCosechaMeta,
-          idCosecha.isAcceptableOrUnknown(data['id_cosecha']!, _idCosechaMeta));
-    } else if (isInserting) {
-      context.missing(_idCosechaMeta);
-    }
-    if (data.containsKey('fecha_ingreso')) {
+    if (data.containsKey('nombre_enfermedad')) {
       context.handle(
-          _fechaIngresoMeta,
-          fechaIngreso.isAcceptableOrUnknown(
-              data['fecha_ingreso']!, _fechaIngresoMeta));
+          _nombreEnfermedadMeta,
+          nombreEnfermedad.isAcceptableOrUnknown(
+              data['nombre_enfermedad']!, _nombreEnfermedadMeta));
     } else if (isInserting) {
-      context.missing(_fechaIngresoMeta);
+      context.missing(_nombreEnfermedadMeta);
     }
-    if (data.containsKey('kilos')) {
+    if (data.containsKey('procedimiento_enfermedad')) {
       context.handle(
-          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
+          _procedimientoEnfermedadMeta,
+          procedimientoEnfermedad.isAcceptableOrUnknown(
+              data['procedimiento_enfermedad']!, _procedimientoEnfermedadMeta));
     } else if (isInserting) {
-      context.missing(_kilosMeta);
-    }
-    if (data.containsKey('cantidad_racimos')) {
-      context.handle(
-          _cantidadRacimosMeta,
-          cantidadRacimos.isAcceptableOrUnknown(
-              data['cantidad_racimos']!, _cantidadRacimosMeta));
-    } else if (isInserting) {
-      context.missing(_cantidadRacimosMeta);
-    }
-    if (data.containsKey('sincronizado')) {
-      context.handle(
-          _sincronizadoMeta,
-          sincronizado.isAcceptableOrUnknown(
-              data['sincronizado']!, _sincronizadoMeta));
+      context.missing(_procedimientoEnfermedadMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {nombreEnfermedad};
   @override
-  CosechaDiariaData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Enfermedade map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CosechaDiariaData(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idCosecha: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_cosecha'])!,
-      fechaIngreso: attachedDatabase.options.types.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
-      kilos: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}kilos'])!,
-      cantidadRacimos: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
-      sincronizado: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    return Enfermedade(
+      nombreEnfermedad: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
+      procedimientoEnfermedad: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}procedimiento_enfermedad'])!,
     );
   }
 
   @override
-  $CosechaDiariaTable createAlias(String alias) {
-    return $CosechaDiariaTable(attachedDatabase, alias);
+  $EnfermedadesTable createAlias(String alias) {
+    return $EnfermedadesTable(attachedDatabase, alias);
   }
 }
 
@@ -1904,36 +2014,51 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
   }
 }
 
-class $EnfermedadesTable extends Enfermedades
-    with TableInfo<$EnfermedadesTable, Enfermedade> {
+class $EtapasTable extends Etapas with TableInfo<$EtapasTable, Etapa> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $EnfermedadesTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _nombreEnfermedadMeta =
+  $EtapasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nombreEnfermedadMeta =
       const VerificationMeta('nombreEnfermedad');
   @override
   late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
       'nombre_enfermedad', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _procedimientoEnfermedadMeta =
-      const VerificationMeta('procedimientoEnfermedad');
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES enfermedades(nombre_enfermedad)');
+  static const VerificationMeta _nombreEtapaMeta =
+      const VerificationMeta('nombreEtapa');
   @override
-  late final GeneratedColumn<String> procedimientoEnfermedad =
-      GeneratedColumn<String>('procedimiento_enfermedad', aliasedName, false,
+  late final GeneratedColumn<String> nombreEtapa = GeneratedColumn<String>(
+      'nombre_etapa', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _procedimientoEtapaMeta =
+      const VerificationMeta('procedimientoEtapa');
+  @override
+  late final GeneratedColumn<String> procedimientoEtapa =
+      GeneratedColumn<String>('procedimiento_etapa', aliasedName, false,
           type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [nombreEnfermedad, procedimientoEnfermedad];
+      [id, nombreEnfermedad, nombreEtapa, procedimientoEtapa];
   @override
-  String get aliasedName => _alias ?? 'enfermedades';
+  String get aliasedName => _alias ?? 'etapas';
   @override
-  String get actualTableName => 'enfermedades';
+  String get actualTableName => 'etapas';
   @override
-  VerificationContext validateIntegrity(Insertable<Enfermedade> instance,
+  VerificationContext validateIntegrity(Insertable<Etapa> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
     if (data.containsKey('nombre_enfermedad')) {
       context.handle(
           _nombreEnfermedadMeta,
@@ -1942,34 +2067,45 @@ class $EnfermedadesTable extends Enfermedades
     } else if (isInserting) {
       context.missing(_nombreEnfermedadMeta);
     }
-    if (data.containsKey('procedimiento_enfermedad')) {
+    if (data.containsKey('nombre_etapa')) {
       context.handle(
-          _procedimientoEnfermedadMeta,
-          procedimientoEnfermedad.isAcceptableOrUnknown(
-              data['procedimiento_enfermedad']!, _procedimientoEnfermedadMeta));
+          _nombreEtapaMeta,
+          nombreEtapa.isAcceptableOrUnknown(
+              data['nombre_etapa']!, _nombreEtapaMeta));
     } else if (isInserting) {
-      context.missing(_procedimientoEnfermedadMeta);
+      context.missing(_nombreEtapaMeta);
+    }
+    if (data.containsKey('procedimiento_etapa')) {
+      context.handle(
+          _procedimientoEtapaMeta,
+          procedimientoEtapa.isAcceptableOrUnknown(
+              data['procedimiento_etapa']!, _procedimientoEtapaMeta));
+    } else if (isInserting) {
+      context.missing(_procedimientoEtapaMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {nombreEnfermedad};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Enfermedade map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Etapa map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Enfermedade(
-      nombreEnfermedad: attachedDatabase.options.types.read(
+    return Etapa(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreEnfermedad: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
-      procedimientoEnfermedad: attachedDatabase.options.types.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}procedimiento_enfermedad'])!,
+      nombreEtapa: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_etapa'])!,
+      procedimientoEtapa: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}procedimiento_etapa'])!,
     );
   }
 
   @override
-  $EnfermedadesTable createAlias(String alias) {
-    return $EnfermedadesTable(attachedDatabase, alias);
+  $EtapasTable createAlias(String alias) {
+    return $EtapasTable(attachedDatabase, alias);
   }
 }
 
@@ -2135,31 +2271,37 @@ class EtapasCompanion extends UpdateCompanion<Etapa> {
   }
 }
 
-class $EtapasTable extends Etapas with TableInfo<$EtapasTable, Etapa> {
+class $EtapasPlagaTable extends EtapasPlaga
+    with TableInfo<$EtapasPlagaTable, EtapasPlagaData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $EtapasTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $EtapasPlagaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idEtapasPlagaMeta =
+      const VerificationMeta('idEtapasPlaga');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  final VerificationMeta _nombreEnfermedadMeta =
-      const VerificationMeta('nombreEnfermedad');
+  late final GeneratedColumn<int> idEtapasPlaga = GeneratedColumn<int>(
+      'id_etapas_plaga', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nombrePlagaMeta =
+      const VerificationMeta('nombrePlaga');
   @override
-  late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
-      'nombre_enfermedad', aliasedName, false,
+  late final GeneratedColumn<String> nombrePlaga = GeneratedColumn<String>(
+      'nombre_plaga', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES enfermedades(nombre_enfermedad)');
-  final VerificationMeta _nombreEtapaMeta =
+      $customConstraints: 'REFERENCES plagas(nombre_comun_plaga)');
+  static const VerificationMeta _nombreEtapaMeta =
       const VerificationMeta('nombreEtapa');
   @override
   late final GeneratedColumn<String> nombreEtapa = GeneratedColumn<String>(
       'nombre_etapa', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _procedimientoEtapaMeta =
+  static const VerificationMeta _procedimientoEtapaMeta =
       const VerificationMeta('procedimientoEtapa');
   @override
   late final GeneratedColumn<String> procedimientoEtapa =
@@ -2167,26 +2309,29 @@ class $EtapasTable extends Etapas with TableInfo<$EtapasTable, Etapa> {
           type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, nombreEnfermedad, nombreEtapa, procedimientoEtapa];
+      [idEtapasPlaga, nombrePlaga, nombreEtapa, procedimientoEtapa];
   @override
-  String get aliasedName => _alias ?? 'etapas';
+  String get aliasedName => _alias ?? 'etapas_plaga';
   @override
-  String get actualTableName => 'etapas';
+  String get actualTableName => 'etapas_plaga';
   @override
-  VerificationContext validateIntegrity(Insertable<Etapa> instance,
+  VerificationContext validateIntegrity(Insertable<EtapasPlagaData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('nombre_enfermedad')) {
+    if (data.containsKey('id_etapas_plaga')) {
       context.handle(
-          _nombreEnfermedadMeta,
-          nombreEnfermedad.isAcceptableOrUnknown(
-              data['nombre_enfermedad']!, _nombreEnfermedadMeta));
+          _idEtapasPlagaMeta,
+          idEtapasPlaga.isAcceptableOrUnknown(
+              data['id_etapas_plaga']!, _idEtapasPlagaMeta));
+    }
+    if (data.containsKey('nombre_plaga')) {
+      context.handle(
+          _nombrePlagaMeta,
+          nombrePlaga.isAcceptableOrUnknown(
+              data['nombre_plaga']!, _nombrePlagaMeta));
     } else if (isInserting) {
-      context.missing(_nombreEnfermedadMeta);
+      context.missing(_nombrePlagaMeta);
     }
     if (data.containsKey('nombre_etapa')) {
       context.handle(
@@ -2208,25 +2353,25 @@ class $EtapasTable extends Etapas with TableInfo<$EtapasTable, Etapa> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {idEtapasPlaga};
   @override
-  Etapa map(Map<String, dynamic> data, {String? tablePrefix}) {
+  EtapasPlagaData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Etapa(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nombreEnfermedad: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
-      nombreEtapa: attachedDatabase.options.types
+    return EtapasPlagaData(
+      idEtapasPlaga: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_etapas_plaga'])!,
+      nombrePlaga: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_plaga'])!,
+      nombreEtapa: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_etapa'])!,
-      procedimientoEtapa: attachedDatabase.options.types.read(
+      procedimientoEtapa: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}procedimiento_etapa'])!,
     );
   }
 
   @override
-  $EtapasTable createAlias(String alias) {
-    return $EtapasTable(attachedDatabase, alias);
+  $EtapasPlagaTable createAlias(String alias) {
+    return $EtapasPlagaTable(attachedDatabase, alias);
   }
 }
 
@@ -2392,105 +2537,138 @@ class EtapasPlagaCompanion extends UpdateCompanion<EtapasPlagaData> {
   }
 }
 
-class $EtapasPlagaTable extends EtapasPlaga
-    with TableInfo<$EtapasPlagaTable, EtapasPlagaData> {
+class $ErradicacionTable extends Erradicacion
+    with TableInfo<$ErradicacionTable, ErradicacionData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $EtapasPlagaTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idEtapasPlagaMeta =
-      const VerificationMeta('idEtapasPlaga');
+  $ErradicacionTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> idEtapasPlaga = GeneratedColumn<int>(
-      'id_etapas_plaga', aliasedName, false,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _nombrePlagaMeta =
-      const VerificationMeta('nombrePlaga');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idPalmaMeta =
+      const VerificationMeta('idPalma');
   @override
-  late final GeneratedColumn<String> nombrePlaga = GeneratedColumn<String>(
-      'nombre_plaga', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES plagas(nombre_comun_plaga)');
-  final VerificationMeta _nombreEtapaMeta =
-      const VerificationMeta('nombreEtapa');
-  @override
-  late final GeneratedColumn<String> nombreEtapa = GeneratedColumn<String>(
-      'nombre_etapa', aliasedName, false,
+  late final GeneratedColumn<String> idPalma = GeneratedColumn<String>(
+      'id_palma', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _procedimientoEtapaMeta =
-      const VerificationMeta('procedimientoEtapa');
+  static const VerificationMeta _causaErradicacionMeta =
+      const VerificationMeta('causaErradicacion');
   @override
-  late final GeneratedColumn<String> procedimientoEtapa =
-      GeneratedColumn<String>('procedimiento_etapa', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<String> causaErradicacion =
+      GeneratedColumn<String>('causa_erradicacion', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _observacionesMeta =
+      const VerificationMeta('observaciones');
   @override
-  List<GeneratedColumn> get $columns =>
-      [idEtapasPlaga, nombrePlaga, nombreEtapa, procedimientoEtapa];
+  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
+      'observaciones', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _fechaRegistroMeta =
+      const VerificationMeta('fechaRegistro');
   @override
-  String get aliasedName => _alias ?? 'etapas_plaga';
+  late final GeneratedColumn<DateTime> fechaRegistro =
+      GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
   @override
-  String get actualTableName => 'etapas_plaga';
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
-  VerificationContext validateIntegrity(Insertable<EtapasPlagaData> instance,
+  List<GeneratedColumn> get $columns => [
+        id,
+        idPalma,
+        causaErradicacion,
+        observaciones,
+        fechaRegistro,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'erradicacion';
+  @override
+  String get actualTableName => 'erradicacion';
+  @override
+  VerificationContext validateIntegrity(Insertable<ErradicacionData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_etapas_plaga')) {
-      context.handle(
-          _idEtapasPlagaMeta,
-          idEtapasPlaga.isAcceptableOrUnknown(
-              data['id_etapas_plaga']!, _idEtapasPlagaMeta));
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('nombre_plaga')) {
-      context.handle(
-          _nombrePlagaMeta,
-          nombrePlaga.isAcceptableOrUnknown(
-              data['nombre_plaga']!, _nombrePlagaMeta));
+    if (data.containsKey('id_palma')) {
+      context.handle(_idPalmaMeta,
+          idPalma.isAcceptableOrUnknown(data['id_palma']!, _idPalmaMeta));
     } else if (isInserting) {
-      context.missing(_nombrePlagaMeta);
+      context.missing(_idPalmaMeta);
     }
-    if (data.containsKey('nombre_etapa')) {
+    if (data.containsKey('causa_erradicacion')) {
       context.handle(
-          _nombreEtapaMeta,
-          nombreEtapa.isAcceptableOrUnknown(
-              data['nombre_etapa']!, _nombreEtapaMeta));
-    } else if (isInserting) {
-      context.missing(_nombreEtapaMeta);
+          _causaErradicacionMeta,
+          causaErradicacion.isAcceptableOrUnknown(
+              data['causa_erradicacion']!, _causaErradicacionMeta));
     }
-    if (data.containsKey('procedimiento_etapa')) {
+    if (data.containsKey('observaciones')) {
       context.handle(
-          _procedimientoEtapaMeta,
-          procedimientoEtapa.isAcceptableOrUnknown(
-              data['procedimiento_etapa']!, _procedimientoEtapaMeta));
+          _observacionesMeta,
+          observaciones.isAcceptableOrUnknown(
+              data['observaciones']!, _observacionesMeta));
+    }
+    if (data.containsKey('fecha_registro')) {
+      context.handle(
+          _fechaRegistroMeta,
+          fechaRegistro.isAcceptableOrUnknown(
+              data['fecha_registro']!, _fechaRegistroMeta));
     } else if (isInserting) {
-      context.missing(_procedimientoEtapaMeta);
+      context.missing(_fechaRegistroMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idEtapasPlaga};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  EtapasPlagaData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  ErradicacionData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return EtapasPlagaData(
-      idEtapasPlaga: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_etapas_plaga'])!,
-      nombrePlaga: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_plaga'])!,
-      nombreEtapa: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_etapa'])!,
-      procedimientoEtapa: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}procedimiento_etapa'])!,
+    return ErradicacionData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idPalma: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id_palma'])!,
+      causaErradicacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}causa_erradicacion']),
+      observaciones: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}observaciones']),
+      fechaRegistro: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $EtapasPlagaTable createAlias(String alias) {
-    return $EtapasPlagaTable(attachedDatabase, alias);
+  $ErradicacionTable createAlias(String alias) {
+    return $ErradicacionTable(attachedDatabase, alias);
   }
 }
 
@@ -2709,103 +2887,74 @@ class ErradicacionCompanion extends UpdateCompanion<ErradicacionData> {
   }
 }
 
-class $ErradicacionTable extends Erradicacion
-    with TableInfo<$ErradicacionTable, ErradicacionData> {
+class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ErradicacionTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $LotesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idPalmaMeta = const VerificationMeta('idPalma');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
   @override
-  late final GeneratedColumn<String> idPalma = GeneratedColumn<String>(
-      'id_palma', aliasedName, false,
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
+      'nombre_lote', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _causaErradicacionMeta =
-      const VerificationMeta('causaErradicacion');
+  static const VerificationMeta _hectareasMeta =
+      const VerificationMeta('hectareas');
   @override
-  late final GeneratedColumn<String> causaErradicacion =
-      GeneratedColumn<String>('causa_erradicacion', aliasedName, true,
-          type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _observacionesMeta =
-      const VerificationMeta('observaciones');
+  late final GeneratedColumn<int> hectareas = GeneratedColumn<int>(
+      'hectareas', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _numeropalmasMeta =
+      const VerificationMeta('numeropalmas');
   @override
-  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
-      'observaciones', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _fechaRegistroMeta =
-      const VerificationMeta('fechaRegistro');
+  late final GeneratedColumn<int> numeropalmas = GeneratedColumn<int>(
+      'numeropalmas', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
-  late final GeneratedColumn<DateTime> fechaRegistro =
-      GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _sincronizadoMeta =
-      const VerificationMeta('sincronizado');
+  List<GeneratedColumn> get $columns =>
+      [id, nombreLote, hectareas, numeropalmas];
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  String get aliasedName => _alias ?? 'lotes';
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        idPalma,
-        causaErradicacion,
-        observaciones,
-        fechaRegistro,
-        sincronizado
-      ];
+  String get actualTableName => 'lotes';
   @override
-  String get aliasedName => _alias ?? 'erradicacion';
-  @override
-  String get actualTableName => 'erradicacion';
-  @override
-  VerificationContext validateIntegrity(Insertable<ErradicacionData> instance,
+  VerificationContext validateIntegrity(Insertable<Lote> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('id_palma')) {
-      context.handle(_idPalmaMeta,
-          idPalma.isAcceptableOrUnknown(data['id_palma']!, _idPalmaMeta));
+    if (data.containsKey('nombre_lote')) {
+      context.handle(
+          _nombreLoteMeta,
+          nombreLote.isAcceptableOrUnknown(
+              data['nombre_lote']!, _nombreLoteMeta));
     } else if (isInserting) {
-      context.missing(_idPalmaMeta);
+      context.missing(_nombreLoteMeta);
     }
-    if (data.containsKey('causa_erradicacion')) {
-      context.handle(
-          _causaErradicacionMeta,
-          causaErradicacion.isAcceptableOrUnknown(
-              data['causa_erradicacion']!, _causaErradicacionMeta));
-    }
-    if (data.containsKey('observaciones')) {
-      context.handle(
-          _observacionesMeta,
-          observaciones.isAcceptableOrUnknown(
-              data['observaciones']!, _observacionesMeta));
-    }
-    if (data.containsKey('fecha_registro')) {
-      context.handle(
-          _fechaRegistroMeta,
-          fechaRegistro.isAcceptableOrUnknown(
-              data['fecha_registro']!, _fechaRegistroMeta));
+    if (data.containsKey('hectareas')) {
+      context.handle(_hectareasMeta,
+          hectareas.isAcceptableOrUnknown(data['hectareas']!, _hectareasMeta));
     } else if (isInserting) {
-      context.missing(_fechaRegistroMeta);
+      context.missing(_hectareasMeta);
     }
-    if (data.containsKey('sincronizado')) {
+    if (data.containsKey('numeropalmas')) {
       context.handle(
-          _sincronizadoMeta,
-          sincronizado.isAcceptableOrUnknown(
-              data['sincronizado']!, _sincronizadoMeta));
+          _numeropalmasMeta,
+          numeropalmas.isAcceptableOrUnknown(
+              data['numeropalmas']!, _numeropalmasMeta));
+    } else if (isInserting) {
+      context.missing(_numeropalmasMeta);
     }
     return context;
   }
@@ -2813,27 +2962,23 @@ class $ErradicacionTable extends Erradicacion
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  ErradicacionData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Lote map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return ErradicacionData(
-      id: attachedDatabase.options.types
+    return Lote(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idPalma: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}id_palma'])!,
-      causaErradicacion: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}causa_erradicacion']),
-      observaciones: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}observaciones']),
-      fechaRegistro: attachedDatabase.options.types.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
-      sincronizado: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+      nombreLote: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      hectareas: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}hectareas'])!,
+      numeropalmas: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}numeropalmas'])!,
     );
   }
 
   @override
-  $ErradicacionTable createAlias(String alias) {
-    return $ErradicacionTable(attachedDatabase, alias);
+  $LotesTable createAlias(String alias) {
+    return $LotesTable(attachedDatabase, alias);
   }
 }
 
@@ -2994,49 +3139,72 @@ class LotesCompanion extends UpdateCompanion<Lote> {
   }
 }
 
-class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
+class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $LotesTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
+  $PalmasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
   @override
   late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _hectareasMeta = const VerificationMeta('hectareas');
+  static const VerificationMeta _numerolineaMeta =
+      const VerificationMeta('numerolinea');
   @override
-  late final GeneratedColumn<int> hectareas = GeneratedColumn<int>(
-      'hectareas', aliasedName, false,
+  late final GeneratedColumn<int> numerolinea = GeneratedColumn<int>(
+      'numerolinea', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _numeropalmasMeta =
-      const VerificationMeta('numeropalmas');
+  static const VerificationMeta _numeroenlineaMeta =
+      const VerificationMeta('numeroenlinea');
   @override
-  late final GeneratedColumn<int> numeropalmas = GeneratedColumn<int>(
-      'numeropalmas', aliasedName, false,
+  late final GeneratedColumn<int> numeroenlinea = GeneratedColumn<int>(
+      'numeroenlinea', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _estadopalmaMeta =
+      const VerificationMeta('estadopalma');
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, nombreLote, hectareas, numeropalmas];
+  late final GeneratedColumn<String> estadopalma = GeneratedColumn<String>(
+      'estadopalma', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _identificadorMeta =
+      const VerificationMeta('identificador');
   @override
-  String get aliasedName => _alias ?? 'lotes';
+  late final GeneratedColumn<String> identificador = GeneratedColumn<String>(
+      'identificador', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
   @override
-  String get actualTableName => 'lotes';
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
-  VerificationContext validateIntegrity(Insertable<Lote> instance,
+  List<GeneratedColumn> get $columns => [
+        nombreLote,
+        numerolinea,
+        numeroenlinea,
+        estadopalma,
+        identificador,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'palmas';
+  @override
+  String get actualTableName => 'palmas';
+  @override
+  VerificationContext validateIntegrity(Insertable<Palma> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
     if (data.containsKey('nombre_lote')) {
       context.handle(
           _nombreLoteMeta,
@@ -3045,43 +3213,71 @@ class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
     } else if (isInserting) {
       context.missing(_nombreLoteMeta);
     }
-    if (data.containsKey('hectareas')) {
-      context.handle(_hectareasMeta,
-          hectareas.isAcceptableOrUnknown(data['hectareas']!, _hectareasMeta));
-    } else if (isInserting) {
-      context.missing(_hectareasMeta);
-    }
-    if (data.containsKey('numeropalmas')) {
+    if (data.containsKey('numerolinea')) {
       context.handle(
-          _numeropalmasMeta,
-          numeropalmas.isAcceptableOrUnknown(
-              data['numeropalmas']!, _numeropalmasMeta));
+          _numerolineaMeta,
+          numerolinea.isAcceptableOrUnknown(
+              data['numerolinea']!, _numerolineaMeta));
     } else if (isInserting) {
-      context.missing(_numeropalmasMeta);
+      context.missing(_numerolineaMeta);
+    }
+    if (data.containsKey('numeroenlinea')) {
+      context.handle(
+          _numeroenlineaMeta,
+          numeroenlinea.isAcceptableOrUnknown(
+              data['numeroenlinea']!, _numeroenlineaMeta));
+    } else if (isInserting) {
+      context.missing(_numeroenlineaMeta);
+    }
+    if (data.containsKey('estadopalma')) {
+      context.handle(
+          _estadopalmaMeta,
+          estadopalma.isAcceptableOrUnknown(
+              data['estadopalma']!, _estadopalmaMeta));
+    } else if (isInserting) {
+      context.missing(_estadopalmaMeta);
+    }
+    if (data.containsKey('identificador')) {
+      context.handle(
+          _identificadorMeta,
+          identificador.isAcceptableOrUnknown(
+              data['identificador']!, _identificadorMeta));
+    } else if (isInserting) {
+      context.missing(_identificadorMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {identificador};
   @override
-  Lote map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Palma map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Lote(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nombreLote: attachedDatabase.options.types
+    return Palma(
+      nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
-      hectareas: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}hectareas'])!,
-      numeropalmas: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}numeropalmas'])!,
+      numerolinea: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}numerolinea'])!,
+      numeroenlinea: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}numeroenlinea'])!,
+      estadopalma: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}estadopalma'])!,
+      identificador: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}identificador'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $LotesTable createAlias(String alias) {
-    return $LotesTable(attachedDatabase, alias);
+  $PalmasTable createAlias(String alias) {
+    return $PalmasTable(attachedDatabase, alias);
   }
 }
 
@@ -3290,140 +3486,53 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
   }
 }
 
-class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
+class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PalmasTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
+  $PlagasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _nombreComunPlagaMeta =
+      const VerificationMeta('nombreComunPlaga');
   @override
-  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
-      'nombre_lote', aliasedName, false,
+  late final GeneratedColumn<String> nombreComunPlaga = GeneratedColumn<String>(
+      'nombre_comun_plaga', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _numerolineaMeta =
-      const VerificationMeta('numerolinea');
   @override
-  late final GeneratedColumn<int> numerolinea = GeneratedColumn<int>(
-      'numerolinea', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _numeroenlineaMeta =
-      const VerificationMeta('numeroenlinea');
+  List<GeneratedColumn> get $columns => [nombreComunPlaga];
   @override
-  late final GeneratedColumn<int> numeroenlinea = GeneratedColumn<int>(
-      'numeroenlinea', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _estadopalmaMeta =
-      const VerificationMeta('estadopalma');
+  String get aliasedName => _alias ?? 'plagas';
   @override
-  late final GeneratedColumn<String> estadopalma = GeneratedColumn<String>(
-      'estadopalma', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _identificadorMeta =
-      const VerificationMeta('identificador');
+  String get actualTableName => 'plagas';
   @override
-  late final GeneratedColumn<String> identificador = GeneratedColumn<String>(
-      'identificador', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _sincronizadoMeta =
-      const VerificationMeta('sincronizado');
-  @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
-  @override
-  List<GeneratedColumn> get $columns => [
-        nombreLote,
-        numerolinea,
-        numeroenlinea,
-        estadopalma,
-        identificador,
-        sincronizado
-      ];
-  @override
-  String get aliasedName => _alias ?? 'palmas';
-  @override
-  String get actualTableName => 'palmas';
-  @override
-  VerificationContext validateIntegrity(Insertable<Palma> instance,
+  VerificationContext validateIntegrity(Insertable<Plaga> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('nombre_lote')) {
+    if (data.containsKey('nombre_comun_plaga')) {
       context.handle(
-          _nombreLoteMeta,
-          nombreLote.isAcceptableOrUnknown(
-              data['nombre_lote']!, _nombreLoteMeta));
+          _nombreComunPlagaMeta,
+          nombreComunPlaga.isAcceptableOrUnknown(
+              data['nombre_comun_plaga']!, _nombreComunPlagaMeta));
     } else if (isInserting) {
-      context.missing(_nombreLoteMeta);
-    }
-    if (data.containsKey('numerolinea')) {
-      context.handle(
-          _numerolineaMeta,
-          numerolinea.isAcceptableOrUnknown(
-              data['numerolinea']!, _numerolineaMeta));
-    } else if (isInserting) {
-      context.missing(_numerolineaMeta);
-    }
-    if (data.containsKey('numeroenlinea')) {
-      context.handle(
-          _numeroenlineaMeta,
-          numeroenlinea.isAcceptableOrUnknown(
-              data['numeroenlinea']!, _numeroenlineaMeta));
-    } else if (isInserting) {
-      context.missing(_numeroenlineaMeta);
-    }
-    if (data.containsKey('estadopalma')) {
-      context.handle(
-          _estadopalmaMeta,
-          estadopalma.isAcceptableOrUnknown(
-              data['estadopalma']!, _estadopalmaMeta));
-    } else if (isInserting) {
-      context.missing(_estadopalmaMeta);
-    }
-    if (data.containsKey('identificador')) {
-      context.handle(
-          _identificadorMeta,
-          identificador.isAcceptableOrUnknown(
-              data['identificador']!, _identificadorMeta));
-    } else if (isInserting) {
-      context.missing(_identificadorMeta);
-    }
-    if (data.containsKey('sincronizado')) {
-      context.handle(
-          _sincronizadoMeta,
-          sincronizado.isAcceptableOrUnknown(
-              data['sincronizado']!, _sincronizadoMeta));
+      context.missing(_nombreComunPlagaMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {identificador};
+  Set<GeneratedColumn> get $primaryKey => {nombreComunPlaga};
   @override
-  Palma map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Plaga map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Palma(
-      nombreLote: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
-      numerolinea: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}numerolinea'])!,
-      numeroenlinea: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}numeroenlinea'])!,
-      estadopalma: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}estadopalma'])!,
-      identificador: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}identificador'])!,
-      sincronizado: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    return Plaga(
+      nombreComunPlaga: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_comun_plaga'])!,
     );
   }
 
   @override
-  $PalmasTable createAlias(String alias) {
-    return $PalmasTable(attachedDatabase, alias);
+  $PlagasTable createAlias(String alias) {
+    return $PlagasTable(attachedDatabase, alias);
   }
 }
 
@@ -3517,53 +3626,163 @@ class PlagasCompanion extends UpdateCompanion<Plaga> {
   }
 }
 
-class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
+class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlagasTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _nombreComunPlagaMeta =
-      const VerificationMeta('nombreComunPlaga');
+  $PlateosTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<String> nombreComunPlaga = GeneratedColumn<String>(
-      'nombre_comun_plaga', aliasedName, false,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
+      'nombre_lote', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaIngresoMeta =
+      const VerificationMeta('fechaIngreso');
   @override
-  List<GeneratedColumn> get $columns => [nombreComunPlaga];
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _fechaSalidaMeta =
+      const VerificationMeta('fechaSalida');
   @override
-  String get aliasedName => _alias ?? 'plagas';
+  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
+      'fecha_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _cantidadPlateadaMeta =
+      const VerificationMeta('cantidadPlateada');
   @override
-  String get actualTableName => 'plagas';
+  late final GeneratedColumn<int> cantidadPlateada = GeneratedColumn<int>(
+      'cantidad_plateada', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _completadoMeta =
+      const VerificationMeta('completado');
   @override
-  VerificationContext validateIntegrity(Insertable<Plaga> instance,
+  late final GeneratedColumn<bool> completado =
+      GeneratedColumn<bool>('completado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("completado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        nombreLote,
+        fechaIngreso,
+        fechaSalida,
+        cantidadPlateada,
+        completado,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'plateos';
+  @override
+  String get actualTableName => 'plateos';
+  @override
+  VerificationContext validateIntegrity(Insertable<Plateo> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('nombre_comun_plaga')) {
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('nombre_lote')) {
       context.handle(
-          _nombreComunPlagaMeta,
-          nombreComunPlaga.isAcceptableOrUnknown(
-              data['nombre_comun_plaga']!, _nombreComunPlagaMeta));
+          _nombreLoteMeta,
+          nombreLote.isAcceptableOrUnknown(
+              data['nombre_lote']!, _nombreLoteMeta));
     } else if (isInserting) {
-      context.missing(_nombreComunPlagaMeta);
+      context.missing(_nombreLoteMeta);
+    }
+    if (data.containsKey('fecha_ingreso')) {
+      context.handle(
+          _fechaIngresoMeta,
+          fechaIngreso.isAcceptableOrUnknown(
+              data['fecha_ingreso']!, _fechaIngresoMeta));
+    } else if (isInserting) {
+      context.missing(_fechaIngresoMeta);
+    }
+    if (data.containsKey('fecha_salida')) {
+      context.handle(
+          _fechaSalidaMeta,
+          fechaSalida.isAcceptableOrUnknown(
+              data['fecha_salida']!, _fechaSalidaMeta));
+    }
+    if (data.containsKey('cantidad_plateada')) {
+      context.handle(
+          _cantidadPlateadaMeta,
+          cantidadPlateada.isAcceptableOrUnknown(
+              data['cantidad_plateada']!, _cantidadPlateadaMeta));
+    } else if (isInserting) {
+      context.missing(_cantidadPlateadaMeta);
+    }
+    if (data.containsKey('completado')) {
+      context.handle(
+          _completadoMeta,
+          completado.isAcceptableOrUnknown(
+              data['completado']!, _completadoMeta));
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {nombreComunPlaga};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Plaga map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Plateo map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Plaga(
-      nombreComunPlaga: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}nombre_comun_plaga'])!,
+    return Plateo(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nombreLote: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      fechaIngreso: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      fechaSalida: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
+      cantidadPlateada: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_plateada'])!,
+      completado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $PlagasTable createAlias(String alias) {
-    return $PlagasTable(attachedDatabase, alias);
+  $PlateosTable createAlias(String alias) {
+    return $PlateosTable(attachedDatabase, alias);
   }
 }
 
@@ -3795,101 +4014,85 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   }
 }
 
-class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
+class $PlateoDiarioTable extends PlateoDiario
+    with TableInfo<$PlateoDiarioTable, PlateoDiarioData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlateosTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $PlateoDiarioTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idPlateoMeta =
+      const VerificationMeta('idPlateo');
   @override
-  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
-      'nombre_lote', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _fechaIngresoMeta =
-      const VerificationMeta('fechaIngreso');
+  late final GeneratedColumn<int> idPlateo = GeneratedColumn<int>(
+      'id_plateo', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES plateos(id)');
+  static const VerificationMeta _fechaMeta = const VerificationMeta('fecha');
   @override
-  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
-      'fecha_ingreso', aliasedName, false,
+  late final GeneratedColumn<DateTime> fecha = GeneratedColumn<DateTime>(
+      'fecha', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _fechaSalidaMeta =
-      const VerificationMeta('fechaSalida');
-  @override
-  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
-      'fecha_salida', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _cantidadPlateadaMeta =
+  static const VerificationMeta _cantidadPlateadaMeta =
       const VerificationMeta('cantidadPlateada');
   @override
   late final GeneratedColumn<int> cantidadPlateada = GeneratedColumn<int>(
       'cantidad_plateada', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _completadoMeta = const VerificationMeta('completado');
+  static const VerificationMeta _tipoPlateoMeta =
+      const VerificationMeta('tipoPlateo');
   @override
-  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
-      'completado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (completado IN (0, 1))',
-      defaultValue: const Constant(false));
-  final VerificationMeta _sincronizadoMeta =
+  late final GeneratedColumn<String> tipoPlateo = GeneratedColumn<String>(
+      'tipo_plateo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        nombreLote,
-        fechaIngreso,
-        fechaSalida,
-        cantidadPlateada,
-        completado,
-        sincronizado
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, idPlateo, fecha, cantidadPlateada, tipoPlateo, sincronizado];
   @override
-  String get aliasedName => _alias ?? 'plateos';
+  String get aliasedName => _alias ?? 'plateo_diario';
   @override
-  String get actualTableName => 'plateos';
+  String get actualTableName => 'plateo_diario';
   @override
-  VerificationContext validateIntegrity(Insertable<Plateo> instance,
+  VerificationContext validateIntegrity(Insertable<PlateoDiarioData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('nombre_lote')) {
-      context.handle(
-          _nombreLoteMeta,
-          nombreLote.isAcceptableOrUnknown(
-              data['nombre_lote']!, _nombreLoteMeta));
+    if (data.containsKey('id_plateo')) {
+      context.handle(_idPlateoMeta,
+          idPlateo.isAcceptableOrUnknown(data['id_plateo']!, _idPlateoMeta));
     } else if (isInserting) {
-      context.missing(_nombreLoteMeta);
+      context.missing(_idPlateoMeta);
     }
-    if (data.containsKey('fecha_ingreso')) {
+    if (data.containsKey('fecha')) {
       context.handle(
-          _fechaIngresoMeta,
-          fechaIngreso.isAcceptableOrUnknown(
-              data['fecha_ingreso']!, _fechaIngresoMeta));
+          _fechaMeta, fecha.isAcceptableOrUnknown(data['fecha']!, _fechaMeta));
     } else if (isInserting) {
-      context.missing(_fechaIngresoMeta);
-    }
-    if (data.containsKey('fecha_salida')) {
-      context.handle(
-          _fechaSalidaMeta,
-          fechaSalida.isAcceptableOrUnknown(
-              data['fecha_salida']!, _fechaSalidaMeta));
+      context.missing(_fechaMeta);
     }
     if (data.containsKey('cantidad_plateada')) {
       context.handle(
@@ -3899,11 +4102,13 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
     } else if (isInserting) {
       context.missing(_cantidadPlateadaMeta);
     }
-    if (data.containsKey('completado')) {
+    if (data.containsKey('tipo_plateo')) {
       context.handle(
-          _completadoMeta,
-          completado.isAcceptableOrUnknown(
-              data['completado']!, _completadoMeta));
+          _tipoPlateoMeta,
+          tipoPlateo.isAcceptableOrUnknown(
+              data['tipo_plateo']!, _tipoPlateoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoPlateoMeta);
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -3917,29 +4122,27 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Plateo map(Map<String, dynamic> data, {String? tablePrefix}) {
+  PlateoDiarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Plateo(
-      id: attachedDatabase.options.types
+    return PlateoDiarioData(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nombreLote: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
-      fechaIngreso: attachedDatabase.options.types.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
-      fechaSalida: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
-      cantidadPlateada: attachedDatabase.options.types
+      idPlateo: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_plateo'])!,
+      fecha: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
+      cantidadPlateada: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}cantidad_plateada'])!,
-      completado: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
-      sincronizado: attachedDatabase.options.types
+      tipoPlateo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tipo_plateo'])!,
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $PlateosTable createAlias(String alias) {
-    return $PlateosTable(attachedDatabase, alias);
+  $PlateoDiarioTable createAlias(String alias) {
+    return $PlateoDiarioTable(attachedDatabase, alias);
   }
 }
 
@@ -4148,93 +4351,127 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
   }
 }
 
-class $PlateoDiarioTable extends PlateoDiario
-    with TableInfo<$PlateoDiarioTable, PlateoDiarioData> {
+class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlateoDiarioTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $PodasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idPlateoMeta = const VerificationMeta('idPlateo');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
   @override
-  late final GeneratedColumn<int> idPlateo = GeneratedColumn<int>(
-      'id_plateo', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES plateos(id)');
-  final VerificationMeta _fechaMeta = const VerificationMeta('fecha');
-  @override
-  late final GeneratedColumn<DateTime> fecha = GeneratedColumn<DateTime>(
-      'fecha', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _cantidadPlateadaMeta =
-      const VerificationMeta('cantidadPlateada');
-  @override
-  late final GeneratedColumn<int> cantidadPlateada = GeneratedColumn<int>(
-      'cantidad_plateada', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _tipoPlateoMeta = const VerificationMeta('tipoPlateo');
-  @override
-  late final GeneratedColumn<String> tipoPlateo = GeneratedColumn<String>(
-      'tipo_plateo', aliasedName, false,
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
+      'nombre_lote', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _sincronizadoMeta =
+  static const VerificationMeta _fechaIngresoMeta =
+      const VerificationMeta('fechaIngreso');
+  @override
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _fechaSalidaMeta =
+      const VerificationMeta('fechaSalida');
+  @override
+  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
+      'fecha_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _cantidadPodadaMeta =
+      const VerificationMeta('cantidadPodada');
+  @override
+  late final GeneratedColumn<int> cantidadPodada = GeneratedColumn<int>(
+      'cantidad_podada', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _completadaMeta =
+      const VerificationMeta('completada');
+  @override
+  late final GeneratedColumn<bool> completada =
+      GeneratedColumn<bool>('completada', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("completada" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, idPlateo, fecha, cantidadPlateada, tipoPlateo, sincronizado];
+  List<GeneratedColumn> get $columns => [
+        id,
+        nombreLote,
+        fechaIngreso,
+        fechaSalida,
+        cantidadPodada,
+        completada,
+        sincronizado
+      ];
   @override
-  String get aliasedName => _alias ?? 'plateo_diario';
+  String get aliasedName => _alias ?? 'podas';
   @override
-  String get actualTableName => 'plateo_diario';
+  String get actualTableName => 'podas';
   @override
-  VerificationContext validateIntegrity(Insertable<PlateoDiarioData> instance,
+  VerificationContext validateIntegrity(Insertable<Poda> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('id_plateo')) {
-      context.handle(_idPlateoMeta,
-          idPlateo.isAcceptableOrUnknown(data['id_plateo']!, _idPlateoMeta));
-    } else if (isInserting) {
-      context.missing(_idPlateoMeta);
-    }
-    if (data.containsKey('fecha')) {
+    if (data.containsKey('nombre_lote')) {
       context.handle(
-          _fechaMeta, fecha.isAcceptableOrUnknown(data['fecha']!, _fechaMeta));
+          _nombreLoteMeta,
+          nombreLote.isAcceptableOrUnknown(
+              data['nombre_lote']!, _nombreLoteMeta));
     } else if (isInserting) {
-      context.missing(_fechaMeta);
+      context.missing(_nombreLoteMeta);
     }
-    if (data.containsKey('cantidad_plateada')) {
+    if (data.containsKey('fecha_ingreso')) {
       context.handle(
-          _cantidadPlateadaMeta,
-          cantidadPlateada.isAcceptableOrUnknown(
-              data['cantidad_plateada']!, _cantidadPlateadaMeta));
+          _fechaIngresoMeta,
+          fechaIngreso.isAcceptableOrUnknown(
+              data['fecha_ingreso']!, _fechaIngresoMeta));
     } else if (isInserting) {
-      context.missing(_cantidadPlateadaMeta);
+      context.missing(_fechaIngresoMeta);
     }
-    if (data.containsKey('tipo_plateo')) {
+    if (data.containsKey('fecha_salida')) {
       context.handle(
-          _tipoPlateoMeta,
-          tipoPlateo.isAcceptableOrUnknown(
-              data['tipo_plateo']!, _tipoPlateoMeta));
+          _fechaSalidaMeta,
+          fechaSalida.isAcceptableOrUnknown(
+              data['fecha_salida']!, _fechaSalidaMeta));
+    }
+    if (data.containsKey('cantidad_podada')) {
+      context.handle(
+          _cantidadPodadaMeta,
+          cantidadPodada.isAcceptableOrUnknown(
+              data['cantidad_podada']!, _cantidadPodadaMeta));
     } else if (isInserting) {
-      context.missing(_tipoPlateoMeta);
+      context.missing(_cantidadPodadaMeta);
+    }
+    if (data.containsKey('completada')) {
+      context.handle(
+          _completadaMeta,
+          completada.isAcceptableOrUnknown(
+              data['completada']!, _completadaMeta));
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -4248,27 +4485,29 @@ class $PlateoDiarioTable extends PlateoDiario
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlateoDiarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Poda map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PlateoDiarioData(
-      id: attachedDatabase.options.types
+    return Poda(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idPlateo: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_plateo'])!,
-      fecha: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
-      cantidadPlateada: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_plateada'])!,
-      tipoPlateo: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}tipo_plateo'])!,
-      sincronizado: attachedDatabase.options.types
+      nombreLote: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      fechaIngreso: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      fechaSalida: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
+      cantidadPodada: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_podada'])!,
+      completada: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}completada'])!,
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $PlateoDiarioTable createAlias(String alias) {
-    return $PlateoDiarioTable(attachedDatabase, alias);
+  $PodasTable createAlias(String alias) {
+    return $PodasTable(attachedDatabase, alias);
   }
 }
 
@@ -4500,87 +4739,73 @@ class PodasCompanion extends UpdateCompanion<Poda> {
   }
 }
 
-class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
+class $PodaDiariaTable extends PodaDiaria
+    with TableInfo<$PodaDiariaTable, PodaDiariaData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PodasTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $PodaDiariaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _nombreLoteMeta = const VerificationMeta('nombreLote');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idPodaMeta = const VerificationMeta('idPoda');
   @override
-  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
-      'nombre_lote', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _fechaIngresoMeta =
+  late final GeneratedColumn<int> idPoda = GeneratedColumn<int>(
+      'id_poda', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES podas(id)');
+  static const VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
   @override
   late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
       'fecha_ingreso', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _fechaSalidaMeta =
-      const VerificationMeta('fechaSalida');
-  @override
-  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
-      'fecha_salida', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _cantidadPodadaMeta =
+  static const VerificationMeta _cantidadPodadaMeta =
       const VerificationMeta('cantidadPodada');
   @override
   late final GeneratedColumn<int> cantidadPodada = GeneratedColumn<int>(
       'cantidad_podada', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _completadaMeta = const VerificationMeta('completada');
-  @override
-  late final GeneratedColumn<bool> completada = GeneratedColumn<bool>(
-      'completada', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (completada IN (0, 1))',
-      defaultValue: const Constant(false));
-  final VerificationMeta _sincronizadoMeta =
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        nombreLote,
-        fechaIngreso,
-        fechaSalida,
-        cantidadPodada,
-        completada,
-        sincronizado
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, idPoda, fechaIngreso, cantidadPodada, sincronizado];
   @override
-  String get aliasedName => _alias ?? 'podas';
+  String get aliasedName => _alias ?? 'poda_diaria';
   @override
-  String get actualTableName => 'podas';
+  String get actualTableName => 'poda_diaria';
   @override
-  VerificationContext validateIntegrity(Insertable<Poda> instance,
+  VerificationContext validateIntegrity(Insertable<PodaDiariaData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('nombre_lote')) {
-      context.handle(
-          _nombreLoteMeta,
-          nombreLote.isAcceptableOrUnknown(
-              data['nombre_lote']!, _nombreLoteMeta));
+    if (data.containsKey('id_poda')) {
+      context.handle(_idPodaMeta,
+          idPoda.isAcceptableOrUnknown(data['id_poda']!, _idPodaMeta));
     } else if (isInserting) {
-      context.missing(_nombreLoteMeta);
+      context.missing(_idPodaMeta);
     }
     if (data.containsKey('fecha_ingreso')) {
       context.handle(
@@ -4590,12 +4815,6 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
     } else if (isInserting) {
       context.missing(_fechaIngresoMeta);
     }
-    if (data.containsKey('fecha_salida')) {
-      context.handle(
-          _fechaSalidaMeta,
-          fechaSalida.isAcceptableOrUnknown(
-              data['fecha_salida']!, _fechaSalidaMeta));
-    }
     if (data.containsKey('cantidad_podada')) {
       context.handle(
           _cantidadPodadaMeta,
@@ -4603,12 +4822,6 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
               data['cantidad_podada']!, _cantidadPodadaMeta));
     } else if (isInserting) {
       context.missing(_cantidadPodadaMeta);
-    }
-    if (data.containsKey('completada')) {
-      context.handle(
-          _completadaMeta,
-          completada.isAcceptableOrUnknown(
-              data['completada']!, _completadaMeta));
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -4622,29 +4835,25 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Poda map(Map<String, dynamic> data, {String? tablePrefix}) {
+  PodaDiariaData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Poda(
-      id: attachedDatabase.options.types
+    return PodaDiariaData(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nombreLote: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
-      fechaIngreso: attachedDatabase.options.types.read(
+      idPoda: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_poda'])!,
+      fechaIngreso: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
-      fechaSalida: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
-      cantidadPodada: attachedDatabase.options.types
+      cantidadPodada: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}cantidad_podada'])!,
-      completada: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}completada'])!,
-      sincronizado: attachedDatabase.options.types
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $PodasTable createAlias(String alias) {
-    return $PodasTable(attachedDatabase, alias);
+  $PodaDiariaTable createAlias(String alias) {
+    return $PodaDiariaTable(attachedDatabase, alias);
   }
 }
 
@@ -4830,115 +5039,171 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
   }
 }
 
-class $PodaDiariaTable extends PodaDiaria
-    with TableInfo<$PodaDiariaTable, PodaDiariaData> {
+class $ProductoAgroquimicoTable extends ProductoAgroquimico
+    with TableInfo<$ProductoAgroquimicoTable, ProductoAgroquimicoData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PodaDiariaTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $ProductoAgroquimicoTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idProductoAgroquimicoMeta =
+      const VerificationMeta('idProductoAgroquimico');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idPodaMeta = const VerificationMeta('idPoda');
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nombreProductoAgroquimicoMeta =
+      const VerificationMeta('nombreProductoAgroquimico');
   @override
-  late final GeneratedColumn<int> idPoda = GeneratedColumn<int>(
-      'id_poda', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES podas(id)');
-  final VerificationMeta _fechaIngresoMeta =
-      const VerificationMeta('fechaIngreso');
+  late final GeneratedColumn<String> nombreProductoAgroquimico =
+      GeneratedColumn<String>('nombre_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _tipoProductoAgroquimicoMeta =
+      const VerificationMeta('tipoProductoAgroquimico');
   @override
-  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
-      'fecha_ingreso', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _cantidadPodadaMeta =
-      const VerificationMeta('cantidadPodada');
+  late final GeneratedColumn<String> tipoProductoAgroquimico =
+      GeneratedColumn<String>('tipo_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _claseProductoMeta =
+      const VerificationMeta('claseProducto');
   @override
-  late final GeneratedColumn<int> cantidadPodada = GeneratedColumn<int>(
-      'cantidad_podada', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _sincronizadoMeta =
-      const VerificationMeta('sincronizado');
+  late final GeneratedColumn<String> claseProducto = GeneratedColumn<String>(
+      'clase_producto', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _ingredienteActivoProductoAgroquimicoMeta =
+      const VerificationMeta('ingredienteActivoProductoAgroquimico');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<String> ingredienteActivoProductoAgroquimico =
+      GeneratedColumn<String>(
+          'ingrediente_activo_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _periodoCarenciaProductoAgroquimicoMeta =
+      const VerificationMeta('periodoCarenciaProductoAgroquimico');
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, idPoda, fechaIngreso, cantidadPodada, sincronizado];
+  late final GeneratedColumn<int> periodoCarenciaProductoAgroquimico =
+      GeneratedColumn<int>(
+          'periodo_carencia_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _presentacionProductoAgroquimicoMeta =
+      const VerificationMeta('presentacionProductoAgroquimico');
   @override
-  String get aliasedName => _alias ?? 'poda_diaria';
+  late final GeneratedColumn<String> presentacionProductoAgroquimico =
+      GeneratedColumn<String>(
+          'presentacion_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  String get actualTableName => 'poda_diaria';
+  List<GeneratedColumn> get $columns => [
+        idProductoAgroquimico,
+        nombreProductoAgroquimico,
+        tipoProductoAgroquimico,
+        claseProducto,
+        ingredienteActivoProductoAgroquimico,
+        periodoCarenciaProductoAgroquimico,
+        presentacionProductoAgroquimico
+      ];
   @override
-  VerificationContext validateIntegrity(Insertable<PodaDiariaData> instance,
+  String get aliasedName => _alias ?? 'producto_agroquimico';
+  @override
+  String get actualTableName => 'producto_agroquimico';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ProductoAgroquimicoData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('id_poda')) {
-      context.handle(_idPodaMeta,
-          idPoda.isAcceptableOrUnknown(data['id_poda']!, _idPodaMeta));
-    } else if (isInserting) {
-      context.missing(_idPodaMeta);
-    }
-    if (data.containsKey('fecha_ingreso')) {
+    if (data.containsKey('id_producto_agroquimico')) {
       context.handle(
-          _fechaIngresoMeta,
-          fechaIngreso.isAcceptableOrUnknown(
-              data['fecha_ingreso']!, _fechaIngresoMeta));
-    } else if (isInserting) {
-      context.missing(_fechaIngresoMeta);
+          _idProductoAgroquimicoMeta,
+          idProductoAgroquimico.isAcceptableOrUnknown(
+              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
     }
-    if (data.containsKey('cantidad_podada')) {
+    if (data.containsKey('nombre_producto_agroquimico')) {
       context.handle(
-          _cantidadPodadaMeta,
-          cantidadPodada.isAcceptableOrUnknown(
-              data['cantidad_podada']!, _cantidadPodadaMeta));
+          _nombreProductoAgroquimicoMeta,
+          nombreProductoAgroquimico.isAcceptableOrUnknown(
+              data['nombre_producto_agroquimico']!,
+              _nombreProductoAgroquimicoMeta));
     } else if (isInserting) {
-      context.missing(_cantidadPodadaMeta);
+      context.missing(_nombreProductoAgroquimicoMeta);
     }
-    if (data.containsKey('sincronizado')) {
+    if (data.containsKey('tipo_producto_agroquimico')) {
       context.handle(
-          _sincronizadoMeta,
-          sincronizado.isAcceptableOrUnknown(
-              data['sincronizado']!, _sincronizadoMeta));
+          _tipoProductoAgroquimicoMeta,
+          tipoProductoAgroquimico.isAcceptableOrUnknown(
+              data['tipo_producto_agroquimico']!,
+              _tipoProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('clase_producto')) {
+      context.handle(
+          _claseProductoMeta,
+          claseProducto.isAcceptableOrUnknown(
+              data['clase_producto']!, _claseProductoMeta));
+    } else if (isInserting) {
+      context.missing(_claseProductoMeta);
+    }
+    if (data.containsKey('ingrediente_activo_producto_agroquimico')) {
+      context.handle(
+          _ingredienteActivoProductoAgroquimicoMeta,
+          ingredienteActivoProductoAgroquimico.isAcceptableOrUnknown(
+              data['ingrediente_activo_producto_agroquimico']!,
+              _ingredienteActivoProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_ingredienteActivoProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('periodo_carencia_producto_agroquimico')) {
+      context.handle(
+          _periodoCarenciaProductoAgroquimicoMeta,
+          periodoCarenciaProductoAgroquimico.isAcceptableOrUnknown(
+              data['periodo_carencia_producto_agroquimico']!,
+              _periodoCarenciaProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_periodoCarenciaProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('presentacion_producto_agroquimico')) {
+      context.handle(
+          _presentacionProductoAgroquimicoMeta,
+          presentacionProductoAgroquimico.isAcceptableOrUnknown(
+              data['presentacion_producto_agroquimico']!,
+              _presentacionProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_presentacionProductoAgroquimicoMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {idProductoAgroquimico};
   @override
-  PodaDiariaData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  ProductoAgroquimicoData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PodaDiariaData(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idPoda: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_poda'])!,
-      fechaIngreso: attachedDatabase.options.types.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
-      cantidadPodada: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_podada'])!,
-      sincronizado: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    return ProductoAgroquimicoData(
+      idProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      nombreProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}nombre_producto_agroquimico'])!,
+      tipoProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}tipo_producto_agroquimico'])!,
+      claseProducto: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}clase_producto'])!,
+      ingredienteActivoProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}ingrediente_activo_producto_agroquimico'])!,
+      periodoCarenciaProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}periodo_carencia_producto_agroquimico'])!,
+      presentacionProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}presentacion_producto_agroquimico'])!,
     );
   }
 
   @override
-  $PodaDiariaTable createAlias(String alias) {
-    return $PodaDiariaTable(attachedDatabase, alias);
+  $ProductoAgroquimicoTable createAlias(String alias) {
+    return $ProductoAgroquimicoTable(attachedDatabase, alias);
   }
 }
 
@@ -5236,171 +5501,171 @@ class ProductoAgroquimicoCompanion
   }
 }
 
-class $ProductoAgroquimicoTable extends ProductoAgroquimico
-    with TableInfo<$ProductoAgroquimicoTable, ProductoAgroquimicoData> {
+class $RegistroEnfermedadTable extends RegistroEnfermedad
+    with TableInfo<$RegistroEnfermedadTable, RegistroEnfermedadData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ProductoAgroquimicoTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idProductoAgroquimicoMeta =
-      const VerificationMeta('idProductoAgroquimico');
+  $RegistroEnfermedadTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
-      'id_producto_agroquimico', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  final VerificationMeta _nombreProductoAgroquimicoMeta =
-      const VerificationMeta('nombreProductoAgroquimico');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _fechaRegistroMeta =
+      const VerificationMeta('fechaRegistro');
   @override
-  late final GeneratedColumn<String> nombreProductoAgroquimico =
-      GeneratedColumn<String>('nombre_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _tipoProductoAgroquimicoMeta =
-      const VerificationMeta('tipoProductoAgroquimico');
+  late final GeneratedColumn<DateTime> fechaRegistro =
+      GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _horaRegistroMeta =
+      const VerificationMeta('horaRegistro');
   @override
-  late final GeneratedColumn<String> tipoProductoAgroquimico =
-      GeneratedColumn<String>('tipo_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _claseProductoMeta =
-      const VerificationMeta('claseProducto');
+  late final GeneratedColumn<DateTime> horaRegistro = GeneratedColumn<DateTime>(
+      'hora_registro', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _idPalmaMeta =
+      const VerificationMeta('idPalma');
   @override
-  late final GeneratedColumn<String> claseProducto = GeneratedColumn<String>(
-      'clase_producto', aliasedName, false,
+  late final GeneratedColumn<String> idPalma = GeneratedColumn<String>(
+      'id_palma', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _ingredienteActivoProductoAgroquimicoMeta =
-      const VerificationMeta('ingredienteActivoProductoAgroquimico');
+  static const VerificationMeta _nombreEnfermedadMeta =
+      const VerificationMeta('nombreEnfermedad');
   @override
-  late final GeneratedColumn<String> ingredienteActivoProductoAgroquimico =
-      GeneratedColumn<String>(
-          'ingrediente_activo_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _periodoCarenciaProductoAgroquimicoMeta =
-      const VerificationMeta('periodoCarenciaProductoAgroquimico');
+  late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
+      'nombre_enfermedad', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _idEtapaEnfermedadMeta =
+      const VerificationMeta('idEtapaEnfermedad');
   @override
-  late final GeneratedColumn<int> periodoCarenciaProductoAgroquimico =
-      GeneratedColumn<int>(
-          'periodo_carencia_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _presentacionProductoAgroquimicoMeta =
-      const VerificationMeta('presentacionProductoAgroquimico');
+  late final GeneratedColumn<int> idEtapaEnfermedad = GeneratedColumn<int>(
+      'id_etapa_enfermedad', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _observacionesMeta =
+      const VerificationMeta('observaciones');
   @override
-  late final GeneratedColumn<String> presentacionProductoAgroquimico =
-      GeneratedColumn<String>(
-          'presentacion_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
+      'observaciones', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
-        idProductoAgroquimico,
-        nombreProductoAgroquimico,
-        tipoProductoAgroquimico,
-        claseProducto,
-        ingredienteActivoProductoAgroquimico,
-        periodoCarenciaProductoAgroquimico,
-        presentacionProductoAgroquimico
+        id,
+        fechaRegistro,
+        horaRegistro,
+        idPalma,
+        nombreEnfermedad,
+        idEtapaEnfermedad,
+        observaciones,
+        sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'producto_agroquimico';
+  String get aliasedName => _alias ?? 'registro_enfermedad';
   @override
-  String get actualTableName => 'producto_agroquimico';
+  String get actualTableName => 'registro_enfermedad';
   @override
   VerificationContext validateIntegrity(
-      Insertable<ProductoAgroquimicoData> instance,
+      Insertable<RegistroEnfermedadData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_producto_agroquimico')) {
-      context.handle(
-          _idProductoAgroquimicoMeta,
-          idProductoAgroquimico.isAcceptableOrUnknown(
-              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('nombre_producto_agroquimico')) {
+    if (data.containsKey('fecha_registro')) {
       context.handle(
-          _nombreProductoAgroquimicoMeta,
-          nombreProductoAgroquimico.isAcceptableOrUnknown(
-              data['nombre_producto_agroquimico']!,
-              _nombreProductoAgroquimicoMeta));
+          _fechaRegistroMeta,
+          fechaRegistro.isAcceptableOrUnknown(
+              data['fecha_registro']!, _fechaRegistroMeta));
     } else if (isInserting) {
-      context.missing(_nombreProductoAgroquimicoMeta);
+      context.missing(_fechaRegistroMeta);
     }
-    if (data.containsKey('tipo_producto_agroquimico')) {
+    if (data.containsKey('hora_registro')) {
       context.handle(
-          _tipoProductoAgroquimicoMeta,
-          tipoProductoAgroquimico.isAcceptableOrUnknown(
-              data['tipo_producto_agroquimico']!,
-              _tipoProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_tipoProductoAgroquimicoMeta);
+          _horaRegistroMeta,
+          horaRegistro.isAcceptableOrUnknown(
+              data['hora_registro']!, _horaRegistroMeta));
     }
-    if (data.containsKey('clase_producto')) {
-      context.handle(
-          _claseProductoMeta,
-          claseProducto.isAcceptableOrUnknown(
-              data['clase_producto']!, _claseProductoMeta));
+    if (data.containsKey('id_palma')) {
+      context.handle(_idPalmaMeta,
+          idPalma.isAcceptableOrUnknown(data['id_palma']!, _idPalmaMeta));
     } else if (isInserting) {
-      context.missing(_claseProductoMeta);
+      context.missing(_idPalmaMeta);
     }
-    if (data.containsKey('ingrediente_activo_producto_agroquimico')) {
+    if (data.containsKey('nombre_enfermedad')) {
       context.handle(
-          _ingredienteActivoProductoAgroquimicoMeta,
-          ingredienteActivoProductoAgroquimico.isAcceptableOrUnknown(
-              data['ingrediente_activo_producto_agroquimico']!,
-              _ingredienteActivoProductoAgroquimicoMeta));
+          _nombreEnfermedadMeta,
+          nombreEnfermedad.isAcceptableOrUnknown(
+              data['nombre_enfermedad']!, _nombreEnfermedadMeta));
     } else if (isInserting) {
-      context.missing(_ingredienteActivoProductoAgroquimicoMeta);
+      context.missing(_nombreEnfermedadMeta);
     }
-    if (data.containsKey('periodo_carencia_producto_agroquimico')) {
+    if (data.containsKey('id_etapa_enfermedad')) {
       context.handle(
-          _periodoCarenciaProductoAgroquimicoMeta,
-          periodoCarenciaProductoAgroquimico.isAcceptableOrUnknown(
-              data['periodo_carencia_producto_agroquimico']!,
-              _periodoCarenciaProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_periodoCarenciaProductoAgroquimicoMeta);
+          _idEtapaEnfermedadMeta,
+          idEtapaEnfermedad.isAcceptableOrUnknown(
+              data['id_etapa_enfermedad']!, _idEtapaEnfermedadMeta));
     }
-    if (data.containsKey('presentacion_producto_agroquimico')) {
+    if (data.containsKey('observaciones')) {
       context.handle(
-          _presentacionProductoAgroquimicoMeta,
-          presentacionProductoAgroquimico.isAcceptableOrUnknown(
-              data['presentacion_producto_agroquimico']!,
-              _presentacionProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_presentacionProductoAgroquimicoMeta);
+          _observacionesMeta,
+          observaciones.isAcceptableOrUnknown(
+              data['observaciones']!, _observacionesMeta));
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idProductoAgroquimico};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  ProductoAgroquimicoData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  RegistroEnfermedadData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return ProductoAgroquimicoData(
-      idProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
-      nombreProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}nombre_producto_agroquimico'])!,
-      tipoProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}tipo_producto_agroquimico'])!,
-      claseProducto: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}clase_producto'])!,
-      ingredienteActivoProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}ingrediente_activo_producto_agroquimico'])!,
-      periodoCarenciaProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.int,
-          data['${effectivePrefix}periodo_carencia_producto_agroquimico'])!,
-      presentacionProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}presentacion_producto_agroquimico'])!,
+    return RegistroEnfermedadData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      fechaRegistro: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
+      horaRegistro: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_registro']),
+      idPalma: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id_palma'])!,
+      nombreEnfermedad: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
+      idEtapaEnfermedad: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_etapa_enfermedad']),
+      observaciones: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}observaciones']),
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $ProductoAgroquimicoTable createAlias(String alias) {
-    return $ProductoAgroquimicoTable(attachedDatabase, alias);
+  $RegistroEnfermedadTable createAlias(String alias) {
+    return $RegistroEnfermedadTable(attachedDatabase, alias);
   }
 }
 
@@ -5667,86 +5932,133 @@ class RegistroEnfermedadCompanion
   }
 }
 
-class $RegistroEnfermedadTable extends RegistroEnfermedad
-    with TableInfo<$RegistroEnfermedadTable, RegistroEnfermedadData> {
+class $RegistroTratamientoTable extends RegistroTratamiento
+    with TableInfo<$RegistroTratamientoTable, RegistroTratamientoData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RegistroEnfermedadTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $RegistroTratamientoTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _fechaRegistroMeta =
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idRegistroEnfermedadMeta =
+      const VerificationMeta('idRegistroEnfermedad');
+  @override
+  late final GeneratedColumn<int> idRegistroEnfermedad = GeneratedColumn<int>(
+      'id_registro_enfermedad', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES registro_enfermedad(id)');
+  static const VerificationMeta _idProductoAgroquimicoMeta =
+      const VerificationMeta('idProductoAgroquimico');
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES producto_agroquimico(id)');
+  static const VerificationMeta _tipoControlMeta =
+      const VerificationMeta('tipoControl');
+  @override
+  late final GeneratedColumn<String> tipoControl = GeneratedColumn<String>(
+      'tipo_control', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dosisMeta = const VerificationMeta('dosis');
+  @override
+  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
+      'dosis', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _descripcionProcedimientoMeta =
+      const VerificationMeta('descripcionProcedimiento');
+  @override
+  late final GeneratedColumn<String> descripcionProcedimiento =
+      GeneratedColumn<String>('descripcion_procedimiento', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _fechaRegistroMeta =
       const VerificationMeta('fechaRegistro');
   @override
   late final GeneratedColumn<DateTime> fechaRegistro =
       GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
           type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _horaRegistroMeta =
-      const VerificationMeta('horaRegistro');
-  @override
-  late final GeneratedColumn<DateTime> horaRegistro = GeneratedColumn<DateTime>(
-      'hora_registro', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _idPalmaMeta = const VerificationMeta('idPalma');
-  @override
-  late final GeneratedColumn<String> idPalma = GeneratedColumn<String>(
-      'id_palma', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _nombreEnfermedadMeta =
-      const VerificationMeta('nombreEnfermedad');
-  @override
-  late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
-      'nombre_enfermedad', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _idEtapaEnfermedadMeta =
-      const VerificationMeta('idEtapaEnfermedad');
-  @override
-  late final GeneratedColumn<int> idEtapaEnfermedad = GeneratedColumn<int>(
-      'id_etapa_enfermedad', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  final VerificationMeta _observacionesMeta =
-      const VerificationMeta('observaciones');
-  @override
-  late final GeneratedColumn<String> observaciones = GeneratedColumn<String>(
-      'observaciones', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _sincronizadoMeta =
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        idRegistroEnfermedad,
+        idProductoAgroquimico,
+        tipoControl,
+        dosis,
+        descripcionProcedimiento,
         fechaRegistro,
-        horaRegistro,
-        idPalma,
-        nombreEnfermedad,
-        idEtapaEnfermedad,
-        observaciones,
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'registro_enfermedad';
+  String get aliasedName => _alias ?? 'registro_tratamiento';
   @override
-  String get actualTableName => 'registro_enfermedad';
+  String get actualTableName => 'registro_tratamiento';
   @override
   VerificationContext validateIntegrity(
-      Insertable<RegistroEnfermedadData> instance,
+      Insertable<RegistroTratamientoData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_registro_enfermedad')) {
+      context.handle(
+          _idRegistroEnfermedadMeta,
+          idRegistroEnfermedad.isAcceptableOrUnknown(
+              data['id_registro_enfermedad']!, _idRegistroEnfermedadMeta));
+    } else if (isInserting) {
+      context.missing(_idRegistroEnfermedadMeta);
+    }
+    if (data.containsKey('id_producto_agroquimico')) {
+      context.handle(
+          _idProductoAgroquimicoMeta,
+          idProductoAgroquimico.isAcceptableOrUnknown(
+              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_idProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('tipo_control')) {
+      context.handle(
+          _tipoControlMeta,
+          tipoControl.isAcceptableOrUnknown(
+              data['tipo_control']!, _tipoControlMeta));
+    } else if (isInserting) {
+      context.missing(_tipoControlMeta);
+    }
+    if (data.containsKey('dosis')) {
+      context.handle(
+          _dosisMeta, dosis.isAcceptableOrUnknown(data['dosis']!, _dosisMeta));
+    } else if (isInserting) {
+      context.missing(_dosisMeta);
+    }
+    if (data.containsKey('descripcion_procedimiento')) {
+      context.handle(
+          _descripcionProcedimientoMeta,
+          descripcionProcedimiento.isAcceptableOrUnknown(
+              data['descripcion_procedimiento']!,
+              _descripcionProcedimientoMeta));
     }
     if (data.containsKey('fecha_registro')) {
       context.handle(
@@ -5755,38 +6067,6 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
               data['fecha_registro']!, _fechaRegistroMeta));
     } else if (isInserting) {
       context.missing(_fechaRegistroMeta);
-    }
-    if (data.containsKey('hora_registro')) {
-      context.handle(
-          _horaRegistroMeta,
-          horaRegistro.isAcceptableOrUnknown(
-              data['hora_registro']!, _horaRegistroMeta));
-    }
-    if (data.containsKey('id_palma')) {
-      context.handle(_idPalmaMeta,
-          idPalma.isAcceptableOrUnknown(data['id_palma']!, _idPalmaMeta));
-    } else if (isInserting) {
-      context.missing(_idPalmaMeta);
-    }
-    if (data.containsKey('nombre_enfermedad')) {
-      context.handle(
-          _nombreEnfermedadMeta,
-          nombreEnfermedad.isAcceptableOrUnknown(
-              data['nombre_enfermedad']!, _nombreEnfermedadMeta));
-    } else if (isInserting) {
-      context.missing(_nombreEnfermedadMeta);
-    }
-    if (data.containsKey('id_etapa_enfermedad')) {
-      context.handle(
-          _idEtapaEnfermedadMeta,
-          idEtapaEnfermedad.isAcceptableOrUnknown(
-              data['id_etapa_enfermedad']!, _idEtapaEnfermedadMeta));
-    }
-    if (data.containsKey('observaciones')) {
-      context.handle(
-          _observacionesMeta,
-          observaciones.isAcceptableOrUnknown(
-              data['observaciones']!, _observacionesMeta));
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -5800,31 +6080,33 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  RegistroEnfermedadData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  RegistroTratamientoData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return RegistroEnfermedadData(
-      id: attachedDatabase.options.types
+    return RegistroTratamientoData(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      fechaRegistro: attachedDatabase.options.types.read(
+      idRegistroEnfermedad: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_registro_enfermedad'])!,
+      idProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      tipoControl: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tipo_control'])!,
+      dosis: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
+      descripcionProcedimiento: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}descripcion_procedimiento']),
+      fechaRegistro: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
-      horaRegistro: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_registro']),
-      idPalma: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}id_palma'])!,
-      nombreEnfermedad: attachedDatabase.options.types.read(
-          DriftSqlType.string, data['${effectivePrefix}nombre_enfermedad'])!,
-      idEtapaEnfermedad: attachedDatabase.options.types.read(
-          DriftSqlType.int, data['${effectivePrefix}id_etapa_enfermedad']),
-      observaciones: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}observaciones']),
-      sincronizado: attachedDatabase.options.types
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $RegistroEnfermedadTable createAlias(String alias) {
-    return $RegistroEnfermedadTable(attachedDatabase, alias);
+  $RegistroTratamientoTable createAlias(String alias) {
+    return $RegistroTratamientoTable(attachedDatabase, alias);
   }
 }
 
@@ -6103,135 +6385,135 @@ class RegistroTratamientoCompanion
   }
 }
 
-class $RegistroTratamientoTable extends RegistroTratamiento
-    with TableInfo<$RegistroTratamientoTable, RegistroTratamientoData> {
+class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RegistroTratamientoTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $ViajesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idRegistroEnfermedadMeta =
-      const VerificationMeta('idRegistroEnfermedad');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _horaCargueMeta =
+      const VerificationMeta('horaCargue');
   @override
-  late final GeneratedColumn<int> idRegistroEnfermedad = GeneratedColumn<int>(
-      'id_registro_enfermedad', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES registro_enfermedad(id)');
-  final VerificationMeta _idProductoAgroquimicoMeta =
-      const VerificationMeta('idProductoAgroquimico');
+  late final GeneratedColumn<DateTime> horaCargue = GeneratedColumn<DateTime>(
+      'hora_cargue', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _horaSalidaMeta =
+      const VerificationMeta('horaSalida');
   @override
-  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
-      'id_producto_agroquimico', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES producto_agroquimico(id)');
-  final VerificationMeta _tipoControlMeta =
-      const VerificationMeta('tipoControl');
+  late final GeneratedColumn<DateTime> horaSalida = GeneratedColumn<DateTime>(
+      'hora_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _cantidadRacimosMeta =
+      const VerificationMeta('cantidadRacimos');
   @override
-  late final GeneratedColumn<String> tipoControl = GeneratedColumn<String>(
-      'tipo_control', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  final VerificationMeta _dosisMeta = const VerificationMeta('dosis');
+  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
+      'cantidad_racimos', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kilosMeta = const VerificationMeta('kilos');
   @override
-  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
-      'dosis', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
-  final VerificationMeta _descripcionProcedimientoMeta =
-      const VerificationMeta('descripcionProcedimiento');
+  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
+      'kilos', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _kilosExtractoraMeta =
+      const VerificationMeta('kilosExtractora');
   @override
-  late final GeneratedColumn<String> descripcionProcedimiento =
-      GeneratedColumn<String>('descripcion_procedimiento', aliasedName, true,
-          type: DriftSqlType.string, requiredDuringInsert: false);
-  final VerificationMeta _fechaRegistroMeta =
-      const VerificationMeta('fechaRegistro');
+  late final GeneratedColumn<double> kilosExtractora = GeneratedColumn<double>(
+      'kilos_extractora', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _completadoMeta =
+      const VerificationMeta('completado');
   @override
-  late final GeneratedColumn<DateTime> fechaRegistro =
-      GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _sincronizadoMeta =
+  late final GeneratedColumn<bool> completado =
+      GeneratedColumn<bool>('completado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("completado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
-        idRegistroEnfermedad,
-        idProductoAgroquimico,
-        tipoControl,
-        dosis,
-        descripcionProcedimiento,
-        fechaRegistro,
+        horaCargue,
+        horaSalida,
+        cantidadRacimos,
+        kilos,
+        kilosExtractora,
+        completado,
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'registro_tratamiento';
+  String get aliasedName => _alias ?? 'viajes';
   @override
-  String get actualTableName => 'registro_tratamiento';
+  String get actualTableName => 'viajes';
   @override
-  VerificationContext validateIntegrity(
-      Insertable<RegistroTratamientoData> instance,
+  VerificationContext validateIntegrity(Insertable<Viaje> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('id_registro_enfermedad')) {
+    if (data.containsKey('hora_cargue')) {
       context.handle(
-          _idRegistroEnfermedadMeta,
-          idRegistroEnfermedad.isAcceptableOrUnknown(
-              data['id_registro_enfermedad']!, _idRegistroEnfermedadMeta));
+          _horaCargueMeta,
+          horaCargue.isAcceptableOrUnknown(
+              data['hora_cargue']!, _horaCargueMeta));
     } else if (isInserting) {
-      context.missing(_idRegistroEnfermedadMeta);
+      context.missing(_horaCargueMeta);
     }
-    if (data.containsKey('id_producto_agroquimico')) {
+    if (data.containsKey('hora_salida')) {
       context.handle(
-          _idProductoAgroquimicoMeta,
-          idProductoAgroquimico.isAcceptableOrUnknown(
-              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+          _horaSalidaMeta,
+          horaSalida.isAcceptableOrUnknown(
+              data['hora_salida']!, _horaSalidaMeta));
+    }
+    if (data.containsKey('cantidad_racimos')) {
+      context.handle(
+          _cantidadRacimosMeta,
+          cantidadRacimos.isAcceptableOrUnknown(
+              data['cantidad_racimos']!, _cantidadRacimosMeta));
     } else if (isInserting) {
-      context.missing(_idProductoAgroquimicoMeta);
+      context.missing(_cantidadRacimosMeta);
     }
-    if (data.containsKey('tipo_control')) {
+    if (data.containsKey('kilos')) {
       context.handle(
-          _tipoControlMeta,
-          tipoControl.isAcceptableOrUnknown(
-              data['tipo_control']!, _tipoControlMeta));
-    } else if (isInserting) {
-      context.missing(_tipoControlMeta);
+          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
     }
-    if (data.containsKey('dosis')) {
+    if (data.containsKey('kilos_extractora')) {
       context.handle(
-          _dosisMeta, dosis.isAcceptableOrUnknown(data['dosis']!, _dosisMeta));
-    } else if (isInserting) {
-      context.missing(_dosisMeta);
+          _kilosExtractoraMeta,
+          kilosExtractora.isAcceptableOrUnknown(
+              data['kilos_extractora']!, _kilosExtractoraMeta));
     }
-    if (data.containsKey('descripcion_procedimiento')) {
+    if (data.containsKey('completado')) {
       context.handle(
-          _descripcionProcedimientoMeta,
-          descripcionProcedimiento.isAcceptableOrUnknown(
-              data['descripcion_procedimiento']!,
-              _descripcionProcedimientoMeta));
-    }
-    if (data.containsKey('fecha_registro')) {
-      context.handle(
-          _fechaRegistroMeta,
-          fechaRegistro.isAcceptableOrUnknown(
-              data['fecha_registro']!, _fechaRegistroMeta));
-    } else if (isInserting) {
-      context.missing(_fechaRegistroMeta);
+          _completadoMeta,
+          completado.isAcceptableOrUnknown(
+              data['completado']!, _completadoMeta));
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -6245,33 +6527,31 @@ class $RegistroTratamientoTable extends RegistroTratamiento
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  RegistroTratamientoData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  Viaje map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return RegistroTratamientoData(
-      id: attachedDatabase.options.types
+    return Viaje(
+      id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idRegistroEnfermedad: attachedDatabase.options.types.read(
-          DriftSqlType.int, data['${effectivePrefix}id_registro_enfermedad'])!,
-      idProductoAgroquimico: attachedDatabase.options.types.read(
-          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
-      tipoControl: attachedDatabase.options.types
-          .read(DriftSqlType.string, data['${effectivePrefix}tipo_control'])!,
-      dosis: attachedDatabase.options.types
-          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
-      descripcionProcedimiento: attachedDatabase.options.types.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}descripcion_procedimiento']),
-      fechaRegistro: attachedDatabase.options.types.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
-      sincronizado: attachedDatabase.options.types
+      horaCargue: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_cargue'])!,
+      horaSalida: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_salida']),
+      cantidadRacimos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
+      kilos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kilos']),
+      kilosExtractora: attachedDatabase.typeMapping.read(
+          DriftSqlType.double, data['${effectivePrefix}kilos_extractora']),
+      completado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
+      sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
   @override
-  $RegistroTratamientoTable createAlias(String alias) {
-    return $RegistroTratamientoTable(attachedDatabase, alias);
+  $ViajesTable createAlias(String alias) {
+    return $ViajesTable(attachedDatabase, alias);
   }
 }
 
@@ -6532,160 +6812,88 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
   }
 }
 
-class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
+class $CensoEtapasPlagaTable extends CensoEtapasPlaga
+    with TableInfo<$CensoEtapasPlagaTable, CensoEtapasPlagaData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ViajesTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
+  $CensoEtapasPlagaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idCensoEtapasplagaMeta =
+      const VerificationMeta('idCensoEtapasplaga');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+  late final GeneratedColumn<int> idCensoEtapasplaga = GeneratedColumn<int>(
+      'id_censo_etapasplaga', aliasedName, false,
+      hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _horaCargueMeta = const VerificationMeta('horaCargue');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idCensoMeta =
+      const VerificationMeta('idCenso');
   @override
-  late final GeneratedColumn<DateTime> horaCargue = GeneratedColumn<DateTime>(
-      'hora_cargue', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  final VerificationMeta _horaSalidaMeta = const VerificationMeta('horaSalida');
-  @override
-  late final GeneratedColumn<DateTime> horaSalida = GeneratedColumn<DateTime>(
-      'hora_salida', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  final VerificationMeta _cantidadRacimosMeta =
-      const VerificationMeta('cantidadRacimos');
-  @override
-  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
-      'cantidad_racimos', aliasedName, false,
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
+      'id_censo', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _kilosMeta = const VerificationMeta('kilos');
+  static const VerificationMeta _idEtapasplagaMeta =
+      const VerificationMeta('idEtapasplaga');
   @override
-  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
-      'kilos', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  final VerificationMeta _kilosExtractoraMeta =
-      const VerificationMeta('kilosExtractora');
+  late final GeneratedColumn<int> idEtapasplaga = GeneratedColumn<int>(
+      'id_etapasplaga', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
-  late final GeneratedColumn<double> kilosExtractora = GeneratedColumn<double>(
-      'kilos_extractora', aliasedName, true,
-      type: DriftSqlType.double, requiredDuringInsert: false);
-  final VerificationMeta _completadoMeta = const VerificationMeta('completado');
+  List<GeneratedColumn> get $columns =>
+      [idCensoEtapasplaga, idCenso, idEtapasplaga];
   @override
-  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
-      'completado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (completado IN (0, 1))',
-      defaultValue: const Constant(false));
-  final VerificationMeta _sincronizadoMeta =
-      const VerificationMeta('sincronizado');
+  String get aliasedName => _alias ?? 'censo_etapas_plaga';
   @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (sincronizado IN (0, 1))',
-      defaultValue: const Constant(false));
+  String get actualTableName => 'censo_etapas_plaga';
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        horaCargue,
-        horaSalida,
-        cantidadRacimos,
-        kilos,
-        kilosExtractora,
-        completado,
-        sincronizado
-      ];
-  @override
-  String get aliasedName => _alias ?? 'viajes';
-  @override
-  String get actualTableName => 'viajes';
-  @override
-  VerificationContext validateIntegrity(Insertable<Viaje> instance,
+  VerificationContext validateIntegrity(
+      Insertable<CensoEtapasPlagaData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('hora_cargue')) {
+    if (data.containsKey('id_censo_etapasplaga')) {
       context.handle(
-          _horaCargueMeta,
-          horaCargue.isAcceptableOrUnknown(
-              data['hora_cargue']!, _horaCargueMeta));
+          _idCensoEtapasplagaMeta,
+          idCensoEtapasplaga.isAcceptableOrUnknown(
+              data['id_censo_etapasplaga']!, _idCensoEtapasplagaMeta));
+    }
+    if (data.containsKey('id_censo')) {
+      context.handle(_idCensoMeta,
+          idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
     } else if (isInserting) {
-      context.missing(_horaCargueMeta);
+      context.missing(_idCensoMeta);
     }
-    if (data.containsKey('hora_salida')) {
+    if (data.containsKey('id_etapasplaga')) {
       context.handle(
-          _horaSalidaMeta,
-          horaSalida.isAcceptableOrUnknown(
-              data['hora_salida']!, _horaSalidaMeta));
-    }
-    if (data.containsKey('cantidad_racimos')) {
-      context.handle(
-          _cantidadRacimosMeta,
-          cantidadRacimos.isAcceptableOrUnknown(
-              data['cantidad_racimos']!, _cantidadRacimosMeta));
+          _idEtapasplagaMeta,
+          idEtapasplaga.isAcceptableOrUnknown(
+              data['id_etapasplaga']!, _idEtapasplagaMeta));
     } else if (isInserting) {
-      context.missing(_cantidadRacimosMeta);
-    }
-    if (data.containsKey('kilos')) {
-      context.handle(
-          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
-    }
-    if (data.containsKey('kilos_extractora')) {
-      context.handle(
-          _kilosExtractoraMeta,
-          kilosExtractora.isAcceptableOrUnknown(
-              data['kilos_extractora']!, _kilosExtractoraMeta));
-    }
-    if (data.containsKey('completado')) {
-      context.handle(
-          _completadoMeta,
-          completado.isAcceptableOrUnknown(
-              data['completado']!, _completadoMeta));
-    }
-    if (data.containsKey('sincronizado')) {
-      context.handle(
-          _sincronizadoMeta,
-          sincronizado.isAcceptableOrUnknown(
-              data['sincronizado']!, _sincronizadoMeta));
+      context.missing(_idEtapasplagaMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {idCensoEtapasplaga};
   @override
-  Viaje map(Map<String, dynamic> data, {String? tablePrefix}) {
+  CensoEtapasPlagaData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Viaje(
-      id: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      horaCargue: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_cargue'])!,
-      horaSalida: attachedDatabase.options.types
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_salida']),
-      cantidadRacimos: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
-      kilos: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}kilos']),
-      kilosExtractora: attachedDatabase.options.types.read(
-          DriftSqlType.double, data['${effectivePrefix}kilos_extractora']),
-      completado: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
-      sincronizado: attachedDatabase.options.types
-          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    return CensoEtapasPlagaData(
+      idCensoEtapasplaga: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_censo_etapasplaga'])!,
+      idCenso: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+      idEtapasplaga: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_etapasplaga'])!,
     );
   }
 
   @override
-  $ViajesTable createAlias(String alias) {
-    return $ViajesTable(attachedDatabase, alias);
+  $CensoEtapasPlagaTable createAlias(String alias) {
+    return $CensoEtapasPlagaTable(attachedDatabase, alias);
   }
 }
 
@@ -6827,88 +7035,6 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
   }
 }
 
-class $CensoEtapasPlagaTable extends CensoEtapasPlaga
-    with TableInfo<$CensoEtapasPlagaTable, CensoEtapasPlagaData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $CensoEtapasPlagaTable(this.attachedDatabase, [this._alias]);
-  final VerificationMeta _idCensoEtapasplagaMeta =
-      const VerificationMeta('idCensoEtapasplaga');
-  @override
-  late final GeneratedColumn<int> idCensoEtapasplaga = GeneratedColumn<int>(
-      'id_censo_etapasplaga', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idCensoMeta = const VerificationMeta('idCenso');
-  @override
-  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
-      'id_censo', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  final VerificationMeta _idEtapasplagaMeta =
-      const VerificationMeta('idEtapasplaga');
-  @override
-  late final GeneratedColumn<int> idEtapasplaga = GeneratedColumn<int>(
-      'id_etapasplaga', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns =>
-      [idCensoEtapasplaga, idCenso, idEtapasplaga];
-  @override
-  String get aliasedName => _alias ?? 'censo_etapas_plaga';
-  @override
-  String get actualTableName => 'censo_etapas_plaga';
-  @override
-  VerificationContext validateIntegrity(
-      Insertable<CensoEtapasPlagaData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id_censo_etapasplaga')) {
-      context.handle(
-          _idCensoEtapasplagaMeta,
-          idCensoEtapasplaga.isAcceptableOrUnknown(
-              data['id_censo_etapasplaga']!, _idCensoEtapasplagaMeta));
-    }
-    if (data.containsKey('id_censo')) {
-      context.handle(_idCensoMeta,
-          idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
-    } else if (isInserting) {
-      context.missing(_idCensoMeta);
-    }
-    if (data.containsKey('id_etapasplaga')) {
-      context.handle(
-          _idEtapasplagaMeta,
-          idEtapasplaga.isAcceptableOrUnknown(
-              data['id_etapasplaga']!, _idEtapasplagaMeta));
-    } else if (isInserting) {
-      context.missing(_idEtapasplagaMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {idCensoEtapasplaga};
-  @override
-  CensoEtapasPlagaData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CensoEtapasPlagaData(
-      idCensoEtapasplaga: attachedDatabase.options.types.read(
-          DriftSqlType.int, data['${effectivePrefix}id_censo_etapasplaga'])!,
-      idCenso: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
-      idEtapasplaga: attachedDatabase.options.types
-          .read(DriftSqlType.int, data['${effectivePrefix}id_etapasplaga'])!,
-    );
-  }
-
-  @override
-  $CensoEtapasPlagaTable createAlias(String alias) {
-    return $CensoEtapasPlagaTable(attachedDatabase, alias);
-  }
-}
-
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
@@ -6954,7 +7080,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       RegistroEnfermedadDao(this as AppDatabase);
   late final ViajesDao viajesDao = ViajesDao(this as AppDatabase);
   @override
-  Iterable<TableInfo<Table, dynamic>> get allTables =>
+  Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [

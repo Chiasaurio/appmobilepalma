@@ -49,42 +49,23 @@ class _PalmasPageState extends State<PalmasPage> {
       body: Stack(
         children: <Widget>[
           HeaderWave(leftTab: _leftTab),
-          SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: MediaQuery.of(context).padding.top),
-                const SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                  ),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: FaIcon(FontAwesomeIcons.arrowLeft,
-                            size: 25, color: Colors.white.withOpacity(0.7)),
-                      ),
-                      const SizedBox(width: 30),
-                      Text("Gestión de palmas",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: colorBlanco,
-                              fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 100),
-                !_leftTab
-                    ? BuscarPalmaBody(
-                        nombreLote: nombreLote,
-                      )
-                    : const PalmasLoteList(),
-              ],
+          _buildHeader(),
+          Positioned(
+            top: 150 + MediaQuery.of(context).padding.top,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  // const SizedBox(height: 100),
+                  !_leftTab
+                      ? BuscarPalmaBody(
+                          nombreLote: nombreLote,
+                        )
+                      : const PalmasLoteList(),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -98,6 +79,39 @@ class _PalmasPageState extends State<PalmasPage> {
           ),
         ],
       ),
+    );
+  }
+
+  _buildHeader() {
+    return Column(
+      children: [
+        SizedBox(height: MediaQuery.of(context).padding.top),
+        const SizedBox(
+          height: 30,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+          ),
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: FaIcon(FontAwesomeIcons.arrowLeft,
+                    size: 25, color: Colors.white.withOpacity(0.7)),
+              ),
+              const SizedBox(width: 30),
+              Text("Gestión de palmas",
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: colorBlanco,
+                      fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

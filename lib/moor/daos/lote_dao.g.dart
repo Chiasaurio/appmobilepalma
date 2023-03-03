@@ -2,10 +2,7 @@
 
 part of 'lote_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$LoteDaoMixin on DatabaseAccessor<AppDatabase> {
   $LotesTable get lotes => attachedDatabase.lotes;
   $CosechasTable get cosechas => attachedDatabase.cosechas;

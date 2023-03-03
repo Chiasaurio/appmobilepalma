@@ -2,10 +2,7 @@
 
 part of 'plateos_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$PlateoDaoMixin on DatabaseAccessor<AppDatabase> {
   $PlateosTable get plateos => attachedDatabase.plateos;
   $PlateoDiarioTable get plateoDiario => attachedDatabase.plateoDiario;

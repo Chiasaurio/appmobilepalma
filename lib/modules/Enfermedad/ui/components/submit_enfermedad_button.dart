@@ -1,12 +1,12 @@
 import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../components/theme.dart';
+import '../../../../constants.dart';
 import '../../cubit/enfermedad_cubit.dart';
 
 class SubmitEnfermedadButton extends StatelessWidget {
-  final bool enabled;
-  const SubmitEnfermedadButton({super.key, this.enabled = true});
+  final bool Function()? enabled;
+  const SubmitEnfermedadButton({super.key, this.enabled});
 
   @override
   Widget build(BuildContext context) {
@@ -16,37 +16,44 @@ class SubmitEnfermedadButton extends StatelessWidget {
           return SizedBox(
               width: double.infinity,
               height: 45,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                    backgroundColor: AppPalmaColors.blue,
-                    foregroundColor: AppPalmaColors.blue,
-                    disabledBackgroundColor: AppPalmaColors.grey,
-                    minimumSize: const Size(88, 36),
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24.0)),
-                    )),
-                onPressed: enabled
-                    ? () {
-                        DateTime fechasalida;
-                        TimeOfDay horaSalida = TimeOfDay.now();
-                        fechasalida = DateTime(
-                            DateTime.now().year,
-                            DateTime.now().month,
-                            DateTime.now().day,
-                            horaSalida.hour,
-                            horaSalida.minute);
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [kpurpleColor, kblueColor])),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                      disabledBackgroundColor:
+                          kDefualtBlueColor.withOpacity(0.3),
+                      minimumSize: const Size(88, 36),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                      )),
+                  onPressed: () {
+                    if (enabled!()) {
+                      DateTime fechasalida;
+                      TimeOfDay horaSalida = TimeOfDay.now();
+                      fechasalida = DateTime(
+                          DateTime.now().year,
+                          DateTime.now().month,
+                          DateTime.now().day,
+                          horaSalida.hour,
+                          horaSalida.minute);
 
-                        BlocProvider.of<EnfermedadCubit>(context)
-                            .insertarPalmaConEnfermedad(fechasalida);
-                      }
-                    : null,
-                child: Text("Registrar enfermedad",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16.0,
-                      color: enabled ? Colors.white : Colors.grey,
-                    )),
+                      BlocProvider.of<EnfermedadCubit>(context)
+                          .insertarPalmaConEnfermedad(fechasalida);
+                    }
+                  },
+                  child: const Text("Registrar enfermedad",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 16.0,
+                        color: Colors.white,
+                      )),
+                ),
               ));
         }
         return const Center(

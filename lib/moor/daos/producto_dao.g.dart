@@ -2,10 +2,7 @@
 
 part of 'producto_dao.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$ProductoAgroquimicoDaoMixin on DatabaseAccessor<AppDatabase> {
   $ProductoAgroquimicoTable get productoAgroquimico =>
       attachedDatabase.productoAgroquimico;

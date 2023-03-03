@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../moor/moor_database.dart';
 import '../../../../moor/tables/enfermedades_table.dart';
+import '../../../../utils/form_status.dart';
 import '../../cubit/enfermedad_cubit.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -11,8 +12,11 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 class EnfermedadDataForm extends StatefulWidget {
   final List<EnfermedadConEtapas>? enfermedades;
   final Function() setState;
-  const EnfermedadDataForm(
-      {super.key, required this.setState, required this.enfermedades});
+  const EnfermedadDataForm({
+    super.key,
+    required this.setState,
+    required this.enfermedades,
+  });
 
   @override
   State<EnfermedadDataForm> createState() => _EnfermedadDataFormState();
@@ -26,8 +30,8 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
   EnfermedadConEtapas? enfermedadconetapas;
   Etapa? etapa;
   late List<EnfermedadConEtapas> enfermedades;
-  final _formKey = GlobalKey<FormBuilderState>();
   final _radiokey = GlobalKey<FormFieldState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -38,28 +42,36 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilder(
+    return Form(
       key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const SizedBox(height: 10),
-          buildEnfermedad(),
-          buildEtapas(),
-          advertenciaetapa
-              ? const Text('Debe seleccionar una etapa',
-                  style:
-                      TextStyle(fontStyle: FontStyle.italic, color: Colors.red))
-              : const SizedBox(),
-          const SizedBox(height: 10),
-          buildObservacion(),
-          const SizedBox(
-            height: 25,
-          ),
-          SubmitEnfermedadButton(
-            enabled: registrarEnfermedadEnabled(),
-          )
-        ],
+      child: BlocListener<EnfermedadCubit, EnfermedadState>(
+        listener: (context, state) {
+          if (state.status == FormStatus.submissionSuccess) {
+            _formKey.currentState!.reset();
+            enfermedadconetapas = null;
+          }
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(height: 10),
+            buildEnfermedad(),
+            buildEtapas(),
+            advertenciaetapa
+                ? const Text('Debe seleccionar una etapa',
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic, color: Colors.red))
+                : const SizedBox(),
+            const SizedBox(height: 10),
+            buildObservacion(),
+            const SizedBox(
+              height: 25,
+            ),
+            SubmitEnfermedadButton(
+              enabled: registrarEnfermedadEnabled,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -91,10 +103,12 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
             ),
           ),
           onChanged: (String? value) {
-            setState(() {
-              BlocProvider.of<EnfermedadCubit>(context)
-                  .observacionesChanged(value!);
-            });
+            if (value != null) {
+              setState(() {
+                BlocProvider.of<EnfermedadCubit>(context)
+                    .observacionesChanged(value);
+              });
+            }
           },
           validator: (value) {
             if (enfermedadconetapas != null &&
@@ -142,7 +156,7 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
       Expanded(
         child: FormBuilderDropdown<EnfermedadConEtapas>(
           name: "enfermedad",
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: const InputDecoration(
             label: Text(
               "Enfermedad",
@@ -163,13 +177,15 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
           valueTransformer: (val) => val?.toString(),
           items: getOpcionesDropdown(),
           onChanged: (opt) async {
-            setState(() {
-              enfermedadconetapas = opt!;
-              etapa = null;
-              advertenciaetapa = false;
-              BlocProvider.of<EnfermedadCubit>(context)
-                  .enfermedadChange(enfermedadconetapas!.enfermedad);
-            });
+            if (opt != null) {
+              setState(() {
+                enfermedadconetapas = opt;
+                etapa = null;
+                advertenciaetapa = false;
+                BlocProvider.of<EnfermedadCubit>(context)
+                    .enfermedadChange(enfermedadconetapas!.enfermedad);
+              });
+            }
 
             await Future.delayed(const Duration(milliseconds: 200));
             if (_radiokey.currentState != null) {
@@ -200,7 +216,6 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
   Widget _buildEtapas() {
     return FormBuilderRadioGroup<Etapa?>(
       key: _radiokey,
-      autovalidateMode: AutovalidateMode.always,
       name: "etapa",
       decoration: const InputDecoration(
           labelText: 'Etapa', labelStyle: TextStyle(fontSize: 15)),

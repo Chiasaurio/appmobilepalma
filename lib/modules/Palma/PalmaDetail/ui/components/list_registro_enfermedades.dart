@@ -42,39 +42,7 @@ class _RegistroEnfermedadesListState extends State<RegistroEnfermedadesList> {
           },
           body: Column(
             children: [
-              val.etapa != null
-                  ? ListTile(
-                      title: RichText(
-                        text: TextSpan(
-                          text: 'Procedimiento: ',
-                          style: const TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: val.etapa!.procedimientoEtapa,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                    )
-                  : ListTile(
-                      title: RichText(
-                        text: TextSpan(
-                          text: 'Procedimiento: ',
-                          style: const TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: val.enfermedad!.procedimientoEnfermedad,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
-                    ),
+              informacionProcedimiento(val),
               val.registrotratamiento != null
                   ? ListTile(
                       title: RichText(
@@ -115,5 +83,60 @@ class _RegistroEnfermedadesListState extends State<RegistroEnfermedadesList> {
         );
       }).toList(),
     );
+  }
+
+  Widget informacionProcedimiento(RegistroEnfermedadDatos val) {
+    if (val.etapa != null) {
+      return Column(
+        children: [
+          ListTile(
+            title: RichText(
+              text: TextSpan(
+                text: 'Etapa: ',
+                style: const TextStyle(
+                    color: Colors.grey, fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: val.etapa!.nombreEtapa,
+                      style: const TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ),
+          ListTile(
+            title: RichText(
+              text: TextSpan(
+                text: 'Procedimiento: ',
+                style: const TextStyle(
+                    color: Colors.grey, fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: val.etapa!.procedimientoEtapa,
+                      style: const TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return ListTile(
+        title: RichText(
+          text: TextSpan(
+            text: 'Procedimiento: ',
+            style: const TextStyle(
+                color: Colors.grey, fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+              TextSpan(
+                  text: val.enfermedad!.procedimientoEnfermedad,
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ),
+      );
+    }
   }
 }

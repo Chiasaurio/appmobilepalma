@@ -2,10 +2,7 @@
 
 part of 'palma_daos.dart';
 
-// **************************************************************************
-// DaoGenerator
-// **************************************************************************
-
+// ignore_for_file: type=lint
 mixin _$PalmaDaoMixin on DatabaseAccessor<AppDatabase> {
   $PalmasTable get palmas => attachedDatabase.palmas;
   $RegistroEnfermedadTable get registroEnfermedad =>

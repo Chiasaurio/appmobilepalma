@@ -15,20 +15,9 @@ class _BodyState extends State<Body> {
   final f = DateFormat('yyyy-MM-dd');
   List<CensoData> censos = [];
   CensoData? censoseleccionado;
-  late double width;
-  late double height;
-  late double altoCard;
-  late double anchoCard;
-  late double margin;
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    altoCard = height * 0.4; //150,
-    anchoCard = width * 0.7;
-    margin = anchoCard * 0.04;
-
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
         child: SingleChildScrollView(
@@ -37,42 +26,6 @@ class _BodyState extends State<Body> {
           ),
         ));
   }
-
-  // void _opcionesBottomSheet(context) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return Container(
-  //           height: altoCard,
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.center,
-  //             children: <Widget>[
-  //               // ListTile(
-  //               //   contentPadding: EdgeInsets.all(10.0),
-  //               //   // leading: Icon(Icons.storage),
-  //               //   title: Text('Ver registros de cosecha',
-  //               //       textAlign: TextAlign.center),
-  //               //   // onTap: () => Navigator.pushNamed( context , 'lote/cosechas/registrocosechas',  arguments: cosecha),
-  //               // ),
-  //               Divider(),
-  //               ListTile(
-  //                   contentPadding: EdgeInsets.all(10.0),
-  //                   // leading: Icon(Icons.save_alt),
-  //                   title: Text(
-  //                     'Dar de alta',
-  //                     textAlign: TextAlign.center,
-  //                     style: TextStyle(
-  //                       color: Colors.green[900],
-  //                       fontSize: 20,
-  //                     ),
-  //                   ),
-  //                   onTap: () => dardealta()),
-  //               Divider(),
-  //             ],
-  //           ),
-  //         );
-  //       });
-  // }
 
   void dardealta() {
     if (censoseleccionado == null) return;
@@ -115,12 +68,6 @@ class _BodyState extends State<Body> {
                 '/lote/aplicaciones/palmasenfermas', Icons.art_track, context),
           ],
         ),
-
-        // TableRow(
-        //   children:[
-        //     _crearBotonRedondeado('Registrar hongo','censo/registrarhongo', Icons.art_track, context),
-        //   ] ,
-        // )
       ],
     );
   }
@@ -129,7 +76,7 @@ class _BodyState extends State<Body> {
       String opcion, String ruta, IconData icon, BuildContext context) {
     return GestureDetector(
       child: Container(
-          height: height * 0.09,
+          height: 70,
           margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               color: Colors.blue[100],

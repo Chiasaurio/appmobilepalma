@@ -128,13 +128,16 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       ],
     ).get();
     List<PalmaConEnfermedad> result = [];
+    Etapa? etapa;
     for (var resultRow in rows) {
       final nombreEnfermedad =
           resultRow.readTableOrNull(registroEnfermedad)?.nombreEnfermedad;
       final idEtapa =
           resultRow.readTableOrNull(registroEnfermedad)?.idEtapaEnfermedad;
       final enfermedad = await obtenerEnfermedad(nombreEnfermedad!);
-      final etapa = await obtenerEtapa(idEtapa);
+      if (idEtapa != null) {
+        etapa = await obtenerEtapa(idEtapa);
+      }
       var palma = PalmaConEnfermedad(
           palma: resultRow.readTable(palmas),
           registroEnfermedad: resultRow.readTable(registroEnfermedad),
@@ -152,8 +155,8 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
         .getSingle();
   }
 
-  Future<Etapa?> obtenerEtapa(int? etapaId) {
-    return (select(etapas)..where((c) => c.id.equals(etapaId!)))
+  Future<Etapa?> obtenerEtapa(int etapaId) {
+    return (select(etapas)..where((c) => c.id.equals(etapaId)))
         .getSingleOrNull();
   }
 
