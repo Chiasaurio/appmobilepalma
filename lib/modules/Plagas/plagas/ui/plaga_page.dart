@@ -2,8 +2,11 @@ import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/modules/Plagas/plagas/ui/plaga_form.dart';
+import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../components/widgets/header_gradient.dart';
 
 class PlagaPage extends StatefulWidget {
   final String routeName;
@@ -18,11 +21,12 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
   late String nombreLote;
   @override
   void initState() {
-    BlocProvider.of<PlagasCubit>(context).obtenerTodasPlagasConEtapas();
     final state = BlocProvider.of<LoteDetailCubit>(context).state;
     if (state is LoteChoosed) {
       nombreLote = state.lote.lote.nombreLote;
     }
+    BlocProvider.of<PlagasCubit>(context).clear(nombreLote);
+    BlocProvider.of<PlagasCubit>(context).obtenerTodasPlagasConEtapas();
     super.initState();
   }
 
@@ -35,19 +39,40 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderApp(
-        ruta: widget.routeName,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: PlagaForm(nombreLote: nombreLote),
-            ),
-          ],
-        ),
-      ),
-    );
+        body: BlocConsumer<PlagasCubit, PlagasState>(
+      listener: (context, state) {
+        if (state.status == FormStatus.submissionSuccess) {
+          Navigator.of(context).pop();
+        }
+      },
+      builder: (context, state) {
+        return SingleChildScrollView(
+          child: Column(children: [
+            HeaderGradient(
+                title: "Registrar plaga", ruta: widget.routeName, onPop: () {}),
+            if (state.plagas != null)
+              PlagaForm(
+                nombreLote: nombreLote,
+                plagas: state.plagas!,
+              )
+          ]),
+        );
+      },
+    ));
+    // return Scaffold(
+    //   appBar: HeaderApp(
+    //     ruta: widget.routeName,
+    //   ),
+    //   body: SingleChildScrollView(
+    //     child: Column(
+    //       children: [
+    //         Padding(
+    //           padding: const EdgeInsets.symmetric(vertical: 8.0),
+    //           child: PlagaForm(nombreLote: nombreLote),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }

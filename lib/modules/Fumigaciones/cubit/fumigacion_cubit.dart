@@ -17,12 +17,15 @@ class FumigacionCubit extends Cubit<FumigacionState> {
   final db = getIt<AppDatabase>();
   static const _storage = secure.FlutterSecureStorage();
 
+  clear() {
+    emit(const FumigacionState());
+  }
+
   Future<void> obtenerProductos(CensoData censo) async {
     final ProductoAgroquimicoDao productosDao = db.productoAgroquimicoDao;
     List<ProductoAgroquimicoData> productos = await productosDao.getProductos();
     emit(state.copyWith(
         censo: censo, productos: productos, productosLoaded: true));
-    // emit(CensoPendienteEscogido(censo: censo, productos: productos));
   }
 
   registrarAplicacion(

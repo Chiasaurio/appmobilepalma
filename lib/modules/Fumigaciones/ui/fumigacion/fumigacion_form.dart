@@ -6,8 +6,11 @@ import 'package:apppalma/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:apppalma/utils/utils.dart' as utils;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:intl/intl.dart';
+
+import '../../../../constants.dart';
 // import 'package:sqflite/sqflite.dart';
 
 class FumigacionForm extends StatefulWidget {
@@ -96,9 +99,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: altoCard * 0.05),
-                  buildFecha(),
-                  SizedBox(height: altoCard * 0.05),
+                  const SizedBox(height: 20),
                   buildProducto(),
                   advertenciaproducto
                       ? const Text('Debe seleccionar el producto',
@@ -108,9 +109,6 @@ class _FumigacionFormState extends State<FumigacionForm> {
                   SizedBox(height: altoCard * 0.05),
                   buildDosis(),
                   SizedBox(height: altoCard * 0.05),
-                  // buildPeriodoCarencia(),
-                  // SizedBox(height: altoCard * 0.05),
-                  // fechaReingreso(),
                   buildArea(),
                   SizedBox(height: altoCard * 0.05),
                   buildTripeLavado(),
@@ -140,26 +138,6 @@ class _FumigacionFormState extends State<FumigacionForm> {
   }
 
   Widget buildProducto() {
-    return Column(children: <Widget>[
-      Row(
-        children: const <Widget>[
-          Expanded(
-            child: Text('Seleccione el producto:',
-                style: TextStyle(fontSize: 16.0, color: Colors.grey)),
-          ),
-        ],
-      ),
-      Row(
-        children: <Widget>[
-          Expanded(
-            child: _buildProducto(),
-          ),
-        ],
-      )
-    ]);
-  }
-
-  Widget _buildProducto() {
     List<DropdownMenuItem<ProductoAgroquimicoData>> getOpcionesDropdown() {
       List<DropdownMenuItem<ProductoAgroquimicoData>> lista = [];
       for (var producto in productos) {
@@ -175,9 +153,15 @@ class _FumigacionFormState extends State<FumigacionForm> {
       // Icon(Icons.select_all),
       Expanded(
         child: DropdownButtonFormField<ProductoAgroquimicoData>(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+          decoration: const InputDecoration(
+            label: Text(
+              "Productos",
+              style: TextStyle(fontSize: 15),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
             ),
           ),
           elevation: 5,
@@ -205,9 +189,33 @@ class _FumigacionFormState extends State<FumigacionForm> {
 
   Widget buildDosis() {
     return Column(
-      children: <Widget>[
+      children: [
         _buildDosis(),
-        _buildUnidades(),
+        FormBuilderChoiceChip<String>(
+          validator: (value) {
+            return value != null ? null : "El campo es necesario.";
+          },
+          selectedColor: kblueColor,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: const InputDecoration(
+              labelText: 'Por favor seleccione las unidades:'),
+          name: 'languages_choice',
+          initialValue: null,
+          options: const [
+            FormBuilderChipOption(
+              value: 'cm3',
+            ),
+            FormBuilderChipOption(
+              value: 'gr',
+            ),
+            FormBuilderChipOption(
+              value: 'ml',
+            ),
+          ],
+          onChanged: (v) {
+            unidades = v;
+          },
+        ),
       ],
     );
   }
@@ -215,18 +223,19 @@ class _FumigacionFormState extends State<FumigacionForm> {
   Widget _buildDosis() {
     return TextFormField(
         textAlign: TextAlign.start,
-        style: const TextStyle(fontSize: 20),
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-          labelText: 'Dosis',
-          labelStyle: TextStyle(fontSize: 20),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+          label: Text(
+            "Dosis",
+            style: TextStyle(fontSize: 15),
+          ),
+          contentPadding: EdgeInsets.only(left: 10),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+          ),
         ),
         onChanged: (String value) {
-          if (value != "") {
-            dosis = double.parse(value);
-          }
+          dosis = double.parse(value);
         },
         validator: (value) {
           if (utils.isNumeric(value!)) {
@@ -237,94 +246,19 @@ class _FumigacionFormState extends State<FumigacionForm> {
         });
   }
 
-  Widget _buildUnidades() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        GestureDetector(
-          onTap: (() {
-            setState(() {
-              unidades = 'cm3';
-            });
-          }),
-          child: Container(
-              margin: const EdgeInsets.all(1),
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: unidades == 'cm3' ? Colors.blue : Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 1, offset: Offset(0, 1))
-                  ]),
-              child: const Text('cm3',
-                  style: TextStyle(fontSize: 15.0),
-                  textAlign: TextAlign.center)),
-        ),
-        GestureDetector(
-          onTap: (() {
-            setState(() {
-              unidades = 'gr';
-            });
-          }),
-          child: Container(
-              margin: const EdgeInsets.all(1),
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: unidades == 'gr' ? Colors.blue : Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 1, offset: Offset(0, 1))
-                  ]),
-              child: const Text('gr',
-                  style: TextStyle(fontSize: 15.0),
-                  textAlign: TextAlign.center)),
-        ),
-        GestureDetector(
-          onTap: (() {
-            setState(() {
-              unidades = 'ml';
-            });
-          }),
-          child: Container(
-              margin: const EdgeInsets.all(1),
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: unidades == 'ml' ? Colors.blue : Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 1, offset: Offset(0, 1))
-                  ]),
-              child: const Text('ml',
-                  style: TextStyle(fontSize: 15.0),
-                  textAlign: TextAlign.center)),
-        ),
-      ],
-    );
-  }
-
   Widget buildArea() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: _buildArea(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildArea() {
     return TextFormField(
         textAlign: TextAlign.start,
-        style: const TextStyle(fontSize: 20),
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-          labelText: 'Area (hectareas)',
-          labelStyle: TextStyle(fontSize: 20),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+          label: Text(
+            'Area (hectareas)',
+            style: TextStyle(fontSize: 15),
+          ),
+          contentPadding: EdgeInsets.only(left: 10),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+          ),
         ),
         onChanged: (String value) {
           if (value != "") {

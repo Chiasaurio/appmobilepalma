@@ -4,21 +4,23 @@ import 'package:apppalma/moor/moor_database.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../utils/form_status.dart';
+
 part 'censos_state.dart';
 
 class CensosCubit extends Cubit<CensosState> {
-  CensosCubit() : super(CensosInitial());
+  CensosCubit() : super(const CensosState());
 
   final db = getIt<AppDatabase>();
 
   Future<void> obtenerCensosPendientes() async {
     final PlagasDao plagasDao = db.plagasDao;
     List<CensoData> censos = await plagasDao.getCensosPendientes();
-    emit(CensosListLoaded(censos: censos));
+    emit(CensosState(censos: censos));
   }
 
   Future<void> censoPendienteEscogido(CensoData censo) async {
-    emit(CensoPendienteEscogido(
+    emit(state.copyWith(
       censo: censo,
     ));
   }

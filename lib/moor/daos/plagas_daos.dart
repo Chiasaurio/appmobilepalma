@@ -123,7 +123,7 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
       bool presenciasector,
       int linealimite1,
       int linealimite2,
-      String observacion,
+      String? observacion,
       String nombreCientifico,
       String nombrelote,
       List<EtapasPlagaData> etapasseleccionadas) async {

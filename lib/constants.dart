@@ -37,3 +37,6 @@ const kRedColor = Color.fromARGB(255, 210, 20, 20);
 const kpurpleColor = Color(0xff526BF6);
 const kblueColor = Color(0xff67ACF2);
 const kDefualtBlueColor = Colors.blue;
+
+final tipoControl = ["Biologico", "Químico"];
+final ubicacionPlaga = ["lote", "sector"];

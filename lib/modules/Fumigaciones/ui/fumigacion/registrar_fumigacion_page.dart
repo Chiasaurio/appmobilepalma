@@ -20,11 +20,8 @@ class _RegistrarFumigacionPageState extends State<RegistrarFumigacionPage> {
   @override
   void initState() {
     final censoState = BlocProvider.of<CensosCubit>(context).state;
-    if (censoState is CensoPendienteEscogido) {
-      BlocProvider.of<FumigacionCubit>(context)
-          .obtenerProductos(censoState.censo);
-    }
-
+    BlocProvider.of<FumigacionCubit>(context)
+        .obtenerProductos(censoState.censo!);
     super.initState();
   }
 
@@ -46,7 +43,6 @@ class _RegistrarFumigacionPageState extends State<RegistrarFumigacionPage> {
           );
         }
       },
-      // ),
     );
   }
 }
