@@ -1,4 +1,3 @@
-import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/modules/Plagas/plagas/ui/plaga_form.dart';
@@ -31,12 +30,6 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
   }
 
   @override
-  void dispose() {
-    // _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocConsumer<PlagasCubit, PlagasState>(
@@ -59,20 +52,5 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
         );
       },
     ));
-    // return Scaffold(
-    //   appBar: HeaderApp(
-    //     ruta: widget.routeName,
-    //   ),
-    //   body: SingleChildScrollView(
-    //     child: Column(
-    //       children: [
-    //         Padding(
-    //           padding: const EdgeInsets.symmetric(vertical: 8.0),
-    //           child: PlagaForm(nombreLote: nombreLote),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

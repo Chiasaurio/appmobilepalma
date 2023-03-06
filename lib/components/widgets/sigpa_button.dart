@@ -28,7 +28,7 @@ class SigpaButton extends StatelessWidget {
             text,
             textAlign: TextAlign.center,
 
-            style: Theme.of(context).textTheme.headline1!.copyWith(
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),

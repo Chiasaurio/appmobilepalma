@@ -1,4 +1,4 @@
-import 'package:apppalma/components/custom_appbar.dart';
+import 'package:apppalma/components/widgets/header_gradient.dart';
 import 'package:flutter/material.dart';
 
 class AplicacionesPage extends StatefulWidget {
@@ -21,15 +21,20 @@ class _AplicacionesPageState extends State<AplicacionesPage> {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: HeaderApp(ruta: widget.routeName),
-        body: ListView(
+        // appBar: HeaderApp(ruta: widget.routeName),
+        body: Column(
+      children: [
+        HeaderGradient(title: "Gestión de plagas", ruta: widget.routeName),
+        Column(
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: 15.0, horizontal: 15.0),
                 child: _buildMenu(context)),
           ],
-        ));
+        ),
+      ],
+    ));
   }
 
   Widget _buildMenu(context) {

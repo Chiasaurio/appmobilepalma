@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:intl/intl.dart';
 import 'package:apppalma/utils/utils.dart' as utils;
 
 import '../../../../constants.dart';
@@ -247,89 +246,89 @@ class _PlagaFormState extends State<PlagaForm> {
     );
   }
 
-  void _confirmacionAlerta(BuildContext context) {
-    showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (context) {
-          return AlertDialog(
-              content:
-                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Expanded(child: Text('Plaga: ')),
-                    Expanded(
-                      child: Text(
-                        plagaconetapas!.plaga.nombreComunPlaga,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-                etapasseleccionadas.isNotEmpty
-                    ? getEtapasSeleccionadas()
-                    : const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Expanded(child: Text('Ubicacion: ')),
-                    Expanded(
-                      child: ubicacionfoco == 'sector'
-                          ? Text(
-                              '$linealimite1 - $linealimite2',
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          : const Text(
-                              'todo el lote',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    const Expanded(child: Text('Fecha ')),
-                    Expanded(
-                      child: Text(
-                        DateFormat('yMMMMEEEEd', 'es').format(fechacenso),
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-              ]),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Cancelar'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: const Text('Ok'),
-                  onPressed: () {
-                    registrarPlaga(context);
-                    // Navigator.popUntil(context, ModalRoute.withName('lote/cosechas'));
-                  },
-                )
-              ]);
-        });
-  }
+  // void _confirmacionAlerta(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       barrierDismissible: true,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //             content:
+  //                 Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   const Expanded(child: Text('Plaga: ')),
+  //                   Expanded(
+  //                     child: Text(
+  //                       plagaconetapas!.plaga.nombreComunPlaga,
+  //                       style: const TextStyle(
+  //                           color: Colors.black,
+  //                           fontSize: 16,
+  //                           fontWeight: FontWeight.bold),
+  //                     ),
+  //                   )
+  //                 ],
+  //               ),
+  //               etapasseleccionadas.isNotEmpty
+  //                   ? getEtapasSeleccionadas()
+  //                   : const SizedBox(height: 20),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   const Expanded(child: Text('Ubicacion: ')),
+  //                   Expanded(
+  //                     child: ubicacionfoco == 'sector'
+  //                         ? Text(
+  //                             '$linealimite1 - $linealimite2',
+  //                             style: const TextStyle(
+  //                                 color: Colors.black,
+  //                                 fontSize: 16,
+  //                                 fontWeight: FontWeight.bold),
+  //                           )
+  //                         : const Text(
+  //                             'todo el lote',
+  //                             style: TextStyle(
+  //                                 color: Colors.black,
+  //                                 fontSize: 16,
+  //                                 fontWeight: FontWeight.bold),
+  //                           ),
+  //                   )
+  //                 ],
+  //               ),
+  //               const SizedBox(height: 10),
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   const Expanded(child: Text('Fecha ')),
+  //                   Expanded(
+  //                     child: Text(
+  //                       DateFormat('yMMMMEEEEd', 'es').format(fechacenso),
+  //                       style: const TextStyle(
+  //                           color: Colors.black,
+  //                           fontSize: 16,
+  //                           fontWeight: FontWeight.bold),
+  //                     ),
+  //                   )
+  //                 ],
+  //               ),
+  //             ]),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 child: const Text('Cancelar'),
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop();
+  //                 },
+  //               ),
+  //               TextButton(
+  //                 child: const Text('Ok'),
+  //                 onPressed: () {
+  //                   registrarPlaga(context);
+  //                   // Navigator.popUntil(context, ModalRoute.withName('lote/cosechas'));
+  //                 },
+  //               )
+  //             ]);
+  //       });
+  // }
 
   Widget getEtapasSeleccionadas() {
     return Column(

@@ -1,9 +1,8 @@
-import 'package:apppalma/modules/LoteDetail/ui/components/header_lote_widget.dart';
+import 'package:apppalma/components/widgets/header_gradient.dart';
 import 'package:apppalma/moor/tables/lotes_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../size_config.dart';
 import '../cubit/lote_detail_cubit.dart';
 import 'body.dart';
 import 'components/lote_information_widget.dart';
@@ -29,7 +28,6 @@ class _LotePageState extends State<LotePage> {
 
   @override
   Widget build(BuildContext context) {
-    final paddingTop = SizeConfig.paddingTop;
     return BlocListener<LoteDetailCubit, LoteDetailState>(
       listener: (context, state) {
         if (state is LoteChoosed) {
@@ -38,18 +36,13 @@ class _LotePageState extends State<LotePage> {
         setState(() {});
       },
       child: Scaffold(
-        appBar: HeaderLote(
-          height: 75 + paddingTop,
-          routeName: widget.routeName,
-        ),
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              LoteLocalInformation(lote: _lote),
-              Body(lote: _lote),
-            ],
-          ),
+        body: Column(
+          children: <Widget>[
+            HeaderGradient(title: "Lote", ruta: "lote"),
+            LoteLocalInformation(lote: _lote),
+            Body(lote: _lote),
+          ],
         ),
       ),
     );

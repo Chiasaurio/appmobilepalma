@@ -1,5 +1,6 @@
 import 'package:apppalma/constants.dart';
-import 'package:apppalma/modules/LoteDetail/ui/widgets/expansion_tile.dart';
+import 'package:apppalma/modules/LoteDetail/ui/widgets/opciones_fitosanitaria.dart';
+import 'package:apppalma/modules/LoteDetail/ui/widgets/opciones_productiva.dart';
 import 'package:flutter/material.dart';
 
 import '../../../moor/tables/lotes_table.dart';
@@ -14,131 +15,125 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   String nombrelote = '';
+  String? opcionSelected;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        ExpansionTileWidget(
-          text: 'Gestión productiva',
-          list: <Widget>[
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     ElevatedButtonWidget(
-            //         object: widget.lote.cosecha,
-            //         ruta: '/lote/cosechas',
-            //         nombreLote: nombrelote,
-            //         textWithObject: 'Continuar cosecha',
-            //         textWithoutObject: 'Nueva cosecha'),
-            //     ElevatedButtonWidget(
-            //         object: widget.lote.poda,
-            //         ruta: '/lote/podas',
-            //         nombreLote: nombrelote,
-            //         textWithObject: 'Continuar poda',
-            //         textWithoutObject: 'Nueva poda'),
-            //     ElevatedButtonWidget(
-            //         object: widget.lote.plateo,
-            //         ruta: '/lote/plateos',
-            //         nombreLote: nombrelote,
-            //         textWithObject: 'Continuar plateo',
-            //         textWithoutObject: 'Nuevo plateo'),
-            //   ],
-            // ),
-
-            DynamicTile(
-                object: widget.lote.cosecha,
-                ruta: '/lote/cosechas',
-                nombreLote: nombrelote,
-                textWithObject: 'Continuar cosecha',
-                textWithoutObject: 'Nueva cosecha'),
-            DynamicTile(
-                object: widget.lote.poda,
-                ruta: '/lote/podas',
-                nombreLote: nombrelote,
-                textWithObject: 'Continuar poda',
-                textWithoutObject: 'Nueva poda'),
-            DynamicTile(
-                object: widget.lote.plateo,
-                ruta: '/lote/plateos',
-                nombreLote: nombrelote,
-                textWithObject: 'Continuar plateo',
-                textWithoutObject: 'Nueva plateo'),
-          ],
-        ),
-        ExpansionTileWidget(
-          text: 'Gestión fitosanitaria',
-          list: <Widget>[
-            Tile(
-                onTap: () {
-                  Navigator.pushNamed(context, '/lote/palmas',
-                      arguments: nombrelote);
-                },
-                text: 'Ver palmas'),
-            Tile(
-                onTap: () {
-                  Navigator.pushNamed(context, '/lote/censo',
-                      arguments: nombrelote);
-                },
-                text: 'Enfermedades'),
-            Tile(
-                onTap: () {
-                  Navigator.pushNamed(context, '/lote/aplicaciones',
-                      arguments: nombrelote);
-                },
-                text: 'Plagas'),
-          ],
-        )
+    return Column(
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          buildOpcion("Fitosanitaria", Icons.healing),
+          const SizedBox(
+            width: 30,
+          ),
+          buildOpcion("Productiva", Icons.price_check_outlined),
+        ]),
+        if (opcionSelected != null) buildOpciones()
       ],
-    ));
+    );
+
+    // ExpansionTileWidget(
+    //   text: 'Gestión productiva',
+    //   list: <Widget>[
+    //     DynamicTile(
+    //         object: widget.lote.cosecha,
+    //         ruta: '/lote/cosechas',
+    //         nombreLote: nombrelote,
+    //         textWithObject: 'Continuar cosecha',
+    //         textWithoutObject: 'Nueva cosecha'),
+    //     DynamicTile(
+    //         object: widget.lote.poda,
+    //         ruta: '/lote/podas',
+    //         nombreLote: nombrelote,
+    //         textWithObject: 'Continuar poda',
+    //         textWithoutObject: 'Nueva poda'),
+    // DynamicTile(
+    //         object: widget.lote.plateo,
+    //         ruta: '/lote/plateos',
+    //         nombreLote: nombrelote,
+    //         textWithObject: 'Continuar plateo',
+    //         textWithoutObject: 'Nueva plateo'),
+    //   ],
+    // ),
+    // ExpansionTileWidget(
+    //   text: 'Gestión fitosanitaria',
+    //   list: <Widget>[
+    // Tile(
+    //     onTap: () {
+    //       Navigator.pushNamed(context, '/lote/palmas',
+    //           arguments: nombrelote);
+    //     },
+    //     text: 'Ver palmas'),
+    // Tile(
+    //     onTap: () {
+    //       Navigator.pushNamed(context, '/lote/censo',
+    //           arguments: nombrelote);
+    //     },
+    //     text: 'Enfermedades'),
+    // Tile(
+    //     onTap: () {
+    //       Navigator.pushNamed(context, '/lote/aplicaciones',
+    //           arguments: nombrelote);
+    //     },
+    //     text: 'Plagas'),
+    //   ],
+    // )
+    //   ],
+    // ));
   }
-}
 
-class ElevatedButtonWidget extends StatelessWidget {
-  const ElevatedButtonWidget({
-    Key? key,
-    required this.nombreLote,
-    required this.textWithoutObject,
-    required this.textWithObject,
-    this.object,
-    required this.ruta,
-  }) : super(key: key);
+  buildOpciones() {
+    if (opcionSelected == "Fitosanitaria") {
+      return OpcionesFitosanitaria(
+        lote: widget.lote,
+      );
+    } else {
+      return OpcionesProductiva(
+        nombreLote: widget.lote.lote.nombreLote,
+      );
+    }
+  }
 
-  final String nombreLote;
-  final String textWithoutObject;
-  final String textWithObject;
-  final dynamic object;
-  final String ruta;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, ruta, arguments: nombreLote);
+  Widget buildOpcion(String text, IconData icon) {
+    final isSelected = opcionSelected != null && opcionSelected == text;
+    return GestureDetector(
+      onTap: () {
+        opcionSelected = text;
+        setState(() {});
       },
-      style: ButtonStyle(
-        textStyle: MaterialStateProperty.all(
-          const TextStyle(fontSize: 14),
+      child: Container(
+        width: 150,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: isSelected ? kblueColor : Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
-        backgroundColor: object != null
-            ? MaterialStateProperty.all(kYellowColor)
-            : MaterialStateProperty.all(kBackgroundColor),
-        maximumSize: MaterialStateProperty.all(const Size(95, 40)),
-        minimumSize: MaterialStateProperty.all(const Size(95, 40)),
-      ),
-      // child: Icon(Icons.family_restroom),
-      child: Align(
-        alignment: Alignment.center,
-        child: object != null
-            ? Text(
-                textWithObject,
-                textAlign: TextAlign.center,
-              )
-            : Text(
-                textWithoutObject,
-                textAlign: TextAlign.center,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              child: Icon(icon, size: 50, color: Colors.blueAccent),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                  // color: Colors.blueAccent,
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(12),
+                      bottomLeft: Radius.circular(12))),
+              padding: const EdgeInsets.all(12),
+              child: Text(
+                text,
+                style: const TextStyle(fontSize: 18),
               ),
+            )
+          ],
+        ),
       ),
     );
   }

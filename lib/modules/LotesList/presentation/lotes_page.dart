@@ -1,3 +1,4 @@
+import 'package:apppalma/components/widgets/header_gradient.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/moor/moor_database.dart';
@@ -37,20 +38,25 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
     anchoCard = width;
     margin = anchoCard * 0.02;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Finca CampoAlegre'),
-      ),
-      body: BlocBuilder<LoteslistCubit, LoteslistState>(
-        builder: (context, state) {
-          if (state is LotesListLoaded) {
-            loteswithprocesos = state.lotes;
-            return getLotes();
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      // appBar: AppBar(
+      //   title: const Text('Finca CampoAlegre'),
+      // ),
+      body: Column(
+        children: [
+          HeaderGradient(title: "Lista de lotes", ruta: "/lotes"),
+          BlocBuilder<LoteslistCubit, LoteslistState>(
+            builder: (context, state) {
+              if (state is LotesListLoaded) {
+                loteswithprocesos = state.lotes;
+                return getLotes();
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
@@ -59,20 +65,32 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
     return dataBody(context);
   }
 
-  ListView dataBody(BuildContext context) {
-    return ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: loteswithprocesos.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeListaLotes(loteswithprocesos[index]);
-        });
+  Widget dataBody(BuildContext context) {
+    return Expanded(
+        child:
+            //  GridView.count(
+            //     shrinkWrap: true,
+            //     primary: false,
+            //     padding: const EdgeInsets.all(20),
+            //     childAspectRatio: 5,
+            //     crossAxisSpacing: 10,
+            //     mainAxisSpacing: 10,
+            //     crossAxisCount: 1,
+            //     children: loteswithprocesos.map((e) => makeListaLotes(e)).toList()),
+            ListView.builder(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8),
+                itemCount: loteswithprocesos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return makeListaLotes(loteswithprocesos[index]);
+                }));
   }
 
   Widget makeListaLotes(LoteWithProcesos loteswithprocesos) {
     return Container(
-        margin: EdgeInsets.all(margin * 0.5),
+        margin: const EdgeInsets.all(5),
         width: anchoCard,
-        padding: EdgeInsets.all(margin),
+        padding: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10.0),
@@ -85,10 +103,11 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
           ],
         ),
         child: ExpansionTile(
+            tilePadding: EdgeInsets.zero,
             key: PageStorageKey<Lote>(loteswithprocesos.lote),
             title: Text(
               loteswithprocesos.lote.nombreLote,
-              style: const TextStyle(color: Colors.black, fontSize: 20),
+              style: const TextStyle(color: Colors.black, fontSize: 18),
               textAlign: TextAlign.start,
             ),
             children: <Widget>[
@@ -98,7 +117,7 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
 
   Widget buildContenidoLotes(LoteWithProcesos loteswithprocesos) {
     return Container(
-        padding: EdgeInsets.fromLTRB(margin, 0.0, margin, margin),
+        padding: EdgeInsets.fromLTRB(0, 0.0, margin, margin),
         child: Column(
           children: <Widget>[
             Row(
@@ -167,7 +186,7 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
                 ),
               ],
             ),
-            SizedBox(height: margin),
+            const SizedBox(height: 5),
             buildIngresarLote(loteswithprocesos),
           ],
         ));
@@ -176,9 +195,9 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
   Widget buildIngresarLote(LoteWithProcesos loteswithprocesos) {
     return GestureDetector(
       child: Container(
-        width: anchoCard,
-        margin: EdgeInsets.fromLTRB(0.0, margin, margin, 0.0),
-        height: 50.0,
+        constraints: const BoxConstraints(maxWidth: 200),
+        margin: EdgeInsets.fromLTRB(0.0, 00, margin, 10),
+        height: 35.0,
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10.0),
