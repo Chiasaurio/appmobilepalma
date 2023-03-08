@@ -2,7 +2,7 @@ import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/components/main_button.dart';
 import 'package:apppalma/components/widgets/fecha.dart';
 import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

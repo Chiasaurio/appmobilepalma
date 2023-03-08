@@ -3,7 +3,7 @@ import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/modules/Plateos/ui/nuevo_plateo/nuevoplateo_view.dart';
 import 'package:apppalma/modules/Plateos/ui/plateo_activo/plateoactivo_page.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

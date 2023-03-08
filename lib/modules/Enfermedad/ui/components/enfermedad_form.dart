@@ -1,9 +1,9 @@
+import 'package:apppalma/data/moor/tables/enfermedades_table.dart';
 import 'package:apppalma/modules/Enfermedad/ui/components/submit_enfermedad_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../moor/moor_database.dart';
-import '../../../../moor/tables/enfermedades_table.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import '../../../../utils/form_status.dart';
 import '../../cubit/enfermedad_cubit.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

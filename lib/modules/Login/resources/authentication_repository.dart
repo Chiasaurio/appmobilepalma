@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as secure;
-
+import '../../../globals.dart' as globals;
 import '../../../env.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated, error }
@@ -45,6 +45,7 @@ class AuthenticationRepository {
 
       final respDecode = res.data;
       if (res.statusCode == 200) {
+        globals.responsable = ccUsuario;
         await setUserCredentials(
             respDecode['token'], ccUsuario, password, password);
         _controller.add(AuthenticationStatus.authenticated);
@@ -60,6 +61,7 @@ class AuthenticationRepository {
     await _storage.delete(key: 'token');
     await _storage.delete(key: 'cc_usuario');
     await _storage.delete(key: 'password');
+    globals.responsable = "";
     _controller.add(AuthenticationStatus.unauthenticated);
   }
 

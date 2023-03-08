@@ -40,3 +40,5 @@ const kDefualtBlueColor = Colors.blue;
 
 final tipoControl = ["Biologico", "Químico"];
 final ubicacionPlaga = ["lote", "sector"];
+
+List<String> orientaciones = ['NORTE-SUR', 'SUR-NORTE', 'ORIENTE-OCCIDENTE'];

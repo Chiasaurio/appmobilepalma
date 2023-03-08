@@ -1,6 +1,6 @@
+import 'package:apppalma/data/moor/tables/registroenfermedad_table.dart';
 import 'package:apppalma/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:apppalma/modules/Tratamientos/ui/tratamiento/tratamiento_page.dart';
-import 'package:apppalma/moor/tables/registroenfermedad_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

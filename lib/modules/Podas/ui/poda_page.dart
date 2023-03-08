@@ -2,7 +2,7 @@ import 'package:apppalma/components/custom_appbar.dart';
 import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/modules/Podas/ui/poda_activa/podaactiva_page.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

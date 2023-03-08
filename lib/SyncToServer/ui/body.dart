@@ -1,3 +1,4 @@
+import 'package:apppalma/SyncToServer/ui/subir_a_la_nube_button.dart';
 import 'package:flutter/material.dart';
 
 import 'card_de_pendientes.dart';
@@ -16,11 +17,21 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     // return BlocBuilder<SyncToServerCubit, SyncToServerState>(
     //   builder: (context, state) {
-    return Column(
-      children: const [
-        Text("Registros por sincronizar"),
-        CardPendientes(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+      child: Column(
+        children: const [
+          SizedBox(
+            height: 20,
+          ),
+          Text("Registros por sincronizar"),
+          CardPendientes(),
+          SizedBox(
+            height: 20,
+          ),
+          SubirALaNubeButton(),
+        ],
+      ),
     );
     //   },
     // );

@@ -1,5 +1,5 @@
 import 'package:apppalma/components/widgets/header_gradient.dart';
-import 'package:apppalma/moor/tables/lotes_table.dart';
+import 'package:apppalma/data/moor/tables/lotes_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

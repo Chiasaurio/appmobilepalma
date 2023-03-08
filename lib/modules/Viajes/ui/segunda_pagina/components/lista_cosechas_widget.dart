@@ -1,9 +1,8 @@
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/modules/Cosechas/cubit/cosecha_cubit.dart';
 import 'package:apppalma/modules/Viajes/cubit/viaje_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../moor/moor_database.dart';
 
 class ListaCosechas extends StatefulWidget {
   const ListaCosechas({Key? key}) : super(key: key);

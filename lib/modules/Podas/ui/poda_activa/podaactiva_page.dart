@@ -1,6 +1,6 @@
 import 'package:apppalma/components/secondary_button.dart';
 import 'package:apppalma/modules/Podas/ui/registrar_poda_diario/registrar_poda_page.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

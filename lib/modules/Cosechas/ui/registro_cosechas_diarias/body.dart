@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {

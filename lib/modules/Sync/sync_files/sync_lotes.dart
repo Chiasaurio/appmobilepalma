@@ -1,5 +1,5 @@
-import 'package:apppalma/api.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/api.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
 class SyncLotes {

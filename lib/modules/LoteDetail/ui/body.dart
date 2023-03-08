@@ -1,9 +1,8 @@
 import 'package:apppalma/constants.dart';
+import 'package:apppalma/data/moor/tables/lotes_table.dart';
 import 'package:apppalma/modules/LoteDetail/ui/widgets/opciones_fitosanitaria.dart';
 import 'package:apppalma/modules/LoteDetail/ui/widgets/opciones_productiva.dart';
 import 'package:flutter/material.dart';
-
-import '../../../moor/tables/lotes_table.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key, required this.lote}) : super(key: key);

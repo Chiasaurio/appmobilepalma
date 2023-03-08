@@ -1,6 +1,6 @@
+import 'package:apppalma/data/moor/daos/producto_dao.dart';
 import 'package:apppalma/main.dart';
-import 'package:apppalma/moor/daos/producto_dao.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

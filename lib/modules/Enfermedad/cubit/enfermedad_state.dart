@@ -20,6 +20,7 @@ class EnfermedadState extends Equatable {
   final String? nombreLote;
   final int? lineaPalma;
   final int? numeroPalma;
+  final String? orientacion;
   final bool? otraEnfermedad;
 
   const EnfermedadState({
@@ -30,6 +31,7 @@ class EnfermedadState extends Equatable {
     this.nombreLote,
     this.lineaPalma,
     this.numeroPalma,
+    this.orientacion,
     this.otraEnfermedad,
     this.observaciones,
   });
@@ -40,11 +42,13 @@ class EnfermedadState extends Equatable {
     FormStatus? status,
     String? observaciones,
     String? nombreLote,
+    String? orientacion,
     int? lineaPalma,
     bool? otraEnfermedad,
     int? numeroPalma,
   }) {
     return EnfermedadState(
+        orientacion: orientacion ?? this.orientacion,
         enfermedades: enfermedades ?? this.enfermedades,
         status: status ?? this.status,
         etapaSeleccionada: etapaSeleccionada ?? this.etapaSeleccionada,
@@ -63,6 +67,7 @@ class EnfermedadState extends Equatable {
         enfermedadSeleccionada,
         etapaSeleccionada,
         status,
+        orientacion,
         nombreLote,
         lineaPalma,
         numeroPalma,

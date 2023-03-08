@@ -1,7 +1,7 @@
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants.dart';
-import '../../../../../moor/moor_database.dart';
 
 class CardPalma extends StatelessWidget {
   final Palma palma;

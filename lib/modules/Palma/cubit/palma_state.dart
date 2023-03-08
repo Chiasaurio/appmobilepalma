@@ -6,6 +6,7 @@ abstract class PalmaState extends Equatable {
   final PalmaConProcesos? palmaSeleccionada;
   final String? observaciones;
   final String? nombreLote;
+  final String? orientacion;
   final int? lineaPalma;
   final int? numeroPalma;
   final String? causa;
@@ -15,6 +16,7 @@ abstract class PalmaState extends Equatable {
     this.palmas,
     this.status = FormStatus.noSubmitted,
     this.nombreLote,
+    this.orientacion,
     this.lineaPalma,
     this.numeroPalma,
     this.observaciones,
@@ -26,6 +28,7 @@ abstract class PalmaState extends Equatable {
     FormStatus? status,
     String? observaciones,
     String? nombreLote,
+    String? orientacion,
     int? lineaPalma,
     int? numeroPalma,
     String? causa,
@@ -36,6 +39,7 @@ abstract class PalmaState extends Equatable {
         palmaSeleccionada,
         causa,
         status,
+        orientacion,
         nombreLote,
         lineaPalma,
         numeroPalma,
@@ -53,12 +57,14 @@ class PalmaInitial extends PalmaState {
     super.causa,
     super.numeroPalma,
     super.observaciones,
+    super.orientacion,
   });
   @override
   PalmaState copyWith({
     List<Palma>? palmas,
     PalmaConProcesos? palmaSeleccionada,
     String? causa,
+    String? orientacion,
     FormStatus? status,
     String? observaciones,
     String? nombreLote,
@@ -66,6 +72,7 @@ class PalmaInitial extends PalmaState {
     int? numeroPalma,
   }) {
     return PalmaInitial(
+      orientacion: orientacion ?? this.orientacion,
       causa: causa ?? this.causa,
       palmas: palmas ?? this.palmas,
       status: status ?? this.status,
@@ -83,6 +90,7 @@ class PalmaInitial extends PalmaState {
         palmaSeleccionada,
         status,
         nombreLote,
+        orientacion,
         lineaPalma,
         numeroPalma,
         observaciones,
@@ -96,6 +104,7 @@ class ErradicacionSinCausa extends PalmaState {
       super.lineaPalma,
       super.palmaSeleccionada,
       super.causa,
+      super.orientacion,
       super.nombreLote});
 
   @override
@@ -103,6 +112,7 @@ class ErradicacionSinCausa extends PalmaState {
     List<Palma>? palmas,
     PalmaConProcesos? palmaSeleccionada,
     FormStatus? status,
+    String? orientacion,
     String? observaciones,
     String? nombreLote,
     int? lineaPalma,
@@ -115,6 +125,7 @@ class ErradicacionSinCausa extends PalmaState {
       palmaSeleccionada: palmaSeleccionada ?? this.palmaSeleccionada,
       nombreLote: nombreLote ?? this.nombreLote,
       lineaPalma: lineaPalma ?? this.lineaPalma,
+      orientacion: orientacion ?? this.orientacion,
       numeroPalma: numeroPalma ?? this.numeroPalma,
       // observaciones: observaciones ?? this.observaciones,
     );
@@ -126,6 +137,7 @@ class ErradicacionSinCausa extends PalmaState {
         palmaSeleccionada,
         status,
         nombreLote,
+        orientacion,
         lineaPalma,
         numeroPalma,
         observaciones,
@@ -139,6 +151,7 @@ class ErradicacionConCausa extends PalmaState {
       super.numeroPalma,
       super.observaciones,
       super.status,
+      super.orientacion,
       super.palmaSeleccionada,
       super.causa,
       super.nombreLote});
@@ -150,6 +163,7 @@ class ErradicacionConCausa extends PalmaState {
     String? observaciones,
     String? nombreLote,
     int? lineaPalma,
+    String? orientacion,
     int? numeroPalma,
     String? causa,
   }) {
@@ -157,6 +171,7 @@ class ErradicacionConCausa extends PalmaState {
       causa: causa ?? this.causa,
       status: status ?? this.status,
       palmaSeleccionada: palmaSeleccionada ?? this.palmaSeleccionada,
+      orientacion: orientacion ?? this.orientacion,
       nombreLote: nombreLote ?? this.nombreLote,
       lineaPalma: lineaPalma ?? this.lineaPalma,
       numeroPalma: numeroPalma ?? this.numeroPalma,
@@ -171,6 +186,7 @@ class ErradicacionConCausa extends PalmaState {
         status,
         nombreLote,
         lineaPalma,
+        orientacion,
         numeroPalma,
         observaciones,
         causa

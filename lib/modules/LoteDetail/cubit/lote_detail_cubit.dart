@@ -1,9 +1,9 @@
-import 'package:apppalma/moor/tables/lotes_table.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/moor/daos/lote_dao.dart';
+import '../../../data/moor/moor_database.dart';
+import '../../../data/moor/tables/lotes_table.dart';
 import '../../../main.dart';
-import '../../../moor/daos/lote_dao.dart';
-import '../../../moor/moor_database.dart';
 
 part 'lote_detail_state.dart';
 

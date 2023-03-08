@@ -1,8 +1,8 @@
 import 'package:apppalma/components/toasts/toasts.dart';
+import 'package:apppalma/data/moor/tables/plagas_table.dart';
 import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/modules/Plagas/plagas/ui/submit_plaga_button.dart';
-import 'package:apppalma/moor/moor_database.dart';
-import 'package:apppalma/moor/tables/plagas_table.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

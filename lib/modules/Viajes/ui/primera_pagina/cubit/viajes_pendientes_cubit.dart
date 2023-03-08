@@ -1,9 +1,9 @@
+import 'package:apppalma/data/moor/daos/viajes_dao.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../main.dart';
-import '../../../../../moor/daos/viajes_dao.dart';
-import '../../../../../moor/moor_database.dart';
 
 part 'viajes_pendientes_state.dart';
 

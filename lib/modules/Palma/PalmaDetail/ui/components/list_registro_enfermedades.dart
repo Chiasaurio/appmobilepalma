@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../registrospalma.dart';
+import '../../../../../domain/palma/models/palma_con_procesos_model.dart';
 
 class RegistroEnfermedadesList extends StatefulWidget {
   final List<RegistroEnfermedadDatos> registros;

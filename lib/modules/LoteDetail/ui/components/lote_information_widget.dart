@@ -1,7 +1,7 @@
 import 'package:apppalma/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../moor/tables/lotes_table.dart';
+import 'package:apppalma/data/moor/tables/lotes_table.dart';
 
 class LoteLocalInformation extends StatelessWidget {
   const LoteLocalInformation({Key? key, required this.lote}) : super(key: key);

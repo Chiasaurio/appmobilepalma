@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../../PalmaDetail/registrospalma.dart';
+import '../../../../domain/palma/models/palma_con_procesos_model.dart';
 import '../../PalmaDetail/ui/components/card_palma.dart';
 import '../../PalmaDetail/ui/components/list_registro_enfermedades.dart';
 
@@ -150,19 +150,6 @@ class _PalmaSeleccionadaInfoState extends State<PalmaSeleccionadaInfo> {
               width: 1, color: Colors.black.withOpacity(0.5)), //<-- SEE HERE
         ),
       ),
-      validator: (value) {
-        if (value != null) {
-          if (value.length < 5) {
-            buttonEnabled = false;
-            return 'Minimo 5 caracteres';
-          }
-          buttonEnabled = true;
-          return null;
-        } else {
-          buttonEnabled = false;
-          return 'Ingrese la causa';
-        }
-      },
       onChanged: (String? value) {
         setState(() {
           BlocProvider.of<PalmaCubit>(context).causaChanged(value);
@@ -172,7 +159,7 @@ class _PalmaSeleccionadaInfoState extends State<PalmaSeleccionadaInfo> {
   }
 
   bool registrarErradicacionEnabled() {
-    if ((_formKey.currentState?.validate() ?? false) && buttonEnabled) {
+    if ((_formKey.currentState?.validate() ?? false)) {
       return true;
     }
     return false;

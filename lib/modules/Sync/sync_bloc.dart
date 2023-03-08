@@ -1,6 +1,6 @@
 import 'package:apppalma/modules/Sync/sync_files/sync_enfermedades.dart';
 import 'package:apppalma/modules/Sync/sync_files/sync_lotes.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
 import 'sync_files/sync_agroquimicos.dart';

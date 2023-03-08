@@ -1,11 +1,11 @@
 import 'package:apppalma/components/toasts/toasts.dart';
-import 'package:apppalma/moor/daos/viajes_dao.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/daos/cosecha_daos.dart';
+import 'package:apppalma/data/moor/daos/viajes_dao.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:apppalma/moor/daos/cosecha_daos.dart';
 
 import '../../../main.dart';
 import '../../../utils/form_status.dart';

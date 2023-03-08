@@ -1,6 +1,5 @@
-import 'package:apppalma/moor/daos/fumigacion_dao.dart';
-import 'package:apppalma/moor/daos/producto_dao.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/daos/fumigacion_dao.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart' as secure;
 import 'package:equatable/equatable.dart';
 
 import '../../../components/toasts/toasts.dart';
+import '../../../data/moor/daos/producto_dao.dart';
 import '../../../main.dart';
 
 part 'fumigacion_state.dart';

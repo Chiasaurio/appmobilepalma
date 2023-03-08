@@ -1,9 +1,9 @@
 import 'package:apppalma/constants.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/modules/Viajes/ui/peso_extractora/components/registar_peso_extractora_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../components/theme.dart';
-import '../../../../../moor/moor_database.dart';
 import 'body.dart';
 
 class PesoExtractoraPage extends StatefulWidget {

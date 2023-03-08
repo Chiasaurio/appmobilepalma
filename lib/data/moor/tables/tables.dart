@@ -1,0 +1,15 @@
+export 'aplicaciones_table.dart';
+export 'censo_table.dart';
+export 'cosechas_table.dart';
+export 'enfermedades_table.dart';
+export 'erradicacion_table.dart';
+export 'lotes_table.dart';
+export 'palmas_table.dart';
+export 'plagas_table.dart';
+export 'plateos_table.dart';
+export 'productoagroquimico_table.dart';
+export 'podas_table.dart';
+export 'registroenfermedad_table.dart';
+export 'registrotratamiento_table.dart';
+export 'usuario_table.dart';
+export 'viajes_table.dart';

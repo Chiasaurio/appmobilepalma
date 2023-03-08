@@ -1,7 +1,8 @@
-import 'package:apppalma/modules/Palma/PalmaDetail/registrospalma.dart';
 import 'package:apppalma/modules/Palma/PalmaDetail/ui/components/card_palma.dart';
 import 'package:apppalma/modules/Palma/PalmaDetail/ui/components/list_registro_enfermedades.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/palma/models/palma_con_procesos_model.dart';
 
 class Body extends StatefulWidget {
   final PalmaConProcesos palmaConProcesos;

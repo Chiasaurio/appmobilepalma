@@ -1,35 +1,47 @@
-import 'package:apppalma/moor/daos/cosecha_daos.dart';
-import 'package:apppalma/moor/daos/plateos_dao.dart';
-import 'package:apppalma/moor/daos/podas_dao.dart';
-import 'package:apppalma/moor/moor_database.dart';
-import 'package:apppalma/moor/tables/plateos_table.dart';
-import 'package:apppalma/moor/tables/podas_table.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/data/remote/sync_to_server_remote.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/moor/daos/daos.dart';
+import '../../data/moor/tables/tables.dart';
 import '../../main.dart';
-import '../../moor/tables/cosechas_table.dart';
+import '../../utils/form_status.dart';
 
 part 'sync_to_server_state.dart';
+
+enum SyncStatus { initial, loading, success, error }
 
 class SyncToServerCubit extends Cubit<SyncToServerState> {
   SyncToServerCubit() : super(const SyncToServerState());
   final db = getIt<AppDatabase>();
-
+  final remote = SyncToServerRemote();
   void getRegistrosPendientes() async {
     emit(const SyncToServerState());
     final cosechasPendientes = await getCosechasPendientesSincronizar();
     final podasPendientes = await getPodasPendientesSincronizar();
     final plateosPendientes = await getPlateosPendientesSincronizar();
 
-    // final palmasPendientes = await getPalmasPendientesSincronizar();
-    // final enfermedadesPendientes = await getEnfermedadesPendientesSincronizar();
+    final palmasPendientes = await getPalmasPendientesSincronizar();
+    final enfermedadesPendientes = await getEnfermedadesPendientesSincronizar();
+    final tratamientosPendientes = await getTratamientosPendientesSincronizar();
+    final erradicacionesPendientes =
+        await getErradicacionesPendientesSincronizar();
+
+    final censosPendientes = await getCensosPendientesSincronizar();
+    final fumigacionesPendientes = await getFumigacionesPendientesSincronizar();
 
     //Fitosanitarias
     emit(state.copyWith(
         cosechasConDiariasPendientes: cosechasPendientes,
         podasConDiariasPendientes: podasPendientes,
         plateosConDiariasPendientes: plateosPendientes,
+        palmasPendientes: palmasPendientes,
+        enfermedadesPendientes: enfermedadesPendientes,
+        tratamientosPendientes: tratamientosPendientes,
+        erradicacionesPendientes: erradicacionesPendientes,
+        censosPendientes: censosPendientes,
+        fumigacionesPendientes: fumigacionesPendientes,
         loaded: true));
   }
 
@@ -85,6 +97,85 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     }
   }
 
-  void getPalmasPendientesSincronizar() {}
-  void getEnfermedadesPendientesSincronizar() {}
+  Future<List<Palma>> getPalmasPendientesSincronizar() async {
+    try {
+      final PalmaDao palmasDao = db.palmaDao;
+      final palmas = await palmasDao.getPalmasForSync();
+      return palmas;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<RegistroEnfermedadData>>
+      getEnfermedadesPendientesSincronizar() async {
+    try {
+      final PalmaDao palmasDao = db.palmaDao;
+      final registrosEnfermedades =
+          await palmasDao.getRegistrosEnfermedadesForSync();
+      return registrosEnfermedades;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<RegistroTratamientoData>>
+      getTratamientosPendientesSincronizar() async {
+    try {
+      final PalmaDao palmasDao = db.palmaDao;
+      final registrosTratamientos =
+          await palmasDao.getRegistrosTratamientosForSync();
+      return registrosTratamientos;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<ErradicacionData>>
+      getErradicacionesPendientesSincronizar() async {
+    try {
+      final ErradicacionesDao erradicacionesDao = db.erradicacionesDao;
+      final registroErradicaciones =
+          await erradicacionesDao.getRegistrosForSync();
+      return registroErradicaciones;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<CensoData>> getCensosPendientesSincronizar() async {
+    try {
+      final PlagasDao plagasDao = db.plagasDao;
+      final registroCensos = await plagasDao.getCensosForSync();
+      return registroCensos;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<Aplicacione>> getFumigacionesPendientesSincronizar() async {
+    try {
+      final FumigacionDao fumigacionDao = db.fumigacionDao;
+      final registroFumigaciones = await fumigacionDao.getRegistrosForSync();
+      return registroFumigaciones;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<bool> syncPalmas() async {
+    try {
+      emit(state.copyWith(palmasStatus: SyncStatus.loading));
+      await remote.syncPalmas(state.palmasPendientes ?? []);
+      final PalmaDao palmasDao = db.palmaDao;
+      for (var i in state.palmasPendientes!) {
+        await palmasDao.updateSyncPalmas(i);
+      }
+      final aux = await palmasDao.getPalmasForSync();
+      emit(state.copyWith(palmasStatus: SyncStatus.success));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:apppalma/modules/Cosechas/ui/registrar_cosecha_diaria/registrar_cosecha_page.dart';
 import 'package:apppalma/components/secondary_button.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

@@ -1,8 +1,11 @@
+import 'package:apppalma/constants.dart';
 import 'package:flutter/material.dart';
 
 class OrientacionPalmaDropwdown extends StatefulWidget {
+  final Function(String) blocCall;
   final Function() setState;
-  const OrientacionPalmaDropwdown({Key? key, required this.setState})
+  const OrientacionPalmaDropwdown(
+      {Key? key, required this.setState, required this.blocCall})
       : super(key: key);
 
   @override
@@ -11,7 +14,6 @@ class OrientacionPalmaDropwdown extends StatefulWidget {
 }
 
 class _OrientacionPalmaDropwdownState extends State<OrientacionPalmaDropwdown> {
-  List<String> orientaciones = ['NORTE-SUR', 'SUR-NORTE', 'ORIENTE-OCCIDENTE'];
   String? orientacion;
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,7 @@ class _OrientacionPalmaDropwdownState extends State<OrientacionPalmaDropwdown> {
           setState(() {
             if (opt != null) {
               orientacion = opt;
+              widget.blocCall(orientacion!);
             }
           });
           widget.setState();

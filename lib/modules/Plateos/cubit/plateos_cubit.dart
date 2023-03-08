@@ -1,5 +1,5 @@
-import 'package:apppalma/moor/daos/plateos_dao.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/daos/plateos_dao.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';

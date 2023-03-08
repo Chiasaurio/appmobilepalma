@@ -1,16 +1,18 @@
 import 'package:apppalma/constants.dart';
+import 'package:apppalma/data/moor/daos/enfermedades_dao.dart';
+import 'package:apppalma/data/moor/daos/palma_daos.dart';
+import 'package:apppalma/data/moor/tables/enfermedades_table.dart';
 import 'package:apppalma/main.dart';
-import 'package:apppalma/moor/daos/enfermedades_dao.dart';
-import 'package:apppalma/moor/daos/palma_daos.dart';
-import 'package:apppalma/moor/daos/registroenfermedad_dao.dart';
-import 'package:apppalma/moor/moor_database.dart';
-import 'package:apppalma/moor/tables/enfermedades_table.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/utils/get_palma_identificador.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/toasts/toasts.dart';
+import '../../../data/moor/daos/registroenfermedad_dao.dart';
 import '../../../utils/form_status.dart';
+import '../../../globals.dart' as globals;
 
 part 'enfermedad_state.dart';
 
@@ -28,6 +30,10 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
     emit(EnfermedadState(
       nombreLote: state.nombreLote,
     ));
+  }
+
+  orientacionChanged(String value) {
+    emit(state.copyWith(observaciones: value, orientacion: value));
   }
 
   observacionesChanged(String value) {
@@ -74,10 +80,10 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
       }
       final RegistroEnfermedadDao registroEnfermedadDao =
           db.registroEnfermedadDao;
-      final idPalma = state.numeroPalma!.toString() +
-          state.lineaPalma!.toString() +
-          state.nombreLote!;
+      final idPalma = generateIdentifier(
+          state.numeroPalma!, state.lineaPalma!, state.nombreLote!);
       final palmaNueva = PalmasCompanion(
+        orientacion: Value(state.orientacion!),
         identificador: Value(idPalma),
         numeroenlinea: Value(state.numeroPalma!),
         numerolinea: Value(state.lineaPalma!),
@@ -85,12 +91,13 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         estadopalma: Value(estadoPalma),
       );
 
-      await palmaDao.insertPalmaOrUpdate(palmaNueva);
+      final idres = await palmaDao.insertPalmaOrUpdate(palmaNueva);
 
       final regitroEnf = RegistroEnfermedadCompanion(
         idPalma: Value(idPalma),
         fechaRegistro: Value(fecha),
         horaRegistro: Value(fecha),
+        responsable: Value(globals.responsable),
         idEtapaEnfermedad: Value(state.etapaSeleccionada?.id),
         nombreEnfermedad: Value(state.enfermedadSeleccionada!.nombreEnfermedad),
         observaciones: Value(state.observaciones),

@@ -1,6 +1,6 @@
-import 'package:apppalma/moor/moor_database.dart';
 import 'package:drift/drift.dart';
-import '../../../api.dart';
+import '../../../data/api.dart';
+import '../../../data/moor/moor_database.dart';
 
 class SyncProductosAgroquimicos {
   final Api _apiInstance = Api.getInstance();

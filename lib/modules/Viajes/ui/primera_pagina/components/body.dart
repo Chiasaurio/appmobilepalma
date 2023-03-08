@@ -1,11 +1,10 @@
 import 'package:apppalma/constants.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/modules/Viajes/ui/peso_extractora/cubit/peso_extractora_cubit.dart';
 import 'package:apppalma/modules/Viajes/ui/peso_extractora/ui/peso_extractora_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
-import '../../../../../moor/moor_database.dart';
 
 class Body extends StatefulWidget {
   final List<Viaje> viajesPendientes;

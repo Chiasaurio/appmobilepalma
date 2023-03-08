@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../moor/tables/lotes_table.dart';
+import 'package:apppalma/data/moor/tables/lotes_table.dart';
 import 'opcion_item.dart';
 
 class OpcionesFitosanitaria extends StatelessWidget {

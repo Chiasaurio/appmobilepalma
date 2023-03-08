@@ -1,10 +1,11 @@
 import 'package:apppalma/components/toasts/toasts.dart';
-import 'package:apppalma/moor/daos/cosecha_daos.dart';
-import 'package:apppalma/moor/moor_database.dart';
+import 'package:apppalma/data/moor/daos/cosecha_daos.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../globals.dart' as globals;
 
 import '../../../main.dart';
 
@@ -63,6 +64,7 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
       final cosechaDiariaCompanion = CosechaDiariaCompanion(
           fechaIngreso: Value(fecha),
           cantidadRacimos: Value(racimos),
+          responsable: Value(globals.responsable),
           kilos: Value(kilos),
           idCosecha: Value(cosecha.id));
       await cosechaDiariaDao.insertCosechaDiaria(cosechaDiariaCompanion);

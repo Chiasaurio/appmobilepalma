@@ -101,7 +101,12 @@ class _PalmaDataFormState extends State<PalmaDataForm> {
             const SizedBox(
               height: 15,
             ),
-            OrientacionPalmaDropwdown(setState: widget.setState),
+            OrientacionPalmaDropwdown(
+                setState: widget.setState,
+                blocCall: (String value) {
+                  BlocProvider.of<PalmaCubit>(context)
+                      .orientacionChanged(value);
+                }),
           ],
         ),
       ),
