@@ -33,16 +33,7 @@ class SubirALaNubeButton extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(24.0)),
                       )),
                   onPressed: () {
-                    // DateTime fechasalida;
-                    // TimeOfDay horaSalida = TimeOfDay.now();
-                    // fechasalida = DateTime(
-                    //     DateTime.now().year,
-                    //     DateTime.now().month,
-                    //     DateTime.now().day,
-                    //     horaSalida.hour,
-                    //     horaSalida.minute);
-
-                    BlocProvider.of<SyncToServerCubit>(context).syncPalmas();
+                    BlocProvider.of<SyncToServerCubit>(context).syncRegistros();
                   },
                   child: const Text("Subir a la nube",
                       style: TextStyle(

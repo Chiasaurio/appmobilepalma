@@ -112,10 +112,6 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       );
 
   Future updateSyncPalmas(Palma palma) {
-    // for updates, we use the "companion" version of a generated class. This wraps the
-    // fields in a "Value" type which can be set to be absent using "Value.absent()". This
-    // allows us to separate between "SET category = NULL" (`category: Value(null)`) and not
-    // updating the category at all: `category: Value.absent()`.
     return (update(palmas)
           ..where((t) => t.identificador.equals(palma.identificador)))
         .write(
@@ -147,7 +143,16 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
           resultRow.readTableOrNull(registroEnfermedad)?.nombreEnfermedad;
       final idEtapa =
           resultRow.readTableOrNull(registroEnfermedad)?.idEtapaEnfermedad;
-      final enfermedad = await obtenerEnfermedad(nombreEnfermedad!);
+      Enfermedade enfermedad;
+      if (nombreEnfermedad! == 'Otra') {
+        enfermedad = Enfermedade(
+            nombreEnfermedad: nombreEnfermedad,
+            procedimientoEnfermedad:
+                resultRow.readTableOrNull(registroEnfermedad)?.observaciones ??
+                    "");
+      } else {
+        enfermedad = await obtenerEnfermedad(nombreEnfermedad);
+      }
       if (idEtapa != null) {
         etapa = await obtenerEtapa(idEtapa);
       }

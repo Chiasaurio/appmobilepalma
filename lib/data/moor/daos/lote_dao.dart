@@ -9,7 +9,6 @@ part 'lote_dao.g.dart';
 class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
   LoteDao(AppDatabase db) : super(db);
 
-  // Future insertarEnfermedad( Insertable<RegistroEnfermedadData> registroenfermedad) => into(registroEnfermedad).insert(registroenfermedad);
   Future<List<Lote>> getLotes() {
     return (select(lotes)).get();
   }
@@ -22,17 +21,6 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
     try {
       await batch((b) {
         b.insertAllOnConflictUpdate(lotes, listalotes);
-        // for (final lote in listalotes) {
-        //   b.insert(
-        //     lotes,
-        //     lote,
-        //     onConflict: DoUpdate(
-        //       (_) => lote,
-        //       // upsert will happen if it conflicts with columnA and columnB
-        //       target: [lotes.nombreLote],
-        //     ),
-        //   );
-        // }
       });
       return true;
     } catch (e) {
@@ -56,9 +44,7 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
             podas.nombreLote.equalsExp(lotes.nombreLote) &
                 podas.completada.equals(false)),
       ],
-      // ).get();
     ).getSingleOrNull();
-    // return lote!.readTable(lotes);
     return LoteWithProcesos(
         lote: lote!.readTable(lotes),
         cosecha: lote.readTableOrNull(cosechas),

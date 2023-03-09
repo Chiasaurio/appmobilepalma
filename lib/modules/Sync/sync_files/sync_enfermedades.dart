@@ -1,4 +1,5 @@
 import 'package:apppalma/data/api.dart';
+import 'package:apppalma/data/constants/endpoints.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
@@ -8,7 +9,7 @@ class SyncEnfermedades {
   Future<List<Insertable<Enfermedade>>> getEnfermedadesRemoteSource() async {
     try {
       List dataenfermedades;
-      final resp = await _apiInstance.get('enfermedadesTodas');
+      final resp = await _apiInstance.get(EndPointConstant.enfermedades);
       dataenfermedades = resp['data'];
       List<Insertable<Enfermedade>> enfermedades = [];
       for (var element in dataenfermedades) {

@@ -33,7 +33,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
   }
 
   orientacionChanged(String value) {
-    emit(state.copyWith(observaciones: value, orientacion: value));
+    emit(state.copyWith(orientacion: value));
   }
 
   observacionesChanged(String value) {

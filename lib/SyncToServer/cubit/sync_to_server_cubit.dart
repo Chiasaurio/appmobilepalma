@@ -163,17 +163,56 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     }
   }
 
+  syncRegistros() async {
+    if (state.palmasPendientes != null && state.palmasPendientes!.isNotEmpty) {
+      final respalmas = await syncPalmas();
+    }
+    if (state.enfermedadesPendientes != null &&
+        state.enfermedadesPendientes!.isNotEmpty) {
+      final resenfermedades = await syncEnfermedades();
+    }
+  }
+
   Future<bool> syncPalmas() async {
     try {
       emit(state.copyWith(palmasStatus: SyncStatus.loading));
-      await remote.syncPalmas(state.palmasPendientes ?? []);
-      final PalmaDao palmasDao = db.palmaDao;
-      for (var i in state.palmasPendientes!) {
-        await palmasDao.updateSyncPalmas(i);
+      final res = await remote.syncPalmas(state.palmasPendientes ?? []);
+      if (res) {
+        final PalmaDao palmasDao = db.palmaDao;
+        for (var i in state.palmasPendientes!) {
+          await palmasDao.updateSyncPalmas(i);
+        }
+        emit(state.copyWith(palmasStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(enfermedadesStatus: SyncStatus.error));
+        return false;
       }
-      emit(state.copyWith(palmasStatus: SyncStatus.success));
-      return true;
     } catch (e) {
+      emit(state.copyWith(enfermedadesStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  Future<bool> syncEnfermedades() async {
+    try {
+      emit(state.copyWith(enfermedadesStatus: SyncStatus.loading));
+      final res =
+          await remote.syncEnfermedades(state.enfermedadesPendientes ?? []);
+      if (res) {
+        final RegistroEnfermedadDao registroEnfermedadDao =
+            db.registroEnfermedadDao;
+        for (var i in state.enfermedadesPendientes!) {
+          await registroEnfermedadDao.updateSyncRegistro(i);
+        }
+        emit(state.copyWith(enfermedadesStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(enfermedadesStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(enfermedadesStatus: SyncStatus.error));
       return false;
     }
   }

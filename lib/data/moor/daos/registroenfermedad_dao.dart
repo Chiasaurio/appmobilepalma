@@ -11,4 +11,12 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
 
   Future insertRegistroEnfermedad(Insertable<RegistroEnfermedadData> e) =>
       into(registroEnfermedad).insert(e);
+
+  Future updateSyncRegistro(RegistroEnfermedadData e) {
+    return (update(registroEnfermedad)..where((t) => t.id.equals(e.id))).write(
+      const RegistroEnfermedadCompanion(
+        sincronizado: Value(true),
+      ),
+    );
+  }
 }
