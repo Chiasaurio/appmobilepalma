@@ -171,7 +171,6 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       for (var i in state.palmasPendientes!) {
         await palmasDao.updateSyncPalmas(i);
       }
-      final aux = await palmasDao.getPalmasForSync();
       emit(state.copyWith(palmasStatus: SyncStatus.success));
       return true;
     } catch (e) {

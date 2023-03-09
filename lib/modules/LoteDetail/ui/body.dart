@@ -29,65 +29,16 @@ class _BodyState extends State<Body> {
         if (opcionSelected != null) buildOpciones()
       ],
     );
-
-    // ExpansionTileWidget(
-    //   text: 'Gestión productiva',
-    //   list: <Widget>[
-    //     DynamicTile(
-    //         object: widget.lote.cosecha,
-    //         ruta: '/lote/cosechas',
-    //         nombreLote: nombrelote,
-    //         textWithObject: 'Continuar cosecha',
-    //         textWithoutObject: 'Nueva cosecha'),
-    //     DynamicTile(
-    //         object: widget.lote.poda,
-    //         ruta: '/lote/podas',
-    //         nombreLote: nombrelote,
-    //         textWithObject: 'Continuar poda',
-    //         textWithoutObject: 'Nueva poda'),
-    // DynamicTile(
-    //         object: widget.lote.plateo,
-    //         ruta: '/lote/plateos',
-    //         nombreLote: nombrelote,
-    //         textWithObject: 'Continuar plateo',
-    //         textWithoutObject: 'Nueva plateo'),
-    //   ],
-    // ),
-    // ExpansionTileWidget(
-    //   text: 'Gestión fitosanitaria',
-    //   list: <Widget>[
-    // Tile(
-    //     onTap: () {
-    //       Navigator.pushNamed(context, '/lote/palmas',
-    //           arguments: nombrelote);
-    //     },
-    //     text: 'Ver palmas'),
-    // Tile(
-    //     onTap: () {
-    //       Navigator.pushNamed(context, '/lote/censo',
-    //           arguments: nombrelote);
-    //     },
-    //     text: 'Enfermedades'),
-    // Tile(
-    //     onTap: () {
-    //       Navigator.pushNamed(context, '/lote/aplicaciones',
-    //           arguments: nombrelote);
-    //     },
-    //     text: 'Plagas'),
-    //   ],
-    // )
-    //   ],
-    // ));
   }
 
   buildOpciones() {
     if (opcionSelected == "Fitosanitaria") {
-      return OpcionesFitosanitaria(
-        lote: widget.lote,
-      );
-    } else {
       return OpcionesProductiva(
         nombreLote: widget.lote.lote.nombreLote,
+      );
+    } else {
+      return OpcionesFitosanitaria(
+        lote: widget.lote,
       );
     }
   }
@@ -121,7 +72,6 @@ class _BodyState extends State<Body> {
             ),
             Container(
               decoration: const BoxDecoration(
-                  // color: Colors.blueAccent,
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(12),
                       bottomLeft: Radius.circular(12))),

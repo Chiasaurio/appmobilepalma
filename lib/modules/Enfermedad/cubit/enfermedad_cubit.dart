@@ -91,7 +91,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         estadopalma: Value(estadoPalma),
       );
 
-      final idres = await palmaDao.insertPalmaOrUpdate(palmaNueva);
+      await palmaDao.insertPalmaOrUpdate(palmaNueva);
 
       final regitroEnf = RegistroEnfermedadCompanion(
         idPalma: Value(idPalma),
