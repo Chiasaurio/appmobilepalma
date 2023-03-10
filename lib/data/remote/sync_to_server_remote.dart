@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:apppalma/data/api.dart';
 import 'package:apppalma/data/constants/endpoints.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:dio/dio.dart';
 
 class SyncToServerRemote {
@@ -36,13 +39,50 @@ class SyncToServerRemote {
                 "fecha_registro_enfermedad": e.fechaRegistro.toIso8601String(),
                 "observacion_registro_enfermedad": e.observaciones,
                 "id_palma": e.idPalma,
-                "nombre_enfermedad": e.nombreEnfermedad,
+                "nombre_enfermedad": utf8.encode(e.nombreEnfermedad),
                 "id_etapa_enfermedad": e.idEtapaEnfermedad,
                 "responsable": e.responsable,
               })
           .toList();
       await _apiInstance
           .post(EndPointConstant.enfermedades, data: {"data": data});
+
+      return true;
+    } on DioError catch (_) {
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> syncCosechasConDiarias(
+      List<CosechaConCosechasDiarias> registros) async {
+    try {
+      final data = registros.map((e) {
+        final cosecha = {
+          'id_cosecha': e.cosecha.id,
+          'nombre_lote': e.cosecha.nombreLote,
+          'fecha_ingreso': e.cosecha.fechaIngreso.toIso8601String(),
+          'fecha_salida': e.cosecha.fechaSalida?.toIso8601String(),
+          'cantidad_racimos': e.cosecha.cantidadRacimos,
+          'kilos': e.cosecha.kilos,
+          'id_viaje': e.cosecha.idViaje,
+          'estado_cosecha': e.cosecha.completada ? 'FINALIZADA' : 'ACTIVA',
+        };
+
+        var diarias = e.cosechasdiarias
+            .map((d) => {
+                  'id_cosecha': d.idCosecha,
+                  'id_cosecha_diaria': d.id,
+                  'fecha_cosecha': d.fechaIngreso.toIso8601String(),
+                  'kilos_racimos_dia': d.kilos,
+                  'cantidad_racimos_dia': d.cantidadRacimos,
+                  'responsable': d.responsable,
+                })
+            .toList();
+        return {"cosecha": cosecha, "diarias": diarias};
+      }).toList();
+      await _apiInstance.post(EndPointConstant.cosechas, data: {"data": data});
       return true;
     } on DioError catch (_) {
       return false;

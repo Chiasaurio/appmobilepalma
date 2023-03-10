@@ -4,6 +4,7 @@ import 'package:apppalma/utils/form_status.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../globals.dart' as globals;
 
 import '../../../main.dart';
 
@@ -49,11 +50,11 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
     final nuevosPlateos = plateo.cantidadPlateada + cantidad;
     final PlateoDao plateoDao = db.plateoDao;
     final plateoDiarioCompanion = PlateoDiarioCompanion(
-      cantidadPlateada: Value(cantidad),
-      fecha: Value(fecha),
-      tipoPlateo: Value(tipo),
-      idPlateo: Value(plateo.id),
-    );
+        cantidadPlateada: Value(cantidad),
+        fecha: Value(fecha),
+        tipoPlateo: Value(tipo),
+        idPlateo: Value(plateo.id),
+        responsable: Value(globals.responsable));
     await plateoDao.insertPlateoDiario(plateoDiarioCompanion);
     plateoDao.updatePlateo(plateo.copyWith(cantidadPlateada: nuevosPlateos));
     obtenerPlateoActivo(plateo.nombreLote);

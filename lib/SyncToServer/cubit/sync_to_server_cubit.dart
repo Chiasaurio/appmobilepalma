@@ -164,12 +164,54 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
   }
 
   syncRegistros() async {
-    if (state.palmasPendientes != null && state.palmasPendientes!.isNotEmpty) {
+    if (state.palmasPendientes != null &&
+        state.palmasPendientes!.isNotEmpty &&
+        state.palmasStatus != SyncStatus.success) {
       final respalmas = await syncPalmas();
     }
     if (state.enfermedadesPendientes != null &&
-        state.enfermedadesPendientes!.isNotEmpty) {
+        state.enfermedadesPendientes!.isNotEmpty &&
+        state.enfermedadesStatus != SyncStatus.success) {
       final resenfermedades = await syncEnfermedades();
+    }
+    if (state.cosechasConDiariasPendientes != null &&
+        state.cosechasConDiariasPendientes!.isNotEmpty &&
+        state.cosechasStatus != SyncStatus.success) {
+      final respalmas = await syncCosechas();
+    }
+    //    if (state.cosechasConDiariasPendientes != null &&
+    //     state.cosechasConDiariasPendientes!.isNotEmpty) {
+    //   final respalmas = await syncTratamientos();
+    // }
+    //    if (state.cosechasConDiariasPendientes != null &&
+    //     state.cosechasConDiariasPendientes!.isNotEmpty) {
+    //   final respalmas = await syncPlateos();
+    // }
+    //    if (state.cosechasConDiariasPendientes != null &&
+    //     state.cosechasConDiariasPendientes!.isNotEmpty) {
+    //   final respalmas = await syncPodas();
+    // }
+  }
+
+  Future<bool> syncCosechas() async {
+    try {
+      emit(state.copyWith(cosechasStatus: SyncStatus.loading));
+      final res = await remote
+          .syncCosechasConDiarias(state.cosechasConDiariasPendientes ?? []);
+      if (res) {
+        final CosechaDao cosechaDao = db.cosechaDao;
+        for (var i in state.cosechasConDiariasPendientes!) {
+          await cosechaDao.updateSyncCosecha(i.cosecha, i.cosechasdiarias);
+        }
+        emit(state.copyWith(cosechasStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(cosechasStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(cosechasStatus: SyncStatus.error));
+      return false;
     }
   }
 
@@ -185,11 +227,11 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         emit(state.copyWith(palmasStatus: SyncStatus.success));
         return true;
       } else {
-        emit(state.copyWith(enfermedadesStatus: SyncStatus.error));
+        emit(state.copyWith(palmasStatus: SyncStatus.error));
         return false;
       }
     } catch (e) {
-      emit(state.copyWith(enfermedadesStatus: SyncStatus.error));
+      emit(state.copyWith(palmasStatus: SyncStatus.error));
       return false;
     }
   }

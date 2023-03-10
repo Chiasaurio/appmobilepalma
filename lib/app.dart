@@ -20,12 +20,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'modules/Viajes/cubit/viaje_cubit.dart';
+import 'globals.dart';
 
 class AppPalma extends StatelessWidget {
   const AppPalma({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    initResponsable();
     // final authenticationRepository = AuthenticationRepository();
     // final userRepository = UserRepository();
     return MultiBlocProvider(

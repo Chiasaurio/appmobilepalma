@@ -4,6 +4,7 @@ import 'package:apppalma/utils/form_status.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../globals.dart' as globals;
 
 import '../../../main.dart';
 
@@ -30,10 +31,10 @@ class PodasCubit extends Cubit<PodasStateLoaded> {
     final nuevasPodas = poda.cantidadPodada + cantidad;
     final PodaDao podaDao = db.podaDao;
     final podaDiariaCompanion = PodaDiariaCompanion(
-      cantidadPodada: Value(cantidad),
-      fechaIngreso: Value(fecha),
-      idPoda: Value(poda.id),
-    );
+        cantidadPodada: Value(cantidad),
+        fechaIngreso: Value(fecha),
+        idPoda: Value(poda.id),
+        responsable: Value(globals.responsable));
     await podaDao.insertPodaDiaria(podaDiariaCompanion);
     podaDao.updatePoda(
         poda.copyWith(cantidadPodada: nuevasPodas, sincronizado: false));

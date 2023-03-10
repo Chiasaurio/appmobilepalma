@@ -37,6 +37,22 @@ class CosechaDao extends DatabaseAccessor<AppDatabase> with _$CosechaDaoMixin {
     return (select(cosechas)..where((c) => c.sincronizado.equals(false))).get();
   }
 
+  Future updateSyncCosecha(
+      Cosecha cosecha, List<CosechaDiariaData> cosechasDiarias) {
+    return transaction(() async {
+      await (update(cosechas)..where((t) => t.id.equals(cosecha.id)))
+          .write(const CosechasCompanion(
+        sincronizado: Value(true),
+      ));
+      for (var element in cosechasDiarias) {
+        await (update(cosechaDiaria)..where((c) => c.id.equals(element.id)))
+            .write(const CosechaDiariaCompanion(
+          sincronizado: Value(true),
+        ));
+      }
+    });
+  }
+
   Future insertCosecha(Insertable<Cosecha> cosecha) =>
       into(cosechas).insert(cosecha);
   Future updateCosecha(Insertable<Cosecha> cosecha) =>
