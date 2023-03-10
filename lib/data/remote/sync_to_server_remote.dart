@@ -61,7 +61,7 @@ class SyncToServerRemote {
       final data = registros.map((e) {
         final cosecha = {
           'id_cosecha': e.cosecha.id,
-          'nombre_lote': e.cosecha.nombreLote,
+          'nombre_lote': utf8.encode(e.cosecha.nombreLote),
           'fecha_ingreso': e.cosecha.fechaIngreso.toIso8601String(),
           'fecha_salida': e.cosecha.fechaSalida?.toIso8601String(),
           'cantidad_racimos': e.cosecha.cantidadRacimos,
