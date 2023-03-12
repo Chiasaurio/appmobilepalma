@@ -5,6 +5,7 @@ import 'package:apppalma/data/moor/tables/registroenfermedad_table.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:apppalma/globals.dart' as globals;
 
 import '../../../components/toasts/toasts.dart';
 import '../../../main.dart';
@@ -43,6 +44,7 @@ class TratamientoCubit extends Cubit<TratamientoState> {
     Palma palma,
     String tipocontrol,
     double dosis,
+    String unidades,
     String descripcion,
     DateTime fecha,
   ) async {
@@ -53,8 +55,10 @@ class TratamientoCubit extends Cubit<TratamientoState> {
         idProductoAgroquimico: Value(idproductoagroquimico),
         descripcionProcedimiento: Value(descripcion),
         dosis: Value(dosis),
+        unidades: Value(unidades),
         tipoControl: Value(tipocontrol),
         fechaRegistro: Value(fecha),
+        responsable: Value(globals.responsable),
       );
       final res = await palmaDao.insertarTratamiento(registrotratamiento);
       if (res) {

@@ -35,6 +35,7 @@ class SyncToServerRemote {
     try {
       final data = registros
           .map((e) => {
+                "id_registro_enfermedad": e.id,
                 "hora_registro_enfermedad": e.horaRegistro!.toIso8601String(),
                 "fecha_registro_enfermedad": e.fechaRegistro.toIso8601String(),
                 "observacion_registro_enfermedad": e.observaciones,
@@ -46,6 +47,33 @@ class SyncToServerRemote {
           .toList();
       await _apiInstance
           .post(EndPointConstant.enfermedades, data: {"data": data});
+
+      return true;
+    } on DioError catch (_) {
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> syncTratamientos(List<RegistroTratamientoData> registros) async {
+    try {
+      final data = registros
+          .map((e) => {
+                "id_tratamiento": e.id,
+                "hora_tratamiento": e.fechaRegistro.toIso8601String(),
+                "fecha_tratamiento": e.fechaRegistro.toIso8601String(),
+                "descripcion_procedimiento": e.descripcionProcedimiento,
+                "id_registro_enfermedad": e.idRegistroEnfermedad,
+                "id_agroquimico": e.idProductoAgroquimico,
+                "dosis": e.dosis,
+                "unidades": e.unidades,
+                "tipo_control": utf8.encode(e.tipoControl),
+                "responsable": e.responsable,
+              })
+          .toList();
+      await _apiInstance
+          .post(EndPointConstant.tratamientos, data: {"data": data});
 
       return true;
     } on DioError catch (_) {

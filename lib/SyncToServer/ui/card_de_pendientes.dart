@@ -100,6 +100,10 @@ class TextSyncPendiente extends StatelessWidget {
             text = 'enfermedades pendientes';
             status = state.enfermedadesStatus;
             break;
+          case RegistroTratamientoData:
+            text = 'tratamientos pendientes';
+            status = state.tratamientosStatus;
+            break;
           case CensoData:
             text = 'censos pendientes';
             status = state.censosStatus;

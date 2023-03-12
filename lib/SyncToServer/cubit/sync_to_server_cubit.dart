@@ -179,10 +179,11 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.cosechasStatus != SyncStatus.success) {
       final respalmas = await syncCosechas();
     }
-    //    if (state.cosechasConDiariasPendientes != null &&
-    //     state.cosechasConDiariasPendientes!.isNotEmpty) {
-    //   final respalmas = await syncTratamientos();
-    // }
+    if (state.tratamientosPendientes != null &&
+        state.tratamientosPendientes!.isNotEmpty &&
+        state.tratamientosStatus != SyncStatus.success) {
+      final respalmas = await syncTratamientos();
+    }
     //    if (state.cosechasConDiariasPendientes != null &&
     //     state.cosechasConDiariasPendientes!.isNotEmpty) {
     //   final respalmas = await syncPlateos();
@@ -255,6 +256,28 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       }
     } catch (e) {
       emit(state.copyWith(enfermedadesStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  Future<bool> syncTratamientos() async {
+    try {
+      emit(state.copyWith(tratamientosStatus: SyncStatus.loading));
+      final res =
+          await remote.syncTratamientos(state.tratamientosPendientes ?? []);
+      if (res) {
+        final PalmaDao palmaDao = db.palmaDao;
+        for (var i in state.tratamientosPendientes!) {
+          await palmaDao.updateSyncTratamientos(i);
+        }
+        emit(state.copyWith(tratamientosStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(tratamientosStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(tratamientosStatus: SyncStatus.error));
       return false;
     }
   }

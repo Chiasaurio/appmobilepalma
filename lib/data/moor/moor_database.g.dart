@@ -6284,6 +6284,12 @@ class $RegistroTratamientoTable extends RegistroTratamiento
   late final GeneratedColumn<DateTime> fechaRegistro =
       GeneratedColumn<DateTime>('fecha_registro', aliasedName, false,
           type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _unidadesMeta =
+      const VerificationMeta('unidades');
+  @override
+  late final GeneratedColumn<String> unidades = GeneratedColumn<String>(
+      'unidades', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _responsableMeta =
       const VerificationMeta('responsable');
   @override
@@ -6312,6 +6318,7 @@ class $RegistroTratamientoTable extends RegistroTratamiento
         dosis,
         descripcionProcedimiento,
         fechaRegistro,
+        unidades,
         responsable,
         sincronizado
       ];
@@ -6373,6 +6380,12 @@ class $RegistroTratamientoTable extends RegistroTratamiento
     } else if (isInserting) {
       context.missing(_fechaRegistroMeta);
     }
+    if (data.containsKey('unidades')) {
+      context.handle(_unidadesMeta,
+          unidades.isAcceptableOrUnknown(data['unidades']!, _unidadesMeta));
+    } else if (isInserting) {
+      context.missing(_unidadesMeta);
+    }
     if (data.containsKey('responsable')) {
       context.handle(
           _responsableMeta,
@@ -6412,6 +6425,8 @@ class $RegistroTratamientoTable extends RegistroTratamiento
           data['${effectivePrefix}descripcion_procedimiento']),
       fechaRegistro: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
+      unidades: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}unidades'])!,
       responsable: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
       sincronizado: attachedDatabase.typeMapping
@@ -6434,6 +6449,7 @@ class RegistroTratamientoData extends DataClass
   final double dosis;
   final String? descripcionProcedimiento;
   final DateTime fechaRegistro;
+  final String unidades;
   final String responsable;
   final bool sincronizado;
   const RegistroTratamientoData(
@@ -6444,6 +6460,7 @@ class RegistroTratamientoData extends DataClass
       required this.dosis,
       this.descripcionProcedimiento,
       required this.fechaRegistro,
+      required this.unidades,
       required this.responsable,
       required this.sincronizado});
   @override
@@ -6459,6 +6476,7 @@ class RegistroTratamientoData extends DataClass
           Variable<String>(descripcionProcedimiento);
     }
     map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
+    map['unidades'] = Variable<String>(unidades);
     map['responsable'] = Variable<String>(responsable);
     map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
@@ -6475,6 +6493,7 @@ class RegistroTratamientoData extends DataClass
           ? const Value.absent()
           : Value(descripcionProcedimiento),
       fechaRegistro: Value(fechaRegistro),
+      unidades: Value(unidades),
       responsable: Value(responsable),
       sincronizado: Value(sincronizado),
     );
@@ -6494,6 +6513,7 @@ class RegistroTratamientoData extends DataClass
       descripcionProcedimiento:
           serializer.fromJson<String?>(json['descripcionProcedimiento']),
       fechaRegistro: serializer.fromJson<DateTime>(json['fechaRegistro']),
+      unidades: serializer.fromJson<String>(json['unidades']),
       responsable: serializer.fromJson<String>(json['responsable']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
@@ -6510,6 +6530,7 @@ class RegistroTratamientoData extends DataClass
       'descripcionProcedimiento':
           serializer.toJson<String?>(descripcionProcedimiento),
       'fechaRegistro': serializer.toJson<DateTime>(fechaRegistro),
+      'unidades': serializer.toJson<String>(unidades),
       'responsable': serializer.toJson<String>(responsable),
       'sincronizado': serializer.toJson<bool>(sincronizado),
     };
@@ -6523,6 +6544,7 @@ class RegistroTratamientoData extends DataClass
           double? dosis,
           Value<String?> descripcionProcedimiento = const Value.absent(),
           DateTime? fechaRegistro,
+          String? unidades,
           String? responsable,
           bool? sincronizado}) =>
       RegistroTratamientoData(
@@ -6536,6 +6558,7 @@ class RegistroTratamientoData extends DataClass
             ? descripcionProcedimiento.value
             : this.descripcionProcedimiento,
         fechaRegistro: fechaRegistro ?? this.fechaRegistro,
+        unidades: unidades ?? this.unidades,
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
@@ -6549,6 +6572,7 @@ class RegistroTratamientoData extends DataClass
           ..write('dosis: $dosis, ')
           ..write('descripcionProcedimiento: $descripcionProcedimiento, ')
           ..write('fechaRegistro: $fechaRegistro, ')
+          ..write('unidades: $unidades, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -6564,6 +6588,7 @@ class RegistroTratamientoData extends DataClass
       dosis,
       descripcionProcedimiento,
       fechaRegistro,
+      unidades,
       responsable,
       sincronizado);
   @override
@@ -6577,6 +6602,7 @@ class RegistroTratamientoData extends DataClass
           other.dosis == this.dosis &&
           other.descripcionProcedimiento == this.descripcionProcedimiento &&
           other.fechaRegistro == this.fechaRegistro &&
+          other.unidades == this.unidades &&
           other.responsable == this.responsable &&
           other.sincronizado == this.sincronizado);
 }
@@ -6590,6 +6616,7 @@ class RegistroTratamientoCompanion
   final Value<double> dosis;
   final Value<String?> descripcionProcedimiento;
   final Value<DateTime> fechaRegistro;
+  final Value<String> unidades;
   final Value<String> responsable;
   final Value<bool> sincronizado;
   const RegistroTratamientoCompanion({
@@ -6600,6 +6627,7 @@ class RegistroTratamientoCompanion
     this.dosis = const Value.absent(),
     this.descripcionProcedimiento = const Value.absent(),
     this.fechaRegistro = const Value.absent(),
+    this.unidades = const Value.absent(),
     this.responsable = const Value.absent(),
     this.sincronizado = const Value.absent(),
   });
@@ -6611,6 +6639,7 @@ class RegistroTratamientoCompanion
     required double dosis,
     this.descripcionProcedimiento = const Value.absent(),
     required DateTime fechaRegistro,
+    required String unidades,
     required String responsable,
     this.sincronizado = const Value.absent(),
   })  : idRegistroEnfermedad = Value(idRegistroEnfermedad),
@@ -6618,6 +6647,7 @@ class RegistroTratamientoCompanion
         tipoControl = Value(tipoControl),
         dosis = Value(dosis),
         fechaRegistro = Value(fechaRegistro),
+        unidades = Value(unidades),
         responsable = Value(responsable);
   static Insertable<RegistroTratamientoData> custom({
     Expression<int>? id,
@@ -6627,6 +6657,7 @@ class RegistroTratamientoCompanion
     Expression<double>? dosis,
     Expression<String>? descripcionProcedimiento,
     Expression<DateTime>? fechaRegistro,
+    Expression<String>? unidades,
     Expression<String>? responsable,
     Expression<bool>? sincronizado,
   }) {
@@ -6641,6 +6672,7 @@ class RegistroTratamientoCompanion
       if (descripcionProcedimiento != null)
         'descripcion_procedimiento': descripcionProcedimiento,
       if (fechaRegistro != null) 'fecha_registro': fechaRegistro,
+      if (unidades != null) 'unidades': unidades,
       if (responsable != null) 'responsable': responsable,
       if (sincronizado != null) 'sincronizado': sincronizado,
     });
@@ -6654,6 +6686,7 @@ class RegistroTratamientoCompanion
       Value<double>? dosis,
       Value<String?>? descripcionProcedimiento,
       Value<DateTime>? fechaRegistro,
+      Value<String>? unidades,
       Value<String>? responsable,
       Value<bool>? sincronizado}) {
     return RegistroTratamientoCompanion(
@@ -6666,6 +6699,7 @@ class RegistroTratamientoCompanion
       descripcionProcedimiento:
           descripcionProcedimiento ?? this.descripcionProcedimiento,
       fechaRegistro: fechaRegistro ?? this.fechaRegistro,
+      unidades: unidades ?? this.unidades,
       responsable: responsable ?? this.responsable,
       sincronizado: sincronizado ?? this.sincronizado,
     );
@@ -6697,6 +6731,9 @@ class RegistroTratamientoCompanion
     if (fechaRegistro.present) {
       map['fecha_registro'] = Variable<DateTime>(fechaRegistro.value);
     }
+    if (unidades.present) {
+      map['unidades'] = Variable<String>(unidades.value);
+    }
     if (responsable.present) {
       map['responsable'] = Variable<String>(responsable.value);
     }
@@ -6716,6 +6753,7 @@ class RegistroTratamientoCompanion
           ..write('dosis: $dosis, ')
           ..write('descripcionProcedimiento: $descripcionProcedimiento, ')
           ..write('fechaRegistro: $fechaRegistro, ')
+          ..write('unidades: $unidades, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))

@@ -297,6 +297,7 @@ class _TratamientoFormState extends State<TratamientoForm> {
                 palma,
                 tipocontrol!,
                 dosis!,
+                unidades!,
                 descripcion,
                 fecha);
       } else {
@@ -307,6 +308,7 @@ class _TratamientoFormState extends State<TratamientoForm> {
                 palma,
                 tipocontrol!,
                 dosis!,
+                unidades!,
                 descripcion,
                 fecha);
       }

@@ -206,6 +206,16 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
         .getSingleOrNull();
   }
 
+  Future updateSyncTratamientos(RegistroTratamientoData tratamiento) {
+    return (update(registroTratamiento)
+          ..where((t) => t.id.equals(tratamiento.id)))
+        .write(
+      const RegistroTratamientoCompanion(
+        sincronizado: Value(true),
+      ),
+    );
+  }
+
   Future<List<Palma>> getPalmasForSync() {
     return (select(palmas)..where((c) => c.sincronizado.equals(false))).get();
   }
