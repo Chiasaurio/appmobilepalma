@@ -24,6 +24,21 @@ class PodaDao extends DatabaseAccessor<AppDatabase> with _$PodaDaoMixin {
     return (select(podaDiaria)..where((c) => c.idPoda.equals(id))).get();
   }
 
+  Future updateSyncPoda(Poda poda, List<PodaDiariaData> podasDiarias) {
+    return transaction(() async {
+      await (update(podas)..where((t) => t.id.equals(poda.id)))
+          .write(const PodasCompanion(
+        sincronizado: Value(true),
+      ));
+      for (var element in podasDiarias) {
+        await (update(podaDiaria)..where((c) => c.id.equals(element.id)))
+            .write(const PodaDiariaCompanion(
+          sincronizado: Value(true),
+        ));
+      }
+    });
+  }
+
   Future insertPodaDiaria(Insertable<PodaDiariaData> podadiaria) =>
       into(podaDiaria).insert(podadiaria);
 

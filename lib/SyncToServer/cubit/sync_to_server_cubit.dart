@@ -174,24 +174,26 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.enfermedadesStatus != SyncStatus.success) {
       final resenfermedades = await syncEnfermedades();
     }
-    if (state.cosechasConDiariasPendientes != null &&
-        state.cosechasConDiariasPendientes!.isNotEmpty &&
-        state.cosechasStatus != SyncStatus.success) {
-      final respalmas = await syncCosechas();
-    }
     if (state.tratamientosPendientes != null &&
         state.tratamientosPendientes!.isNotEmpty &&
         state.tratamientosStatus != SyncStatus.success) {
       final respalmas = await syncTratamientos();
     }
-    //    if (state.cosechasConDiariasPendientes != null &&
-    //     state.cosechasConDiariasPendientes!.isNotEmpty) {
-    //   final respalmas = await syncPlateos();
-    // }
-    //    if (state.cosechasConDiariasPendientes != null &&
-    //     state.cosechasConDiariasPendientes!.isNotEmpty) {
-    //   final respalmas = await syncPodas();
-    // }
+    if (state.cosechasConDiariasPendientes != null &&
+        state.cosechasConDiariasPendientes!.isNotEmpty &&
+        state.cosechasStatus != SyncStatus.success) {
+      final respalmas = await syncCosechas();
+    }
+    if (state.podasConDiariasPendientes != null &&
+        state.podasConDiariasPendientes!.isNotEmpty &&
+        state.podasStatus != SyncStatus.success) {
+      final respalmas = await syncPodas();
+    }
+    if (state.plateosConDiariasPendientes != null &&
+        state.plateosConDiariasPendientes!.isNotEmpty &&
+        state.plateosStatus != SyncStatus.success) {
+      final respalmas = await syncPlateos();
+    }
   }
 
   Future<bool> syncCosechas() async {
@@ -212,6 +214,50 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       }
     } catch (e) {
       emit(state.copyWith(cosechasStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  Future<bool> syncPlateos() async {
+    try {
+      emit(state.copyWith(plateosStatus: SyncStatus.loading));
+      final res = await remote
+          .syncPlateosConDiarias(state.plateosConDiariasPendientes ?? []);
+      if (res) {
+        final PlateoDao plateoDao = db.plateoDao;
+        for (var i in state.plateosConDiariasPendientes!) {
+          await plateoDao.updateSyncPlateo(i.plateo, i.plateosDiarias);
+        }
+        emit(state.copyWith(plateosStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(plateosStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(plateosStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  Future<bool> syncPodas() async {
+    try {
+      emit(state.copyWith(podasStatus: SyncStatus.loading));
+      final res = await remote
+          .syncPodasConDiarias(state.podasConDiariasPendientes ?? []);
+      if (res) {
+        final PodaDao podaDao = db.podaDao;
+        for (var i in state.podasConDiariasPendientes!) {
+          await podaDao.updateSyncPoda(i.poda, i.podasDiarias);
+        }
+        emit(state.copyWith(podasStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(podasStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(podasStatus: SyncStatus.error));
       return false;
     }
   }

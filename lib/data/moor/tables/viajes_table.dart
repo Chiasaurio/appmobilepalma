@@ -12,4 +12,8 @@ class Viajes extends Table {
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   // @override
   // Set<Column> get primaryKey => {id, nombreLote};
+  @override
+  List<String> get customConstraints => [
+        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
+      ];
 }

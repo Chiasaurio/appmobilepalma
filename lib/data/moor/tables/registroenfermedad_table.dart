@@ -17,6 +17,7 @@ class RegistroEnfermedad extends Table {
         'FOREIGN KEY(id_palma) REFERENCES palmas(identificador)',
         'FOREIGN KEY(nombre_enfermedad) REFERENCES enfermedades(nombre_enfermedad)',
         'FOREIGN KEY(id_etapa_enfermedad) REFERENCES etapas(id)',
+        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
       ];
 }
 

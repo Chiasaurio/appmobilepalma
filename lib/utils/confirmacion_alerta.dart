@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ConfirmacionAlerta {
+  final String msg;
+
+  ConfirmacionAlerta(this.msg);
   void confirmacionAlerta(BuildContext context, Function() onPress) {
     showDialog(
         context: context,

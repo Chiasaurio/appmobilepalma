@@ -39,6 +39,22 @@ class PlateoDao extends DatabaseAccessor<AppDatabase> with _$PlateoDaoMixin {
           ..where((p) => p.idPlateo.equals(id) & p.sincronizado.equals(false)))
         .get();
   }
+
+  Future updateSyncPlateo(
+      Plateo cosecha, List<PlateoDiarioData> plateosDiarios) {
+    return transaction(() async {
+      await (update(plateos)..where((t) => t.id.equals(cosecha.id)))
+          .write(const PlateosCompanion(
+        sincronizado: Value(true),
+      ));
+      for (var element in plateosDiarios) {
+        await (update(plateoDiario)..where((c) => c.id.equals(element.id)))
+            .write(const PlateoDiarioCompanion(
+          sincronizado: Value(true),
+        ));
+      }
+    });
+  }
 }
 
 // @UseDao(tables: [CosechaDiaria, Cosechas])

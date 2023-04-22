@@ -1,31 +1,28 @@
 import 'package:apppalma/SyncToServer/ui/sincronizar_a_servidor_page.dart';
-import 'package:apppalma/modules/Aplicaciones/aplicaciones_page.dart';
-import 'package:apppalma/modules/Censo/ui/censo_page.dart';
-import 'package:apppalma/modules/Cosechas/ui/cosecha_page.dart';
-import 'package:apppalma/modules/Cosechas/ui/finalizar_cosecha/finalizarcosecha_page.dart';
-import 'package:apppalma/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
-import 'package:apppalma/modules/Enfermedad/enfermedad_page.dart';
-import 'package:apppalma/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
-import 'package:apppalma/modules/Home/home_screen.dart';
-import 'package:apppalma/modules/Login/ui/login_page.dart';
-import 'package:apppalma/modules/LotesList/presentation/lotes_page.dart';
-import 'package:apppalma/modules/Plagas/plagas/ui/plaga_page.dart';
-import 'package:apppalma/modules/Plateos/ui/finalizar_plateo/finalizarplateo_page.dart';
-import 'package:apppalma/modules/Plateos/ui/plateo_page.dart';
-import 'package:apppalma/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
-import 'package:apppalma/modules/Podas/ui/poda_page.dart';
-import 'package:apppalma/modules/Podas/ui/registro_podas_diarias/registro_podas_diarias.dart';
-import 'package:apppalma/modules/Sync/sincronizar_page.dart';
+import 'package:apppalma/presentation/modules/Aplicaciones/aplicaciones_page.dart';
+import 'package:apppalma/presentation/modules/Censo/ui/censo_page.dart';
+import 'package:apppalma/presentation/modules/Cosechas/ui/cosecha_page.dart';
+import 'package:apppalma/presentation/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
+import 'package:apppalma/presentation/modules/Enfermedad/enfermedad_page.dart';
+import 'package:apppalma/presentation/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
+import 'package:apppalma/presentation/modules/Home/home_screen.dart';
+import 'package:apppalma/presentation/modules/Login/ui/login_page.dart';
+import 'package:apppalma/presentation/modules/LotesList/presentation/lotes_page.dart';
+import 'package:apppalma/presentation/modules/Plagas/plagas/ui/plaga_page.dart';
+import 'package:apppalma/presentation/modules/Plateos/ui/plateo_page.dart';
+import 'package:apppalma/presentation/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
+import 'package:apppalma/presentation/modules/Podas/ui/poda_page.dart';
+import 'package:apppalma/presentation/modules/Podas/ui/registro_podas_diarias/registro_podas_diarias.dart';
+import 'package:apppalma/presentation/modules/Sync/sincronizar_page.dart';
 import 'package:flutter/material.dart';
 
-import 'modules/Palma/ui/palmas_page.dart';
-import 'modules/Fumigaciones/ui/fumigacion/registrar_fumigacion_page.dart';
-import 'modules/Podas/ui/finalizar_plateo/finalizarpoda_page.dart';
-import 'modules/Splash/splash_screen.dart';
-import 'modules/Tratamientos/ui/palmas_enfermas/palmas_enfermas_page.dart';
-import 'modules/Viajes/ui/segunda_pagina/screens/viajes_page.dart';
-import 'modules/Viajes/ui/tercera_pagina/screens/datos_viaje_page.dart';
-import 'modules/Viajes/ui/primera_pagina/screens/viajes_pendientes_page.dart';
+import 'presentation/modules/Palma/ui/palmas_page.dart';
+import 'presentation/modules/Fumigaciones/ui/fumigacion/registrar_fumigacion_page.dart';
+import 'presentation/modules/Splash/splash_screen.dart';
+import 'presentation/modules/Tratamientos/ui/palmas_enfermas/palmas_enfermas_page.dart';
+import 'presentation/modules/Viajes/ui/segunda_pagina/screens/viajes_page.dart';
+import 'presentation/modules/Viajes/ui/tercera_pagina/screens/datos_viaje_page.dart';
+import 'presentation/modules/Viajes/ui/primera_pagina/screens/viajes_pendientes_page.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -39,8 +36,10 @@ class Routes {
       case '/viajes':
         return MaterialPageRoute(
             builder: (_) => ViajesPendientesPage(
-                  routeName: settings.name!,
-                ));
+                routeName: settings.name!,
+                disableBack: settings.arguments != null
+                    ? settings.arguments as bool
+                    : null));
       case '/viajes/nuevoviaje':
         return MaterialPageRoute(
             builder: (_) => NuevoViajePage(
@@ -52,14 +51,25 @@ class Routes {
                   routeName: settings.name!,
                 ));
       case '/lotes':
-        return MaterialPageRoute(builder: (_) => const EscogerLotePage());
+        return MaterialPageRoute(
+            builder: (_) => EscogerLotePage(
+                disableBack: settings.arguments != null
+                    ? settings.arguments as bool
+                    : null));
       case '/sincronizar':
-        return MaterialPageRoute(builder: (_) => const SincronizacionPage());
+        return MaterialPageRoute(
+            builder: (_) => SincronizacionPage(
+                routeName: settings.name!,
+                disableBack: settings.arguments != null
+                    ? settings.arguments as bool
+                    : null));
       case '/sinctoserver':
         return MaterialPageRoute(
             builder: (_) => SyncToServerPage(
-                  routeName: settings.name!,
-                ));
+                routeName: settings.name!,
+                disableBack: settings.arguments != null
+                    ? settings.arguments as bool
+                    : null));
       case '/lote/censo':
         return MaterialPageRoute(
             builder: (_) => CensoPage(routeName: settings.name!));
@@ -79,10 +89,6 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => RegistroCosechasDiarias(routeName: settings.name!),
         );
-      case '/lote/cosechas/finalizarcosecha':
-        return MaterialPageRoute(
-          builder: (_) => FinalizarCosechaPage(routeName: settings.name!),
-        );
       case '/lote/plateos':
         return MaterialPageRoute(
           builder: (_) => PlateoPage(routeName: settings.name!),
@@ -91,10 +97,6 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => RegistroPlateosDiarios(routeName: settings.name!),
         );
-      case '/lote/plateos/finalizarplateo':
-        return MaterialPageRoute(
-          builder: (_) => FinalizarPlateoPage(routeName: settings.name!),
-        );
       case '/lote/podas':
         return MaterialPageRoute(
           builder: (_) => PodaPage(routeName: settings.name!),
@@ -102,10 +104,6 @@ class Routes {
       case '/lote/podas/registropodas':
         return MaterialPageRoute(
           builder: (_) => RegistroPodasDiarias(routeName: settings.name!),
-        );
-      case '/lote/podas/finalizarpoda':
-        return MaterialPageRoute(
-          builder: (_) => FinalizarPodaPage(routeName: settings.name!),
         );
       case '/lote/censo/registrarplaga':
         return MaterialPageRoute(

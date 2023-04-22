@@ -6,7 +6,6 @@ class Aplicaciones extends Table {
   IntColumn get area => integer()();
   DateTimeColumn get fechaAplicacion => dateTime()();
   DateTimeColumn get fechaReingreso => dateTime()();
-  TextColumn get ccUsuario => text()();
   IntColumn get idCenso => integer()();
   IntColumn get idProductoAgroquimico => integer()();
   TextColumn get responsable => text()();
@@ -16,5 +15,6 @@ class Aplicaciones extends Table {
   List<String> get customConstraints => [
         'FOREIGN KEY(id_censo) REFERENCES censo(id_censo)',
         'FOREIGN KEY(id_producto_agroquimico) REFERENCES producto_agroquimico(id_producto_agroquimico)',
+        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
       ];
 }

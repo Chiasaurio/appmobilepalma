@@ -40,12 +40,6 @@ class $AplicacionesTable extends Aplicaciones
   late final GeneratedColumn<DateTime> fechaReingreso =
       GeneratedColumn<DateTime>('fecha_reingreso', aliasedName, false,
           type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _ccUsuarioMeta =
-      const VerificationMeta('ccUsuario');
-  @override
-  late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
-      'cc_usuario', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _idCensoMeta =
       const VerificationMeta('idCenso');
   @override
@@ -84,7 +78,6 @@ class $AplicacionesTable extends Aplicaciones
         area,
         fechaAplicacion,
         fechaReingreso,
-        ccUsuario,
         idCenso,
         idProductoAgroquimico,
         responsable,
@@ -129,12 +122,6 @@ class $AplicacionesTable extends Aplicaciones
               data['fecha_reingreso']!, _fechaReingresoMeta));
     } else if (isInserting) {
       context.missing(_fechaReingresoMeta);
-    }
-    if (data.containsKey('cc_usuario')) {
-      context.handle(_ccUsuarioMeta,
-          ccUsuario.isAcceptableOrUnknown(data['cc_usuario']!, _ccUsuarioMeta));
-    } else if (isInserting) {
-      context.missing(_ccUsuarioMeta);
     }
     if (data.containsKey('id_censo')) {
       context.handle(_idCensoMeta,
@@ -183,8 +170,6 @@ class $AplicacionesTable extends Aplicaciones
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_aplicacion'])!,
       fechaReingreso: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_reingreso'])!,
-      ccUsuario: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}cc_usuario'])!,
       idCenso: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
       idProductoAgroquimico: attachedDatabase.typeMapping.read(
@@ -208,7 +193,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
   final int area;
   final DateTime fechaAplicacion;
   final DateTime fechaReingreso;
-  final String ccUsuario;
   final int idCenso;
   final int idProductoAgroquimico;
   final String responsable;
@@ -219,7 +203,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       required this.area,
       required this.fechaAplicacion,
       required this.fechaReingreso,
-      required this.ccUsuario,
       required this.idCenso,
       required this.idProductoAgroquimico,
       required this.responsable,
@@ -232,7 +215,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
     map['area'] = Variable<int>(area);
     map['fecha_aplicacion'] = Variable<DateTime>(fechaAplicacion);
     map['fecha_reingreso'] = Variable<DateTime>(fechaReingreso);
-    map['cc_usuario'] = Variable<String>(ccUsuario);
     map['id_censo'] = Variable<int>(idCenso);
     map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
     map['responsable'] = Variable<String>(responsable);
@@ -247,7 +229,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       area: Value(area),
       fechaAplicacion: Value(fechaAplicacion),
       fechaReingreso: Value(fechaReingreso),
-      ccUsuario: Value(ccUsuario),
       idCenso: Value(idCenso),
       idProductoAgroquimico: Value(idProductoAgroquimico),
       responsable: Value(responsable),
@@ -264,7 +245,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       area: serializer.fromJson<int>(json['area']),
       fechaAplicacion: serializer.fromJson<DateTime>(json['fechaAplicacion']),
       fechaReingreso: serializer.fromJson<DateTime>(json['fechaReingreso']),
-      ccUsuario: serializer.fromJson<String>(json['ccUsuario']),
       idCenso: serializer.fromJson<int>(json['idCenso']),
       idProductoAgroquimico:
           serializer.fromJson<int>(json['idProductoAgroquimico']),
@@ -281,7 +261,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       'area': serializer.toJson<int>(area),
       'fechaAplicacion': serializer.toJson<DateTime>(fechaAplicacion),
       'fechaReingreso': serializer.toJson<DateTime>(fechaReingreso),
-      'ccUsuario': serializer.toJson<String>(ccUsuario),
       'idCenso': serializer.toJson<int>(idCenso),
       'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
       'responsable': serializer.toJson<String>(responsable),
@@ -295,7 +274,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
           int? area,
           DateTime? fechaAplicacion,
           DateTime? fechaReingreso,
-          String? ccUsuario,
           int? idCenso,
           int? idProductoAgroquimico,
           String? responsable,
@@ -306,7 +284,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
         area: area ?? this.area,
         fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
         fechaReingreso: fechaReingreso ?? this.fechaReingreso,
-        ccUsuario: ccUsuario ?? this.ccUsuario,
         idCenso: idCenso ?? this.idCenso,
         idProductoAgroquimico:
             idProductoAgroquimico ?? this.idProductoAgroquimico,
@@ -321,7 +298,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
           ..write('area: $area, ')
           ..write('fechaAplicacion: $fechaAplicacion, ')
           ..write('fechaReingreso: $fechaReingreso, ')
-          ..write('ccUsuario: $ccUsuario, ')
           ..write('idCenso: $idCenso, ')
           ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
           ..write('responsable: $responsable, ')
@@ -337,7 +313,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       area,
       fechaAplicacion,
       fechaReingreso,
-      ccUsuario,
       idCenso,
       idProductoAgroquimico,
       responsable,
@@ -351,7 +326,6 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
           other.area == this.area &&
           other.fechaAplicacion == this.fechaAplicacion &&
           other.fechaReingreso == this.fechaReingreso &&
-          other.ccUsuario == this.ccUsuario &&
           other.idCenso == this.idCenso &&
           other.idProductoAgroquimico == this.idProductoAgroquimico &&
           other.responsable == this.responsable &&
@@ -364,7 +338,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
   final Value<int> area;
   final Value<DateTime> fechaAplicacion;
   final Value<DateTime> fechaReingreso;
-  final Value<String> ccUsuario;
   final Value<int> idCenso;
   final Value<int> idProductoAgroquimico;
   final Value<String> responsable;
@@ -375,7 +348,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     this.area = const Value.absent(),
     this.fechaAplicacion = const Value.absent(),
     this.fechaReingreso = const Value.absent(),
-    this.ccUsuario = const Value.absent(),
     this.idCenso = const Value.absent(),
     this.idProductoAgroquimico = const Value.absent(),
     this.responsable = const Value.absent(),
@@ -387,7 +359,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     required int area,
     required DateTime fechaAplicacion,
     required DateTime fechaReingreso,
-    required String ccUsuario,
     required int idCenso,
     required int idProductoAgroquimico,
     required String responsable,
@@ -396,7 +367,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
         area = Value(area),
         fechaAplicacion = Value(fechaAplicacion),
         fechaReingreso = Value(fechaReingreso),
-        ccUsuario = Value(ccUsuario),
         idCenso = Value(idCenso),
         idProductoAgroquimico = Value(idProductoAgroquimico),
         responsable = Value(responsable);
@@ -406,7 +376,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     Expression<int>? area,
     Expression<DateTime>? fechaAplicacion,
     Expression<DateTime>? fechaReingreso,
-    Expression<String>? ccUsuario,
     Expression<int>? idCenso,
     Expression<int>? idProductoAgroquimico,
     Expression<String>? responsable,
@@ -418,7 +387,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
       if (area != null) 'area': area,
       if (fechaAplicacion != null) 'fecha_aplicacion': fechaAplicacion,
       if (fechaReingreso != null) 'fecha_reingreso': fechaReingreso,
-      if (ccUsuario != null) 'cc_usuario': ccUsuario,
       if (idCenso != null) 'id_censo': idCenso,
       if (idProductoAgroquimico != null)
         'id_producto_agroquimico': idProductoAgroquimico,
@@ -433,7 +401,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
       Value<int>? area,
       Value<DateTime>? fechaAplicacion,
       Value<DateTime>? fechaReingreso,
-      Value<String>? ccUsuario,
       Value<int>? idCenso,
       Value<int>? idProductoAgroquimico,
       Value<String>? responsable,
@@ -444,7 +411,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
       area: area ?? this.area,
       fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
       fechaReingreso: fechaReingreso ?? this.fechaReingreso,
-      ccUsuario: ccUsuario ?? this.ccUsuario,
       idCenso: idCenso ?? this.idCenso,
       idProductoAgroquimico:
           idProductoAgroquimico ?? this.idProductoAgroquimico,
@@ -471,9 +437,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     if (fechaReingreso.present) {
       map['fecha_reingreso'] = Variable<DateTime>(fechaReingreso.value);
     }
-    if (ccUsuario.present) {
-      map['cc_usuario'] = Variable<String>(ccUsuario.value);
-    }
     if (idCenso.present) {
       map['id_censo'] = Variable<int>(idCenso.value);
     }
@@ -498,7 +461,6 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
           ..write('area: $area, ')
           ..write('fechaAplicacion: $fechaAplicacion, ')
           ..write('fechaReingreso: $fechaReingreso, ')
-          ..write('ccUsuario: $ccUsuario, ')
           ..write('idCenso: $idCenso, ')
           ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
           ..write('responsable: $responsable, ')

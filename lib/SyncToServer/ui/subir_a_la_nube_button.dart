@@ -2,7 +2,7 @@ import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../constants.dart';
+import '../../presentation/constants.dart';
 import '../../utils/form_status.dart';
 
 class SubirALaNubeButton extends StatelessWidget {

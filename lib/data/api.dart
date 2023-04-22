@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
-import 'package:apppalma/modules/Login/resources/authentication_repository.dart';
+import 'package:apppalma/presentation/modules/Login/resources/authentication_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as secure;
 import 'package:dio/dio.dart';
 

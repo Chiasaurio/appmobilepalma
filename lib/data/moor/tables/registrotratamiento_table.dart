@@ -14,6 +14,11 @@ class RegistroTratamiento extends Table {
   TextColumn get unidades => text()();
   TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
+
+  @override
+  List<String> get customConstraints => [
+        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
+      ];
 }
 
 class EnfermedadConTratamiento {

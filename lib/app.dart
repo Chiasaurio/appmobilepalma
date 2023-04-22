@@ -1,25 +1,26 @@
 import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
-import 'package:apppalma/modules/Censo/cubit/censos_cubit.dart';
-import 'package:apppalma/modules/Cosechas/cubit/cosecha_cubit.dart';
-import 'package:apppalma/modules/Enfermedad/cubit/enfermedad_cubit.dart';
-import 'package:apppalma/modules/Fumigaciones/cubit/fumigacion_cubit.dart';
-import 'package:apppalma/modules/Login/bloc/authentication_bloc.dart';
-import 'package:apppalma/modules/Login/ui/cubit/login_cubit.dart';
-import 'package:apppalma/modules/LoteDetail/cubit/lote_detail_cubit.dart';
-import 'package:apppalma/modules/LotesList/cubit/loteslist_cubit.dart';
-import 'package:apppalma/modules/Palma/cubit/palma_cubit.dart';
-import 'package:apppalma/modules/Plagas/cubit/plagas_cubit.dart';
-import 'package:apppalma/modules/Plateos/cubit/plateos_cubit.dart';
-import 'package:apppalma/modules/Podas/cubit/podas_cubit.dart';
-import 'package:apppalma/modules/Productos_Agroquimicos/cubit/agroquimicos_cubit.dart';
-import 'package:apppalma/modules/Tratamientos/cubit/tratamiento_cubit.dart';
-import 'package:apppalma/modules/Viajes/ui/peso_extractora/cubit/peso_extractora_cubit.dart';
-import 'package:apppalma/modules/Viajes/ui/primera_pagina/cubit/viajes_pendientes_cubit.dart';
+import 'package:apppalma/presentation/modules/Censo/cubit/censos_cubit.dart';
+import 'package:apppalma/presentation/modules/Cosechas/cubit/cosecha_cubit.dart';
+import 'package:apppalma/presentation/modules/Enfermedad/cubit/enfermedad_cubit.dart';
+import 'package:apppalma/presentation/modules/Fumigaciones/cubit/fumigacion_cubit.dart';
+import 'package:apppalma/presentation/modules/Login/cubit/authentication_cubit.dart';
+import 'package:apppalma/presentation/modules/Login/ui/cubit/login_cubit.dart';
+import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
+import 'package:apppalma/presentation/modules/LotesList/cubit/loteslist_cubit.dart';
+import 'package:apppalma/presentation/modules/Palma/cubit/palma_cubit.dart';
+import 'package:apppalma/presentation/modules/Plagas/cubit/plagas_cubit.dart';
+import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
+import 'package:apppalma/presentation/modules/Podas/cubit/podas_cubit.dart';
+import 'package:apppalma/presentation/modules/Productos_Agroquimicos/cubit/agroquimicos_cubit.dart';
+import 'package:apppalma/presentation/modules/Tratamientos/cubit/tratamiento_cubit.dart';
+import 'package:apppalma/presentation/modules/Viajes/ui/peso_extractora/cubit/peso_extractora_cubit.dart';
+import 'package:apppalma/presentation/modules/Viajes/ui/primera_pagina/cubit/viajes_pendientes_cubit.dart';
 import 'package:apppalma/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'modules/Viajes/cubit/viaje_cubit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'globals.dart';
 
 class AppPalma extends StatelessWidget {
@@ -32,10 +33,8 @@ class AppPalma extends StatelessWidget {
     // final userRepository = UserRepository();
     return MultiBlocProvider(
       providers: [
-        // BlocProvider<UserBloc>(create: (context) => UserBloc()),
-        BlocProvider<AuthenticationBloc>(
-            create: (context) =>
-                AuthenticationBloc()..add(const AuthenticationChange())),
+        BlocProvider<AuthenticationCubit>(
+            create: (context) => AuthenticationCubit()),
         BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
         BlocProvider<LoteslistCubit>(create: (context) => LoteslistCubit()),
         BlocProvider<LoteDetailCubit>(create: (context) => LoteDetailCubit()),
@@ -60,12 +59,15 @@ class AppPalma extends StatelessWidget {
         BlocProvider<SyncToServerCubit>(
             create: (context) => SyncToServerCubit()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Smart Spotter',
+        theme: ThemeData(
+          fontFamily: GoogleFonts.roboto().fontFamily,
+        ),
         debugShowCheckedModeBanner: false,
         initialRoute: '/splash',
-        localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-        supportedLocales: [Locale('en')],
+        localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+        supportedLocales: const [Locale('en')],
         onGenerateRoute: Routes.generateRoutes,
       ),
     );

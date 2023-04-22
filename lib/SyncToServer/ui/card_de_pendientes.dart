@@ -1,5 +1,5 @@
 import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
-import 'package:apppalma/constants.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,18 +25,6 @@ class _CardPendientesState extends State<CardPendientes> {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: Column(children: [
             TextSyncPendiente(
-              list: state.cosechasConDiariasPendientes!,
-              type: CosechaConCosechasDiarias,
-            ),
-            TextSyncPendiente(
-              list: state.podasConDiariasPendientes!,
-              type: PodasConPodasDiarias,
-            ),
-            TextSyncPendiente(
-              list: state.plateosConDiariasPendientes!,
-              type: PlateoConPlateosDiarias,
-            ),
-            TextSyncPendiente(
               list: state.palmasPendientes!,
               type: Palma,
             ),
@@ -55,6 +43,18 @@ class _CardPendientesState extends State<CardPendientes> {
             TextSyncPendiente(
               list: state.fumigacionesPendientes!,
               type: Aplicacione,
+            ),
+            TextSyncPendiente(
+              list: state.cosechasConDiariasPendientes!,
+              type: CosechaConCosechasDiarias,
+            ),
+            TextSyncPendiente(
+              list: state.podasConDiariasPendientes!,
+              type: PodasConPodasDiarias,
+            ),
+            TextSyncPendiente(
+              list: state.plateosConDiariasPendientes!,
+              type: PlateoConPlateosDiarias,
             ),
           ]),
         );

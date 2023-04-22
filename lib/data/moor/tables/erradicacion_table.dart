@@ -12,5 +12,6 @@ class Erradicacion extends Table {
   @override
   List<String> get customConstraints => [
         'FOREIGN KEY(id_palma) REFERENCES palmas(identificador)',
+        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
       ];
 }
