@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class FechaWidget extends StatefulWidget {
-  DateTime fecha;
+  DateTime? fecha;
   Function(DateTime) callback;
 
   FechaWidget({Key? key, required this.fecha, required this.callback})
@@ -13,7 +13,7 @@ class FechaWidget extends StatefulWidget {
 }
 
 class _FechaWidgetState extends State<FechaWidget> {
-  late DateTime _fecha;
+  DateTime? _fecha;
   late double width;
   late double height;
   late double altoCard;
@@ -23,24 +23,24 @@ class _FechaWidgetState extends State<FechaWidget> {
 
   final TextEditingController _inputFieldDateController =
       TextEditingController();
-  late DateTime fechaHoy;
   TimeOfDay horaHoy = TimeOfDay.now();
 
   @override
   void initState() {
-    fechaHoy = widget.fecha;
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _fecha = fechaHoy;
+    _fecha = widget.fecha;
+    if (_fecha == null) {
+      _inputFieldDateController.text = "";
+    }
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     altoCard = height * 0.5; //150,
     anchoCard = width;
-    _inputFieldDateController.text = formatter.format(_fecha);
+    // _inputFieldDateController.text = formatter.format(_fecha);
     return Container(
       child: _buildFecha(context),
     );
@@ -49,15 +49,22 @@ class _FechaWidgetState extends State<FechaWidget> {
   Widget _buildFecha(BuildContext context) {
     return TextFormField(
         readOnly: true,
-        style: const TextStyle(fontSize: 20),
+        style: const TextStyle(fontSize: 17),
         textAlign: TextAlign.start,
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-          suffixIcon: Icon(Icons.calendar_today),
-          labelText: 'Fecha',
-          labelStyle: TextStyle(fontSize: 18),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+          suffixIcon: Icon(
+            Icons.calendar_today,
+            size: 20,
+          ),
+          label: Text(
+            "Fecha",
+            style: TextStyle(fontSize: 15),
+          ),
+          contentPadding: EdgeInsets.only(left: 10),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+          ),
         ),
         enableInteractiveSelection: false,
         controller: _inputFieldDateController,
@@ -79,7 +86,7 @@ class _FechaWidgetState extends State<FechaWidget> {
       setState(() {
         _fecha = picked;
         widget.callback(picked);
-        _inputFieldDateController.text = formatter.format(_fecha);
+        _inputFieldDateController.text = formatter.format(_fecha!);
       });
     }
   }

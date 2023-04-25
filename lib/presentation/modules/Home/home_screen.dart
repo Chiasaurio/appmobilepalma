@@ -98,7 +98,7 @@ class _FincaPageState extends State<FincaPage> {
             children: [
               _crearBotonRedondeado2(
                   'Ver lotes', '/lotes', FontAwesomeIcons.map, context),
-              _crearBotonRedondeado2('Pluviometro', '/viajes',
+              _crearBotonRedondeado2('Pluviometro', '/pluviometro',
                   FontAwesomeIcons.cloudRain, context),
               _crearBotonRedondeado2('Viajes de fruto', '/viajes',
                   FontAwesomeIcons.truck, context),

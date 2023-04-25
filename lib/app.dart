@@ -10,6 +10,7 @@ import 'package:apppalma/presentation/modules/LotesList/cubit/loteslist_cubit.da
 import 'package:apppalma/presentation/modules/Palma/cubit/palma_cubit.dart';
 import 'package:apppalma/presentation/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
+import 'package:apppalma/presentation/modules/Pluviometro/cubit/pluviometro_cubit.dart';
 import 'package:apppalma/presentation/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/presentation/modules/Productos_Agroquimicos/cubit/agroquimicos_cubit.dart';
 import 'package:apppalma/presentation/modules/Tratamientos/cubit/tratamiento_cubit.dart';
@@ -36,6 +37,7 @@ class AppPalma extends StatelessWidget {
         BlocProvider<AuthenticationCubit>(
             create: (context) => AuthenticationCubit()),
         BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+        BlocProvider<PluviometroCubit>(create: (context) => PluviometroCubit()),
         BlocProvider<LoteslistCubit>(create: (context) => LoteslistCubit()),
         BlocProvider<LoteDetailCubit>(create: (context) => LoteDetailCubit()),
         BlocProvider<CensosCubit>(create: (context) => CensosCubit()),

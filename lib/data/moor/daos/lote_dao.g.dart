@@ -8,4 +8,7 @@ mixin _$LoteDaoMixin on DatabaseAccessor<AppDatabase> {
   $CosechasTable get cosechas => attachedDatabase.cosechas;
   $PlateosTable get plateos => attachedDatabase.plateos;
   $PodasTable get podas => attachedDatabase.podas;
+  $CensoTable get censo => attachedDatabase.censo;
+  $PalmasTable get palmas => attachedDatabase.palmas;
+  $PrecipitacionTable get precipitacion => attachedDatabase.precipitacion;
 }

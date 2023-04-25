@@ -7412,6 +7412,247 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
   }
 }
 
+class $PrecipitacionTable extends Precipitacion
+    with TableInfo<$PrecipitacionTable, PrecipitacionData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PrecipitacionTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idPrecipitacionMeta =
+      const VerificationMeta('idPrecipitacion');
+  @override
+  late final GeneratedColumn<int> idPrecipitacion = GeneratedColumn<int>(
+      'id_precipitacion', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _fechaRegistroPrecipitacionMeta =
+      const VerificationMeta('fechaRegistroPrecipitacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaRegistroPrecipitacion =
+      GeneratedColumn<DateTime>(
+          'fecha_registro_precipitacion', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _cantidadPrecipitacionMeta =
+      const VerificationMeta('cantidadPrecipitacion');
+  @override
+  late final GeneratedColumn<int> cantidadPrecipitacion = GeneratedColumn<int>(
+      'cantidad_precipitacion', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [idPrecipitacion, fechaRegistroPrecipitacion, cantidadPrecipitacion];
+  @override
+  String get aliasedName => _alias ?? 'precipitacion';
+  @override
+  String get actualTableName => 'precipitacion';
+  @override
+  VerificationContext validateIntegrity(Insertable<PrecipitacionData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id_precipitacion')) {
+      context.handle(
+          _idPrecipitacionMeta,
+          idPrecipitacion.isAcceptableOrUnknown(
+              data['id_precipitacion']!, _idPrecipitacionMeta));
+    }
+    if (data.containsKey('fecha_registro_precipitacion')) {
+      context.handle(
+          _fechaRegistroPrecipitacionMeta,
+          fechaRegistroPrecipitacion.isAcceptableOrUnknown(
+              data['fecha_registro_precipitacion']!,
+              _fechaRegistroPrecipitacionMeta));
+    } else if (isInserting) {
+      context.missing(_fechaRegistroPrecipitacionMeta);
+    }
+    if (data.containsKey('cantidad_precipitacion')) {
+      context.handle(
+          _cantidadPrecipitacionMeta,
+          cantidadPrecipitacion.isAcceptableOrUnknown(
+              data['cantidad_precipitacion']!, _cantidadPrecipitacionMeta));
+    } else if (isInserting) {
+      context.missing(_cantidadPrecipitacionMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {idPrecipitacion};
+  @override
+  PrecipitacionData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PrecipitacionData(
+      idPrecipitacion: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_precipitacion'])!,
+      fechaRegistroPrecipitacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_registro_precipitacion'])!,
+      cantidadPrecipitacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}cantidad_precipitacion'])!,
+    );
+  }
+
+  @override
+  $PrecipitacionTable createAlias(String alias) {
+    return $PrecipitacionTable(attachedDatabase, alias);
+  }
+}
+
+class PrecipitacionData extends DataClass
+    implements Insertable<PrecipitacionData> {
+  final int idPrecipitacion;
+  final DateTime fechaRegistroPrecipitacion;
+  final int cantidadPrecipitacion;
+  const PrecipitacionData(
+      {required this.idPrecipitacion,
+      required this.fechaRegistroPrecipitacion,
+      required this.cantidadPrecipitacion});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id_precipitacion'] = Variable<int>(idPrecipitacion);
+    map['fecha_registro_precipitacion'] =
+        Variable<DateTime>(fechaRegistroPrecipitacion);
+    map['cantidad_precipitacion'] = Variable<int>(cantidadPrecipitacion);
+    return map;
+  }
+
+  PrecipitacionCompanion toCompanion(bool nullToAbsent) {
+    return PrecipitacionCompanion(
+      idPrecipitacion: Value(idPrecipitacion),
+      fechaRegistroPrecipitacion: Value(fechaRegistroPrecipitacion),
+      cantidadPrecipitacion: Value(cantidadPrecipitacion),
+    );
+  }
+
+  factory PrecipitacionData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PrecipitacionData(
+      idPrecipitacion: serializer.fromJson<int>(json['idPrecipitacion']),
+      fechaRegistroPrecipitacion:
+          serializer.fromJson<DateTime>(json['fechaRegistroPrecipitacion']),
+      cantidadPrecipitacion:
+          serializer.fromJson<int>(json['cantidadPrecipitacion']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'idPrecipitacion': serializer.toJson<int>(idPrecipitacion),
+      'fechaRegistroPrecipitacion':
+          serializer.toJson<DateTime>(fechaRegistroPrecipitacion),
+      'cantidadPrecipitacion': serializer.toJson<int>(cantidadPrecipitacion),
+    };
+  }
+
+  PrecipitacionData copyWith(
+          {int? idPrecipitacion,
+          DateTime? fechaRegistroPrecipitacion,
+          int? cantidadPrecipitacion}) =>
+      PrecipitacionData(
+        idPrecipitacion: idPrecipitacion ?? this.idPrecipitacion,
+        fechaRegistroPrecipitacion:
+            fechaRegistroPrecipitacion ?? this.fechaRegistroPrecipitacion,
+        cantidadPrecipitacion:
+            cantidadPrecipitacion ?? this.cantidadPrecipitacion,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('PrecipitacionData(')
+          ..write('idPrecipitacion: $idPrecipitacion, ')
+          ..write('fechaRegistroPrecipitacion: $fechaRegistroPrecipitacion, ')
+          ..write('cantidadPrecipitacion: $cantidadPrecipitacion')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      idPrecipitacion, fechaRegistroPrecipitacion, cantidadPrecipitacion);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PrecipitacionData &&
+          other.idPrecipitacion == this.idPrecipitacion &&
+          other.fechaRegistroPrecipitacion == this.fechaRegistroPrecipitacion &&
+          other.cantidadPrecipitacion == this.cantidadPrecipitacion);
+}
+
+class PrecipitacionCompanion extends UpdateCompanion<PrecipitacionData> {
+  final Value<int> idPrecipitacion;
+  final Value<DateTime> fechaRegistroPrecipitacion;
+  final Value<int> cantidadPrecipitacion;
+  const PrecipitacionCompanion({
+    this.idPrecipitacion = const Value.absent(),
+    this.fechaRegistroPrecipitacion = const Value.absent(),
+    this.cantidadPrecipitacion = const Value.absent(),
+  });
+  PrecipitacionCompanion.insert({
+    this.idPrecipitacion = const Value.absent(),
+    required DateTime fechaRegistroPrecipitacion,
+    required int cantidadPrecipitacion,
+  })  : fechaRegistroPrecipitacion = Value(fechaRegistroPrecipitacion),
+        cantidadPrecipitacion = Value(cantidadPrecipitacion);
+  static Insertable<PrecipitacionData> custom({
+    Expression<int>? idPrecipitacion,
+    Expression<DateTime>? fechaRegistroPrecipitacion,
+    Expression<int>? cantidadPrecipitacion,
+  }) {
+    return RawValuesInsertable({
+      if (idPrecipitacion != null) 'id_precipitacion': idPrecipitacion,
+      if (fechaRegistroPrecipitacion != null)
+        'fecha_registro_precipitacion': fechaRegistroPrecipitacion,
+      if (cantidadPrecipitacion != null)
+        'cantidad_precipitacion': cantidadPrecipitacion,
+    });
+  }
+
+  PrecipitacionCompanion copyWith(
+      {Value<int>? idPrecipitacion,
+      Value<DateTime>? fechaRegistroPrecipitacion,
+      Value<int>? cantidadPrecipitacion}) {
+    return PrecipitacionCompanion(
+      idPrecipitacion: idPrecipitacion ?? this.idPrecipitacion,
+      fechaRegistroPrecipitacion:
+          fechaRegistroPrecipitacion ?? this.fechaRegistroPrecipitacion,
+      cantidadPrecipitacion:
+          cantidadPrecipitacion ?? this.cantidadPrecipitacion,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (idPrecipitacion.present) {
+      map['id_precipitacion'] = Variable<int>(idPrecipitacion.value);
+    }
+    if (fechaRegistroPrecipitacion.present) {
+      map['fecha_registro_precipitacion'] =
+          Variable<DateTime>(fechaRegistroPrecipitacion.value);
+    }
+    if (cantidadPrecipitacion.present) {
+      map['cantidad_precipitacion'] =
+          Variable<int>(cantidadPrecipitacion.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PrecipitacionCompanion(')
+          ..write('idPrecipitacion: $idPrecipitacion, ')
+          ..write('fechaRegistroPrecipitacion: $fechaRegistroPrecipitacion, ')
+          ..write('cantidadPrecipitacion: $cantidadPrecipitacion')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
@@ -7438,6 +7679,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ViajesTable viajes = $ViajesTable(this);
   late final $CensoEtapasPlagaTable censoEtapasPlaga =
       $CensoEtapasPlagaTable(this);
+  late final $PrecipitacionTable precipitacion = $PrecipitacionTable(this);
   late final CosechaDao cosechaDao = CosechaDao(this as AppDatabase);
   late final CosechaDiariaDao cosechaDiariaDao =
       CosechaDiariaDao(this as AppDatabase);
@@ -7480,6 +7722,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         registroEnfermedad,
         registroTratamiento,
         viajes,
-        censoEtapasPlaga
+        censoEtapasPlaga,
+        precipitacion
       ];
 }

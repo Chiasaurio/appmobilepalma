@@ -33,57 +33,79 @@ class LoteLocalInformation extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             const SizedBox(height: 5.0),
-            lote.cosecha != null
-                ? Row(children: [
-                    Container(
-                      width: 15.0,
-                      height: 15.0,
-                      decoration: const BoxDecoration(
-                        color: kYellowColor,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    const Text(
-                      'Cosecha pendiente ',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ])
-                : const SizedBox(),
-            lote.poda != null
-                ? Row(children: [
-                    Container(
-                      width: 15.0,
-                      height: 15.0,
-                      decoration: const BoxDecoration(
-                        color: kYellowColor,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    const Text(
-                      'Poda pendiente ',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ])
-                : const SizedBox(),
-            lote.plateo != null
-                ? Row(children: [
-                    Container(
-                      width: 15.0,
-                      height: 15.0,
-                      decoration: const BoxDecoration(
-                        color: kYellowColor,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    const Text(
-                      'Plateo pendiente ',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ])
-                : const SizedBox(),
+            if (lote.cosecha != null)
+              Row(children: [
+                const SizedBox(width: 5),
+                Container(
+                  width: 15.0,
+                  height: 15.0,
+                  decoration: const BoxDecoration(
+                    color: kYellowColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                const Text(
+                  'Cosecha pendiente ',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ]),
+            if (lote.poda != null)
+              Row(children: [
+                const SizedBox(width: 5),
+                Container(
+                  width: 15.0,
+                  height: 15.0,
+                  decoration: const BoxDecoration(
+                    color: kYellowColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                const Text(
+                  'Poda pendiente ',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ]),
+            if (lote.plateo != null)
+              Row(children: [
+                const SizedBox(width: 5),
+                Container(
+                  width: 15.0,
+                  height: 15.0,
+                  decoration: const BoxDecoration(
+                    color: kYellowColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                const Text(
+                  'Plateo pendiente ',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ]),
+            if (lote.palmaspendientes?.isNotEmpty ?? false)
+              Row(children: [
+                const SizedBox(width: 10),
+                Text(lote.palmaspendientes!.length.toString(),
+                    style: const TextStyle(color: Colors.red)),
+                const SizedBox(width: 10),
+                const Text(
+                  'Palmas pendiente por tratar ',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ]),
+            if (lote.censospendientes?.isNotEmpty ?? false)
+              Row(children: [
+                const SizedBox(width: 10),
+                Text(lote.censospendientes!.length.toString(),
+                    style: const TextStyle(color: Colors.red)),
+                const SizedBox(width: 10),
+                const Text(
+                  'Censos pendientes por tratar ',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ]),
           ],
         ),
       ),

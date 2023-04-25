@@ -23,7 +23,7 @@ class _LotePageState extends State<LotePage> {
   @override
   void initState() {
     _lote = widget.lote;
-    BlocProvider.of<LoteDetailCubit>(context).reoadLote(widget.lote.lote.id);
+    BlocProvider.of<LoteDetailCubit>(context).reloadLote(widget.lote.lote.id);
     super.initState();
   }
 

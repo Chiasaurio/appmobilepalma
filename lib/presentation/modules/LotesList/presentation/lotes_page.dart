@@ -75,23 +75,13 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
 
   Widget dataBody(BuildContext context) {
     return Expanded(
-        child:
-            //  GridView.count(
-            //     shrinkWrap: true,
-            //     primary: false,
-            //     padding: const EdgeInsets.all(20),
-            //     childAspectRatio: 5,
-            //     crossAxisSpacing: 10,
-            //     mainAxisSpacing: 10,
-            //     crossAxisCount: 1,
-            //     children: loteswithprocesos.map((e) => makeListaLotes(e)).toList()),
-            ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(8),
-                itemCount: loteswithprocesos.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return makeListaLotes(loteswithprocesos[index]);
-                }));
+        child: ListView.builder(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(8),
+            itemCount: loteswithprocesos.length,
+            itemBuilder: (BuildContext context, int index) {
+              return makeListaLotes(loteswithprocesos[index]);
+            }));
   }
 
   Widget makeListaLotes(LoteWithProcesos loteswithprocesos) {

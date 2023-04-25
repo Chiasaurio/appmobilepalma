@@ -10,6 +10,6 @@ recargarLote(BuildContext context) {
   //Recargar lote
   if (singleLoteDetail is LoteChoosed) {
     BlocProvider.of<LoteDetailCubit>(context)
-        .reoadLote(singleLoteDetail.lote.lote.id);
+        .reloadLote(singleLoteDetail.lote.lote.id);
   }
 }

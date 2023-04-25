@@ -1,6 +1,7 @@
 // These imports are only needed to open the database
 import 'dart:io';
 
+import 'package:apppalma/data/moor/tables/precipitacion.dart';
 import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -43,6 +44,7 @@ LazyDatabase _openConnection() {
   RegistroTratamiento,
   Viajes,
   CensoEtapasPlaga,
+  Precipitacion,
 ], daos: [
   CosechaDao,
   CosechaDiariaDao,
@@ -65,7 +67,7 @@ class AppDatabase extends _$AppDatabase {
   // you should bump this number whenever you change or add a table definition. Migrations
   // are covered later in this readme.
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 1;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(

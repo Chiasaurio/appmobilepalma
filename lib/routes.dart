@@ -11,6 +11,7 @@ import 'package:apppalma/presentation/modules/LotesList/presentation/lotes_page.
 import 'package:apppalma/presentation/modules/Plagas/plagas/ui/plaga_page.dart';
 import 'package:apppalma/presentation/modules/Plateos/ui/plateo_page.dart';
 import 'package:apppalma/presentation/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
+import 'package:apppalma/presentation/modules/Pluviometro/pluviometro_page.dart';
 import 'package:apppalma/presentation/modules/Podas/ui/poda_page.dart';
 import 'package:apppalma/presentation/modules/Podas/ui/registro_podas_diarias/registro_podas_diarias.dart';
 import 'package:apppalma/presentation/modules/Sync/sincronizar_page.dart';
@@ -33,6 +34,13 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/finca':
         return MaterialPageRoute(builder: (_) => const FincaPage());
+      case '/pluviometro':
+        return MaterialPageRoute(
+            builder: (_) => PluviometroPage(
+                routeName: settings.name!,
+                disableBack: settings.arguments != null
+                    ? settings.arguments as bool
+                    : null));
       case '/viajes':
         return MaterialPageRoute(
             builder: (_) => ViajesPendientesPage(

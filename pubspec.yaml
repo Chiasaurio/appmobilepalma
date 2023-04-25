@@ -54,6 +54,7 @@ dependencies:
   font_awesome_flutter: ^10.3.0
   easy_sidemenu: ^0.4.1+1
   google_fonts: ^4.0.3
+  google_maps_flutter: ^2.2.5
 
 dev_dependencies:
   drift_dev: ^2.1.0

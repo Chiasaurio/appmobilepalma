@@ -16,7 +16,7 @@ class LoteDetailCubit extends Cubit<LoteDetailState> {
     emit(LoteChoosed(lote: lote));
   }
 
-  reoadLote(int idlote) async {
+  reloadLote(int idlote) async {
     emit(LoteDetailInitial());
     final LoteDao loteDao = db.loteDao;
     // LoteWithProcesos lote = await loteDao.getSingleLote();
