@@ -35,12 +35,13 @@ class _FechaWidgetState extends State<FechaWidget> {
     _fecha = widget.fecha;
     if (_fecha == null) {
       _inputFieldDateController.text = "";
+    } else {
+      _inputFieldDateController.text = formatter.format(_fecha!);
     }
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     altoCard = height * 0.5; //150,
     anchoCard = width;
-    // _inputFieldDateController.text = formatter.format(_fecha);
     return Container(
       child: _buildFecha(context),
     );

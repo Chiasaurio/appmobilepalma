@@ -34,8 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   .pushNamedAndRemoveUntil('/finca', (_) => false);
             } else {
               Navigator.of(context)
-                  // .pushNamedAndRemoveUntil('/auth-options', (_) => false);
-                  .pushNamedAndRemoveUntil('/finca', (_) => false);
+                  .pushNamedAndRemoveUntil('/auth-options', (_) => false);
             }
           },
           child: Center(

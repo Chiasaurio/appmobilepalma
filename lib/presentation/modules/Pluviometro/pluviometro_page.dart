@@ -60,7 +60,6 @@ class _PluviometroPageState extends State<PluviometroPage> {
                 FechaWidget(fecha: fecha, callback: callback),
                 ElevatedButton.icon(
                   onPressed: () async {
-                    print('hola');
                     if (_cantidadController.text != "" && fecha != null) {
                       final result =
                           await BlocProvider.of<PluviometroCubit>(context)

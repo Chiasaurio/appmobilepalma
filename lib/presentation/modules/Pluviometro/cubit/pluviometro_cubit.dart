@@ -23,7 +23,6 @@ class PluviometroCubit extends Cubit<PluviometroState> {
       successMessageToast('Se registro la precipitación correctamente');
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

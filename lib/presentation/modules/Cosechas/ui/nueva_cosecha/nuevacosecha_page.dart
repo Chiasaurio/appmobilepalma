@@ -1,12 +1,9 @@
 import 'package:apppalma/presentation/modules/Cosechas/cubit/cosecha_cubit.dart';
 import 'package:apppalma/presentation/components/main_button.dart';
-import 'package:apppalma/presentation/components/widgets/fecha.dart';
 import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:math';
-
-import 'package:flutter/material.dart';
 
 class NuevaCosechaPage extends StatefulWidget {
   final String nombrelote;
