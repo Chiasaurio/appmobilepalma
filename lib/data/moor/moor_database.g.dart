@@ -1045,6 +1045,12 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idCosechaMeta =
+      const VerificationMeta('idCosecha');
+  @override
+  late final GeneratedColumn<int> idCosecha = GeneratedColumn<int>(
+      'id_cosecha', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nombreLoteMeta =
       const VerificationMeta('nombreLote');
   @override
@@ -1109,6 +1115,7 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        idCosecha,
         nombreLote,
         fechaIngreso,
         fechaSalida,
@@ -1129,6 +1136,10 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_cosecha')) {
+      context.handle(_idCosechaMeta,
+          idCosecha.isAcceptableOrUnknown(data['id_cosecha']!, _idCosechaMeta));
     }
     if (data.containsKey('nombre_lote')) {
       context.handle(
@@ -1193,6 +1204,8 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
     return Cosecha(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idCosecha: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_cosecha']),
       nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       fechaIngreso: attachedDatabase.typeMapping.read(
@@ -1220,6 +1233,7 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
 
 class Cosecha extends DataClass implements Insertable<Cosecha> {
   final int id;
+  final int? idCosecha;
   final String nombreLote;
   final DateTime fechaIngreso;
   final DateTime? fechaSalida;
@@ -1230,6 +1244,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   final bool sincronizado;
   const Cosecha(
       {required this.id,
+      this.idCosecha,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
@@ -1242,6 +1257,9 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idCosecha != null) {
+      map['id_cosecha'] = Variable<int>(idCosecha);
+    }
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
@@ -1260,6 +1278,9 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   CosechasCompanion toCompanion(bool nullToAbsent) {
     return CosechasCompanion(
       id: Value(id),
+      idCosecha: idCosecha == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idCosecha),
       nombreLote: Value(nombreLote),
       fechaIngreso: Value(fechaIngreso),
       fechaSalida: fechaSalida == null && nullToAbsent
@@ -1280,6 +1301,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Cosecha(
       id: serializer.fromJson<int>(json['id']),
+      idCosecha: serializer.fromJson<int?>(json['idCosecha']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
@@ -1295,6 +1317,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'idCosecha': serializer.toJson<int?>(idCosecha),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
@@ -1308,6 +1331,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
 
   Cosecha copyWith(
           {int? id,
+          Value<int?> idCosecha = const Value.absent(),
           String? nombreLote,
           DateTime? fechaIngreso,
           Value<DateTime?> fechaSalida = const Value.absent(),
@@ -1318,6 +1342,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
           bool? sincronizado}) =>
       Cosecha(
         id: id ?? this.id,
+        idCosecha: idCosecha.present ? idCosecha.value : this.idCosecha,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
@@ -1331,6 +1356,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   String toString() {
     return (StringBuffer('Cosecha(')
           ..write('id: $id, ')
+          ..write('idCosecha: $idCosecha, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')
@@ -1344,13 +1370,14 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   }
 
   @override
-  int get hashCode => Object.hash(id, nombreLote, fechaIngreso, fechaSalida,
-      cantidadRacimos, kilos, idViaje, completada, sincronizado);
+  int get hashCode => Object.hash(id, idCosecha, nombreLote, fechaIngreso,
+      fechaSalida, cantidadRacimos, kilos, idViaje, completada, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Cosecha &&
           other.id == this.id &&
+          other.idCosecha == this.idCosecha &&
           other.nombreLote == this.nombreLote &&
           other.fechaIngreso == this.fechaIngreso &&
           other.fechaSalida == this.fechaSalida &&
@@ -1363,6 +1390,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
 
 class CosechasCompanion extends UpdateCompanion<Cosecha> {
   final Value<int> id;
+  final Value<int?> idCosecha;
   final Value<String> nombreLote;
   final Value<DateTime> fechaIngreso;
   final Value<DateTime?> fechaSalida;
@@ -1373,6 +1401,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
   final Value<bool> sincronizado;
   const CosechasCompanion({
     this.id = const Value.absent(),
+    this.idCosecha = const Value.absent(),
     this.nombreLote = const Value.absent(),
     this.fechaIngreso = const Value.absent(),
     this.fechaSalida = const Value.absent(),
@@ -1384,6 +1413,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
   });
   CosechasCompanion.insert({
     this.id = const Value.absent(),
+    this.idCosecha = const Value.absent(),
     required String nombreLote,
     required DateTime fechaIngreso,
     this.fechaSalida = const Value.absent(),
@@ -1398,6 +1428,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
         kilos = Value(kilos);
   static Insertable<Cosecha> custom({
     Expression<int>? id,
+    Expression<int>? idCosecha,
     Expression<String>? nombreLote,
     Expression<DateTime>? fechaIngreso,
     Expression<DateTime>? fechaSalida,
@@ -1409,6 +1440,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (idCosecha != null) 'id_cosecha': idCosecha,
       if (nombreLote != null) 'nombre_lote': nombreLote,
       if (fechaIngreso != null) 'fecha_ingreso': fechaIngreso,
       if (fechaSalida != null) 'fecha_salida': fechaSalida,
@@ -1422,6 +1454,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
 
   CosechasCompanion copyWith(
       {Value<int>? id,
+      Value<int?>? idCosecha,
       Value<String>? nombreLote,
       Value<DateTime>? fechaIngreso,
       Value<DateTime?>? fechaSalida,
@@ -1432,6 +1465,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
       Value<bool>? sincronizado}) {
     return CosechasCompanion(
       id: id ?? this.id,
+      idCosecha: idCosecha ?? this.idCosecha,
       nombreLote: nombreLote ?? this.nombreLote,
       fechaIngreso: fechaIngreso ?? this.fechaIngreso,
       fechaSalida: fechaSalida ?? this.fechaSalida,
@@ -1448,6 +1482,9 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (idCosecha.present) {
+      map['id_cosecha'] = Variable<int>(idCosecha.value);
     }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
@@ -1480,6 +1517,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
   String toString() {
     return (StringBuffer('CosechasCompanion(')
           ..write('id: $id, ')
+          ..write('idCosecha: $idCosecha, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')
@@ -3770,6 +3808,12 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idPlateoMeta =
+      const VerificationMeta('idPlateo');
+  @override
+  late final GeneratedColumn<int> idPlateo = GeneratedColumn<int>(
+      'id_plateo', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nombreLoteMeta =
       const VerificationMeta('nombreLote');
   @override
@@ -3823,6 +3867,7 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        idPlateo,
         nombreLote,
         fechaIngreso,
         fechaSalida,
@@ -3841,6 +3886,10 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_plateo')) {
+      context.handle(_idPlateoMeta,
+          idPlateo.isAcceptableOrUnknown(data['id_plateo']!, _idPlateoMeta));
     }
     if (data.containsKey('nombre_lote')) {
       context.handle(
@@ -3895,6 +3944,8 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
     return Plateo(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idPlateo: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_plateo']),
       nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       fechaIngreso: attachedDatabase.typeMapping.read(
@@ -3918,6 +3969,7 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
 
 class Plateo extends DataClass implements Insertable<Plateo> {
   final int id;
+  final int? idPlateo;
   final String nombreLote;
   final DateTime fechaIngreso;
   final DateTime? fechaSalida;
@@ -3926,6 +3978,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   final bool sincronizado;
   const Plateo(
       {required this.id,
+      this.idPlateo,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
@@ -3936,6 +3989,9 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idPlateo != null) {
+      map['id_plateo'] = Variable<int>(idPlateo);
+    }
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
@@ -3950,6 +4006,9 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   PlateosCompanion toCompanion(bool nullToAbsent) {
     return PlateosCompanion(
       id: Value(id),
+      idPlateo: idPlateo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idPlateo),
       nombreLote: Value(nombreLote),
       fechaIngreso: Value(fechaIngreso),
       fechaSalida: fechaSalida == null && nullToAbsent
@@ -3966,6 +4025,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Plateo(
       id: serializer.fromJson<int>(json['id']),
+      idPlateo: serializer.fromJson<int?>(json['idPlateo']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
@@ -3979,6 +4039,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'idPlateo': serializer.toJson<int?>(idPlateo),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
@@ -3990,6 +4051,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
 
   Plateo copyWith(
           {int? id,
+          Value<int?> idPlateo = const Value.absent(),
           String? nombreLote,
           DateTime? fechaIngreso,
           Value<DateTime?> fechaSalida = const Value.absent(),
@@ -3998,6 +4060,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
           bool? sincronizado}) =>
       Plateo(
         id: id ?? this.id,
+        idPlateo: idPlateo.present ? idPlateo.value : this.idPlateo,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
@@ -4009,6 +4072,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   String toString() {
     return (StringBuffer('Plateo(')
           ..write('id: $id, ')
+          ..write('idPlateo: $idPlateo, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')
@@ -4020,13 +4084,14 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   }
 
   @override
-  int get hashCode => Object.hash(id, nombreLote, fechaIngreso, fechaSalida,
-      cantidadPlateada, completado, sincronizado);
+  int get hashCode => Object.hash(id, idPlateo, nombreLote, fechaIngreso,
+      fechaSalida, cantidadPlateada, completado, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Plateo &&
           other.id == this.id &&
+          other.idPlateo == this.idPlateo &&
           other.nombreLote == this.nombreLote &&
           other.fechaIngreso == this.fechaIngreso &&
           other.fechaSalida == this.fechaSalida &&
@@ -4037,6 +4102,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
 
 class PlateosCompanion extends UpdateCompanion<Plateo> {
   final Value<int> id;
+  final Value<int?> idPlateo;
   final Value<String> nombreLote;
   final Value<DateTime> fechaIngreso;
   final Value<DateTime?> fechaSalida;
@@ -4045,6 +4111,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   final Value<bool> sincronizado;
   const PlateosCompanion({
     this.id = const Value.absent(),
+    this.idPlateo = const Value.absent(),
     this.nombreLote = const Value.absent(),
     this.fechaIngreso = const Value.absent(),
     this.fechaSalida = const Value.absent(),
@@ -4054,6 +4121,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   });
   PlateosCompanion.insert({
     this.id = const Value.absent(),
+    this.idPlateo = const Value.absent(),
     required String nombreLote,
     required DateTime fechaIngreso,
     this.fechaSalida = const Value.absent(),
@@ -4065,6 +4133,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
         cantidadPlateada = Value(cantidadPlateada);
   static Insertable<Plateo> custom({
     Expression<int>? id,
+    Expression<int>? idPlateo,
     Expression<String>? nombreLote,
     Expression<DateTime>? fechaIngreso,
     Expression<DateTime>? fechaSalida,
@@ -4074,6 +4143,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (idPlateo != null) 'id_plateo': idPlateo,
       if (nombreLote != null) 'nombre_lote': nombreLote,
       if (fechaIngreso != null) 'fecha_ingreso': fechaIngreso,
       if (fechaSalida != null) 'fecha_salida': fechaSalida,
@@ -4085,6 +4155,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
 
   PlateosCompanion copyWith(
       {Value<int>? id,
+      Value<int?>? idPlateo,
       Value<String>? nombreLote,
       Value<DateTime>? fechaIngreso,
       Value<DateTime?>? fechaSalida,
@@ -4093,6 +4164,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
       Value<bool>? sincronizado}) {
     return PlateosCompanion(
       id: id ?? this.id,
+      idPlateo: idPlateo ?? this.idPlateo,
       nombreLote: nombreLote ?? this.nombreLote,
       fechaIngreso: fechaIngreso ?? this.fechaIngreso,
       fechaSalida: fechaSalida ?? this.fechaSalida,
@@ -4107,6 +4179,9 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (idPlateo.present) {
+      map['id_plateo'] = Variable<int>(idPlateo.value);
     }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
@@ -4133,6 +4208,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   String toString() {
     return (StringBuffer('PlateosCompanion(')
           ..write('id: $id, ')
+          ..write('idPlateo: $idPlateo, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')
@@ -4540,6 +4616,11 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idPodaMeta = const VerificationMeta('idPoda');
+  @override
+  late final GeneratedColumn<int> idPoda = GeneratedColumn<int>(
+      'id_poda', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nombreLoteMeta =
       const VerificationMeta('nombreLote');
   @override
@@ -4593,6 +4674,7 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        idPoda,
         nombreLote,
         fechaIngreso,
         fechaSalida,
@@ -4611,6 +4693,10 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_poda')) {
+      context.handle(_idPodaMeta,
+          idPoda.isAcceptableOrUnknown(data['id_poda']!, _idPodaMeta));
     }
     if (data.containsKey('nombre_lote')) {
       context.handle(
@@ -4665,6 +4751,8 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
     return Poda(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idPoda: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_poda']),
       nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       fechaIngreso: attachedDatabase.typeMapping.read(
@@ -4688,6 +4776,7 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
 
 class Poda extends DataClass implements Insertable<Poda> {
   final int id;
+  final int? idPoda;
   final String nombreLote;
   final DateTime fechaIngreso;
   final DateTime? fechaSalida;
@@ -4696,6 +4785,7 @@ class Poda extends DataClass implements Insertable<Poda> {
   final bool sincronizado;
   const Poda(
       {required this.id,
+      this.idPoda,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
@@ -4706,6 +4796,9 @@ class Poda extends DataClass implements Insertable<Poda> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idPoda != null) {
+      map['id_poda'] = Variable<int>(idPoda);
+    }
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
@@ -4720,6 +4813,8 @@ class Poda extends DataClass implements Insertable<Poda> {
   PodasCompanion toCompanion(bool nullToAbsent) {
     return PodasCompanion(
       id: Value(id),
+      idPoda:
+          idPoda == null && nullToAbsent ? const Value.absent() : Value(idPoda),
       nombreLote: Value(nombreLote),
       fechaIngreso: Value(fechaIngreso),
       fechaSalida: fechaSalida == null && nullToAbsent
@@ -4736,6 +4831,7 @@ class Poda extends DataClass implements Insertable<Poda> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Poda(
       id: serializer.fromJson<int>(json['id']),
+      idPoda: serializer.fromJson<int?>(json['idPoda']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
@@ -4749,6 +4845,7 @@ class Poda extends DataClass implements Insertable<Poda> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'idPoda': serializer.toJson<int?>(idPoda),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
@@ -4760,6 +4857,7 @@ class Poda extends DataClass implements Insertable<Poda> {
 
   Poda copyWith(
           {int? id,
+          Value<int?> idPoda = const Value.absent(),
           String? nombreLote,
           DateTime? fechaIngreso,
           Value<DateTime?> fechaSalida = const Value.absent(),
@@ -4768,6 +4866,7 @@ class Poda extends DataClass implements Insertable<Poda> {
           bool? sincronizado}) =>
       Poda(
         id: id ?? this.id,
+        idPoda: idPoda.present ? idPoda.value : this.idPoda,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
@@ -4779,6 +4878,7 @@ class Poda extends DataClass implements Insertable<Poda> {
   String toString() {
     return (StringBuffer('Poda(')
           ..write('id: $id, ')
+          ..write('idPoda: $idPoda, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')
@@ -4790,13 +4890,14 @@ class Poda extends DataClass implements Insertable<Poda> {
   }
 
   @override
-  int get hashCode => Object.hash(id, nombreLote, fechaIngreso, fechaSalida,
-      cantidadPodada, completada, sincronizado);
+  int get hashCode => Object.hash(id, idPoda, nombreLote, fechaIngreso,
+      fechaSalida, cantidadPodada, completada, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Poda &&
           other.id == this.id &&
+          other.idPoda == this.idPoda &&
           other.nombreLote == this.nombreLote &&
           other.fechaIngreso == this.fechaIngreso &&
           other.fechaSalida == this.fechaSalida &&
@@ -4807,6 +4908,7 @@ class Poda extends DataClass implements Insertable<Poda> {
 
 class PodasCompanion extends UpdateCompanion<Poda> {
   final Value<int> id;
+  final Value<int?> idPoda;
   final Value<String> nombreLote;
   final Value<DateTime> fechaIngreso;
   final Value<DateTime?> fechaSalida;
@@ -4815,6 +4917,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
   final Value<bool> sincronizado;
   const PodasCompanion({
     this.id = const Value.absent(),
+    this.idPoda = const Value.absent(),
     this.nombreLote = const Value.absent(),
     this.fechaIngreso = const Value.absent(),
     this.fechaSalida = const Value.absent(),
@@ -4824,6 +4927,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
   });
   PodasCompanion.insert({
     this.id = const Value.absent(),
+    this.idPoda = const Value.absent(),
     required String nombreLote,
     required DateTime fechaIngreso,
     this.fechaSalida = const Value.absent(),
@@ -4835,6 +4939,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
         cantidadPodada = Value(cantidadPodada);
   static Insertable<Poda> custom({
     Expression<int>? id,
+    Expression<int>? idPoda,
     Expression<String>? nombreLote,
     Expression<DateTime>? fechaIngreso,
     Expression<DateTime>? fechaSalida,
@@ -4844,6 +4949,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (idPoda != null) 'id_poda': idPoda,
       if (nombreLote != null) 'nombre_lote': nombreLote,
       if (fechaIngreso != null) 'fecha_ingreso': fechaIngreso,
       if (fechaSalida != null) 'fecha_salida': fechaSalida,
@@ -4855,6 +4961,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
 
   PodasCompanion copyWith(
       {Value<int>? id,
+      Value<int?>? idPoda,
       Value<String>? nombreLote,
       Value<DateTime>? fechaIngreso,
       Value<DateTime?>? fechaSalida,
@@ -4863,6 +4970,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
       Value<bool>? sincronizado}) {
     return PodasCompanion(
       id: id ?? this.id,
+      idPoda: idPoda ?? this.idPoda,
       nombreLote: nombreLote ?? this.nombreLote,
       fechaIngreso: fechaIngreso ?? this.fechaIngreso,
       fechaSalida: fechaSalida ?? this.fechaSalida,
@@ -4877,6 +4985,9 @@ class PodasCompanion extends UpdateCompanion<Poda> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (idPoda.present) {
+      map['id_poda'] = Variable<int>(idPoda.value);
     }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
@@ -4903,6 +5014,7 @@ class PodasCompanion extends UpdateCompanion<Poda> {
   String toString() {
     return (StringBuffer('PodasCompanion(')
           ..write('id: $id, ')
+          ..write('idPoda: $idPoda, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')

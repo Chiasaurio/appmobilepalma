@@ -1,7 +1,11 @@
 import 'package:apppalma/presentation/components/secondary_button.dart';
+import 'package:apppalma/presentation/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/presentation/modules/Podas/ui/registrar_poda_diario/registrar_poda_page.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/utils/confirmacion_alerta.dart';
+import 'package:apppalma/utils/recargar_lote_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class PodaActivaPage extends StatefulWidget {
@@ -23,6 +27,15 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
   late double separacion;
   late double margin;
   late String nombrelote;
+  late DateTime fechasalida;
+
+  @override
+  void initState() {
+    TimeOfDay horaSalida = TimeOfDay.now();
+    fechasalida = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, horaSalida.hour, horaSalida.minute);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,15 +171,23 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
                 ),
                 const Divider(),
                 ListTile(
-                  contentPadding: const EdgeInsets.all(10.0),
-                  // leading: Icon(Icons.save_alt),
-                  title: const Text('Finalizar poda',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.red)),
-                  onTap: () => Navigator.pushNamed(
-                      context, '/lote/podas/finalizarpoda',
-                      arguments: poda),
-                )
+                    contentPadding: const EdgeInsets.all(10.0),
+                    // leading: Icon(Icons.save_alt),
+                    title: const Text('Finalizar poda',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.red)),
+                    onTap: () {
+                      ConfirmacionAlerta('¿Realmente desea finalizar la poda?')
+                          .confirmacionAlerta(context, () {
+                        final state =
+                            BlocProvider.of<PodasCubit>(context).state;
+                        BlocProvider.of<PodasCubit>(context)
+                            .finalizarPoda(state.poda!, fechasalida);
+                        recargarLote(context);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      });
+                    })
               ],
             ),
           );

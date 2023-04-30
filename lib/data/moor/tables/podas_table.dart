@@ -3,6 +3,7 @@ import 'package:drift/drift.dart';
 
 class Podas extends Table {
   IntColumn get id => integer().autoIncrement()();
+  IntColumn get idPoda => integer().nullable()();
   TextColumn get nombreLote => text()();
   DateTimeColumn get fechaIngreso => dateTime()();
   DateTimeColumn get fechaSalida => dateTime().nullable()();

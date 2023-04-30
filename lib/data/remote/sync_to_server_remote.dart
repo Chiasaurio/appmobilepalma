@@ -42,7 +42,7 @@ class SyncToServerRemote {
                 "id_palma": e.idPalma,
                 "nombre_enfermedad": utf8.encode(e.nombreEnfermedad),
                 "id_etapa_enfermedad": e.idEtapaEnfermedad,
-                "responsable": e.responsable,
+                "cc_usuario": e.responsable,
               })
           .toList();
       await _apiInstance
@@ -53,6 +53,32 @@ class SyncToServerRemote {
       return false;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<List<int>> getRegistroEnfermedadesIds(
+      List<RegistroEnfermedadData> registrosEnfermedad) async {
+    try {
+      final data = registrosEnfermedad.map((e) {
+        return {
+          "fecha_registro_enfermedad": e.fechaRegistro.toIso8601String(),
+          "hora_registro_enfermedad": e.horaRegistro!.toIso8601String(),
+          "id_palma": e.idPalma
+        };
+      }).toList();
+
+      final res = await _apiInstance.post(
+          EndPointConstant.registroenfermedadesobtenerid,
+          data: {"data": data});
+      if (res["results"] != null) {
+        return List<int>.from(res["results"]);
+      } else {
+        throw Exception('Error del servidor');
+      }
+    } on DioError catch (_) {
+      return [];
+    } catch (e) {
+      return [];
     }
   }
 
@@ -69,7 +95,7 @@ class SyncToServerRemote {
                 "dosis": e.dosis,
                 "unidades": e.unidades,
                 "tipo_control": utf8.encode(e.tipoControl),
-                "responsable": e.responsable,
+                "cc_usuario": e.responsable,
               })
           .toList();
       await _apiInstance
@@ -83,19 +109,19 @@ class SyncToServerRemote {
     }
   }
 
-  Future<bool> syncCosechasConDiarias(
+  Future<Map<String, dynamic>> syncCosechasConDiarias(
       List<CosechaConCosechasDiarias> registros) async {
     try {
       final data = registros.map((e) {
         final cosecha = {
-          'id_cosecha': e.cosecha.id,
+          'idCosecha': e.cosecha.idCosecha,
           'nombre_lote': utf8.encode(e.cosecha.nombreLote),
           'fecha_ingreso': e.cosecha.fechaIngreso.toIso8601String(),
           'fecha_salida': e.cosecha.fechaSalida?.toIso8601String(),
           'cantidad_racimos': e.cosecha.cantidadRacimos,
           'kilos': e.cosecha.kilos,
-          'id_viaje': e.cosecha.idViaje,
-          'estado_cosecha': e.cosecha.completada ? 'FINALIZADA' : 'ACTIVA',
+          'idViaje': e.cosecha.idViaje,
+          'estadoCosecha': e.cosecha.completada ? 'FINALIZADA' : 'ACTIVA',
         };
 
         var diarias = e.cosechasdiarias
@@ -105,31 +131,33 @@ class SyncToServerRemote {
                   'fecha_cosecha': d.fechaIngreso.toIso8601String(),
                   'kilos_racimos_dia': d.kilos,
                   'cantidad_racimos_dia': d.cantidadRacimos,
-                  'responsable': d.responsable,
+                  'cc_usuario': d.responsable,
                 })
             .toList();
         return {"cosecha": cosecha, "diarias": diarias};
       }).toList();
-      await _apiInstance.post(EndPointConstant.cosechas, data: {"data": data});
-      return true;
+      final res = await _apiInstance
+          .post(EndPointConstant.cosechas, data: {"data": data});
+
+      return res;
     } on DioError catch (_) {
-      return false;
+      return {"success": false};
     } catch (e) {
-      return false;
+      return {"success": false};
     }
   }
 
-  Future<bool> syncPlateosConDiarias(
+  Future<Map<String, dynamic>> syncPlateosConDiarias(
       List<PlateoConPlateosDiarias> registros) async {
     try {
       final data = registros.map((e) {
         final cosecha = {
-          'id_plateos': e.plateo.id,
+          'idPlateos': e.plateo.idPlateo,
           'nombre_lote': utf8.encode(e.plateo.nombreLote),
           'fecha_ingreso': e.plateo.fechaIngreso.toIso8601String(),
           'fecha_salida': e.plateo.fechaSalida?.toIso8601String(),
           'cantidad_plateada': e.plateo.cantidadPlateada,
-          'estado_plateo': e.plateo.completado ? 'FINALIZADA' : 'ACTIVA',
+          'estadoPlateo': e.plateo.completado ? 'FINALIZADA' : 'ACTIVA',
         };
 
         var diarias = e.plateosDiarias
@@ -139,30 +167,32 @@ class SyncToServerRemote {
                   'fecha_plateo_diario': d.fecha.toIso8601String(),
                   'cantidad_plateo_diario': d.cantidadPlateada,
                   'tipo_plateo': utf8.encode(d.tipoPlateo),
-                  'responsable': d.responsable,
+                  'cc_usuario': d.responsable,
                 })
             .toList();
         return {"plateo": cosecha, "diarias": diarias};
       }).toList();
-      await _apiInstance.post(EndPointConstant.plateos, data: {"data": data});
-      return true;
+      final res = await _apiInstance
+          .post(EndPointConstant.plateos, data: {"data": data});
+      return res;
     } on DioError catch (_) {
-      return false;
+      return {"success": false};
     } catch (e) {
-      return false;
+      return {"success": false};
     }
   }
 
-  Future<bool> syncPodasConDiarias(List<PodasConPodasDiarias> registros) async {
+  Future<Map<String, dynamic>> syncPodasConDiarias(
+      List<PodasConPodasDiarias> registros) async {
     try {
       final data = registros.map((e) {
         final poda = {
-          'id_poda': e.poda.id,
+          'idPoda': e.poda.idPoda,
           'nombre_lote': utf8.encode(e.poda.nombreLote),
           'fecha_ingreso': e.poda.fechaIngreso.toIso8601String(),
           'fecha_salida': e.poda.fechaSalida?.toIso8601String(),
           'cantidad_podada': e.poda.cantidadPodada,
-          'estado_poda': e.poda.completada ? 'FINALIZADA' : 'ACTIVA',
+          'estadoPoda': e.poda.completada ? 'FINALIZADA' : 'ACTIVA',
         };
 
         var diarias = e.podasDiarias
@@ -171,17 +201,18 @@ class SyncToServerRemote {
                   'id_poda_diaria': d.id,
                   'fecha_poda_diaria': d.fechaIngreso.toIso8601String(),
                   'cantidad_poda_diaria': d.cantidadPodada,
-                  'responsable': d.responsable,
+                  'cc_usuario': d.responsable,
                 })
             .toList();
         return {"poda": poda, "diarias": diarias};
       }).toList();
-      await _apiInstance.post(EndPointConstant.podas, data: {"data": data});
-      return true;
+      final res =
+          await _apiInstance.post(EndPointConstant.podas, data: {"data": data});
+      return res;
     } on DioError catch (_) {
-      return false;
+      return {"success": false};
     } catch (e) {
-      return false;
+      return {"success": false};
     }
   }
 }

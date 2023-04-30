@@ -188,8 +188,7 @@ class _CosechaActivaVistaState extends State<CosechaActivaVista> {
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.red)),
                     onTap: () {
-                      ConfirmacionAlerta(
-                              '¿Realmente desea finalizar la cosecha?')
+                      ConfirmacionAlerta('¿Realmente desea finalizar la poda?')
                           .confirmacionAlerta(context, () {
                         final state =
                             BlocProvider.of<CosechaCubit>(context).state;

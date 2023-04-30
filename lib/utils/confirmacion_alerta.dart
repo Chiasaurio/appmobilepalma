@@ -12,14 +12,16 @@ class ConfirmacionAlerta {
           return AlertDialog(
               content: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
-                  Text('¿Realmente desea finalizar la cosecha?'),
+                children: <Widget>[
+                  Text(msg),
                 ],
               ),
               actions: <Widget>[
                 TextButton(
                   child: const Text('Cancelar'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 TextButton(
                   onPressed: onPress,

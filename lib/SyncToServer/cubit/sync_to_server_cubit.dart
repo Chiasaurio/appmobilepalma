@@ -1,5 +1,6 @@
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/data/remote/sync_to_server_remote.dart';
+import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -201,8 +202,20 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       emit(state.copyWith(cosechasStatus: SyncStatus.loading));
       final res = await remote
           .syncCosechasConDiarias(state.cosechasConDiariasPendientes ?? []);
-      if (res) {
+      if (res["success"]) {
         final CosechaDao cosechaDao = db.cosechaDao;
+        var index = 0;
+        var ids = res["cosechasIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var cosecha in state.cosechasConDiariasPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego la cosecha, toca actualizar el id
+            await cosechaDao.updateCosecha(
+                cosecha.cosecha.copyWith(idCosecha: Value(ids[index])));
+          }
+          index++;
+        }
+
         for (var i in state.cosechasConDiariasPendientes!) {
           await cosechaDao.updateSyncCosecha(i.cosecha, i.cosechasdiarias);
         }
@@ -223,8 +236,19 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       emit(state.copyWith(plateosStatus: SyncStatus.loading));
       final res = await remote
           .syncPlateosConDiarias(state.plateosConDiariasPendientes ?? []);
-      if (res) {
+      if (res["success"]) {
         final PlateoDao plateoDao = db.plateoDao;
+        var index = 0;
+        var ids = res["plateosIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var plateo in state.plateosConDiariasPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego la cosecha, toca actualizar el id
+            await plateoDao.updatePlateo(
+                plateo.plateo.copyWith(idPlateo: Value(ids[index])));
+          }
+          index++;
+        }
         for (var i in state.plateosConDiariasPendientes!) {
           await plateoDao.updateSyncPlateo(i.plateo, i.plateosDiarias);
         }
@@ -245,8 +269,20 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       emit(state.copyWith(podasStatus: SyncStatus.loading));
       final res = await remote
           .syncPodasConDiarias(state.podasConDiariasPendientes ?? []);
-      if (res) {
+      if (res["success"]) {
         final PodaDao podaDao = db.podaDao;
+        var index = 0;
+        var ids = res["podasIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var poda in state.podasConDiariasPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego la poda, toca actualizar el id
+            await podaDao
+                .updatePoda(poda.poda.copyWith(idPoda: Value(ids[index])));
+          }
+          index++;
+        }
+
         for (var i in state.podasConDiariasPendientes!) {
           await podaDao.updateSyncPoda(i.poda, i.podasDiarias);
         }
@@ -309,8 +345,32 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
   Future<bool> syncTratamientos() async {
     try {
       emit(state.copyWith(tratamientosStatus: SyncStatus.loading));
-      final res =
-          await remote.syncTratamientos(state.tratamientosPendientes ?? []);
+      // <--- Primero obtenemos la enfermedad-->
+      final RegistroEnfermedadDao registroEnfermedadDao =
+          db.registroEnfermedadDao;
+      List<RegistroEnfermedadData> registroEnfermedades = [];
+      for (var tratamiento in state.tratamientosPendientes!) {
+        final registroEnfermedad =
+            await registroEnfermedadDao.getRegistroEnfermedad(tratamiento.id);
+        if (registroEnfermedad != null) {
+          registroEnfermedades.add(registroEnfermedad);
+        }
+      }
+
+      // <--- Luego obtenenemos los ids de la base de datos central, para evitar conflictos -->
+      final registrosEnfermedadesIDS =
+          await remote.getRegistroEnfermedadesIds(registroEnfermedades);
+      // <--- Creamos nuevo array con nuevos Ids, -->
+      List<RegistroTratamientoData> nuevosTratamientos = [];
+      int i = 0;
+      for (var tratamiento in state.tratamientosPendientes!) {
+        nuevosTratamientos.add(tratamiento.copyWith(
+            idRegistroEnfermedad: registrosEnfermedadesIDS[i]));
+        i++;
+      }
+
+      // <--- Enviamos los tratamientos con los ids correctos, -->
+      final res = await remote.syncTratamientos(nuevosTratamientos);
       if (res) {
         final PalmaDao palmaDao = db.palmaDao;
         for (var i in state.tratamientosPendientes!) {

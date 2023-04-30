@@ -9,6 +9,11 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
     with _$RegistroEnfermedadDaoMixin {
   RegistroEnfermedadDao(AppDatabase db) : super(db);
 
+  Future<RegistroEnfermedadData?> getRegistroEnfermedad(int id) {
+    return (select(registroEnfermedad)..where((r) => r.id.equals(id)))
+        .getSingleOrNull();
+  }
+
   Future insertRegistroEnfermedad(Insertable<RegistroEnfermedadData> e) =>
       into(registroEnfermedad).insert(e);
 

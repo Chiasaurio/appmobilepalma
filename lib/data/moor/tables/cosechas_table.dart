@@ -3,6 +3,7 @@ import 'package:drift/drift.dart';
 
 class Cosechas extends Table {
   IntColumn get id => integer().autoIncrement()();
+  IntColumn get idCosecha => integer().nullable()();
   TextColumn get nombreLote => text()();
   DateTimeColumn get fechaIngreso => dateTime()();
   DateTimeColumn get fechaSalida => dateTime().nullable()();
