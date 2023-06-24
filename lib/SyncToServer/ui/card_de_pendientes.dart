@@ -56,6 +56,10 @@ class _CardPendientesState extends State<CardPendientes> {
               list: state.plateosConDiariasPendientes!,
               type: PlateoConPlateosDiarias,
             ),
+            TextSyncPendiente(
+              list: state.viajesPendientes!,
+              type: Viaje,
+            ),
           ]),
         );
       },
@@ -111,6 +115,10 @@ class TextSyncPendiente extends StatelessWidget {
           case Aplicacione:
             text = 'aplicaciones pendientes';
             status = state.fumigacionesStatus;
+            break;
+          case Viaje:
+            text = 'viajes pendientes';
+            status = state.viajesStatus;
             break;
 
           default:

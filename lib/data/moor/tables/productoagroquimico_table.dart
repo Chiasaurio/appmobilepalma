@@ -8,6 +8,7 @@ class ProductoAgroquimico extends Table {
   TextColumn get ingredienteActivoProductoAgroquimico => text()();
   IntColumn get periodoCarenciaProductoAgroquimico => integer()();
   TextColumn get presentacionProductoAgroquimico => text()();
+  DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
 
   @override
   Set<Column> get primaryKey => {idProductoAgroquimico};

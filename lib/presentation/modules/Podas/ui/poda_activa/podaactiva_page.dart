@@ -127,7 +127,7 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
                       children: <Widget>[
                         const SizedBox(height: 5.0),
                         const Text(
-                          'Palmas plateadas',
+                          'Palmas podadas',
                           style: TextStyle(color: Colors.grey, fontSize: 16),
                           textAlign: TextAlign.end,
                         ),

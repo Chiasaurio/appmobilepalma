@@ -52,24 +52,40 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
               disableBack:
                   widget.disableBack != null ? widget.disableBack! : false,
               showDrawer: true),
-          BlocBuilder<LoteslistCubit, LoteslistState>(
-            builder: (context, state) {
-              if (state is LotesListLoaded) {
-                loteswithprocesos = state.lotes;
-                return getLotes();
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BlocBuilder<LoteslistCubit, LoteslistState>(
+                  builder: (context, state) {
+                    if (state is LotesListLoaded) {
+                      loteswithprocesos = state.lotes;
+                      return getLotes();
+                    } else if (state is LoadingLotesError) {
+                      return Center(
+                        child: Text(state.error),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
   Widget getLotes() {
+    if (loteswithprocesos.isEmpty) {
+      return const Center(
+        child: Text('No hay lotes registrados en el dispositivo'),
+      );
+    }
     return dataBody(context);
   }
 

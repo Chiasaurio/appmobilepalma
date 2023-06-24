@@ -69,7 +69,7 @@ class _PlagaFormState extends State<PlagaForm> {
 
   bool registrarPlagaEnabled() {
     if (_formKey.currentState!.validate()) {
-      if (etapasseleccionadas.isEmpty) {
+      if (plagaconetapas!.etapas.isNotEmpty && etapasseleccionadas.isEmpty) {
         advertenciaetapa = true;
         return false;
       }

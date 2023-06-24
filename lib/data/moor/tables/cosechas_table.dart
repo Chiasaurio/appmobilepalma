@@ -12,6 +12,9 @@ class Cosechas extends Table {
   IntColumn get idViaje => integer().nullable()();
   BoolColumn get completada => boolean().withDefault(const Constant(false))();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
+
+  @override
+  List<String> get customConstraints => ['UNIQUE (id_cosecha)'];
 }
 
 class CosechaDiaria extends Table {

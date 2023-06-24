@@ -63,9 +63,6 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
     return Scaffold(
       body: Column(
         children: [
-          // HeaderApp(
-          //   ruta: widget.routeName,
-          // ),
           HeaderGradient(
             title: "Registrar cosecha diaria",
             ruta: widget.routeName,
@@ -169,13 +166,6 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
           borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
         ),
       ),
-      // decoration: InputDecoration(
-      //   labelText: campo,
-      //   labelStyle: const TextStyle(fontSize: 18),
-      //   // hintText: campo,
-      //   border: const OutlineInputBorder(
-      //       borderRadius: BorderRadius.all(Radius.circular(10))),
-      // ),
       validator: (String? value) =>
           value != '' ? null : 'Debe ingresar un valor',
     );

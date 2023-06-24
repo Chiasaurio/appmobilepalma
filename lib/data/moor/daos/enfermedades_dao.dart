@@ -40,6 +40,15 @@ class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
     } catch (_) {}
   }
 
+  Future<Enfermedade?> getEnfermedadesUltimo() async {
+    final query = (select(enfermedades));
+    query.orderBy([(tbl) => OrderingTerm.desc(tbl.fechaUltimaActualizacion)]);
+
+    final res = await query.get();
+
+    return res[0];
+  }
+
   Future<List<EnfermedadConEtapas>> obtenerEnfermedadConEtapas() async {
     final rows = (select(enfermedades))
         .join(

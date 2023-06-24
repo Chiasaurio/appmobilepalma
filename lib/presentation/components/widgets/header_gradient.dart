@@ -1,3 +1,4 @@
+import 'package:apppalma/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -22,7 +23,7 @@ class HeaderGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 125,
+      height: 125 + SizeConfig.paddingTop,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
           gradient: LinearGradient(
@@ -51,31 +52,35 @@ class HeaderGradient extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          if (disableBack) {
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, '/finca', (_) => false,
-                                arguments: true);
-                          } else {
-                            Navigator.of(context).pop();
-                          }
-                          if (onPop != null) {
-                            onPop!();
-                          }
-                        },
-                        child: FaIcon(FontAwesomeIcons.arrowLeft,
-                            size: 25, color: Colors.white.withOpacity(0.7)),
-                      ),
-                      const SizedBox(width: 30),
-                      Text(title,
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: colorBlanco,
-                              fontWeight: FontWeight.bold)),
-                    ],
+                  Flexible(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            if (disableBack) {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/finca', (_) => false,
+                                  arguments: true);
+                            } else {
+                              Navigator.of(context).pop();
+                            }
+                            if (onPop != null) {
+                              onPop!();
+                            }
+                          },
+                          child: FaIcon(FontAwesomeIcons.arrowLeft,
+                              size: 25, color: Colors.white.withOpacity(0.7)),
+                        ),
+                        const SizedBox(width: 30),
+                        Flexible(
+                          child: Text(title,
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  color: colorBlanco,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ],
+                    ),
                   ),
                   if (showDrawer)
                     Builder(

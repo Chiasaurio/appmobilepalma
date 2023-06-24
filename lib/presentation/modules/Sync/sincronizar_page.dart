@@ -3,6 +3,8 @@ import 'package:apppalma/presentation/modules/Enfermedad/cubit/enfermedad_cubit.
 import 'package:apppalma/presentation/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/presentation/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/presentation/modules/Productos_Agroquimicos/cubit/agroquimicos_cubit.dart';
+import 'package:apppalma/presentation/modules/Sync/card_de_ultima_sync.dart';
+import 'package:apppalma/presentation/modules/Sync/cubit/bajar_info_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,27 +23,23 @@ class SincronizacionPage extends StatefulWidget {
 }
 
 class _SincronizacionPageState extends State<SincronizacionPage> {
+  @override
+  void initState() {
+    BlocProvider.of<BajarInfoCubit>(context).getFechasUltimaActualizacion();
+    super.initState();
+  }
+
   final DateTime fecha =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   SyncBloc syncBloc = SyncBloc();
 
-  late double width;
-  late double height;
-  late double altoCard;
-  late double anchoCard;
-  late double margin;
   late String ruta;
   bool cargandobool = false;
   String msg = 'Sincronizando';
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-
     ruta = '/sincronizar';
-    altoCard = height * 0.6; //150,
-    anchoCard = width * 0.7;
-    margin = anchoCard * 0.04;
+
     // _cargapercentaje = 50.0;
     // loteBloc.obtenerTodosLotesWithProcesos();
 
@@ -56,9 +54,23 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
                 disableBack:
                     widget.disableBack != null ? widget.disableBack! : false,
                 showDrawer: true),
-            buildTitulo(),
-            // SizedBox(height: altoCard * 0.1),
-            _buildMenu(context), // _menu2()
+            const CardUltimaSync(),
+            Padding(
+              padding: const EdgeInsets.only(left: 0, right: 0.0),
+              child: ElevatedButton(
+                child: const Text("Sincronizar"),
+                onPressed: () {
+                  BlocProvider.of<BajarInfoCubit>(context)
+                      .bajarRegistrosDelServidor();
+
+                  // _sincrozinar();
+                  // obtenerDatos.sincronizar();
+                },
+              ),
+            )
+            // buildTitulo(),
+            // // SizedBox(height: altoCard * 0.1),
+            // _buildMenu(context), // _menu2()
           ],
         ),
       ),
@@ -67,7 +79,7 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
 
   Widget buildTitulo() {
     return Container(
-      margin: EdgeInsets.fromLTRB(margin, 30, margin, margin),
+      margin: const EdgeInsets.fromLTRB(15, 30, 15, 15),
       child: Column(
         children: <Widget>[
           Row(children: const <Widget>[
@@ -103,38 +115,6 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
         ],
       ),
     );
-  }
-
-  Widget _buildMenu(context) {
-    return SizedBox(
-        width: width * 0.8,
-        child: Padding(
-            padding: EdgeInsets.fromLTRB(0.0, altoCard * 0.2, 0.0, 0.0),
-            child: Column(
-              children: [
-                cargandobool ? buildBarraCarga() : const SizedBox(),
-                Text(
-                  msg,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 0, right: 0.0),
-                  child: ElevatedButton(
-                    child: const Text("Sincronizar"),
-                    onPressed: () {
-                      _sincrozinar();
-                      // obtenerDatos.sincronizar();
-                    },
-                  ),
-                )
-              ],
-            )));
   }
 
   buildBarraCarga() {

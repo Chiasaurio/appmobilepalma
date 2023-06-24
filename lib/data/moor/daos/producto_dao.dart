@@ -17,6 +17,15 @@ class ProductoAgroquimicoDao extends DatabaseAccessor<AppDatabase>
   Future insertProducto(Insertable<ProductoAgroquimicoData> producto) =>
       into(productoAgroquimico).insert(producto);
 
+  Future<ProductoAgroquimicoData?> getProductoAgroquimicoUltimo() async {
+    final query = (select(productoAgroquimico));
+    query.orderBy([(tbl) => OrderingTerm.desc(tbl.fechaUltimaActualizacion)]);
+
+    final res = await query.get();
+
+    return res[0];
+  }
+
   insertProductos(
       List<Insertable<ProductoAgroquimicoData>> listaproductos) async {
     try {

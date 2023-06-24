@@ -1,2 +1,2 @@
-// const baseUrl = 'https://hot-candies-juggle-181-55-21-190.loca.lt/';
-const baseUrl = 'http://10.0.2.2:4002/';
+const baseUrl = 'http://176.31.22.252:3000/';
+// const baseUrl = 'http://10.0.2.2:4002/';

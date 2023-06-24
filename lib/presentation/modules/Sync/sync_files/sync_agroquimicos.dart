@@ -7,24 +7,26 @@ class SyncProductosAgroquimicos {
 
   Future<List<Insertable<ProductoAgroquimicoData>>> getProductos() async {
     try {
+      final fechaHoy = DateTime.now();
       List dataproductos;
       final resp = await _apiInstance.get('agroquimicoTodas');
       dataproductos = resp['data'];
       List<Insertable<ProductoAgroquimicoData>> productos = [];
       for (var element in dataproductos) {
         ProductoAgroquimicoCompanion aux = ProductoAgroquimicoCompanion(
-          idProductoAgroquimico: Value(element['id_producto_agroquimico']),
-          nombreProductoAgroquimico:
-              Value(element['nombre_producto_agroquimico']),
-          ingredienteActivoProductoAgroquimico:
-              Value(element['ingrediente_activo_producto_agroquimico']),
-          periodoCarenciaProductoAgroquimico:
-              Value(element['periodo_carencia_producto_agroquimico']),
-          presentacionProductoAgroquimico:
-              Value(element['presentacion_producto_agroquimico']),
-          tipoProductoAgroquimico: Value(element['tipo_producto_agroquimico']),
-          claseProducto: Value(element['clase_producto']),
-        );
+            idProductoAgroquimico: Value(element['id_producto_agroquimico']),
+            nombreProductoAgroquimico:
+                Value(element['nombre_producto_agroquimico']),
+            ingredienteActivoProductoAgroquimico:
+                Value(element['ingrediente_activo_producto_agroquimico']),
+            periodoCarenciaProductoAgroquimico:
+                Value(element['periodo_carencia_producto_agroquimico']),
+            presentacionProductoAgroquimico:
+                Value(element['presentacion_producto_agroquimico']),
+            tipoProductoAgroquimico:
+                Value(element['tipo_producto_agroquimico']),
+            claseProducto: Value(element['clase_producto']),
+            fechaUltimaActualizacion: Value(fechaHoy));
         productos.add(aux);
       }
       return productos;

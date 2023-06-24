@@ -10,6 +10,8 @@ class Plateos extends Table {
   IntColumn get cantidadPlateada => integer()();
   BoolColumn get completado => boolean().withDefault(const Constant(false))();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
+  @override
+  List<String> get customConstraints => ['UNIQUE (id_plateo)'];
 }
 
 class PlateoDiario extends Table {

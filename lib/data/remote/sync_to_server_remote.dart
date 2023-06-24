@@ -215,4 +215,27 @@ class SyncToServerRemote {
       return {"success": false};
     }
   }
+
+  Future<Map<String, dynamic>> syncViajes(List<Viaje> viajes) async {
+    try {
+      final data = viajes
+          .map((e) => {
+                "idViaje": e.idViaje,
+                "kilos_total_racimos_extractora": e.kilosExtractora,
+                "kilos_total_racimos_finca": e.kilos,
+                "hora_cargue": e.horaCargue.toIso8601String(),
+                "hora_salida": e.horaSalida!.toIso8601String(),
+                "cc_usuario": e.responsable,
+                "fecha_viaje": e.horaSalida!.toIso8601String(),
+              })
+          .toList();
+      final res = await _apiInstance
+          .post(EndPointConstant.viajes, data: {"data": data});
+      return res;
+    } on DioError catch (_) {
+      return {"success": false};
+    } catch (e) {
+      return {"success": false};
+    }
+  }
 }

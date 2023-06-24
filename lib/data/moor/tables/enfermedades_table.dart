@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 class Enfermedades extends Table {
   TextColumn get nombreEnfermedad => text()();
   TextColumn get procedimientoEnfermedad => text()();
+  DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
   @override
   Set<Column> get primaryKey => {nombreEnfermedad};
 }

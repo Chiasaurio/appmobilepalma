@@ -1931,9 +1931,15 @@ class $EnfermedadesTable extends Enfermedades
   late final GeneratedColumn<String> procedimientoEnfermedad =
       GeneratedColumn<String>('procedimiento_enfermedad', aliasedName, false,
           type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [nombreEnfermedad, procedimientoEnfermedad];
+      [nombreEnfermedad, procedimientoEnfermedad, fechaUltimaActualizacion];
   @override
   String get aliasedName => _alias ?? 'enfermedades';
   @override
@@ -1959,6 +1965,13 @@ class $EnfermedadesTable extends Enfermedades
     } else if (isInserting) {
       context.missing(_procedimientoEnfermedadMeta);
     }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
     return context;
   }
 
@@ -1973,6 +1986,9 @@ class $EnfermedadesTable extends Enfermedades
       procedimientoEnfermedad: attachedDatabase.typeMapping.read(
           DriftSqlType.string,
           data['${effectivePrefix}procedimiento_enfermedad'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
     );
   }
 
@@ -1985,13 +2001,20 @@ class $EnfermedadesTable extends Enfermedades
 class Enfermedade extends DataClass implements Insertable<Enfermedade> {
   final String nombreEnfermedad;
   final String procedimientoEnfermedad;
+  final DateTime? fechaUltimaActualizacion;
   const Enfermedade(
-      {required this.nombreEnfermedad, required this.procedimientoEnfermedad});
+      {required this.nombreEnfermedad,
+      required this.procedimientoEnfermedad,
+      this.fechaUltimaActualizacion});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['nombre_enfermedad'] = Variable<String>(nombreEnfermedad);
     map['procedimiento_enfermedad'] = Variable<String>(procedimientoEnfermedad);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
     return map;
   }
 
@@ -1999,6 +2022,9 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
     return EnfermedadesCompanion(
       nombreEnfermedad: Value(nombreEnfermedad),
       procedimientoEnfermedad: Value(procedimientoEnfermedad),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
     );
   }
 
@@ -2009,6 +2035,8 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
       nombreEnfermedad: serializer.fromJson<String>(json['nombreEnfermedad']),
       procedimientoEnfermedad:
           serializer.fromJson<String>(json['procedimientoEnfermedad']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
     );
   }
   @override
@@ -2018,65 +2046,84 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
       'nombreEnfermedad': serializer.toJson<String>(nombreEnfermedad),
       'procedimientoEnfermedad':
           serializer.toJson<String>(procedimientoEnfermedad),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
     };
   }
 
   Enfermedade copyWith(
-          {String? nombreEnfermedad, String? procedimientoEnfermedad}) =>
+          {String? nombreEnfermedad,
+          String? procedimientoEnfermedad,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
       Enfermedade(
         nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
         procedimientoEnfermedad:
             procedimientoEnfermedad ?? this.procedimientoEnfermedad,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
       );
   @override
   String toString() {
     return (StringBuffer('Enfermedade(')
           ..write('nombreEnfermedad: $nombreEnfermedad, ')
-          ..write('procedimientoEnfermedad: $procedimientoEnfermedad')
+          ..write('procedimientoEnfermedad: $procedimientoEnfermedad, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(nombreEnfermedad, procedimientoEnfermedad);
+  int get hashCode => Object.hash(
+      nombreEnfermedad, procedimientoEnfermedad, fechaUltimaActualizacion);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Enfermedade &&
           other.nombreEnfermedad == this.nombreEnfermedad &&
-          other.procedimientoEnfermedad == this.procedimientoEnfermedad);
+          other.procedimientoEnfermedad == this.procedimientoEnfermedad &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
 }
 
 class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
   final Value<String> nombreEnfermedad;
   final Value<String> procedimientoEnfermedad;
+  final Value<DateTime?> fechaUltimaActualizacion;
   const EnfermedadesCompanion({
     this.nombreEnfermedad = const Value.absent(),
     this.procedimientoEnfermedad = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
   });
   EnfermedadesCompanion.insert({
     required String nombreEnfermedad,
     required String procedimientoEnfermedad,
+    this.fechaUltimaActualizacion = const Value.absent(),
   })  : nombreEnfermedad = Value(nombreEnfermedad),
         procedimientoEnfermedad = Value(procedimientoEnfermedad);
   static Insertable<Enfermedade> custom({
     Expression<String>? nombreEnfermedad,
     Expression<String>? procedimientoEnfermedad,
+    Expression<DateTime>? fechaUltimaActualizacion,
   }) {
     return RawValuesInsertable({
       if (nombreEnfermedad != null) 'nombre_enfermedad': nombreEnfermedad,
       if (procedimientoEnfermedad != null)
         'procedimiento_enfermedad': procedimientoEnfermedad,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
     });
   }
 
   EnfermedadesCompanion copyWith(
       {Value<String>? nombreEnfermedad,
-      Value<String>? procedimientoEnfermedad}) {
+      Value<String>? procedimientoEnfermedad,
+      Value<DateTime?>? fechaUltimaActualizacion}) {
     return EnfermedadesCompanion(
       nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
       procedimientoEnfermedad:
           procedimientoEnfermedad ?? this.procedimientoEnfermedad,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
     );
   }
 
@@ -2090,6 +2137,10 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
       map['procedimiento_enfermedad'] =
           Variable<String>(procedimientoEnfermedad.value);
     }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
     return map;
   }
 
@@ -2097,7 +2148,8 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
   String toString() {
     return (StringBuffer('EnfermedadesCompanion(')
           ..write('nombreEnfermedad: $nombreEnfermedad, ')
-          ..write('procedimientoEnfermedad: $procedimientoEnfermedad')
+          ..write('procedimientoEnfermedad: $procedimientoEnfermedad, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
@@ -3048,9 +3100,15 @@ class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
   late final GeneratedColumn<int> numeropalmas = GeneratedColumn<int>(
       'numeropalmas', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, nombreLote, hectareas, numeropalmas];
+      [id, nombreLote, hectareas, numeropalmas, fechaUltimaActualizacion];
   @override
   String get aliasedName => _alias ?? 'lotes';
   @override
@@ -3085,6 +3143,13 @@ class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
     } else if (isInserting) {
       context.missing(_numeropalmasMeta);
     }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
     return context;
   }
 
@@ -3102,6 +3167,9 @@ class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
           .read(DriftSqlType.int, data['${effectivePrefix}hectareas'])!,
       numeropalmas: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}numeropalmas'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
     );
   }
 
@@ -3116,11 +3184,13 @@ class Lote extends DataClass implements Insertable<Lote> {
   final String nombreLote;
   final int hectareas;
   final int numeropalmas;
+  final DateTime? fechaUltimaActualizacion;
   const Lote(
       {required this.id,
       required this.nombreLote,
       required this.hectareas,
-      required this.numeropalmas});
+      required this.numeropalmas,
+      this.fechaUltimaActualizacion});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3128,6 +3198,10 @@ class Lote extends DataClass implements Insertable<Lote> {
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['hectareas'] = Variable<int>(hectareas);
     map['numeropalmas'] = Variable<int>(numeropalmas);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
     return map;
   }
 
@@ -3137,6 +3211,9 @@ class Lote extends DataClass implements Insertable<Lote> {
       nombreLote: Value(nombreLote),
       hectareas: Value(hectareas),
       numeropalmas: Value(numeropalmas),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
     );
   }
 
@@ -3148,6 +3225,8 @@ class Lote extends DataClass implements Insertable<Lote> {
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       hectareas: serializer.fromJson<int>(json['hectareas']),
       numeropalmas: serializer.fromJson<int>(json['numeropalmas']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
     );
   }
   @override
@@ -3158,16 +3237,25 @@ class Lote extends DataClass implements Insertable<Lote> {
       'nombreLote': serializer.toJson<String>(nombreLote),
       'hectareas': serializer.toJson<int>(hectareas),
       'numeropalmas': serializer.toJson<int>(numeropalmas),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
     };
   }
 
   Lote copyWith(
-          {int? id, String? nombreLote, int? hectareas, int? numeropalmas}) =>
+          {int? id,
+          String? nombreLote,
+          int? hectareas,
+          int? numeropalmas,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
       Lote(
         id: id ?? this.id,
         nombreLote: nombreLote ?? this.nombreLote,
         hectareas: hectareas ?? this.hectareas,
         numeropalmas: numeropalmas ?? this.numeropalmas,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
       );
   @override
   String toString() {
@@ -3175,13 +3263,15 @@ class Lote extends DataClass implements Insertable<Lote> {
           ..write('id: $id, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('hectareas: $hectareas, ')
-          ..write('numeropalmas: $numeropalmas')
+          ..write('numeropalmas: $numeropalmas, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, nombreLote, hectareas, numeropalmas);
+  int get hashCode => Object.hash(
+      id, nombreLote, hectareas, numeropalmas, fechaUltimaActualizacion);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3189,7 +3279,8 @@ class Lote extends DataClass implements Insertable<Lote> {
           other.id == this.id &&
           other.nombreLote == this.nombreLote &&
           other.hectareas == this.hectareas &&
-          other.numeropalmas == this.numeropalmas);
+          other.numeropalmas == this.numeropalmas &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
 }
 
 class LotesCompanion extends UpdateCompanion<Lote> {
@@ -3197,17 +3288,20 @@ class LotesCompanion extends UpdateCompanion<Lote> {
   final Value<String> nombreLote;
   final Value<int> hectareas;
   final Value<int> numeropalmas;
+  final Value<DateTime?> fechaUltimaActualizacion;
   const LotesCompanion({
     this.id = const Value.absent(),
     this.nombreLote = const Value.absent(),
     this.hectareas = const Value.absent(),
     this.numeropalmas = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
   });
   LotesCompanion.insert({
     this.id = const Value.absent(),
     required String nombreLote,
     required int hectareas,
     required int numeropalmas,
+    this.fechaUltimaActualizacion = const Value.absent(),
   })  : nombreLote = Value(nombreLote),
         hectareas = Value(hectareas),
         numeropalmas = Value(numeropalmas);
@@ -3216,12 +3310,15 @@ class LotesCompanion extends UpdateCompanion<Lote> {
     Expression<String>? nombreLote,
     Expression<int>? hectareas,
     Expression<int>? numeropalmas,
+    Expression<DateTime>? fechaUltimaActualizacion,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (nombreLote != null) 'nombre_lote': nombreLote,
       if (hectareas != null) 'hectareas': hectareas,
       if (numeropalmas != null) 'numeropalmas': numeropalmas,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
     });
   }
 
@@ -3229,12 +3326,15 @@ class LotesCompanion extends UpdateCompanion<Lote> {
       {Value<int>? id,
       Value<String>? nombreLote,
       Value<int>? hectareas,
-      Value<int>? numeropalmas}) {
+      Value<int>? numeropalmas,
+      Value<DateTime?>? fechaUltimaActualizacion}) {
     return LotesCompanion(
       id: id ?? this.id,
       nombreLote: nombreLote ?? this.nombreLote,
       hectareas: hectareas ?? this.hectareas,
       numeropalmas: numeropalmas ?? this.numeropalmas,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
     );
   }
 
@@ -3253,6 +3353,10 @@ class LotesCompanion extends UpdateCompanion<Lote> {
     if (numeropalmas.present) {
       map['numeropalmas'] = Variable<int>(numeropalmas.value);
     }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
     return map;
   }
 
@@ -3262,7 +3366,8 @@ class LotesCompanion extends UpdateCompanion<Lote> {
           ..write('id: $id, ')
           ..write('nombreLote: $nombreLote, ')
           ..write('hectareas: $hectareas, ')
-          ..write('numeropalmas: $numeropalmas')
+          ..write('numeropalmas: $numeropalmas, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
@@ -3665,8 +3770,15 @@ class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
   late final GeneratedColumn<String> nombreComunPlaga = GeneratedColumn<String>(
       'nombre_comun_plaga', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
   @override
-  List<GeneratedColumn> get $columns => [nombreComunPlaga];
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [nombreComunPlaga, fechaUltimaActualizacion];
   @override
   String get aliasedName => _alias ?? 'plagas';
   @override
@@ -3684,6 +3796,13 @@ class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
     } else if (isInserting) {
       context.missing(_nombreComunPlagaMeta);
     }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
     return context;
   }
 
@@ -3695,6 +3814,9 @@ class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
     return Plaga(
       nombreComunPlaga: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}nombre_comun_plaga'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
     );
   }
 
@@ -3706,17 +3828,25 @@ class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
 
 class Plaga extends DataClass implements Insertable<Plaga> {
   final String nombreComunPlaga;
-  const Plaga({required this.nombreComunPlaga});
+  final DateTime? fechaUltimaActualizacion;
+  const Plaga({required this.nombreComunPlaga, this.fechaUltimaActualizacion});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['nombre_comun_plaga'] = Variable<String>(nombreComunPlaga);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
     return map;
   }
 
   PlagasCompanion toCompanion(bool nullToAbsent) {
     return PlagasCompanion(
       nombreComunPlaga: Value(nombreComunPlaga),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
     );
   }
 
@@ -3725,6 +3855,8 @@ class Plaga extends DataClass implements Insertable<Plaga> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Plaga(
       nombreComunPlaga: serializer.fromJson<String>(json['nombreComunPlaga']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
     );
   }
   @override
@@ -3732,47 +3864,68 @@ class Plaga extends DataClass implements Insertable<Plaga> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'nombreComunPlaga': serializer.toJson<String>(nombreComunPlaga),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
     };
   }
 
-  Plaga copyWith({String? nombreComunPlaga}) => Plaga(
+  Plaga copyWith(
+          {String? nombreComunPlaga,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
+      Plaga(
         nombreComunPlaga: nombreComunPlaga ?? this.nombreComunPlaga,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
       );
   @override
   String toString() {
     return (StringBuffer('Plaga(')
-          ..write('nombreComunPlaga: $nombreComunPlaga')
+          ..write('nombreComunPlaga: $nombreComunPlaga, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => nombreComunPlaga.hashCode;
+  int get hashCode => Object.hash(nombreComunPlaga, fechaUltimaActualizacion);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Plaga && other.nombreComunPlaga == this.nombreComunPlaga);
+      (other is Plaga &&
+          other.nombreComunPlaga == this.nombreComunPlaga &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
 }
 
 class PlagasCompanion extends UpdateCompanion<Plaga> {
   final Value<String> nombreComunPlaga;
+  final Value<DateTime?> fechaUltimaActualizacion;
   const PlagasCompanion({
     this.nombreComunPlaga = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
   });
   PlagasCompanion.insert({
     required String nombreComunPlaga,
+    this.fechaUltimaActualizacion = const Value.absent(),
   }) : nombreComunPlaga = Value(nombreComunPlaga);
   static Insertable<Plaga> custom({
     Expression<String>? nombreComunPlaga,
+    Expression<DateTime>? fechaUltimaActualizacion,
   }) {
     return RawValuesInsertable({
       if (nombreComunPlaga != null) 'nombre_comun_plaga': nombreComunPlaga,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
     });
   }
 
-  PlagasCompanion copyWith({Value<String>? nombreComunPlaga}) {
+  PlagasCompanion copyWith(
+      {Value<String>? nombreComunPlaga,
+      Value<DateTime?>? fechaUltimaActualizacion}) {
     return PlagasCompanion(
       nombreComunPlaga: nombreComunPlaga ?? this.nombreComunPlaga,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
     );
   }
 
@@ -3782,13 +3935,18 @@ class PlagasCompanion extends UpdateCompanion<Plaga> {
     if (nombreComunPlaga.present) {
       map['nombre_comun_plaga'] = Variable<String>(nombreComunPlaga.value);
     }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
     return map;
   }
 
   @override
   String toString() {
     return (StringBuffer('PlagasCompanion(')
-          ..write('nombreComunPlaga: $nombreComunPlaga')
+          ..write('nombreComunPlaga: $nombreComunPlaga, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
@@ -5415,6 +5573,12 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
       GeneratedColumn<String>(
           'presentacion_producto_agroquimico', aliasedName, false,
           type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         idProductoAgroquimico,
@@ -5423,7 +5587,8 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
         claseProducto,
         ingredienteActivoProductoAgroquimico,
         periodoCarenciaProductoAgroquimico,
-        presentacionProductoAgroquimico
+        presentacionProductoAgroquimico,
+        fechaUltimaActualizacion
       ];
   @override
   String get aliasedName => _alias ?? 'producto_agroquimico';
@@ -5494,6 +5659,13 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
     } else if (isInserting) {
       context.missing(_presentacionProductoAgroquimicoMeta);
     }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
     return context;
   }
 
@@ -5523,6 +5695,9 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
       presentacionProductoAgroquimico: attachedDatabase.typeMapping.read(
           DriftSqlType.string,
           data['${effectivePrefix}presentacion_producto_agroquimico'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
     );
   }
 
@@ -5541,6 +5716,7 @@ class ProductoAgroquimicoData extends DataClass
   final String ingredienteActivoProductoAgroquimico;
   final int periodoCarenciaProductoAgroquimico;
   final String presentacionProductoAgroquimico;
+  final DateTime? fechaUltimaActualizacion;
   const ProductoAgroquimicoData(
       {required this.idProductoAgroquimico,
       required this.nombreProductoAgroquimico,
@@ -5548,7 +5724,8 @@ class ProductoAgroquimicoData extends DataClass
       required this.claseProducto,
       required this.ingredienteActivoProductoAgroquimico,
       required this.periodoCarenciaProductoAgroquimico,
-      required this.presentacionProductoAgroquimico});
+      required this.presentacionProductoAgroquimico,
+      this.fechaUltimaActualizacion});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -5564,6 +5741,10 @@ class ProductoAgroquimicoData extends DataClass
         Variable<int>(periodoCarenciaProductoAgroquimico);
     map['presentacion_producto_agroquimico'] =
         Variable<String>(presentacionProductoAgroquimico);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
     return map;
   }
 
@@ -5578,6 +5759,9 @@ class ProductoAgroquimicoData extends DataClass
       periodoCarenciaProductoAgroquimico:
           Value(periodoCarenciaProductoAgroquimico),
       presentacionProductoAgroquimico: Value(presentacionProductoAgroquimico),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
     );
   }
 
@@ -5598,6 +5782,8 @@ class ProductoAgroquimicoData extends DataClass
           serializer.fromJson<int>(json['periodoCarenciaProductoAgroquimico']),
       presentacionProductoAgroquimico:
           serializer.fromJson<String>(json['presentacionProductoAgroquimico']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
     );
   }
   @override
@@ -5616,6 +5802,8 @@ class ProductoAgroquimicoData extends DataClass
           serializer.toJson<int>(periodoCarenciaProductoAgroquimico),
       'presentacionProductoAgroquimico':
           serializer.toJson<String>(presentacionProductoAgroquimico),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
     };
   }
 
@@ -5626,7 +5814,8 @@ class ProductoAgroquimicoData extends DataClass
           String? claseProducto,
           String? ingredienteActivoProductoAgroquimico,
           int? periodoCarenciaProductoAgroquimico,
-          String? presentacionProductoAgroquimico}) =>
+          String? presentacionProductoAgroquimico,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
       ProductoAgroquimicoData(
         idProductoAgroquimico:
             idProductoAgroquimico ?? this.idProductoAgroquimico,
@@ -5643,6 +5832,9 @@ class ProductoAgroquimicoData extends DataClass
                 this.periodoCarenciaProductoAgroquimico,
         presentacionProductoAgroquimico: presentacionProductoAgroquimico ??
             this.presentacionProductoAgroquimico,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
       );
   @override
   String toString() {
@@ -5656,7 +5848,8 @@ class ProductoAgroquimicoData extends DataClass
           ..write(
               'periodoCarenciaProductoAgroquimico: $periodoCarenciaProductoAgroquimico, ')
           ..write(
-              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico')
+              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
@@ -5669,7 +5862,8 @@ class ProductoAgroquimicoData extends DataClass
       claseProducto,
       ingredienteActivoProductoAgroquimico,
       periodoCarenciaProductoAgroquimico,
-      presentacionProductoAgroquimico);
+      presentacionProductoAgroquimico,
+      fechaUltimaActualizacion);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -5683,7 +5877,8 @@ class ProductoAgroquimicoData extends DataClass
           other.periodoCarenciaProductoAgroquimico ==
               this.periodoCarenciaProductoAgroquimico &&
           other.presentacionProductoAgroquimico ==
-              this.presentacionProductoAgroquimico);
+              this.presentacionProductoAgroquimico &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
 }
 
 class ProductoAgroquimicoCompanion
@@ -5695,6 +5890,7 @@ class ProductoAgroquimicoCompanion
   final Value<String> ingredienteActivoProductoAgroquimico;
   final Value<int> periodoCarenciaProductoAgroquimico;
   final Value<String> presentacionProductoAgroquimico;
+  final Value<DateTime?> fechaUltimaActualizacion;
   const ProductoAgroquimicoCompanion({
     this.idProductoAgroquimico = const Value.absent(),
     this.nombreProductoAgroquimico = const Value.absent(),
@@ -5703,6 +5899,7 @@ class ProductoAgroquimicoCompanion
     this.ingredienteActivoProductoAgroquimico = const Value.absent(),
     this.periodoCarenciaProductoAgroquimico = const Value.absent(),
     this.presentacionProductoAgroquimico = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
   });
   ProductoAgroquimicoCompanion.insert({
     this.idProductoAgroquimico = const Value.absent(),
@@ -5712,6 +5909,7 @@ class ProductoAgroquimicoCompanion
     required String ingredienteActivoProductoAgroquimico,
     required int periodoCarenciaProductoAgroquimico,
     required String presentacionProductoAgroquimico,
+    this.fechaUltimaActualizacion = const Value.absent(),
   })  : nombreProductoAgroquimico = Value(nombreProductoAgroquimico),
         tipoProductoAgroquimico = Value(tipoProductoAgroquimico),
         claseProducto = Value(claseProducto),
@@ -5729,6 +5927,7 @@ class ProductoAgroquimicoCompanion
     Expression<String>? ingredienteActivoProductoAgroquimico,
     Expression<int>? periodoCarenciaProductoAgroquimico,
     Expression<String>? presentacionProductoAgroquimico,
+    Expression<DateTime>? fechaUltimaActualizacion,
   }) {
     return RawValuesInsertable({
       if (idProductoAgroquimico != null)
@@ -5746,6 +5945,8 @@ class ProductoAgroquimicoCompanion
             periodoCarenciaProductoAgroquimico,
       if (presentacionProductoAgroquimico != null)
         'presentacion_producto_agroquimico': presentacionProductoAgroquimico,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
     });
   }
 
@@ -5756,7 +5957,8 @@ class ProductoAgroquimicoCompanion
       Value<String>? claseProducto,
       Value<String>? ingredienteActivoProductoAgroquimico,
       Value<int>? periodoCarenciaProductoAgroquimico,
-      Value<String>? presentacionProductoAgroquimico}) {
+      Value<String>? presentacionProductoAgroquimico,
+      Value<DateTime?>? fechaUltimaActualizacion}) {
     return ProductoAgroquimicoCompanion(
       idProductoAgroquimico:
           idProductoAgroquimico ?? this.idProductoAgroquimico,
@@ -5772,6 +5974,8 @@ class ProductoAgroquimicoCompanion
           this.periodoCarenciaProductoAgroquimico,
       presentacionProductoAgroquimico: presentacionProductoAgroquimico ??
           this.presentacionProductoAgroquimico,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
     );
   }
 
@@ -5805,6 +6009,10 @@ class ProductoAgroquimicoCompanion
       map['presentacion_producto_agroquimico'] =
           Variable<String>(presentacionProductoAgroquimico.value);
     }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
     return map;
   }
 
@@ -5820,7 +6028,8 @@ class ProductoAgroquimicoCompanion
           ..write(
               'periodoCarenciaProductoAgroquimico: $periodoCarenciaProductoAgroquimico, ')
           ..write(
-              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico')
+              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
           ..write(')'))
         .toString();
   }
@@ -6849,6 +7058,12 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idViajeMeta =
+      const VerificationMeta('idViaje');
+  @override
+  late final GeneratedColumn<int> idViaje = GeneratedColumn<int>(
+      'id_viaje', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _horaCargueMeta =
       const VerificationMeta('horaCargue');
   @override
@@ -6913,6 +7128,7 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        idViaje,
         horaCargue,
         horaSalida,
         cantidadRacimos,
@@ -6933,6 +7149,10 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_viaje')) {
+      context.handle(_idViajeMeta,
+          idViaje.isAcceptableOrUnknown(data['id_viaje']!, _idViajeMeta));
     }
     if (data.containsKey('hora_cargue')) {
       context.handle(
@@ -6997,6 +7217,8 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
     return Viaje(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idViaje: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_viaje']),
       horaCargue: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_cargue'])!,
       horaSalida: attachedDatabase.typeMapping
@@ -7024,6 +7246,7 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
 
 class Viaje extends DataClass implements Insertable<Viaje> {
   final int id;
+  final int? idViaje;
   final DateTime horaCargue;
   final DateTime? horaSalida;
   final int cantidadRacimos;
@@ -7034,6 +7257,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
   final bool sincronizado;
   const Viaje(
       {required this.id,
+      this.idViaje,
       required this.horaCargue,
       this.horaSalida,
       required this.cantidadRacimos,
@@ -7046,6 +7270,9 @@ class Viaje extends DataClass implements Insertable<Viaje> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idViaje != null) {
+      map['id_viaje'] = Variable<int>(idViaje);
+    }
     map['hora_cargue'] = Variable<DateTime>(horaCargue);
     if (!nullToAbsent || horaSalida != null) {
       map['hora_salida'] = Variable<DateTime>(horaSalida);
@@ -7066,6 +7293,9 @@ class Viaje extends DataClass implements Insertable<Viaje> {
   ViajesCompanion toCompanion(bool nullToAbsent) {
     return ViajesCompanion(
       id: Value(id),
+      idViaje: idViaje == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idViaje),
       horaCargue: Value(horaCargue),
       horaSalida: horaSalida == null && nullToAbsent
           ? const Value.absent()
@@ -7087,6 +7317,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Viaje(
       id: serializer.fromJson<int>(json['id']),
+      idViaje: serializer.fromJson<int?>(json['idViaje']),
       horaCargue: serializer.fromJson<DateTime>(json['horaCargue']),
       horaSalida: serializer.fromJson<DateTime?>(json['horaSalida']),
       cantidadRacimos: serializer.fromJson<int>(json['cantidadRacimos']),
@@ -7102,6 +7333,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'idViaje': serializer.toJson<int?>(idViaje),
       'horaCargue': serializer.toJson<DateTime>(horaCargue),
       'horaSalida': serializer.toJson<DateTime?>(horaSalida),
       'cantidadRacimos': serializer.toJson<int>(cantidadRacimos),
@@ -7115,6 +7347,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
 
   Viaje copyWith(
           {int? id,
+          Value<int?> idViaje = const Value.absent(),
           DateTime? horaCargue,
           Value<DateTime?> horaSalida = const Value.absent(),
           int? cantidadRacimos,
@@ -7125,6 +7358,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
           bool? sincronizado}) =>
       Viaje(
         id: id ?? this.id,
+        idViaje: idViaje.present ? idViaje.value : this.idViaje,
         horaCargue: horaCargue ?? this.horaCargue,
         horaSalida: horaSalida.present ? horaSalida.value : this.horaSalida,
         cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
@@ -7140,6 +7374,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
   String toString() {
     return (StringBuffer('Viaje(')
           ..write('id: $id, ')
+          ..write('idViaje: $idViaje, ')
           ..write('horaCargue: $horaCargue, ')
           ..write('horaSalida: $horaSalida, ')
           ..write('cantidadRacimos: $cantidadRacimos, ')
@@ -7153,13 +7388,23 @@ class Viaje extends DataClass implements Insertable<Viaje> {
   }
 
   @override
-  int get hashCode => Object.hash(id, horaCargue, horaSalida, cantidadRacimos,
-      kilos, kilosExtractora, completado, responsable, sincronizado);
+  int get hashCode => Object.hash(
+      id,
+      idViaje,
+      horaCargue,
+      horaSalida,
+      cantidadRacimos,
+      kilos,
+      kilosExtractora,
+      completado,
+      responsable,
+      sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Viaje &&
           other.id == this.id &&
+          other.idViaje == this.idViaje &&
           other.horaCargue == this.horaCargue &&
           other.horaSalida == this.horaSalida &&
           other.cantidadRacimos == this.cantidadRacimos &&
@@ -7172,6 +7417,7 @@ class Viaje extends DataClass implements Insertable<Viaje> {
 
 class ViajesCompanion extends UpdateCompanion<Viaje> {
   final Value<int> id;
+  final Value<int?> idViaje;
   final Value<DateTime> horaCargue;
   final Value<DateTime?> horaSalida;
   final Value<int> cantidadRacimos;
@@ -7182,6 +7428,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
   final Value<bool> sincronizado;
   const ViajesCompanion({
     this.id = const Value.absent(),
+    this.idViaje = const Value.absent(),
     this.horaCargue = const Value.absent(),
     this.horaSalida = const Value.absent(),
     this.cantidadRacimos = const Value.absent(),
@@ -7193,6 +7440,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
   });
   ViajesCompanion.insert({
     this.id = const Value.absent(),
+    this.idViaje = const Value.absent(),
     required DateTime horaCargue,
     this.horaSalida = const Value.absent(),
     required int cantidadRacimos,
@@ -7206,6 +7454,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
         responsable = Value(responsable);
   static Insertable<Viaje> custom({
     Expression<int>? id,
+    Expression<int>? idViaje,
     Expression<DateTime>? horaCargue,
     Expression<DateTime>? horaSalida,
     Expression<int>? cantidadRacimos,
@@ -7217,6 +7466,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (idViaje != null) 'id_viaje': idViaje,
       if (horaCargue != null) 'hora_cargue': horaCargue,
       if (horaSalida != null) 'hora_salida': horaSalida,
       if (cantidadRacimos != null) 'cantidad_racimos': cantidadRacimos,
@@ -7230,6 +7480,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
 
   ViajesCompanion copyWith(
       {Value<int>? id,
+      Value<int?>? idViaje,
       Value<DateTime>? horaCargue,
       Value<DateTime?>? horaSalida,
       Value<int>? cantidadRacimos,
@@ -7240,6 +7491,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
       Value<bool>? sincronizado}) {
     return ViajesCompanion(
       id: id ?? this.id,
+      idViaje: idViaje ?? this.idViaje,
       horaCargue: horaCargue ?? this.horaCargue,
       horaSalida: horaSalida ?? this.horaSalida,
       cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
@@ -7256,6 +7508,9 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (idViaje.present) {
+      map['id_viaje'] = Variable<int>(idViaje.value);
     }
     if (horaCargue.present) {
       map['hora_cargue'] = Variable<DateTime>(horaCargue.value);
@@ -7288,6 +7543,7 @@ class ViajesCompanion extends UpdateCompanion<Viaje> {
   String toString() {
     return (StringBuffer('ViajesCompanion(')
           ..write('id: $id, ')
+          ..write('idViaje: $idViaje, ')
           ..write('horaCargue: $horaCargue, ')
           ..write('horaSalida: $horaSalida, ')
           ..write('cantidadRacimos: $cantidadRacimos, ')

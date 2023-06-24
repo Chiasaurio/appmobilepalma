@@ -1,6 +1,7 @@
 import 'package:apppalma/presentation/components/custom_appbar.dart';
 import 'package:apppalma/presentation/components/main_button.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
+import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
 import 'package:apppalma/presentation/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,8 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
     return Scaffold(
         body: Column(
       children: [
-        HeaderApp(
+        HeaderGradient(
+          title: "Registrar poda diaria",
           ruta: widget.routeName,
         ),
         SingleChildScrollView(
@@ -129,10 +131,14 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
       textAlign: TextAlign.start,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-        labelText: 'Palmas podadas',
-        labelStyle: TextStyle(fontSize: 18),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+        label: Text(
+          'Palmas podadas',
+          style: TextStyle(fontSize: 15),
+        ),
+        contentPadding: EdgeInsets.only(left: 10),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+        ),
       ),
       validator: (String? value) =>
           value != '' ? null : 'Debe ingresar un valor',

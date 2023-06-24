@@ -6,14 +6,15 @@ class SyncPlagas {
   final Api _apiInstance = Api.getInstance();
 
   Future<List<Insertable<Plaga>>> getPlagas() async {
+    final fechaHoy = DateTime.now();
     List dataplagas;
     final resp = await _apiInstance.get('plagasTodas');
     dataplagas = resp['data'];
     List<Insertable<Plaga>> plagas = [];
     for (var element in dataplagas) {
       PlagasCompanion aux = PlagasCompanion(
-        nombreComunPlaga: Value(element['nombre_comun_plaga']),
-      );
+          nombreComunPlaga: Value(element['nombre_comun_plaga']),
+          fechaUltimaActualizacion: Value(fechaHoy));
       plagas.add(aux);
     }
     return plagas;

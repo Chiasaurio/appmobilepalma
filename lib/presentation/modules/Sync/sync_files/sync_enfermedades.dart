@@ -9,6 +9,7 @@ class SyncEnfermedades {
   Future<List<Insertable<Enfermedade>>> getEnfermedadesRemoteSource() async {
     try {
       List dataenfermedades;
+      final fechaHoy = DateTime.now();
       final resp = await _apiInstance.get(EndPointConstant.enfermedades);
       dataenfermedades = resp['data'];
       List<Insertable<Enfermedade>> enfermedades = [];
@@ -17,7 +18,8 @@ class SyncEnfermedades {
             nombreEnfermedad: Value(element['nombre_enfermedad']),
             procedimientoEnfermedad: Value(
                 element['procedimiento_tratamiento_enfermedad'] ??
-                    'no tiene procedimiento'));
+                    'no tiene procedimiento'),
+            fechaUltimaActualizacion: Value(fechaHoy));
         enfermedades.add(aux);
       }
       return enfermedades;

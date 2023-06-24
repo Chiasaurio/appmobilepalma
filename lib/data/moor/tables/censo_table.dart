@@ -3,12 +3,14 @@ import 'package:drift/drift.dart';
 class Censo extends Table {
   IntColumn get idCenso => integer().autoIncrement()();
   DateTimeColumn get fechaCenso => dateTime()();
-  BoolColumn get presenciaLote =>
-      boolean().withDefault(const Constant(false))();
-  BoolColumn get presenciaSector =>
-      boolean().withDefault(const Constant(true))();
-  IntColumn get lineaLimite1 => integer()();
-  IntColumn get lineaLimite2 => integer()();
+  // BoolColumn get presenciaLote =>
+  //     boolean().withDefault(const Constant(false))();
+  // BoolColumn get presenciaSector =>
+  //     boolean().withDefault(const Constant(true))();
+  // IntColumn get lineaLimite1 => integer()();
+  // IntColumn get lineaLimite2 => integer()();
+
+  TextColumn get identificador => text()();
   TextColumn get observacionCenso => text().nullable()();
   TextColumn get nombreLote => text()();
   TextColumn get nombrePlaga => text()();

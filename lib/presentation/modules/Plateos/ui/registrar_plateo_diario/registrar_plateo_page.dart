@@ -1,6 +1,7 @@
 import 'package:apppalma/presentation/components/custom_appbar.dart';
 import 'package:apppalma/presentation/components/main_button.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
+import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
 import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
@@ -58,19 +59,22 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
     margin = anchoCard * 0.04;
 
     return Scaffold(
-        body: Column(
-      children: [
-        HeaderApp(
-          ruta: widget.routeName,
-        ),
-        SingleChildScrollView(
-          child: Column(children: <Widget>[
-            buildDatosPlateo(context),
-            SizedBox(height: altoCard * 0.1),
-            _buildRegistrarPlateo(context),
-          ]),
-        ),
-      ],
+        body: SingleChildScrollView(
+      child: Column(
+        children: [
+          HeaderGradient(
+            title: "Registrar plateo diario",
+            ruta: widget.routeName,
+          ),
+          SingleChildScrollView(
+            child: Column(children: <Widget>[
+              buildDatosPlateo(context),
+              SizedBox(height: altoCard * 0.1),
+              _buildRegistrarPlateo(context),
+            ]),
+          ),
+        ],
+      ),
     ));
   }
 
@@ -130,10 +134,14 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
       textAlign: TextAlign.start,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
-        labelText: 'Palmas Plateadas',
-        labelStyle: TextStyle(fontSize: 18),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+        label: Text(
+          'Palmas plateadas',
+          style: TextStyle(fontSize: 15),
+        ),
+        contentPadding: EdgeInsets.only(left: 10),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+        ),
       ),
       validator: (String? value) =>
           value != '' ? null : 'Debe ingresar un valor',

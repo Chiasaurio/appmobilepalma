@@ -9,3 +9,9 @@ class LotesListLoaded extends LoteslistState {
 
   LotesListLoaded({required this.lotes});
 }
+
+class LoadingLotesError extends LoteslistState {
+  final String error;
+
+  LoadingLotesError({required this.error});
+}

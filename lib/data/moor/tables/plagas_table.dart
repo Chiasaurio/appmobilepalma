@@ -3,6 +3,7 @@ import 'package:drift/drift.dart';
 
 class Plagas extends Table {
   TextColumn get nombreComunPlaga => text()();
+  DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
 
   @override
   Set<Column> get primaryKey => {nombreComunPlaga};

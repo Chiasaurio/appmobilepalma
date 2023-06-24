@@ -32,6 +32,8 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     final censosPendientes = await getCensosPendientesSincronizar();
     final fumigacionesPendientes = await getFumigacionesPendientesSincronizar();
 
+    final viajesPendientes = await getViajesPendientesSync();
+
     //Fitosanitarias
     emit(state.copyWith(
         cosechasConDiariasPendientes: cosechasPendientes,
@@ -43,6 +45,7 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         erradicacionesPendientes: erradicacionesPendientes,
         censosPendientes: censosPendientes,
         fumigacionesPendientes: fumigacionesPendientes,
+        viajesPendientes: viajesPendientes,
         loaded: true));
   }
 
@@ -164,6 +167,16 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     }
   }
 
+  Future<List<Viaje>> getViajesPendientesSync() async {
+    try {
+      final ViajesDao viajesDao = db.viajesDao;
+      final registroViajes = await viajesDao.getRegistrosForSync();
+      return registroViajes;
+    } catch (e) {
+      return [];
+    }
+  }
+
   syncRegistros() async {
     if (state.palmasPendientes != null &&
         state.palmasPendientes!.isNotEmpty &&
@@ -193,7 +206,12 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     if (state.plateosConDiariasPendientes != null &&
         state.plateosConDiariasPendientes!.isNotEmpty &&
         state.plateosStatus != SyncStatus.success) {
-      final respalmas = await syncPlateos();
+      final rescosechas = await syncPlateos();
+    }
+    if (state.viajesPendientes != null &&
+        state.viajesPendientes!.isNotEmpty &&
+        state.viajesStatus != SyncStatus.success) {
+      final resviajes = await syncViajes();
     }
   }
 
@@ -384,6 +402,38 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       }
     } catch (e) {
       emit(state.copyWith(tratamientosStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  Future<bool> syncViajes() async {
+    try {
+      emit(state.copyWith(viajesStatus: SyncStatus.loading));
+      final res = await remote.syncViajes(state.viajesPendientes ?? []);
+      if (res["success"]) {
+        final ViajesDao viajesDao = db.viajesDao;
+        var index = 0;
+        var ids = res["viajesIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var viaje in state.viajesPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego el viaje se actualiza el id
+            await viajesDao
+                .updateViaje(viaje.copyWith(idViaje: Value(ids[index])));
+          }
+          index++;
+        }
+        for (var i in state.viajesPendientes!) {
+          await viajesDao.updateSyncViaje(i);
+        }
+        emit(state.copyWith(viajesStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(viajesStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(viajesStatus: SyncStatus.error));
       return false;
     }
   }

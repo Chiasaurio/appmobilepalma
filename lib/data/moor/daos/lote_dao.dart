@@ -1,5 +1,6 @@
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/data/moor/tables/precipitacion.dart';
+import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:drift/drift.dart';
 
 import '../tables/tables.dart';
@@ -32,6 +33,15 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<Lote?> getLoteUltimo() async {
+    final query = (select(lotes));
+    query.orderBy([(tbl) => OrderingTerm.desc(tbl.fechaUltimaActualizacion)]);
+
+    final res = await query.get();
+
+    return res[0];
   }
 
   Future<LoteWithProcesos> getSingleLote(int id) async {
@@ -111,29 +121,34 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
   }
 
   Future<List<LoteWithProcesos>> getLotesWithProcesos() async {
-    final rows = await (select(lotes)).join(
-      [
-        leftOuterJoin(
-            cosechas,
-            cosechas.nombreLote.equalsExp(lotes.nombreLote) &
-                cosechas.completada.equals(false)),
-        leftOuterJoin(
-            plateos,
-            plateos.nombreLote.equalsExp(lotes.nombreLote) &
-                plateos.completado.equals(false)),
-        leftOuterJoin(
-            podas,
-            podas.nombreLote.equalsExp(lotes.nombreLote) &
-                podas.completada.equals(false)),
-      ],
-    ).get();
+    try {
+      final rows = await (select(lotes)).join(
+        [
+          leftOuterJoin(
+              cosechas,
+              cosechas.nombreLote.equalsExp(lotes.nombreLote) &
+                  cosechas.completada.equals(false)),
+          leftOuterJoin(
+              plateos,
+              plateos.nombreLote.equalsExp(lotes.nombreLote) &
+                  plateos.completado.equals(false)),
+          leftOuterJoin(
+              podas,
+              podas.nombreLote.equalsExp(lotes.nombreLote) &
+                  podas.completada.equals(false)),
+        ],
+      ).get();
 
-    return rows.map((resultRow) {
-      return LoteWithProcesos(
-          lote: resultRow.readTable(lotes),
-          cosecha: resultRow.readTableOrNull(cosechas),
-          plateo: resultRow.readTableOrNull(plateos),
-          poda: resultRow.readTableOrNull(podas));
-    }).toList();
+      return rows.map((resultRow) {
+        return LoteWithProcesos(
+            lote: resultRow.readTable(lotes),
+            cosecha: resultRow.readTableOrNull(cosechas),
+            plateo: resultRow.readTableOrNull(plateos),
+            poda: resultRow.readTableOrNull(podas));
+      }).toList();
+    } catch (e) {
+      registroFallidoToast('Error obteniendo lotes $e');
+      return [];
+    }
   }
 }

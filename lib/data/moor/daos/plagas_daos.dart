@@ -44,6 +44,15 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
     return resp;
   }
 
+  Future<Plaga?> getPlagaUltimo() async {
+    final query = (select(plagas));
+    query.orderBy([(tbl) => OrderingTerm.desc(tbl.fechaUltimaActualizacion)]);
+
+    final res = await query.get();
+
+    return res[0];
+  }
+
   Future<void> insertPlagas(List<Insertable<Plaga>> listaplagas,
       List<Insertable<EtapasPlagaData>> listaetapas) async {
     try {

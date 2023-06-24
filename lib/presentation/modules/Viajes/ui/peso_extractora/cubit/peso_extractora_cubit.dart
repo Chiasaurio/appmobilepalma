@@ -26,8 +26,8 @@ class PesoExtractoraCubit extends Cubit<PesoExtractoraState> {
     try {
       emit(state.copyWith(status: FormStatus.noSubmitted));
       ViajesDao viajesDao = db.viajesDao;
-      await viajesDao.updateViaje(
-          state.viaje!.copyWith(kilosExtractora: Value(state.pesoExtractora)));
+      await viajesDao.updateViaje(state.viaje!.copyWith(
+          kilosExtractora: Value(state.pesoExtractora), sincronizado: false));
       successMessageToast('El peso de la extractora se registro exitosamente');
       emit(state.copyWith(status: FormStatus.submissionSuccess));
     } catch (e) {

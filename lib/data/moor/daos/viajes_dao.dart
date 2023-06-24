@@ -13,7 +13,20 @@ class ViajesDao extends DatabaseAccessor<AppDatabase> with _$ViajesDaoMixin {
     return (select(viajes)).get();
   }
 
+  Future<List<Viaje>> getRegistrosForSync() {
+    return (select(viajes)..where((c) => c.sincronizado.equals(false))).get();
+  }
+
+  Future updateSyncViaje(Viaje viaje) {
+    return (update(viajes)..where((t) => t.id.equals(viaje.id))).write(
+      const ViajesCompanion(
+        sincronizado: Value(true),
+      ),
+    );
+  }
+
   Future<int> insertViaje(Insertable<Viaje> viaje) =>
       into(viajes).insert(viaje);
-  Future updateViaje(Insertable<Viaje> viaje) => update(viajes).replace(viaje);
+  Future updateViaje(Viaje viaje) =>
+      update(viajes).replace(viaje.copyWith(sincronizado: false));
 }

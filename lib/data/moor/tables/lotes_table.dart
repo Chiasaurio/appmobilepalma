@@ -7,6 +7,7 @@ class Lotes extends Table {
   TextColumn get nombreLote => text()();
   IntColumn get hectareas => integer()();
   IntColumn get numeropalmas => integer()();
+  DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
 
   @override
   List<String> get customConstraints => ['UNIQUE (nombre_lote)'];

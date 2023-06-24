@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 
 class Viajes extends Table {
   IntColumn get id => integer().autoIncrement()();
+  IntColumn get idViaje => integer().nullable()();
   DateTimeColumn get horaCargue => dateTime()();
   DateTimeColumn get horaSalida => dateTime().nullable()();
   IntColumn get cantidadRacimos => integer()();
@@ -15,5 +16,6 @@ class Viajes extends Table {
   @override
   List<String> get customConstraints => [
         'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
+        'UNIQUE (id_viaje)'
       ];
 }
