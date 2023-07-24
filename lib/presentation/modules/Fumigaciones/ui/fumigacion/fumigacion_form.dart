@@ -493,7 +493,8 @@ class _FumigacionFormState extends State<FumigacionForm> {
                     const Expanded(child: Text('sector: ')),
                     Expanded(
                       child: Text(
-                        '${censo.lineaLimite1.toString()} - ${censo.lineaLimite2.toString()}',
+                        // '${censo.lineaLimite1.toString()} - ${censo.lineaLimite2.toString()}',
+                        censo.identificador,
                         style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,

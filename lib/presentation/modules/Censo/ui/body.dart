@@ -36,7 +36,8 @@ class _BodyState extends State<Body> {
           return AlertDialog(
             title: const Text('Confirmar dar de alta'),
             content: Text(
-                'Esta seguro que desea dar de alta el censo de ${censoseleccionado!.nombrePlaga} en el sector ${censoseleccionado!.lineaLimite1} - ${censoseleccionado!.lineaLimite2} '),
+                // 'Esta seguro que desea dar de alta el censo de ${censoseleccionado!.nombrePlaga} en el sector ${censoseleccionado!.lineaLimite1} - ${censoseleccionado!.lineaLimite2} '),
+                'Esta seguro que desea dar de alta el censo de ${censoseleccionado!.nombrePlaga} en el sector ${censoseleccionado!.identificador}'),
             actions: [
               TextButton(
                   onPressed: () {

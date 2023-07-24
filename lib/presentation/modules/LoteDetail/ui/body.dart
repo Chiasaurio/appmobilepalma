@@ -33,11 +33,11 @@ class _BodyState extends State<Body> {
 
   buildOpciones() {
     if (opcionSelected == "Fitosanitaria") {
-      return OpcionesProductiva(
+      return OpcionesFitosanitaria(
         nombreLote: widget.lote.lote.nombreLote,
       );
     } else {
-      return OpcionesFitosanitaria(
+      return OpcionesProductiva(
         lote: widget.lote,
       );
     }

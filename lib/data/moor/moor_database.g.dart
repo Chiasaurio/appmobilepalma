@@ -491,44 +491,12 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   late final GeneratedColumn<DateTime> fechaCenso = GeneratedColumn<DateTime>(
       'fecha_censo', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _presenciaLoteMeta =
-      const VerificationMeta('presenciaLote');
+  static const VerificationMeta _identificadorMeta =
+      const VerificationMeta('identificador');
   @override
-  late final GeneratedColumn<bool> presenciaLote =
-      GeneratedColumn<bool>('presencia_lote', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("presencia_lote" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
-  static const VerificationMeta _presenciaSectorMeta =
-      const VerificationMeta('presenciaSector');
-  @override
-  late final GeneratedColumn<bool> presenciaSector =
-      GeneratedColumn<bool>('presencia_sector', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("presencia_sector" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(true));
-  static const VerificationMeta _lineaLimite1Meta =
-      const VerificationMeta('lineaLimite1');
-  @override
-  late final GeneratedColumn<int> lineaLimite1 = GeneratedColumn<int>(
-      'linea_limite1', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _lineaLimite2Meta =
-      const VerificationMeta('lineaLimite2');
-  @override
-  late final GeneratedColumn<int> lineaLimite2 = GeneratedColumn<int>(
-      'linea_limite2', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+  late final GeneratedColumn<String> identificador = GeneratedColumn<String>(
+      'identificador', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _observacionCensoMeta =
       const VerificationMeta('observacionCenso');
   @override
@@ -541,6 +509,12 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numeroIndividuosMeta =
+      const VerificationMeta('numeroIndividuos');
+  @override
+  late final GeneratedColumn<int> numeroIndividuos = GeneratedColumn<int>(
+      'numero_individuos', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nombrePlagaMeta =
       const VerificationMeta('nombrePlaga');
   @override
@@ -568,19 +542,38 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
             SqlDialect.postgres: '',
           }),
           defaultValue: const Constant(false));
+  static const VerificationMeta _responsableMeta =
+      const VerificationMeta('responsable');
+  @override
+  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
+      'responsable', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _latitudeMeta =
+      const VerificationMeta('latitude');
+  @override
+  late final GeneratedColumn<double> latitude = GeneratedColumn<double>(
+      'latitude', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _longitudeMeta =
+      const VerificationMeta('longitude');
+  @override
+  late final GeneratedColumn<double> longitude = GeneratedColumn<double>(
+      'longitude', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         idCenso,
         fechaCenso,
-        presenciaLote,
-        presenciaSector,
-        lineaLimite1,
-        lineaLimite2,
+        identificador,
         observacionCenso,
         nombreLote,
+        numeroIndividuos,
         nombrePlaga,
         estadoPlaga,
-        sincronizado
+        sincronizado,
+        responsable,
+        latitude,
+        longitude
       ];
   @override
   String get aliasedName => _alias ?? 'censo';
@@ -603,33 +596,13 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
     } else if (isInserting) {
       context.missing(_fechaCensoMeta);
     }
-    if (data.containsKey('presencia_lote')) {
+    if (data.containsKey('identificador')) {
       context.handle(
-          _presenciaLoteMeta,
-          presenciaLote.isAcceptableOrUnknown(
-              data['presencia_lote']!, _presenciaLoteMeta));
-    }
-    if (data.containsKey('presencia_sector')) {
-      context.handle(
-          _presenciaSectorMeta,
-          presenciaSector.isAcceptableOrUnknown(
-              data['presencia_sector']!, _presenciaSectorMeta));
-    }
-    if (data.containsKey('linea_limite1')) {
-      context.handle(
-          _lineaLimite1Meta,
-          lineaLimite1.isAcceptableOrUnknown(
-              data['linea_limite1']!, _lineaLimite1Meta));
+          _identificadorMeta,
+          identificador.isAcceptableOrUnknown(
+              data['identificador']!, _identificadorMeta));
     } else if (isInserting) {
-      context.missing(_lineaLimite1Meta);
-    }
-    if (data.containsKey('linea_limite2')) {
-      context.handle(
-          _lineaLimite2Meta,
-          lineaLimite2.isAcceptableOrUnknown(
-              data['linea_limite2']!, _lineaLimite2Meta));
-    } else if (isInserting) {
-      context.missing(_lineaLimite2Meta);
+      context.missing(_identificadorMeta);
     }
     if (data.containsKey('observacion_censo')) {
       context.handle(
@@ -644,6 +617,12 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
               data['nombre_lote']!, _nombreLoteMeta));
     } else if (isInserting) {
       context.missing(_nombreLoteMeta);
+    }
+    if (data.containsKey('numero_individuos')) {
+      context.handle(
+          _numeroIndividuosMeta,
+          numeroIndividuos.isAcceptableOrUnknown(
+              data['numero_individuos']!, _numeroIndividuosMeta));
     }
     if (data.containsKey('nombre_plaga')) {
       context.handle(
@@ -665,6 +644,22 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
           sincronizado.isAcceptableOrUnknown(
               data['sincronizado']!, _sincronizadoMeta));
     }
+    if (data.containsKey('responsable')) {
+      context.handle(
+          _responsableMeta,
+          responsable.isAcceptableOrUnknown(
+              data['responsable']!, _responsableMeta));
+    } else if (isInserting) {
+      context.missing(_responsableMeta);
+    }
+    if (data.containsKey('latitude')) {
+      context.handle(_latitudeMeta,
+          latitude.isAcceptableOrUnknown(data['latitude']!, _latitudeMeta));
+    }
+    if (data.containsKey('longitude')) {
+      context.handle(_longitudeMeta,
+          longitude.isAcceptableOrUnknown(data['longitude']!, _longitudeMeta));
+    }
     return context;
   }
 
@@ -678,24 +673,26 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
           .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
       fechaCenso: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_censo'])!,
-      presenciaLote: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_lote'])!,
-      presenciaSector: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}presencia_sector'])!,
-      lineaLimite1: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite1'])!,
-      lineaLimite2: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}linea_limite2'])!,
+      identificador: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}identificador'])!,
       observacionCenso: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}observacion_censo']),
       nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      numeroIndividuos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}numero_individuos']),
       nombrePlaga: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_plaga'])!,
       estadoPlaga: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}estado_plaga'])!,
       sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+      responsable: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
+      latitude: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}latitude']),
+      longitude: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}longitude']),
     );
   }
 
@@ -708,43 +705,52 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
 class CensoData extends DataClass implements Insertable<CensoData> {
   final int idCenso;
   final DateTime fechaCenso;
-  final bool presenciaLote;
-  final bool presenciaSector;
-  final int lineaLimite1;
-  final int lineaLimite2;
+  final String identificador;
   final String? observacionCenso;
   final String nombreLote;
+  final int? numeroIndividuos;
   final String nombrePlaga;
   final String estadoPlaga;
   final bool sincronizado;
+  final String responsable;
+  final double? latitude;
+  final double? longitude;
   const CensoData(
       {required this.idCenso,
       required this.fechaCenso,
-      required this.presenciaLote,
-      required this.presenciaSector,
-      required this.lineaLimite1,
-      required this.lineaLimite2,
+      required this.identificador,
       this.observacionCenso,
       required this.nombreLote,
+      this.numeroIndividuos,
       required this.nombrePlaga,
       required this.estadoPlaga,
-      required this.sincronizado});
+      required this.sincronizado,
+      required this.responsable,
+      this.latitude,
+      this.longitude});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id_censo'] = Variable<int>(idCenso);
     map['fecha_censo'] = Variable<DateTime>(fechaCenso);
-    map['presencia_lote'] = Variable<bool>(presenciaLote);
-    map['presencia_sector'] = Variable<bool>(presenciaSector);
-    map['linea_limite1'] = Variable<int>(lineaLimite1);
-    map['linea_limite2'] = Variable<int>(lineaLimite2);
+    map['identificador'] = Variable<String>(identificador);
     if (!nullToAbsent || observacionCenso != null) {
       map['observacion_censo'] = Variable<String>(observacionCenso);
     }
     map['nombre_lote'] = Variable<String>(nombreLote);
+    if (!nullToAbsent || numeroIndividuos != null) {
+      map['numero_individuos'] = Variable<int>(numeroIndividuos);
+    }
     map['nombre_plaga'] = Variable<String>(nombrePlaga);
     map['estado_plaga'] = Variable<String>(estadoPlaga);
     map['sincronizado'] = Variable<bool>(sincronizado);
+    map['responsable'] = Variable<String>(responsable);
+    if (!nullToAbsent || latitude != null) {
+      map['latitude'] = Variable<double>(latitude);
+    }
+    if (!nullToAbsent || longitude != null) {
+      map['longitude'] = Variable<double>(longitude);
+    }
     return map;
   }
 
@@ -752,17 +758,24 @@ class CensoData extends DataClass implements Insertable<CensoData> {
     return CensoCompanion(
       idCenso: Value(idCenso),
       fechaCenso: Value(fechaCenso),
-      presenciaLote: Value(presenciaLote),
-      presenciaSector: Value(presenciaSector),
-      lineaLimite1: Value(lineaLimite1),
-      lineaLimite2: Value(lineaLimite2),
+      identificador: Value(identificador),
       observacionCenso: observacionCenso == null && nullToAbsent
           ? const Value.absent()
           : Value(observacionCenso),
       nombreLote: Value(nombreLote),
+      numeroIndividuos: numeroIndividuos == null && nullToAbsent
+          ? const Value.absent()
+          : Value(numeroIndividuos),
       nombrePlaga: Value(nombrePlaga),
       estadoPlaga: Value(estadoPlaga),
       sincronizado: Value(sincronizado),
+      responsable: Value(responsable),
+      latitude: latitude == null && nullToAbsent
+          ? const Value.absent()
+          : Value(latitude),
+      longitude: longitude == null && nullToAbsent
+          ? const Value.absent()
+          : Value(longitude),
     );
   }
 
@@ -772,15 +785,16 @@ class CensoData extends DataClass implements Insertable<CensoData> {
     return CensoData(
       idCenso: serializer.fromJson<int>(json['idCenso']),
       fechaCenso: serializer.fromJson<DateTime>(json['fechaCenso']),
-      presenciaLote: serializer.fromJson<bool>(json['presenciaLote']),
-      presenciaSector: serializer.fromJson<bool>(json['presenciaSector']),
-      lineaLimite1: serializer.fromJson<int>(json['lineaLimite1']),
-      lineaLimite2: serializer.fromJson<int>(json['lineaLimite2']),
+      identificador: serializer.fromJson<String>(json['identificador']),
       observacionCenso: serializer.fromJson<String?>(json['observacionCenso']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
+      numeroIndividuos: serializer.fromJson<int?>(json['numeroIndividuos']),
       nombrePlaga: serializer.fromJson<String>(json['nombrePlaga']),
       estadoPlaga: serializer.fromJson<String>(json['estadoPlaga']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
+      responsable: serializer.fromJson<String>(json['responsable']),
+      latitude: serializer.fromJson<double?>(json['latitude']),
+      longitude: serializer.fromJson<double?>(json['longitude']),
     );
   }
   @override
@@ -789,59 +803,65 @@ class CensoData extends DataClass implements Insertable<CensoData> {
     return <String, dynamic>{
       'idCenso': serializer.toJson<int>(idCenso),
       'fechaCenso': serializer.toJson<DateTime>(fechaCenso),
-      'presenciaLote': serializer.toJson<bool>(presenciaLote),
-      'presenciaSector': serializer.toJson<bool>(presenciaSector),
-      'lineaLimite1': serializer.toJson<int>(lineaLimite1),
-      'lineaLimite2': serializer.toJson<int>(lineaLimite2),
+      'identificador': serializer.toJson<String>(identificador),
       'observacionCenso': serializer.toJson<String?>(observacionCenso),
       'nombreLote': serializer.toJson<String>(nombreLote),
+      'numeroIndividuos': serializer.toJson<int?>(numeroIndividuos),
       'nombrePlaga': serializer.toJson<String>(nombrePlaga),
       'estadoPlaga': serializer.toJson<String>(estadoPlaga),
       'sincronizado': serializer.toJson<bool>(sincronizado),
+      'responsable': serializer.toJson<String>(responsable),
+      'latitude': serializer.toJson<double?>(latitude),
+      'longitude': serializer.toJson<double?>(longitude),
     };
   }
 
   CensoData copyWith(
           {int? idCenso,
           DateTime? fechaCenso,
-          bool? presenciaLote,
-          bool? presenciaSector,
-          int? lineaLimite1,
-          int? lineaLimite2,
+          String? identificador,
           Value<String?> observacionCenso = const Value.absent(),
           String? nombreLote,
+          Value<int?> numeroIndividuos = const Value.absent(),
           String? nombrePlaga,
           String? estadoPlaga,
-          bool? sincronizado}) =>
+          bool? sincronizado,
+          String? responsable,
+          Value<double?> latitude = const Value.absent(),
+          Value<double?> longitude = const Value.absent()}) =>
       CensoData(
         idCenso: idCenso ?? this.idCenso,
         fechaCenso: fechaCenso ?? this.fechaCenso,
-        presenciaLote: presenciaLote ?? this.presenciaLote,
-        presenciaSector: presenciaSector ?? this.presenciaSector,
-        lineaLimite1: lineaLimite1 ?? this.lineaLimite1,
-        lineaLimite2: lineaLimite2 ?? this.lineaLimite2,
+        identificador: identificador ?? this.identificador,
         observacionCenso: observacionCenso.present
             ? observacionCenso.value
             : this.observacionCenso,
         nombreLote: nombreLote ?? this.nombreLote,
+        numeroIndividuos: numeroIndividuos.present
+            ? numeroIndividuos.value
+            : this.numeroIndividuos,
         nombrePlaga: nombrePlaga ?? this.nombrePlaga,
         estadoPlaga: estadoPlaga ?? this.estadoPlaga,
         sincronizado: sincronizado ?? this.sincronizado,
+        responsable: responsable ?? this.responsable,
+        latitude: latitude.present ? latitude.value : this.latitude,
+        longitude: longitude.present ? longitude.value : this.longitude,
       );
   @override
   String toString() {
     return (StringBuffer('CensoData(')
           ..write('idCenso: $idCenso, ')
           ..write('fechaCenso: $fechaCenso, ')
-          ..write('presenciaLote: $presenciaLote, ')
-          ..write('presenciaSector: $presenciaSector, ')
-          ..write('lineaLimite1: $lineaLimite1, ')
-          ..write('lineaLimite2: $lineaLimite2, ')
+          ..write('identificador: $identificador, ')
           ..write('observacionCenso: $observacionCenso, ')
           ..write('nombreLote: $nombreLote, ')
+          ..write('numeroIndividuos: $numeroIndividuos, ')
           ..write('nombrePlaga: $nombrePlaga, ')
           ..write('estadoPlaga: $estadoPlaga, ')
-          ..write('sincronizado: $sincronizado')
+          ..write('sincronizado: $sincronizado, ')
+          ..write('responsable: $responsable, ')
+          ..write('latitude: $latitude, ')
+          ..write('longitude: $longitude')
           ..write(')'))
         .toString();
   }
@@ -850,126 +870,135 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   int get hashCode => Object.hash(
       idCenso,
       fechaCenso,
-      presenciaLote,
-      presenciaSector,
-      lineaLimite1,
-      lineaLimite2,
+      identificador,
       observacionCenso,
       nombreLote,
+      numeroIndividuos,
       nombrePlaga,
       estadoPlaga,
-      sincronizado);
+      sincronizado,
+      responsable,
+      latitude,
+      longitude);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CensoData &&
           other.idCenso == this.idCenso &&
           other.fechaCenso == this.fechaCenso &&
-          other.presenciaLote == this.presenciaLote &&
-          other.presenciaSector == this.presenciaSector &&
-          other.lineaLimite1 == this.lineaLimite1 &&
-          other.lineaLimite2 == this.lineaLimite2 &&
+          other.identificador == this.identificador &&
           other.observacionCenso == this.observacionCenso &&
           other.nombreLote == this.nombreLote &&
+          other.numeroIndividuos == this.numeroIndividuos &&
           other.nombrePlaga == this.nombrePlaga &&
           other.estadoPlaga == this.estadoPlaga &&
-          other.sincronizado == this.sincronizado);
+          other.sincronizado == this.sincronizado &&
+          other.responsable == this.responsable &&
+          other.latitude == this.latitude &&
+          other.longitude == this.longitude);
 }
 
 class CensoCompanion extends UpdateCompanion<CensoData> {
   final Value<int> idCenso;
   final Value<DateTime> fechaCenso;
-  final Value<bool> presenciaLote;
-  final Value<bool> presenciaSector;
-  final Value<int> lineaLimite1;
-  final Value<int> lineaLimite2;
+  final Value<String> identificador;
   final Value<String?> observacionCenso;
   final Value<String> nombreLote;
+  final Value<int?> numeroIndividuos;
   final Value<String> nombrePlaga;
   final Value<String> estadoPlaga;
   final Value<bool> sincronizado;
+  final Value<String> responsable;
+  final Value<double?> latitude;
+  final Value<double?> longitude;
   const CensoCompanion({
     this.idCenso = const Value.absent(),
     this.fechaCenso = const Value.absent(),
-    this.presenciaLote = const Value.absent(),
-    this.presenciaSector = const Value.absent(),
-    this.lineaLimite1 = const Value.absent(),
-    this.lineaLimite2 = const Value.absent(),
+    this.identificador = const Value.absent(),
     this.observacionCenso = const Value.absent(),
     this.nombreLote = const Value.absent(),
+    this.numeroIndividuos = const Value.absent(),
     this.nombrePlaga = const Value.absent(),
     this.estadoPlaga = const Value.absent(),
     this.sincronizado = const Value.absent(),
+    this.responsable = const Value.absent(),
+    this.latitude = const Value.absent(),
+    this.longitude = const Value.absent(),
   });
   CensoCompanion.insert({
     this.idCenso = const Value.absent(),
     required DateTime fechaCenso,
-    this.presenciaLote = const Value.absent(),
-    this.presenciaSector = const Value.absent(),
-    required int lineaLimite1,
-    required int lineaLimite2,
+    required String identificador,
     this.observacionCenso = const Value.absent(),
     required String nombreLote,
+    this.numeroIndividuos = const Value.absent(),
     required String nombrePlaga,
     this.estadoPlaga = const Value.absent(),
     this.sincronizado = const Value.absent(),
+    required String responsable,
+    this.latitude = const Value.absent(),
+    this.longitude = const Value.absent(),
   })  : fechaCenso = Value(fechaCenso),
-        lineaLimite1 = Value(lineaLimite1),
-        lineaLimite2 = Value(lineaLimite2),
+        identificador = Value(identificador),
         nombreLote = Value(nombreLote),
-        nombrePlaga = Value(nombrePlaga);
+        nombrePlaga = Value(nombrePlaga),
+        responsable = Value(responsable);
   static Insertable<CensoData> custom({
     Expression<int>? idCenso,
     Expression<DateTime>? fechaCenso,
-    Expression<bool>? presenciaLote,
-    Expression<bool>? presenciaSector,
-    Expression<int>? lineaLimite1,
-    Expression<int>? lineaLimite2,
+    Expression<String>? identificador,
     Expression<String>? observacionCenso,
     Expression<String>? nombreLote,
+    Expression<int>? numeroIndividuos,
     Expression<String>? nombrePlaga,
     Expression<String>? estadoPlaga,
     Expression<bool>? sincronizado,
+    Expression<String>? responsable,
+    Expression<double>? latitude,
+    Expression<double>? longitude,
   }) {
     return RawValuesInsertable({
       if (idCenso != null) 'id_censo': idCenso,
       if (fechaCenso != null) 'fecha_censo': fechaCenso,
-      if (presenciaLote != null) 'presencia_lote': presenciaLote,
-      if (presenciaSector != null) 'presencia_sector': presenciaSector,
-      if (lineaLimite1 != null) 'linea_limite1': lineaLimite1,
-      if (lineaLimite2 != null) 'linea_limite2': lineaLimite2,
+      if (identificador != null) 'identificador': identificador,
       if (observacionCenso != null) 'observacion_censo': observacionCenso,
       if (nombreLote != null) 'nombre_lote': nombreLote,
+      if (numeroIndividuos != null) 'numero_individuos': numeroIndividuos,
       if (nombrePlaga != null) 'nombre_plaga': nombrePlaga,
       if (estadoPlaga != null) 'estado_plaga': estadoPlaga,
       if (sincronizado != null) 'sincronizado': sincronizado,
+      if (responsable != null) 'responsable': responsable,
+      if (latitude != null) 'latitude': latitude,
+      if (longitude != null) 'longitude': longitude,
     });
   }
 
   CensoCompanion copyWith(
       {Value<int>? idCenso,
       Value<DateTime>? fechaCenso,
-      Value<bool>? presenciaLote,
-      Value<bool>? presenciaSector,
-      Value<int>? lineaLimite1,
-      Value<int>? lineaLimite2,
+      Value<String>? identificador,
       Value<String?>? observacionCenso,
       Value<String>? nombreLote,
+      Value<int?>? numeroIndividuos,
       Value<String>? nombrePlaga,
       Value<String>? estadoPlaga,
-      Value<bool>? sincronizado}) {
+      Value<bool>? sincronizado,
+      Value<String>? responsable,
+      Value<double?>? latitude,
+      Value<double?>? longitude}) {
     return CensoCompanion(
       idCenso: idCenso ?? this.idCenso,
       fechaCenso: fechaCenso ?? this.fechaCenso,
-      presenciaLote: presenciaLote ?? this.presenciaLote,
-      presenciaSector: presenciaSector ?? this.presenciaSector,
-      lineaLimite1: lineaLimite1 ?? this.lineaLimite1,
-      lineaLimite2: lineaLimite2 ?? this.lineaLimite2,
+      identificador: identificador ?? this.identificador,
       observacionCenso: observacionCenso ?? this.observacionCenso,
       nombreLote: nombreLote ?? this.nombreLote,
+      numeroIndividuos: numeroIndividuos ?? this.numeroIndividuos,
       nombrePlaga: nombrePlaga ?? this.nombrePlaga,
       estadoPlaga: estadoPlaga ?? this.estadoPlaga,
       sincronizado: sincronizado ?? this.sincronizado,
+      responsable: responsable ?? this.responsable,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
     );
   }
 
@@ -982,23 +1011,17 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
     if (fechaCenso.present) {
       map['fecha_censo'] = Variable<DateTime>(fechaCenso.value);
     }
-    if (presenciaLote.present) {
-      map['presencia_lote'] = Variable<bool>(presenciaLote.value);
-    }
-    if (presenciaSector.present) {
-      map['presencia_sector'] = Variable<bool>(presenciaSector.value);
-    }
-    if (lineaLimite1.present) {
-      map['linea_limite1'] = Variable<int>(lineaLimite1.value);
-    }
-    if (lineaLimite2.present) {
-      map['linea_limite2'] = Variable<int>(lineaLimite2.value);
+    if (identificador.present) {
+      map['identificador'] = Variable<String>(identificador.value);
     }
     if (observacionCenso.present) {
       map['observacion_censo'] = Variable<String>(observacionCenso.value);
     }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
+    }
+    if (numeroIndividuos.present) {
+      map['numero_individuos'] = Variable<int>(numeroIndividuos.value);
     }
     if (nombrePlaga.present) {
       map['nombre_plaga'] = Variable<String>(nombrePlaga.value);
@@ -1009,6 +1032,15 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
     if (sincronizado.present) {
       map['sincronizado'] = Variable<bool>(sincronizado.value);
     }
+    if (responsable.present) {
+      map['responsable'] = Variable<String>(responsable.value);
+    }
+    if (latitude.present) {
+      map['latitude'] = Variable<double>(latitude.value);
+    }
+    if (longitude.present) {
+      map['longitude'] = Variable<double>(longitude.value);
+    }
     return map;
   }
 
@@ -1017,15 +1049,16 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
     return (StringBuffer('CensoCompanion(')
           ..write('idCenso: $idCenso, ')
           ..write('fechaCenso: $fechaCenso, ')
-          ..write('presenciaLote: $presenciaLote, ')
-          ..write('presenciaSector: $presenciaSector, ')
-          ..write('lineaLimite1: $lineaLimite1, ')
-          ..write('lineaLimite2: $lineaLimite2, ')
+          ..write('identificador: $identificador, ')
           ..write('observacionCenso: $observacionCenso, ')
           ..write('nombreLote: $nombreLote, ')
+          ..write('numeroIndividuos: $numeroIndividuos, ')
           ..write('nombrePlaga: $nombrePlaga, ')
           ..write('estadoPlaga: $estadoPlaga, ')
-          ..write('sincronizado: $sincronizado')
+          ..write('sincronizado: $sincronizado, ')
+          ..write('responsable: $responsable, ')
+          ..write('latitude: $latitude, ')
+          ..write('longitude: $longitude')
           ..write(')'))
         .toString();
   }
@@ -7585,9 +7618,15 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
   late final GeneratedColumn<int> idEtapasplaga = GeneratedColumn<int>(
       'id_etapasplaga', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _numeroIndividuosMeta =
+      const VerificationMeta('numeroIndividuos');
+  @override
+  late final GeneratedColumn<int> numeroIndividuos = GeneratedColumn<int>(
+      'numero_individuos', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idCensoEtapasplaga, idCenso, idEtapasplaga];
+      [idCensoEtapasplaga, idCenso, idEtapasplaga, numeroIndividuos];
   @override
   String get aliasedName => _alias ?? 'censo_etapas_plaga';
   @override
@@ -7618,6 +7657,14 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
     } else if (isInserting) {
       context.missing(_idEtapasplagaMeta);
     }
+    if (data.containsKey('numero_individuos')) {
+      context.handle(
+          _numeroIndividuosMeta,
+          numeroIndividuos.isAcceptableOrUnknown(
+              data['numero_individuos']!, _numeroIndividuosMeta));
+    } else if (isInserting) {
+      context.missing(_numeroIndividuosMeta);
+    }
     return context;
   }
 
@@ -7633,6 +7680,8 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
           .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
       idEtapasplaga: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id_etapasplaga'])!,
+      numeroIndividuos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}numero_individuos'])!,
     );
   }
 
@@ -7647,16 +7696,19 @@ class CensoEtapasPlagaData extends DataClass
   final int idCensoEtapasplaga;
   final int idCenso;
   final int idEtapasplaga;
+  final int numeroIndividuos;
   const CensoEtapasPlagaData(
       {required this.idCensoEtapasplaga,
       required this.idCenso,
-      required this.idEtapasplaga});
+      required this.idEtapasplaga,
+      required this.numeroIndividuos});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id_censo_etapasplaga'] = Variable<int>(idCensoEtapasplaga);
     map['id_censo'] = Variable<int>(idCenso);
     map['id_etapasplaga'] = Variable<int>(idEtapasplaga);
+    map['numero_individuos'] = Variable<int>(numeroIndividuos);
     return map;
   }
 
@@ -7665,6 +7717,7 @@ class CensoEtapasPlagaData extends DataClass
       idCensoEtapasplaga: Value(idCensoEtapasplaga),
       idCenso: Value(idCenso),
       idEtapasplaga: Value(idEtapasplaga),
+      numeroIndividuos: Value(numeroIndividuos),
     );
   }
 
@@ -7675,6 +7728,7 @@ class CensoEtapasPlagaData extends DataClass
       idCensoEtapasplaga: serializer.fromJson<int>(json['idCensoEtapasplaga']),
       idCenso: serializer.fromJson<int>(json['idCenso']),
       idEtapasplaga: serializer.fromJson<int>(json['idEtapasplaga']),
+      numeroIndividuos: serializer.fromJson<int>(json['numeroIndividuos']),
     );
   }
   @override
@@ -7684,73 +7738,89 @@ class CensoEtapasPlagaData extends DataClass
       'idCensoEtapasplaga': serializer.toJson<int>(idCensoEtapasplaga),
       'idCenso': serializer.toJson<int>(idCenso),
       'idEtapasplaga': serializer.toJson<int>(idEtapasplaga),
+      'numeroIndividuos': serializer.toJson<int>(numeroIndividuos),
     };
   }
 
   CensoEtapasPlagaData copyWith(
-          {int? idCensoEtapasplaga, int? idCenso, int? idEtapasplaga}) =>
+          {int? idCensoEtapasplaga,
+          int? idCenso,
+          int? idEtapasplaga,
+          int? numeroIndividuos}) =>
       CensoEtapasPlagaData(
         idCensoEtapasplaga: idCensoEtapasplaga ?? this.idCensoEtapasplaga,
         idCenso: idCenso ?? this.idCenso,
         idEtapasplaga: idEtapasplaga ?? this.idEtapasplaga,
+        numeroIndividuos: numeroIndividuos ?? this.numeroIndividuos,
       );
   @override
   String toString() {
     return (StringBuffer('CensoEtapasPlagaData(')
           ..write('idCensoEtapasplaga: $idCensoEtapasplaga, ')
           ..write('idCenso: $idCenso, ')
-          ..write('idEtapasplaga: $idEtapasplaga')
+          ..write('idEtapasplaga: $idEtapasplaga, ')
+          ..write('numeroIndividuos: $numeroIndividuos')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(idCensoEtapasplaga, idCenso, idEtapasplaga);
+  int get hashCode =>
+      Object.hash(idCensoEtapasplaga, idCenso, idEtapasplaga, numeroIndividuos);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CensoEtapasPlagaData &&
           other.idCensoEtapasplaga == this.idCensoEtapasplaga &&
           other.idCenso == this.idCenso &&
-          other.idEtapasplaga == this.idEtapasplaga);
+          other.idEtapasplaga == this.idEtapasplaga &&
+          other.numeroIndividuos == this.numeroIndividuos);
 }
 
 class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
   final Value<int> idCensoEtapasplaga;
   final Value<int> idCenso;
   final Value<int> idEtapasplaga;
+  final Value<int> numeroIndividuos;
   const CensoEtapasPlagaCompanion({
     this.idCensoEtapasplaga = const Value.absent(),
     this.idCenso = const Value.absent(),
     this.idEtapasplaga = const Value.absent(),
+    this.numeroIndividuos = const Value.absent(),
   });
   CensoEtapasPlagaCompanion.insert({
     this.idCensoEtapasplaga = const Value.absent(),
     required int idCenso,
     required int idEtapasplaga,
+    required int numeroIndividuos,
   })  : idCenso = Value(idCenso),
-        idEtapasplaga = Value(idEtapasplaga);
+        idEtapasplaga = Value(idEtapasplaga),
+        numeroIndividuos = Value(numeroIndividuos);
   static Insertable<CensoEtapasPlagaData> custom({
     Expression<int>? idCensoEtapasplaga,
     Expression<int>? idCenso,
     Expression<int>? idEtapasplaga,
+    Expression<int>? numeroIndividuos,
   }) {
     return RawValuesInsertable({
       if (idCensoEtapasplaga != null)
         'id_censo_etapasplaga': idCensoEtapasplaga,
       if (idCenso != null) 'id_censo': idCenso,
       if (idEtapasplaga != null) 'id_etapasplaga': idEtapasplaga,
+      if (numeroIndividuos != null) 'numero_individuos': numeroIndividuos,
     });
   }
 
   CensoEtapasPlagaCompanion copyWith(
       {Value<int>? idCensoEtapasplaga,
       Value<int>? idCenso,
-      Value<int>? idEtapasplaga}) {
+      Value<int>? idEtapasplaga,
+      Value<int>? numeroIndividuos}) {
     return CensoEtapasPlagaCompanion(
       idCensoEtapasplaga: idCensoEtapasplaga ?? this.idCensoEtapasplaga,
       idCenso: idCenso ?? this.idCenso,
       idEtapasplaga: idEtapasplaga ?? this.idEtapasplaga,
+      numeroIndividuos: numeroIndividuos ?? this.numeroIndividuos,
     );
   }
 
@@ -7766,6 +7836,9 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
     if (idEtapasplaga.present) {
       map['id_etapasplaga'] = Variable<int>(idEtapasplaga.value);
     }
+    if (numeroIndividuos.present) {
+      map['numero_individuos'] = Variable<int>(numeroIndividuos.value);
+    }
     return map;
   }
 
@@ -7774,7 +7847,8 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
     return (StringBuffer('CensoEtapasPlagaCompanion(')
           ..write('idCensoEtapasplaga: $idCensoEtapasplaga, ')
           ..write('idCenso: $idCenso, ')
-          ..write('idEtapasplaga: $idEtapasplaga')
+          ..write('idEtapasplaga: $idEtapasplaga, ')
+          ..write('numeroIndividuos: $numeroIndividuos')
           ..write(')'))
         .toString();
   }

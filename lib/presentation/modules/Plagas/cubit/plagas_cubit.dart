@@ -3,11 +3,12 @@ import 'package:apppalma/data/moor/daos/plagas_daos.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/presentation/modules/Plagas/models/etapa_individuo_model.dart';
 import 'package:apppalma/utils/form_status.dart';
+import 'package:apppalma/utils/get_palma_identificador.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 part 'plagas_state.dart';
 
 class PlagasCubit extends Cubit<PlagasState> {
@@ -18,32 +19,36 @@ class PlagasCubit extends Cubit<PlagasState> {
     emit(PlagasState(nombreLote: nombreLote));
   }
 
-  changeEtapa(List<EtapasPlagaData> etapasseleccionadas) {
-    emit(state.copyWith(etapasSeleccionada: etapasseleccionadas));
+  comenzarTomaDePlagas() {
+    emit(state.copyWith(isProcessRunning: true));
   }
 
-  changePresencia(String presencia) {
-    if (presencia == "lote") {
-      emit(state.copyWith(
-          presencialote: true, presenciasector: false, limite1: 0, limite2: 0));
-    } else {
-      emit(state.copyWith(
-        presencialote: false,
-        presenciasector: true,
-      ));
-    }
+  changeEtapa(List<EtapaIndividuosModel> etapasseleccionadas) {
+    emit(state.copyWith(etapasSeleccionada: etapasseleccionadas));
   }
 
   changePlaga(PlagaConEtapas plaga) {
     emit(state.copyWith(plagaSeleccionada: plaga));
   }
 
-  changeLimite1(int limite1) {
-    emit(state.copyWith(limite1: limite1));
+  changeOrientacion(String orientacion) {
+    emit(state.copyWith(orientacion: orientacion));
   }
 
-  changeLimite2(int limite2) {
-    emit(state.copyWith(limite2: limite2));
+  changeLinea(int? linea) {
+    emit(state.copyWith(linea: linea));
+  }
+
+  changeNumero(int? numero) {
+    emit(state.copyWith(numero: numero));
+  }
+
+  changeNumeroIndividuos(int? numeroIndividuos) {
+    emit(state.copyWith(numeroIndividuos: numeroIndividuos));
+  }
+
+  changeObservaciones(String observacion) {
+    emit(state.copyWith(observaciones: observacion));
   }
 
   addPlagayEtapasFromServerToLocal(Map<String, List> map) async {
@@ -66,12 +71,12 @@ class PlagasCubit extends Cubit<PlagasState> {
     final PlagasDao plagaDao = db.plagasDao;
     try {
       emit(state.copyWith(status: FormStatus.submissionInProgress));
+      final String identificadorPalma =
+          generateIdentifier(state.linea!, state.numero!, state.nombreLote!);
       await plagaDao.insertCensoDePlaga(
           fechacenso,
-          state.presencialote,
-          state.presenciasector,
-          state.limite1!,
-          state.limite2!,
+          identificadorPalma,
+          state.numeroIndividuos,
           state.observaciones,
           state.plagaSeleccionada!.plaga.nombreComunPlaga,
           state.nombreLote!,

@@ -50,7 +50,7 @@ class SubmitPlagaButton extends StatelessWidget {
                   child: const Text("Registrar plaga",
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
-                        fontSize: 16.0,
+                        fontSize: 18.0,
                         color: Colors.white,
                       )),
                 ),

@@ -109,7 +109,8 @@ class _CensosPlagaListState extends State<CensosPlagaList> {
             const Text('Sector',
                 style: TextStyle(fontSize: 16.0, color: Colors.grey)),
             Text(
-              ' ${censo.lineaLimite1} - ${censo.lineaLimite2}',
+              // ' ${censo.lineaLimite1} - ${censo.lineaLimite2}',
+              censo.identificador,
               style: const TextStyle(color: Colors.black, fontSize: 18),
               textAlign: TextAlign.start,
             ),

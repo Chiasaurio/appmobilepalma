@@ -63,16 +63,21 @@ class AppPalma extends StatelessWidget {
         BlocProvider<SyncToServerCubit>(
             create: (context) => SyncToServerCubit()),
       ],
-      child: MaterialApp(
-        title: 'Smart Spotter',
-        theme: ThemeData(
-          fontFamily: GoogleFonts.roboto().fontFamily,
+      child: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: MaterialApp(
+          title: 'Smart Spotter',
+          theme: ThemeData(
+            fontFamily: GoogleFonts.roboto().fontFamily,
+          ),
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/splash',
+          localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+          supportedLocales: const [Locale('en')],
+          onGenerateRoute: Routes.generateRoutes,
         ),
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/splash',
-        localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-        supportedLocales: const [Locale('en')],
-        onGenerateRoute: Routes.generateRoutes,
       ),
     );
   }

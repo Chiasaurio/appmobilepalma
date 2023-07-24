@@ -1,7 +1,11 @@
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/data/moor/tables/censo_table.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
+import 'package:apppalma/presentation/modules/Plagas/models/etapa_individuo_model.dart';
+import 'package:apppalma/utils/get_location.dart';
 import 'package:drift/drift.dart';
+import 'package:apppalma/globals.dart' as globals;
+import 'package:location/location.dart';
 
 part 'plagas_daos.g.dart';
 
@@ -119,13 +123,12 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
   }
 
   Future<CensoData> obtenerCenso(
-      String nombrelote, DateTime fecha, int linealimite1, int linealimite2) {
+      String nombrelote, DateTime fecha, String identificador) {
     return (select(censo)
           ..where((c) =>
               c.nombreLote.equals(nombrelote) &
               c.fechaCenso.equals(fecha) &
-              c.lineaLimite1.equals(linealimite1) &
-              c.lineaLimite2.equals(linealimite2)))
+              c.identificador.equals(identificador)))
         .getSingle();
   }
 
@@ -133,25 +136,35 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
 
   Future<void> insertCensoDePlaga(
       DateTime fechacenso,
-      bool presencialote,
-      bool presenciasector,
-      int linealimite1,
-      int linealimite2,
+      // bool presencialote,
+      // bool presenciasector,
+      // int linealimite1,
+      // int linealimite2,
+      // int? linea,
+      // int? numero,
+      // String? orientacion,
+      String identificadorPalma,
+      int? numeroIndividuos,
       String? observacion,
       String nombreCientifico,
       String nombrelote,
-      List<EtapasPlagaData> etapasseleccionadas) async {
+      List<EtapaIndividuosModel> etapasseleccionadas) async {
     try {
+      final LocationData? locationData = await getCurrentLocation();
       final c = CensoCompanion(
-        fechaCenso: Value(fechacenso),
-        presenciaLote: Value(presencialote),
-        presenciaSector: Value(presenciasector),
-        lineaLimite1: Value(linealimite1),
-        lineaLimite2: Value(linealimite2),
-        observacionCenso: Value(observacion),
-        nombrePlaga: Value(nombreCientifico),
-        nombreLote: Value(nombrelote),
-      );
+          fechaCenso: Value(fechacenso),
+          // presenciaLote: Value(presencialote),
+          // presenciaSector: Value(presenciasector),
+          // lineaLimite1: Value(linealimite1),
+          // lineaLimite2: Value(linealimite2),
+          identificador: Value(identificadorPalma),
+          responsable: Value(globals.responsable),
+          numeroIndividuos: Value(numeroIndividuos),
+          observacionCenso: Value(observacion),
+          nombrePlaga: Value(nombreCientifico),
+          nombreLote: Value(nombrelote),
+          longitude: Value(locationData?.longitude),
+          latitude: Value(locationData?.latitude));
 
       return transaction(() async {
         var id = await into(censo).insert(c);
@@ -166,13 +179,13 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
   }
 
   List<Insertable<CensoEtapasPlagaData>> getCensoEtapasCompanion(
-      int idCenso, List<EtapasPlagaData> etapasseleccionadas) {
+      int idCenso, List<EtapaIndividuosModel> etapasseleccionadas) {
     List<Insertable<CensoEtapasPlagaData>> etapas = [];
     for (var e in etapasseleccionadas) {
       CensoEtapasPlagaCompanion aux = CensoEtapasPlagaCompanion(
-        idCenso: Value(idCenso),
-        idEtapasplaga: Value(e.idEtapasPlaga),
-      );
+          idCenso: Value(idCenso),
+          idEtapasplaga: Value(e.etapa.idEtapasPlaga),
+          numeroIndividuos: Value(e.individuos!));
       etapas.add(aux);
     }
     return etapas;

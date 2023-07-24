@@ -13,16 +13,21 @@ class Censo extends Table {
   TextColumn get identificador => text()();
   TextColumn get observacionCenso => text().nullable()();
   TextColumn get nombreLote => text()();
+  IntColumn get numeroIndividuos => integer().nullable()();
   TextColumn get nombrePlaga => text()();
   TextColumn get estadoPlaga =>
       text().withDefault(const Constant('pendiente'))();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
+  TextColumn get responsable => text()();
+  RealColumn get latitude => real().nullable()();
+  RealColumn get longitude => real().nullable()();
 }
 
 class CensoEtapasPlaga extends Table {
   IntColumn get idCensoEtapasplaga => integer().autoIncrement()();
   IntColumn get idCenso => integer()();
   IntColumn get idEtapasplaga => integer()();
+  IntColumn get numeroIndividuos => integer()();
 
   @override
   List<String> get customConstraints => [

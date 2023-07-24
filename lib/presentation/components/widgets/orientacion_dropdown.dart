@@ -24,7 +24,7 @@ class _OrientacionPalmaDropwdownState extends State<OrientacionPalmaDropwdown> {
           value: c,
           child: Text(
             c,
-            style: const TextStyle(fontSize: 15),
+            style: const TextStyle(fontSize: 18),
           ),
         ));
       }
@@ -39,7 +39,7 @@ class _OrientacionPalmaDropwdownState extends State<OrientacionPalmaDropwdown> {
           fillColor: Colors.white,
           label: Text(
             "Orientación",
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 18),
           ),
           contentPadding: EdgeInsets.only(left: 10),
           enabledBorder: OutlineInputBorder(

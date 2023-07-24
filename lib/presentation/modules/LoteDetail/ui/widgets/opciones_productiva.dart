@@ -1,86 +1,42 @@
 import 'package:flutter/material.dart';
 
+import 'package:apppalma/data/moor/tables/lotes_table.dart';
+import 'opcion_item.dart';
+
 class OpcionesProductiva extends StatelessWidget {
-  final String nombreLote;
-  const OpcionesProductiva({super.key, required this.nombreLote});
+  final LoteWithProcesos lote;
+  const OpcionesProductiva({super.key, required this.lote});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       child: Column(children: [
-        _OpcionItem(
-          ruta: '/lote/palmas',
-          nombreLote: nombreLote,
-          text: 'Ver palmas',
-        ),
+        OpcionItem(
+            object: lote.cosecha,
+            ruta: '/lote/cosechas',
+            nombreLote: lote.lote.nombreLote,
+            textWithObject: 'Continuar cosecha',
+            textWithoutObject: 'Nueva cosecha'),
         const SizedBox(
           height: 15,
         ),
-        _OpcionItem(
-          ruta: '/lote/censo',
-          nombreLote: nombreLote,
-          text: 'Enfermedades',
-        ),
+        OpcionItem(
+            object: lote.poda,
+            ruta: '/lote/podas',
+            nombreLote: lote.lote.nombreLote,
+            textWithObject: 'Continuar poda',
+            textWithoutObject: 'Nueva poda'),
         const SizedBox(
           height: 15,
         ),
-        _OpcionItem(
-            ruta: '/lote/aplicaciones', nombreLote: nombreLote, text: 'Plagas'),
+        OpcionItem(
+            object: lote.plateo,
+            ruta: '/lote/plateos',
+            nombreLote: lote.lote.nombreLote,
+            textWithObject: 'Continuar plateo',
+            textWithoutObject: 'Nueva plateo'),
       ]),
-    );
-  }
-}
-
-class _OpcionItem extends StatelessWidget {
-  final String text;
-  final String ruta;
-  final String nombreLote;
-
-  const _OpcionItem({
-    Key? key,
-    required this.nombreLote,
-    required this.text,
-    required this.ruta,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, ruta, arguments: nombreLote);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        width: double.infinity,
-        height: 50,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  text,
-                  textAlign: TextAlign.center,
-                ),
-                const Icon(Icons.arrow_forward)
-              ],
-            ),
-          ]),
-        ),
-      ),
     );
   }
 }
