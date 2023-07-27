@@ -7854,6 +7854,225 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
   }
 }
 
+class $ImagenCensoPlagaTable extends ImagenCensoPlaga
+    with TableInfo<$ImagenCensoPlagaTable, ImagenCensoPlagaData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ImagenCensoPlagaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idImagenCensoPlagaMeta =
+      const VerificationMeta('idImagenCensoPlaga');
+  @override
+  late final GeneratedColumn<int> idImagenCensoPlaga = GeneratedColumn<int>(
+      'id_imagen_censo_plaga', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idCensoMeta =
+      const VerificationMeta('idCenso');
+  @override
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
+      'id_censo', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _imagenMeta = const VerificationMeta('imagen');
+  @override
+  late final GeneratedColumn<String> imagen = GeneratedColumn<String>(
+      'imagen', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [idImagenCensoPlaga, idCenso, imagen];
+  @override
+  String get aliasedName => _alias ?? 'imagen_censo_plaga';
+  @override
+  String get actualTableName => 'imagen_censo_plaga';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ImagenCensoPlagaData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id_imagen_censo_plaga')) {
+      context.handle(
+          _idImagenCensoPlagaMeta,
+          idImagenCensoPlaga.isAcceptableOrUnknown(
+              data['id_imagen_censo_plaga']!, _idImagenCensoPlagaMeta));
+    }
+    if (data.containsKey('id_censo')) {
+      context.handle(_idCensoMeta,
+          idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
+    } else if (isInserting) {
+      context.missing(_idCensoMeta);
+    }
+    if (data.containsKey('imagen')) {
+      context.handle(_imagenMeta,
+          imagen.isAcceptableOrUnknown(data['imagen']!, _imagenMeta));
+    } else if (isInserting) {
+      context.missing(_imagenMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {idImagenCensoPlaga};
+  @override
+  ImagenCensoPlagaData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ImagenCensoPlagaData(
+      idImagenCensoPlaga: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_imagen_censo_plaga'])!,
+      idCenso: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+      imagen: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}imagen'])!,
+    );
+  }
+
+  @override
+  $ImagenCensoPlagaTable createAlias(String alias) {
+    return $ImagenCensoPlagaTable(attachedDatabase, alias);
+  }
+}
+
+class ImagenCensoPlagaData extends DataClass
+    implements Insertable<ImagenCensoPlagaData> {
+  final int idImagenCensoPlaga;
+  final int idCenso;
+  final String imagen;
+  const ImagenCensoPlagaData(
+      {required this.idImagenCensoPlaga,
+      required this.idCenso,
+      required this.imagen});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id_imagen_censo_plaga'] = Variable<int>(idImagenCensoPlaga);
+    map['id_censo'] = Variable<int>(idCenso);
+    map['imagen'] = Variable<String>(imagen);
+    return map;
+  }
+
+  ImagenCensoPlagaCompanion toCompanion(bool nullToAbsent) {
+    return ImagenCensoPlagaCompanion(
+      idImagenCensoPlaga: Value(idImagenCensoPlaga),
+      idCenso: Value(idCenso),
+      imagen: Value(imagen),
+    );
+  }
+
+  factory ImagenCensoPlagaData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ImagenCensoPlagaData(
+      idImagenCensoPlaga: serializer.fromJson<int>(json['idImagenCensoPlaga']),
+      idCenso: serializer.fromJson<int>(json['idCenso']),
+      imagen: serializer.fromJson<String>(json['imagen']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'idImagenCensoPlaga': serializer.toJson<int>(idImagenCensoPlaga),
+      'idCenso': serializer.toJson<int>(idCenso),
+      'imagen': serializer.toJson<String>(imagen),
+    };
+  }
+
+  ImagenCensoPlagaData copyWith(
+          {int? idImagenCensoPlaga, int? idCenso, String? imagen}) =>
+      ImagenCensoPlagaData(
+        idImagenCensoPlaga: idImagenCensoPlaga ?? this.idImagenCensoPlaga,
+        idCenso: idCenso ?? this.idCenso,
+        imagen: imagen ?? this.imagen,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ImagenCensoPlagaData(')
+          ..write('idImagenCensoPlaga: $idImagenCensoPlaga, ')
+          ..write('idCenso: $idCenso, ')
+          ..write('imagen: $imagen')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(idImagenCensoPlaga, idCenso, imagen);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ImagenCensoPlagaData &&
+          other.idImagenCensoPlaga == this.idImagenCensoPlaga &&
+          other.idCenso == this.idCenso &&
+          other.imagen == this.imagen);
+}
+
+class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
+  final Value<int> idImagenCensoPlaga;
+  final Value<int> idCenso;
+  final Value<String> imagen;
+  const ImagenCensoPlagaCompanion({
+    this.idImagenCensoPlaga = const Value.absent(),
+    this.idCenso = const Value.absent(),
+    this.imagen = const Value.absent(),
+  });
+  ImagenCensoPlagaCompanion.insert({
+    this.idImagenCensoPlaga = const Value.absent(),
+    required int idCenso,
+    required String imagen,
+  })  : idCenso = Value(idCenso),
+        imagen = Value(imagen);
+  static Insertable<ImagenCensoPlagaData> custom({
+    Expression<int>? idImagenCensoPlaga,
+    Expression<int>? idCenso,
+    Expression<String>? imagen,
+  }) {
+    return RawValuesInsertable({
+      if (idImagenCensoPlaga != null)
+        'id_imagen_censo_plaga': idImagenCensoPlaga,
+      if (idCenso != null) 'id_censo': idCenso,
+      if (imagen != null) 'imagen': imagen,
+    });
+  }
+
+  ImagenCensoPlagaCompanion copyWith(
+      {Value<int>? idImagenCensoPlaga,
+      Value<int>? idCenso,
+      Value<String>? imagen}) {
+    return ImagenCensoPlagaCompanion(
+      idImagenCensoPlaga: idImagenCensoPlaga ?? this.idImagenCensoPlaga,
+      idCenso: idCenso ?? this.idCenso,
+      imagen: imagen ?? this.imagen,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (idImagenCensoPlaga.present) {
+      map['id_imagen_censo_plaga'] = Variable<int>(idImagenCensoPlaga.value);
+    }
+    if (idCenso.present) {
+      map['id_censo'] = Variable<int>(idCenso.value);
+    }
+    if (imagen.present) {
+      map['imagen'] = Variable<String>(imagen.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ImagenCensoPlagaCompanion(')
+          ..write('idImagenCensoPlaga: $idImagenCensoPlaga, ')
+          ..write('idCenso: $idCenso, ')
+          ..write('imagen: $imagen')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $PrecipitacionTable extends Precipitacion
     with TableInfo<$PrecipitacionTable, PrecipitacionData> {
   @override
@@ -8121,6 +8340,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ViajesTable viajes = $ViajesTable(this);
   late final $CensoEtapasPlagaTable censoEtapasPlaga =
       $CensoEtapasPlagaTable(this);
+  late final $ImagenCensoPlagaTable imagenCensoPlaga =
+      $ImagenCensoPlagaTable(this);
   late final $PrecipitacionTable precipitacion = $PrecipitacionTable(this);
   late final CosechaDao cosechaDao = CosechaDao(this as AppDatabase);
   late final CosechaDiariaDao cosechaDiariaDao =
@@ -8165,6 +8386,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         registroTratamiento,
         viajes,
         censoEtapasPlaga,
+        imagenCensoPlaga,
         precipitacion
       ];
 }

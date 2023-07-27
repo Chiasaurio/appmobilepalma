@@ -9,6 +9,8 @@ mixin _$PlagasDaoMixin on DatabaseAccessor<AppDatabase> {
   $CensoTable get censo => attachedDatabase.censo;
   $CensoEtapasPlagaTable get censoEtapasPlaga =>
       attachedDatabase.censoEtapasPlaga;
+  $ImagenCensoPlagaTable get imagenCensoPlaga =>
+      attachedDatabase.imagenCensoPlaga;
   Selectable<CensoData> getIdCenso() {
     return customSelect('SELECT * FROM censo ORDER BY id_censo DESC LIMIT 1',
         variables: [],

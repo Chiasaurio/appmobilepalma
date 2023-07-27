@@ -35,3 +35,14 @@ class CensoEtapasPlaga extends Table {
         'FOREIGN KEY(id_etapasplaga) REFERENCES etapas_plaga(id_etapasplaga)',
       ];
 }
+
+class ImagenCensoPlaga extends Table {
+  IntColumn get idImagenCensoPlaga => integer().autoIncrement()();
+  IntColumn get idCenso => integer()();
+  TextColumn get imagen => text()();
+
+  @override
+  List<String> get customConstraints => [
+        'FOREIGN KEY(id_censo) REFERENCES censo(id_censo)',
+      ];
+}

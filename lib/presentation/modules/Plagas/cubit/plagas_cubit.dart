@@ -9,6 +9,7 @@ import 'package:apppalma/utils/get_palma_identificador.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 part 'plagas_state.dart';
 
 class PlagasCubit extends Cubit<PlagasState> {
@@ -17,10 +18,6 @@ class PlagasCubit extends Cubit<PlagasState> {
 
   clear(String nombreLote) {
     emit(PlagasState(nombreLote: nombreLote));
-  }
-
-  comenzarTomaDePlagas() {
-    emit(state.copyWith(isProcessRunning: true));
   }
 
   changeEtapa(List<EtapaIndividuosModel> etapasseleccionadas) {
@@ -49,6 +46,10 @@ class PlagasCubit extends Cubit<PlagasState> {
 
   changeObservaciones(String observacion) {
     emit(state.copyWith(observaciones: observacion));
+  }
+
+  changeImagenes(List<XFile> imagenes) {
+    emit(state.copyWith(imagenes: imagenes));
   }
 
   addPlagayEtapasFromServerToLocal(Map<String, List> map) async {
@@ -80,7 +81,8 @@ class PlagasCubit extends Cubit<PlagasState> {
           state.observaciones,
           state.plagaSeleccionada!.plaga.nombreComunPlaga,
           state.nombreLote!,
-          state.etapasSeleccionada);
+          state.etapasSeleccionada,
+          state.imagenes ?? []);
       emit(state.copyWith(status: FormStatus.submissionSuccess));
       registroExitosoToast();
     } catch (e) {

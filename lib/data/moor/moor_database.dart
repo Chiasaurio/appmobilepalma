@@ -44,6 +44,7 @@ LazyDatabase _openConnection() {
   RegistroTratamiento,
   Viajes,
   CensoEtapasPlaga,
+  ImagenCensoPlaga,
   Precipitacion,
 ], daos: [
   CosechaDao,

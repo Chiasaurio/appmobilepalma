@@ -1,7 +1,6 @@
 part of 'plagas_cubit.dart';
 
 class PlagasState extends Equatable {
-  final bool isProcessRunning;
   final FormStatus status;
   final List<PlagaConEtapas>? plagas;
   final PlagaConEtapas? plagaSeleccionada;
@@ -12,6 +11,7 @@ class PlagasState extends Equatable {
   final int? numero;
   final int? linea;
   final int? numeroIndividuos;
+  final List<XFile>? imagenes;
   // final int? limite1;
   // final int? limite2;
   final bool otraplaga;
@@ -19,7 +19,7 @@ class PlagasState extends Equatable {
   // final bool presencialote;
 
   const PlagasState({
-    this.isProcessRunning = false,
+    this.imagenes,
     this.plagas,
     this.plagaSeleccionada,
     this.etapasSeleccionada = const [],
@@ -37,7 +37,7 @@ class PlagasState extends Equatable {
     // this.presencialote = false,
   });
   PlagasState copyWith({
-    bool? isProcessRunning,
+    List<XFile>? imagenes,
     List<PlagaConEtapas>? plagas,
     PlagaConEtapas? plagaSeleccionada,
     List<EtapaIndividuosModel>? etapasSeleccionada,
@@ -55,7 +55,7 @@ class PlagasState extends Equatable {
     // bool? presencialote,
   }) {
     return PlagasState(
-        isProcessRunning: isProcessRunning ?? this.isProcessRunning,
+        imagenes: imagenes ?? this.imagenes,
         plagas: plagas ?? this.plagas,
         status: status ?? this.status,
         etapasSeleccionada: etapasSeleccionada ?? this.etapasSeleccionada,
@@ -75,7 +75,7 @@ class PlagasState extends Equatable {
 
   @override
   List<Object?> get props => [
-        isProcessRunning,
+        imagenes,
         plagas,
         plagaSeleccionada,
         etapasSeleccionada,

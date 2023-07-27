@@ -1,6 +1,6 @@
-import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
 import 'package:apppalma/presentation/components/widgets/orientacion_dropdown.dart';
+import 'package:apppalma/presentation/modules/Camera/imagenes_registro_widget.dart';
 import 'package:apppalma/presentation/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/presentation/modules/Plagas/models/etapa_individuo_model.dart';
 import 'package:apppalma/presentation/modules/Plagas/plagas/ui/submit_plaga_button.dart';
@@ -8,6 +8,7 @@ import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../constants.dart';
 
@@ -26,7 +27,6 @@ class PlagaForm extends StatefulWidget {
 class _PlagaFormState extends State<PlagaForm> {
   PlagaConEtapas? plagaconetapas;
   EtapasPlagaData? etapa;
-  // List<EtapasPlagaData> etapasseleccionadas = [];
   List<EtapaIndividuosModel> etapasseleccionadas = [];
   bool advertenciaetapa = false;
   Palma? palma;
@@ -43,6 +43,7 @@ class _PlagaFormState extends State<PlagaForm> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   late PlagasCubit cubit;
 
+  List<XFile> imagenes = [];
   @override
   Widget build(BuildContext context) {
     cubit = context.read<PlagasCubit>();
@@ -76,6 +77,18 @@ class _PlagaFormState extends State<PlagaForm> {
               ),
               const SizedBox(height: 15),
               _observaciones(),
+              const SizedBox(height: 15),
+              const Text(
+                'Imagenes',
+                style: TextStyle(fontSize: 18),
+              ),
+              ImagenesRegistro(
+                  imagenes: imagenes,
+                  setImages: (List<XFile> nuevasImagenes) {
+                    imagenes = nuevasImagenes;
+                    cubit.changeImagenes(imagenes);
+                    setState(() {});
+                  }),
               const SizedBox(height: 15),
               SubmitPlagaButton(
                 enabled: registrarPlagaEnabled,

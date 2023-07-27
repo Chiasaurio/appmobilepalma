@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/data/moor/tables/censo_table.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
@@ -5,6 +7,7 @@ import 'package:apppalma/presentation/modules/Plagas/models/etapa_individuo_mode
 import 'package:apppalma/utils/get_location.dart';
 import 'package:drift/drift.dart';
 import 'package:apppalma/globals.dart' as globals;
+import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
 part 'plagas_daos.g.dart';
@@ -13,7 +16,8 @@ part 'plagas_daos.g.dart';
   Plagas,
   EtapasPlaga,
   Censo,
-  CensoEtapasPlaga
+  CensoEtapasPlaga,
+  ImagenCensoPlaga
 ], queries: {
   'getIdCenso': 'SELECT * FROM censo ORDER BY id_censo DESC LIMIT 1;'
 })
@@ -135,20 +139,22 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
   Future updateCenso(Insertable<CensoData> c) => update(censo).replace(c);
 
   Future<void> insertCensoDePlaga(
-      DateTime fechacenso,
-      // bool presencialote,
-      // bool presenciasector,
-      // int linealimite1,
-      // int linealimite2,
-      // int? linea,
-      // int? numero,
-      // String? orientacion,
-      String identificadorPalma,
-      int? numeroIndividuos,
-      String? observacion,
-      String nombreCientifico,
-      String nombrelote,
-      List<EtapaIndividuosModel> etapasseleccionadas) async {
+    DateTime fechacenso,
+    // bool presencialote,
+    // bool presenciasector,
+    // int linealimite1,
+    // int linealimite2,
+    // int? linea,
+    // int? numero,
+    // String? orientacion,
+    String identificadorPalma,
+    int? numeroIndividuos,
+    String? observacion,
+    String nombreCientifico,
+    String nombrelote,
+    List<EtapaIndividuosModel> etapasseleccionadas,
+    List<XFile> imagenes,
+  ) async {
     try {
       final LocationData? locationData = await getCurrentLocation();
       final c = CensoCompanion(
@@ -168,11 +174,17 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
 
       return transaction(() async {
         var id = await into(censo).insert(c);
-        // CensoData ultimoid = await getIdCenso().getSingle();
+        // Se obtienen los objetos de las etapas para insertar;
         List<Insertable<CensoEtapasPlagaData>> etapas =
             getCensoEtapasCompanion(id, etapasseleccionadas);
         await batch((batch) {
           batch.insertAll(censoEtapasPlaga, etapas);
+        });
+        //Se obtienen los objetos de las imagenes para insertar;
+        List<Insertable<ImagenCensoPlagaData>> imagenesCompanions =
+            await getImagenesCensoCompanion(id, imagenes);
+        await batch((batch) {
+          batch.insertAll(imagenCensoPlaga, imagenesCompanions);
         });
       });
     } catch (_) {}
@@ -189,5 +201,20 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
       etapas.add(aux);
     }
     return etapas;
+  }
+
+  Future<List<Insertable<ImagenCensoPlagaData>>> getImagenesCensoCompanion(
+      int idCenso, List<XFile> imagenes) async {
+    List<Insertable<ImagenCensoPlagaData>> imagenesCompanions = [];
+    for (var e in imagenes) {
+      Uint8List imageBytes = await e.readAsBytes();
+      String base64Image = base64Encode(imageBytes);
+      ImagenCensoPlagaCompanion aux = ImagenCensoPlagaCompanion(
+        idCenso: Value(idCenso),
+        imagen: Value(base64Image),
+      );
+      imagenesCompanions.add(aux);
+    }
+    return imagenesCompanions;
   }
 }

@@ -4,10 +4,9 @@ import 'package:get_it/get_it.dart';
 
 import 'data/moor/moor_database.dart';
 
-void main() {
+Future<void> main() async {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(const AppPalma());
 }
 

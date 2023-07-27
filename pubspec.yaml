@@ -55,8 +55,8 @@ dependencies:
   easy_sidemenu: ^0.4.1+1
   google_fonts: ^4.0.3
   google_maps_flutter: ^2.2.5
-  location: ^5.0.1
-
+  location: ^4.4.0
+  image_picker: ^0.8.7+1
 dev_dependencies:
   drift_dev: ^2.1.0
   build_runner: ^2.2.0
