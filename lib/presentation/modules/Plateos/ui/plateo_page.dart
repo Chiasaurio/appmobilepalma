@@ -2,7 +2,6 @@ import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/presentation/modules/Plateos/ui/nuevo_plateo/nuevoplateo_view.dart';
-import 'package:apppalma/presentation/modules/Podas/cubit/podas_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../components/widgets/header_gradient.dart';
@@ -17,14 +16,16 @@ class PlateoPage extends StatefulWidget {
 
 class _PlateoPageState extends State<PlateoPage> {
   late String nombreLote;
+  late int totalPalmas;
   Plateo? plateo;
   @override
   void initState() {
     final state = BlocProvider.of<LoteDetailCubit>(context).state;
     if (state is LoteChoosed) {
       nombreLote = state.lote.lote.nombreLote;
+      totalPalmas = state.lote.lote.numeropalmas;
     }
-    BlocProvider.of<PodasCubit>(context).obtenerPodaActiva(nombreLote);
+    BlocProvider.of<PlateosCubit>(context).obtenerPlateoActivo(nombreLote);
     super.initState();
   }
 
@@ -53,11 +54,18 @@ class _PlateoPageState extends State<PlateoPage> {
       if (state.isLoaded) {
         plateo = state.plateo;
         return plateo != null
-            ? PlateoActivoVista(plateo: plateo!)
+            ? PlateoActivoVista(plateo: plateo!, totalPalmas: totalPalmas)
             : NuevaPlateoPage(nombrelote: nombreLote);
       } else {
-        return const Center(
-          child: CircularProgressIndicator(),
+        return Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          ),
         );
       }
     });

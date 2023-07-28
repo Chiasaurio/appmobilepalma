@@ -16,11 +16,14 @@ class PodaPage extends StatefulWidget {
 
 class _PodaPageState extends State<PodaPage> {
   late String nombreLote;
+  late int totalPalmas;
+
   Poda? poda;
   @override
   void initState() {
     final state = BlocProvider.of<LoteDetailCubit>(context).state;
     if (state is LoteChoosed) {
+      totalPalmas = state.lote.lote.numeropalmas;
       nombreLote = state.lote.lote.nombreLote;
     }
     BlocProvider.of<PodasCubit>(context).obtenerPodaActiva(nombreLote);
@@ -51,7 +54,10 @@ class _PodaPageState extends State<PodaPage> {
       if (state.isLoaded) {
         poda = state.poda;
         return state.poda != null
-            ? PodaActivaPage(poda: poda!)
+            ? PodaActivaPage(
+                poda: poda!,
+                totalPalmas: totalPalmas,
+              )
             : NuevaPodaPage(nombrelote: nombreLote);
       } else {
         return const Center(

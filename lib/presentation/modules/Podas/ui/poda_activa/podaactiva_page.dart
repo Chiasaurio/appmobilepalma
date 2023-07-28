@@ -10,7 +10,10 @@ import 'package:intl/intl.dart';
 
 class PodaActivaPage extends StatefulWidget {
   final Poda poda;
-  const PodaActivaPage({Key? key, required this.poda}) : super(key: key);
+  final int totalPalmas;
+  const PodaActivaPage(
+      {Key? key, required this.poda, required this.totalPalmas})
+      : super(key: key);
 
   @override
   State<PodaActivaPage> createState() => _PodaActivaPageState();
@@ -88,11 +91,13 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.white),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text(
                           'Fecha de inicio ',
@@ -102,7 +107,6 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
                           f.format(poda.fechaIngreso),
                           style: const TextStyle(
                               color: Colors.black, fontSize: 18),
-                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
@@ -119,23 +123,58 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
                   ],
                 ),
                 SizedBox(height: margin),
-                Padding(
-                    padding:
-                        EdgeInsets.fromLTRB(anchoCard * 0.3, 0.0, 0.0, 0.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: 5.0),
+                    const Text(
+                      'Total palmas',
+                      style: TextStyle(color: Colors.green, fontSize: 16),
+                      textAlign: TextAlign.end,
+                    ),
+                    Text(widget.totalPalmas.toString(),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 20)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const SizedBox(height: 5.0),
                         const Text(
-                          'Palmas podadas',
-                          style: TextStyle(color: Colors.grey, fontSize: 16),
+                          'Restantes',
+                          style: TextStyle(color: Colors.red, fontSize: 16),
                           textAlign: TextAlign.end,
                         ),
-                        Text(poda.cantidadPodada.toString(),
+                        Text(
+                            (widget.totalPalmas - poda.cantidadPodada)
+                                .toString(),
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 20)),
                       ],
-                    )),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          const SizedBox(height: 5.0),
+                          const Text(
+                            'Plateadas',
+                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                            textAlign: TextAlign.end,
+                          ),
+                          Text(poda.cantidadPodada.toString(),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 20)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             )));
   }

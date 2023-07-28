@@ -10,7 +10,10 @@ import 'package:intl/intl.dart';
 
 class PlateoActivoVista extends StatefulWidget {
   final Plateo plateo;
-  const PlateoActivoVista({Key? key, required this.plateo}) : super(key: key);
+  final int totalPalmas;
+  const PlateoActivoVista(
+      {Key? key, required this.plateo, required this.totalPalmas})
+      : super(key: key);
   @override
   State<PlateoActivoVista> createState() => _PlateoActivoVistaState();
 }
@@ -90,11 +93,13 @@ class _PlateoActivoVistaState extends State<PlateoActivoVista> {
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.white),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text(
                           'Fecha de inicio ',
@@ -121,23 +126,58 @@ class _PlateoActivoVistaState extends State<PlateoActivoVista> {
                   ],
                 ),
                 SizedBox(height: margin),
-                Padding(
-                    padding:
-                        EdgeInsets.fromLTRB(anchoCard * 0.3, 0.0, 0.0, 0.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: 5.0),
+                    const Text(
+                      'Total palmas',
+                      style: TextStyle(color: Colors.green, fontSize: 16),
+                      textAlign: TextAlign.end,
+                    ),
+                    Text(widget.totalPalmas.toString(),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 20)),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const SizedBox(height: 5.0),
                         const Text(
-                          'Palmas plateadas',
-                          style: TextStyle(color: Colors.grey, fontSize: 16),
+                          'Restantes',
+                          style: TextStyle(color: Colors.red, fontSize: 16),
                           textAlign: TextAlign.end,
                         ),
-                        Text(plateo.cantidadPlateada.toString(),
+                        Text(
+                            (widget.totalPalmas - plateo.cantidadPlateada)
+                                .toString(),
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 20)),
                       ],
-                    )),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          const SizedBox(height: 5.0),
+                          const Text(
+                            'Podadas',
+                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                            textAlign: TextAlign.end,
+                          ),
+                          Text(plateo.cantidadPlateada.toString(),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 20)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             )));
   }
