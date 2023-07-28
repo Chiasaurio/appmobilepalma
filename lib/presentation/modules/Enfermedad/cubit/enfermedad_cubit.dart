@@ -10,6 +10,7 @@ import 'package:apppalma/utils/get_palma_identificador.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../components/toasts/toasts.dart';
 import 'package:apppalma/globals.dart' as globals;
@@ -32,19 +33,19 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
     ));
   }
 
-  orientacionChanged(String value) {
+  changeOrientacion(String value) {
     emit(state.copyWith(orientacion: value));
   }
 
-  observacionesChanged(String value) {
+  changeObservaciones(String value) {
     emit(state.copyWith(observaciones: value));
   }
 
-  Future<void> lineaDePalmaChanged(int? lineaPalma) async {
+  Future<void> changeLinea(int? lineaPalma) async {
     emit(state.copyWith(lineaPalma: lineaPalma));
   }
 
-  Future<void> numeroDePalmaChanged(int? numeroPalma) async {
+  Future<void> changeNumero(int? numeroPalma) async {
     emit(state.copyWith(numeroPalma: numeroPalma));
   }
 
@@ -56,10 +57,15 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
     emit(state.copyWith(enfermedadSeleccionada: enfermedad));
   }
 
+  changeImagenes(List<XFile> imagenes) {
+    emit(state.copyWith(imagenes: imagenes));
+  }
+
   Future<void> insertarPalmaConEnfermedad(
     DateTime fecha,
   ) async {
     try {
+      //Se verifica si la palma ya esta registrada para definir el estado
       final PalmaDao palmaDao = db.palmaDao;
       String estadoPalma = '';
       final palmaExistente = await palmaDao.obtenerPalma(
@@ -71,11 +77,14 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         if (palmaExistente.estadopalma == EstadosPalma.pendientePorErradicar) {
           estadoPalma = EstadosPalma.pendientePorErradicar;
         } else if (palmaExistente.estadopalma == EstadosPalma.erradicada) {
+          //Si ya esta erradicada no cambia el estado, aunque este caso no deberia suceder
           estadoPalma = EstadosPalma.erradicada;
         } else {
+          //Cualquier otro estado de la palma existente es reincidente
           estadoPalma = EstadosPalma.reincidente;
         }
       } else {
+        //Si la palma no existe y la enfermedad no es para erradicar
         estadoPalma = EstadosPalma.pendientePorTratar;
       }
       final RegistroEnfermedadDao registroEnfermedadDao =
@@ -90,7 +99,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         nombreLote: Value(state.nombreLote!),
         estadopalma: Value(estadoPalma),
       );
-
+      //Se actualiza o se crea la palma
       await palmaDao.insertPalmaOrUpdate(palmaNueva);
 
       final regitroEnf = RegistroEnfermedadCompanion(
@@ -102,7 +111,8 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         nombreEnfermedad: Value(state.enfermedadSeleccionada!.nombreEnfermedad),
         observaciones: Value(state.observaciones),
       );
-      await registroEnfermedadDao.insertRegistroEnfermedad(regitroEnf);
+      await registroEnfermedadDao.insertRegistroEnfermedad(
+          regitroEnf, state.imagenes ?? []);
       emit(state.copyWith(status: FormStatus.submissionSuccess));
       registroExitosoToast();
     } catch (e) {

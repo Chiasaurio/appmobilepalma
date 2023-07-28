@@ -1,9 +1,11 @@
+import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
 import 'package:apppalma/presentation/modules/Enfermedad/cubit/enfermedad_cubit.dart';
-import 'package:apppalma/presentation/modules/Enfermedad/ui/body.dart';
-import 'package:apppalma/presentation/modules/Enfermedad/ui/components/header_enfermedad.dart';
 import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
+import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'ui/components/enfermedad_form.dart';
 
 class EnfermedadPage extends StatefulWidget {
   final String routeName;
@@ -32,27 +34,29 @@ class _EnfermedadPageState extends State<EnfermedadPage>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
+    return Scaffold(
+        body: BlocConsumer<EnfermedadCubit, EnfermedadState>(
+      listener: (context, state) {
+        if (state.status == FormStatus.submissionSuccess) {
+          Navigator.of(context).pop();
+        }
       },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Stack(
-            children: [
-              HeaderEnfermedad(colorBlanco: colorBlanco),
-              Column(
-                children: [
-                  SizedBox(height: 125 + MediaQuery.of(context).padding.top),
-                  Body(nombreLote: nombreLote),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+      builder: (context, state) {
+        return SingleChildScrollView(
+          child: Column(children: [
+            HeaderGradient(
+                title: "Registrar enfermedad",
+                ruta: widget.routeName,
+                onPop: () {}),
+            if (state.enfermedades != null)
+              EnfermedadForm(
+                  enfermedades: state.enfermedades,
+                  setState: () {
+                    setState(() {});
+                  })
+          ]),
+        );
+      },
+    ));
   }
 }

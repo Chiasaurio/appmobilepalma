@@ -22,8 +22,10 @@ class EnfermedadState extends Equatable {
   final int? numeroPalma;
   final String? orientacion;
   final bool? otraEnfermedad;
+  final List<XFile>? imagenes;
 
   const EnfermedadState({
+    this.imagenes,
     this.enfermedades,
     this.enfermedadSeleccionada,
     this.etapaSeleccionada,
@@ -36,6 +38,7 @@ class EnfermedadState extends Equatable {
     this.observaciones,
   });
   EnfermedadState copyWith({
+    List<XFile>? imagenes,
     List<EnfermedadConEtapas>? enfermedades,
     Enfermedade? enfermedadSeleccionada,
     Etapa? etapaSeleccionada,
@@ -48,6 +51,7 @@ class EnfermedadState extends Equatable {
     int? numeroPalma,
   }) {
     return EnfermedadState(
+        imagenes: imagenes ?? this.imagenes,
         orientacion: orientacion ?? this.orientacion,
         enfermedades: enfermedades ?? this.enfermedades,
         status: status ?? this.status,
@@ -63,6 +67,7 @@ class EnfermedadState extends Equatable {
 
   @override
   List<Object?> get props => [
+        imagenes,
         enfermedades,
         enfermedadSeleccionada,
         etapaSeleccionada,

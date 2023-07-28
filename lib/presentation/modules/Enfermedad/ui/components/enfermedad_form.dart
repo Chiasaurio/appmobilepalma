@@ -1,28 +1,30 @@
 import 'package:apppalma/data/moor/tables/enfermedades_table.dart';
+import 'package:apppalma/presentation/components/widgets/orientacion_dropdown.dart';
+import 'package:apppalma/presentation/modules/Camera/imagenes_registro_widget.dart';
 import 'package:apppalma/presentation/modules/Enfermedad/ui/components/submit_enfermedad_button.dart';
-import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../cubit/enfermedad_cubit.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class EnfermedadDataForm extends StatefulWidget {
+class EnfermedadForm extends StatefulWidget {
   final List<EnfermedadConEtapas>? enfermedades;
   final Function() setState;
-  const EnfermedadDataForm({
+  const EnfermedadForm({
     super.key,
     required this.setState,
     required this.enfermedades,
   });
 
   @override
-  State<EnfermedadDataForm> createState() => _EnfermedadDataFormState();
+  State<EnfermedadForm> createState() => _EnfermedadFormState();
 }
 
-class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
+class _EnfermedadFormState extends State<EnfermedadForm> {
   int? lineaPalma;
   int? numeroPalma;
   bool advertenciaetapa = false;
@@ -31,7 +33,7 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
   Etapa? etapa;
   late List<EnfermedadConEtapas> enfermedades;
   final _radiokey = GlobalKey<FormFieldState>();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
 
   @override
   void initState() {
@@ -40,94 +42,71 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
     super.initState();
   }
 
+  late EnfermedadCubit cubit;
+  List<XFile> imagenes = [];
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: BlocListener<EnfermedadCubit, EnfermedadState>(
-        listener: (context, state) {
-          if (state.status == FormStatus.submissionSuccess) {
-            _formKey.currentState!.reset();
-            enfermedadconetapas = null;
-          }
-        },
+    cubit = context.read<EnfermedadCubit>();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+      child: FormBuilder(
+        key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(height: 10),
-            buildEnfermedad(),
-            buildEtapas(),
-            advertenciaetapa
-                ? const Text('Debe seleccionar una etapa',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.red))
-                : const SizedBox(),
-            const SizedBox(height: 10),
-            buildObservacion(),
-            const SizedBox(
-              height: 25,
-            ),
-            SubmitEnfermedadButton(
-              enabled: registrarEnfermedadEnabled,
-            ),
-          ],
-        ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Ubicación del foco',
+                style: TextStyle(fontSize: 18),
+              ),
+              _ubicacionDelFoco(),
+              const SizedBox(height: 20),
+              const Text(
+                'Datos de la enfermedad',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 15),
+              buildEnfermedad(),
+              const SizedBox(height: 15),
+              if (enfermedadconetapas != null) buildEtapas(),
+              const SizedBox(height: 15),
+              const Text(
+                'Observaciones',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 15),
+              _observaciones(),
+              const SizedBox(height: 15),
+              const Text(
+                'Imagenes',
+                style: TextStyle(fontSize: 18),
+              ),
+              ImagenesRegistro(
+                  imagenes: imagenes,
+                  setImages: (List<XFile> nuevasImagenes) {
+                    imagenes = nuevasImagenes;
+                    cubit.changeImagenes(imagenes);
+                    setState(() {});
+                  }),
+              const SizedBox(height: 15),
+              SubmitEnfermedadButton(
+                enabled: registrarEnfermedadEnabled,
+              )
+            ]),
       ),
     );
   }
 
+  // bool registrarEnfermedadEnabled() {
+  //   if (_formKey.currentState?.validate() ?? false) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
   bool registrarEnfermedadEnabled() {
-    if (_formKey.currentState?.validate() ?? false) {
+    if (_formKey.currentState!.validate()) {
       return true;
     }
     return false;
-  }
-
-  Widget buildObservacion() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-            child: FormBuilderTextField(
-          name: "observacion",
-          maxLines: null,
-          keyboardType: TextInputType.multiline,
-          decoration: const InputDecoration(
-            label: Text(
-              "Observaciones",
-              style: TextStyle(fontSize: 15),
-            ),
-            contentPadding: EdgeInsets.only(left: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
-            ),
-          ),
-          onChanged: (String? value) {
-            if (value != null) {
-              setState(() {
-                BlocProvider.of<EnfermedadCubit>(context)
-                    .observacionesChanged(value);
-              });
-            }
-          },
-          validator: (value) {
-            if (enfermedadconetapas != null &&
-                enfermedadconetapas!.enfermedad.nombreEnfermedad == "Otra") {
-              if (value != null) {
-                if (value.length < 5) {
-                  return 'Minimo 5 caracteres';
-                }
-                return null;
-              } else {
-                return 'Ingrese la descripción';
-              }
-            } else {
-              return null;
-            }
-          },
-        )),
-      ],
-    );
   }
 
   Widget buildEnfermedad() {
@@ -233,6 +212,83 @@ class _EnfermedadDataFormState extends State<EnfermedadDataForm> {
                 child: Text(lang.nombreEtapa),
               ))
           .toList(growable: false),
+    );
+  }
+
+  Widget _ubicacionDelFoco() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) => cubit.changeLinea(int.tryParse(value ?? '')),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              cubit.changeNumero(int.tryParse(value)!);
+            }
+          },
+          name: 'numero',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(setState: () {
+          setState(() {});
+        }, blocCall: (String value) {
+          cubit.changeOrientacion(value);
+        }),
+      ],
+    );
+  }
+
+  Widget _observaciones() {
+    return FormBuilderTextField(
+      onChanged: (value) {
+        cubit.changeObservaciones(value ?? '');
+      },
+      name: 'observaciones',
+      style: const TextStyle(fontSize: 18),
+      decoration: const InputDecoration(
+        label: Text(
+          "Observaciones",
+          style: TextStyle(fontSize: 18),
+        ),
+        contentPadding: EdgeInsets.only(left: 10),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+        ),
+      ),
     );
   }
 }
