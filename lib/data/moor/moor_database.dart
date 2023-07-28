@@ -41,6 +41,7 @@ LazyDatabase _openConnection() {
   PodaDiaria,
   ProductoAgroquimico,
   RegistroEnfermedad,
+  ImagenRegistroEnfermedad,
   RegistroTratamiento,
   Viajes,
   CensoEtapasPlaga,

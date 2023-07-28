@@ -6,4 +6,6 @@ part of 'registroenfermedad_dao.dart';
 mixin _$RegistroEnfermedadDaoMixin on DatabaseAccessor<AppDatabase> {
   $RegistroEnfermedadTable get registroEnfermedad =>
       attachedDatabase.registroEnfermedad;
+  $ImagenRegistroEnfermedadTable get imagenRegistroEnfermedad =>
+      attachedDatabase.imagenRegistroEnfermedad;
 }

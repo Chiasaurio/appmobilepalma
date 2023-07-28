@@ -21,6 +21,17 @@ class RegistroEnfermedad extends Table {
       ];
 }
 
+class ImagenRegistroEnfermedad extends Table {
+  IntColumn get idImagenRegistroEnfermedad => integer().autoIncrement()();
+  IntColumn get idEnfermedad => integer()();
+  TextColumn get imagen => text()();
+
+  @override
+  List<String> get customConstraints => [
+        'FOREIGN KEY(id_enfermedad) REFERENCES registro_enfermedad(id)',
+      ];
+}
+
 class PalmaConEnfermedad {
   final Palma palma;
   final RegistroEnfermedadData registroEnfermedad;

@@ -6546,6 +6546,244 @@ class RegistroEnfermedadCompanion
   }
 }
 
+class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
+    with
+        TableInfo<$ImagenRegistroEnfermedadTable,
+            ImagenRegistroEnfermedadData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ImagenRegistroEnfermedadTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idImagenRegistroEnfermedadMeta =
+      const VerificationMeta('idImagenRegistroEnfermedad');
+  @override
+  late final GeneratedColumn<int> idImagenRegistroEnfermedad =
+      GeneratedColumn<int>(
+          'id_imagen_registro_enfermedad', aliasedName, false,
+          hasAutoIncrement: true,
+          type: DriftSqlType.int,
+          requiredDuringInsert: false,
+          defaultConstraints:
+              GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idEnfermedadMeta =
+      const VerificationMeta('idEnfermedad');
+  @override
+  late final GeneratedColumn<int> idEnfermedad = GeneratedColumn<int>(
+      'id_enfermedad', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _imagenMeta = const VerificationMeta('imagen');
+  @override
+  late final GeneratedColumn<String> imagen = GeneratedColumn<String>(
+      'imagen', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [idImagenRegistroEnfermedad, idEnfermedad, imagen];
+  @override
+  String get aliasedName => _alias ?? 'imagen_registro_enfermedad';
+  @override
+  String get actualTableName => 'imagen_registro_enfermedad';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ImagenRegistroEnfermedadData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id_imagen_registro_enfermedad')) {
+      context.handle(
+          _idImagenRegistroEnfermedadMeta,
+          idImagenRegistroEnfermedad.isAcceptableOrUnknown(
+              data['id_imagen_registro_enfermedad']!,
+              _idImagenRegistroEnfermedadMeta));
+    }
+    if (data.containsKey('id_enfermedad')) {
+      context.handle(
+          _idEnfermedadMeta,
+          idEnfermedad.isAcceptableOrUnknown(
+              data['id_enfermedad']!, _idEnfermedadMeta));
+    } else if (isInserting) {
+      context.missing(_idEnfermedadMeta);
+    }
+    if (data.containsKey('imagen')) {
+      context.handle(_imagenMeta,
+          imagen.isAcceptableOrUnknown(data['imagen']!, _imagenMeta));
+    } else if (isInserting) {
+      context.missing(_imagenMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {idImagenRegistroEnfermedad};
+  @override
+  ImagenRegistroEnfermedadData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ImagenRegistroEnfermedadData(
+      idImagenRegistroEnfermedad: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}id_imagen_registro_enfermedad'])!,
+      idEnfermedad: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_enfermedad'])!,
+      imagen: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}imagen'])!,
+    );
+  }
+
+  @override
+  $ImagenRegistroEnfermedadTable createAlias(String alias) {
+    return $ImagenRegistroEnfermedadTable(attachedDatabase, alias);
+  }
+}
+
+class ImagenRegistroEnfermedadData extends DataClass
+    implements Insertable<ImagenRegistroEnfermedadData> {
+  final int idImagenRegistroEnfermedad;
+  final int idEnfermedad;
+  final String imagen;
+  const ImagenRegistroEnfermedadData(
+      {required this.idImagenRegistroEnfermedad,
+      required this.idEnfermedad,
+      required this.imagen});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id_imagen_registro_enfermedad'] =
+        Variable<int>(idImagenRegistroEnfermedad);
+    map['id_enfermedad'] = Variable<int>(idEnfermedad);
+    map['imagen'] = Variable<String>(imagen);
+    return map;
+  }
+
+  ImagenRegistroEnfermedadCompanion toCompanion(bool nullToAbsent) {
+    return ImagenRegistroEnfermedadCompanion(
+      idImagenRegistroEnfermedad: Value(idImagenRegistroEnfermedad),
+      idEnfermedad: Value(idEnfermedad),
+      imagen: Value(imagen),
+    );
+  }
+
+  factory ImagenRegistroEnfermedadData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ImagenRegistroEnfermedadData(
+      idImagenRegistroEnfermedad:
+          serializer.fromJson<int>(json['idImagenRegistroEnfermedad']),
+      idEnfermedad: serializer.fromJson<int>(json['idEnfermedad']),
+      imagen: serializer.fromJson<String>(json['imagen']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'idImagenRegistroEnfermedad':
+          serializer.toJson<int>(idImagenRegistroEnfermedad),
+      'idEnfermedad': serializer.toJson<int>(idEnfermedad),
+      'imagen': serializer.toJson<String>(imagen),
+    };
+  }
+
+  ImagenRegistroEnfermedadData copyWith(
+          {int? idImagenRegistroEnfermedad,
+          int? idEnfermedad,
+          String? imagen}) =>
+      ImagenRegistroEnfermedadData(
+        idImagenRegistroEnfermedad:
+            idImagenRegistroEnfermedad ?? this.idImagenRegistroEnfermedad,
+        idEnfermedad: idEnfermedad ?? this.idEnfermedad,
+        imagen: imagen ?? this.imagen,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ImagenRegistroEnfermedadData(')
+          ..write('idImagenRegistroEnfermedad: $idImagenRegistroEnfermedad, ')
+          ..write('idEnfermedad: $idEnfermedad, ')
+          ..write('imagen: $imagen')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(idImagenRegistroEnfermedad, idEnfermedad, imagen);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ImagenRegistroEnfermedadData &&
+          other.idImagenRegistroEnfermedad == this.idImagenRegistroEnfermedad &&
+          other.idEnfermedad == this.idEnfermedad &&
+          other.imagen == this.imagen);
+}
+
+class ImagenRegistroEnfermedadCompanion
+    extends UpdateCompanion<ImagenRegistroEnfermedadData> {
+  final Value<int> idImagenRegistroEnfermedad;
+  final Value<int> idEnfermedad;
+  final Value<String> imagen;
+  const ImagenRegistroEnfermedadCompanion({
+    this.idImagenRegistroEnfermedad = const Value.absent(),
+    this.idEnfermedad = const Value.absent(),
+    this.imagen = const Value.absent(),
+  });
+  ImagenRegistroEnfermedadCompanion.insert({
+    this.idImagenRegistroEnfermedad = const Value.absent(),
+    required int idEnfermedad,
+    required String imagen,
+  })  : idEnfermedad = Value(idEnfermedad),
+        imagen = Value(imagen);
+  static Insertable<ImagenRegistroEnfermedadData> custom({
+    Expression<int>? idImagenRegistroEnfermedad,
+    Expression<int>? idEnfermedad,
+    Expression<String>? imagen,
+  }) {
+    return RawValuesInsertable({
+      if (idImagenRegistroEnfermedad != null)
+        'id_imagen_registro_enfermedad': idImagenRegistroEnfermedad,
+      if (idEnfermedad != null) 'id_enfermedad': idEnfermedad,
+      if (imagen != null) 'imagen': imagen,
+    });
+  }
+
+  ImagenRegistroEnfermedadCompanion copyWith(
+      {Value<int>? idImagenRegistroEnfermedad,
+      Value<int>? idEnfermedad,
+      Value<String>? imagen}) {
+    return ImagenRegistroEnfermedadCompanion(
+      idImagenRegistroEnfermedad:
+          idImagenRegistroEnfermedad ?? this.idImagenRegistroEnfermedad,
+      idEnfermedad: idEnfermedad ?? this.idEnfermedad,
+      imagen: imagen ?? this.imagen,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (idImagenRegistroEnfermedad.present) {
+      map['id_imagen_registro_enfermedad'] =
+          Variable<int>(idImagenRegistroEnfermedad.value);
+    }
+    if (idEnfermedad.present) {
+      map['id_enfermedad'] = Variable<int>(idEnfermedad.value);
+    }
+    if (imagen.present) {
+      map['imagen'] = Variable<String>(imagen.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ImagenRegistroEnfermedadCompanion(')
+          ..write('idImagenRegistroEnfermedad: $idImagenRegistroEnfermedad, ')
+          ..write('idEnfermedad: $idEnfermedad, ')
+          ..write('imagen: $imagen')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $RegistroTratamientoTable extends RegistroTratamiento
     with TableInfo<$RegistroTratamientoTable, RegistroTratamientoData> {
   @override
@@ -8335,6 +8573,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $ProductoAgroquimicoTable(this);
   late final $RegistroEnfermedadTable registroEnfermedad =
       $RegistroEnfermedadTable(this);
+  late final $ImagenRegistroEnfermedadTable imagenRegistroEnfermedad =
+      $ImagenRegistroEnfermedadTable(this);
   late final $RegistroTratamientoTable registroTratamiento =
       $RegistroTratamientoTable(this);
   late final $ViajesTable viajes = $ViajesTable(this);
@@ -8383,6 +8623,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         podaDiaria,
         productoAgroquimico,
         registroEnfermedad,
+        imagenRegistroEnfermedad,
         registroTratamiento,
         viajes,
         censoEtapasPlaga,
