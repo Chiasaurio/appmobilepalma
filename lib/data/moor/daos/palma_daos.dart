@@ -8,6 +8,7 @@ part 'palma_daos.g.dart';
 @DriftAccessor(tables: [
   Palmas,
   RegistroEnfermedad,
+  ImagenRegistroEnfermedad,
   RegistroTratamiento,
   Enfermedades,
   Etapas
@@ -186,6 +187,13 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   Future<List<RegistroEnfermedadData>> obtenerRegistroEnfermedad(Palma palma) {
     return (select(registroEnfermedad)
           ..where((c) => c.idPalma.equals(palma.identificador)))
+        .get();
+  }
+
+  Future<List<ImagenRegistroEnfermedadData>> obtenerImagenesRegistroEnfermedad(
+      RegistroEnfermedadData registro) {
+    return (select(imagenRegistroEnfermedad)
+          ..where((i) => i.idEnfermedad.equals(registro.id)))
         .get();
   }
 

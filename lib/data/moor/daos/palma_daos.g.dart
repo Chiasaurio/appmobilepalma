@@ -7,6 +7,8 @@ mixin _$PalmaDaoMixin on DatabaseAccessor<AppDatabase> {
   $PalmasTable get palmas => attachedDatabase.palmas;
   $RegistroEnfermedadTable get registroEnfermedad =>
       attachedDatabase.registroEnfermedad;
+  $ImagenRegistroEnfermedadTable get imagenRegistroEnfermedad =>
+      attachedDatabase.imagenRegistroEnfermedad;
   $RegistroTratamientoTable get registroTratamiento =>
       attachedDatabase.registroTratamiento;
   $EnfermedadesTable get enfermedades => attachedDatabase.enfermedades;

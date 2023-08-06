@@ -39,7 +39,7 @@ class CensoEtapasPlaga extends Table {
 class ImagenCensoPlaga extends Table {
   IntColumn get idImagenCensoPlaga => integer().autoIncrement()();
   IntColumn get idCenso => integer()();
-  TextColumn get imagen => text()();
+  BlobColumn get imagen => blob()();
 
   @override
   List<String> get customConstraints => [

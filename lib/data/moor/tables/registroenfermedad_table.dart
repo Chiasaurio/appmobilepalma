@@ -24,7 +24,7 @@ class RegistroEnfermedad extends Table {
 class ImagenRegistroEnfermedad extends Table {
   IntColumn get idImagenRegistroEnfermedad => integer().autoIncrement()();
   IntColumn get idEnfermedad => integer()();
-  TextColumn get imagen => text()();
+  BlobColumn get imagen => blob()();
 
   @override
   List<String> get customConstraints => [

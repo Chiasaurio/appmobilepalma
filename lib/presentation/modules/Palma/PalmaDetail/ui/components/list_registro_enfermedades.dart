@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:apppalma/domain/palma/models/palma_con_procesos_model.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +44,16 @@ class _RegistroEnfermedadesListState extends State<RegistroEnfermedadesList> {
           },
           body: Column(
             children: [
+              Row(
+                children: val.imagenes
+                    .map((e) => Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          height: 100,
+                          width: 90,
+                          child: Image.file(File(e)),
+                        ))
+                    .toList(),
+              ),
               informacionProcedimiento(val),
               val.registrotratamiento != null
                   ? ListTile(

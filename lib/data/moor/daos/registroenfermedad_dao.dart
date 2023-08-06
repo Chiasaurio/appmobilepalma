@@ -46,10 +46,9 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
     List<Insertable<ImagenRegistroEnfermedadData>> imagenesCompanions = [];
     for (var e in imagenes) {
       Uint8List imageBytes = await e.readAsBytes();
-      String base64Image = base64Encode(imageBytes);
       ImagenRegistroEnfermedadCompanion aux = ImagenRegistroEnfermedadCompanion(
         idEnfermedad: Value(idEnfermedad),
-        imagen: Value(base64Image),
+        imagen: Value(imageBytes),
       );
       imagenesCompanions.add(aux);
     }

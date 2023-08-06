@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:apppalma/domain/palma/models/palma_con_procesos_model.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/data/moor/daos/daos.dart';
@@ -9,6 +11,7 @@ import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 import '../../../constants.dart';
 import 'package:apppalma/globals.dart' as globals;
@@ -54,11 +57,25 @@ class PalmaCubit extends Cubit<PalmaState> {
           etapa = await enfermedadDao.obtenerEtapa(r.idEtapaEnfermedad!);
         }
         registrotratamiento = await palmaDao.obtenerTratamiento(r);
+
+        //Obtener imagenes
+        List<String> imagenes = [];
+        final List<ImagenRegistroEnfermedadData> imagenesRegistro =
+            await palmaDao.obtenerImagenesRegistroEnfermedad(r);
+        int index = 0;
+        for (var imageRegistroData in imagenesRegistro) {
+          final appDir = await syspaths.getTemporaryDirectory();
+          final path = '${appDir.path}/img-$index}.jpg';
+          File file = File(path);
+          await file.writeAsBytes(imageRegistroData.imagen);
+          imagenes.add(path);
+        }
         final registroConDatos = RegistroEnfermedadDatos(
             registroenfermedad: r,
             etapa: etapa,
             enfermedad: enfermedad,
-            registrotratamiento: registrotratamiento);
+            registrotratamiento: registrotratamiento,
+            imagenes: imagenes);
         registroenfermedaddatos.add(registroConDatos);
       }
       PalmaConProcesos palmaconprocesos = PalmaConProcesos(

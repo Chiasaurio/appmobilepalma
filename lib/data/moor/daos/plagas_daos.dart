@@ -208,10 +208,10 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
     List<Insertable<ImagenCensoPlagaData>> imagenesCompanions = [];
     for (var e in imagenes) {
       Uint8List imageBytes = await e.readAsBytes();
-      String base64Image = base64Encode(imageBytes);
+      // String base64Image = base64Encode(imageBytes);
       ImagenCensoPlagaCompanion aux = ImagenCensoPlagaCompanion(
         idCenso: Value(idCenso),
-        imagen: Value(base64Image),
+        imagen: Value(imageBytes),
       );
       imagenesCompanions.add(aux);
     }

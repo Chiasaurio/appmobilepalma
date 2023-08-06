@@ -6573,9 +6573,9 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _imagenMeta = const VerificationMeta('imagen');
   @override
-  late final GeneratedColumn<String> imagen = GeneratedColumn<String>(
+  late final GeneratedColumn<Uint8List> imagen = GeneratedColumn<Uint8List>(
       'imagen', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.blob, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [idImagenRegistroEnfermedad, idEnfermedad, imagen];
@@ -6626,7 +6626,7 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
       idEnfermedad: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id_enfermedad'])!,
       imagen: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}imagen'])!,
+          .read(DriftSqlType.blob, data['${effectivePrefix}imagen'])!,
     );
   }
 
@@ -6640,7 +6640,7 @@ class ImagenRegistroEnfermedadData extends DataClass
     implements Insertable<ImagenRegistroEnfermedadData> {
   final int idImagenRegistroEnfermedad;
   final int idEnfermedad;
-  final String imagen;
+  final Uint8List imagen;
   const ImagenRegistroEnfermedadData(
       {required this.idImagenRegistroEnfermedad,
       required this.idEnfermedad,
@@ -6651,7 +6651,7 @@ class ImagenRegistroEnfermedadData extends DataClass
     map['id_imagen_registro_enfermedad'] =
         Variable<int>(idImagenRegistroEnfermedad);
     map['id_enfermedad'] = Variable<int>(idEnfermedad);
-    map['imagen'] = Variable<String>(imagen);
+    map['imagen'] = Variable<Uint8List>(imagen);
     return map;
   }
 
@@ -6670,7 +6670,7 @@ class ImagenRegistroEnfermedadData extends DataClass
       idImagenRegistroEnfermedad:
           serializer.fromJson<int>(json['idImagenRegistroEnfermedad']),
       idEnfermedad: serializer.fromJson<int>(json['idEnfermedad']),
-      imagen: serializer.fromJson<String>(json['imagen']),
+      imagen: serializer.fromJson<Uint8List>(json['imagen']),
     );
   }
   @override
@@ -6680,14 +6680,14 @@ class ImagenRegistroEnfermedadData extends DataClass
       'idImagenRegistroEnfermedad':
           serializer.toJson<int>(idImagenRegistroEnfermedad),
       'idEnfermedad': serializer.toJson<int>(idEnfermedad),
-      'imagen': serializer.toJson<String>(imagen),
+      'imagen': serializer.toJson<Uint8List>(imagen),
     };
   }
 
   ImagenRegistroEnfermedadData copyWith(
           {int? idImagenRegistroEnfermedad,
           int? idEnfermedad,
-          String? imagen}) =>
+          Uint8List? imagen}) =>
       ImagenRegistroEnfermedadData(
         idImagenRegistroEnfermedad:
             idImagenRegistroEnfermedad ?? this.idImagenRegistroEnfermedad,
@@ -6705,22 +6705,22 @@ class ImagenRegistroEnfermedadData extends DataClass
   }
 
   @override
-  int get hashCode =>
-      Object.hash(idImagenRegistroEnfermedad, idEnfermedad, imagen);
+  int get hashCode => Object.hash(idImagenRegistroEnfermedad, idEnfermedad,
+      $driftBlobEquality.hash(imagen));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ImagenRegistroEnfermedadData &&
           other.idImagenRegistroEnfermedad == this.idImagenRegistroEnfermedad &&
           other.idEnfermedad == this.idEnfermedad &&
-          other.imagen == this.imagen);
+          $driftBlobEquality.equals(other.imagen, this.imagen));
 }
 
 class ImagenRegistroEnfermedadCompanion
     extends UpdateCompanion<ImagenRegistroEnfermedadData> {
   final Value<int> idImagenRegistroEnfermedad;
   final Value<int> idEnfermedad;
-  final Value<String> imagen;
+  final Value<Uint8List> imagen;
   const ImagenRegistroEnfermedadCompanion({
     this.idImagenRegistroEnfermedad = const Value.absent(),
     this.idEnfermedad = const Value.absent(),
@@ -6729,13 +6729,13 @@ class ImagenRegistroEnfermedadCompanion
   ImagenRegistroEnfermedadCompanion.insert({
     this.idImagenRegistroEnfermedad = const Value.absent(),
     required int idEnfermedad,
-    required String imagen,
+    required Uint8List imagen,
   })  : idEnfermedad = Value(idEnfermedad),
         imagen = Value(imagen);
   static Insertable<ImagenRegistroEnfermedadData> custom({
     Expression<int>? idImagenRegistroEnfermedad,
     Expression<int>? idEnfermedad,
-    Expression<String>? imagen,
+    Expression<Uint8List>? imagen,
   }) {
     return RawValuesInsertable({
       if (idImagenRegistroEnfermedad != null)
@@ -6748,7 +6748,7 @@ class ImagenRegistroEnfermedadCompanion
   ImagenRegistroEnfermedadCompanion copyWith(
       {Value<int>? idImagenRegistroEnfermedad,
       Value<int>? idEnfermedad,
-      Value<String>? imagen}) {
+      Value<Uint8List>? imagen}) {
     return ImagenRegistroEnfermedadCompanion(
       idImagenRegistroEnfermedad:
           idImagenRegistroEnfermedad ?? this.idImagenRegistroEnfermedad,
@@ -6768,7 +6768,7 @@ class ImagenRegistroEnfermedadCompanion
       map['id_enfermedad'] = Variable<int>(idEnfermedad.value);
     }
     if (imagen.present) {
-      map['imagen'] = Variable<String>(imagen.value);
+      map['imagen'] = Variable<Uint8List>(imagen.value);
     }
     return map;
   }
@@ -8116,9 +8116,9 @@ class $ImagenCensoPlagaTable extends ImagenCensoPlaga
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _imagenMeta = const VerificationMeta('imagen');
   @override
-  late final GeneratedColumn<String> imagen = GeneratedColumn<String>(
+  late final GeneratedColumn<Uint8List> imagen = GeneratedColumn<Uint8List>(
       'imagen', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.blob, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [idImagenCensoPlaga, idCenso, imagen];
   @override
@@ -8163,7 +8163,7 @@ class $ImagenCensoPlagaTable extends ImagenCensoPlaga
       idCenso: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
       imagen: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}imagen'])!,
+          .read(DriftSqlType.blob, data['${effectivePrefix}imagen'])!,
     );
   }
 
@@ -8177,7 +8177,7 @@ class ImagenCensoPlagaData extends DataClass
     implements Insertable<ImagenCensoPlagaData> {
   final int idImagenCensoPlaga;
   final int idCenso;
-  final String imagen;
+  final Uint8List imagen;
   const ImagenCensoPlagaData(
       {required this.idImagenCensoPlaga,
       required this.idCenso,
@@ -8187,7 +8187,7 @@ class ImagenCensoPlagaData extends DataClass
     final map = <String, Expression>{};
     map['id_imagen_censo_plaga'] = Variable<int>(idImagenCensoPlaga);
     map['id_censo'] = Variable<int>(idCenso);
-    map['imagen'] = Variable<String>(imagen);
+    map['imagen'] = Variable<Uint8List>(imagen);
     return map;
   }
 
@@ -8205,7 +8205,7 @@ class ImagenCensoPlagaData extends DataClass
     return ImagenCensoPlagaData(
       idImagenCensoPlaga: serializer.fromJson<int>(json['idImagenCensoPlaga']),
       idCenso: serializer.fromJson<int>(json['idCenso']),
-      imagen: serializer.fromJson<String>(json['imagen']),
+      imagen: serializer.fromJson<Uint8List>(json['imagen']),
     );
   }
   @override
@@ -8214,12 +8214,12 @@ class ImagenCensoPlagaData extends DataClass
     return <String, dynamic>{
       'idImagenCensoPlaga': serializer.toJson<int>(idImagenCensoPlaga),
       'idCenso': serializer.toJson<int>(idCenso),
-      'imagen': serializer.toJson<String>(imagen),
+      'imagen': serializer.toJson<Uint8List>(imagen),
     };
   }
 
   ImagenCensoPlagaData copyWith(
-          {int? idImagenCensoPlaga, int? idCenso, String? imagen}) =>
+          {int? idImagenCensoPlaga, int? idCenso, Uint8List? imagen}) =>
       ImagenCensoPlagaData(
         idImagenCensoPlaga: idImagenCensoPlaga ?? this.idImagenCensoPlaga,
         idCenso: idCenso ?? this.idCenso,
@@ -8236,20 +8236,21 @@ class ImagenCensoPlagaData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(idImagenCensoPlaga, idCenso, imagen);
+  int get hashCode =>
+      Object.hash(idImagenCensoPlaga, idCenso, $driftBlobEquality.hash(imagen));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ImagenCensoPlagaData &&
           other.idImagenCensoPlaga == this.idImagenCensoPlaga &&
           other.idCenso == this.idCenso &&
-          other.imagen == this.imagen);
+          $driftBlobEquality.equals(other.imagen, this.imagen));
 }
 
 class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
   final Value<int> idImagenCensoPlaga;
   final Value<int> idCenso;
-  final Value<String> imagen;
+  final Value<Uint8List> imagen;
   const ImagenCensoPlagaCompanion({
     this.idImagenCensoPlaga = const Value.absent(),
     this.idCenso = const Value.absent(),
@@ -8258,13 +8259,13 @@ class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
   ImagenCensoPlagaCompanion.insert({
     this.idImagenCensoPlaga = const Value.absent(),
     required int idCenso,
-    required String imagen,
+    required Uint8List imagen,
   })  : idCenso = Value(idCenso),
         imagen = Value(imagen);
   static Insertable<ImagenCensoPlagaData> custom({
     Expression<int>? idImagenCensoPlaga,
     Expression<int>? idCenso,
-    Expression<String>? imagen,
+    Expression<Uint8List>? imagen,
   }) {
     return RawValuesInsertable({
       if (idImagenCensoPlaga != null)
@@ -8277,7 +8278,7 @@ class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
   ImagenCensoPlagaCompanion copyWith(
       {Value<int>? idImagenCensoPlaga,
       Value<int>? idCenso,
-      Value<String>? imagen}) {
+      Value<Uint8List>? imagen}) {
     return ImagenCensoPlagaCompanion(
       idImagenCensoPlaga: idImagenCensoPlaga ?? this.idImagenCensoPlaga,
       idCenso: idCenso ?? this.idCenso,
@@ -8295,7 +8296,7 @@ class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
       map['id_censo'] = Variable<int>(idCenso.value);
     }
     if (imagen.present) {
-      map['imagen'] = Variable<String>(imagen.value);
+      map['imagen'] = Variable<Uint8List>(imagen.value);
     }
     return map;
   }
