@@ -1,0 +1,76 @@
+import 'package:apppalma/data/moor/daos/daos.dart';
+import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/main.dart';
+import 'package:apppalma/utils/form_status.dart';
+import 'package:drift/drift.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:apppalma/globals.dart' as globals;
+
+part 'fertilizaciones_state.dart';
+
+class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
+  FertilizacionCubit() : super(const FertilizacionStateLoaded());
+
+  final db = getIt<AppDatabase>();
+
+  obtenerFertilizacionActiva(String nombrelote) async {
+    emit(const FertilizacionStateLoaded(isLoaded: false));
+    final FertilizacionDao plateoDao = db.fertilizacionDao;
+    final Fertilizacione? fertilizacion =
+        await plateoDao.getFertilizacionActiva(nombrelote);
+    List<FertilizacionDiariaData> fertilizacionDarias = [];
+    if (fertilizacion != null) {
+      fertilizacionDarias =
+          await obtenerFertilizacionesDiarias(fertilizacion.id);
+    }
+    emit(FertilizacionStateLoaded(
+        fertilizacion: fertilizacion,
+        fertilizacionDarias: fertilizacionDarias,
+        isLoaded: true));
+  }
+
+  comenzarNuevaFertilizacion(String nombrelote, DateTime fecha) async {
+    final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
+    final plateo = FertilizacionesCompanion(
+      nombreLote: Value(nombrelote),
+      cantidadFertilizada: const Value(0),
+      fechaIngreso: Value(fecha),
+    );
+    await fertilizacionDao.insertFertilizacion(plateo);
+    obtenerFertilizacionActiva(nombrelote);
+  }
+
+  obtenerFertilizacionesDiarias(int idFertilizacion) async {
+    final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
+    final List<FertilizacionDiariaData> fertilizacionesDarias =
+        await fertilizacionDao.getFertilizacionesDiarias(idFertilizacion);
+    return fertilizacionesDarias;
+  }
+
+  insertarFertilizacionDiaria(DateTime fecha, int cantidad, String tipo,
+      int idProductoAgroquimico, Fertilizacione fertilizacion) async {
+    final nuevosFertilizacion = fertilizacion.cantidadFertilizada + cantidad;
+    final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
+    final fertilizacionDiariaCompanion = FertilizacionDiariaCompanion(
+        cantidadFertilizada: Value(cantidad),
+        fecha: Value(fecha),
+        idProductoAgroquimico: Value(idProductoAgroquimico),
+        responsable: Value(globals.responsable));
+    await fertilizacionDao
+        .insertFertilizacionDiaria(fertilizacionDiariaCompanion);
+    // fertilizacionDao.updateFertilizacion(
+    //     fertilizacion.copyWith(cantidadFertilizada: nuevosFertilizacion));
+    // obtenerFertilizacionActiva(fertilizacion.nombreLote);
+  }
+
+  finalizarPlateo(Fertilizacione fertilizacion, DateTime fechasalida) {
+    final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
+    fertilizacionDao.updateFertilizacion(fertilizacion.copyWith(
+        fechaSalida: Value(fechasalida),
+        completado: true,
+        sincronizado: false));
+    obtenerFertilizacionActiva(fertilizacion.nombreLote);
+    // successMessageToast('El plateo se finalizo correctamente');
+  }
+}
