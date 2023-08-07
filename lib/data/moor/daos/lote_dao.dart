@@ -1,5 +1,4 @@
 import 'package:apppalma/data/moor/moor_database.dart';
-import 'package:apppalma/data/moor/tables/precipitacion.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:drift/drift.dart';
 
@@ -7,8 +6,16 @@ import '../tables/tables.dart';
 
 part 'lote_dao.g.dart';
 
-@DriftAccessor(
-    tables: [Lotes, Cosechas, Plateos, Podas, Censo, Palmas, Precipitacion])
+@DriftAccessor(tables: [
+  Lotes,
+  Cosechas,
+  Plateos,
+  Podas,
+  Censo,
+  Palmas,
+  Precipitacion,
+  Fertilizaciones
+])
 class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
   LoteDao(AppDatabase db) : super(db);
 
@@ -59,6 +66,10 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
             podas,
             podas.nombreLote.equalsExp(lotes.nombreLote) &
                 podas.completada.equals(false)),
+        leftOuterJoin(
+            fertilizaciones,
+            fertilizaciones.nombreLote.equalsExp(lotes.nombreLote) &
+                fertilizaciones.completado.equals(false)),
       ],
     ).getSingleOrNull();
     final censosrows = (select(lotes)..where((c) => c.id.equals(id)))
@@ -117,7 +128,8 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
         palmaspendientes: palmasresult,
         cosecha: lote.readTableOrNull(cosechas),
         plateo: lote.readTableOrNull(plateos),
-        poda: lote.readTableOrNull(podas));
+        poda: lote.readTableOrNull(podas),
+        fertilizacion: lote.readTableOrNull(fertilizaciones));
   }
 
   Future<List<LoteWithProcesos>> getLotesWithProcesos() async {
@@ -136,6 +148,10 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
               podas,
               podas.nombreLote.equalsExp(lotes.nombreLote) &
                   podas.completada.equals(false)),
+          leftOuterJoin(
+              fertilizaciones,
+              fertilizaciones.nombreLote.equalsExp(lotes.nombreLote) &
+                  fertilizaciones.completado.equals(false)),
         ],
       ).get();
 
@@ -144,7 +160,8 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
             lote: resultRow.readTable(lotes),
             cosecha: resultRow.readTableOrNull(cosechas),
             plateo: resultRow.readTableOrNull(plateos),
-            poda: resultRow.readTableOrNull(podas));
+            poda: resultRow.readTableOrNull(podas),
+            fertilizacion: resultRow.readTableOrNull(fertilizaciones));
       }).toList();
     } catch (e) {
       registroFallidoToast('Error obteniendo lotes $e');

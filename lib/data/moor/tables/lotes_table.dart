@@ -18,6 +18,7 @@ class LoteWithProcesos extends Equatable {
   final Cosecha? cosecha;
   final Plateo? plateo;
   final Poda? poda;
+  final Fertilizacione? fertilizacion;
   final List<CensoData>? censospendientes;
   final List<Palma>? palmaspendientes;
 
@@ -26,11 +27,19 @@ class LoteWithProcesos extends Equatable {
     this.cosecha,
     this.plateo,
     this.poda,
+    this.fertilizacion,
     this.censospendientes,
     this.palmaspendientes,
   });
 
   @override
-  List<Object?> get props =>
-      [lote, cosecha, plateo, poda, censospendientes, palmaspendientes];
+  List<Object?> get props => [
+        lote,
+        cosecha,
+        plateo,
+        poda,
+        fertilizacion,
+        censospendientes,
+        palmaspendientes
+      ];
 }

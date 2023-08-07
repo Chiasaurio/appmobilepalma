@@ -11,4 +11,5 @@ mixin _$LoteDaoMixin on DatabaseAccessor<AppDatabase> {
   $CensoTable get censo => attachedDatabase.censo;
   $PalmasTable get palmas => attachedDatabase.palmas;
   $PrecipitacionTable get precipitacion => attachedDatabase.precipitacion;
+  $FertilizacionesTable get fertilizaciones => attachedDatabase.fertilizaciones;
 }
