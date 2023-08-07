@@ -36,6 +36,15 @@ class OpcionesProductiva extends StatelessWidget {
             nombreLote: lote.lote.nombreLote,
             textWithObject: 'Continuar plateo',
             textWithoutObject: 'Nueva plateo'),
+        const SizedBox(
+          height: 15,
+        ),
+        OpcionItem(
+            object: lote.fertilizacion,
+            ruta: '/lote/fertilizaciones',
+            nombreLote: lote.lote.nombreLote,
+            textWithObject: 'Continuar fertilización',
+            textWithoutObject: 'Nueva fertilización'),
       ]),
     );
   }
