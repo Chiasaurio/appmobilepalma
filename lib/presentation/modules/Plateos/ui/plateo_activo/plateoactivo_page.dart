@@ -166,7 +166,7 @@ class _PlateoActivoVistaState extends State<PlateoActivoVista> {
                         children: <Widget>[
                           const SizedBox(height: 5.0),
                           const Text(
-                            'Podadas',
+                            'Plateadas',
                             style: TextStyle(color: Colors.grey, fontSize: 16),
                             textAlign: TextAlign.end,
                           ),

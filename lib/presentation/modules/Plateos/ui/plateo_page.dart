@@ -34,9 +34,6 @@ class _PlateoPageState extends State<PlateoPage> {
     return Scaffold(
       body: Column(
         children: [
-          // HeaderApp(
-          //   ruta: widget.routeName,
-          // ),
           HeaderGradient(
             title: "Plateo actual",
             ruta: "/lotes",
@@ -60,8 +57,8 @@ class _PlateoPageState extends State<PlateoPage> {
         return Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Center(
+            children: const [
+              Center(
                 child: CircularProgressIndicator(),
               ),
             ],
