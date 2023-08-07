@@ -8553,6 +8553,914 @@ class PrecipitacionCompanion extends UpdateCompanion<PrecipitacionData> {
   }
 }
 
+class $FertilizacionesTable extends Fertilizaciones
+    with TableInfo<$FertilizacionesTable, Fertilizacione> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FertilizacionesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idFertilizacionMeta =
+      const VerificationMeta('idFertilizacion');
+  @override
+  late final GeneratedColumn<int> idFertilizacion = GeneratedColumn<int>(
+      'id_fertilizacion', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
+      'nombre_lote', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaIngresoMeta =
+      const VerificationMeta('fechaIngreso');
+  @override
+  late final GeneratedColumn<DateTime> fechaIngreso = GeneratedColumn<DateTime>(
+      'fecha_ingreso', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _fechaSalidaMeta =
+      const VerificationMeta('fechaSalida');
+  @override
+  late final GeneratedColumn<DateTime> fechaSalida = GeneratedColumn<DateTime>(
+      'fecha_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _cantidadFertilizadaMeta =
+      const VerificationMeta('cantidadFertilizada');
+  @override
+  late final GeneratedColumn<int> cantidadFertilizada = GeneratedColumn<int>(
+      'cantidad_fertilizada', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _completadoMeta =
+      const VerificationMeta('completado');
+  @override
+  late final GeneratedColumn<bool> completado =
+      GeneratedColumn<bool>('completado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("completado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        idFertilizacion,
+        nombreLote,
+        fechaIngreso,
+        fechaSalida,
+        cantidadFertilizada,
+        completado,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'fertilizaciones';
+  @override
+  String get actualTableName => 'fertilizaciones';
+  @override
+  VerificationContext validateIntegrity(Insertable<Fertilizacione> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_fertilizacion')) {
+      context.handle(
+          _idFertilizacionMeta,
+          idFertilizacion.isAcceptableOrUnknown(
+              data['id_fertilizacion']!, _idFertilizacionMeta));
+    }
+    if (data.containsKey('nombre_lote')) {
+      context.handle(
+          _nombreLoteMeta,
+          nombreLote.isAcceptableOrUnknown(
+              data['nombre_lote']!, _nombreLoteMeta));
+    } else if (isInserting) {
+      context.missing(_nombreLoteMeta);
+    }
+    if (data.containsKey('fecha_ingreso')) {
+      context.handle(
+          _fechaIngresoMeta,
+          fechaIngreso.isAcceptableOrUnknown(
+              data['fecha_ingreso']!, _fechaIngresoMeta));
+    } else if (isInserting) {
+      context.missing(_fechaIngresoMeta);
+    }
+    if (data.containsKey('fecha_salida')) {
+      context.handle(
+          _fechaSalidaMeta,
+          fechaSalida.isAcceptableOrUnknown(
+              data['fecha_salida']!, _fechaSalidaMeta));
+    }
+    if (data.containsKey('cantidad_fertilizada')) {
+      context.handle(
+          _cantidadFertilizadaMeta,
+          cantidadFertilizada.isAcceptableOrUnknown(
+              data['cantidad_fertilizada']!, _cantidadFertilizadaMeta));
+    } else if (isInserting) {
+      context.missing(_cantidadFertilizadaMeta);
+    }
+    if (data.containsKey('completado')) {
+      context.handle(
+          _completadoMeta,
+          completado.isAcceptableOrUnknown(
+              data['completado']!, _completadoMeta));
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Fertilizacione map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Fertilizacione(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idFertilizacion: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion']),
+      nombreLote: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      fechaIngreso: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
+      fechaSalida: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_salida']),
+      cantidadFertilizada: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}cantidad_fertilizada'])!,
+      completado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    );
+  }
+
+  @override
+  $FertilizacionesTable createAlias(String alias) {
+    return $FertilizacionesTable(attachedDatabase, alias);
+  }
+}
+
+class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
+  final int id;
+  final int? idFertilizacion;
+  final String nombreLote;
+  final DateTime fechaIngreso;
+  final DateTime? fechaSalida;
+  final int cantidadFertilizada;
+  final bool completado;
+  final bool sincronizado;
+  const Fertilizacione(
+      {required this.id,
+      this.idFertilizacion,
+      required this.nombreLote,
+      required this.fechaIngreso,
+      this.fechaSalida,
+      required this.cantidadFertilizada,
+      required this.completado,
+      required this.sincronizado});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idFertilizacion != null) {
+      map['id_fertilizacion'] = Variable<int>(idFertilizacion);
+    }
+    map['nombre_lote'] = Variable<String>(nombreLote);
+    map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
+    if (!nullToAbsent || fechaSalida != null) {
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida);
+    }
+    map['cantidad_fertilizada'] = Variable<int>(cantidadFertilizada);
+    map['completado'] = Variable<bool>(completado);
+    map['sincronizado'] = Variable<bool>(sincronizado);
+    return map;
+  }
+
+  FertilizacionesCompanion toCompanion(bool nullToAbsent) {
+    return FertilizacionesCompanion(
+      id: Value(id),
+      idFertilizacion: idFertilizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idFertilizacion),
+      nombreLote: Value(nombreLote),
+      fechaIngreso: Value(fechaIngreso),
+      fechaSalida: fechaSalida == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaSalida),
+      cantidadFertilizada: Value(cantidadFertilizada),
+      completado: Value(completado),
+      sincronizado: Value(sincronizado),
+    );
+  }
+
+  factory Fertilizacione.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Fertilizacione(
+      id: serializer.fromJson<int>(json['id']),
+      idFertilizacion: serializer.fromJson<int?>(json['idFertilizacion']),
+      nombreLote: serializer.fromJson<String>(json['nombreLote']),
+      fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
+      fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
+      cantidadFertilizada:
+          serializer.fromJson<int>(json['cantidadFertilizada']),
+      completado: serializer.fromJson<bool>(json['completado']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idFertilizacion': serializer.toJson<int?>(idFertilizacion),
+      'nombreLote': serializer.toJson<String>(nombreLote),
+      'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
+      'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
+      'cantidadFertilizada': serializer.toJson<int>(cantidadFertilizada),
+      'completado': serializer.toJson<bool>(completado),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
+    };
+  }
+
+  Fertilizacione copyWith(
+          {int? id,
+          Value<int?> idFertilizacion = const Value.absent(),
+          String? nombreLote,
+          DateTime? fechaIngreso,
+          Value<DateTime?> fechaSalida = const Value.absent(),
+          int? cantidadFertilizada,
+          bool? completado,
+          bool? sincronizado}) =>
+      Fertilizacione(
+        id: id ?? this.id,
+        idFertilizacion: idFertilizacion.present
+            ? idFertilizacion.value
+            : this.idFertilizacion,
+        nombreLote: nombreLote ?? this.nombreLote,
+        fechaIngreso: fechaIngreso ?? this.fechaIngreso,
+        fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
+        cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
+        completado: completado ?? this.completado,
+        sincronizado: sincronizado ?? this.sincronizado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Fertilizacione(')
+          ..write('id: $id, ')
+          ..write('idFertilizacion: $idFertilizacion, ')
+          ..write('nombreLote: $nombreLote, ')
+          ..write('fechaIngreso: $fechaIngreso, ')
+          ..write('fechaSalida: $fechaSalida, ')
+          ..write('cantidadFertilizada: $cantidadFertilizada, ')
+          ..write('completado: $completado, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, idFertilizacion, nombreLote, fechaIngreso,
+      fechaSalida, cantidadFertilizada, completado, sincronizado);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Fertilizacione &&
+          other.id == this.id &&
+          other.idFertilizacion == this.idFertilizacion &&
+          other.nombreLote == this.nombreLote &&
+          other.fechaIngreso == this.fechaIngreso &&
+          other.fechaSalida == this.fechaSalida &&
+          other.cantidadFertilizada == this.cantidadFertilizada &&
+          other.completado == this.completado &&
+          other.sincronizado == this.sincronizado);
+}
+
+class FertilizacionesCompanion extends UpdateCompanion<Fertilizacione> {
+  final Value<int> id;
+  final Value<int?> idFertilizacion;
+  final Value<String> nombreLote;
+  final Value<DateTime> fechaIngreso;
+  final Value<DateTime?> fechaSalida;
+  final Value<int> cantidadFertilizada;
+  final Value<bool> completado;
+  final Value<bool> sincronizado;
+  const FertilizacionesCompanion({
+    this.id = const Value.absent(),
+    this.idFertilizacion = const Value.absent(),
+    this.nombreLote = const Value.absent(),
+    this.fechaIngreso = const Value.absent(),
+    this.fechaSalida = const Value.absent(),
+    this.cantidadFertilizada = const Value.absent(),
+    this.completado = const Value.absent(),
+    this.sincronizado = const Value.absent(),
+  });
+  FertilizacionesCompanion.insert({
+    this.id = const Value.absent(),
+    this.idFertilizacion = const Value.absent(),
+    required String nombreLote,
+    required DateTime fechaIngreso,
+    this.fechaSalida = const Value.absent(),
+    required int cantidadFertilizada,
+    this.completado = const Value.absent(),
+    this.sincronizado = const Value.absent(),
+  })  : nombreLote = Value(nombreLote),
+        fechaIngreso = Value(fechaIngreso),
+        cantidadFertilizada = Value(cantidadFertilizada);
+  static Insertable<Fertilizacione> custom({
+    Expression<int>? id,
+    Expression<int>? idFertilizacion,
+    Expression<String>? nombreLote,
+    Expression<DateTime>? fechaIngreso,
+    Expression<DateTime>? fechaSalida,
+    Expression<int>? cantidadFertilizada,
+    Expression<bool>? completado,
+    Expression<bool>? sincronizado,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idFertilizacion != null) 'id_fertilizacion': idFertilizacion,
+      if (nombreLote != null) 'nombre_lote': nombreLote,
+      if (fechaIngreso != null) 'fecha_ingreso': fechaIngreso,
+      if (fechaSalida != null) 'fecha_salida': fechaSalida,
+      if (cantidadFertilizada != null)
+        'cantidad_fertilizada': cantidadFertilizada,
+      if (completado != null) 'completado': completado,
+      if (sincronizado != null) 'sincronizado': sincronizado,
+    });
+  }
+
+  FertilizacionesCompanion copyWith(
+      {Value<int>? id,
+      Value<int?>? idFertilizacion,
+      Value<String>? nombreLote,
+      Value<DateTime>? fechaIngreso,
+      Value<DateTime?>? fechaSalida,
+      Value<int>? cantidadFertilizada,
+      Value<bool>? completado,
+      Value<bool>? sincronizado}) {
+    return FertilizacionesCompanion(
+      id: id ?? this.id,
+      idFertilizacion: idFertilizacion ?? this.idFertilizacion,
+      nombreLote: nombreLote ?? this.nombreLote,
+      fechaIngreso: fechaIngreso ?? this.fechaIngreso,
+      fechaSalida: fechaSalida ?? this.fechaSalida,
+      cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
+      completado: completado ?? this.completado,
+      sincronizado: sincronizado ?? this.sincronizado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idFertilizacion.present) {
+      map['id_fertilizacion'] = Variable<int>(idFertilizacion.value);
+    }
+    if (nombreLote.present) {
+      map['nombre_lote'] = Variable<String>(nombreLote.value);
+    }
+    if (fechaIngreso.present) {
+      map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso.value);
+    }
+    if (fechaSalida.present) {
+      map['fecha_salida'] = Variable<DateTime>(fechaSalida.value);
+    }
+    if (cantidadFertilizada.present) {
+      map['cantidad_fertilizada'] = Variable<int>(cantidadFertilizada.value);
+    }
+    if (completado.present) {
+      map['completado'] = Variable<bool>(completado.value);
+    }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FertilizacionesCompanion(')
+          ..write('id: $id, ')
+          ..write('idFertilizacion: $idFertilizacion, ')
+          ..write('nombreLote: $nombreLote, ')
+          ..write('fechaIngreso: $fechaIngreso, ')
+          ..write('fechaSalida: $fechaSalida, ')
+          ..write('cantidadFertilizada: $cantidadFertilizada, ')
+          ..write('completado: $completado, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FertilizacionDiariaTable extends FertilizacionDiaria
+    with TableInfo<$FertilizacionDiariaTable, FertilizacionDiariaData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FertilizacionDiariaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idFertilizacionMeta =
+      const VerificationMeta('idFertilizacion');
+  @override
+  late final GeneratedColumn<int> idFertilizacion = GeneratedColumn<int>(
+      'id_fertilizacion', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES fertilizaciones(id)');
+  static const VerificationMeta _fechaMeta = const VerificationMeta('fecha');
+  @override
+  late final GeneratedColumn<DateTime> fecha = GeneratedColumn<DateTime>(
+      'fecha', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _cantidadFertilizadaMeta =
+      const VerificationMeta('cantidadFertilizada');
+  @override
+  late final GeneratedColumn<int> cantidadFertilizada = GeneratedColumn<int>(
+      'cantidad_fertilizada', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _dosisMeta = const VerificationMeta('dosis');
+  @override
+  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
+      'dosis', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _unidadesMeta =
+      const VerificationMeta('unidades');
+  @override
+  late final GeneratedColumn<String> unidades = GeneratedColumn<String>(
+      'unidades', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _responsableMeta =
+      const VerificationMeta('responsable');
+  @override
+  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
+      'responsable', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _idProductoAgroquimicoMeta =
+      const VerificationMeta('idProductoAgroquimico');
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        idFertilizacion,
+        fecha,
+        cantidadFertilizada,
+        dosis,
+        unidades,
+        responsable,
+        idProductoAgroquimico,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'fertilizacion_diaria';
+  @override
+  String get actualTableName => 'fertilizacion_diaria';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<FertilizacionDiariaData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_fertilizacion')) {
+      context.handle(
+          _idFertilizacionMeta,
+          idFertilizacion.isAcceptableOrUnknown(
+              data['id_fertilizacion']!, _idFertilizacionMeta));
+    } else if (isInserting) {
+      context.missing(_idFertilizacionMeta);
+    }
+    if (data.containsKey('fecha')) {
+      context.handle(
+          _fechaMeta, fecha.isAcceptableOrUnknown(data['fecha']!, _fechaMeta));
+    } else if (isInserting) {
+      context.missing(_fechaMeta);
+    }
+    if (data.containsKey('cantidad_fertilizada')) {
+      context.handle(
+          _cantidadFertilizadaMeta,
+          cantidadFertilizada.isAcceptableOrUnknown(
+              data['cantidad_fertilizada']!, _cantidadFertilizadaMeta));
+    } else if (isInserting) {
+      context.missing(_cantidadFertilizadaMeta);
+    }
+    if (data.containsKey('dosis')) {
+      context.handle(
+          _dosisMeta, dosis.isAcceptableOrUnknown(data['dosis']!, _dosisMeta));
+    } else if (isInserting) {
+      context.missing(_dosisMeta);
+    }
+    if (data.containsKey('unidades')) {
+      context.handle(_unidadesMeta,
+          unidades.isAcceptableOrUnknown(data['unidades']!, _unidadesMeta));
+    } else if (isInserting) {
+      context.missing(_unidadesMeta);
+    }
+    if (data.containsKey('responsable')) {
+      context.handle(
+          _responsableMeta,
+          responsable.isAcceptableOrUnknown(
+              data['responsable']!, _responsableMeta));
+    } else if (isInserting) {
+      context.missing(_responsableMeta);
+    }
+    if (data.containsKey('id_producto_agroquimico')) {
+      context.handle(
+          _idProductoAgroquimicoMeta,
+          idProductoAgroquimico.isAcceptableOrUnknown(
+              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_idProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FertilizacionDiariaData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FertilizacionDiariaData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idFertilizacion: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion'])!,
+      fecha: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
+      cantidadFertilizada: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}cantidad_fertilizada'])!,
+      dosis: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
+      unidades: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}unidades'])!,
+      responsable: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
+      idProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    );
+  }
+
+  @override
+  $FertilizacionDiariaTable createAlias(String alias) {
+    return $FertilizacionDiariaTable(attachedDatabase, alias);
+  }
+}
+
+class FertilizacionDiariaData extends DataClass
+    implements Insertable<FertilizacionDiariaData> {
+  final int id;
+  final int idFertilizacion;
+  final DateTime fecha;
+  final int cantidadFertilizada;
+  final double dosis;
+  final String unidades;
+  final String responsable;
+  final int idProductoAgroquimico;
+  final bool sincronizado;
+  const FertilizacionDiariaData(
+      {required this.id,
+      required this.idFertilizacion,
+      required this.fecha,
+      required this.cantidadFertilizada,
+      required this.dosis,
+      required this.unidades,
+      required this.responsable,
+      required this.idProductoAgroquimico,
+      required this.sincronizado});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['id_fertilizacion'] = Variable<int>(idFertilizacion);
+    map['fecha'] = Variable<DateTime>(fecha);
+    map['cantidad_fertilizada'] = Variable<int>(cantidadFertilizada);
+    map['dosis'] = Variable<double>(dosis);
+    map['unidades'] = Variable<String>(unidades);
+    map['responsable'] = Variable<String>(responsable);
+    map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
+    map['sincronizado'] = Variable<bool>(sincronizado);
+    return map;
+  }
+
+  FertilizacionDiariaCompanion toCompanion(bool nullToAbsent) {
+    return FertilizacionDiariaCompanion(
+      id: Value(id),
+      idFertilizacion: Value(idFertilizacion),
+      fecha: Value(fecha),
+      cantidadFertilizada: Value(cantidadFertilizada),
+      dosis: Value(dosis),
+      unidades: Value(unidades),
+      responsable: Value(responsable),
+      idProductoAgroquimico: Value(idProductoAgroquimico),
+      sincronizado: Value(sincronizado),
+    );
+  }
+
+  factory FertilizacionDiariaData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FertilizacionDiariaData(
+      id: serializer.fromJson<int>(json['id']),
+      idFertilizacion: serializer.fromJson<int>(json['idFertilizacion']),
+      fecha: serializer.fromJson<DateTime>(json['fecha']),
+      cantidadFertilizada:
+          serializer.fromJson<int>(json['cantidadFertilizada']),
+      dosis: serializer.fromJson<double>(json['dosis']),
+      unidades: serializer.fromJson<String>(json['unidades']),
+      responsable: serializer.fromJson<String>(json['responsable']),
+      idProductoAgroquimico:
+          serializer.fromJson<int>(json['idProductoAgroquimico']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idFertilizacion': serializer.toJson<int>(idFertilizacion),
+      'fecha': serializer.toJson<DateTime>(fecha),
+      'cantidadFertilizada': serializer.toJson<int>(cantidadFertilizada),
+      'dosis': serializer.toJson<double>(dosis),
+      'unidades': serializer.toJson<String>(unidades),
+      'responsable': serializer.toJson<String>(responsable),
+      'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
+    };
+  }
+
+  FertilizacionDiariaData copyWith(
+          {int? id,
+          int? idFertilizacion,
+          DateTime? fecha,
+          int? cantidadFertilizada,
+          double? dosis,
+          String? unidades,
+          String? responsable,
+          int? idProductoAgroquimico,
+          bool? sincronizado}) =>
+      FertilizacionDiariaData(
+        id: id ?? this.id,
+        idFertilizacion: idFertilizacion ?? this.idFertilizacion,
+        fecha: fecha ?? this.fecha,
+        cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
+        dosis: dosis ?? this.dosis,
+        unidades: unidades ?? this.unidades,
+        responsable: responsable ?? this.responsable,
+        idProductoAgroquimico:
+            idProductoAgroquimico ?? this.idProductoAgroquimico,
+        sincronizado: sincronizado ?? this.sincronizado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('FertilizacionDiariaData(')
+          ..write('id: $id, ')
+          ..write('idFertilizacion: $idFertilizacion, ')
+          ..write('fecha: $fecha, ')
+          ..write('cantidadFertilizada: $cantidadFertilizada, ')
+          ..write('dosis: $dosis, ')
+          ..write('unidades: $unidades, ')
+          ..write('responsable: $responsable, ')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      idFertilizacion,
+      fecha,
+      cantidadFertilizada,
+      dosis,
+      unidades,
+      responsable,
+      idProductoAgroquimico,
+      sincronizado);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FertilizacionDiariaData &&
+          other.id == this.id &&
+          other.idFertilizacion == this.idFertilizacion &&
+          other.fecha == this.fecha &&
+          other.cantidadFertilizada == this.cantidadFertilizada &&
+          other.dosis == this.dosis &&
+          other.unidades == this.unidades &&
+          other.responsable == this.responsable &&
+          other.idProductoAgroquimico == this.idProductoAgroquimico &&
+          other.sincronizado == this.sincronizado);
+}
+
+class FertilizacionDiariaCompanion
+    extends UpdateCompanion<FertilizacionDiariaData> {
+  final Value<int> id;
+  final Value<int> idFertilizacion;
+  final Value<DateTime> fecha;
+  final Value<int> cantidadFertilizada;
+  final Value<double> dosis;
+  final Value<String> unidades;
+  final Value<String> responsable;
+  final Value<int> idProductoAgroquimico;
+  final Value<bool> sincronizado;
+  const FertilizacionDiariaCompanion({
+    this.id = const Value.absent(),
+    this.idFertilizacion = const Value.absent(),
+    this.fecha = const Value.absent(),
+    this.cantidadFertilizada = const Value.absent(),
+    this.dosis = const Value.absent(),
+    this.unidades = const Value.absent(),
+    this.responsable = const Value.absent(),
+    this.idProductoAgroquimico = const Value.absent(),
+    this.sincronizado = const Value.absent(),
+  });
+  FertilizacionDiariaCompanion.insert({
+    this.id = const Value.absent(),
+    required int idFertilizacion,
+    required DateTime fecha,
+    required int cantidadFertilizada,
+    required double dosis,
+    required String unidades,
+    required String responsable,
+    required int idProductoAgroquimico,
+    this.sincronizado = const Value.absent(),
+  })  : idFertilizacion = Value(idFertilizacion),
+        fecha = Value(fecha),
+        cantidadFertilizada = Value(cantidadFertilizada),
+        dosis = Value(dosis),
+        unidades = Value(unidades),
+        responsable = Value(responsable),
+        idProductoAgroquimico = Value(idProductoAgroquimico);
+  static Insertable<FertilizacionDiariaData> custom({
+    Expression<int>? id,
+    Expression<int>? idFertilizacion,
+    Expression<DateTime>? fecha,
+    Expression<int>? cantidadFertilizada,
+    Expression<double>? dosis,
+    Expression<String>? unidades,
+    Expression<String>? responsable,
+    Expression<int>? idProductoAgroquimico,
+    Expression<bool>? sincronizado,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idFertilizacion != null) 'id_fertilizacion': idFertilizacion,
+      if (fecha != null) 'fecha': fecha,
+      if (cantidadFertilizada != null)
+        'cantidad_fertilizada': cantidadFertilizada,
+      if (dosis != null) 'dosis': dosis,
+      if (unidades != null) 'unidades': unidades,
+      if (responsable != null) 'responsable': responsable,
+      if (idProductoAgroquimico != null)
+        'id_producto_agroquimico': idProductoAgroquimico,
+      if (sincronizado != null) 'sincronizado': sincronizado,
+    });
+  }
+
+  FertilizacionDiariaCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? idFertilizacion,
+      Value<DateTime>? fecha,
+      Value<int>? cantidadFertilizada,
+      Value<double>? dosis,
+      Value<String>? unidades,
+      Value<String>? responsable,
+      Value<int>? idProductoAgroquimico,
+      Value<bool>? sincronizado}) {
+    return FertilizacionDiariaCompanion(
+      id: id ?? this.id,
+      idFertilizacion: idFertilizacion ?? this.idFertilizacion,
+      fecha: fecha ?? this.fecha,
+      cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
+      dosis: dosis ?? this.dosis,
+      unidades: unidades ?? this.unidades,
+      responsable: responsable ?? this.responsable,
+      idProductoAgroquimico:
+          idProductoAgroquimico ?? this.idProductoAgroquimico,
+      sincronizado: sincronizado ?? this.sincronizado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idFertilizacion.present) {
+      map['id_fertilizacion'] = Variable<int>(idFertilizacion.value);
+    }
+    if (fecha.present) {
+      map['fecha'] = Variable<DateTime>(fecha.value);
+    }
+    if (cantidadFertilizada.present) {
+      map['cantidad_fertilizada'] = Variable<int>(cantidadFertilizada.value);
+    }
+    if (dosis.present) {
+      map['dosis'] = Variable<double>(dosis.value);
+    }
+    if (unidades.present) {
+      map['unidades'] = Variable<String>(unidades.value);
+    }
+    if (responsable.present) {
+      map['responsable'] = Variable<String>(responsable.value);
+    }
+    if (idProductoAgroquimico.present) {
+      map['id_producto_agroquimico'] =
+          Variable<int>(idProductoAgroquimico.value);
+    }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FertilizacionDiariaCompanion(')
+          ..write('id: $id, ')
+          ..write('idFertilizacion: $idFertilizacion, ')
+          ..write('fecha: $fecha, ')
+          ..write('cantidadFertilizada: $cantidadFertilizada, ')
+          ..write('dosis: $dosis, ')
+          ..write('unidades: $unidades, ')
+          ..write('responsable: $responsable, ')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
@@ -8584,6 +9492,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ImagenCensoPlagaTable imagenCensoPlaga =
       $ImagenCensoPlagaTable(this);
   late final $PrecipitacionTable precipitacion = $PrecipitacionTable(this);
+  late final $FertilizacionesTable fertilizaciones =
+      $FertilizacionesTable(this);
+  late final $FertilizacionDiariaTable fertilizacionDiaria =
+      $FertilizacionDiariaTable(this);
   late final CosechaDao cosechaDao = CosechaDao(this as AppDatabase);
   late final CosechaDiariaDao cosechaDiariaDao =
       CosechaDiariaDao(this as AppDatabase);
@@ -8602,6 +9514,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final RegistroEnfermedadDao registroEnfermedadDao =
       RegistroEnfermedadDao(this as AppDatabase);
   late final ViajesDao viajesDao = ViajesDao(this as AppDatabase);
+  late final FertilizacionDao fertilizacionDao =
+      FertilizacionDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -8629,6 +9543,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         viajes,
         censoEtapasPlaga,
         imagenCensoPlaga,
-        precipitacion
+        precipitacion,
+        fertilizaciones,
+        fertilizacionDiaria
       ];
 }

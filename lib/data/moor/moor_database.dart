@@ -1,7 +1,6 @@
 // These imports are only needed to open the database
 import 'dart:io';
 
-import 'package:apppalma/data/moor/tables/precipitacion.dart';
 import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
@@ -47,6 +46,8 @@ LazyDatabase _openConnection() {
   CensoEtapasPlaga,
   ImagenCensoPlaga,
   Precipitacion,
+  Fertilizaciones,
+  FertilizacionDiaria
 ], daos: [
   CosechaDao,
   CosechaDiariaDao,
@@ -60,7 +61,8 @@ LazyDatabase _openConnection() {
   PlateoDao,
   ProductoAgroquimicoDao,
   RegistroEnfermedadDao,
-  ViajesDao
+  ViajesDao,
+  FertilizacionDao
 ])
 class AppDatabase extends _$AppDatabase {
   // we tell the database where to store the data with this constructor

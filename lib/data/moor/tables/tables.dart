@@ -13,3 +13,5 @@ export 'registroenfermedad_table.dart';
 export 'registrotratamiento_table.dart';
 export 'usuario_table.dart';
 export 'viajes_table.dart';
+export 'precipitacion.dart';
+export 'fertilizaciones_table.dart';

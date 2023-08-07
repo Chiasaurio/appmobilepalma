@@ -10,3 +10,4 @@ export 'podas_dao.dart';
 export 'producto_dao.dart';
 export 'registroenfermedad_dao.dart';
 export 'viajes_dao.dart';
+export 'fertilizaciones_dao.dart';
