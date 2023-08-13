@@ -31,17 +31,6 @@ class ProductoAgroquimicoDao extends DatabaseAccessor<AppDatabase>
     try {
       await batch((b) {
         b.insertAllOnConflictUpdate(productoAgroquimico, listaproductos);
-        // for (final producto in listaproductos) {
-        //   b.insert(
-        //     productoAgroquimico,
-        //     producto,
-        //     onConflict: DoUpdate(
-        //       (_) => producto,
-        //       // upsert will happen if it conflicts with columnA and columnB
-        //       target: [productoAgroquimico.idProductoAgroquimico],
-        //     ),
-        //   );
-        // }
       });
     } catch (_) {}
   }
