@@ -48,6 +48,13 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
     return fertilizacionesDarias;
   }
 
+  cargarFertilizantes() async {
+    final FertilizanteDao fertilizanteDao = db.fertilizanteDao;
+    final List<FertilizanteData> fertilizantes =
+        await fertilizanteDao.getFertilizantes();
+    emit(state.copyWith(fertilizantes: fertilizantes));
+  }
+
   insertarFertilizacionDiaria(DateTime fecha, int cantidad, String tipo,
       int idProductoAgroquimico, Fertilizacione fertilizacion) async {
     final nuevosFertilizacion = fertilizacion.cantidadFertilizada + cantidad;
@@ -59,12 +66,12 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
         responsable: Value(globals.responsable));
     await fertilizacionDao
         .insertFertilizacionDiaria(fertilizacionDiariaCompanion);
-    // fertilizacionDao.updateFertilizacion(
-    //     fertilizacion.copyWith(cantidadFertilizada: nuevosFertilizacion));
-    // obtenerFertilizacionActiva(fertilizacion.nombreLote);
+    fertilizacionDao.updateFertilizacion(
+        fertilizacion.copyWith(cantidadFertilizada: nuevosFertilizacion));
+    obtenerFertilizacionActiva(fertilizacion.nombreLote);
   }
 
-  finalizarPlateo(Fertilizacione fertilizacion, DateTime fechasalida) {
+  finalizarFertilizacion(Fertilizacione fertilizacion, DateTime fechasalida) {
     final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
     fertilizacionDao.updateFertilizacion(fertilizacion.copyWith(
         fechaSalida: Value(fechasalida),

@@ -2,9 +2,14 @@ import 'package:apppalma/presentation/components/main_button.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
 import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Fertilizaciones/cubit/fertilizaciones_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:apppalma/utils/utils.dart' as utils;
+
+import '../widgets/lista_fertilizante.dart';
 
 class FertilizacionDiariaPage extends StatefulWidget {
   final Fertilizacione fertilizacion;
@@ -33,19 +38,21 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
   late double altoCard;
   late double anchoCard;
   late double margin;
-
+  String? unidades;
+  double? dosis;
+  late List<FertilizanteData> fertilizantes;
+  FertilizanteData? fertilizante;
   @override
   void initState() {
     fecha = DateTime(DateTime.now().year, DateTime.now().month,
         DateTime.now().day, horaSalida.hour, horaSalida.minute);
     fertilizacion = widget.fertilizacion;
+    BlocProvider.of<FertilizacionCubit>(context).cargarFertilizantes();
     super.initState();
   }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
     _cantidadController.dispose();
     super.dispose();
   }
@@ -106,6 +113,8 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
                 buildFecha(),
                 const SizedBox(height: 10),
                 buildFertilizadas(),
+                const SizedBox(height: 10),
+                buildProducto(),
               ],
             )));
   }
@@ -145,6 +154,92 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
       validator: (String? value) =>
           value != '' ? null : 'Debe ingresar un valor',
     );
+  }
+
+  Widget buildProducto() {
+    callbackfertilizante(FertilizanteData f) {
+      setState(() {
+        fertilizante = f;
+      });
+    }
+
+    return BlocBuilder<FertilizacionCubit, FertilizacionStateLoaded>(
+      builder: (context, state) {
+        if (state.fertilizantes != null) {
+          if (state.fertilizantes!.isNotEmpty) {
+            return ListaFertilizantes(
+              callbackfertilizante: callbackfertilizante,
+              fertilizantes: state.fertilizantes!,
+            );
+          } else {
+            return const Text('No hay fertilizantes registrados');
+          }
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget buildDosis() {
+    return Column(
+      children: [
+        _buildDosis(),
+        FormBuilderChoiceChip<String>(
+          validator: (value) {
+            return value != null ? null : "El campo es necesario.";
+          },
+          selectedColor: kblueColor,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: const InputDecoration(
+              labelText: 'Por favor seleccione las unidades:'),
+          name: 'languages_choice',
+          initialValue: null,
+          options: const [
+            FormBuilderChipOption(
+              value: 'cm3',
+            ),
+            FormBuilderChipOption(
+              value: 'gr',
+            ),
+            FormBuilderChipOption(
+              value: 'ml',
+            ),
+          ],
+          onChanged: (v) {
+            unidades = v;
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDosis() {
+    return TextFormField(
+        textAlign: TextAlign.start,
+        keyboardType: TextInputType.number,
+        decoration: const InputDecoration(
+          label: Text(
+            "Dosis",
+            style: TextStyle(fontSize: 15),
+          ),
+          contentPadding: EdgeInsets.only(left: 10),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+          ),
+        ),
+        onChanged: (String value) {
+          dosis = double.parse(value);
+        },
+        validator: (value) {
+          if (utils.isNumeric(value!)) {
+            return null;
+          } else {
+            return 'Este campo es necesario';
+          }
+        });
   }
 
   Widget _buildRegistrarPlateo(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:apppalma/presentation/components/secondary_button.dart';
+import 'package:apppalma/presentation/modules/Fertilizaciones/cubit/fertilizaciones_cubit.dart';
 import 'package:apppalma/presentation/modules/Fertilizaciones/ui/registrar_fertilizacion_diaria/registrar_fertilizaciones_page.dart';
 import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/presentation/modules/Plateos/ui/registrar_plateo_diario/registrar_plateo_page.dart';
@@ -206,9 +207,9 @@ class _FertilizacionActivaVistaState extends State<FertilizacionActivaVista> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                ListTile(
-                  contentPadding: const EdgeInsets.all(10.0),
-                  title: const Text('Ver registros de fertilización',
+                const ListTile(
+                  contentPadding: EdgeInsets.all(10.0),
+                  title: Text('Ver registros de fertilización',
                       textAlign: TextAlign.center),
                   // onTap: () => Navigator.pushNamed(
                   //     context, '/lote/plateos/registroplateos',
@@ -222,12 +223,13 @@ class _FertilizacionActivaVistaState extends State<FertilizacionActivaVista> {
                         style: TextStyle(color: Colors.red)),
                     onTap: () {
                       ConfirmacionAlerta(
-                              '¿Realmente desea finalizar el plateo?')
+                              '¿Realmente desea finalizar la fertilizacion?')
                           .confirmacionAlerta(context, () {
                         final state =
-                            BlocProvider.of<PlateosCubit>(context).state;
-                        BlocProvider.of<PlateosCubit>(context)
-                            .finalizarPlateo(state.plateo!, fechasalida);
+                            BlocProvider.of<FertilizacionCubit>(context).state;
+                        BlocProvider.of<FertilizacionCubit>(context)
+                            .finalizarFertilizacion(
+                                state.fertilizacion!, fechasalida);
                         recargarLote(context);
                         Navigator.pop(context);
                         Navigator.pop(context);
