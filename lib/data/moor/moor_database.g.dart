@@ -9461,6 +9461,416 @@ class FertilizacionDiariaCompanion
   }
 }
 
+class $FertilizanteTable extends Fertilizante
+    with TableInfo<$FertilizanteTable, FertilizanteData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FertilizanteTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idFertilizanteMeta =
+      const VerificationMeta('idFertilizante');
+  @override
+  late final GeneratedColumn<int> idFertilizante = GeneratedColumn<int>(
+      'id_fertilizante', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nombreFertilizanteMeta =
+      const VerificationMeta('nombreFertilizante');
+  @override
+  late final GeneratedColumn<String> nombreFertilizante =
+      GeneratedColumn<String>('nombre_fertilizante', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _tipoMeta = const VerificationMeta('tipo');
+  @override
+  late final GeneratedColumn<String> tipo = GeneratedColumn<String>(
+      'tipo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _composicionMeta =
+      const VerificationMeta('composicion');
+  @override
+  late final GeneratedColumn<String> composicion = GeneratedColumn<String>(
+      'composicion', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _porcentajeMeta =
+      const VerificationMeta('porcentaje');
+  @override
+  late final GeneratedColumn<double> porcentaje = GeneratedColumn<double>(
+      'porcentaje', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _presentacionPnombreFertilizanteMeta =
+      const VerificationMeta('presentacionPnombreFertilizante');
+  @override
+  late final GeneratedColumn<String> presentacionPnombreFertilizante =
+      GeneratedColumn<String>(
+          'presentacion_pnombre_fertilizante', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        idFertilizante,
+        nombreFertilizante,
+        tipo,
+        composicion,
+        porcentaje,
+        presentacionPnombreFertilizante,
+        fechaUltimaActualizacion
+      ];
+  @override
+  String get aliasedName => _alias ?? 'fertilizante';
+  @override
+  String get actualTableName => 'fertilizante';
+  @override
+  VerificationContext validateIntegrity(Insertable<FertilizanteData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id_fertilizante')) {
+      context.handle(
+          _idFertilizanteMeta,
+          idFertilizante.isAcceptableOrUnknown(
+              data['id_fertilizante']!, _idFertilizanteMeta));
+    }
+    if (data.containsKey('nombre_fertilizante')) {
+      context.handle(
+          _nombreFertilizanteMeta,
+          nombreFertilizante.isAcceptableOrUnknown(
+              data['nombre_fertilizante']!, _nombreFertilizanteMeta));
+    } else if (isInserting) {
+      context.missing(_nombreFertilizanteMeta);
+    }
+    if (data.containsKey('tipo')) {
+      context.handle(
+          _tipoMeta, tipo.isAcceptableOrUnknown(data['tipo']!, _tipoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoMeta);
+    }
+    if (data.containsKey('composicion')) {
+      context.handle(
+          _composicionMeta,
+          composicion.isAcceptableOrUnknown(
+              data['composicion']!, _composicionMeta));
+    } else if (isInserting) {
+      context.missing(_composicionMeta);
+    }
+    if (data.containsKey('porcentaje')) {
+      context.handle(
+          _porcentajeMeta,
+          porcentaje.isAcceptableOrUnknown(
+              data['porcentaje']!, _porcentajeMeta));
+    } else if (isInserting) {
+      context.missing(_porcentajeMeta);
+    }
+    if (data.containsKey('presentacion_pnombre_fertilizante')) {
+      context.handle(
+          _presentacionPnombreFertilizanteMeta,
+          presentacionPnombreFertilizante.isAcceptableOrUnknown(
+              data['presentacion_pnombre_fertilizante']!,
+              _presentacionPnombreFertilizanteMeta));
+    } else if (isInserting) {
+      context.missing(_presentacionPnombreFertilizanteMeta);
+    }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {idFertilizante};
+  @override
+  FertilizanteData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FertilizanteData(
+      idFertilizante: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizante'])!,
+      nombreFertilizante: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_fertilizante'])!,
+      tipo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tipo'])!,
+      composicion: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}composicion'])!,
+      porcentaje: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}porcentaje'])!,
+      presentacionPnombreFertilizante: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}presentacion_pnombre_fertilizante'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
+    );
+  }
+
+  @override
+  $FertilizanteTable createAlias(String alias) {
+    return $FertilizanteTable(attachedDatabase, alias);
+  }
+}
+
+class FertilizanteData extends DataClass
+    implements Insertable<FertilizanteData> {
+  final int idFertilizante;
+  final String nombreFertilizante;
+  final String tipo;
+  final String composicion;
+  final double porcentaje;
+  final String presentacionPnombreFertilizante;
+  final DateTime? fechaUltimaActualizacion;
+  const FertilizanteData(
+      {required this.idFertilizante,
+      required this.nombreFertilizante,
+      required this.tipo,
+      required this.composicion,
+      required this.porcentaje,
+      required this.presentacionPnombreFertilizante,
+      this.fechaUltimaActualizacion});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id_fertilizante'] = Variable<int>(idFertilizante);
+    map['nombre_fertilizante'] = Variable<String>(nombreFertilizante);
+    map['tipo'] = Variable<String>(tipo);
+    map['composicion'] = Variable<String>(composicion);
+    map['porcentaje'] = Variable<double>(porcentaje);
+    map['presentacion_pnombre_fertilizante'] =
+        Variable<String>(presentacionPnombreFertilizante);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
+    return map;
+  }
+
+  FertilizanteCompanion toCompanion(bool nullToAbsent) {
+    return FertilizanteCompanion(
+      idFertilizante: Value(idFertilizante),
+      nombreFertilizante: Value(nombreFertilizante),
+      tipo: Value(tipo),
+      composicion: Value(composicion),
+      porcentaje: Value(porcentaje),
+      presentacionPnombreFertilizante: Value(presentacionPnombreFertilizante),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
+    );
+  }
+
+  factory FertilizanteData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FertilizanteData(
+      idFertilizante: serializer.fromJson<int>(json['idFertilizante']),
+      nombreFertilizante:
+          serializer.fromJson<String>(json['nombreFertilizante']),
+      tipo: serializer.fromJson<String>(json['tipo']),
+      composicion: serializer.fromJson<String>(json['composicion']),
+      porcentaje: serializer.fromJson<double>(json['porcentaje']),
+      presentacionPnombreFertilizante:
+          serializer.fromJson<String>(json['presentacionPnombreFertilizante']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'idFertilizante': serializer.toJson<int>(idFertilizante),
+      'nombreFertilizante': serializer.toJson<String>(nombreFertilizante),
+      'tipo': serializer.toJson<String>(tipo),
+      'composicion': serializer.toJson<String>(composicion),
+      'porcentaje': serializer.toJson<double>(porcentaje),
+      'presentacionPnombreFertilizante':
+          serializer.toJson<String>(presentacionPnombreFertilizante),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
+    };
+  }
+
+  FertilizanteData copyWith(
+          {int? idFertilizante,
+          String? nombreFertilizante,
+          String? tipo,
+          String? composicion,
+          double? porcentaje,
+          String? presentacionPnombreFertilizante,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
+      FertilizanteData(
+        idFertilizante: idFertilizante ?? this.idFertilizante,
+        nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
+        tipo: tipo ?? this.tipo,
+        composicion: composicion ?? this.composicion,
+        porcentaje: porcentaje ?? this.porcentaje,
+        presentacionPnombreFertilizante: presentacionPnombreFertilizante ??
+            this.presentacionPnombreFertilizante,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('FertilizanteData(')
+          ..write('idFertilizante: $idFertilizante, ')
+          ..write('nombreFertilizante: $nombreFertilizante, ')
+          ..write('tipo: $tipo, ')
+          ..write('composicion: $composicion, ')
+          ..write('porcentaje: $porcentaje, ')
+          ..write(
+              'presentacionPnombreFertilizante: $presentacionPnombreFertilizante, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      idFertilizante,
+      nombreFertilizante,
+      tipo,
+      composicion,
+      porcentaje,
+      presentacionPnombreFertilizante,
+      fechaUltimaActualizacion);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FertilizanteData &&
+          other.idFertilizante == this.idFertilizante &&
+          other.nombreFertilizante == this.nombreFertilizante &&
+          other.tipo == this.tipo &&
+          other.composicion == this.composicion &&
+          other.porcentaje == this.porcentaje &&
+          other.presentacionPnombreFertilizante ==
+              this.presentacionPnombreFertilizante &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
+}
+
+class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
+  final Value<int> idFertilizante;
+  final Value<String> nombreFertilizante;
+  final Value<String> tipo;
+  final Value<String> composicion;
+  final Value<double> porcentaje;
+  final Value<String> presentacionPnombreFertilizante;
+  final Value<DateTime?> fechaUltimaActualizacion;
+  const FertilizanteCompanion({
+    this.idFertilizante = const Value.absent(),
+    this.nombreFertilizante = const Value.absent(),
+    this.tipo = const Value.absent(),
+    this.composicion = const Value.absent(),
+    this.porcentaje = const Value.absent(),
+    this.presentacionPnombreFertilizante = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
+  });
+  FertilizanteCompanion.insert({
+    this.idFertilizante = const Value.absent(),
+    required String nombreFertilizante,
+    required String tipo,
+    required String composicion,
+    required double porcentaje,
+    required String presentacionPnombreFertilizante,
+    this.fechaUltimaActualizacion = const Value.absent(),
+  })  : nombreFertilizante = Value(nombreFertilizante),
+        tipo = Value(tipo),
+        composicion = Value(composicion),
+        porcentaje = Value(porcentaje),
+        presentacionPnombreFertilizante =
+            Value(presentacionPnombreFertilizante);
+  static Insertable<FertilizanteData> custom({
+    Expression<int>? idFertilizante,
+    Expression<String>? nombreFertilizante,
+    Expression<String>? tipo,
+    Expression<String>? composicion,
+    Expression<double>? porcentaje,
+    Expression<String>? presentacionPnombreFertilizante,
+    Expression<DateTime>? fechaUltimaActualizacion,
+  }) {
+    return RawValuesInsertable({
+      if (idFertilizante != null) 'id_fertilizante': idFertilizante,
+      if (nombreFertilizante != null) 'nombre_fertilizante': nombreFertilizante,
+      if (tipo != null) 'tipo': tipo,
+      if (composicion != null) 'composicion': composicion,
+      if (porcentaje != null) 'porcentaje': porcentaje,
+      if (presentacionPnombreFertilizante != null)
+        'presentacion_pnombre_fertilizante': presentacionPnombreFertilizante,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
+    });
+  }
+
+  FertilizanteCompanion copyWith(
+      {Value<int>? idFertilizante,
+      Value<String>? nombreFertilizante,
+      Value<String>? tipo,
+      Value<String>? composicion,
+      Value<double>? porcentaje,
+      Value<String>? presentacionPnombreFertilizante,
+      Value<DateTime?>? fechaUltimaActualizacion}) {
+    return FertilizanteCompanion(
+      idFertilizante: idFertilizante ?? this.idFertilizante,
+      nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
+      tipo: tipo ?? this.tipo,
+      composicion: composicion ?? this.composicion,
+      porcentaje: porcentaje ?? this.porcentaje,
+      presentacionPnombreFertilizante: presentacionPnombreFertilizante ??
+          this.presentacionPnombreFertilizante,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (idFertilizante.present) {
+      map['id_fertilizante'] = Variable<int>(idFertilizante.value);
+    }
+    if (nombreFertilizante.present) {
+      map['nombre_fertilizante'] = Variable<String>(nombreFertilizante.value);
+    }
+    if (tipo.present) {
+      map['tipo'] = Variable<String>(tipo.value);
+    }
+    if (composicion.present) {
+      map['composicion'] = Variable<String>(composicion.value);
+    }
+    if (porcentaje.present) {
+      map['porcentaje'] = Variable<double>(porcentaje.value);
+    }
+    if (presentacionPnombreFertilizante.present) {
+      map['presentacion_pnombre_fertilizante'] =
+          Variable<String>(presentacionPnombreFertilizante.value);
+    }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FertilizanteCompanion(')
+          ..write('idFertilizante: $idFertilizante, ')
+          ..write('nombreFertilizante: $nombreFertilizante, ')
+          ..write('tipo: $tipo, ')
+          ..write('composicion: $composicion, ')
+          ..write('porcentaje: $porcentaje, ')
+          ..write(
+              'presentacionPnombreFertilizante: $presentacionPnombreFertilizante, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
@@ -9496,6 +9906,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $FertilizacionesTable(this);
   late final $FertilizacionDiariaTable fertilizacionDiaria =
       $FertilizacionDiariaTable(this);
+  late final $FertilizanteTable fertilizante = $FertilizanteTable(this);
   late final CosechaDao cosechaDao = CosechaDao(this as AppDatabase);
   late final CosechaDiariaDao cosechaDiariaDao =
       CosechaDiariaDao(this as AppDatabase);
@@ -9516,6 +9927,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final ViajesDao viajesDao = ViajesDao(this as AppDatabase);
   late final FertilizacionDao fertilizacionDao =
       FertilizacionDao(this as AppDatabase);
+  late final FertilizanteDao fertilizanteDao =
+      FertilizanteDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -9545,6 +9958,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         imagenCensoPlaga,
         precipitacion,
         fertilizaciones,
-        fertilizacionDiaria
+        fertilizacionDiaria,
+        fertilizante
       ];
 }
