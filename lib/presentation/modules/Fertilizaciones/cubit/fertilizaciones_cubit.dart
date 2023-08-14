@@ -55,14 +55,22 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
     emit(state.copyWith(fertilizantes: fertilizantes));
   }
 
-  insertarFertilizacionDiaria(DateTime fecha, int cantidad, String tipo,
-      int idProductoAgroquimico, Fertilizacione fertilizacion) async {
+  insertarFertilizacionDiaria(
+      DateTime fecha,
+      int cantidad,
+      String nombreFertilizante,
+      double dosis,
+      String unidades,
+      Fertilizacione fertilizacion) async {
     final nuevosFertilizacion = fertilizacion.cantidadFertilizada + cantidad;
     final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
     final fertilizacionDiariaCompanion = FertilizacionDiariaCompanion(
+        idFertilizacion: Value(fertilizacion.id),
         cantidadFertilizada: Value(cantidad),
         fecha: Value(fecha),
-        idProductoAgroquimico: Value(idProductoAgroquimico),
+        nombreFertilizante: Value(nombreFertilizante),
+        dosis: Value(dosis),
+        unidades: Value(unidades),
         responsable: Value(globals.responsable));
     await fertilizacionDao
         .insertFertilizacionDiaria(fertilizacionDiariaCompanion);

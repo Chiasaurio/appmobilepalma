@@ -115,6 +115,8 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
                 buildFertilizadas(),
                 const SizedBox(height: 10),
                 buildProducto(),
+                const SizedBox(height: 10),
+                buildDosis(),
               ],
             )));
   }
@@ -261,7 +263,12 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
       // cantidad += plateo.cantidadPlateada;
       final cantidad = int.parse(_cantidadController.text);
       BlocProvider.of<FertilizacionCubit>(context).insertarFertilizacionDiaria(
-          fecha, cantidad, tipo!, 0, fertilizacion);
+          fecha,
+          cantidad,
+          fertilizante!.nombreFertilizante,
+          dosis!,
+          unidades!,
+          fertilizacion);
 
       // plateoBloc.insertarPlateoDiario(fecha, cantidad, tipo, plateo.id);
       // plateoBloc.actualizarPlateoLote(plateo, cantidad);
