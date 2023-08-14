@@ -22,12 +22,12 @@ class FertilizacionDiaria extends Table {
   RealColumn get dosis => real()();
   TextColumn get unidades => text()();
   TextColumn get responsable => text()();
-  IntColumn get idProductoAgroquimico => integer()();
+  TextColumn get nombreFertilizante => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   @override
   List<String> get customConstraints => [
         'FOREIGN KEY(id_fertilizacion) REFERENCES fertilizacion(id_fertilizacion)',
-        'FOREIGN KEY(id_producto_agroquimico) REFERENCES producto_agroquimico(id_producto_agroquimico)',
+        'FOREIGN KEY(nombre_fertilizante) REFERENCES fertilizante(nombre_fertilizante)',
         'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
       ];
 }

@@ -9037,12 +9037,12 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
   late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
       'responsable', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _idProductoAgroquimicoMeta =
-      const VerificationMeta('idProductoAgroquimico');
+  static const VerificationMeta _nombreFertilizanteMeta =
+      const VerificationMeta('nombreFertilizante');
   @override
-  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
-      'id_producto_agroquimico', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+  late final GeneratedColumn<String> nombreFertilizante =
+      GeneratedColumn<String>('nombre_fertilizante', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
@@ -9065,7 +9065,7 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
         dosis,
         unidades,
         responsable,
-        idProductoAgroquimico,
+        nombreFertilizante,
         sincronizado
       ];
   @override
@@ -9123,13 +9123,13 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
     } else if (isInserting) {
       context.missing(_responsableMeta);
     }
-    if (data.containsKey('id_producto_agroquimico')) {
+    if (data.containsKey('nombre_fertilizante')) {
       context.handle(
-          _idProductoAgroquimicoMeta,
-          idProductoAgroquimico.isAcceptableOrUnknown(
-              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+          _nombreFertilizanteMeta,
+          nombreFertilizante.isAcceptableOrUnknown(
+              data['nombre_fertilizante']!, _nombreFertilizanteMeta));
     } else if (isInserting) {
-      context.missing(_idProductoAgroquimicoMeta);
+      context.missing(_nombreFertilizanteMeta);
     }
     if (data.containsKey('sincronizado')) {
       context.handle(
@@ -9161,8 +9161,8 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
           .read(DriftSqlType.string, data['${effectivePrefix}unidades'])!,
       responsable: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
-      idProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      nombreFertilizante: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_fertilizante'])!,
       sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
@@ -9183,7 +9183,7 @@ class FertilizacionDiariaData extends DataClass
   final double dosis;
   final String unidades;
   final String responsable;
-  final int idProductoAgroquimico;
+  final String nombreFertilizante;
   final bool sincronizado;
   const FertilizacionDiariaData(
       {required this.id,
@@ -9193,7 +9193,7 @@ class FertilizacionDiariaData extends DataClass
       required this.dosis,
       required this.unidades,
       required this.responsable,
-      required this.idProductoAgroquimico,
+      required this.nombreFertilizante,
       required this.sincronizado});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -9205,7 +9205,7 @@ class FertilizacionDiariaData extends DataClass
     map['dosis'] = Variable<double>(dosis);
     map['unidades'] = Variable<String>(unidades);
     map['responsable'] = Variable<String>(responsable);
-    map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
+    map['nombre_fertilizante'] = Variable<String>(nombreFertilizante);
     map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
   }
@@ -9219,7 +9219,7 @@ class FertilizacionDiariaData extends DataClass
       dosis: Value(dosis),
       unidades: Value(unidades),
       responsable: Value(responsable),
-      idProductoAgroquimico: Value(idProductoAgroquimico),
+      nombreFertilizante: Value(nombreFertilizante),
       sincronizado: Value(sincronizado),
     );
   }
@@ -9236,8 +9236,8 @@ class FertilizacionDiariaData extends DataClass
       dosis: serializer.fromJson<double>(json['dosis']),
       unidades: serializer.fromJson<String>(json['unidades']),
       responsable: serializer.fromJson<String>(json['responsable']),
-      idProductoAgroquimico:
-          serializer.fromJson<int>(json['idProductoAgroquimico']),
+      nombreFertilizante:
+          serializer.fromJson<String>(json['nombreFertilizante']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
   }
@@ -9252,7 +9252,7 @@ class FertilizacionDiariaData extends DataClass
       'dosis': serializer.toJson<double>(dosis),
       'unidades': serializer.toJson<String>(unidades),
       'responsable': serializer.toJson<String>(responsable),
-      'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
+      'nombreFertilizante': serializer.toJson<String>(nombreFertilizante),
       'sincronizado': serializer.toJson<bool>(sincronizado),
     };
   }
@@ -9265,7 +9265,7 @@ class FertilizacionDiariaData extends DataClass
           double? dosis,
           String? unidades,
           String? responsable,
-          int? idProductoAgroquimico,
+          String? nombreFertilizante,
           bool? sincronizado}) =>
       FertilizacionDiariaData(
         id: id ?? this.id,
@@ -9275,8 +9275,7 @@ class FertilizacionDiariaData extends DataClass
         dosis: dosis ?? this.dosis,
         unidades: unidades ?? this.unidades,
         responsable: responsable ?? this.responsable,
-        idProductoAgroquimico:
-            idProductoAgroquimico ?? this.idProductoAgroquimico,
+        nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
         sincronizado: sincronizado ?? this.sincronizado,
       );
   @override
@@ -9289,7 +9288,7 @@ class FertilizacionDiariaData extends DataClass
           ..write('dosis: $dosis, ')
           ..write('unidades: $unidades, ')
           ..write('responsable: $responsable, ')
-          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('nombreFertilizante: $nombreFertilizante, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
@@ -9304,7 +9303,7 @@ class FertilizacionDiariaData extends DataClass
       dosis,
       unidades,
       responsable,
-      idProductoAgroquimico,
+      nombreFertilizante,
       sincronizado);
   @override
   bool operator ==(Object other) =>
@@ -9317,7 +9316,7 @@ class FertilizacionDiariaData extends DataClass
           other.dosis == this.dosis &&
           other.unidades == this.unidades &&
           other.responsable == this.responsable &&
-          other.idProductoAgroquimico == this.idProductoAgroquimico &&
+          other.nombreFertilizante == this.nombreFertilizante &&
           other.sincronizado == this.sincronizado);
 }
 
@@ -9330,7 +9329,7 @@ class FertilizacionDiariaCompanion
   final Value<double> dosis;
   final Value<String> unidades;
   final Value<String> responsable;
-  final Value<int> idProductoAgroquimico;
+  final Value<String> nombreFertilizante;
   final Value<bool> sincronizado;
   const FertilizacionDiariaCompanion({
     this.id = const Value.absent(),
@@ -9340,7 +9339,7 @@ class FertilizacionDiariaCompanion
     this.dosis = const Value.absent(),
     this.unidades = const Value.absent(),
     this.responsable = const Value.absent(),
-    this.idProductoAgroquimico = const Value.absent(),
+    this.nombreFertilizante = const Value.absent(),
     this.sincronizado = const Value.absent(),
   });
   FertilizacionDiariaCompanion.insert({
@@ -9351,7 +9350,7 @@ class FertilizacionDiariaCompanion
     required double dosis,
     required String unidades,
     required String responsable,
-    required int idProductoAgroquimico,
+    required String nombreFertilizante,
     this.sincronizado = const Value.absent(),
   })  : idFertilizacion = Value(idFertilizacion),
         fecha = Value(fecha),
@@ -9359,7 +9358,7 @@ class FertilizacionDiariaCompanion
         dosis = Value(dosis),
         unidades = Value(unidades),
         responsable = Value(responsable),
-        idProductoAgroquimico = Value(idProductoAgroquimico);
+        nombreFertilizante = Value(nombreFertilizante);
   static Insertable<FertilizacionDiariaData> custom({
     Expression<int>? id,
     Expression<int>? idFertilizacion,
@@ -9368,7 +9367,7 @@ class FertilizacionDiariaCompanion
     Expression<double>? dosis,
     Expression<String>? unidades,
     Expression<String>? responsable,
-    Expression<int>? idProductoAgroquimico,
+    Expression<String>? nombreFertilizante,
     Expression<bool>? sincronizado,
   }) {
     return RawValuesInsertable({
@@ -9380,8 +9379,7 @@ class FertilizacionDiariaCompanion
       if (dosis != null) 'dosis': dosis,
       if (unidades != null) 'unidades': unidades,
       if (responsable != null) 'responsable': responsable,
-      if (idProductoAgroquimico != null)
-        'id_producto_agroquimico': idProductoAgroquimico,
+      if (nombreFertilizante != null) 'nombre_fertilizante': nombreFertilizante,
       if (sincronizado != null) 'sincronizado': sincronizado,
     });
   }
@@ -9394,7 +9392,7 @@ class FertilizacionDiariaCompanion
       Value<double>? dosis,
       Value<String>? unidades,
       Value<String>? responsable,
-      Value<int>? idProductoAgroquimico,
+      Value<String>? nombreFertilizante,
       Value<bool>? sincronizado}) {
     return FertilizacionDiariaCompanion(
       id: id ?? this.id,
@@ -9404,8 +9402,7 @@ class FertilizacionDiariaCompanion
       dosis: dosis ?? this.dosis,
       unidades: unidades ?? this.unidades,
       responsable: responsable ?? this.responsable,
-      idProductoAgroquimico:
-          idProductoAgroquimico ?? this.idProductoAgroquimico,
+      nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
       sincronizado: sincronizado ?? this.sincronizado,
     );
   }
@@ -9434,9 +9431,8 @@ class FertilizacionDiariaCompanion
     if (responsable.present) {
       map['responsable'] = Variable<String>(responsable.value);
     }
-    if (idProductoAgroquimico.present) {
-      map['id_producto_agroquimico'] =
-          Variable<int>(idProductoAgroquimico.value);
+    if (nombreFertilizante.present) {
+      map['nombre_fertilizante'] = Variable<String>(nombreFertilizante.value);
     }
     if (sincronizado.present) {
       map['sincronizado'] = Variable<bool>(sincronizado.value);
@@ -9454,7 +9450,7 @@ class FertilizacionDiariaCompanion
           ..write('dosis: $dosis, ')
           ..write('unidades: $unidades, ')
           ..write('responsable: $responsable, ')
-          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('nombreFertilizante: $nombreFertilizante, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
