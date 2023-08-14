@@ -1,3 +1,4 @@
+import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
 class Fertilizaciones extends Table {
@@ -32,12 +33,12 @@ class FertilizacionDiaria extends Table {
       ];
 }
 
-// class FertilizacionConFertilizacionesDiarias {
-//   final Plateo plateo;
-//   final List<PlateoDiarioData> plateosDiarias;
+class FertilizacionConFertilizacionesDiarias {
+  final Fertilizacione fertilizacion;
+  final List<FertilizacionDiariaData> fertilizacionesDiarias;
 
-//   FertilizacionConFertilizacionesDiarias({
-//     required this.plateo,
-//     required this.plateosDiarias,
-//   });
-// }
+  FertilizacionConFertilizacionesDiarias({
+    required this.fertilizacion,
+    required this.fertilizacionesDiarias,
+  });
+}

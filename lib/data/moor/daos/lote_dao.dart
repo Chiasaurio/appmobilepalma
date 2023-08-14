@@ -97,7 +97,8 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
             leftOuterJoin(
                 palmas,
                 palmas.nombreLote.equalsExp(lotes.nombreLote) &
-                    palmas.estadopalma.equals('Pendiente por tratar')),
+                    palmas.sincronizado.equals(false))
+            // palmas.estadopalma.equals('Pendiente por tratar')),
           ],
         )
         .watch()
@@ -110,17 +111,6 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
           return groupedData;
         });
     final palmasresult = await palmasrows.first;
-    // final lotecensos =
-    //     await (select(lotes)..where((c) => c.id.equals(id))).join([
-    //   leftOuterJoin(
-    //       censo,
-    //       censo.nombreLote.equalsExp(lotes.nombreLote) &
-    //           censo.estadoPlaga.equals('pendiente')),
-    // leftOuterJoin(
-    //     palmas,
-    //     palmas.nombreLote.equalsExp(lotes.nombreLote) &
-    //         palmas.estadopalma.equals('Pendiente por tratar')),
-    // ]);
 
     return LoteWithProcesos(
         lote: lote!.readTable(lotes),
@@ -154,15 +144,60 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
                   fertilizaciones.completado.equals(false)),
         ],
       ).get();
-
-      return rows.map((resultRow) {
-        return LoteWithProcesos(
+      List<LoteWithProcesos> resultado = [];
+      for (var resultRow in rows) {
+        final censosrows = (select(lotes)
+              ..where((c) => c.id.equals(resultRow.readTable(lotes).id)))
+            .join(
+              [
+                leftOuterJoin(
+                    censo,
+                    censo.nombreLote.equalsExp(lotes.nombreLote) &
+                        censo.estadoPlaga.equals('pendiente')),
+              ],
+            )
+            .watch()
+            .map((rows) {
+              final groupedData = <CensoData>[];
+              for (final row in rows) {
+                final censoresult = row.readTableOrNull(censo);
+                if (censoresult != null) groupedData.add(censoresult);
+              }
+              return groupedData;
+            });
+        final censos = await censosrows.first;
+        final palmasrows = (select(lotes)
+              ..where((c) => c.id.equals(resultRow.readTable(lotes).id)))
+            .join(
+              [
+                leftOuterJoin(
+                    palmas,
+                    palmas.nombreLote.equalsExp(lotes.nombreLote) &
+                        palmas.sincronizado.equals(false))
+                // palmas.estadopalma.equals('Pendiente por tratar')),
+              ],
+            )
+            .watch()
+            .map((rows) {
+              final groupedData = <Palma>[];
+              for (final row in rows) {
+                final palmaresult = row.readTableOrNull(palmas);
+                if (palmaresult != null) groupedData.add(palmaresult);
+              }
+              return groupedData;
+            });
+        final palmasresult = await palmasrows.first;
+        resultado.add(LoteWithProcesos(
             lote: resultRow.readTable(lotes),
+            censospendientes: censos,
+            palmaspendientes: palmasresult,
             cosecha: resultRow.readTableOrNull(cosechas),
             plateo: resultRow.readTableOrNull(plateos),
             poda: resultRow.readTableOrNull(podas),
-            fertilizacion: resultRow.readTableOrNull(fertilizaciones));
-      }).toList();
+            fertilizacion: resultRow.readTableOrNull(fertilizaciones)));
+      }
+
+      return resultado;
     } catch (e) {
       registroFallidoToast('Error obteniendo lotes $e');
       return [];

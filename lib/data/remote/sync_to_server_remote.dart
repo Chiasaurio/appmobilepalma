@@ -216,6 +216,44 @@ class SyncToServerRemote {
     }
   }
 
+  Future<Map<String, dynamic>> syncFertilizacionesConDiarias(
+      List<FertilizacionConFertilizacionesDiarias> registros) async {
+    try {
+      final data = registros.map((e) {
+        final fertilizacion = {
+          'idFertilizacion': e.fertilizacion.idFertilizacion,
+          'nombre_lote': utf8.encode(e.fertilizacion.nombreLote),
+          'fecha_ingreso': e.fertilizacion.fechaIngreso.toIso8601String(),
+          'fecha_salida': e.fertilizacion.fechaSalida?.toIso8601String(),
+          'cantidad_fertilizada': e.fertilizacion.cantidadFertilizada,
+          'estadoFertilizacion':
+              e.fertilizacion.completado ? 'FINALIZADA' : 'ACTIVA',
+        };
+
+        var diarias = e.fertilizacionesDiarias
+            .map((d) => {
+                  'id_fertilizacion': d.idFertilizacion,
+                  'id_fertilizacion_diaria': d.id,
+                  'fecha_fertilizacion_diaria': d.fecha.toIso8601String(),
+                  'cantidad_fertilizacion_diaria': d.cantidadFertilizada,
+                  'dosis': d.dosis,
+                  'unidades': d.unidades,
+                  'nombre_fertilizante': d.nombreFertilizante,
+                  'cc_usuario': d.responsable,
+                })
+            .toList();
+        return {"fertilizacion": fertilizacion, "diarias": diarias};
+      }).toList();
+      final res = await _apiInstance
+          .post(EndPointConstant.fertilizaciones, data: {"data": data});
+      return res;
+    } on DioError catch (_) {
+      return {"success": false};
+    } catch (e) {
+      return {"success": false};
+    }
+  }
+
   Future<Map<String, dynamic>> syncViajes(List<Viaje> viajes) async {
     try {
       final data = viajes

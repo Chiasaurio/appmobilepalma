@@ -4,6 +4,8 @@ class SyncToServerState extends Equatable {
   final List<CosechaConCosechasDiarias>? cosechasConDiariasPendientes;
   final List<PodasConPodasDiarias>? podasConDiariasPendientes;
   final List<PlateoConPlateosDiarias>? plateosConDiariasPendientes;
+  final List<FertilizacionConFertilizacionesDiarias>?
+      fertilizacionesConDiariasPendientes;
   final List<Palma>? palmasPendientes;
   final List<RegistroEnfermedadData>? enfermedadesPendientes;
   final List<RegistroTratamientoData>? tratamientosPendientes;
@@ -16,6 +18,7 @@ class SyncToServerState extends Equatable {
   final SyncStatus cosechasStatus;
   final SyncStatus podasStatus;
   final SyncStatus plateosStatus;
+  final SyncStatus fertilizacionesStatus;
   final SyncStatus palmasStatus;
   final SyncStatus enfermedadesStatus;
   final SyncStatus tratamientosStatus;
@@ -30,6 +33,7 @@ class SyncToServerState extends Equatable {
     this.cosechasConDiariasPendientes,
     this.podasConDiariasPendientes,
     this.plateosConDiariasPendientes,
+    this.fertilizacionesConDiariasPendientes,
     this.enfermedadesPendientes,
     this.tratamientosPendientes,
     this.erradicacionesPendientes,
@@ -40,6 +44,7 @@ class SyncToServerState extends Equatable {
     this.cosechasStatus = SyncStatus.initial,
     this.podasStatus = SyncStatus.initial,
     this.plateosStatus = SyncStatus.initial,
+    this.fertilizacionesStatus = SyncStatus.initial,
     this.palmasStatus = SyncStatus.initial,
     this.enfermedadesStatus = SyncStatus.initial,
     this.tratamientosStatus = SyncStatus.initial,
@@ -52,6 +57,8 @@ class SyncToServerState extends Equatable {
     List<PodasConPodasDiarias>? podasConDiariasPendientes,
     List<PlateoConPlateosDiarias>? plateosConDiariasPendientes,
     List<CosechaConCosechasDiarias>? cosechasConDiariasPendientes,
+    List<FertilizacionConFertilizacionesDiarias>?
+        fertilizacionesConDiariasPendientes,
     List<Palma>? palmasPendientes,
     bool? loaded,
     FormStatus? status,
@@ -64,6 +71,7 @@ class SyncToServerState extends Equatable {
     SyncStatus? cosechasStatus,
     SyncStatus? podasStatus,
     SyncStatus? plateosStatus,
+    SyncStatus? fertilizacionesStatus,
     SyncStatus? palmasStatus,
     SyncStatus? enfermedadesStatus,
     SyncStatus? tratamientosStatus,
@@ -79,6 +87,9 @@ class SyncToServerState extends Equatable {
           plateosConDiariasPendientes ?? this.plateosConDiariasPendientes,
       cosechasConDiariasPendientes:
           cosechasConDiariasPendientes ?? this.cosechasConDiariasPendientes,
+      fertilizacionesConDiariasPendientes:
+          fertilizacionesConDiariasPendientes ??
+              this.fertilizacionesConDiariasPendientes,
       loaded: loaded ?? this.loaded,
       status: status ?? this.status,
       censosPendientes: censosPendientes ?? this.censosPendientes,
@@ -95,6 +106,8 @@ class SyncToServerState extends Equatable {
       cosechasStatus: cosechasStatus ?? this.cosechasStatus,
       podasStatus: podasStatus ?? this.podasStatus,
       plateosStatus: plateosStatus ?? this.plateosStatus,
+      fertilizacionesStatus:
+          fertilizacionesStatus ?? this.fertilizacionesStatus,
       palmasStatus: palmasStatus ?? this.palmasStatus,
       enfermedadesStatus: enfermedadesStatus ?? this.enfermedadesStatus,
       tratamientosStatus: tratamientosStatus ?? this.tratamientosStatus,
@@ -110,6 +123,7 @@ class SyncToServerState extends Equatable {
         cosechasConDiariasPendientes,
         podasConDiariasPendientes,
         plateosConDiariasPendientes,
+        fertilizacionesConDiariasPendientes,
         erradicacionesPendientes,
         palmasPendientes,
         enfermedadesPendientes,
@@ -121,6 +135,7 @@ class SyncToServerState extends Equatable {
         cosechasStatus,
         podasStatus,
         plateosStatus,
+        fertilizacionesStatus,
         palmasStatus,
         enfermedadesStatus,
         tratamientosStatus,

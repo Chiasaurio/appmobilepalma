@@ -22,6 +22,8 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     final cosechasPendientes = await getCosechasPendientesSincronizar();
     final podasPendientes = await getPodasPendientesSincronizar();
     final plateosPendientes = await getPlateosPendientesSincronizar();
+    final fertilizacionesPendientes =
+        await getFertlizacionesPendientesSincronizar();
 
     final palmasPendientes = await getPalmasPendientesSincronizar();
     final enfermedadesPendientes = await getEnfermedadesPendientesSincronizar();
@@ -39,6 +41,7 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         cosechasConDiariasPendientes: cosechasPendientes,
         podasConDiariasPendientes: podasPendientes,
         plateosConDiariasPendientes: plateosPendientes,
+        fertilizacionesConDiariasPendientes: fertilizacionesPendientes,
         palmasPendientes: palmasPendientes,
         enfermedadesPendientes: enfermedadesPendientes,
         tratamientosPendientes: tratamientosPendientes,
@@ -96,6 +99,24 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
             PlateoConPlateosDiarias(plateo: p, plateosDiarias: plateosDiarias));
       }
       return plateoConDiarias;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<FertilizacionConFertilizacionesDiarias>>
+      getFertlizacionesPendientesSincronizar() async {
+    try {
+      final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
+      List<FertilizacionConFertilizacionesDiarias> fertilizacionConDiarias = [];
+      final fertilizaciones = await fertilizacionDao.getFertilizacionForSync();
+      for (var f in fertilizaciones) {
+        final fertilizacionesDiarias =
+            await fertilizacionDao.getFertilizacionesDiariasForSync(f!.id);
+        fertilizacionConDiarias.add(FertilizacionConFertilizacionesDiarias(
+            fertilizacion: f, fertilizacionesDiarias: fertilizacionesDiarias));
+      }
+      return fertilizacionConDiarias;
     } catch (e) {
       return [];
     }
@@ -208,6 +229,11 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.plateosStatus != SyncStatus.success) {
       final rescosechas = await syncPlateos();
     }
+    if (state.fertilizacionesConDiariasPendientes != null &&
+        state.fertilizacionesConDiariasPendientes!.isNotEmpty &&
+        state.fertilizacionesStatus != SyncStatus.success) {
+      final resfertilizaciones = await syncFertilizaciones();
+    }
     if (state.viajesPendientes != null &&
         state.viajesPendientes!.isNotEmpty &&
         state.viajesStatus != SyncStatus.success) {
@@ -278,6 +304,41 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       }
     } catch (e) {
       emit(state.copyWith(plateosStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  Future<bool> syncFertilizaciones() async {
+    try {
+      emit(state.copyWith(fertilizacionesStatus: SyncStatus.loading));
+      final res = await remote.syncFertilizacionesConDiarias(
+          state.fertilizacionesConDiariasPendientes ?? []);
+      if (res["success"]) {
+        final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
+        var index = 0;
+        var ids = res["fertilizacionesIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var fertilizacion in state.fertilizacionesConDiariasPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego la cosecha, toca actualizar el id
+            await fertilizacionDao.updateFertilizacion(fertilizacion
+                .fertilizacion
+                .copyWith(idFertilizacion: Value(ids[index])));
+          }
+          index++;
+        }
+        for (var i in state.fertilizacionesConDiariasPendientes!) {
+          await fertilizacionDao.updateSyncFertilizacion(
+              i.fertilizacion, i.fertilizacionesDiarias);
+        }
+        emit(state.copyWith(fertilizacionesStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(fertilizacionesStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(fertilizacionesStatus: SyncStatus.error));
       return false;
     }
   }
