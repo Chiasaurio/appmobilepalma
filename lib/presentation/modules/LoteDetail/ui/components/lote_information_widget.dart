@@ -84,6 +84,23 @@ class LoteLocalInformation extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ]),
+            if (lote.fertilizacion != null)
+              Row(children: [
+                const SizedBox(width: 5),
+                Container(
+                  width: 15.0,
+                  height: 15.0,
+                  decoration: const BoxDecoration(
+                    color: kYellowColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                const Text(
+                  'Fertilización pendiente ',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ]),
             if (lote.palmaspendientes?.isNotEmpty ?? false)
               Row(children: [
                 const SizedBox(width: 10),

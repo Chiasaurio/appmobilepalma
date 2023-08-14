@@ -1,6 +1,7 @@
 import 'package:apppalma/presentation/components/widgets/drawer.dart';
 import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
 import 'package:apppalma/data/moor/tables/lotes_table.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/presentation/modules/LotesList/cubit/loteslist_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
@@ -145,57 +146,100 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
                       style: TextStyle(color: Colors.grey, fontSize: 16),
                     ),
                     const SizedBox(height: 5.0),
-                    loteswithprocesos.cosecha != null
-                        ? Row(children: [
-                            Container(
-                              width: 15.0,
-                              height: 15.0,
-                              decoration: const BoxDecoration(
-                                color: Colors.orange,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            SizedBox(width: margin),
-                            const Text(
-                              'Cosecha pendiente ',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ])
-                        : const SizedBox(),
-                    loteswithprocesos.poda != null
-                        ? Row(children: [
-                            Container(
-                              width: 15.0,
-                              height: 15.0,
-                              decoration: const BoxDecoration(
-                                color: Colors.orange,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            SizedBox(width: margin),
-                            const Text(
-                              'Poda pendiente ',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ])
-                        : const SizedBox(),
-                    loteswithprocesos.plateo != null
-                        ? Row(children: [
-                            Container(
-                              width: 15.0,
-                              height: 15.0,
-                              decoration: const BoxDecoration(
-                                color: Colors.orange,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            SizedBox(width: margin),
-                            const Text(
-                              'Plateo pendiente ',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ])
-                        : const SizedBox(),
+                    if (loteswithprocesos.cosecha != null)
+                      Row(children: [
+                        const SizedBox(width: 5),
+                        Container(
+                          width: 15.0,
+                          height: 15.0,
+                          decoration: const BoxDecoration(
+                            color: kYellowColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        const Text(
+                          'Cosecha pendiente ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ]),
+                    if (loteswithprocesos.poda != null)
+                      Row(children: [
+                        const SizedBox(width: 5),
+                        Container(
+                          width: 15.0,
+                          height: 15.0,
+                          decoration: const BoxDecoration(
+                            color: kYellowColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        const Text(
+                          'Poda pendiente ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ]),
+                    if (loteswithprocesos.plateo != null)
+                      Row(children: [
+                        const SizedBox(width: 5),
+                        Container(
+                          width: 15.0,
+                          height: 15.0,
+                          decoration: const BoxDecoration(
+                            color: kYellowColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        const Text(
+                          'Plateo pendiente ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ]),
+                    if (loteswithprocesos.fertilizacion != null)
+                      Row(children: [
+                        const SizedBox(width: 5),
+                        Container(
+                          width: 15.0,
+                          height: 15.0,
+                          decoration: const BoxDecoration(
+                            color: kYellowColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        const Text(
+                          'Fertilización pendiente ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ]),
+                    if (loteswithprocesos.palmaspendientes?.isNotEmpty ?? false)
+                      Row(children: [
+                        const SizedBox(width: 10),
+                        Text(
+                            loteswithprocesos.palmaspendientes!.length
+                                .toString(),
+                            style: const TextStyle(color: Colors.red)),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Palmas pendiente por tratar ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ]),
+                    if (loteswithprocesos.censospendientes?.isNotEmpty ?? false)
+                      Row(children: [
+                        const SizedBox(width: 10),
+                        Text(
+                            loteswithprocesos.censospendientes!.length
+                                .toString(),
+                            style: const TextStyle(color: Colors.red)),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Censos pendientes por tratar ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ]),
                   ],
                 ),
               ],
