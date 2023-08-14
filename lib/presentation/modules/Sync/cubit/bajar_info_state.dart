@@ -31,6 +31,7 @@ class BajarInfoState extends Equatable {
         estadoEnfermedad,
         estadoPlaga,
         estadoAgroquimico,
+        estadoFertilizante,
         loteFechaUltimaActualizacion,
         plagaFechaUltimaActualizacion,
         enfermedadFechaUltimaActualizacion,

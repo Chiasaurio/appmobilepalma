@@ -21,7 +21,7 @@ class _CardUltimaSyncsState extends State<CardUltimaSync> {
       },
       builder: (context, state) {
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           child: Column(children: [
             TextSyncPendiente(
               fechaUltimaActualizacion: state.loteFechaUltimaActualizacion,

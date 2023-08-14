@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart';
 
 class Fertilizante extends Table {
-  IntColumn get idFertilizante => integer()();
   TextColumn get nombreFertilizante => text()();
   TextColumn get tipo => text()();
   TextColumn get composicion => text()();
@@ -10,5 +9,5 @@ class Fertilizante extends Table {
   DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
 
   @override
-  Set<Column> get primaryKey => {idFertilizante};
+  Set<Column> get primaryKey => {nombreFertilizante};
 }

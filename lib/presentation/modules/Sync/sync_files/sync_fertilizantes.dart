@@ -9,16 +9,15 @@ class SyncFertilizantes {
     try {
       final fechaHoy = DateTime.now();
       List datafertlizantes;
-      final resp = await _apiInstance.get('fertilizantesTodos');
+      final resp = await _apiInstance.get('fertilizanteTodos');
       datafertlizantes = resp['data'];
       List<Insertable<FertilizanteData>> productos = [];
       for (var element in datafertlizantes) {
         FertilizanteCompanion aux = FertilizanteCompanion(
-            idFertilizante: Value(element['id']),
             nombreFertilizante: Value(element['nombre_fertilizante']),
             tipo: Value(element['tipo']),
             composicion: Value(element['composicion']),
-            porcentaje: Value(element['porcentaje']),
+            porcentaje: Value(double.parse(element['porcentaje'])),
             presentacionPnombreFertilizante:
                 Value(element['presentacion_nombre_fertilizante'] ?? 'normal'),
             fechaUltimaActualizacion: Value(fechaHoy));

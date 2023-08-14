@@ -201,7 +201,7 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
 
   Future<void> syncFertilizantesRemote() async {
     try {
-      emit(state.copyWith(estadoAgroquimico: SyncStatus.loading));
+      emit(state.copyWith(estadoFertilizante: SyncStatus.loading));
       final FertilizanteDao fertilizanteDao = db.fertilizanteDao;
       List<Insertable<FertilizanteData>> datafertilizantes =
           await syncFertilizantes.getFertilizantes();
