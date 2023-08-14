@@ -57,6 +57,10 @@ class _CardPendientesState extends State<CardPendientes> {
               type: PlateoConPlateosDiarias,
             ),
             TextSyncPendiente(
+              list: state.fertilizacionesConDiariasPendientes!,
+              type: FertilizacionConFertilizacionesDiarias,
+            ),
+            TextSyncPendiente(
               list: state.viajesPendientes!,
               type: Viaje,
             ),
@@ -95,6 +99,10 @@ class TextSyncPendiente extends StatelessWidget {
           case PlateoConPlateosDiarias:
             text = 'plateos pendientes';
             status = state.plateosStatus;
+            break;
+          case FertilizacionConFertilizacionesDiarias:
+            text = 'fertilizaciones pendientes';
+            status = state.fertilizacionesStatus;
             break;
           case Palma:
             text = 'palmas pendientes';
