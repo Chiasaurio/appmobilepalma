@@ -41,6 +41,11 @@ class _CardUltimaSyncsState extends State<CardUltimaSync> {
                   state.agroquimicoFechaUltimaActualizacion,
               type: ProductoAgroquimicoData,
             ),
+            TextSyncPendiente(
+              fechaUltimaActualizacion:
+                  state.fertilizanteFechaUltimaActualizacion,
+              type: FertilizanteData,
+            ),
           ]),
         );
       },
@@ -80,6 +85,10 @@ class TextSyncPendiente extends StatelessWidget {
           case ProductoAgroquimicoData:
             text = 'Productos agroquimicos';
             status = state.estadoAgroquimico;
+            break;
+          case FertilizanteData:
+            text = 'Fertilizantes';
+            status = state.estadoFertilizante;
             break;
           default:
         }

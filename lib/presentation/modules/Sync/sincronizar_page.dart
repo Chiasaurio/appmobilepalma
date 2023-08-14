@@ -40,9 +40,6 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
   Widget build(BuildContext context) {
     ruta = '/sincronizar';
 
-    // _cargapercentaje = 50.0;
-    // loteBloc.obtenerTodosLotesWithProcesos();
-
     return Scaffold(
       drawer: const SideDrawer(),
       body: SingleChildScrollView(
@@ -62,95 +59,12 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
                 onPressed: () {
                   BlocProvider.of<BajarInfoCubit>(context)
                       .bajarRegistrosDelServidor();
-
-                  // _sincrozinar();
-                  // obtenerDatos.sincronizar();
                 },
               ),
             )
-            // buildTitulo(),
-            // // SizedBox(height: altoCard * 0.1),
-            // _buildMenu(context), // _menu2()
           ],
         ),
       ),
     );
-  }
-
-  Widget buildTitulo() {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(15, 30, 15, 15),
-      child: Column(
-        children: <Widget>[
-          Row(children: const <Widget>[
-            Expanded(
-              child: Text(
-                "Ultima sincronizacion :",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-          ]),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0.0, 0.0),
-            child: Row(children: const <Widget>[
-              Expanded(
-                child: Text(
-                  "fecha ultima actualizacion",
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ]),
-          ),
-          // Padding(
-          //   padding: EdgeInsets.fromLTRB(anchoCard * 0.3, margin, 0.0, 0.0),
-          //   child: Text(DateFormat('yMMMMEEEEd', 'es').format(fecha),
-          //       style: TextStyle(color: Colors.white, fontSize: 15)),
-          // )
-        ],
-      ),
-    );
-  }
-
-  buildBarraCarga() {
-    return const CircularProgressIndicator(
-        // semanticsLabel: estadosync,
-        // value: _cargapercentaje,
-        );
-  }
-
-  _sincrozinar() async {
-    setState(() {
-      msg = 'Agregando lotes';
-    });
-    final lotes = await syncBloc.getLotesRemote();
-    if (!mounted) return;
-    BlocProvider.of<LoteslistCubit>(context).addLotesFromServerToLocal(lotes);
-    setState(() {
-      msg = 'Agregando enfermedades';
-    });
-    final enfermedades = await syncBloc.getEnfermedadesConEtapasRemote();
-    if (!mounted) return;
-    BlocProvider.of<EnfermedadCubit>(context)
-        .addEnfermedadyEtapasFromServerToLocal(enfermedades);
-    setState(() {
-      msg = 'Agregando plagas';
-    });
-    final plagas = await syncBloc.getPlagasRemote();
-    if (!mounted) return;
-    BlocProvider.of<PlagasCubit>(context)
-        .addPlagayEtapasFromServerToLocal(plagas);
-    setState(() {
-      msg = 'Agregando agroquimicos';
-    });
-    final agroquimicos = await syncBloc.getAgroquimicosRemote();
-    if (!mounted) return;
-    BlocProvider.of<AgroquimicosCubit>(context)
-        .addProductosFromServerToLocal(agroquimicos);
   }
 }

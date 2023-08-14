@@ -22,6 +22,7 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
   SyncEnfermedades syncenfermedades = SyncEnfermedades();
   SyncPlagas syncplagas = SyncPlagas();
   SyncProductosAgroquimicos syncproductos = SyncProductosAgroquimicos();
+  SyncFertilizantes syncFertilizantes = SyncFertilizantes();
 
   void getFechasUltimaActualizacion() async {
     emit(const BajarInfoState());
@@ -34,11 +35,14 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
         await getEnfermedadesFechaUltimaActualizacion();
     final agroquimicoFechaUltimaActualizacion =
         await getAgroquimicosFechaUltimaActualizacion();
+    final fertilzanteFechaUltimaActualizacion =
+        await getFertilizantesFechaUltimaActualizacion();
     emit(state.copyWith(
       loteFechaUltimaActualizacion: loteFechaUltimaActualizacion,
       plagaFechaUltimaActualizacion: plagaFechaUltimaActualizacion,
       enfermedadFechaUltimaActualizacion: enfermedadFechaUltimaActualizacion,
       agroquimicoFechaUltimaActualizacion: agroquimicoFechaUltimaActualizacion,
+      fertilizanteFechaUltimaActualizacion: fertilzanteFechaUltimaActualizacion,
     ));
   }
 
@@ -100,6 +104,20 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
     }
   }
 
+  Future<String> getFertilizantesFechaUltimaActualizacion() async {
+    try {
+      final FertilizanteDao fertilizanteDao = db.fertilizanteDao;
+      final ultimo = await fertilizanteDao.getFertilizanteUltimo();
+      if (ultimo != null) {
+        return f.format(ultimo.fechaUltimaActualizacion!);
+      } else {
+        return '';
+      }
+    } catch (e) {
+      return '';
+    }
+  }
+
   void bajarRegistrosDelServidor() async {
     if (state.estadoLote != SyncStatus.loading) {
       await syncLotesRemote();
@@ -112,6 +130,9 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
     }
     if (state.estadoAgroquimico != SyncStatus.loading) {
       await syncAgroquimicosRemote();
+    }
+    if (state.estadoFertilizante != SyncStatus.loading) {
+      await syncFertilizantesRemote();
     }
   }
 
@@ -175,6 +196,24 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
     } catch (e) {
       emit(state.copyWith(estadoAgroquimico: SyncStatus.error));
       registroFallidoToast('Error agregando los agroquimicos ${e.toString()}');
+    }
+  }
+
+  Future<void> syncFertilizantesRemote() async {
+    try {
+      emit(state.copyWith(estadoAgroquimico: SyncStatus.loading));
+      final FertilizanteDao fertilizanteDao = db.fertilizanteDao;
+      List<Insertable<FertilizanteData>> datafertilizantes =
+          await syncFertilizantes.getFertilizantes();
+      if (datafertilizantes.isEmpty) {
+        emit(state.copyWith(estadoFertilizante: SyncStatus.error));
+      } else {
+        await fertilizanteDao.insertFertilizantes(datafertilizantes);
+        emit(state.copyWith(estadoFertilizante: SyncStatus.success));
+      }
+    } catch (e) {
+      emit(state.copyWith(estadoFertilizante: SyncStatus.error));
+      registroFallidoToast('Error agregando los fertilizantes ${e.toString()}');
     }
   }
 }

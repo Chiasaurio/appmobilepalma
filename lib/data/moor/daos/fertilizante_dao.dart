@@ -17,7 +17,7 @@ class FertilizanteDao extends DatabaseAccessor<AppDatabase>
   Future insertProducto(Insertable<FertilizanteData> f) =>
       into(fertilizante).insert(f);
 
-  Future<FertilizanteData?> getProductoAgroquimicoUltimo() async {
+  Future<FertilizanteData?> getFertilizanteUltimo() async {
     final query = (select(fertilizante));
     query.orderBy([(tbl) => OrderingTerm.desc(tbl.fechaUltimaActualizacion)]);
 
@@ -26,10 +26,11 @@ class FertilizanteDao extends DatabaseAccessor<AppDatabase>
     return res[0];
   }
 
-  insertProductos(List<Insertable<FertilizanteData>> listaproductos) async {
+  insertFertilizantes(
+      List<Insertable<FertilizanteData>> listafertilizantes) async {
     try {
       await batch((b) {
-        b.insertAllOnConflictUpdate(fertilizante, listaproductos);
+        b.insertAllOnConflictUpdate(fertilizante, listafertilizantes);
       });
     } catch (_) {}
   }
