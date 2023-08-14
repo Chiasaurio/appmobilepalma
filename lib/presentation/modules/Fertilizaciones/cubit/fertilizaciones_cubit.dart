@@ -7,6 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apppalma/globals.dart' as globals;
 
+import '../../../components/toasts/toasts.dart';
+
 part 'fertilizaciones_state.dart';
 
 class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
@@ -74,8 +76,8 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
         responsable: Value(globals.responsable));
     await fertilizacionDao
         .insertFertilizacionDiaria(fertilizacionDiariaCompanion);
-    fertilizacionDao.updateFertilizacion(
-        fertilizacion.copyWith(cantidadFertilizada: nuevosFertilizacion));
+    fertilizacionDao.updateFertilizacion(fertilizacion.copyWith(
+        cantidadFertilizada: nuevosFertilizacion, sincronizado: false));
     obtenerFertilizacionActiva(fertilizacion.nombreLote);
   }
 
@@ -86,6 +88,6 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
         completado: true,
         sincronizado: false));
     obtenerFertilizacionActiva(fertilizacion.nombreLote);
-    // successMessageToast('El plateo se finalizo correctamente');
+    successMessageToast('La fertilización se finalizó correctamente');
   }
 }
