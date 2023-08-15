@@ -36,7 +36,7 @@ class SyncToServerRemote {
     try {
       final data = registros.map((e) {
         final registroEnfermedad = {
-          "id_registro_enfermedad": e.registroEnfermedad.idRegistroEnfermedad,
+          // "id_registro_enfermedad": e.registroEnfermedad.idRegistroEnfermedad,
           "hora_registro_enfermedad":
               e.registroEnfermedad.horaRegistro!.toIso8601String(),
           "fecha_registro_enfermedad":

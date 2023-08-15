@@ -22,7 +22,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
   final db = getIt<AppDatabase>();
 
   initCubit(String nombreLote) {
-    emit(state.copyWith(
+    emit(EnfermedadState(
       nombreLote: nombreLote,
     ));
   }

@@ -218,7 +218,8 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     }
     if (state.tratamientosPendientes != null &&
         state.tratamientosPendientes!.isNotEmpty &&
-        state.tratamientosStatus != SyncStatus.success) {
+        state.tratamientosStatus != SyncStatus.success &&
+        state.enfermedadesStatus != SyncStatus.error) {
       final respalmas = await syncTratamientos();
     }
     if (state.cosechasConDiariasPendientes != null &&
@@ -448,25 +449,30 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       final RegistroEnfermedadDao registroEnfermedadDao =
           db.registroEnfermedadDao;
       List<RegistroEnfermedadData> registroEnfermedades = [];
+      List<RegistroTratamientoData> nuevosTratamientos = [];
       for (var tratamiento in state.tratamientosPendientes!) {
-        final registroEnfermedad =
-            await registroEnfermedadDao.getRegistroEnfermedad(tratamiento.id);
+        final registroEnfermedad = await registroEnfermedadDao
+            .getRegistroEnfermedad(tratamiento.idRegistroEnfermedad);
         if (registroEnfermedad != null) {
           registroEnfermedades.add(registroEnfermedad);
+          if (registroEnfermedad.idRegistroEnfermedad != null) {
+            nuevosTratamientos.add(tratamiento.copyWith(
+                idRegistroEnfermedad: registroEnfermedad.idRegistroEnfermedad));
+          }
         }
       }
 
-      // <--- Luego obtenenemos los ids de la base de datos central, para evitar conflictos -->
-      final registrosEnfermedadesIDS =
-          await remote.getRegistroEnfermedadesIds(registroEnfermedades);
+      // // <--- Luego obtenenemos los ids de la base de datos central, para evitar conflictos -->
+      // final registrosEnfermedadesIDS =
+      //     await remote.getRegistroEnfermedadesIds(registroEnfermedades);
       // <--- Creamos nuevo array con nuevos Ids, -->
-      List<RegistroTratamientoData> nuevosTratamientos = [];
-      int i = 0;
-      for (var tratamiento in state.tratamientosPendientes!) {
-        nuevosTratamientos.add(tratamiento.copyWith(
-            idRegistroEnfermedad: registrosEnfermedadesIDS[i]));
-        i++;
-      }
+      // List<RegistroTratamientoData> nuevosTratamientos = [];
+      // int i = 0;
+      // for (var tratamiento in state.tratamientosPendientes!) {
+      //   nuevosTratamientos.add(tratamiento.copyWith(
+      //       idRegistroEnfermedad: registrosEnfermedadesIDS[i]));
+      //   i++;
+      // }
 
       // <--- Enviamos los tratamientos con los ids correctos, -->
       final res = await remote.syncTratamientos(nuevosTratamientos);

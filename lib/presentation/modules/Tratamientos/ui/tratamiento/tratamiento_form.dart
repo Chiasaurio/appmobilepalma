@@ -292,7 +292,8 @@ class _TratamientoFormState extends State<TratamientoForm> {
       if (tipocontrol == 'Químico') {
         resp = await BlocProvider.of<TratamientoCubit>(context)
             .registrarTratamiento(
-                registroEnfermedad.id,
+                registroEnfermedad.idRegistroEnfermedad ??
+                    registroEnfermedad.id,
                 productoquimico!.idProductoAgroquimico,
                 palma,
                 tipocontrol!,
