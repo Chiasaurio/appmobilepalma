@@ -123,6 +123,48 @@ class SyncToServerRemote {
     }
   }
 
+  Future<Map<String, dynamic>> syncCensos(List<CensoConEtapas> censos) async {
+    try {
+      final data = censos.map((e) {
+        final censo = {
+          "fecha_censo": e.censo.fechaCenso.toIso8601String(),
+          "hora_censo": e.censo.fechaCenso.toIso8601String(),
+          "observacion_censo": e.censo.observacionCenso,
+          "nombre_lote": utf8.encode(e.censo.nombreLote),
+          "estado_censo": e.censo.estadoPlaga,
+          "cc_usuario": e.censo.responsable,
+          "nombre_comun_plaga": utf8.encode(e.censo.nombrePlaga),
+          "id_palma": e.censo.identificador,
+          "latitud": e.censo.latitude,
+          "longitud": e.censo.longitude,
+          "numero_individuos": e.censo.numeroIndividuos,
+        };
+        var etapaCenso = e.etapas
+            .map((d) => {
+                  'id_censo': d.idCenso,
+                  'id_etapa_plaga': d.idEtapasplaga,
+                  'numero_individuos': d.numeroIndividuos
+                })
+            .toList();
+        var imagenesCenso =
+            e.imagenes.map((d) => {'imagen': base64Encode(d.imagen)}).toList();
+        return {
+          "censo": censo,
+          "etapas": etapaCenso,
+          'imagenes': imagenesCenso
+        };
+      }).toList();
+      final res = await _apiInstance
+          .post(EndPointConstant.censosplagas, data: {"data": data});
+
+      return res;
+    } on DioError catch (_) {
+      return {"success": false};
+    } catch (e) {
+      return {"success": false};
+    }
+  }
+
   Future<Map<String, dynamic>> syncCosechasConDiarias(
       List<CosechaConCosechasDiarias> registros) async {
     try {

@@ -175,11 +175,18 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     }
   }
 
-  Future<List<CensoData>> getCensosPendientesSincronizar() async {
+  Future<List<CensoConEtapas>> getCensosPendientesSincronizar() async {
     try {
       final PlagasDao plagasDao = db.plagasDao;
       final registroCensos = await plagasDao.getCensosForSync();
-      return registroCensos;
+      List<CensoConEtapas> censoConEtapas = [];
+      for (var r in registroCensos) {
+        final etapas = await plagasDao.getCensosEtapasForSync(r);
+        final imagenes = await plagasDao.getImagenesCensoForSync(r);
+        censoConEtapas
+            .add(CensoConEtapas(censo: r, etapas: etapas, imagenes: imagenes));
+      }
+      return censoConEtapas;
     } catch (e) {
       return [];
     }
@@ -222,6 +229,17 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.enfermedadesStatus != SyncStatus.error) {
       final respalmas = await syncTratamientos();
     }
+    if (state.censosPendientes != null &&
+        state.censosPendientes!.isNotEmpty &&
+        state.censosStatus != SyncStatus.success) {
+      final rescensos = await syncCensos();
+    }
+    // if (state.fumigacionesPendientes != null &&
+    //     state.fumigacionesPendientes!.isNotEmpty &&
+    //     state.fumigacionesPendientes != SyncStatus.success &&
+    //     state.censosPendientes != SyncStatus.error) {
+    //   final respalmas = await syncFumigaciones();
+    // }
     if (state.cosechasConDiariasPendientes != null &&
         state.cosechasConDiariasPendientes!.isNotEmpty &&
         state.cosechasStatus != SyncStatus.success) {
@@ -461,19 +479,6 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
           }
         }
       }
-
-      // // <--- Luego obtenenemos los ids de la base de datos central, para evitar conflictos -->
-      // final registrosEnfermedadesIDS =
-      //     await remote.getRegistroEnfermedadesIds(registroEnfermedades);
-      // <--- Creamos nuevo array con nuevos Ids, -->
-      // List<RegistroTratamientoData> nuevosTratamientos = [];
-      // int i = 0;
-      // for (var tratamiento in state.tratamientosPendientes!) {
-      //   nuevosTratamientos.add(tratamiento.copyWith(
-      //       idRegistroEnfermedad: registrosEnfermedadesIDS[i]));
-      //   i++;
-      // }
-
       // <--- Enviamos los tratamientos con los ids correctos, -->
       final res = await remote.syncTratamientos(nuevosTratamientos);
       if (res) {
@@ -492,6 +497,76 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       return false;
     }
   }
+
+  Future<bool> syncCensos() async {
+    try {
+      emit(state.copyWith(censosStatus: SyncStatus.loading));
+      final res = await remote.syncCensos(state.censosPendientes ?? []);
+      if (res["success"]) {
+        final PlagasDao plagasDao = db.plagasDao;
+        var index = 0;
+        var ids = res["registrosIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var registro in state.censosPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego el registro, toca actualizar el id
+            await plagasDao.updateCenso(
+                registro.censo.copyWith(idCenso: Value(ids[index])));
+          }
+          index++;
+        }
+        for (var i in state.censosPendientes!) {
+          await plagasDao.updateSyncCenso(i.censo, i.etapas);
+        }
+        emit(state.copyWith(censosStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(censosStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(censosStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  // Future<bool> syncTratamientos() async {
+  //   try {
+  //     emit(state.copyWith(tratamientosStatus: SyncStatus.loading));
+  //     // <--- Primero obtenemos la enfermedad-->
+  //     final RegistroEnfermedadDao registroEnfermedadDao =
+  //         db.registroEnfermedadDao;
+  //     List<RegistroEnfermedadData> registroEnfermedades = [];
+  //     List<RegistroTratamientoData> nuevosTratamientos = [];
+  //     for (var tratamiento in state.tratamientosPendientes!) {
+  //       final registroEnfermedad = await registroEnfermedadDao
+  //           .getRegistroEnfermedad(tratamiento.idRegistroEnfermedad);
+  //       if (registroEnfermedad != null) {
+  //         registroEnfermedades.add(registroEnfermedad);
+  //         if (registroEnfermedad.idRegistroEnfermedad != null) {
+  //           nuevosTratamientos.add(tratamiento.copyWith(
+  //               idRegistroEnfermedad: registroEnfermedad.idRegistroEnfermedad));
+  //         }
+  //       }
+  //     }
+  //     // <--- Enviamos los tratamientos con los ids correctos, -->
+  //     final res = await remote.syncTratamientos(nuevosTratamientos);
+  //     if (res) {
+  //       final PalmaDao palmaDao = db.palmaDao;
+  //       for (var i in state.tratamientosPendientes!) {
+  //         await palmaDao.updateSyncTratamientos(i);
+  //       }
+  //       emit(state.copyWith(tratamientosStatus: SyncStatus.success));
+  //       return true;
+  //     } else {
+  //       emit(state.copyWith(tratamientosStatus: SyncStatus.error));
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     emit(state.copyWith(tratamientosStatus: SyncStatus.error));
+  //     return false;
+  //   }
+  // }
 
   Future<bool> syncViajes() async {
     try {
