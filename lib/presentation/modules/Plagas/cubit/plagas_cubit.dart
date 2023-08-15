@@ -1,3 +1,4 @@
+import 'package:apppalma/data/moor/daos/daos.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/data/moor/daos/plagas_daos.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
@@ -10,6 +11,8 @@ import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../constants.dart';
 part 'plagas_state.dart';
 
 class PlagasCubit extends Cubit<PlagasState> {
@@ -70,10 +73,25 @@ class PlagasCubit extends Cubit<PlagasState> {
     DateTime fechacenso,
   ) async {
     final PlagasDao plagaDao = db.plagasDao;
+    final PalmaDao palmaDao = db.palmaDao;
     try {
       emit(state.copyWith(status: FormStatus.submissionInProgress));
       final String identificadorPalma =
           generateIdentifier(state.linea!, state.numero!, state.nombreLote!);
+
+      //Se crea o se actualiza la palma.
+      final palmaNueva = PalmasCompanion(
+        orientacion: Value(state.orientacion!),
+        identificador: Value(identificadorPalma),
+        numeroenlinea: Value(state.numero!),
+        numerolinea: Value(state.linea!),
+        nombreLote: Value(state.nombreLote!),
+        estadopalma: const Value(EstadosPalma.pendientePorTratar),
+      );
+      //Se actualiza o se crea la palma
+      await palmaDao.insertPalmaOrUpdate(palmaNueva);
+
+      //Se inserta el censo
       await plagaDao.insertCensoDePlaga(
           fechacenso,
           identificadorPalma,
