@@ -234,6 +234,13 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
         .get();
   }
 
+  Future<List<ImagenRegistroEnfermedadData>> getImagenesEnfermedadesForSync(
+      RegistroEnfermedadData registro) {
+    return (select(imagenRegistroEnfermedad)
+          ..where((i) => i.idEnfermedad.equals(registro.id)))
+        .get();
+  }
+
   Future<List<RegistroTratamientoData>> getRegistrosTratamientosForSync() {
     return (select(registroTratamiento)
           ..where((c) => c.sincronizado.equals(false)))
