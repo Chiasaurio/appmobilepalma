@@ -66,33 +66,9 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
     try {
       await batch((b) {
         b.insertAllOnConflictUpdate(plagas, listaplagas);
-
-        // for (final plaga in listaplagas) {
-        //   b.insert(
-        //     plagas,s
-        //     plaga,
-        //     onConflict: DoUpdate(
-        //       (_) => plaga,
-        //       // upsert will happen if it conflicts with columnA and columnB
-        //       target: [plagas.nombreComunPlaga],
-        //     ),
-        //   );
-        // }
       });
       await batch((b) {
         b.insertAllOnConflictUpdate(etapasPlaga, listaetapas);
-        // for (final etapa in listaetapas) {
-        //   b.insert(
-        //     etapasPlaga,
-        //     etapa,
-        //     onConflict: DoUpdate(
-        //       (_) => etapa,
-        //       // upsert will happen if it conflicts with columnA and columnB
-        //       target: [etapasPlaga.nombrePlaga, etapasPlaga.nombreEtapa],
-        //     ),
-        //   );
-        //   // mode: InsertMode.insertOrReplace);
-        // }
       });
     } catch (_) {}
   }
@@ -113,6 +89,20 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
 
   Future<List<CensoData>> getCensosForSync() {
     return (select(censo)..where((tbl) => tbl.sincronizado.equals(false)))
+        .get();
+  }
+
+  Future<List<CensoEtapasPlagaData>> getCensosEtapasForSync(CensoData censo) {
+    return (select(censoEtapasPlaga)
+          ..where(
+              (i) => i.idCenso.equals(censo.id) & i.sincronizado.equals(false)))
+        .get();
+  }
+
+  Future<List<ImagenCensoPlagaData>> getImagenesCensoForSync(CensoData censo) {
+    return (select(imagenCensoPlaga)
+          ..where(
+              (i) => i.idCenso.equals(censo.id) & i.sincronizado.equals(false)))
         .get();
   }
 
@@ -216,5 +206,23 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
       imagenesCompanions.add(aux);
     }
     return imagenesCompanions;
+  }
+
+  Future updateSyncCenso(CensoData c, List<CensoEtapasPlagaData> etapas) {
+    return transaction(() async {
+      await (update(censo)..where((t) => t.id.equals(c.id))).write(
+        const CensoCompanion(
+          sincronizado: Value(true),
+        ),
+      );
+      for (var element in etapas) {
+        await (update(censoEtapasPlaga)
+              ..where((c) =>
+                  c.idCensoEtapasplaga.equals(element.idCensoEtapasplaga)))
+            .write(const CensoEtapasPlagaCompanion(
+          sincronizado: Value(true),
+        ));
+      }
+    });
   }
 }
