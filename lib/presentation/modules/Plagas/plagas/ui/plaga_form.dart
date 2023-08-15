@@ -199,6 +199,7 @@ class _PlagaFormState extends State<PlagaForm> {
           itsEtapaSeleccionada(e)
               ? Expanded(
                   child: FormBuilderTextField(
+                    keyboardType: TextInputType.number,
                     onChanged: (value) {
                       final index = etapasseleccionadas.indexWhere(
                         (element) =>
