@@ -12,6 +12,9 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
     with _$RegistroEnfermedadDaoMixin {
   RegistroEnfermedadDao(AppDatabase db) : super(db);
 
+  Future updateRegistro(Insertable<RegistroEnfermedadData> registro) =>
+      update(registroEnfermedad).replace(registro);
+
   Future<RegistroEnfermedadData?> getRegistroEnfermedad(int id) {
     return (select(registroEnfermedad)..where((r) => r.id.equals(id)))
         .getSingleOrNull();
@@ -32,12 +35,23 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
     } catch (_) {}
   }
 
-  Future updateSyncRegistro(RegistroEnfermedadData e) {
-    return (update(registroEnfermedad)..where((t) => t.id.equals(e.id))).write(
-      const RegistroEnfermedadCompanion(
-        sincronizado: Value(true),
-      ),
-    );
+  Future updateSyncRegistro(
+      RegistroEnfermedadData e, List<ImagenRegistroEnfermedadData> imagenes) {
+    return transaction(() async {
+      await (update(registroEnfermedad)..where((t) => t.id.equals(e.id))).write(
+        const RegistroEnfermedadCompanion(
+          sincronizado: Value(true),
+        ),
+      );
+      for (var element in imagenes) {
+        await (update(imagenRegistroEnfermedad)
+              ..where((c) => c.idImagenRegistroEnfermedad
+                  .equals(element.idImagenRegistroEnfermedad)))
+            .write(const ImagenRegistroEnfermedadCompanion(
+          sincronizado: Value(true),
+        ));
+      }
+    });
   }
 
   Future<List<Insertable<ImagenRegistroEnfermedadData>>>
