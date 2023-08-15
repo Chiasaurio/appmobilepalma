@@ -3,6 +3,7 @@ import 'package:drift/drift.dart';
 
 class RegistroEnfermedad extends Table {
   IntColumn get id => integer().autoIncrement()();
+  IntColumn get idRegistroEnfermedad => integer().nullable()();
   DateTimeColumn get fechaRegistro => dateTime()();
   DateTimeColumn get horaRegistro => dateTime().nullable()();
   TextColumn get idPalma => text()();
@@ -25,11 +26,22 @@ class ImagenRegistroEnfermedad extends Table {
   IntColumn get idImagenRegistroEnfermedad => integer().autoIncrement()();
   IntColumn get idEnfermedad => integer()();
   BlobColumn get imagen => blob()();
+  BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 
   @override
   List<String> get customConstraints => [
         'FOREIGN KEY(id_enfermedad) REFERENCES registro_enfermedad(id)',
       ];
+}
+
+class RegistroEnfermedadConImagenes {
+  final RegistroEnfermedadData registroEnfermedad;
+  final List<ImagenRegistroEnfermedadData> imagenes;
+
+  RegistroEnfermedadConImagenes({
+    required this.imagenes,
+    required this.registroEnfermedad,
+  });
 }
 
 class PalmaConEnfermedad {

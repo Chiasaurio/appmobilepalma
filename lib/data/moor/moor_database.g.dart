@@ -6083,6 +6083,12 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idRegistroEnfermedadMeta =
+      const VerificationMeta('idRegistroEnfermedad');
+  @override
+  late final GeneratedColumn<int> idRegistroEnfermedad = GeneratedColumn<int>(
+      'id_registro_enfermedad', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _fechaRegistroMeta =
       const VerificationMeta('fechaRegistro');
   @override
@@ -6141,6 +6147,7 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
   @override
   List<GeneratedColumn> get $columns => [
         id,
+        idRegistroEnfermedad,
         fechaRegistro,
         horaRegistro,
         idPalma,
@@ -6162,6 +6169,12 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_registro_enfermedad')) {
+      context.handle(
+          _idRegistroEnfermedadMeta,
+          idRegistroEnfermedad.isAcceptableOrUnknown(
+              data['id_registro_enfermedad']!, _idRegistroEnfermedadMeta));
     }
     if (data.containsKey('fecha_registro')) {
       context.handle(
@@ -6228,6 +6241,8 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
     return RegistroEnfermedadData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idRegistroEnfermedad: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_registro_enfermedad']),
       fechaRegistro: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_registro'])!,
       horaRegistro: attachedDatabase.typeMapping
@@ -6256,6 +6271,7 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
 class RegistroEnfermedadData extends DataClass
     implements Insertable<RegistroEnfermedadData> {
   final int id;
+  final int? idRegistroEnfermedad;
   final DateTime fechaRegistro;
   final DateTime? horaRegistro;
   final String idPalma;
@@ -6266,6 +6282,7 @@ class RegistroEnfermedadData extends DataClass
   final bool sincronizado;
   const RegistroEnfermedadData(
       {required this.id,
+      this.idRegistroEnfermedad,
       required this.fechaRegistro,
       this.horaRegistro,
       required this.idPalma,
@@ -6278,6 +6295,9 @@ class RegistroEnfermedadData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idRegistroEnfermedad != null) {
+      map['id_registro_enfermedad'] = Variable<int>(idRegistroEnfermedad);
+    }
     map['fecha_registro'] = Variable<DateTime>(fechaRegistro);
     if (!nullToAbsent || horaRegistro != null) {
       map['hora_registro'] = Variable<DateTime>(horaRegistro);
@@ -6298,6 +6318,9 @@ class RegistroEnfermedadData extends DataClass
   RegistroEnfermedadCompanion toCompanion(bool nullToAbsent) {
     return RegistroEnfermedadCompanion(
       id: Value(id),
+      idRegistroEnfermedad: idRegistroEnfermedad == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idRegistroEnfermedad),
       fechaRegistro: Value(fechaRegistro),
       horaRegistro: horaRegistro == null && nullToAbsent
           ? const Value.absent()
@@ -6320,6 +6343,8 @@ class RegistroEnfermedadData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RegistroEnfermedadData(
       id: serializer.fromJson<int>(json['id']),
+      idRegistroEnfermedad:
+          serializer.fromJson<int?>(json['idRegistroEnfermedad']),
       fechaRegistro: serializer.fromJson<DateTime>(json['fechaRegistro']),
       horaRegistro: serializer.fromJson<DateTime?>(json['horaRegistro']),
       idPalma: serializer.fromJson<String>(json['idPalma']),
@@ -6335,6 +6360,7 @@ class RegistroEnfermedadData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'idRegistroEnfermedad': serializer.toJson<int?>(idRegistroEnfermedad),
       'fechaRegistro': serializer.toJson<DateTime>(fechaRegistro),
       'horaRegistro': serializer.toJson<DateTime?>(horaRegistro),
       'idPalma': serializer.toJson<String>(idPalma),
@@ -6348,6 +6374,7 @@ class RegistroEnfermedadData extends DataClass
 
   RegistroEnfermedadData copyWith(
           {int? id,
+          Value<int?> idRegistroEnfermedad = const Value.absent(),
           DateTime? fechaRegistro,
           Value<DateTime?> horaRegistro = const Value.absent(),
           String? idPalma,
@@ -6358,6 +6385,9 @@ class RegistroEnfermedadData extends DataClass
           bool? sincronizado}) =>
       RegistroEnfermedadData(
         id: id ?? this.id,
+        idRegistroEnfermedad: idRegistroEnfermedad.present
+            ? idRegistroEnfermedad.value
+            : this.idRegistroEnfermedad,
         fechaRegistro: fechaRegistro ?? this.fechaRegistro,
         horaRegistro:
             horaRegistro.present ? horaRegistro.value : this.horaRegistro,
@@ -6375,6 +6405,7 @@ class RegistroEnfermedadData extends DataClass
   String toString() {
     return (StringBuffer('RegistroEnfermedadData(')
           ..write('id: $id, ')
+          ..write('idRegistroEnfermedad: $idRegistroEnfermedad, ')
           ..write('fechaRegistro: $fechaRegistro, ')
           ..write('horaRegistro: $horaRegistro, ')
           ..write('idPalma: $idPalma, ')
@@ -6390,6 +6421,7 @@ class RegistroEnfermedadData extends DataClass
   @override
   int get hashCode => Object.hash(
       id,
+      idRegistroEnfermedad,
       fechaRegistro,
       horaRegistro,
       idPalma,
@@ -6403,6 +6435,7 @@ class RegistroEnfermedadData extends DataClass
       identical(this, other) ||
       (other is RegistroEnfermedadData &&
           other.id == this.id &&
+          other.idRegistroEnfermedad == this.idRegistroEnfermedad &&
           other.fechaRegistro == this.fechaRegistro &&
           other.horaRegistro == this.horaRegistro &&
           other.idPalma == this.idPalma &&
@@ -6416,6 +6449,7 @@ class RegistroEnfermedadData extends DataClass
 class RegistroEnfermedadCompanion
     extends UpdateCompanion<RegistroEnfermedadData> {
   final Value<int> id;
+  final Value<int?> idRegistroEnfermedad;
   final Value<DateTime> fechaRegistro;
   final Value<DateTime?> horaRegistro;
   final Value<String> idPalma;
@@ -6426,6 +6460,7 @@ class RegistroEnfermedadCompanion
   final Value<bool> sincronizado;
   const RegistroEnfermedadCompanion({
     this.id = const Value.absent(),
+    this.idRegistroEnfermedad = const Value.absent(),
     this.fechaRegistro = const Value.absent(),
     this.horaRegistro = const Value.absent(),
     this.idPalma = const Value.absent(),
@@ -6437,6 +6472,7 @@ class RegistroEnfermedadCompanion
   });
   RegistroEnfermedadCompanion.insert({
     this.id = const Value.absent(),
+    this.idRegistroEnfermedad = const Value.absent(),
     required DateTime fechaRegistro,
     this.horaRegistro = const Value.absent(),
     required String idPalma,
@@ -6451,6 +6487,7 @@ class RegistroEnfermedadCompanion
         responsable = Value(responsable);
   static Insertable<RegistroEnfermedadData> custom({
     Expression<int>? id,
+    Expression<int>? idRegistroEnfermedad,
     Expression<DateTime>? fechaRegistro,
     Expression<DateTime>? horaRegistro,
     Expression<String>? idPalma,
@@ -6462,6 +6499,8 @@ class RegistroEnfermedadCompanion
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (idRegistroEnfermedad != null)
+        'id_registro_enfermedad': idRegistroEnfermedad,
       if (fechaRegistro != null) 'fecha_registro': fechaRegistro,
       if (horaRegistro != null) 'hora_registro': horaRegistro,
       if (idPalma != null) 'id_palma': idPalma,
@@ -6475,6 +6514,7 @@ class RegistroEnfermedadCompanion
 
   RegistroEnfermedadCompanion copyWith(
       {Value<int>? id,
+      Value<int?>? idRegistroEnfermedad,
       Value<DateTime>? fechaRegistro,
       Value<DateTime?>? horaRegistro,
       Value<String>? idPalma,
@@ -6485,6 +6525,7 @@ class RegistroEnfermedadCompanion
       Value<bool>? sincronizado}) {
     return RegistroEnfermedadCompanion(
       id: id ?? this.id,
+      idRegistroEnfermedad: idRegistroEnfermedad ?? this.idRegistroEnfermedad,
       fechaRegistro: fechaRegistro ?? this.fechaRegistro,
       horaRegistro: horaRegistro ?? this.horaRegistro,
       idPalma: idPalma ?? this.idPalma,
@@ -6501,6 +6542,9 @@ class RegistroEnfermedadCompanion
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (idRegistroEnfermedad.present) {
+      map['id_registro_enfermedad'] = Variable<int>(idRegistroEnfermedad.value);
     }
     if (fechaRegistro.present) {
       map['fecha_registro'] = Variable<DateTime>(fechaRegistro.value);
@@ -6533,6 +6577,7 @@ class RegistroEnfermedadCompanion
   String toString() {
     return (StringBuffer('RegistroEnfermedadCompanion(')
           ..write('id: $id, ')
+          ..write('idRegistroEnfermedad: $idRegistroEnfermedad, ')
           ..write('fechaRegistro: $fechaRegistro, ')
           ..write('horaRegistro: $horaRegistro, ')
           ..write('idPalma: $idPalma, ')
@@ -6576,9 +6621,22 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
   late final GeneratedColumn<Uint8List> imagen = GeneratedColumn<Uint8List>(
       'imagen', aliasedName, false,
       type: DriftSqlType.blob, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns =>
-      [idImagenRegistroEnfermedad, idEnfermedad, imagen];
+      [idImagenRegistroEnfermedad, idEnfermedad, imagen, sincronizado];
   @override
   String get aliasedName => _alias ?? 'imagen_registro_enfermedad';
   @override
@@ -6610,6 +6668,12 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
     } else if (isInserting) {
       context.missing(_imagenMeta);
     }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
     return context;
   }
 
@@ -6627,6 +6691,8 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
           .read(DriftSqlType.int, data['${effectivePrefix}id_enfermedad'])!,
       imagen: attachedDatabase.typeMapping
           .read(DriftSqlType.blob, data['${effectivePrefix}imagen'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
@@ -6641,10 +6707,12 @@ class ImagenRegistroEnfermedadData extends DataClass
   final int idImagenRegistroEnfermedad;
   final int idEnfermedad;
   final Uint8List imagen;
+  final bool sincronizado;
   const ImagenRegistroEnfermedadData(
       {required this.idImagenRegistroEnfermedad,
       required this.idEnfermedad,
-      required this.imagen});
+      required this.imagen,
+      required this.sincronizado});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -6652,6 +6720,7 @@ class ImagenRegistroEnfermedadData extends DataClass
         Variable<int>(idImagenRegistroEnfermedad);
     map['id_enfermedad'] = Variable<int>(idEnfermedad);
     map['imagen'] = Variable<Uint8List>(imagen);
+    map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
   }
 
@@ -6660,6 +6729,7 @@ class ImagenRegistroEnfermedadData extends DataClass
       idImagenRegistroEnfermedad: Value(idImagenRegistroEnfermedad),
       idEnfermedad: Value(idEnfermedad),
       imagen: Value(imagen),
+      sincronizado: Value(sincronizado),
     );
   }
 
@@ -6671,6 +6741,7 @@ class ImagenRegistroEnfermedadData extends DataClass
           serializer.fromJson<int>(json['idImagenRegistroEnfermedad']),
       idEnfermedad: serializer.fromJson<int>(json['idEnfermedad']),
       imagen: serializer.fromJson<Uint8List>(json['imagen']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
   }
   @override
@@ -6681,39 +6752,44 @@ class ImagenRegistroEnfermedadData extends DataClass
           serializer.toJson<int>(idImagenRegistroEnfermedad),
       'idEnfermedad': serializer.toJson<int>(idEnfermedad),
       'imagen': serializer.toJson<Uint8List>(imagen),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
     };
   }
 
   ImagenRegistroEnfermedadData copyWith(
           {int? idImagenRegistroEnfermedad,
           int? idEnfermedad,
-          Uint8List? imagen}) =>
+          Uint8List? imagen,
+          bool? sincronizado}) =>
       ImagenRegistroEnfermedadData(
         idImagenRegistroEnfermedad:
             idImagenRegistroEnfermedad ?? this.idImagenRegistroEnfermedad,
         idEnfermedad: idEnfermedad ?? this.idEnfermedad,
         imagen: imagen ?? this.imagen,
+        sincronizado: sincronizado ?? this.sincronizado,
       );
   @override
   String toString() {
     return (StringBuffer('ImagenRegistroEnfermedadData(')
           ..write('idImagenRegistroEnfermedad: $idImagenRegistroEnfermedad, ')
           ..write('idEnfermedad: $idEnfermedad, ')
-          ..write('imagen: $imagen')
+          ..write('imagen: $imagen, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(idImagenRegistroEnfermedad, idEnfermedad,
-      $driftBlobEquality.hash(imagen));
+      $driftBlobEquality.hash(imagen), sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ImagenRegistroEnfermedadData &&
           other.idImagenRegistroEnfermedad == this.idImagenRegistroEnfermedad &&
           other.idEnfermedad == this.idEnfermedad &&
-          $driftBlobEquality.equals(other.imagen, this.imagen));
+          $driftBlobEquality.equals(other.imagen, this.imagen) &&
+          other.sincronizado == this.sincronizado);
 }
 
 class ImagenRegistroEnfermedadCompanion
@@ -6721,39 +6797,46 @@ class ImagenRegistroEnfermedadCompanion
   final Value<int> idImagenRegistroEnfermedad;
   final Value<int> idEnfermedad;
   final Value<Uint8List> imagen;
+  final Value<bool> sincronizado;
   const ImagenRegistroEnfermedadCompanion({
     this.idImagenRegistroEnfermedad = const Value.absent(),
     this.idEnfermedad = const Value.absent(),
     this.imagen = const Value.absent(),
+    this.sincronizado = const Value.absent(),
   });
   ImagenRegistroEnfermedadCompanion.insert({
     this.idImagenRegistroEnfermedad = const Value.absent(),
     required int idEnfermedad,
     required Uint8List imagen,
+    this.sincronizado = const Value.absent(),
   })  : idEnfermedad = Value(idEnfermedad),
         imagen = Value(imagen);
   static Insertable<ImagenRegistroEnfermedadData> custom({
     Expression<int>? idImagenRegistroEnfermedad,
     Expression<int>? idEnfermedad,
     Expression<Uint8List>? imagen,
+    Expression<bool>? sincronizado,
   }) {
     return RawValuesInsertable({
       if (idImagenRegistroEnfermedad != null)
         'id_imagen_registro_enfermedad': idImagenRegistroEnfermedad,
       if (idEnfermedad != null) 'id_enfermedad': idEnfermedad,
       if (imagen != null) 'imagen': imagen,
+      if (sincronizado != null) 'sincronizado': sincronizado,
     });
   }
 
   ImagenRegistroEnfermedadCompanion copyWith(
       {Value<int>? idImagenRegistroEnfermedad,
       Value<int>? idEnfermedad,
-      Value<Uint8List>? imagen}) {
+      Value<Uint8List>? imagen,
+      Value<bool>? sincronizado}) {
     return ImagenRegistroEnfermedadCompanion(
       idImagenRegistroEnfermedad:
           idImagenRegistroEnfermedad ?? this.idImagenRegistroEnfermedad,
       idEnfermedad: idEnfermedad ?? this.idEnfermedad,
       imagen: imagen ?? this.imagen,
+      sincronizado: sincronizado ?? this.sincronizado,
     );
   }
 
@@ -6770,6 +6853,9 @@ class ImagenRegistroEnfermedadCompanion
     if (imagen.present) {
       map['imagen'] = Variable<Uint8List>(imagen.value);
     }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
     return map;
   }
 
@@ -6778,7 +6864,8 @@ class ImagenRegistroEnfermedadCompanion
     return (StringBuffer('ImagenRegistroEnfermedadCompanion(')
           ..write('idImagenRegistroEnfermedad: $idImagenRegistroEnfermedad, ')
           ..write('idEnfermedad: $idEnfermedad, ')
-          ..write('imagen: $imagen')
+          ..write('imagen: $imagen, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
