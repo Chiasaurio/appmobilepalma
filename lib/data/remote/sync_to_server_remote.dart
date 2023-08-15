@@ -31,28 +31,42 @@ class SyncToServerRemote {
     }
   }
 
-  Future<bool> syncEnfermedades(List<RegistroEnfermedadData> registros) async {
+  Future<Map<String, dynamic>> syncEnfermedades(
+      List<RegistroEnfermedadConImagenes> registros) async {
     try {
-      final data = registros
-          .map((e) => {
-                "id_registro_enfermedad": e.id,
-                "hora_registro_enfermedad": e.horaRegistro!.toIso8601String(),
-                "fecha_registro_enfermedad": e.fechaRegistro.toIso8601String(),
-                "observacion_registro_enfermedad": e.observaciones,
-                "id_palma": e.idPalma,
-                "nombre_enfermedad": utf8.encode(e.nombreEnfermedad),
-                "id_etapa_enfermedad": e.idEtapaEnfermedad,
-                "cc_usuario": e.responsable,
-              })
-          .toList();
-      await _apiInstance
+      final data = registros.map((e) {
+        final registroEnfermedad = {
+          "id_registro_enfermedad": e.registroEnfermedad.idRegistroEnfermedad,
+          "hora_registro_enfermedad":
+              e.registroEnfermedad.horaRegistro!.toIso8601String(),
+          "fecha_registro_enfermedad":
+              e.registroEnfermedad.fechaRegistro.toIso8601String(),
+          "observacion_registro_enfermedad": e.registroEnfermedad.observaciones,
+          "id_palma": e.registroEnfermedad.idPalma,
+          "nombre_enfermedad":
+              utf8.encode(e.registroEnfermedad.nombreEnfermedad),
+          "id_etapa_enfermedad": e.registroEnfermedad.idEtapaEnfermedad,
+          "cc_usuario": e.registroEnfermedad.responsable,
+        };
+        var imagenes = e.imagenes
+            .map((d) => {
+                  'id_registro_enfermedad': d.idEnfermedad,
+                  'imagen': base64Encode(d.imagen)
+                })
+            .toList();
+        return {
+          "registro_enfermedad": registroEnfermedad,
+          "imagenes": imagenes
+        };
+      }).toList();
+      final res = await _apiInstance
           .post(EndPointConstant.enfermedades, data: {"data": data});
 
-      return true;
+      return res;
     } on DioError catch (_) {
-      return false;
+      return {"success": false};
     } catch (e) {
-      return false;
+      return {"success": false};
     }
   }
 

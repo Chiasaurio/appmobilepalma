@@ -7,7 +7,7 @@ class SyncToServerState extends Equatable {
   final List<FertilizacionConFertilizacionesDiarias>?
       fertilizacionesConDiariasPendientes;
   final List<Palma>? palmasPendientes;
-  final List<RegistroEnfermedadData>? enfermedadesPendientes;
+  final List<RegistroEnfermedadConImagenes>? enfermedadesPendientes;
   final List<RegistroTratamientoData>? tratamientosPendientes;
   final List<ErradicacionData>? erradicacionesPendientes;
   final List<CensoData>? censosPendientes;
@@ -62,7 +62,7 @@ class SyncToServerState extends Equatable {
     List<Palma>? palmasPendientes,
     bool? loaded,
     FormStatus? status,
-    List<RegistroEnfermedadData>? enfermedadesPendientes,
+    List<RegistroEnfermedadConImagenes>? enfermedadesPendientes,
     List<RegistroTratamientoData>? tratamientosPendientes,
     List<ErradicacionData>? erradicacionesPendientes,
     List<CensoData>? censosPendientes,

@@ -132,13 +132,20 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     }
   }
 
-  Future<List<RegistroEnfermedadData>>
+  Future<List<RegistroEnfermedadConImagenes>>
       getEnfermedadesPendientesSincronizar() async {
     try {
       final PalmaDao palmasDao = db.palmaDao;
       final registrosEnfermedades =
           await palmasDao.getRegistrosEnfermedadesForSync();
-      return registrosEnfermedades;
+      List<RegistroEnfermedadConImagenes> registroConImagenes = [];
+      for (var r in registrosEnfermedades) {
+        final imagenes = await palmasDao.getImagenesEnfermedadesForSync(r);
+        registroConImagenes.add(RegistroEnfermedadConImagenes(
+            registroEnfermedad: r, imagenes: imagenes));
+      }
+
+      return registroConImagenes;
     } catch (e) {
       return [];
     }
@@ -403,11 +410,24 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       emit(state.copyWith(enfermedadesStatus: SyncStatus.loading));
       final res =
           await remote.syncEnfermedades(state.enfermedadesPendientes ?? []);
-      if (res) {
+      if (res["success"]) {
         final RegistroEnfermedadDao registroEnfermedadDao =
             db.registroEnfermedadDao;
+        var index = 0;
+        var ids = res["registrosIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var registro in state.enfermedadesPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego el registro, toca actualizar el id
+            await registroEnfermedadDao.updateRegistro(registro
+                .registroEnfermedad
+                .copyWith(idRegistroEnfermedad: Value(ids[index])));
+          }
+          index++;
+        }
         for (var i in state.enfermedadesPendientes!) {
-          await registroEnfermedadDao.updateSyncRegistro(i);
+          await registroEnfermedadDao.updateSyncRegistro(
+              i.registroEnfermedad, i.imagenes);
         }
         emit(state.copyWith(enfermedadesStatus: SyncStatus.success));
         return true;
