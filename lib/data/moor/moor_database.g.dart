@@ -475,16 +475,21 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $CensoTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idCensoMeta =
-      const VerificationMeta('idCenso');
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
-      'id_censo', aliasedName, false,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idCensoMeta =
+      const VerificationMeta('idCenso');
+  @override
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
+      'id_censo', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _fechaCensoMeta =
       const VerificationMeta('fechaCenso');
   @override
@@ -528,7 +533,7 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
       'estado_plaga', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
-      defaultValue: const Constant('pendiente'));
+      defaultValue: const Constant('Pendiente por fumigar'));
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
@@ -562,6 +567,7 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
       type: DriftSqlType.double, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
+        id,
         idCenso,
         fechaCenso,
         identificador,
@@ -584,6 +590,9 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
     if (data.containsKey('id_censo')) {
       context.handle(_idCensoMeta,
           idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
@@ -664,13 +673,15 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idCenso};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   CensoData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CensoData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       idCenso: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo']),
       fechaCenso: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_censo'])!,
       identificador: attachedDatabase.typeMapping
@@ -703,7 +714,8 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
 }
 
 class CensoData extends DataClass implements Insertable<CensoData> {
-  final int idCenso;
+  final int id;
+  final int? idCenso;
   final DateTime fechaCenso;
   final String identificador;
   final String? observacionCenso;
@@ -716,7 +728,8 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   final double? latitude;
   final double? longitude;
   const CensoData(
-      {required this.idCenso,
+      {required this.id,
+      this.idCenso,
       required this.fechaCenso,
       required this.identificador,
       this.observacionCenso,
@@ -731,7 +744,10 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_censo'] = Variable<int>(idCenso);
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idCenso != null) {
+      map['id_censo'] = Variable<int>(idCenso);
+    }
     map['fecha_censo'] = Variable<DateTime>(fechaCenso);
     map['identificador'] = Variable<String>(identificador);
     if (!nullToAbsent || observacionCenso != null) {
@@ -756,7 +772,10 @@ class CensoData extends DataClass implements Insertable<CensoData> {
 
   CensoCompanion toCompanion(bool nullToAbsent) {
     return CensoCompanion(
-      idCenso: Value(idCenso),
+      id: Value(id),
+      idCenso: idCenso == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idCenso),
       fechaCenso: Value(fechaCenso),
       identificador: Value(identificador),
       observacionCenso: observacionCenso == null && nullToAbsent
@@ -783,7 +802,8 @@ class CensoData extends DataClass implements Insertable<CensoData> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CensoData(
-      idCenso: serializer.fromJson<int>(json['idCenso']),
+      id: serializer.fromJson<int>(json['id']),
+      idCenso: serializer.fromJson<int?>(json['idCenso']),
       fechaCenso: serializer.fromJson<DateTime>(json['fechaCenso']),
       identificador: serializer.fromJson<String>(json['identificador']),
       observacionCenso: serializer.fromJson<String?>(json['observacionCenso']),
@@ -801,7 +821,8 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idCenso': serializer.toJson<int>(idCenso),
+      'id': serializer.toJson<int>(id),
+      'idCenso': serializer.toJson<int?>(idCenso),
       'fechaCenso': serializer.toJson<DateTime>(fechaCenso),
       'identificador': serializer.toJson<String>(identificador),
       'observacionCenso': serializer.toJson<String?>(observacionCenso),
@@ -817,7 +838,8 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   }
 
   CensoData copyWith(
-          {int? idCenso,
+          {int? id,
+          Value<int?> idCenso = const Value.absent(),
           DateTime? fechaCenso,
           String? identificador,
           Value<String?> observacionCenso = const Value.absent(),
@@ -830,7 +852,8 @@ class CensoData extends DataClass implements Insertable<CensoData> {
           Value<double?> latitude = const Value.absent(),
           Value<double?> longitude = const Value.absent()}) =>
       CensoData(
-        idCenso: idCenso ?? this.idCenso,
+        id: id ?? this.id,
+        idCenso: idCenso.present ? idCenso.value : this.idCenso,
         fechaCenso: fechaCenso ?? this.fechaCenso,
         identificador: identificador ?? this.identificador,
         observacionCenso: observacionCenso.present
@@ -850,6 +873,7 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   @override
   String toString() {
     return (StringBuffer('CensoData(')
+          ..write('id: $id, ')
           ..write('idCenso: $idCenso, ')
           ..write('fechaCenso: $fechaCenso, ')
           ..write('identificador: $identificador, ')
@@ -868,6 +892,7 @@ class CensoData extends DataClass implements Insertable<CensoData> {
 
   @override
   int get hashCode => Object.hash(
+      id,
       idCenso,
       fechaCenso,
       identificador,
@@ -884,6 +909,7 @@ class CensoData extends DataClass implements Insertable<CensoData> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CensoData &&
+          other.id == this.id &&
           other.idCenso == this.idCenso &&
           other.fechaCenso == this.fechaCenso &&
           other.identificador == this.identificador &&
@@ -899,7 +925,8 @@ class CensoData extends DataClass implements Insertable<CensoData> {
 }
 
 class CensoCompanion extends UpdateCompanion<CensoData> {
-  final Value<int> idCenso;
+  final Value<int> id;
+  final Value<int?> idCenso;
   final Value<DateTime> fechaCenso;
   final Value<String> identificador;
   final Value<String?> observacionCenso;
@@ -912,6 +939,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
   final Value<double?> latitude;
   final Value<double?> longitude;
   const CensoCompanion({
+    this.id = const Value.absent(),
     this.idCenso = const Value.absent(),
     this.fechaCenso = const Value.absent(),
     this.identificador = const Value.absent(),
@@ -926,6 +954,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
     this.longitude = const Value.absent(),
   });
   CensoCompanion.insert({
+    this.id = const Value.absent(),
     this.idCenso = const Value.absent(),
     required DateTime fechaCenso,
     required String identificador,
@@ -944,6 +973,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
         nombrePlaga = Value(nombrePlaga),
         responsable = Value(responsable);
   static Insertable<CensoData> custom({
+    Expression<int>? id,
     Expression<int>? idCenso,
     Expression<DateTime>? fechaCenso,
     Expression<String>? identificador,
@@ -958,6 +988,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
     Expression<double>? longitude,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (idCenso != null) 'id_censo': idCenso,
       if (fechaCenso != null) 'fecha_censo': fechaCenso,
       if (identificador != null) 'identificador': identificador,
@@ -974,7 +1005,8 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
   }
 
   CensoCompanion copyWith(
-      {Value<int>? idCenso,
+      {Value<int>? id,
+      Value<int?>? idCenso,
       Value<DateTime>? fechaCenso,
       Value<String>? identificador,
       Value<String?>? observacionCenso,
@@ -987,6 +1019,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
       Value<double?>? latitude,
       Value<double?>? longitude}) {
     return CensoCompanion(
+      id: id ?? this.id,
       idCenso: idCenso ?? this.idCenso,
       fechaCenso: fechaCenso ?? this.fechaCenso,
       identificador: identificador ?? this.identificador,
@@ -1005,6 +1038,9 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
     if (idCenso.present) {
       map['id_censo'] = Variable<int>(idCenso.value);
     }
@@ -1047,6 +1083,7 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
   @override
   String toString() {
     return (StringBuffer('CensoCompanion(')
+          ..write('id: $id, ')
           ..write('idCenso: $idCenso, ')
           ..write('fechaCenso: $fechaCenso, ')
           ..write('identificador: $identificador, ')
@@ -7949,9 +7986,27 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
   late final GeneratedColumn<int> numeroIndividuos = GeneratedColumn<int>(
       'numero_individuos', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
   @override
-  List<GeneratedColumn> get $columns =>
-      [idCensoEtapasplaga, idCenso, idEtapasplaga, numeroIndividuos];
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        idCensoEtapasplaga,
+        idCenso,
+        idEtapasplaga,
+        numeroIndividuos,
+        sincronizado
+      ];
   @override
   String get aliasedName => _alias ?? 'censo_etapas_plaga';
   @override
@@ -7990,6 +8045,12 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
     } else if (isInserting) {
       context.missing(_numeroIndividuosMeta);
     }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
     return context;
   }
 
@@ -8007,6 +8068,8 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
           .read(DriftSqlType.int, data['${effectivePrefix}id_etapasplaga'])!,
       numeroIndividuos: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}numero_individuos'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
@@ -8022,11 +8085,13 @@ class CensoEtapasPlagaData extends DataClass
   final int idCenso;
   final int idEtapasplaga;
   final int numeroIndividuos;
+  final bool sincronizado;
   const CensoEtapasPlagaData(
       {required this.idCensoEtapasplaga,
       required this.idCenso,
       required this.idEtapasplaga,
-      required this.numeroIndividuos});
+      required this.numeroIndividuos,
+      required this.sincronizado});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -8034,6 +8099,7 @@ class CensoEtapasPlagaData extends DataClass
     map['id_censo'] = Variable<int>(idCenso);
     map['id_etapasplaga'] = Variable<int>(idEtapasplaga);
     map['numero_individuos'] = Variable<int>(numeroIndividuos);
+    map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
   }
 
@@ -8043,6 +8109,7 @@ class CensoEtapasPlagaData extends DataClass
       idCenso: Value(idCenso),
       idEtapasplaga: Value(idEtapasplaga),
       numeroIndividuos: Value(numeroIndividuos),
+      sincronizado: Value(sincronizado),
     );
   }
 
@@ -8054,6 +8121,7 @@ class CensoEtapasPlagaData extends DataClass
       idCenso: serializer.fromJson<int>(json['idCenso']),
       idEtapasplaga: serializer.fromJson<int>(json['idEtapasplaga']),
       numeroIndividuos: serializer.fromJson<int>(json['numeroIndividuos']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
   }
   @override
@@ -8064,6 +8132,7 @@ class CensoEtapasPlagaData extends DataClass
       'idCenso': serializer.toJson<int>(idCenso),
       'idEtapasplaga': serializer.toJson<int>(idEtapasplaga),
       'numeroIndividuos': serializer.toJson<int>(numeroIndividuos),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
     };
   }
 
@@ -8071,12 +8140,14 @@ class CensoEtapasPlagaData extends DataClass
           {int? idCensoEtapasplaga,
           int? idCenso,
           int? idEtapasplaga,
-          int? numeroIndividuos}) =>
+          int? numeroIndividuos,
+          bool? sincronizado}) =>
       CensoEtapasPlagaData(
         idCensoEtapasplaga: idCensoEtapasplaga ?? this.idCensoEtapasplaga,
         idCenso: idCenso ?? this.idCenso,
         idEtapasplaga: idEtapasplaga ?? this.idEtapasplaga,
         numeroIndividuos: numeroIndividuos ?? this.numeroIndividuos,
+        sincronizado: sincronizado ?? this.sincronizado,
       );
   @override
   String toString() {
@@ -8084,14 +8155,15 @@ class CensoEtapasPlagaData extends DataClass
           ..write('idCensoEtapasplaga: $idCensoEtapasplaga, ')
           ..write('idCenso: $idCenso, ')
           ..write('idEtapasplaga: $idEtapasplaga, ')
-          ..write('numeroIndividuos: $numeroIndividuos')
+          ..write('numeroIndividuos: $numeroIndividuos, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(idCensoEtapasplaga, idCenso, idEtapasplaga, numeroIndividuos);
+  int get hashCode => Object.hash(idCensoEtapasplaga, idCenso, idEtapasplaga,
+      numeroIndividuos, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -8099,7 +8171,8 @@ class CensoEtapasPlagaData extends DataClass
           other.idCensoEtapasplaga == this.idCensoEtapasplaga &&
           other.idCenso == this.idCenso &&
           other.idEtapasplaga == this.idEtapasplaga &&
-          other.numeroIndividuos == this.numeroIndividuos);
+          other.numeroIndividuos == this.numeroIndividuos &&
+          other.sincronizado == this.sincronizado);
 }
 
 class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
@@ -8107,17 +8180,20 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
   final Value<int> idCenso;
   final Value<int> idEtapasplaga;
   final Value<int> numeroIndividuos;
+  final Value<bool> sincronizado;
   const CensoEtapasPlagaCompanion({
     this.idCensoEtapasplaga = const Value.absent(),
     this.idCenso = const Value.absent(),
     this.idEtapasplaga = const Value.absent(),
     this.numeroIndividuos = const Value.absent(),
+    this.sincronizado = const Value.absent(),
   });
   CensoEtapasPlagaCompanion.insert({
     this.idCensoEtapasplaga = const Value.absent(),
     required int idCenso,
     required int idEtapasplaga,
     required int numeroIndividuos,
+    this.sincronizado = const Value.absent(),
   })  : idCenso = Value(idCenso),
         idEtapasplaga = Value(idEtapasplaga),
         numeroIndividuos = Value(numeroIndividuos);
@@ -8126,6 +8202,7 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
     Expression<int>? idCenso,
     Expression<int>? idEtapasplaga,
     Expression<int>? numeroIndividuos,
+    Expression<bool>? sincronizado,
   }) {
     return RawValuesInsertable({
       if (idCensoEtapasplaga != null)
@@ -8133,6 +8210,7 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
       if (idCenso != null) 'id_censo': idCenso,
       if (idEtapasplaga != null) 'id_etapasplaga': idEtapasplaga,
       if (numeroIndividuos != null) 'numero_individuos': numeroIndividuos,
+      if (sincronizado != null) 'sincronizado': sincronizado,
     });
   }
 
@@ -8140,12 +8218,14 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
       {Value<int>? idCensoEtapasplaga,
       Value<int>? idCenso,
       Value<int>? idEtapasplaga,
-      Value<int>? numeroIndividuos}) {
+      Value<int>? numeroIndividuos,
+      Value<bool>? sincronizado}) {
     return CensoEtapasPlagaCompanion(
       idCensoEtapasplaga: idCensoEtapasplaga ?? this.idCensoEtapasplaga,
       idCenso: idCenso ?? this.idCenso,
       idEtapasplaga: idEtapasplaga ?? this.idEtapasplaga,
       numeroIndividuos: numeroIndividuos ?? this.numeroIndividuos,
+      sincronizado: sincronizado ?? this.sincronizado,
     );
   }
 
@@ -8164,6 +8244,9 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
     if (numeroIndividuos.present) {
       map['numero_individuos'] = Variable<int>(numeroIndividuos.value);
     }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
     return map;
   }
 
@@ -8173,7 +8256,8 @@ class CensoEtapasPlagaCompanion extends UpdateCompanion<CensoEtapasPlagaData> {
           ..write('idCensoEtapasplaga: $idCensoEtapasplaga, ')
           ..write('idCenso: $idCenso, ')
           ..write('idEtapasplaga: $idEtapasplaga, ')
-          ..write('numeroIndividuos: $numeroIndividuos')
+          ..write('numeroIndividuos: $numeroIndividuos, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
@@ -8206,8 +8290,22 @@ class $ImagenCensoPlagaTable extends ImagenCensoPlaga
   late final GeneratedColumn<Uint8List> imagen = GeneratedColumn<Uint8List>(
       'imagen', aliasedName, false,
       type: DriftSqlType.blob, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
   @override
-  List<GeneratedColumn> get $columns => [idImagenCensoPlaga, idCenso, imagen];
+  late final GeneratedColumn<bool> sincronizado =
+      GeneratedColumn<bool>('sincronizado', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }),
+          defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [idImagenCensoPlaga, idCenso, imagen, sincronizado];
   @override
   String get aliasedName => _alias ?? 'imagen_censo_plaga';
   @override
@@ -8236,6 +8334,12 @@ class $ImagenCensoPlagaTable extends ImagenCensoPlaga
     } else if (isInserting) {
       context.missing(_imagenMeta);
     }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
     return context;
   }
 
@@ -8251,6 +8355,8 @@ class $ImagenCensoPlagaTable extends ImagenCensoPlaga
           .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
       imagen: attachedDatabase.typeMapping
           .read(DriftSqlType.blob, data['${effectivePrefix}imagen'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
@@ -8265,16 +8371,19 @@ class ImagenCensoPlagaData extends DataClass
   final int idImagenCensoPlaga;
   final int idCenso;
   final Uint8List imagen;
+  final bool sincronizado;
   const ImagenCensoPlagaData(
       {required this.idImagenCensoPlaga,
       required this.idCenso,
-      required this.imagen});
+      required this.imagen,
+      required this.sincronizado});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id_imagen_censo_plaga'] = Variable<int>(idImagenCensoPlaga);
     map['id_censo'] = Variable<int>(idCenso);
     map['imagen'] = Variable<Uint8List>(imagen);
+    map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
   }
 
@@ -8283,6 +8392,7 @@ class ImagenCensoPlagaData extends DataClass
       idImagenCensoPlaga: Value(idImagenCensoPlaga),
       idCenso: Value(idCenso),
       imagen: Value(imagen),
+      sincronizado: Value(sincronizado),
     );
   }
 
@@ -8293,6 +8403,7 @@ class ImagenCensoPlagaData extends DataClass
       idImagenCensoPlaga: serializer.fromJson<int>(json['idImagenCensoPlaga']),
       idCenso: serializer.fromJson<int>(json['idCenso']),
       imagen: serializer.fromJson<Uint8List>(json['imagen']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
   }
   @override
@@ -8302,74 +8413,88 @@ class ImagenCensoPlagaData extends DataClass
       'idImagenCensoPlaga': serializer.toJson<int>(idImagenCensoPlaga),
       'idCenso': serializer.toJson<int>(idCenso),
       'imagen': serializer.toJson<Uint8List>(imagen),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
     };
   }
 
   ImagenCensoPlagaData copyWith(
-          {int? idImagenCensoPlaga, int? idCenso, Uint8List? imagen}) =>
+          {int? idImagenCensoPlaga,
+          int? idCenso,
+          Uint8List? imagen,
+          bool? sincronizado}) =>
       ImagenCensoPlagaData(
         idImagenCensoPlaga: idImagenCensoPlaga ?? this.idImagenCensoPlaga,
         idCenso: idCenso ?? this.idCenso,
         imagen: imagen ?? this.imagen,
+        sincronizado: sincronizado ?? this.sincronizado,
       );
   @override
   String toString() {
     return (StringBuffer('ImagenCensoPlagaData(')
           ..write('idImagenCensoPlaga: $idImagenCensoPlaga, ')
           ..write('idCenso: $idCenso, ')
-          ..write('imagen: $imagen')
+          ..write('imagen: $imagen, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(idImagenCensoPlaga, idCenso, $driftBlobEquality.hash(imagen));
+  int get hashCode => Object.hash(idImagenCensoPlaga, idCenso,
+      $driftBlobEquality.hash(imagen), sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ImagenCensoPlagaData &&
           other.idImagenCensoPlaga == this.idImagenCensoPlaga &&
           other.idCenso == this.idCenso &&
-          $driftBlobEquality.equals(other.imagen, this.imagen));
+          $driftBlobEquality.equals(other.imagen, this.imagen) &&
+          other.sincronizado == this.sincronizado);
 }
 
 class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
   final Value<int> idImagenCensoPlaga;
   final Value<int> idCenso;
   final Value<Uint8List> imagen;
+  final Value<bool> sincronizado;
   const ImagenCensoPlagaCompanion({
     this.idImagenCensoPlaga = const Value.absent(),
     this.idCenso = const Value.absent(),
     this.imagen = const Value.absent(),
+    this.sincronizado = const Value.absent(),
   });
   ImagenCensoPlagaCompanion.insert({
     this.idImagenCensoPlaga = const Value.absent(),
     required int idCenso,
     required Uint8List imagen,
+    this.sincronizado = const Value.absent(),
   })  : idCenso = Value(idCenso),
         imagen = Value(imagen);
   static Insertable<ImagenCensoPlagaData> custom({
     Expression<int>? idImagenCensoPlaga,
     Expression<int>? idCenso,
     Expression<Uint8List>? imagen,
+    Expression<bool>? sincronizado,
   }) {
     return RawValuesInsertable({
       if (idImagenCensoPlaga != null)
         'id_imagen_censo_plaga': idImagenCensoPlaga,
       if (idCenso != null) 'id_censo': idCenso,
       if (imagen != null) 'imagen': imagen,
+      if (sincronizado != null) 'sincronizado': sincronizado,
     });
   }
 
   ImagenCensoPlagaCompanion copyWith(
       {Value<int>? idImagenCensoPlaga,
       Value<int>? idCenso,
-      Value<Uint8List>? imagen}) {
+      Value<Uint8List>? imagen,
+      Value<bool>? sincronizado}) {
     return ImagenCensoPlagaCompanion(
       idImagenCensoPlaga: idImagenCensoPlaga ?? this.idImagenCensoPlaga,
       idCenso: idCenso ?? this.idCenso,
       imagen: imagen ?? this.imagen,
+      sincronizado: sincronizado ?? this.sincronizado,
     );
   }
 
@@ -8385,6 +8510,9 @@ class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
     if (imagen.present) {
       map['imagen'] = Variable<Uint8List>(imagen.value);
     }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
     return map;
   }
 
@@ -8393,7 +8521,8 @@ class ImagenCensoPlagaCompanion extends UpdateCompanion<ImagenCensoPlagaData> {
     return (StringBuffer('ImagenCensoPlagaCompanion(')
           ..write('idImagenCensoPlaga: $idImagenCensoPlaga, ')
           ..write('idCenso: $idCenso, ')
-          ..write('imagen: $imagen')
+          ..write('imagen: $imagen, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
