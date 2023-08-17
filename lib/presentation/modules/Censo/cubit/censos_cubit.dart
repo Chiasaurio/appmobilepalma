@@ -12,9 +12,9 @@ class CensosCubit extends Cubit<CensosState> {
 
   final db = getIt<AppDatabase>();
 
-  Future<void> obtenerCensosPendientes() async {
+  Future<void> obtenerCensosPendientes(String nombreLote) async {
     final PlagasDao plagasDao = db.plagasDao;
-    List<CensoData> censos = await plagasDao.getCensosPendientes();
+    List<CensoData> censos = await plagasDao.getCensosPendientes(nombreLote);
     emit(CensosState(censos: censos));
   }
 
