@@ -575,6 +575,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
           fechaaplicacion,
           fechareingreso,
           dosis!,
+          unidades!,
           censo,
           producto!.idProductoAgroquimico,
           area!);

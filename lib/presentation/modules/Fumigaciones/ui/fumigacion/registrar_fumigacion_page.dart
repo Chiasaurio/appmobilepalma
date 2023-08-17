@@ -30,18 +30,22 @@ class _RegistrarFumigacionPageState extends State<RegistrarFumigacionPage> {
     return BlocConsumer<FumigacionCubit, FumigacionState>(
       listener: (context, state) {
         if (state.status == FormStatus.submissionSuccess) {
-          BlocProvider.of<CensosCubit>(context).obtenerCensosPendientes();
+          BlocProvider.of<CensosCubit>(context)
+              .obtenerCensosPendientes(state.censo!.nombreLote);
         }
       },
       builder: (context, state) {
-        if (state.productosLoaded) {
-          return FumigacionForm(
-              censo: state.censo!, productos: state.productos!);
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+        return SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+          if (state.productosLoaded) {
+            return FumigacionForm(
+                censo: state.censo!, productos: state.productos!);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }, childCount: 1));
       },
     );
   }

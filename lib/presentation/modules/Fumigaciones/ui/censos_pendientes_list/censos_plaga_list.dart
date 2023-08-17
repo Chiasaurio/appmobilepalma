@@ -29,21 +29,17 @@ class _CensosPlagaListState extends State<CensosPlagaList> {
     altoCard = height * 0.4; //150,
     anchoCard = width * 0.7;
     margin = anchoCard * 0.04;
-    return BlocBuilder<CensosCubit, CensosState>(
-      // future: BlocProvider.of<CensosCubit>(context).obtenerCensosPendientes(),
-      builder: (context, state) {
-        final List<CensoData> censos = widget.censosPendientes;
-        return ListView.builder(
-            shrinkWrap: true,
-            itemCount: censos.length,
-            itemBuilder: (BuildContext context, int index) {
-              return makeListaCensos(censos[index]);
-            });
-        // } else {
-        //   return const Center(child: CircularProgressIndicator());
-        // }
-      },
-    );
+    final List<CensoData> censos = widget.censosPendientes;
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((context, index) {
+      return makeListaCensos(censos[index]);
+    }, childCount: censos.length));
+    // return ListView.builder(
+    //     shrinkWrap: true,
+    //     itemCount: censos.length,
+    //     itemBuilder: (BuildContext context, int index) {
+    //       return makeListaCensos(censos[index]);
+    //     });
   }
 
   Widget makeListaCensos(CensoData censo) {

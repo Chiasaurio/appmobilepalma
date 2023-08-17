@@ -2,10 +2,13 @@ import 'package:apppalma/presentation/modules/Fumigaciones/cubit/fumigacion_cubi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../size_config.dart';
 import '../../../../components/widgets/header_gradient.dart';
 import '../../../Censo/cubit/censos_cubit.dart';
+import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
 import '../fumigacion/registrar_fumigacion_page.dart';
 import 'censos_plaga_list.dart';
+import 'dart:math' as math;
 
 class CensosPendientesPage extends StatefulWidget {
   final String routeName;
@@ -21,64 +24,77 @@ class _CensosPendientesPageState extends State<CensosPendientesPage> {
   late String nombreLote;
   @override
   void initState() {
+    final state = BlocProvider.of<LoteDetailCubit>(context).state;
+    if (state is LoteChoosed) {
+      nombreLote = state.lote.lote.nombreLote;
+    }
     BlocProvider.of<FumigacionCubit>(context).clear();
-    BlocProvider.of<CensosCubit>(context).obtenerCensosPendientes();
+    BlocProvider.of<CensosCubit>(context).obtenerCensosPendientes(nombreLote);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            HeaderGradient(
-              title: "Lista de censos",
-              ruta: widget.routeName,
+    return Scaffold(body: BlocBuilder<CensosCubit, CensosState>(
+      builder: (context, state) {
+        return CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: SliverAppBarDelegate(
+                minHeight: 125 + SizeConfig.paddingTop,
+                maxHeight: 125 + SizeConfig.paddingTop,
+                child: Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: HeaderGradient(
+                    title: "Lista de censos",
+                    ruta: widget.routeName,
+                  ),
+                ),
+              ),
             ),
-            SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: BlocBuilder<CensosCubit, CensosState>(
-                    builder: (context, state) {
-                  if (state.censos != null && state.censo == null) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 15.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "Lista de censos pendientes",
-                                  style: TextStyle(
-                                      color: Colors.black87.withOpacity(0.8),
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          CensosPlagaList(
-                            censosPendientes: state.censos!,
-                          ),
-                        ],
-                      ),
-                    );
-                  } else if (state.censo != null) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 120.0),
-                      child: RegistrarFumigacionPage(),
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                }))
+            if (state.censos != null && state.censo == null)
+              CensosPlagaList(censosPendientes: state.censos!),
+            if (state.censo != null && state.censo != null)
+              const RegistrarFumigacionPage(),
+            if (state.censos == null && state.censo == null)
+              SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }, childCount: 1)),
           ],
-        ),
-      ),
-    );
+        );
+      },
+    ));
+  }
+}
+
+class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  @override
+  double get minExtent => minHeight;
+  @override
+  double get maxExtent => math.max(maxHeight, minHeight);
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }

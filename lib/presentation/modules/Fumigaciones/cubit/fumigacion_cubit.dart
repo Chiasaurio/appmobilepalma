@@ -30,6 +30,7 @@ class FumigacionCubit extends Cubit<FumigacionState> {
       DateTime fechaaplicacion,
       DateTime fechareingreso,
       double dosis,
+      String unidades,
       CensoData censo,
       int idProductoAgroquimico,
       int area) async {
@@ -39,7 +40,8 @@ class FumigacionCubit extends Cubit<FumigacionState> {
         fechaAplicacion: Value(fechaaplicacion),
         fechaReingreso: Value(fechareingreso),
         dosis: Value(dosis),
-        idCenso: Value(censo.idCenso),
+        unidades: Value(unidades),
+        idCenso: Value(censo.idCenso ?? censo.id),
         idProductoAgroquimico: Value(idProductoAgroquimico),
         area: Value(area),
         responsable: Value(globals.responsable),
