@@ -2,6 +2,7 @@ import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:drift/drift.dart';
 
+import '../../../presentation/constants.dart';
 import '../tables/tables.dart';
 
 part 'lote_dao.g.dart';
@@ -78,7 +79,7 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
             leftOuterJoin(
                 censo,
                 censo.nombreLote.equalsExp(lotes.nombreLote) &
-                    censo.estadoPlaga.equals('pendiente')),
+                    censo.estadoPlaga.equals("Pendiente por fumigar")),
           ],
         )
         .watch()
@@ -153,7 +154,7 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
                 leftOuterJoin(
                     censo,
                     censo.nombreLote.equalsExp(lotes.nombreLote) &
-                        censo.estadoPlaga.equals('pendiente')),
+                        censo.estadoPlaga.equals("Pendiente por fumigar")),
               ],
             )
             .watch()

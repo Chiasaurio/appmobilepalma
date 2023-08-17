@@ -106,8 +106,11 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
         .get();
   }
 
-  Future<List<CensoData>> getCensosPendientes() {
-    return (select(censo)..where((tbl) => tbl.estadoPlaga.equals('pendiente')))
+  Future<List<CensoData>> getCensosPendientes(String nombreLote) {
+    return (select(censo)
+          ..where((tbl) =>
+              tbl.estadoPlaga.equals("Pendiente por fumigar") &
+              tbl.nombreLote.equals(nombreLote)))
         .get();
   }
 
