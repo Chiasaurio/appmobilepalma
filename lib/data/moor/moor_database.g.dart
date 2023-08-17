@@ -28,6 +28,12 @@ class $AplicacionesTable extends Aplicaciones
   late final GeneratedColumn<int> area = GeneratedColumn<int>(
       'area', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _unidadesMeta =
+      const VerificationMeta('unidades');
+  @override
+  late final GeneratedColumn<String> unidades = GeneratedColumn<String>(
+      'unidades', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _fechaAplicacionMeta =
       const VerificationMeta('fechaAplicacion');
   @override
@@ -76,6 +82,7 @@ class $AplicacionesTable extends Aplicaciones
         id,
         dosis,
         area,
+        unidades,
         fechaAplicacion,
         fechaReingreso,
         idCenso,
@@ -106,6 +113,12 @@ class $AplicacionesTable extends Aplicaciones
           _areaMeta, area.isAcceptableOrUnknown(data['area']!, _areaMeta));
     } else if (isInserting) {
       context.missing(_areaMeta);
+    }
+    if (data.containsKey('unidades')) {
+      context.handle(_unidadesMeta,
+          unidades.isAcceptableOrUnknown(data['unidades']!, _unidadesMeta));
+    } else if (isInserting) {
+      context.missing(_unidadesMeta);
     }
     if (data.containsKey('fecha_aplicacion')) {
       context.handle(
@@ -166,6 +179,8 @@ class $AplicacionesTable extends Aplicaciones
           .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
       area: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}area'])!,
+      unidades: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}unidades'])!,
       fechaAplicacion: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_aplicacion'])!,
       fechaReingreso: attachedDatabase.typeMapping.read(
@@ -191,6 +206,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
   final int id;
   final double dosis;
   final int area;
+  final String unidades;
   final DateTime fechaAplicacion;
   final DateTime fechaReingreso;
   final int idCenso;
@@ -201,6 +217,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       {required this.id,
       required this.dosis,
       required this.area,
+      required this.unidades,
       required this.fechaAplicacion,
       required this.fechaReingreso,
       required this.idCenso,
@@ -213,6 +230,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
     map['id'] = Variable<int>(id);
     map['dosis'] = Variable<double>(dosis);
     map['area'] = Variable<int>(area);
+    map['unidades'] = Variable<String>(unidades);
     map['fecha_aplicacion'] = Variable<DateTime>(fechaAplicacion);
     map['fecha_reingreso'] = Variable<DateTime>(fechaReingreso);
     map['id_censo'] = Variable<int>(idCenso);
@@ -227,6 +245,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       id: Value(id),
       dosis: Value(dosis),
       area: Value(area),
+      unidades: Value(unidades),
       fechaAplicacion: Value(fechaAplicacion),
       fechaReingreso: Value(fechaReingreso),
       idCenso: Value(idCenso),
@@ -243,6 +262,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       id: serializer.fromJson<int>(json['id']),
       dosis: serializer.fromJson<double>(json['dosis']),
       area: serializer.fromJson<int>(json['area']),
+      unidades: serializer.fromJson<String>(json['unidades']),
       fechaAplicacion: serializer.fromJson<DateTime>(json['fechaAplicacion']),
       fechaReingreso: serializer.fromJson<DateTime>(json['fechaReingreso']),
       idCenso: serializer.fromJson<int>(json['idCenso']),
@@ -259,6 +279,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       'id': serializer.toJson<int>(id),
       'dosis': serializer.toJson<double>(dosis),
       'area': serializer.toJson<int>(area),
+      'unidades': serializer.toJson<String>(unidades),
       'fechaAplicacion': serializer.toJson<DateTime>(fechaAplicacion),
       'fechaReingreso': serializer.toJson<DateTime>(fechaReingreso),
       'idCenso': serializer.toJson<int>(idCenso),
@@ -272,6 +293,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
           {int? id,
           double? dosis,
           int? area,
+          String? unidades,
           DateTime? fechaAplicacion,
           DateTime? fechaReingreso,
           int? idCenso,
@@ -282,6 +304,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
         id: id ?? this.id,
         dosis: dosis ?? this.dosis,
         area: area ?? this.area,
+        unidades: unidades ?? this.unidades,
         fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
         fechaReingreso: fechaReingreso ?? this.fechaReingreso,
         idCenso: idCenso ?? this.idCenso,
@@ -296,6 +319,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
           ..write('id: $id, ')
           ..write('dosis: $dosis, ')
           ..write('area: $area, ')
+          ..write('unidades: $unidades, ')
           ..write('fechaAplicacion: $fechaAplicacion, ')
           ..write('fechaReingreso: $fechaReingreso, ')
           ..write('idCenso: $idCenso, ')
@@ -311,6 +335,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
       id,
       dosis,
       area,
+      unidades,
       fechaAplicacion,
       fechaReingreso,
       idCenso,
@@ -324,6 +349,7 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
           other.id == this.id &&
           other.dosis == this.dosis &&
           other.area == this.area &&
+          other.unidades == this.unidades &&
           other.fechaAplicacion == this.fechaAplicacion &&
           other.fechaReingreso == this.fechaReingreso &&
           other.idCenso == this.idCenso &&
@@ -336,6 +362,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
   final Value<int> id;
   final Value<double> dosis;
   final Value<int> area;
+  final Value<String> unidades;
   final Value<DateTime> fechaAplicacion;
   final Value<DateTime> fechaReingreso;
   final Value<int> idCenso;
@@ -346,6 +373,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     this.id = const Value.absent(),
     this.dosis = const Value.absent(),
     this.area = const Value.absent(),
+    this.unidades = const Value.absent(),
     this.fechaAplicacion = const Value.absent(),
     this.fechaReingreso = const Value.absent(),
     this.idCenso = const Value.absent(),
@@ -357,6 +385,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     this.id = const Value.absent(),
     required double dosis,
     required int area,
+    required String unidades,
     required DateTime fechaAplicacion,
     required DateTime fechaReingreso,
     required int idCenso,
@@ -365,6 +394,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     this.sincronizado = const Value.absent(),
   })  : dosis = Value(dosis),
         area = Value(area),
+        unidades = Value(unidades),
         fechaAplicacion = Value(fechaAplicacion),
         fechaReingreso = Value(fechaReingreso),
         idCenso = Value(idCenso),
@@ -374,6 +404,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     Expression<int>? id,
     Expression<double>? dosis,
     Expression<int>? area,
+    Expression<String>? unidades,
     Expression<DateTime>? fechaAplicacion,
     Expression<DateTime>? fechaReingreso,
     Expression<int>? idCenso,
@@ -385,6 +416,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
       if (id != null) 'id': id,
       if (dosis != null) 'dosis': dosis,
       if (area != null) 'area': area,
+      if (unidades != null) 'unidades': unidades,
       if (fechaAplicacion != null) 'fecha_aplicacion': fechaAplicacion,
       if (fechaReingreso != null) 'fecha_reingreso': fechaReingreso,
       if (idCenso != null) 'id_censo': idCenso,
@@ -399,6 +431,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
       {Value<int>? id,
       Value<double>? dosis,
       Value<int>? area,
+      Value<String>? unidades,
       Value<DateTime>? fechaAplicacion,
       Value<DateTime>? fechaReingreso,
       Value<int>? idCenso,
@@ -409,6 +442,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
       id: id ?? this.id,
       dosis: dosis ?? this.dosis,
       area: area ?? this.area,
+      unidades: unidades ?? this.unidades,
       fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
       fechaReingreso: fechaReingreso ?? this.fechaReingreso,
       idCenso: idCenso ?? this.idCenso,
@@ -430,6 +464,9 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
     }
     if (area.present) {
       map['area'] = Variable<int>(area.value);
+    }
+    if (unidades.present) {
+      map['unidades'] = Variable<String>(unidades.value);
     }
     if (fechaAplicacion.present) {
       map['fecha_aplicacion'] = Variable<DateTime>(fechaAplicacion.value);
@@ -459,6 +496,7 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
           ..write('id: $id, ')
           ..write('dosis: $dosis, ')
           ..write('area: $area, ')
+          ..write('unidades: $unidades, ')
           ..write('fechaAplicacion: $fechaAplicacion, ')
           ..write('fechaReingreso: $fechaReingreso, ')
           ..write('idCenso: $idCenso, ')
