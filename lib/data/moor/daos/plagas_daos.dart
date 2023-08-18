@@ -92,6 +92,10 @@ class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
         .get();
   }
 
+  Future<CensoData?> getRegistroCenso(int id) {
+    return (select(censo)..where((r) => r.id.equals(id))).getSingleOrNull();
+  }
+
   Future<List<CensoEtapasPlagaData>> getCensosEtapasForSync(CensoData censo) {
     return (select(censoEtapasPlaga)
           ..where(

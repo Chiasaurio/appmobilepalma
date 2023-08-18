@@ -33,4 +33,13 @@ class FumigacionDao extends DatabaseAccessor<AppDatabase>
 
   Future updateCenso(Insertable<CensoData> censoobjeto) =>
       update(censo).replace(censoobjeto);
+
+  Future updateSyncFumigacion(Aplicacione fumigacion) {
+    return (update(aplicaciones)..where((t) => t.id.equals(fumigacion.id)))
+        .write(
+      const AplicacionesCompanion(
+        sincronizado: Value(true),
+      ),
+    );
+  }
 }
