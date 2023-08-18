@@ -234,12 +234,12 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.censosStatus != SyncStatus.success) {
       final rescensos = await syncCensos();
     }
-    // if (state.fumigacionesPendientes != null &&
-    //     state.fumigacionesPendientes!.isNotEmpty &&
-    //     state.fumigacionesPendientes != SyncStatus.success &&
-    //     state.censosPendientes != SyncStatus.error) {
-    //   final respalmas = await syncFumigaciones();
-    // }
+    if (state.fumigacionesPendientes != null &&
+        state.fumigacionesPendientes!.isNotEmpty &&
+        state.fumigacionesStatus != SyncStatus.success &&
+        state.censosStatus != SyncStatus.error) {
+      final respalmas = await syncFumigaciones();
+    }
     if (state.cosechasConDiariasPendientes != null &&
         state.cosechasConDiariasPendientes!.isNotEmpty &&
         state.cosechasStatus != SyncStatus.success) {
@@ -468,6 +468,7 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
           db.registroEnfermedadDao;
       List<RegistroEnfermedadData> registroEnfermedades = [];
       List<RegistroTratamientoData> nuevosTratamientos = [];
+      //Actualizamos los tratamientos con el id del registro de enfermedad del server.
       for (var tratamiento in state.tratamientosPendientes!) {
         final registroEnfermedad = await registroEnfermedadDao
             .getRegistroEnfermedad(tratamiento.idRegistroEnfermedad);
@@ -530,43 +531,43 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     }
   }
 
-  // Future<bool> syncTratamientos() async {
-  //   try {
-  //     emit(state.copyWith(tratamientosStatus: SyncStatus.loading));
-  //     // <--- Primero obtenemos la enfermedad-->
-  //     final RegistroEnfermedadDao registroEnfermedadDao =
-  //         db.registroEnfermedadDao;
-  //     List<RegistroEnfermedadData> registroEnfermedades = [];
-  //     List<RegistroTratamientoData> nuevosTratamientos = [];
-  //     for (var tratamiento in state.tratamientosPendientes!) {
-  //       final registroEnfermedad = await registroEnfermedadDao
-  //           .getRegistroEnfermedad(tratamiento.idRegistroEnfermedad);
-  //       if (registroEnfermedad != null) {
-  //         registroEnfermedades.add(registroEnfermedad);
-  //         if (registroEnfermedad.idRegistroEnfermedad != null) {
-  //           nuevosTratamientos.add(tratamiento.copyWith(
-  //               idRegistroEnfermedad: registroEnfermedad.idRegistroEnfermedad));
-  //         }
-  //       }
-  //     }
-  //     // <--- Enviamos los tratamientos con los ids correctos, -->
-  //     final res = await remote.syncTratamientos(nuevosTratamientos);
-  //     if (res) {
-  //       final PalmaDao palmaDao = db.palmaDao;
-  //       for (var i in state.tratamientosPendientes!) {
-  //         await palmaDao.updateSyncTratamientos(i);
-  //       }
-  //       emit(state.copyWith(tratamientosStatus: SyncStatus.success));
-  //       return true;
-  //     } else {
-  //       emit(state.copyWith(tratamientosStatus: SyncStatus.error));
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     emit(state.copyWith(tratamientosStatus: SyncStatus.error));
-  //     return false;
-  //   }
-  // }
+  Future<bool> syncFumigaciones() async {
+    try {
+      emit(state.copyWith(fumigacionesStatus: SyncStatus.loading));
+      // <--- Primero obtenemos la enfermedad-->
+      final FumigacionDao fumigacionDao = db.fumigacionDao;
+      final PlagasDao plagasDao = db.plagasDao;
+      List<CensoData> censos = [];
+      List<Aplicacione> nuevasAplicaciones = [];
+      //Actualizamos las fumigaciones con el id del registro de plaga del server.
+      for (var fumigacion in state.fumigacionesPendientes!) {
+        final registroCenso =
+            await plagasDao.getRegistroCenso(fumigacion.idCenso);
+        if (registroCenso != null) {
+          censos.add(registroCenso);
+          if (registroCenso.idCenso != null) {
+            nuevasAplicaciones
+                .add(fumigacion.copyWith(idCenso: registroCenso.idCenso));
+          }
+        }
+      }
+      // <--- Enviamos las fumigaciones con los ids correctos, -->
+      final res = await remote.syncFumigaciones(nuevasAplicaciones);
+      if (res) {
+        for (var i in state.fumigacionesPendientes!) {
+          await fumigacionDao.updateSyncFumigacion(i);
+        }
+        emit(state.copyWith(fumigacionesStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(fumigacionesStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(fumigacionesStatus: SyncStatus.error));
+      return false;
+    }
+  }
 
   Future<bool> syncViajes() async {
     try {

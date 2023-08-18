@@ -165,6 +165,32 @@ class SyncToServerRemote {
     }
   }
 
+  Future<bool> syncFumigaciones(List<Aplicacione> aplicaciones) async {
+    try {
+      final data = aplicaciones
+          .map((e) => {
+                "id_aplicacion": e.id,
+                "dosis": e.dosis,
+                "area": e.area,
+                "fecha_hora_aplicacion": e.fechaAplicacion.toIso8601String(),
+                "fecha_hora_reingreso": e.fechaReingreso.toIso8601String(),
+                "cc_usuario": e.responsable,
+                "id_censo": e.idCenso,
+                "id_agroquimico": e.idProductoAgroquimico,
+                "unidades": e.unidades,
+              })
+          .toList();
+      await _apiInstance
+          .post(EndPointConstant.aplicaciones, data: {"data": data});
+
+      return true;
+    } on DioError catch (_) {
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<Map<String, dynamic>> syncCosechasConDiarias(
       List<CosechaConCosechasDiarias> registros) async {
     try {
