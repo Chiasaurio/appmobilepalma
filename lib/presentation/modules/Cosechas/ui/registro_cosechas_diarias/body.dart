@@ -48,10 +48,10 @@ class _BodyState extends State<Body> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Fecha cosecha: '),
                   Text('Racimos: '),
                   Text('Kilos: '),

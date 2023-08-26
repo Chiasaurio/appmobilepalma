@@ -41,8 +41,8 @@ class _BodyState extends State<Body> {
         //   Padding(
         // padding: const EdgeInsets.fromLTRB(0.0, 20, 0.0, 100),
         // child:
-        Expanded(
-      child: Column(children: const <Widget>[
+        const Expanded(
+      child: Column(children: <Widget>[
         ListaCosechas(),
         TotalKilosWidget(),
         TotalRacimosWidget(),

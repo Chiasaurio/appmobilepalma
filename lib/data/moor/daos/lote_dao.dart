@@ -2,7 +2,6 @@ import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:drift/drift.dart';
 
-import '../../../presentation/constants.dart';
 import '../tables/tables.dart';
 
 part 'lote_dao.g.dart';

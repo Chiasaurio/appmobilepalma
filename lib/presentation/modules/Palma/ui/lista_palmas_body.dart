@@ -102,10 +102,10 @@ class _PalmasLoteListState extends State<PalmasLoteList> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Linea de palma: '),
                   Text('Numero en linea: '),
                   Text('Estado de palma: '),

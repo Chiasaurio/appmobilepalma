@@ -44,8 +44,8 @@ class _ControlBiologicoState extends State<ControlBiologico> {
 
   Widget buildProducto() {
     return Column(children: <Widget>[
-      Row(
-        children: const <Widget>[
+      const Row(
+        children: <Widget>[
           Expanded(
             child: Text('Seleccione el producto:',
                 style: TextStyle(fontSize: 16.0, color: Colors.grey)),

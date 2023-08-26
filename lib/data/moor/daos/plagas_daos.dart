@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/data/moor/tables/censo_table.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';

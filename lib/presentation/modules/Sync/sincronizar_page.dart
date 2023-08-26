@@ -1,8 +1,4 @@
 import 'package:apppalma/presentation/components/widgets/drawer.dart';
-import 'package:apppalma/presentation/modules/Enfermedad/cubit/enfermedad_cubit.dart';
-import 'package:apppalma/presentation/modules/LotesList/cubit/loteslist_cubit.dart';
-import 'package:apppalma/presentation/modules/Plagas/cubit/plagas_cubit.dart';
-import 'package:apppalma/presentation/modules/Productos_Agroquimicos/cubit/agroquimicos_cubit.dart';
 import 'package:apppalma/presentation/modules/Sync/card_de_ultima_sync.dart';
 import 'package:apppalma/presentation/modules/Sync/cubit/bajar_info_cubit.dart';
 import 'package:flutter/material.dart';

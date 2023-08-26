@@ -1,6 +1,5 @@
 import 'package:apppalma/data/moor/daos/daos.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
-import 'package:apppalma/data/moor/daos/plagas_daos.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/data/moor/moor_database.dart';

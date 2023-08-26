@@ -1,4 +1,3 @@
-import 'package:apppalma/presentation/components/custom_appbar.dart';
 import 'package:apppalma/presentation/components/main_button.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
 import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
@@ -87,9 +86,9 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
                 Container(
                   width: anchoCard,
                   padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
-                  child: Row(
+                  child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
                           child: Text('Detalles de poda',
                               textAlign: TextAlign.start,

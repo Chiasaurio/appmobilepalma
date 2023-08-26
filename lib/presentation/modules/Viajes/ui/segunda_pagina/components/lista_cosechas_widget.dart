@@ -57,7 +57,7 @@ class _ListaCosechasState extends State<ListaCosechas> {
 
   Widget builmoft() {
     return Column(children: <Widget>[
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: const <Widget>[
+      const Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),

@@ -1,4 +1,3 @@
-import 'package:apppalma/presentation/components/custom_appbar.dart';
 import 'package:apppalma/presentation/components/main_button.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
 import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
@@ -89,9 +88,9 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
                 Container(
                   width: anchoCard,
                   padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
-                  child: Row(
+                  child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
                           child: Text('Detalles de plateo',
                               textAlign: TextAlign.start,
@@ -154,8 +153,8 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
         margin: const EdgeInsets.all(5.0),
         child: Column(
           children: <Widget>[
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Expanded(
                   child: Text('Tipo de plateo',
                       style: TextStyle(color: Colors.black, fontSize: 16)),

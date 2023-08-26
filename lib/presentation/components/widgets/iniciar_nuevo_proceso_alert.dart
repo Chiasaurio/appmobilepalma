@@ -29,10 +29,10 @@ iniciarNuevoProcesoAlert(BuildContext context) {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
+                    children: <Widget>[
                       Text(
                         "Confirme la fecha inicio",
                         style: TextStyle(

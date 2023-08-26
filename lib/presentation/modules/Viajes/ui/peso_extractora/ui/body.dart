@@ -24,9 +24,9 @@ class _BodyState extends State<Body> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Row(
+              const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Expanded(
                       child: Text(
                           'Por favor ingrese el peso tomado en la extractora en Kilogramos.',

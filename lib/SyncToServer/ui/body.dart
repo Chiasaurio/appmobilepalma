@@ -17,10 +17,10 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     // return BlocBuilder<SyncToServerCubit, SyncToServerState>(
     //   builder: (context, state) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
       child: Column(
-        children: const [
+        children: [
           SizedBox(
             height: 20,
           ),

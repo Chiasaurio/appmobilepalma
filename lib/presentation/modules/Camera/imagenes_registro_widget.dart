@@ -56,9 +56,9 @@ class _ImagenesRegistroState extends State<ImagenesRegistro> {
               side: const BorderSide(color: Colors.green),
             )),
           ),
-          child: Row(
+          child: const Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Text(
                 'Agregar imagen',
                 style: TextStyle(color: Colors.green, fontSize: 18),

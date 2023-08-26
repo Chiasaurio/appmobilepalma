@@ -216,54 +216,54 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     if (state.palmasPendientes != null &&
         state.palmasPendientes!.isNotEmpty &&
         state.palmasStatus != SyncStatus.success) {
-      final respalmas = await syncPalmas();
+      await syncPalmas();
     }
     if (state.enfermedadesPendientes != null &&
         state.enfermedadesPendientes!.isNotEmpty &&
         state.enfermedadesStatus != SyncStatus.success) {
-      final resenfermedades = await syncEnfermedades();
+      await syncEnfermedades();
     }
     if (state.tratamientosPendientes != null &&
         state.tratamientosPendientes!.isNotEmpty &&
         state.tratamientosStatus != SyncStatus.success &&
         state.enfermedadesStatus != SyncStatus.error) {
-      final respalmas = await syncTratamientos();
+      await syncTratamientos();
     }
     if (state.censosPendientes != null &&
         state.censosPendientes!.isNotEmpty &&
         state.censosStatus != SyncStatus.success) {
-      final rescensos = await syncCensos();
+      await syncCensos();
     }
     if (state.fumigacionesPendientes != null &&
         state.fumigacionesPendientes!.isNotEmpty &&
         state.fumigacionesStatus != SyncStatus.success &&
         state.censosStatus != SyncStatus.error) {
-      final respalmas = await syncFumigaciones();
+      await syncFumigaciones();
     }
     if (state.cosechasConDiariasPendientes != null &&
         state.cosechasConDiariasPendientes!.isNotEmpty &&
         state.cosechasStatus != SyncStatus.success) {
-      final respalmas = await syncCosechas();
+      await syncCosechas();
     }
     if (state.podasConDiariasPendientes != null &&
         state.podasConDiariasPendientes!.isNotEmpty &&
         state.podasStatus != SyncStatus.success) {
-      final respalmas = await syncPodas();
+      await syncPodas();
     }
     if (state.plateosConDiariasPendientes != null &&
         state.plateosConDiariasPendientes!.isNotEmpty &&
         state.plateosStatus != SyncStatus.success) {
-      final rescosechas = await syncPlateos();
+      await syncPlateos();
     }
     if (state.fertilizacionesConDiariasPendientes != null &&
         state.fertilizacionesConDiariasPendientes!.isNotEmpty &&
         state.fertilizacionesStatus != SyncStatus.success) {
-      final resfertilizaciones = await syncFertilizaciones();
+      await syncFertilizaciones();
     }
     if (state.viajesPendientes != null &&
         state.viajesPendientes!.isNotEmpty &&
         state.viajesStatus != SyncStatus.success) {
-      final resviajes = await syncViajes();
+      await syncViajes();
     }
   }
 

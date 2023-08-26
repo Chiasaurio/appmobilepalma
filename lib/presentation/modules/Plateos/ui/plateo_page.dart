@@ -54,10 +54,10 @@ class _PlateoPageState extends State<PlateoPage> {
             ? PlateoActivoVista(plateo: plateo!, totalPalmas: totalPalmas)
             : NuevaPlateoPage(nombrelote: nombreLote);
       } else {
-        return Expanded(
+        return const Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Center(
                 child: CircularProgressIndicator(),
               ),

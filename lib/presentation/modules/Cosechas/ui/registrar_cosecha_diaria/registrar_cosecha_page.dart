@@ -91,9 +91,9 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
                 Container(
                   width: anchoCard,
                   padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
-                  child: Row(
+                  child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
                           child: Text('Registrar cosecha diaria',
                               textAlign: TextAlign.start,

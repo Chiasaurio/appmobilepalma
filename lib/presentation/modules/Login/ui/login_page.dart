@@ -18,14 +18,14 @@ class LoginPage extends StatelessWidget {
       backgroundColor: AppPalmaColors.grey,
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state.status == FormzStatus.submissionInProgress) {
+          if (state.status == FormzSubmissionStatus.inProgress) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text('Iniciando sesión'),
                       CircularProgressIndicator()
                     ],
@@ -33,7 +33,7 @@ class LoginPage extends StatelessWidget {
                 ),
               );
           }
-          if (state.status == FormzStatus.submissionFailure) {
+          if (state.status == FormzSubmissionStatus.failure) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
@@ -43,7 +43,7 @@ class LoginPage extends StatelessWidget {
                 ),
               );
           }
-          if (state.status == FormzStatus.submissionSuccess) {
+          if (state.status == FormzSubmissionStatus.success) {
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/finca', (_) => false);
           }
@@ -81,8 +81,8 @@ class LoginPage extends StatelessWidget {
                       return MainButtonSquare(
                           text: 'Login',
                           press: () {
-                            if (state.status == FormzStatus.valid ||
-                                state.status == FormzStatus.submissionFailure) {
+                            if (state.status == FormzSubmissionStatus.initial ||
+                                state.status == FormzSubmissionStatus.failure) {
                               BlocProvider.of<LoginCubit>(context)
                                   .signUpFormSubmitted();
                             }

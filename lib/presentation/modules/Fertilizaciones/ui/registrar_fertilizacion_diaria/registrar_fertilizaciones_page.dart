@@ -96,9 +96,9 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
                 Container(
                   width: anchoCard,
                   padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
-                  child: Row(
+                  child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
                           child: Text('Detalles de fertilización',
                               textAlign: TextAlign.start,

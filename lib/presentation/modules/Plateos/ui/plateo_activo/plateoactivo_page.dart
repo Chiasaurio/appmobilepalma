@@ -69,7 +69,7 @@ class _PlateoActivoVistaState extends State<PlateoActivoVista> {
   Widget _buildTitulo() {
     return Container(
       margin: EdgeInsets.all(margin),
-      child: Row(children: const <Widget>[
+      child: const Row(children: <Widget>[
         Expanded(
           child: Text('Plateo activo',
               style: TextStyle(

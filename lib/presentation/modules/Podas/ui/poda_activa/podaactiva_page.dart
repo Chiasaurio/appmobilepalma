@@ -67,7 +67,7 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
   Widget _buildTitulo() {
     return Container(
       margin: EdgeInsets.all(margin),
-      child: Row(children: const <Widget>[
+      child: const Row(children: <Widget>[
         Expanded(
           child: Text('Poda activa',
               style: TextStyle(

@@ -64,7 +64,7 @@ class _CosechaActivaVistaState extends State<CosechaActivaVista> {
   Widget _buildTitulo() {
     return Container(
       margin: EdgeInsets.all(margin),
-      child: Row(children: const <Widget>[
+      child: const Row(children: <Widget>[
         Expanded(
           child: Text('Cosecha activa',
               style: TextStyle(

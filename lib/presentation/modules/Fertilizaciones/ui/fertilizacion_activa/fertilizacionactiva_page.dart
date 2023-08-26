@@ -1,8 +1,6 @@
 import 'package:apppalma/presentation/components/secondary_button.dart';
 import 'package:apppalma/presentation/modules/Fertilizaciones/cubit/fertilizaciones_cubit.dart';
 import 'package:apppalma/presentation/modules/Fertilizaciones/ui/registrar_fertilizacion_diaria/registrar_fertilizaciones_page.dart';
-import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
-import 'package:apppalma/presentation/modules/Plateos/ui/registrar_plateo_diario/registrar_plateo_page.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/utils/confirmacion_alerta.dart';
 import 'package:apppalma/utils/recargar_lote_detail.dart';
@@ -72,7 +70,7 @@ class _FertilizacionActivaVistaState extends State<FertilizacionActivaVista> {
   Widget _buildTitulo() {
     return Container(
       margin: EdgeInsets.all(margin),
-      child: Row(children: const <Widget>[
+      child: const Row(children: <Widget>[
         Expanded(
           child: Text('Fertilización activa',
               style: TextStyle(

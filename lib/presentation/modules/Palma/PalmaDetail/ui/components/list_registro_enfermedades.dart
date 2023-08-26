@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:apppalma/domain/palma/models/palma_con_procesos_model.dart';
 import 'package:flutter/material.dart';
 

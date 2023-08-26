@@ -19,17 +19,17 @@ class _FormDatosViajeState extends State<FormDatosViaje> {
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
       child: Form(
           key: widget.formKey,
-          child: Column(
+          child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const FechaViajeWidget(),
-              const SizedBox(
+              FechaViajeWidget(),
+              SizedBox(
                 height: 30,
               ),
               Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Expanded(
                       child: Text(
                           'Por favor ajuste las horas de carga y de salida.',
@@ -40,14 +40,14 @@ class _FormDatosViajeState extends State<FormDatosViaje> {
                           )),
                     ),
                   ]),
-              const SizedBox(
+              SizedBox(
                 height: 30,
               ),
-              const HoraCarga(),
-              const SizedBox(
+              HoraCarga(),
+              SizedBox(
                 height: 20,
               ),
-              const HoraSalida(),
+              HoraSalida(),
             ],
           )),
     );

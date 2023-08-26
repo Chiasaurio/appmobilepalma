@@ -27,7 +27,7 @@ class _NameFieldState extends State<NameField> {
                 filled: true,
                 fillColor: Colors.white,
                 errorText:
-                    state.name.invalid ? 'Por favor ingrese un usuario' : null,
+                    state.name.isValid ? 'Por favor ingrese un usuario' : null,
                 hintText: 'Usuario',
                 hintStyle: const TextStyle(fontSize: 16),
                 contentPadding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
