@@ -1,6 +1,8 @@
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../../presentation/modules/Plagas/models/etapa_individuo_model.dart';
 import '../tables/tables.dart';
 
 part 'palma_daos.g.dart';
@@ -11,7 +13,10 @@ part 'palma_daos.g.dart';
   ImagenRegistroEnfermedad,
   RegistroTratamiento,
   Enfermedades,
-  Etapas
+  Etapas,
+  Censo,
+  CensoEtapasPlaga,
+  ImagenCensoPlaga
 ])
 class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   final AppDatabase db;
@@ -107,10 +112,104 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   }
 
   Future insertPalma(Insertable<Palma> palma) => into(palmas).insert(palma);
+
   Future insertPalmaOrUpdate(Insertable<Palma> palma) =>
       into(palmas).insertOnConflictUpdate(
         palma,
       );
+
+  Future insertPalmaConEnfermedad(Insertable<Palma> palma,
+      Insertable<RegistroEnfermedadData> e, List<XFile> imagenes) async {
+    try {
+      return transaction(() async {
+        await into(palmas).insertOnConflictUpdate(
+          palma,
+        );
+        var id = await into(registroEnfermedad).insert(e);
+        //Se obtienen los objetos de las imagenes para insertar;
+        List<Insertable<ImagenRegistroEnfermedadData>> imagenesCompanions =
+            await getImagenesRegistroEnfermedadCompanion(id, imagenes);
+        await batch((batch) {
+          batch.insertAll(imagenRegistroEnfermedad, imagenesCompanions);
+        });
+      });
+    } catch (e) {
+      print('Error registrando enfermedad $e');
+    }
+  }
+
+  Future<List<Insertable<ImagenRegistroEnfermedadData>>>
+      getImagenesRegistroEnfermedadCompanion(
+          int idEnfermedad, List<XFile> imagenes) async {
+    List<Insertable<ImagenRegistroEnfermedadData>> imagenesCompanions = [];
+    for (var e in imagenes) {
+      Uint8List imageBytes = await e.readAsBytes();
+      ImagenRegistroEnfermedadCompanion aux = ImagenRegistroEnfermedadCompanion(
+        idEnfermedad: Value(idEnfermedad),
+        imagen: Value(imageBytes),
+      );
+      imagenesCompanions.add(aux);
+    }
+    return imagenesCompanions;
+  }
+
+  Future insertPalmaConPlaga(
+      Insertable<Palma> palma,
+      List<EtapaIndividuosModel> etapasseleccionadas,
+      Insertable<CensoData> c,
+      List<XFile> imagenes) async {
+    try {
+      return transaction(() async {
+        await into(palmas).insertOnConflictUpdate(
+          palma,
+        );
+
+        var id = await into(censo).insert(c);
+        // Se obtienen los objetos de las etapas para insertar;
+        List<Insertable<CensoEtapasPlagaData>> etapas =
+            getCensoEtapasCompanion(id, etapasseleccionadas);
+        await batch((batch) {
+          batch.insertAll(censoEtapasPlaga, etapas);
+        });
+        //Se obtienen los objetos de las imagenes para insertar;
+        List<Insertable<ImagenCensoPlagaData>> imagenesCompanions =
+            await getImagenesCensoCompanion(id, imagenes);
+        await batch((batch) {
+          batch.insertAll(imagenCensoPlaga, imagenesCompanions);
+        });
+      });
+    } catch (e) {
+      print('Error registrando plaga $e');
+    }
+  }
+
+  List<Insertable<CensoEtapasPlagaData>> getCensoEtapasCompanion(
+      int idCenso, List<EtapaIndividuosModel> etapasseleccionadas) {
+    List<Insertable<CensoEtapasPlagaData>> etapas = [];
+    for (var e in etapasseleccionadas) {
+      CensoEtapasPlagaCompanion aux = CensoEtapasPlagaCompanion(
+          idCenso: Value(idCenso),
+          idEtapasplaga: Value(e.etapa.idEtapasPlaga),
+          numeroIndividuos: Value(e.individuos!));
+      etapas.add(aux);
+    }
+    return etapas;
+  }
+
+  Future<List<Insertable<ImagenCensoPlagaData>>> getImagenesCensoCompanion(
+      int idCenso, List<XFile> imagenes) async {
+    List<Insertable<ImagenCensoPlagaData>> imagenesCompanions = [];
+    for (var e in imagenes) {
+      Uint8List imageBytes = await e.readAsBytes();
+      // String base64Image = base64Encode(imageBytes);
+      ImagenCensoPlagaCompanion aux = ImagenCensoPlagaCompanion(
+        idCenso: Value(idCenso),
+        imagen: Value(imageBytes),
+      );
+      imagenesCompanions.add(aux);
+    }
+    return imagenesCompanions;
+  }
 
   Future updateSyncPalmas(Palma palma) {
     return (update(palmas)

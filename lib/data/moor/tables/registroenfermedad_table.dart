@@ -1,4 +1,5 @@
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:drift/drift.dart';
 
 class RegistroEnfermedad extends Table {
@@ -6,32 +7,21 @@ class RegistroEnfermedad extends Table {
   IntColumn get idRegistroEnfermedad => integer().nullable()();
   DateTimeColumn get fechaRegistro => dateTime()();
   DateTimeColumn get horaRegistro => dateTime().nullable()();
-  TextColumn get idPalma => text()();
-  TextColumn get nombreEnfermedad => text()();
-  IntColumn get idEtapaEnfermedad => integer().nullable()();
+  TextColumn get idPalma => text().references(Palmas, #identificador)();
+  TextColumn get nombreEnfermedad =>
+      text().references(Enfermedades, #nombreEnfermedad)();
+  IntColumn get idEtapaEnfermedad =>
+      integer().nullable().references(Etapas, #id)();
   TextColumn get observaciones => text().nullable()();
-  TextColumn get responsable => text()();
+  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(id_palma) REFERENCES palmas(identificador)',
-        'FOREIGN KEY(nombre_enfermedad) REFERENCES enfermedades(nombre_enfermedad)',
-        'FOREIGN KEY(id_etapa_enfermedad) REFERENCES etapas(id)',
-        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
-      ];
 }
 
 class ImagenRegistroEnfermedad extends Table {
   IntColumn get idImagenRegistroEnfermedad => integer().autoIncrement()();
-  IntColumn get idEnfermedad => integer()();
+  IntColumn get idEnfermedad => integer().references(RegistroEnfermedad, #id)();
   BlobColumn get imagen => blob()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(id_enfermedad) REFERENCES registro_enfermedad(id)',
-      ];
 }
 
 class RegistroEnfermedadConImagenes {

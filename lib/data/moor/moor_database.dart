@@ -48,7 +48,8 @@ LazyDatabase _openConnection() {
   Precipitacion,
   Fertilizaciones,
   FertilizacionDiaria,
-  Fertilizante
+  Fertilizante,
+  Usuario
 ], daos: [
   CosechaDao,
   CosechaDiariaDao,

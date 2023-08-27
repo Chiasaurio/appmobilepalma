@@ -1,24 +1,20 @@
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:drift/drift.dart';
 
 class RegistroTratamiento extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get idRegistroEnfermedad => integer()
-      .customConstraint('NOT NULL REFERENCES registro_enfermedad(id)')();
-  IntColumn get idProductoAgroquimico => integer()
-      .customConstraint('NOT NULL REFERENCES producto_agroquimico(id)')();
+  IntColumn get idRegistroEnfermedad =>
+      integer().references(RegistroEnfermedad, #id)();
+  IntColumn get idProductoAgroquimico =>
+      integer().references(ProductoAgroquimico, #idProductoAgroquimico)();
   TextColumn get tipoControl => text()();
   RealColumn get dosis => real()();
   TextColumn get descripcionProcedimiento => text().nullable()();
   DateTimeColumn get fechaRegistro => dateTime()();
   TextColumn get unidades => text()();
-  TextColumn get responsable => text()();
+  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
-      ];
 }
 
 class EnfermedadConTratamiento {

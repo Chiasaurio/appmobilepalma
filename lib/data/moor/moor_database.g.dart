@@ -67,16 +67,13 @@ class $AplicacionesTable extends Aplicaciones
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -575,16 +572,13 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _responsableMeta =
       const VerificationMeta('responsable');
   @override
@@ -1197,29 +1191,23 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
   static const VerificationMeta _completadaMeta =
       const VerificationMeta('completada');
   @override
-  late final GeneratedColumn<bool> completada =
-      GeneratedColumn<bool>('completada', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("completada" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> completada = GeneratedColumn<bool>(
+      'completada', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("completada" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -1688,16 +1676,13 @@ class $CosechaDiariaTable extends CosechaDiaria
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2197,21 +2182,25 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
   final Value<String> nombreEnfermedad;
   final Value<String> procedimientoEnfermedad;
   final Value<DateTime?> fechaUltimaActualizacion;
+  final Value<int> rowid;
   const EnfermedadesCompanion({
     this.nombreEnfermedad = const Value.absent(),
     this.procedimientoEnfermedad = const Value.absent(),
     this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   EnfermedadesCompanion.insert({
     required String nombreEnfermedad,
     required String procedimientoEnfermedad,
     this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : nombreEnfermedad = Value(nombreEnfermedad),
         procedimientoEnfermedad = Value(procedimientoEnfermedad);
   static Insertable<Enfermedade> custom({
     Expression<String>? nombreEnfermedad,
     Expression<String>? procedimientoEnfermedad,
     Expression<DateTime>? fechaUltimaActualizacion,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (nombreEnfermedad != null) 'nombre_enfermedad': nombreEnfermedad,
@@ -2219,19 +2208,22 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
         'procedimiento_enfermedad': procedimientoEnfermedad,
       if (fechaUltimaActualizacion != null)
         'fecha_ultima_actualizacion': fechaUltimaActualizacion,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
   EnfermedadesCompanion copyWith(
       {Value<String>? nombreEnfermedad,
       Value<String>? procedimientoEnfermedad,
-      Value<DateTime?>? fechaUltimaActualizacion}) {
+      Value<DateTime?>? fechaUltimaActualizacion,
+      Value<int>? rowid}) {
     return EnfermedadesCompanion(
       nombreEnfermedad: nombreEnfermedad ?? this.nombreEnfermedad,
       procedimientoEnfermedad:
           procedimientoEnfermedad ?? this.procedimientoEnfermedad,
       fechaUltimaActualizacion:
           fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -2249,6 +2241,9 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
       map['fecha_ultima_actualizacion'] =
           Variable<DateTime>(fechaUltimaActualizacion.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -2257,7 +2252,8 @@ class EnfermedadesCompanion extends UpdateCompanion<Enfermedade> {
     return (StringBuffer('EnfermedadesCompanion(')
           ..write('nombreEnfermedad: $nombreEnfermedad, ')
           ..write('procedimientoEnfermedad: $procedimientoEnfermedad, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -2516,6 +2512,210 @@ class EtapasCompanion extends UpdateCompanion<Etapa> {
           ..write('nombreEnfermedad: $nombreEnfermedad, ')
           ..write('nombreEtapa: $nombreEtapa, ')
           ..write('procedimientoEtapa: $procedimientoEtapa')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PlagasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _nombreComunPlagaMeta =
+      const VerificationMeta('nombreComunPlaga');
+  @override
+  late final GeneratedColumn<String> nombreComunPlaga = GeneratedColumn<String>(
+      'nombre_comun_plaga', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [nombreComunPlaga, fechaUltimaActualizacion];
+  @override
+  String get aliasedName => _alias ?? 'plagas';
+  @override
+  String get actualTableName => 'plagas';
+  @override
+  VerificationContext validateIntegrity(Insertable<Plaga> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('nombre_comun_plaga')) {
+      context.handle(
+          _nombreComunPlagaMeta,
+          nombreComunPlaga.isAcceptableOrUnknown(
+              data['nombre_comun_plaga']!, _nombreComunPlagaMeta));
+    } else if (isInserting) {
+      context.missing(_nombreComunPlagaMeta);
+    }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {nombreComunPlaga};
+  @override
+  Plaga map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Plaga(
+      nombreComunPlaga: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}nombre_comun_plaga'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
+    );
+  }
+
+  @override
+  $PlagasTable createAlias(String alias) {
+    return $PlagasTable(attachedDatabase, alias);
+  }
+}
+
+class Plaga extends DataClass implements Insertable<Plaga> {
+  final String nombreComunPlaga;
+  final DateTime? fechaUltimaActualizacion;
+  const Plaga({required this.nombreComunPlaga, this.fechaUltimaActualizacion});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['nombre_comun_plaga'] = Variable<String>(nombreComunPlaga);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
+    return map;
+  }
+
+  PlagasCompanion toCompanion(bool nullToAbsent) {
+    return PlagasCompanion(
+      nombreComunPlaga: Value(nombreComunPlaga),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
+    );
+  }
+
+  factory Plaga.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Plaga(
+      nombreComunPlaga: serializer.fromJson<String>(json['nombreComunPlaga']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'nombreComunPlaga': serializer.toJson<String>(nombreComunPlaga),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
+    };
+  }
+
+  Plaga copyWith(
+          {String? nombreComunPlaga,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
+      Plaga(
+        nombreComunPlaga: nombreComunPlaga ?? this.nombreComunPlaga,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Plaga(')
+          ..write('nombreComunPlaga: $nombreComunPlaga, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(nombreComunPlaga, fechaUltimaActualizacion);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Plaga &&
+          other.nombreComunPlaga == this.nombreComunPlaga &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
+}
+
+class PlagasCompanion extends UpdateCompanion<Plaga> {
+  final Value<String> nombreComunPlaga;
+  final Value<DateTime?> fechaUltimaActualizacion;
+  final Value<int> rowid;
+  const PlagasCompanion({
+    this.nombreComunPlaga = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PlagasCompanion.insert({
+    required String nombreComunPlaga,
+    this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : nombreComunPlaga = Value(nombreComunPlaga);
+  static Insertable<Plaga> custom({
+    Expression<String>? nombreComunPlaga,
+    Expression<DateTime>? fechaUltimaActualizacion,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (nombreComunPlaga != null) 'nombre_comun_plaga': nombreComunPlaga,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PlagasCompanion copyWith(
+      {Value<String>? nombreComunPlaga,
+      Value<DateTime?>? fechaUltimaActualizacion,
+      Value<int>? rowid}) {
+    return PlagasCompanion(
+      nombreComunPlaga: nombreComunPlaga ?? this.nombreComunPlaga,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (nombreComunPlaga.present) {
+      map['nombre_comun_plaga'] = Variable<String>(nombreComunPlaga.value);
+    }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlagasCompanion(')
+          ..write('nombreComunPlaga: $nombreComunPlaga, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -2835,16 +3035,13 @@ class $ErradicacionTable extends Erradicacion
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -3525,16 +3722,13 @@ class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         nombreLote,
@@ -3763,6 +3957,7 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
   final Value<String> identificador;
   final Value<String> orientacion;
   final Value<bool> sincronizado;
+  final Value<int> rowid;
   const PalmasCompanion({
     this.nombreLote = const Value.absent(),
     this.numerolinea = const Value.absent(),
@@ -3771,6 +3966,7 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
     this.identificador = const Value.absent(),
     this.orientacion = const Value.absent(),
     this.sincronizado = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   PalmasCompanion.insert({
     required String nombreLote,
@@ -3780,6 +3976,7 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
     required String identificador,
     required String orientacion,
     this.sincronizado = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : nombreLote = Value(nombreLote),
         numerolinea = Value(numerolinea),
         numeroenlinea = Value(numeroenlinea),
@@ -3794,6 +3991,7 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
     Expression<String>? identificador,
     Expression<String>? orientacion,
     Expression<bool>? sincronizado,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (nombreLote != null) 'nombre_lote': nombreLote,
@@ -3803,6 +4001,7 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
       if (identificador != null) 'identificador': identificador,
       if (orientacion != null) 'orientacion': orientacion,
       if (sincronizado != null) 'sincronizado': sincronizado,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -3813,7 +4012,8 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
       Value<String>? estadopalma,
       Value<String>? identificador,
       Value<String>? orientacion,
-      Value<bool>? sincronizado}) {
+      Value<bool>? sincronizado,
+      Value<int>? rowid}) {
     return PalmasCompanion(
       nombreLote: nombreLote ?? this.nombreLote,
       numerolinea: numerolinea ?? this.numerolinea,
@@ -3822,6 +4022,7 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
       identificador: identificador ?? this.identificador,
       orientacion: orientacion ?? this.orientacion,
       sincronizado: sincronizado ?? this.sincronizado,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -3849,6 +4050,9 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
     if (sincronizado.present) {
       map['sincronizado'] = Variable<bool>(sincronizado.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -3861,200 +4065,8 @@ class PalmasCompanion extends UpdateCompanion<Palma> {
           ..write('estadopalma: $estadopalma, ')
           ..write('identificador: $identificador, ')
           ..write('orientacion: $orientacion, ')
-          ..write('sincronizado: $sincronizado')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $PlagasTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _nombreComunPlagaMeta =
-      const VerificationMeta('nombreComunPlaga');
-  @override
-  late final GeneratedColumn<String> nombreComunPlaga = GeneratedColumn<String>(
-      'nombre_comun_plaga', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _fechaUltimaActualizacionMeta =
-      const VerificationMeta('fechaUltimaActualizacion');
-  @override
-  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
-      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
-          type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  @override
-  List<GeneratedColumn> get $columns =>
-      [nombreComunPlaga, fechaUltimaActualizacion];
-  @override
-  String get aliasedName => _alias ?? 'plagas';
-  @override
-  String get actualTableName => 'plagas';
-  @override
-  VerificationContext validateIntegrity(Insertable<Plaga> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('nombre_comun_plaga')) {
-      context.handle(
-          _nombreComunPlagaMeta,
-          nombreComunPlaga.isAcceptableOrUnknown(
-              data['nombre_comun_plaga']!, _nombreComunPlagaMeta));
-    } else if (isInserting) {
-      context.missing(_nombreComunPlagaMeta);
-    }
-    if (data.containsKey('fecha_ultima_actualizacion')) {
-      context.handle(
-          _fechaUltimaActualizacionMeta,
-          fechaUltimaActualizacion.isAcceptableOrUnknown(
-              data['fecha_ultima_actualizacion']!,
-              _fechaUltimaActualizacionMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {nombreComunPlaga};
-  @override
-  Plaga map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Plaga(
-      nombreComunPlaga: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}nombre_comun_plaga'])!,
-      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime,
-          data['${effectivePrefix}fecha_ultima_actualizacion']),
-    );
-  }
-
-  @override
-  $PlagasTable createAlias(String alias) {
-    return $PlagasTable(attachedDatabase, alias);
-  }
-}
-
-class Plaga extends DataClass implements Insertable<Plaga> {
-  final String nombreComunPlaga;
-  final DateTime? fechaUltimaActualizacion;
-  const Plaga({required this.nombreComunPlaga, this.fechaUltimaActualizacion});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['nombre_comun_plaga'] = Variable<String>(nombreComunPlaga);
-    if (!nullToAbsent || fechaUltimaActualizacion != null) {
-      map['fecha_ultima_actualizacion'] =
-          Variable<DateTime>(fechaUltimaActualizacion);
-    }
-    return map;
-  }
-
-  PlagasCompanion toCompanion(bool nullToAbsent) {
-    return PlagasCompanion(
-      nombreComunPlaga: Value(nombreComunPlaga),
-      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
-          ? const Value.absent()
-          : Value(fechaUltimaActualizacion),
-    );
-  }
-
-  factory Plaga.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Plaga(
-      nombreComunPlaga: serializer.fromJson<String>(json['nombreComunPlaga']),
-      fechaUltimaActualizacion:
-          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'nombreComunPlaga': serializer.toJson<String>(nombreComunPlaga),
-      'fechaUltimaActualizacion':
-          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
-    };
-  }
-
-  Plaga copyWith(
-          {String? nombreComunPlaga,
-          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
-      Plaga(
-        nombreComunPlaga: nombreComunPlaga ?? this.nombreComunPlaga,
-        fechaUltimaActualizacion: fechaUltimaActualizacion.present
-            ? fechaUltimaActualizacion.value
-            : this.fechaUltimaActualizacion,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Plaga(')
-          ..write('nombreComunPlaga: $nombreComunPlaga, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(nombreComunPlaga, fechaUltimaActualizacion);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Plaga &&
-          other.nombreComunPlaga == this.nombreComunPlaga &&
-          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
-}
-
-class PlagasCompanion extends UpdateCompanion<Plaga> {
-  final Value<String> nombreComunPlaga;
-  final Value<DateTime?> fechaUltimaActualizacion;
-  const PlagasCompanion({
-    this.nombreComunPlaga = const Value.absent(),
-    this.fechaUltimaActualizacion = const Value.absent(),
-  });
-  PlagasCompanion.insert({
-    required String nombreComunPlaga,
-    this.fechaUltimaActualizacion = const Value.absent(),
-  }) : nombreComunPlaga = Value(nombreComunPlaga);
-  static Insertable<Plaga> custom({
-    Expression<String>? nombreComunPlaga,
-    Expression<DateTime>? fechaUltimaActualizacion,
-  }) {
-    return RawValuesInsertable({
-      if (nombreComunPlaga != null) 'nombre_comun_plaga': nombreComunPlaga,
-      if (fechaUltimaActualizacion != null)
-        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
-    });
-  }
-
-  PlagasCompanion copyWith(
-      {Value<String>? nombreComunPlaga,
-      Value<DateTime?>? fechaUltimaActualizacion}) {
-    return PlagasCompanion(
-      nombreComunPlaga: nombreComunPlaga ?? this.nombreComunPlaga,
-      fechaUltimaActualizacion:
-          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (nombreComunPlaga.present) {
-      map['nombre_comun_plaga'] = Variable<String>(nombreComunPlaga.value);
-    }
-    if (fechaUltimaActualizacion.present) {
-      map['fecha_ultima_actualizacion'] =
-          Variable<DateTime>(fechaUltimaActualizacion.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('PlagasCompanion(')
-          ..write('nombreComunPlaga: $nombreComunPlaga, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write('sincronizado: $sincronizado, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -4107,29 +4119,23 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
   static const VerificationMeta _completadoMeta =
       const VerificationMeta('completado');
   @override
-  late final GeneratedColumn<bool> completado =
-      GeneratedColumn<bool>('completado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("completado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
+      'completado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("completado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -4535,16 +4541,13 @@ class $PlateoDiarioTable extends PlateoDiario
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -4914,29 +4917,23 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
   static const VerificationMeta _completadaMeta =
       const VerificationMeta('completada');
   @override
-  late final GeneratedColumn<bool> completada =
-      GeneratedColumn<bool>('completada', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("completada" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> completada = GeneratedColumn<bool>(
+      'completada', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("completada" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -5335,16 +5332,13 @@ class $PodaDiariaTable extends PodaDiaria
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns =>
       [id, idPoda, fechaIngreso, cantidadPodada, responsable, sincronizado];
@@ -6143,6 +6137,367 @@ class ProductoAgroquimicoCompanion
   }
 }
 
+class $UsuarioTable extends Usuario with TableInfo<$UsuarioTable, UsuarioData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UsuarioTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _ccUsuarioMeta =
+      const VerificationMeta('ccUsuario');
+  @override
+  late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
+      'cc_usuario', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _nombreUsuarioMeta =
+      const VerificationMeta('nombreUsuario');
+  @override
+  late final GeneratedColumn<String> nombreUsuario = GeneratedColumn<String>(
+      'nombre_usuario', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _cargoEmpresaMeta =
+      const VerificationMeta('cargoEmpresa');
+  @override
+  late final GeneratedColumn<String> cargoEmpresa = GeneratedColumn<String>(
+      'cargo_empresa', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _rolMeta = const VerificationMeta('rol');
+  @override
+  late final GeneratedColumn<String> rol = GeneratedColumn<String>(
+      'rol', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _validadoMeta =
+      const VerificationMeta('validado');
+  @override
+  late final GeneratedColumn<bool> validado = GeneratedColumn<bool>(
+      'validado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("validado" IN (0, 1))'));
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        ccUsuario,
+        nombreUsuario,
+        cargoEmpresa,
+        rol,
+        validado,
+        fechaUltimaActualizacion
+      ];
+  @override
+  String get aliasedName => _alias ?? 'usuario';
+  @override
+  String get actualTableName => 'usuario';
+  @override
+  VerificationContext validateIntegrity(Insertable<UsuarioData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('cc_usuario')) {
+      context.handle(_ccUsuarioMeta,
+          ccUsuario.isAcceptableOrUnknown(data['cc_usuario']!, _ccUsuarioMeta));
+    } else if (isInserting) {
+      context.missing(_ccUsuarioMeta);
+    }
+    if (data.containsKey('nombre_usuario')) {
+      context.handle(
+          _nombreUsuarioMeta,
+          nombreUsuario.isAcceptableOrUnknown(
+              data['nombre_usuario']!, _nombreUsuarioMeta));
+    } else if (isInserting) {
+      context.missing(_nombreUsuarioMeta);
+    }
+    if (data.containsKey('cargo_empresa')) {
+      context.handle(
+          _cargoEmpresaMeta,
+          cargoEmpresa.isAcceptableOrUnknown(
+              data['cargo_empresa']!, _cargoEmpresaMeta));
+    } else if (isInserting) {
+      context.missing(_cargoEmpresaMeta);
+    }
+    if (data.containsKey('rol')) {
+      context.handle(
+          _rolMeta, rol.isAcceptableOrUnknown(data['rol']!, _rolMeta));
+    } else if (isInserting) {
+      context.missing(_rolMeta);
+    }
+    if (data.containsKey('validado')) {
+      context.handle(_validadoMeta,
+          validado.isAcceptableOrUnknown(data['validado']!, _validadoMeta));
+    } else if (isInserting) {
+      context.missing(_validadoMeta);
+    }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {ccUsuario};
+  @override
+  UsuarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UsuarioData(
+      ccUsuario: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cc_usuario'])!,
+      nombreUsuario: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_usuario'])!,
+      cargoEmpresa: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cargo_empresa'])!,
+      rol: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}rol'])!,
+      validado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}validado'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
+    );
+  }
+
+  @override
+  $UsuarioTable createAlias(String alias) {
+    return $UsuarioTable(attachedDatabase, alias);
+  }
+}
+
+class UsuarioData extends DataClass implements Insertable<UsuarioData> {
+  final String ccUsuario;
+  final String nombreUsuario;
+  final String cargoEmpresa;
+  final String rol;
+  final bool validado;
+  final DateTime? fechaUltimaActualizacion;
+  const UsuarioData(
+      {required this.ccUsuario,
+      required this.nombreUsuario,
+      required this.cargoEmpresa,
+      required this.rol,
+      required this.validado,
+      this.fechaUltimaActualizacion});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['cc_usuario'] = Variable<String>(ccUsuario);
+    map['nombre_usuario'] = Variable<String>(nombreUsuario);
+    map['cargo_empresa'] = Variable<String>(cargoEmpresa);
+    map['rol'] = Variable<String>(rol);
+    map['validado'] = Variable<bool>(validado);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
+    return map;
+  }
+
+  UsuarioCompanion toCompanion(bool nullToAbsent) {
+    return UsuarioCompanion(
+      ccUsuario: Value(ccUsuario),
+      nombreUsuario: Value(nombreUsuario),
+      cargoEmpresa: Value(cargoEmpresa),
+      rol: Value(rol),
+      validado: Value(validado),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
+    );
+  }
+
+  factory UsuarioData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UsuarioData(
+      ccUsuario: serializer.fromJson<String>(json['ccUsuario']),
+      nombreUsuario: serializer.fromJson<String>(json['nombreUsuario']),
+      cargoEmpresa: serializer.fromJson<String>(json['cargoEmpresa']),
+      rol: serializer.fromJson<String>(json['rol']),
+      validado: serializer.fromJson<bool>(json['validado']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'ccUsuario': serializer.toJson<String>(ccUsuario),
+      'nombreUsuario': serializer.toJson<String>(nombreUsuario),
+      'cargoEmpresa': serializer.toJson<String>(cargoEmpresa),
+      'rol': serializer.toJson<String>(rol),
+      'validado': serializer.toJson<bool>(validado),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
+    };
+  }
+
+  UsuarioData copyWith(
+          {String? ccUsuario,
+          String? nombreUsuario,
+          String? cargoEmpresa,
+          String? rol,
+          bool? validado,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
+      UsuarioData(
+        ccUsuario: ccUsuario ?? this.ccUsuario,
+        nombreUsuario: nombreUsuario ?? this.nombreUsuario,
+        cargoEmpresa: cargoEmpresa ?? this.cargoEmpresa,
+        rol: rol ?? this.rol,
+        validado: validado ?? this.validado,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('UsuarioData(')
+          ..write('ccUsuario: $ccUsuario, ')
+          ..write('nombreUsuario: $nombreUsuario, ')
+          ..write('cargoEmpresa: $cargoEmpresa, ')
+          ..write('rol: $rol, ')
+          ..write('validado: $validado, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(ccUsuario, nombreUsuario, cargoEmpresa, rol,
+      validado, fechaUltimaActualizacion);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UsuarioData &&
+          other.ccUsuario == this.ccUsuario &&
+          other.nombreUsuario == this.nombreUsuario &&
+          other.cargoEmpresa == this.cargoEmpresa &&
+          other.rol == this.rol &&
+          other.validado == this.validado &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
+}
+
+class UsuarioCompanion extends UpdateCompanion<UsuarioData> {
+  final Value<String> ccUsuario;
+  final Value<String> nombreUsuario;
+  final Value<String> cargoEmpresa;
+  final Value<String> rol;
+  final Value<bool> validado;
+  final Value<DateTime?> fechaUltimaActualizacion;
+  final Value<int> rowid;
+  const UsuarioCompanion({
+    this.ccUsuario = const Value.absent(),
+    this.nombreUsuario = const Value.absent(),
+    this.cargoEmpresa = const Value.absent(),
+    this.rol = const Value.absent(),
+    this.validado = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  UsuarioCompanion.insert({
+    required String ccUsuario,
+    required String nombreUsuario,
+    required String cargoEmpresa,
+    required String rol,
+    required bool validado,
+    this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : ccUsuario = Value(ccUsuario),
+        nombreUsuario = Value(nombreUsuario),
+        cargoEmpresa = Value(cargoEmpresa),
+        rol = Value(rol),
+        validado = Value(validado);
+  static Insertable<UsuarioData> custom({
+    Expression<String>? ccUsuario,
+    Expression<String>? nombreUsuario,
+    Expression<String>? cargoEmpresa,
+    Expression<String>? rol,
+    Expression<bool>? validado,
+    Expression<DateTime>? fechaUltimaActualizacion,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (ccUsuario != null) 'cc_usuario': ccUsuario,
+      if (nombreUsuario != null) 'nombre_usuario': nombreUsuario,
+      if (cargoEmpresa != null) 'cargo_empresa': cargoEmpresa,
+      if (rol != null) 'rol': rol,
+      if (validado != null) 'validado': validado,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  UsuarioCompanion copyWith(
+      {Value<String>? ccUsuario,
+      Value<String>? nombreUsuario,
+      Value<String>? cargoEmpresa,
+      Value<String>? rol,
+      Value<bool>? validado,
+      Value<DateTime?>? fechaUltimaActualizacion,
+      Value<int>? rowid}) {
+    return UsuarioCompanion(
+      ccUsuario: ccUsuario ?? this.ccUsuario,
+      nombreUsuario: nombreUsuario ?? this.nombreUsuario,
+      cargoEmpresa: cargoEmpresa ?? this.cargoEmpresa,
+      rol: rol ?? this.rol,
+      validado: validado ?? this.validado,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (ccUsuario.present) {
+      map['cc_usuario'] = Variable<String>(ccUsuario.value);
+    }
+    if (nombreUsuario.present) {
+      map['nombre_usuario'] = Variable<String>(nombreUsuario.value);
+    }
+    if (cargoEmpresa.present) {
+      map['cargo_empresa'] = Variable<String>(cargoEmpresa.value);
+    }
+    if (rol.present) {
+      map['rol'] = Variable<String>(rol.value);
+    }
+    if (validado.present) {
+      map['validado'] = Variable<bool>(validado.value);
+    }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UsuarioCompanion(')
+          ..write('ccUsuario: $ccUsuario, ')
+          ..write('nombreUsuario: $nombreUsuario, ')
+          ..write('cargoEmpresa: $cargoEmpresa, ')
+          ..write('rol: $rol, ')
+          ..write('validado: $validado, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $RegistroEnfermedadTable extends RegistroEnfermedad
     with TableInfo<$RegistroEnfermedadTable, RegistroEnfermedadData> {
   @override
@@ -6181,19 +6536,28 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
   @override
   late final GeneratedColumn<String> idPalma = GeneratedColumn<String>(
       'id_palma', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES palmas (identificador)'));
   static const VerificationMeta _nombreEnfermedadMeta =
       const VerificationMeta('nombreEnfermedad');
   @override
   late final GeneratedColumn<String> nombreEnfermedad = GeneratedColumn<String>(
       'nombre_enfermedad', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES enfermedades (nombre_enfermedad)'));
   static const VerificationMeta _idEtapaEnfermedadMeta =
       const VerificationMeta('idEtapaEnfermedad');
   @override
   late final GeneratedColumn<int> idEtapaEnfermedad = GeneratedColumn<int>(
       'id_etapa_enfermedad', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES etapas (id)'));
   static const VerificationMeta _observacionesMeta =
       const VerificationMeta('observaciones');
   @override
@@ -6205,20 +6569,20 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
   @override
   late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
       'responsable', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES usuario (cc_usuario)'));
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -6690,7 +7054,10 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
   @override
   late final GeneratedColumn<int> idEnfermedad = GeneratedColumn<int>(
       'id_enfermedad', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES registro_enfermedad (id)'));
   static const VerificationMeta _imagenMeta = const VerificationMeta('imagen');
   @override
   late final GeneratedColumn<Uint8List> imagen = GeneratedColumn<Uint8List>(
@@ -6699,16 +7066,13 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns =>
       [idImagenRegistroEnfermedad, idEnfermedad, imagen, sincronizado];
@@ -6968,7 +7332,8 @@ class $RegistroTratamientoTable extends RegistroTratamiento
       'id_registro_enfermedad', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES registro_enfermedad(id)');
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES registro_enfermedad (id)'));
   static const VerificationMeta _idProductoAgroquimicoMeta =
       const VerificationMeta('idProductoAgroquimico');
   @override
@@ -6976,7 +7341,8 @@ class $RegistroTratamientoTable extends RegistroTratamiento
       'id_producto_agroquimico', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES producto_agroquimico(id)');
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES producto_agroquimico (id_producto_agroquimico)'));
   static const VerificationMeta _tipoControlMeta =
       const VerificationMeta('tipoControl');
   @override
@@ -7011,20 +7377,20 @@ class $RegistroTratamientoTable extends RegistroTratamiento
   @override
   late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
       'responsable', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES usuario (cc_usuario)'));
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -7529,16 +7895,13 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
   static const VerificationMeta _completadoMeta =
       const VerificationMeta('completado');
   @override
-  late final GeneratedColumn<bool> completado =
-      GeneratedColumn<bool>('completado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("completado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
+      'completado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("completado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _responsableMeta =
       const VerificationMeta('responsable');
   @override
@@ -7548,16 +7911,13 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -8027,16 +8387,13 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         idCensoEtapasplaga,
@@ -8331,16 +8688,13 @@ class $ImagenCensoPlagaTable extends ImagenCensoPlaga
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns =>
       [idImagenCensoPlaga, idCenso, imagen, sincronizado];
@@ -8855,29 +9209,23 @@ class $FertilizacionesTable extends Fertilizaciones
   static const VerificationMeta _completadoMeta =
       const VerificationMeta('completado');
   @override
-  late final GeneratedColumn<bool> completado =
-      GeneratedColumn<bool>('completado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("completado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
+      'completado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("completado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -9300,16 +9648,13 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
   static const VerificationMeta _sincronizadoMeta =
       const VerificationMeta('sincronizado');
   @override
-  late final GeneratedColumn<bool> sincronizado =
-      GeneratedColumn<bool>('sincronizado', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sincronizado" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -9978,6 +10323,7 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
   final Value<double> porcentaje;
   final Value<String> presentacionPnombreFertilizante;
   final Value<DateTime?> fechaUltimaActualizacion;
+  final Value<int> rowid;
   const FertilizanteCompanion({
     this.nombreFertilizante = const Value.absent(),
     this.tipo = const Value.absent(),
@@ -9985,6 +10331,7 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
     this.porcentaje = const Value.absent(),
     this.presentacionPnombreFertilizante = const Value.absent(),
     this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   FertilizanteCompanion.insert({
     required String nombreFertilizante,
@@ -9993,6 +10340,7 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
     required double porcentaje,
     required String presentacionPnombreFertilizante,
     this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
   })  : nombreFertilizante = Value(nombreFertilizante),
         tipo = Value(tipo),
         composicion = Value(composicion),
@@ -10006,6 +10354,7 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
     Expression<double>? porcentaje,
     Expression<String>? presentacionPnombreFertilizante,
     Expression<DateTime>? fechaUltimaActualizacion,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (nombreFertilizante != null) 'nombre_fertilizante': nombreFertilizante,
@@ -10016,6 +10365,7 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
         'presentacion_pnombre_fertilizante': presentacionPnombreFertilizante,
       if (fechaUltimaActualizacion != null)
         'fecha_ultima_actualizacion': fechaUltimaActualizacion,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -10025,7 +10375,8 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
       Value<String>? composicion,
       Value<double>? porcentaje,
       Value<String>? presentacionPnombreFertilizante,
-      Value<DateTime?>? fechaUltimaActualizacion}) {
+      Value<DateTime?>? fechaUltimaActualizacion,
+      Value<int>? rowid}) {
     return FertilizanteCompanion(
       nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
       tipo: tipo ?? this.tipo,
@@ -10035,6 +10386,7 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
           this.presentacionPnombreFertilizante,
       fechaUltimaActualizacion:
           fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -10061,6 +10413,9 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
       map['fecha_ultima_actualizacion'] =
           Variable<DateTime>(fechaUltimaActualizacion.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -10073,7 +10428,8 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
           ..write('porcentaje: $porcentaje, ')
           ..write(
               'presentacionPnombreFertilizante: $presentacionPnombreFertilizante, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -10087,17 +10443,18 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $CosechaDiariaTable cosechaDiaria = $CosechaDiariaTable(this);
   late final $EnfermedadesTable enfermedades = $EnfermedadesTable(this);
   late final $EtapasTable etapas = $EtapasTable(this);
+  late final $PlagasTable plagas = $PlagasTable(this);
   late final $EtapasPlagaTable etapasPlaga = $EtapasPlagaTable(this);
   late final $ErradicacionTable erradicacion = $ErradicacionTable(this);
   late final $LotesTable lotes = $LotesTable(this);
   late final $PalmasTable palmas = $PalmasTable(this);
-  late final $PlagasTable plagas = $PlagasTable(this);
   late final $PlateosTable plateos = $PlateosTable(this);
   late final $PlateoDiarioTable plateoDiario = $PlateoDiarioTable(this);
   late final $PodasTable podas = $PodasTable(this);
   late final $PodaDiariaTable podaDiaria = $PodaDiariaTable(this);
   late final $ProductoAgroquimicoTable productoAgroquimico =
       $ProductoAgroquimicoTable(this);
+  late final $UsuarioTable usuario = $UsuarioTable(this);
   late final $RegistroEnfermedadTable registroEnfermedad =
       $RegistroEnfermedadTable(this);
   late final $ImagenRegistroEnfermedadTable imagenRegistroEnfermedad =
@@ -10148,16 +10505,17 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         cosechaDiaria,
         enfermedades,
         etapas,
+        plagas,
         etapasPlaga,
         erradicacion,
         lotes,
         palmas,
-        plagas,
         plateos,
         plateoDiario,
         podas,
         podaDiaria,
         productoAgroquimico,
+        usuario,
         registroEnfermedad,
         imagenRegistroEnfermedad,
         registroTratamiento,
