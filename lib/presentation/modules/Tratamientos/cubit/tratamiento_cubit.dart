@@ -21,6 +21,7 @@ class TratamientoCubit extends Cubit<TratamientoState> {
     emit(const TratamientoState(status: TratamientoStatus.loading));
 
     final PalmaDao palmaDao = db.palmaDao;
+
     List<PalmaConEnfermedad> palmas =
         await palmaDao.obtenerPalmasConEnfermedad(nommbreLote);
 

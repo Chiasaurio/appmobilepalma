@@ -62,7 +62,7 @@ class Api {
           options: Options(headers: _headers, responseType: ResponseType.json));
       resp['data'] = response.data;
       return resp;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return {'success': false};
     }
   }

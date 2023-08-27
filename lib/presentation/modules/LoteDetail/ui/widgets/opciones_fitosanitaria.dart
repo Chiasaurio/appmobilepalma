@@ -17,15 +17,17 @@ class OpcionesFitosanitaria extends StatelessWidget {
           height: 15,
         ),
         _OpcionItem(
-          ruta: '/lote/censo',
+          ruta: '/lote/censo/enfermedades',
           nombreLote: nombreLote,
-          text: 'Enfermedades',
+          text: 'Gestión de enfermedades',
         ),
         const SizedBox(
           height: 15,
         ),
         _OpcionItem(
-            ruta: '/lote/aplicaciones', nombreLote: nombreLote, text: 'Plagas'),
+            ruta: '/lote/censo/plagas',
+            nombreLote: nombreLote,
+            text: 'Gestión de plagas'),
         const SizedBox(
           height: 15,
         ),

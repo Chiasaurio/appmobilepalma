@@ -104,7 +104,13 @@ class LoteLocalInformation extends StatelessWidget {
             if (lote.palmaspendientes?.isNotEmpty ?? false)
               Row(children: [
                 const SizedBox(width: 10),
-                Text(lote.palmaspendientes!.length.toString(),
+                Text(
+                    lote.palmaspendientes!
+                        .where((element) =>
+                            element.estadopalma ==
+                            EstadosPalma.pendientePorTratar)
+                        .length
+                        .toString(),
                     style: const TextStyle(color: Colors.red)),
                 const SizedBox(width: 10),
                 const Text(

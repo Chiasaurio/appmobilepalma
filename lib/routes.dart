@@ -79,7 +79,7 @@ class Routes {
                 disableBack: settings.arguments != null
                     ? settings.arguments as bool
                     : null));
-      case '/lote/censo':
+      case '/lote/censo/enfermedades':
         return MaterialPageRoute(
             builder: (_) => CensoPage(routeName: settings.name!));
       case '/lote/censo/enfermedad':
@@ -118,7 +118,7 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => PlagaPage(routeName: settings.name!),
         );
-      case '/lote/aplicaciones':
+      case '/lote/censo/plagas':
         return MaterialPageRoute(
           builder: (_) => AplicacionesPage(routeName: settings.name!),
         );

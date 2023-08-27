@@ -1,4 +1,3 @@
-import 'package:apppalma/data/moor/daos/registroenfermedad_dao.dart';
 import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/data/moor/daos/enfermedades_dao.dart';
 import 'package:apppalma/data/moor/daos/palma_daos.dart';
@@ -87,8 +86,8 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         //Si la palma no existe y la enfermedad no es para erradicar
         estadoPalma = EstadosPalma.pendientePorTratar;
       }
-      final RegistroEnfermedadDao registroEnfermedadDao =
-          db.registroEnfermedadDao;
+      // final RegistroEnfermedadDao registroEnfermedadDao =
+      //     db.registroEnfermedadDao;
       final idPalma = generateIdentifier(
           state.numeroPalma!, state.lineaPalma!, state.nombreLote!);
       final palmaNueva = PalmasCompanion(
@@ -100,7 +99,6 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         estadopalma: Value(estadoPalma),
       );
       //Se actualiza o se crea la palma
-      await palmaDao.insertPalmaOrUpdate(palmaNueva);
 
       final regitroEnf = RegistroEnfermedadCompanion(
         idPalma: Value(idPalma),
@@ -111,8 +109,10 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         nombreEnfermedad: Value(state.enfermedadSeleccionada!.nombreEnfermedad),
         observaciones: Value(state.observaciones),
       );
-      await registroEnfermedadDao.insertRegistroEnfermedad(
-          regitroEnf, state.imagenes ?? []);
+      await palmaDao.insertPalmaConEnfermedad(
+          palmaNueva, regitroEnf, state.imagenes ?? []);
+      // await registroEnfermedadDao.insertRegistroEnfermedad(
+      //     regitroEnf, state.imagenes ?? []);
       emit(state.copyWith(status: FormStatus.submissionSuccess));
       registroExitosoToast();
     } catch (e) {

@@ -5,25 +5,11 @@ import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegistrarFumigacionPage extends StatefulWidget {
+class RegistrarFumigacionPage extends StatelessWidget {
   final String routeName;
   const RegistrarFumigacionPage(
       {Key? key, this.routeName = '/lote/aplicaciones/registrartratamiento'})
       : super(key: key);
-
-  @override
-  State<RegistrarFumigacionPage> createState() =>
-      _RegistrarFumigacionPageState();
-}
-
-class _RegistrarFumigacionPageState extends State<RegistrarFumigacionPage> {
-  @override
-  void initState() {
-    final censoState = BlocProvider.of<CensosCubit>(context).state;
-    BlocProvider.of<FumigacionCubit>(context)
-        .obtenerProductos(censoState.censo!);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

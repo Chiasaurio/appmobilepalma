@@ -1,3 +1,4 @@
+import 'package:apppalma/presentation/modules/Censo/cubit/censos_cubit.dart';
 import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:apppalma/presentation/modules/Plagas/cubit/plagas_cubit.dart';
 import 'package:apppalma/presentation/modules/Plagas/plagas/ui/plaga_form.dart';
@@ -35,6 +36,8 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
         body: BlocConsumer<PlagasCubit, PlagasState>(
       listener: (context, state) {
         if (state.status == FormStatus.submissionSuccess) {
+          BlocProvider.of<CensosCubit>(context)
+              .obtenerCensosPendientes(nombreLote);
           Navigator.of(context).pop();
         }
       },

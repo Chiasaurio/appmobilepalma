@@ -315,6 +315,10 @@ class _TratamientoFormState extends State<TratamientoForm> {
       }
       if (resp) {
         if (!mounted) return;
+        if (context.mounted) {
+          BlocProvider.of<TratamientoCubit>(context)
+              .obtenerPalmasEnfermas(palma.nombreLote);
+        }
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       } else {

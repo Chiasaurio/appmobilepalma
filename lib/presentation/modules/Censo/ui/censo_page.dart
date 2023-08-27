@@ -1,45 +1,53 @@
-import 'package:apppalma/presentation/modules/Censo/ui/body.dart';
+import 'package:apppalma/presentation/components/widgets/sliver_app_bar.dart';
 import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import './body.dart';
 
-import '../../../components/widgets/header_gradient.dart';
-
-class CensoPage extends StatefulWidget {
+class CensoPage extends StatelessWidget {
   final String routeName;
 
   const CensoPage({Key? key, required this.routeName}) : super(key: key);
-  @override
-  State<CensoPage> createState() => _CensoPageState();
-}
-
-class _CensoPageState extends State<CensoPage> {
-  @override
-  void initState() {
-    // BlocProvider.of<CensosCubit>(context).obtenerCensosFumigados();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoteDetailCubit, LoteDetailState>(
       builder: (context, state) {
         if (state is LoteChoosed) {
           return Scaffold(
-              body: Column(children: [
-            // HeaderApp(
-            //   ruta: widget.routeName,
-            // ),
-            HeaderGradient(
-              title: "Opciónes de censo",
-              ruta: widget.routeName,
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBarGradient(
+                  title: "Gestión de enfermedades",
+                  ruta: routeName,
+                ),
+                // const FiltrosEnfermedades(),
+                const Body()
+              ],
             ),
-            const Body(),
-          ]));
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+            floatingActionButton: FloatingActionButton.extended(
+              backgroundColor: Colors.green,
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/lote/censo/enfermedad',
+                );
+              },
+              label: const Row(
+                children: [
+                  Icon(Icons.add),
+                  Text(
+                    'Registrar censo',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
           );
+        } else {
+          return const Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
         }
       },
     );

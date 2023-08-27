@@ -1,6 +1,7 @@
 import 'package:apppalma/presentation/components/secondary_button.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
+import 'package:apppalma/presentation/modules/Censo/cubit/censos_cubit.dart';
 import 'package:apppalma/presentation/modules/Fumigaciones/cubit/fumigacion_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
@@ -580,6 +581,8 @@ class _FumigacionFormState extends State<FumigacionForm> {
           producto!.idProductoAgroquimico,
           area!);
       if (!mounted) return;
+      BlocProvider.of<CensosCubit>(context)
+          .obtenerCensosPendientes(widget.censo.nombreLote);
       Navigator.of(context).pop();
     } catch (e) {
       registroFallidoToast('$e');

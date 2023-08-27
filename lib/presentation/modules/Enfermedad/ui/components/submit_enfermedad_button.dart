@@ -1,3 +1,4 @@
+import 'package:apppalma/presentation/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,7 @@ class SubmitEnfermedadButton extends StatelessWidget {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(24.0)),
                       )),
-                  onPressed: () {
+                  onPressed: () async {
                     if (enabled!()) {
                       DateTime fechasalida;
                       TimeOfDay horaSalida = TimeOfDay.now();
@@ -43,8 +44,12 @@ class SubmitEnfermedadButton extends StatelessWidget {
                           horaSalida.hour,
                           horaSalida.minute);
 
-                      BlocProvider.of<EnfermedadCubit>(context)
+                      await BlocProvider.of<EnfermedadCubit>(context)
                           .insertarPalmaConEnfermedad(fechasalida);
+                      if (context.mounted) {
+                        BlocProvider.of<TratamientoCubit>(context)
+                            .obtenerPalmasEnfermas(state.nombreLote!);
+                      }
                     }
                   },
                   child: const Text("Registrar enfermedad",

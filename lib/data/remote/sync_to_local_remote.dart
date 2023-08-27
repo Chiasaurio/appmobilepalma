@@ -24,7 +24,7 @@ class SyncToServerRemote {
           .toList();
       await _apiInstance.post(EndPointConstant.palmas, data: {"data": data});
       return true;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return false;
     } catch (e) {
       return false;
@@ -49,7 +49,7 @@ class SyncToServerRemote {
           .post(EndPointConstant.enfermedades, data: {"data": data});
 
       return true;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return false;
     } catch (e) {
       return false;
@@ -76,7 +76,7 @@ class SyncToServerRemote {
           .post(EndPointConstant.tratamientos, data: {"data": data});
 
       return true;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return false;
     } catch (e) {
       return false;
@@ -112,7 +112,7 @@ class SyncToServerRemote {
       }).toList();
       await _apiInstance.post(EndPointConstant.cosechas, data: {"data": data});
       return true;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return false;
     } catch (e) {
       return false;
@@ -146,7 +146,7 @@ class SyncToServerRemote {
       }).toList();
       await _apiInstance.post(EndPointConstant.plateos, data: {"data": data});
       return true;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return false;
     } catch (e) {
       return false;
@@ -178,7 +178,7 @@ class SyncToServerRemote {
       }).toList();
       await _apiInstance.post(EndPointConstant.podas, data: {"data": data});
       return true;
-    } on DioError catch (_) {
+    } on DioException catch (_) {
       return false;
     } catch (e) {
       return false;

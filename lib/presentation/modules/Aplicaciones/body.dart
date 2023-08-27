@@ -1,8 +1,10 @@
-import 'package:apppalma/presentation/modules/Censo/ui/widgets/censos_list.dart';
+import 'package:apppalma/presentation/modules/Fumigaciones/cubit/fumigacion_cubit.dart';
 import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
-import 'package:apppalma/presentation/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../Censo/cubit/censos_cubit.dart';
+import '../Fumigaciones/ui/censos_pendientes_list/censos_plaga_list.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -20,19 +22,17 @@ class _BodyState extends State<Body> {
     if (state is LoteChoosed) {
       nombreLote = state.lote.lote.nombreLote;
     }
-    BlocProvider.of<TratamientoCubit>(context)
-        .obtenerPalmasEnfermas(nombreLote);
+    BlocProvider.of<FumigacionCubit>(context).clear();
+    BlocProvider.of<CensosCubit>(context).obtenerCensosPendientes(nombreLote);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TratamientoCubit, TratamientoState>(
+    return BlocBuilder<CensosCubit, CensosState>(
       builder: (context, state) {
-        if (state.status == TratamientoStatus.loaded) {
-          return CensosEnfermedadesList(
-            palmasEnfermas: state.palmasEnfermas!,
-          );
+        if (state.censos != null) {
+          return CensosPlagaList(censosPendientes: state.censos!);
         } else {
           return SliverFixedExtentList(
               delegate: SliverChildListDelegate([
@@ -40,7 +40,7 @@ class _BodyState extends State<Body> {
                   child: CircularProgressIndicator(),
                 )
               ]),
-              itemExtent: 30.0);
+              itemExtent: 10.0);
         }
       },
     );
