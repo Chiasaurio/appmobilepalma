@@ -22,7 +22,13 @@ class CensoPage extends StatelessWidget {
                   ruta: routeName,
                 ),
                 FiltrosEnfermedades(nombreLote: state.lote.lote.nombreLote),
-                const Body()
+                const Body(),
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  const SizedBox(
+                    height: 50,
+                  )
+                ]))
               ],
             ),
             floatingActionButton: FloatingActionButton.extended(

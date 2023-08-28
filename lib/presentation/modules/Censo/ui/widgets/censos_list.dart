@@ -1,5 +1,7 @@
 import 'package:apppalma/data/moor/tables/registroenfermedad_table.dart';
 import 'package:apppalma/presentation/constants.dart';
+import 'package:apppalma/presentation/modules/Erradicaciones/cubit/erradicacion_cubit.dart';
+import 'package:apppalma/presentation/modules/Erradicaciones/ui/erradicacion_page.dart';
 import 'package:apppalma/presentation/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -151,13 +153,13 @@ class CensosEnfermedadesList extends StatelessWidget {
                       // TextButton(onPressed: () {}, child: Text("Dar de alta")),
                       TextButton(
                           onPressed: () {
-                            BlocProvider.of<TratamientoCubit>(context)
-                                .obtenerProductos(palma);
+                            BlocProvider.of<ErradicacionCubit>(context)
+                                .initErradicacion(palma);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const TratamientoPage()));
+                                        const ErradicacionPage()));
                           },
                           child: const Text("Erradicación"))
                     ],

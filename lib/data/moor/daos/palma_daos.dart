@@ -253,27 +253,30 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     for (var resultRow in rows) {
       final nombreEnfermedad =
           resultRow.readTableOrNull(registroEnfermedad)?.nombreEnfermedad;
-      final idEtapa =
-          resultRow.readTableOrNull(registroEnfermedad)?.idEtapaEnfermedad;
-      Enfermedade enfermedad;
-      if (nombreEnfermedad! == 'Otra') {
-        enfermedad = Enfermedade(
-            nombreEnfermedad: nombreEnfermedad,
-            procedimientoEnfermedad:
-                resultRow.readTableOrNull(registroEnfermedad)?.observaciones ??
-                    "");
-      } else {
-        enfermedad = await obtenerEnfermedad(nombreEnfermedad);
+      if (nombreEnfermedad != null) {
+        final idEtapa =
+            resultRow.readTableOrNull(registroEnfermedad)?.idEtapaEnfermedad;
+        Enfermedade enfermedad;
+        if (nombreEnfermedad == 'Otra') {
+          enfermedad = Enfermedade(
+              nombreEnfermedad: nombreEnfermedad,
+              procedimientoEnfermedad: resultRow
+                      .readTableOrNull(registroEnfermedad)
+                      ?.observaciones ??
+                  "");
+        } else {
+          enfermedad = await obtenerEnfermedad(nombreEnfermedad);
+        }
+        if (idEtapa != null) {
+          etapa = await obtenerEtapa(idEtapa);
+        }
+        var palma = PalmaConEnfermedad(
+            palma: resultRow.readTable(palmas),
+            registroEnfermedad: resultRow.readTable(registroEnfermedad),
+            enfermedad: enfermedad,
+            etapa: etapa);
+        result.add(palma);
       }
-      if (idEtapa != null) {
-        etapa = await obtenerEtapa(idEtapa);
-      }
-      var palma = PalmaConEnfermedad(
-          palma: resultRow.readTable(palmas),
-          registroEnfermedad: resultRow.readTable(registroEnfermedad),
-          enfermedad: enfermedad,
-          etapa: etapa);
-      result.add(palma);
     }
 
     return result;
