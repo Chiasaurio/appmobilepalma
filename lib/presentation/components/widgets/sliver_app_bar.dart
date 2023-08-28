@@ -88,16 +88,16 @@ class SliverAppBarGradient extends StatelessWidget {
                       if (showDrawer)
                         Builder(
                           builder: (BuildContext context) {
-                            return IconButton(
-                              icon: const Icon(
+                            return GestureDetector(
+                              child: const Icon(
                                 Icons.menu,
                                 color: Colors.white,
                               ),
-                              onPressed: () {
+                              onTap: () {
                                 Scaffold.of(context).openDrawer();
                               },
-                              tooltip: MaterialLocalizations.of(context)
-                                  .openAppDrawerTooltip,
+                              // tooltip: MaterialLocalizations.of(context)
+                              //     .openAppDrawerTooltip,
                             );
                           },
                         ),

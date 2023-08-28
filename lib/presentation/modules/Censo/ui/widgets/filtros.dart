@@ -14,8 +14,6 @@ class FiltrosEnfermedades extends StatelessWidget {
       delegate: MySliverPersistentHeaderDelegate(min: 40, max: 60,
           BlocBuilder<TratamientoCubit, TratamientoState>(
               builder: (context, state) {
-        print('state.filtro');
-        print(state.filtro);
         return Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 15),
           child: Row(

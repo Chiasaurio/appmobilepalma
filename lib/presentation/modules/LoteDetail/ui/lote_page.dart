@@ -1,9 +1,9 @@
 import 'package:apppalma/presentation/components/widgets/drawer.dart';
-import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
 import 'package:apppalma/data/moor/tables/lotes_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../components/widgets/sliver_app_bar.dart';
 import '../cubit/lote_detail_cubit.dart';
 import 'body.dart';
 import 'components/lote_information_widget.dart';
@@ -39,11 +39,19 @@ class _LotePageState extends State<LotePage> {
       child: Scaffold(
         drawer: const SideDrawer(),
         backgroundColor: Colors.white,
-        body: Column(
-          children: <Widget>[
-            HeaderGradient(title: "Lote", ruta: "lote", showDrawer: true),
-            LoteLocalInformation(lote: _lote),
-            Body(lote: _lote),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            // HeaderGradient(title: "Lote", ruta: "lote", showDrawer: true),
+            SliverAppBarGradient(
+              title: _lote.lote.nombreLote,
+              ruta: "lote",
+              showDrawer: true,
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              LoteLocalInformation(lote: _lote),
+              Body(lote: _lote),
+            ])),
           ],
         ),
       ),
