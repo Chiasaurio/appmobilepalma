@@ -2,6 +2,7 @@
 // import 'package:apppalma/data/moor/moor_database.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Fumigaciones/cubit/fumigacion_cubit.dart';
 import 'package:apppalma/presentation/modules/Fumigaciones/ui/fumigacion/registrar_fumigacion_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -251,26 +252,27 @@ class CensosPlagaList extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // TextButton(onPressed: () {}, child: Text("Dar de alta")),
-                    TextButton(
-                        onPressed: () {
-                          BlocProvider.of<CensosCubit>(context)
-                              .censoPendienteEscogido(censo);
-                          // Navigator.pushNamed(context, '/lote/plagas/registrarfumigacion');
-                          BlocProvider.of<FumigacionCubit>(context)
-                              .obtenerProductos(censo);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RegistrarFumigacionPage()));
-                        },
-                        child: const Text("Tratamiento"))
-                  ],
-                )
+                if (censo.estadoPlaga == EstadosPlaga.pendientePorFumigar)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // TextButton(onPressed: () {}, child: Text("Dar de alta")),
+                      TextButton(
+                          onPressed: () {
+                            BlocProvider.of<CensosCubit>(context)
+                                .censoPendienteEscogido(censo);
+                            // Navigator.pushNamed(context, '/lote/plagas/registrarfumigacion');
+                            BlocProvider.of<FumigacionCubit>(context)
+                                .obtenerProductos(censo);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegistrarFumigacionPage()));
+                          },
+                          child: const Text("Fumigación"))
+                    ],
+                  )
               ],
             ),
           ),

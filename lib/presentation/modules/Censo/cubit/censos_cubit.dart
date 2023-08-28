@@ -1,7 +1,6 @@
 import 'package:apppalma/data/moor/daos/plagas_daos.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/main.dart';
-import 'package:apppalma/utils/form_status.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,10 +11,26 @@ class CensosCubit extends Cubit<CensosState> {
 
   final db = getIt<AppDatabase>();
 
-  Future<void> obtenerCensosPendientes(String nombreLote) async {
+  // Future<void> obtenerCensosPendientes(String nombreLote,
+  //     [String? filtro]) async {
+  //   emit(CensosState(status: CensoStatus.loading, filtro: filtro));
+  //   final PlagasDao plagasDao = db.plagasDao;
+  //   List<CensoData> censos = await plagasDao.getCensosPendientes(nombreLote);
+  //   emit(CensosState(censos: censos));
+  // }
+
+  Future<void> obtenerCensosPendientes(String nombreLote,
+      [String? filtro]) async {
+    emit(CensosState(status: CensoStatus.loading, filtro: filtro));
     final PlagasDao plagasDao = db.plagasDao;
-    List<CensoData> censos = await plagasDao.getCensosPendientes(nombreLote);
-    emit(CensosState(censos: censos));
+    List<CensoData> censos = [];
+    if (filtro != null) {
+      censos = await plagasDao.getCensosPendientes(nombreLote, filtro);
+    } else {
+      censos = await plagasDao.getCensosPendientes(nombreLote);
+    }
+
+    emit(state.copyWith(censos: censos, status: CensoStatus.loaded));
   }
 
   Future<void> censoPendienteEscogido(CensoData censo) async {

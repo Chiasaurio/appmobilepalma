@@ -1,8 +1,9 @@
 import 'package:apppalma/presentation/components/widgets/sliver_app_bar.dart';
+import 'package:apppalma/presentation/modules/Aplicaciones/ui/widgets/filtros.dart';
 import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import './body.dart';
+import 'body.dart';
 
 class AplicacionesPage extends StatelessWidget {
   final String routeName;
@@ -20,6 +21,7 @@ class AplicacionesPage extends StatelessWidget {
                   title: "Gestión de plagas",
                   ruta: routeName,
                 ),
+                FiltrosPlagas(nombreLote: state.lote.lote.nombreLote),
                 // const FiltrosEnfermedades(),
                 const Body()
               ],

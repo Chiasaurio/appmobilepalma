@@ -3,8 +3,8 @@ import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../Censo/cubit/censos_cubit.dart';
-import '../Fumigaciones/ui/censos_pendientes_list/censos_plaga_list.dart';
+import '../../Censo/cubit/censos_cubit.dart';
+import '../../Fumigaciones/ui/censos_pendientes_list/censos_plaga_list.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});

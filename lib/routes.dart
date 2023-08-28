@@ -1,5 +1,5 @@
 import 'package:apppalma/SyncToServer/ui/sincronizar_a_servidor_page.dart';
-import 'package:apppalma/presentation/modules/Aplicaciones/aplicaciones_page.dart';
+import 'package:apppalma/presentation/modules/Aplicaciones/ui/aplicaciones_page.dart';
 import 'package:apppalma/presentation/modules/Censo/ui/censo_page.dart';
 import 'package:apppalma/presentation/modules/Cosechas/ui/cosecha_page.dart';
 import 'package:apppalma/presentation/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';

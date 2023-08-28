@@ -1,3 +1,4 @@
+import 'package:apppalma/presentation/components/widgets/sliver_app_bar.dart';
 import 'package:apppalma/presentation/modules/Censo/cubit/censos_cubit.dart';
 import 'package:apppalma/presentation/modules/Fumigaciones/cubit/fumigacion_cubit.dart';
 import 'package:apppalma/presentation/modules/Fumigaciones/ui/fumigacion/fumigacion_form.dart';
@@ -16,22 +17,40 @@ class RegistrarFumigacionPage extends StatelessWidget {
     return BlocConsumer<FumigacionCubit, FumigacionState>(
       listener: (context, state) {
         if (state.status == FormStatus.submissionSuccess) {
+          // BlocProvider.of<FumigacionCubit>(context).clear();
           BlocProvider.of<CensosCubit>(context)
               .obtenerCensosPendientes(state.censo!.nombreLote);
+          Navigator.of(context).pop();
         }
       },
       builder: (context, state) {
-        return SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-          if (state.productosLoaded) {
-            return FumigacionForm(
-                censo: state.censo!, productos: state.productos!);
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        }, childCount: 1));
+        return Scaffold(
+            body: CustomScrollView(
+          slivers: [
+            SliverAppBarGradient(
+                title: "Registrar fumigación", ruta: "censo/plagas/fumigación"),
+            SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+              if (state.productosLoaded) {
+                // return SliverList(
+                //     delegate: SliverChildListDelegate([
+                //   const Center(
+                //     child: CircularProgressIndicator(),
+                //   )
+                // ]));
+                return FumigacionForm(
+                    censo: state.censo!, productos: state.productos!);
+              } else {
+                return SliverList(
+                    delegate: SliverChildListDelegate([
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                ]));
+              }
+            }, childCount: 1))
+          ],
+        ));
       },
     );
   }
