@@ -17,13 +17,16 @@ class TratamientoCubit extends Cubit<TratamientoState> {
 
   final db = getIt<AppDatabase>();
 
-  Future<void> obtenerPalmasEnfermas(String nommbreLote) async {
-    emit(const TratamientoState(status: TratamientoStatus.loading));
-
+  Future<void> obtenerPalmasEnfermas(String nombreLote,
+      [String? filtro]) async {
+    emit(TratamientoState(status: TratamientoStatus.loading, filtro: filtro));
+    List<PalmaConEnfermedad> palmas = [];
     final PalmaDao palmaDao = db.palmaDao;
-
-    List<PalmaConEnfermedad> palmas =
-        await palmaDao.obtenerPalmasConEnfermedad(nommbreLote);
+    if (filtro != null) {
+      palmas = await palmaDao.obtenerPalmasSegunEstado(nombreLote, filtro);
+    } else {
+      palmas = await palmaDao.obtenerPalmasSegunEstado(nombreLote);
+    }
 
     emit(state.copyWith(
         palmasEnfermas: palmas, status: TratamientoStatus.loaded));

@@ -1,4 +1,5 @@
 import 'package:apppalma/presentation/components/widgets/sliver_app_bar.dart';
+import 'package:apppalma/presentation/modules/Censo/ui/widgets/filtros.dart';
 import 'package:apppalma/presentation/modules/LoteDetail/cubit/lote_detail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,7 @@ class CensoPage extends StatelessWidget {
                   title: "Gestión de enfermedades",
                   ruta: routeName,
                 ),
-                // const FiltrosEnfermedades(),
+                FiltrosEnfermedades(nombreLote: state.lote.lote.nombreLote),
                 const Body()
               ],
             ),

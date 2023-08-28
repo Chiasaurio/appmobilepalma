@@ -224,18 +224,30 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   Future updatePalma(Insertable<Palma> palma) => update(palmas).replace(palma);
   Future deletePalma(Insertable<Palma> palma) => delete(palmas).delete(palma);
 
-  Future<List<PalmaConEnfermedad>> obtenerPalmasConEnfermedad(
-      String nombrelote) async {
-    final rows = await (select(palmas)
-          ..where((tbl) =>
-              tbl.nombreLote.equals(nombrelote) &
-              tbl.estadopalma.equals('Pendiente por tratar')))
-        .join(
-      [
-        leftOuterJoin(registroEnfermedad,
-            registroEnfermedad.idPalma.equalsExp(palmas.identificador)),
-      ],
-    ).get();
+  Future<List<PalmaConEnfermedad>> obtenerPalmasSegunEstado(String nombrelote,
+      [String? estado]) async {
+    List<TypedResult> rows;
+    if (estado != null) {
+      rows = await (select(palmas)
+            ..where((tbl) =>
+                tbl.nombreLote.equals(nombrelote) &
+                tbl.estadopalma.equals(estado)))
+          .join(
+        [
+          leftOuterJoin(registroEnfermedad,
+              registroEnfermedad.idPalma.equalsExp(palmas.identificador)),
+        ],
+      ).get();
+    } else {
+      rows = await (select(palmas)
+            ..where((tbl) => tbl.nombreLote.equals(nombrelote)))
+          .join(
+        [
+          leftOuterJoin(registroEnfermedad,
+              registroEnfermedad.idPalma.equalsExp(palmas.identificador)),
+        ],
+      ).get();
+    }
     List<PalmaConEnfermedad> result = [];
     Etapa? etapa;
     for (var resultRow in rows) {

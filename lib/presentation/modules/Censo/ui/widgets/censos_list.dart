@@ -1,4 +1,5 @@
 import 'package:apppalma/data/moor/tables/registroenfermedad_table.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Tratamientos/cubit/tratamiento_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -124,23 +125,43 @@ class CensosEnfermedadesList extends StatelessWidget {
                     )
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // TextButton(onPressed: () {}, child: Text("Dar de alta")),
-                    TextButton(
-                        onPressed: () {
-                          BlocProvider.of<TratamientoCubit>(context)
-                              .obtenerProductos(palma);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const TratamientoPage()));
-                        },
-                        child: const Text("Tratamiento"))
-                  ],
-                )
+                if (palma.palma.estadopalma == EstadosPalma.pendientePorTratar)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // TextButton(onPressed: () {}, child: Text("Dar de alta")),
+                      TextButton(
+                          onPressed: () {
+                            BlocProvider.of<TratamientoCubit>(context)
+                                .obtenerProductos(palma);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TratamientoPage()));
+                          },
+                          child: const Text("Tratamiento"))
+                    ],
+                  ),
+                if (palma.palma.estadopalma ==
+                    EstadosPalma.pendientePorErradicar)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // TextButton(onPressed: () {}, child: Text("Dar de alta")),
+                      TextButton(
+                          onPressed: () {
+                            BlocProvider.of<TratamientoCubit>(context)
+                                .obtenerProductos(palma);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TratamientoPage()));
+                          },
+                          child: const Text("Erradicación"))
+                    ],
+                  )
               ],
             ),
           ),
