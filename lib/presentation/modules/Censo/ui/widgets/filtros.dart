@@ -42,7 +42,7 @@ class FiltrosEnfermedades extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: 10,
+                width: 5,
               ),
               GestureDetector(
                 onTap: () => BlocProvider.of<TratamientoCubit>(context)

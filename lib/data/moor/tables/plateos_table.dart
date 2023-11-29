@@ -5,6 +5,7 @@ class Plateos extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idPlateo => integer().nullable()();
   TextColumn get nombreLote => text()();
+  TextColumn get tipoPlateo => text()();
   DateTimeColumn get fechaIngreso => dateTime()();
   DateTimeColumn get fechaSalida => dateTime().nullable()();
   IntColumn get cantidadPlateada => integer()();
@@ -20,7 +21,6 @@ class PlateoDiario extends Table {
       integer().customConstraint('NOT NULL REFERENCES plateos(id)')();
   DateTimeColumn get fecha => dateTime()();
   IntColumn get cantidadPlateada => integer()();
-  TextColumn get tipoPlateo => text()();
   TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   @override

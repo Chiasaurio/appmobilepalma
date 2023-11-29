@@ -4098,6 +4098,12 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
   late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
       'nombre_lote', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _tipoPlateoMeta =
+      const VerificationMeta('tipoPlateo');
+  @override
+  late final GeneratedColumn<String> tipoPlateo = GeneratedColumn<String>(
+      'tipo_plateo', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _fechaIngresoMeta =
       const VerificationMeta('fechaIngreso');
   @override
@@ -4141,6 +4147,7 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
         id,
         idPlateo,
         nombreLote,
+        tipoPlateo,
         fechaIngreso,
         fechaSalida,
         cantidadPlateada,
@@ -4170,6 +4177,14 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
               data['nombre_lote']!, _nombreLoteMeta));
     } else if (isInserting) {
       context.missing(_nombreLoteMeta);
+    }
+    if (data.containsKey('tipo_plateo')) {
+      context.handle(
+          _tipoPlateoMeta,
+          tipoPlateo.isAcceptableOrUnknown(
+              data['tipo_plateo']!, _tipoPlateoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoPlateoMeta);
     }
     if (data.containsKey('fecha_ingreso')) {
       context.handle(
@@ -4220,6 +4235,8 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
           .read(DriftSqlType.int, data['${effectivePrefix}id_plateo']),
       nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      tipoPlateo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tipo_plateo'])!,
       fechaIngreso: attachedDatabase.typeMapping.read(
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
       fechaSalida: attachedDatabase.typeMapping
@@ -4243,6 +4260,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   final int id;
   final int? idPlateo;
   final String nombreLote;
+  final String tipoPlateo;
   final DateTime fechaIngreso;
   final DateTime? fechaSalida;
   final int cantidadPlateada;
@@ -4252,6 +4270,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
       {required this.id,
       this.idPlateo,
       required this.nombreLote,
+      required this.tipoPlateo,
       required this.fechaIngreso,
       this.fechaSalida,
       required this.cantidadPlateada,
@@ -4265,6 +4284,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
       map['id_plateo'] = Variable<int>(idPlateo);
     }
     map['nombre_lote'] = Variable<String>(nombreLote);
+    map['tipo_plateo'] = Variable<String>(tipoPlateo);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
       map['fecha_salida'] = Variable<DateTime>(fechaSalida);
@@ -4282,6 +4302,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
           ? const Value.absent()
           : Value(idPlateo),
       nombreLote: Value(nombreLote),
+      tipoPlateo: Value(tipoPlateo),
       fechaIngreso: Value(fechaIngreso),
       fechaSalida: fechaSalida == null && nullToAbsent
           ? const Value.absent()
@@ -4299,6 +4320,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
       id: serializer.fromJson<int>(json['id']),
       idPlateo: serializer.fromJson<int?>(json['idPlateo']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
+      tipoPlateo: serializer.fromJson<String>(json['tipoPlateo']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
       cantidadPlateada: serializer.fromJson<int>(json['cantidadPlateada']),
@@ -4313,6 +4335,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
       'id': serializer.toJson<int>(id),
       'idPlateo': serializer.toJson<int?>(idPlateo),
       'nombreLote': serializer.toJson<String>(nombreLote),
+      'tipoPlateo': serializer.toJson<String>(tipoPlateo),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
       'cantidadPlateada': serializer.toJson<int>(cantidadPlateada),
@@ -4325,6 +4348,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
           {int? id,
           Value<int?> idPlateo = const Value.absent(),
           String? nombreLote,
+          String? tipoPlateo,
           DateTime? fechaIngreso,
           Value<DateTime?> fechaSalida = const Value.absent(),
           int? cantidadPlateada,
@@ -4334,6 +4358,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
         id: id ?? this.id,
         idPlateo: idPlateo.present ? idPlateo.value : this.idPlateo,
         nombreLote: nombreLote ?? this.nombreLote,
+        tipoPlateo: tipoPlateo ?? this.tipoPlateo,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
         cantidadPlateada: cantidadPlateada ?? this.cantidadPlateada,
@@ -4346,6 +4371,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
           ..write('id: $id, ')
           ..write('idPlateo: $idPlateo, ')
           ..write('nombreLote: $nombreLote, ')
+          ..write('tipoPlateo: $tipoPlateo, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')
           ..write('cantidadPlateada: $cantidadPlateada, ')
@@ -4356,8 +4382,8 @@ class Plateo extends DataClass implements Insertable<Plateo> {
   }
 
   @override
-  int get hashCode => Object.hash(id, idPlateo, nombreLote, fechaIngreso,
-      fechaSalida, cantidadPlateada, completado, sincronizado);
+  int get hashCode => Object.hash(id, idPlateo, nombreLote, tipoPlateo,
+      fechaIngreso, fechaSalida, cantidadPlateada, completado, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4365,6 +4391,7 @@ class Plateo extends DataClass implements Insertable<Plateo> {
           other.id == this.id &&
           other.idPlateo == this.idPlateo &&
           other.nombreLote == this.nombreLote &&
+          other.tipoPlateo == this.tipoPlateo &&
           other.fechaIngreso == this.fechaIngreso &&
           other.fechaSalida == this.fechaSalida &&
           other.cantidadPlateada == this.cantidadPlateada &&
@@ -4376,6 +4403,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
   final Value<int> id;
   final Value<int?> idPlateo;
   final Value<String> nombreLote;
+  final Value<String> tipoPlateo;
   final Value<DateTime> fechaIngreso;
   final Value<DateTime?> fechaSalida;
   final Value<int> cantidadPlateada;
@@ -4385,6 +4413,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
     this.id = const Value.absent(),
     this.idPlateo = const Value.absent(),
     this.nombreLote = const Value.absent(),
+    this.tipoPlateo = const Value.absent(),
     this.fechaIngreso = const Value.absent(),
     this.fechaSalida = const Value.absent(),
     this.cantidadPlateada = const Value.absent(),
@@ -4395,18 +4424,21 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
     this.id = const Value.absent(),
     this.idPlateo = const Value.absent(),
     required String nombreLote,
+    required String tipoPlateo,
     required DateTime fechaIngreso,
     this.fechaSalida = const Value.absent(),
     required int cantidadPlateada,
     this.completado = const Value.absent(),
     this.sincronizado = const Value.absent(),
   })  : nombreLote = Value(nombreLote),
+        tipoPlateo = Value(tipoPlateo),
         fechaIngreso = Value(fechaIngreso),
         cantidadPlateada = Value(cantidadPlateada);
   static Insertable<Plateo> custom({
     Expression<int>? id,
     Expression<int>? idPlateo,
     Expression<String>? nombreLote,
+    Expression<String>? tipoPlateo,
     Expression<DateTime>? fechaIngreso,
     Expression<DateTime>? fechaSalida,
     Expression<int>? cantidadPlateada,
@@ -4417,6 +4449,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
       if (id != null) 'id': id,
       if (idPlateo != null) 'id_plateo': idPlateo,
       if (nombreLote != null) 'nombre_lote': nombreLote,
+      if (tipoPlateo != null) 'tipo_plateo': tipoPlateo,
       if (fechaIngreso != null) 'fecha_ingreso': fechaIngreso,
       if (fechaSalida != null) 'fecha_salida': fechaSalida,
       if (cantidadPlateada != null) 'cantidad_plateada': cantidadPlateada,
@@ -4429,6 +4462,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
       {Value<int>? id,
       Value<int?>? idPlateo,
       Value<String>? nombreLote,
+      Value<String>? tipoPlateo,
       Value<DateTime>? fechaIngreso,
       Value<DateTime?>? fechaSalida,
       Value<int>? cantidadPlateada,
@@ -4438,6 +4472,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
       id: id ?? this.id,
       idPlateo: idPlateo ?? this.idPlateo,
       nombreLote: nombreLote ?? this.nombreLote,
+      tipoPlateo: tipoPlateo ?? this.tipoPlateo,
       fechaIngreso: fechaIngreso ?? this.fechaIngreso,
       fechaSalida: fechaSalida ?? this.fechaSalida,
       cantidadPlateada: cantidadPlateada ?? this.cantidadPlateada,
@@ -4457,6 +4492,9 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
     }
     if (nombreLote.present) {
       map['nombre_lote'] = Variable<String>(nombreLote.value);
+    }
+    if (tipoPlateo.present) {
+      map['tipo_plateo'] = Variable<String>(tipoPlateo.value);
     }
     if (fechaIngreso.present) {
       map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso.value);
@@ -4482,6 +4520,7 @@ class PlateosCompanion extends UpdateCompanion<Plateo> {
           ..write('id: $id, ')
           ..write('idPlateo: $idPlateo, ')
           ..write('nombreLote: $nombreLote, ')
+          ..write('tipoPlateo: $tipoPlateo, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('fechaSalida: $fechaSalida, ')
           ..write('cantidadPlateada: $cantidadPlateada, ')
@@ -4526,12 +4565,6 @@ class $PlateoDiarioTable extends PlateoDiario
   late final GeneratedColumn<int> cantidadPlateada = GeneratedColumn<int>(
       'cantidad_plateada', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _tipoPlateoMeta =
-      const VerificationMeta('tipoPlateo');
-  @override
-  late final GeneratedColumn<String> tipoPlateo = GeneratedColumn<String>(
-      'tipo_plateo', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _responsableMeta =
       const VerificationMeta('responsable');
   @override
@@ -4549,15 +4582,8 @@ class $PlateoDiarioTable extends PlateoDiario
           'CHECK ("sincronizado" IN (0, 1))'),
       defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        idPlateo,
-        fecha,
-        cantidadPlateada,
-        tipoPlateo,
-        responsable,
-        sincronizado
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, idPlateo, fecha, cantidadPlateada, responsable, sincronizado];
   @override
   String get aliasedName => _alias ?? 'plateo_diario';
   @override
@@ -4590,14 +4616,6 @@ class $PlateoDiarioTable extends PlateoDiario
     } else if (isInserting) {
       context.missing(_cantidadPlateadaMeta);
     }
-    if (data.containsKey('tipo_plateo')) {
-      context.handle(
-          _tipoPlateoMeta,
-          tipoPlateo.isAcceptableOrUnknown(
-              data['tipo_plateo']!, _tipoPlateoMeta));
-    } else if (isInserting) {
-      context.missing(_tipoPlateoMeta);
-    }
     if (data.containsKey('responsable')) {
       context.handle(
           _responsableMeta,
@@ -4629,8 +4647,6 @@ class $PlateoDiarioTable extends PlateoDiario
           .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
       cantidadPlateada: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}cantidad_plateada'])!,
-      tipoPlateo: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}tipo_plateo'])!,
       responsable: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
       sincronizado: attachedDatabase.typeMapping
@@ -4650,7 +4666,6 @@ class PlateoDiarioData extends DataClass
   final int idPlateo;
   final DateTime fecha;
   final int cantidadPlateada;
-  final String tipoPlateo;
   final String responsable;
   final bool sincronizado;
   const PlateoDiarioData(
@@ -4658,7 +4673,6 @@ class PlateoDiarioData extends DataClass
       required this.idPlateo,
       required this.fecha,
       required this.cantidadPlateada,
-      required this.tipoPlateo,
       required this.responsable,
       required this.sincronizado});
   @override
@@ -4668,7 +4682,6 @@ class PlateoDiarioData extends DataClass
     map['id_plateo'] = Variable<int>(idPlateo);
     map['fecha'] = Variable<DateTime>(fecha);
     map['cantidad_plateada'] = Variable<int>(cantidadPlateada);
-    map['tipo_plateo'] = Variable<String>(tipoPlateo);
     map['responsable'] = Variable<String>(responsable);
     map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
@@ -4680,7 +4693,6 @@ class PlateoDiarioData extends DataClass
       idPlateo: Value(idPlateo),
       fecha: Value(fecha),
       cantidadPlateada: Value(cantidadPlateada),
-      tipoPlateo: Value(tipoPlateo),
       responsable: Value(responsable),
       sincronizado: Value(sincronizado),
     );
@@ -4694,7 +4706,6 @@ class PlateoDiarioData extends DataClass
       idPlateo: serializer.fromJson<int>(json['idPlateo']),
       fecha: serializer.fromJson<DateTime>(json['fecha']),
       cantidadPlateada: serializer.fromJson<int>(json['cantidadPlateada']),
-      tipoPlateo: serializer.fromJson<String>(json['tipoPlateo']),
       responsable: serializer.fromJson<String>(json['responsable']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
@@ -4707,7 +4718,6 @@ class PlateoDiarioData extends DataClass
       'idPlateo': serializer.toJson<int>(idPlateo),
       'fecha': serializer.toJson<DateTime>(fecha),
       'cantidadPlateada': serializer.toJson<int>(cantidadPlateada),
-      'tipoPlateo': serializer.toJson<String>(tipoPlateo),
       'responsable': serializer.toJson<String>(responsable),
       'sincronizado': serializer.toJson<bool>(sincronizado),
     };
@@ -4718,7 +4728,6 @@ class PlateoDiarioData extends DataClass
           int? idPlateo,
           DateTime? fecha,
           int? cantidadPlateada,
-          String? tipoPlateo,
           String? responsable,
           bool? sincronizado}) =>
       PlateoDiarioData(
@@ -4726,7 +4735,6 @@ class PlateoDiarioData extends DataClass
         idPlateo: idPlateo ?? this.idPlateo,
         fecha: fecha ?? this.fecha,
         cantidadPlateada: cantidadPlateada ?? this.cantidadPlateada,
-        tipoPlateo: tipoPlateo ?? this.tipoPlateo,
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
@@ -4737,7 +4745,6 @@ class PlateoDiarioData extends DataClass
           ..write('idPlateo: $idPlateo, ')
           ..write('fecha: $fecha, ')
           ..write('cantidadPlateada: $cantidadPlateada, ')
-          ..write('tipoPlateo: $tipoPlateo, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -4745,8 +4752,8 @@ class PlateoDiarioData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, idPlateo, fecha, cantidadPlateada,
-      tipoPlateo, responsable, sincronizado);
+  int get hashCode => Object.hash(
+      id, idPlateo, fecha, cantidadPlateada, responsable, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4755,7 +4762,6 @@ class PlateoDiarioData extends DataClass
           other.idPlateo == this.idPlateo &&
           other.fecha == this.fecha &&
           other.cantidadPlateada == this.cantidadPlateada &&
-          other.tipoPlateo == this.tipoPlateo &&
           other.responsable == this.responsable &&
           other.sincronizado == this.sincronizado);
 }
@@ -4765,7 +4771,6 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
   final Value<int> idPlateo;
   final Value<DateTime> fecha;
   final Value<int> cantidadPlateada;
-  final Value<String> tipoPlateo;
   final Value<String> responsable;
   final Value<bool> sincronizado;
   const PlateoDiarioCompanion({
@@ -4773,7 +4778,6 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
     this.idPlateo = const Value.absent(),
     this.fecha = const Value.absent(),
     this.cantidadPlateada = const Value.absent(),
-    this.tipoPlateo = const Value.absent(),
     this.responsable = const Value.absent(),
     this.sincronizado = const Value.absent(),
   });
@@ -4782,20 +4786,17 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
     required int idPlateo,
     required DateTime fecha,
     required int cantidadPlateada,
-    required String tipoPlateo,
     required String responsable,
     this.sincronizado = const Value.absent(),
   })  : idPlateo = Value(idPlateo),
         fecha = Value(fecha),
         cantidadPlateada = Value(cantidadPlateada),
-        tipoPlateo = Value(tipoPlateo),
         responsable = Value(responsable);
   static Insertable<PlateoDiarioData> custom({
     Expression<int>? id,
     Expression<int>? idPlateo,
     Expression<DateTime>? fecha,
     Expression<int>? cantidadPlateada,
-    Expression<String>? tipoPlateo,
     Expression<String>? responsable,
     Expression<bool>? sincronizado,
   }) {
@@ -4804,7 +4805,6 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
       if (idPlateo != null) 'id_plateo': idPlateo,
       if (fecha != null) 'fecha': fecha,
       if (cantidadPlateada != null) 'cantidad_plateada': cantidadPlateada,
-      if (tipoPlateo != null) 'tipo_plateo': tipoPlateo,
       if (responsable != null) 'responsable': responsable,
       if (sincronizado != null) 'sincronizado': sincronizado,
     });
@@ -4815,7 +4815,6 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
       Value<int>? idPlateo,
       Value<DateTime>? fecha,
       Value<int>? cantidadPlateada,
-      Value<String>? tipoPlateo,
       Value<String>? responsable,
       Value<bool>? sincronizado}) {
     return PlateoDiarioCompanion(
@@ -4823,7 +4822,6 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
       idPlateo: idPlateo ?? this.idPlateo,
       fecha: fecha ?? this.fecha,
       cantidadPlateada: cantidadPlateada ?? this.cantidadPlateada,
-      tipoPlateo: tipoPlateo ?? this.tipoPlateo,
       responsable: responsable ?? this.responsable,
       sincronizado: sincronizado ?? this.sincronizado,
     );
@@ -4844,9 +4842,6 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
     if (cantidadPlateada.present) {
       map['cantidad_plateada'] = Variable<int>(cantidadPlateada.value);
     }
-    if (tipoPlateo.present) {
-      map['tipo_plateo'] = Variable<String>(tipoPlateo.value);
-    }
     if (responsable.present) {
       map['responsable'] = Variable<String>(responsable.value);
     }
@@ -4863,7 +4858,6 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
           ..write('idPlateo: $idPlateo, ')
           ..write('fecha: $fecha, ')
           ..write('cantidadPlateada: $cantidadPlateada, ')
-          ..write('tipoPlateo: $tipoPlateo, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))

@@ -236,7 +236,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
           ),
         ),
         onChanged: (String value) {
-          dosis = double.parse(value);
+          dosis = double.tryParse(value);
         },
         validator: (value) {
           if (utils.isNumeric(value!)) {

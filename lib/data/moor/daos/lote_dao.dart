@@ -97,8 +97,8 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
             leftOuterJoin(
                 palmas,
                 palmas.nombreLote.equalsExp(lotes.nombreLote) &
-                    palmas.sincronizado.equals(false))
-            // palmas.estadopalma.equals('Pendiente por tratar')),
+                    // palmas.sincronizado.equals(false))
+                    palmas.estadopalma.equals('Pendiente por tratar')),
           ],
         )
         .watch()
@@ -173,8 +173,8 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
                 leftOuterJoin(
                     palmas,
                     palmas.nombreLote.equalsExp(lotes.nombreLote) &
-                        palmas.sincronizado.equals(false))
-                // palmas.estadopalma.equals('Pendiente por tratar')),
+                        // palmas.sincronizado.equals(false))
+                        palmas.estadopalma.equals('Pendiente por tratar')),
               ],
             )
             .watch()

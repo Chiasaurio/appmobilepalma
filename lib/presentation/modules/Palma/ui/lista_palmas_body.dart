@@ -57,25 +57,27 @@ class _PalmasLoteListState extends State<PalmasLoteList> {
     return SingleChildScrollView(
       child: Container(
           margin: const EdgeInsets.all(15),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Todas palmas registradas',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.black87.withOpacity(0.8),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ]),
-                palmas.isNotEmpty
-                    ? buildTabla(palmas)
-                    : const Text('no hay palmas registradas para este lote'),
-              ])),
+          child: palmas.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Todas palmas registradas',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Colors.black87.withOpacity(0.8),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ]),
+                      buildTabla(palmas)
+                    ])
+              : const Center(
+                  child: Text('No hay palmas registradas para este lote'),
+                )),
     );
   }
 

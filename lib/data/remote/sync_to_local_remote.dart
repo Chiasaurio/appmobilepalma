@@ -123,9 +123,10 @@ class SyncToServerRemote {
       List<PlateoConPlateosDiarias> registros) async {
     try {
       final data = registros.map((e) {
-        final cosecha = {
+        final plateo = {
           'id_plateos': e.plateo.id,
           'nombre_lote': utf8.encode(e.plateo.nombreLote),
+          'tipo_plateo': utf8.encode(e.plateo.tipoPlateo),
           'fecha_ingreso': e.plateo.fechaIngreso.toIso8601String(),
           'fecha_salida': e.plateo.fechaSalida?.toIso8601String(),
           'cantidad_plateada': e.plateo.cantidadPlateada,
@@ -138,11 +139,10 @@ class SyncToServerRemote {
                   'id_plateo_diario': d.id,
                   'fecha_plateo_diario': d.fecha.toIso8601String(),
                   'cantidad_plateo_diario': d.cantidadPlateada,
-                  'tipo_plateo': utf8.encode(d.tipoPlateo),
                   'responsable': d.responsable,
                 })
             .toList();
-        return {"plateo": cosecha, "diarias": diarias};
+        return {"plateo": plateo, "diarias": diarias};
       }).toList();
       await _apiInstance.post(EndPointConstant.plateos, data: {"data": data});
       return true;

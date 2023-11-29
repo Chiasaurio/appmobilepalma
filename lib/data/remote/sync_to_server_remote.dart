@@ -236,6 +236,7 @@ class SyncToServerRemote {
         final cosecha = {
           'idPlateos': e.plateo.idPlateo,
           'nombre_lote': utf8.encode(e.plateo.nombreLote),
+          'tipo_plateo': utf8.encode(e.plateo.tipoPlateo),
           'fecha_ingreso': e.plateo.fechaIngreso.toIso8601String(),
           'fecha_salida': e.plateo.fechaSalida?.toIso8601String(),
           'cantidad_plateada': e.plateo.cantidadPlateada,
@@ -248,7 +249,6 @@ class SyncToServerRemote {
                   'id_plateo_diario': d.id,
                   'fecha_plateo_diario': d.fecha.toIso8601String(),
                   'cantidad_plateo_diario': d.cantidadPlateada,
-                  'tipo_plateo': utf8.encode(d.tipoPlateo),
                   'cc_usuario': d.responsable,
                 })
             .toList();

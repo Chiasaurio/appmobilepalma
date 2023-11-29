@@ -29,14 +29,14 @@ class _BodyState extends State<Body> {
         shrinkWrap: true,
         itemCount: widget.plateosDiarios.length,
         itemBuilder: (context, index) {
-          return cosechaDiariaTile(widget.plateosDiarios[index]);
+          return plateoDiarioTile(widget.plateosDiarios[index]);
         },
       ),
     );
     // ]));
   }
 
-  Widget cosechaDiariaTile(PlateoDiarioData plateoDiario) {
+  Widget plateoDiarioTile(PlateoDiarioData plateoDiario) {
     return GestureDetector(
       onTap: () {},
       child: Card(
@@ -62,7 +62,6 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(formatter.format(plateoDiario.fecha)),
-                  Text(plateoDiario.tipoPlateo),
                   Text(plateoDiario.cantidadPlateada.toString()),
                 ],
               ),

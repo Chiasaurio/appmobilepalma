@@ -22,11 +22,6 @@ class _ListaProductosState extends State<ListaProductos> {
   String? unidades;
   late List<ProductoAgroquimicoData> productos;
   ProductoAgroquimicoData? producto;
-  @override
-  void initState() {
-    productos = widget.productos;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +30,7 @@ class _ListaProductosState extends State<ListaProductos> {
     altoCard = height * 0.3; //150,
     anchoCard = width;
     margin = anchoCard * 0.04;
+    productos = widget.productos;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

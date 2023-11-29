@@ -26,10 +26,11 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
         plateo: plateo, plateosDiarios: plateosDiarios, isLoaded: true));
   }
 
-  comenzarNuevoPlateo(String nombrelote, DateTime fecha) async {
+  comenzarNuevoPlateo(String nombrelote, DateTime fecha, String tipo) async {
     final PlateoDao plateoDao = db.plateoDao;
     final plateo = PlateosCompanion(
       nombreLote: Value(nombrelote),
+      tipoPlateo: Value(tipo),
       cantidadPlateada: const Value(0),
       fechaIngreso: Value(fecha),
     );
@@ -51,7 +52,6 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
     final plateoDiarioCompanion = PlateoDiarioCompanion(
         cantidadPlateada: Value(cantidad),
         fecha: Value(fecha),
-        tipoPlateo: Value(tipo),
         idPlateo: Value(plateo.id),
         responsable: Value(globals.responsable));
     await plateoDao.insertPlateoDiario(plateoDiarioCompanion);

@@ -105,7 +105,7 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
                 buildFecha(),
                 const SizedBox(height: 10),
                 buildPlateos(),
-                buildTipo()
+                // buildTipo()
               ],
             )));
   }
