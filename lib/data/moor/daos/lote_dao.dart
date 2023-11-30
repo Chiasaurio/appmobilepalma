@@ -29,7 +29,7 @@ class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
   }
 
   Future updatePrecipitacion(PrecipitacionData p) =>
-      update(precipitacion).replace(p.copyWith(sincronizado: false));
+      update(precipitacion).replace(p.copyWith(sincronizado: true));
 
   Future<int> addLote(LotesCompanion lote) {
     return into(lotes).insert(lote);
