@@ -100,6 +100,5 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
         completado: true,
         sincronizado: false));
     obtenerFertilizacionActiva(fertilizacion.nombreLote);
-    successMessageToast('La fertilización se finalizó correctamente');
   }
 }
