@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../components/widgets/header_gradient.dart';
+import '../../../../constants.dart';
 
 class PlagaPage extends StatefulWidget {
   final String routeName;
@@ -36,8 +37,22 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
         body: BlocConsumer<PlagasCubit, PlagasState>(
       listener: (context, state) {
         if (state.status == FormStatus.submissionSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: kSuccessColor,
+              content: Text('Se registró la erradicación correctamente.'),
+            ),
+          );
           BlocProvider.of<CensosCubit>(context)
               .obtenerCensosPendientes(nombreLote);
+          Navigator.of(context).pop();
+        } else if (state.status == FormStatus.submissionFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: kRedColor,
+              content: Text('Error realizando el registro.'),
+            ),
+          );
           Navigator.of(context).pop();
         }
       },

@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
+import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
+import '../../../LotesList/cubit/loteslist_cubit.dart';
 import 'lista_productos.dart';
 
 class TratamientoForm extends StatefulWidget {
@@ -294,6 +296,7 @@ class _TratamientoFormState extends State<TratamientoForm> {
             .registrarTratamiento(
                 registroEnfermedad.idRegistroEnfermedad ??
                     registroEnfermedad.id,
+                registroEnfermedad.idRegistroEnfermedad,
                 productoquimico!.idProductoAgroquimico,
                 palma,
                 tipocontrol!,
@@ -304,7 +307,9 @@ class _TratamientoFormState extends State<TratamientoForm> {
       } else {
         resp = await BlocProvider.of<TratamientoCubit>(context)
             .registrarTratamiento(
-                registroEnfermedad.id,
+                registroEnfermedad.idRegistroEnfermedad ??
+                    registroEnfermedad.id,
+                registroEnfermedad.idRegistroEnfermedad,
                 productobiologico!.idProductoAgroquimico,
                 palma,
                 tipocontrol!,
@@ -318,6 +323,12 @@ class _TratamientoFormState extends State<TratamientoForm> {
         if (context.mounted) {
           BlocProvider.of<TratamientoCubit>(context)
               .obtenerPalmasEnfermas(palma.nombreLote);
+          BlocProvider.of<LoteslistCubit>(context)
+              .obtenerTodosLotesWithProcesos();
+          final stateLote =
+              BlocProvider.of<LoteDetailCubit>(context).state as LoteChoosed;
+          BlocProvider.of<LoteDetailCubit>(context)
+              .reloadLote(stateLote.lote.lote.id);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               backgroundColor: kSuccessColor,

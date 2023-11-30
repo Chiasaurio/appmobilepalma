@@ -44,6 +44,7 @@ class TratamientoCubit extends Cubit<TratamientoState> {
 
   Future<bool> registrarTratamiento(
     int idregistroenfermedad,
+    int? idRegistroEnfermedadFromServer,
     int idproductoagroquimico,
     Palma palma,
     String tipocontrol,
@@ -56,6 +57,7 @@ class TratamientoCubit extends Cubit<TratamientoState> {
       final PalmaDao palmaDao = db.palmaDao;
       final registrotratamiento = RegistroTratamientoCompanion(
         idRegistroEnfermedad: Value(idregistroenfermedad),
+        idRegistroEnfermedadFromServer: Value(idRegistroEnfermedadFromServer),
         idProductoAgroquimico: Value(idproductoagroquimico),
         descripcionProcedimiento: Value(descripcion),
         dosis: Value(dosis),

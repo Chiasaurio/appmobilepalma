@@ -3,7 +3,6 @@ import 'package:apppalma/data/moor/tables/enfermedades_table.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
-import 'package:apppalma/utils/get_palma_identificador.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,8 +64,8 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
       //Se verifica si la palma ya esta registrada para definir el estado
       final PalmaDao palmaDao = db.palmaDao;
       String estadoPalma = '';
-      final palmaExistente = await palmaDao.obtenerPalma(
-          state.nombreLote!, state.lineaPalma!, state.numeroPalma!);
+      final palmaExistente = await palmaDao.obtenerPalma(state.nombreLote!,
+          state.lineaPalma!, state.numeroPalma!, state.orientacion!);
       if (state.enfermedadSeleccionada!.procedimientoEnfermedad ==
           "Erradicación") {
         estadoPalma = EstadosPalma.pendientePorErradicar;
@@ -84,22 +83,29 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         //Si la palma no existe y la enfermedad no es para erradicar
         estadoPalma = EstadosPalma.pendientePorTratar;
       }
-      // final RegistroEnfermedadDao registroEnfermedadDao =
-      //     db.registroEnfermedadDao;
-      final idPalma = generateIdentifier(
-          state.numeroPalma!, state.lineaPalma!, state.nombreLote!);
-      final palmaNueva = PalmasCompanion(
-        orientacion: Value(state.orientacion!),
-        identificador: Value(idPalma),
-        numeroenlinea: Value(state.numeroPalma!),
-        numerolinea: Value(state.lineaPalma!),
-        nombreLote: Value(state.nombreLote!),
-        estadopalma: Value(estadoPalma),
-      );
-      //Se actualiza o se crea la palma
+      PalmasCompanion palmaNueva;
+      if (palmaExistente != null) {
+        palmaNueva = PalmasCompanion(
+          id: Value(palmaExistente.id),
+          idPalma: Value(palmaExistente.idPalma),
+          orientacion: Value(state.orientacion!),
+          numeroenlinea: Value(state.numeroPalma!),
+          numerolinea: Value(state.lineaPalma!),
+          nombreLote: Value(state.nombreLote!),
+          estadopalma: Value(estadoPalma),
+        );
+      } else {
+        palmaNueva = PalmasCompanion(
+          orientacion: Value(state.orientacion!),
+          numeroenlinea: Value(state.numeroPalma!),
+          numerolinea: Value(state.lineaPalma!),
+          nombreLote: Value(state.nombreLote!),
+          estadopalma: Value(estadoPalma),
+        );
+        //Se actualiza o se crea la palma
+      }
 
       final regitroEnf = RegistroEnfermedadCompanion(
-        idPalma: Value(idPalma),
         fechaRegistro: Value(fecha),
         horaRegistro: Value(fecha),
         responsable: Value(globals.responsable),
@@ -107,6 +113,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
         nombreEnfermedad: Value(state.enfermedadSeleccionada!.nombreEnfermedad),
         observaciones: Value(state.observaciones),
       );
+
       await palmaDao.insertPalmaConEnfermedad(
           palmaNueva, regitroEnf, state.imagenes ?? []);
       // await registroEnfermedadDao.insertRegistroEnfermedad(

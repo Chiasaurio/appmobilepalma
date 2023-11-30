@@ -4,12 +4,13 @@ import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
 class Palmas extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get idPalma => integer().nullable()();
   TextColumn get nombreLote => text()();
   IntColumn get numerolinea => integer()();
   IntColumn get numeroenlinea => integer()();
-  TextColumn get estadopalma => text()();
-  TextColumn get identificador => text()();
   TextColumn get orientacion => text()();
+  TextColumn get estadopalma => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 
   static String mapEntryToJson(Palma entry) {
@@ -17,8 +18,9 @@ class Palmas extends Table {
   }
 
   @override
-  Set<Column> get primaryKey => {identificador};
-
+  List<Set<Column>> get uniqueKeys => [
+        {numerolinea, numeroenlinea, orientacion},
+      ];
   @override
   List<String> get customConstraints => [
         'FOREIGN KEY(nombre_lote) REFERENCES lotes(nombre_lote)',

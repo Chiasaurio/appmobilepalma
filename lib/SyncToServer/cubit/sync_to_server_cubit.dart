@@ -407,10 +407,14 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
     try {
       emit(state.copyWith(palmasStatus: SyncStatus.loading));
       final res = await remote.syncPalmas(state.palmasPendientes ?? []);
-      if (res) {
+      if (res["success"]) {
         final PalmaDao palmasDao = db.palmaDao;
+        var index = 0;
+        var ids = res["palmasIds"];
         for (var i in state.palmasPendientes!) {
-          await palmasDao.updateSyncPalmas(i);
+          await palmasDao.updatePalma(
+              i.copyWith(idPalma: Value(ids[index]), sincronizado: true));
+          index++;
         }
         emit(state.copyWith(palmasStatus: SyncStatus.success));
         return true;
@@ -427,11 +431,24 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
   Future<bool> syncEnfermedades() async {
     try {
       emit(state.copyWith(enfermedadesStatus: SyncStatus.loading));
-      final res =
-          await remote.syncEnfermedades(state.enfermedadesPendientes ?? []);
+      final PalmaDao palmasDao = db.palmaDao;
+      final RegistroEnfermedadDao registroEnfermedadDao =
+          db.registroEnfermedadDao;
+      List<RegistroEnfermedadConImagenes> nuevosRegistrosDeEnfermedades = [];
+      for (var registro in state.enfermedadesPendientes!) {
+        final palma =
+            await palmasDao.getPalma(registro.registroEnfermedad.idPalma);
+        if (palma != null) {
+          await registroEnfermedadDao.updateRegistro(registro.registroEnfermedad
+              .copyWith(idPalmaFromServer: Value(palma.idPalma!)));
+          nuevosRegistrosDeEnfermedades.add(RegistroEnfermedadConImagenes(
+              imagenes: registro.imagenes,
+              registroEnfermedad: registro.registroEnfermedad
+                  .copyWith(idPalmaFromServer: Value(palma.idPalma!))));
+        }
+      }
+      final res = await remote.syncEnfermedades(nuevosRegistrosDeEnfermedades);
       if (res["success"]) {
-        final RegistroEnfermedadDao registroEnfermedadDao =
-            db.registroEnfermedadDao;
         var index = 0;
         var ids = res["registrosIds"];
         //Toca actualizar los ids locales con los que llegan
@@ -463,27 +480,29 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
   Future<bool> syncTratamientos() async {
     try {
       emit(state.copyWith(tratamientosStatus: SyncStatus.loading));
+      final PalmaDao palmaDao = db.palmaDao;
       // <--- Primero obtenemos la enfermedad-->
       final RegistroEnfermedadDao registroEnfermedadDao =
           db.registroEnfermedadDao;
-      List<RegistroEnfermedadData> registroEnfermedades = [];
       List<RegistroTratamientoData> nuevosTratamientos = [];
       //Actualizamos los tratamientos con el id del registro de enfermedad del server.
       for (var tratamiento in state.tratamientosPendientes!) {
         final registroEnfermedad = await registroEnfermedadDao
             .getRegistroEnfermedad(tratamiento.idRegistroEnfermedad);
         if (registroEnfermedad != null) {
-          registroEnfermedades.add(registroEnfermedad);
           if (registroEnfermedad.idRegistroEnfermedad != null) {
+            await palmaDao.updateRegistroTratamiento(tratamiento.copyWith(
+                idRegistroEnfermedadFromServer:
+                    Value(registroEnfermedad.idRegistroEnfermedad)));
             nuevosTratamientos.add(tratamiento.copyWith(
-                idRegistroEnfermedad: registroEnfermedad.idRegistroEnfermedad));
+                idRegistroEnfermedadFromServer:
+                    Value(registroEnfermedad.idRegistroEnfermedad)));
           }
         }
       }
       // <--- Enviamos los tratamientos con los ids correctos, -->
       final res = await remote.syncTratamientos(nuevosTratamientos);
       if (res) {
-        final PalmaDao palmaDao = db.palmaDao;
         for (var i in state.tratamientosPendientes!) {
           await palmaDao.updateSyncTratamientos(i);
         }

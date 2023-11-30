@@ -59,7 +59,7 @@ class ErradicacionCubit extends Cubit<ErradicacionConCausa> {
       causaErradicacion: Value(causa),
       fechaRegistro: Value(fechaRegistro!),
       responsable: Value(globals.responsable),
-      idPalma: Value(palma!.identificador),
+      idPalma: Value(palma!.id),
     );
     await erradicacionesDao.insertErradicacion(e);
     await palmaDao.updatePalma(palma.copyWith(

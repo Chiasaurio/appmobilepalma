@@ -491,11 +491,10 @@ class _FumigacionFormState extends State<FumigacionForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    const Expanded(child: Text('sector: ')),
+                    const Expanded(child: Text('foco: ')),
                     Expanded(
                       child: Text(
-                        // '${censo.lineaLimite1.toString()} - ${censo.lineaLimite2.toString()}',
-                        censo.identificador,
+                        'Numero de linea ${censo.numerolinea.toString()}',
                         style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,

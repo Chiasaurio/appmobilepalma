@@ -6,7 +6,6 @@ import 'package:apppalma/data/moor/daos/daos.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
-import 'package:apppalma/utils/get_palma_identificador.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +37,15 @@ class PalmaCubit extends Cubit<PalmaState> {
   }
 
   Future<void> obtenerProcesosPalma(
-      {int? numeroLinea, int? numeroPalma}) async {
+      {int? numeroLinea, int? numeroPalma, String? orientacion}) async {
     emit(state.copyWith(status: FormStatus.submissionInProgress));
     final PalmaDao palmaDao = db.palmaDao;
     final EnfermedadesDao enfermedadDao = db.enfermedadesDao;
-    final palma = await palmaDao.obtenerPalma(state.nombreLote!,
-        numeroLinea ?? state.lineaPalma!, numeroPalma ?? state.numeroPalma!);
+    final palma = await palmaDao.obtenerPalma(
+        state.nombreLote!,
+        numeroLinea ?? state.lineaPalma!,
+        numeroPalma ?? state.numeroPalma!,
+        orientacion ?? state.orientacion!);
     if (palma != null) {
       final List<RegistroEnfermedadData> registroenfermedad =
           await palmaDao.obtenerRegistroEnfermedad(palma);
@@ -140,25 +142,22 @@ class PalmaCubit extends Cubit<PalmaState> {
           successMessageToast('Se realizó el registro exitosamente');
           emit(PalmaInitial(nombreLote: state.nombreLote));
         } else {
-          final identificador = generateIdentifier(
-              state.numeroPalma!, state.lineaPalma!, state.nombreLote!);
           final palmaNueva = PalmasCompanion(
-            identificador: Value(identificador),
             orientacion: Value(state.orientacion!),
             numeroenlinea: Value(state.numeroPalma!),
             numerolinea: Value(state.lineaPalma!),
             nombreLote: Value(state.nombreLote!),
             estadopalma: const Value(EstadosPalma.erradicada),
           );
-          await palmaDao.insertPalma(palmaNueva);
+          final idPalma = await palmaDao.insertPalma(palmaNueva);
           // final idPalma = state.numeroPalma!.toString() +
           //     state.lineaPalma!.toString() +
           //     state.nombreLote!;
           final e = ErradicacionCompanion(
+            idPalma: Value(idPalma),
             responsable: Value(globals.responsable),
             causaErradicacion: const Value("state.causa"),
             fechaRegistro: Value(fechaRegistro),
-            idPalma: Value(identificador),
           );
           await erradicacionesDao.insertErradicacion(e);
         }
@@ -203,10 +202,7 @@ class PalmaCubit extends Cubit<PalmaState> {
       causaErradicacion: Value(causa),
       fechaRegistro: Value(fechaRegistro!),
       responsable: Value(globals.responsable),
-      // idPalma: Value(palma!.numeroenlinea.toString() +
-      //     palma.numerolinea.toString() +
-      //     palma.nombreLote)
-      idPalma: Value(palma!.identificador),
+      idPalma: Value(palma!.id),
     );
     await erradicacionesDao.insertErradicacion(e);
     await palmaDao.updatePalma(palma.copyWith(

@@ -93,7 +93,9 @@ class _PalmasLoteListState extends State<PalmasLoteList> {
       onTap: () {
         BlocProvider.of<PalmaCubit>(context).palmaSeleccionadaChanged(palma);
         BlocProvider.of<PalmaCubit>(context).obtenerProcesosPalma(
-            numeroLinea: palma.numerolinea, numeroPalma: palma.numeroenlinea);
+            numeroLinea: palma.numerolinea,
+            numeroPalma: palma.numeroenlinea,
+            orientacion: palma.orientacion);
       },
       child: Card(
         shape: RoundedRectangleBorder(

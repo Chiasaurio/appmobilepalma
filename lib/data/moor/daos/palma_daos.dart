@@ -32,7 +32,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   }
 
   Future<List<RegistroEnfermedadData>> obtenerSoloRegistrosEnfermedad(
-      String idPalma) {
+      int idPalma) {
     return (select(registroEnfermedad)..where((c) => c.idPalma.equals(idPalma)))
         .get();
   }
@@ -64,14 +64,19 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     }).toList();
   }
 
-  Future<Palma?> obtenerPalma(
-      String nombrelote, int numerolinea, int numeroenlinea) {
+  Future<Palma?> obtenerPalma(String nombrelote, int numerolinea,
+      int numeroenlinea, String orientacion) {
     return (select(palmas)
           ..where((c) =>
               c.nombreLote.equals(nombrelote) &
               c.numerolinea.equals(numerolinea) &
-              c.numeroenlinea.equals(numeroenlinea)))
+              c.numeroenlinea.equals(numeroenlinea) &
+              c.orientacion.equals(orientacion)))
         .getSingleOrNull();
+  }
+
+  Future<Palma?> getPalma(int id) {
+    return (select(palmas)..where((r) => r.id.equals(id))).getSingleOrNull();
   }
 
   Future<PalmaValidada?> obtenerPalmaConRegistros(
@@ -84,7 +89,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
         .join(
       [
         leftOuterJoin(registroEnfermedad,
-            registroEnfermedad.idPalma.equalsExp(palmas.identificador)),
+            registroEnfermedad.idPalma.equalsExp(palmas.id)),
       ],
     ).getSingleOrNull();
     if (resultRow != null) {
@@ -119,13 +124,14 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       );
 
   Future insertPalmaConEnfermedad(Insertable<Palma> palma,
-      Insertable<RegistroEnfermedadData> e, List<XFile> imagenes) async {
+      RegistroEnfermedadCompanion e, List<XFile> imagenes) async {
     try {
       return transaction(() async {
-        await into(palmas).insertOnConflictUpdate(
+        final idPalma = await into(palmas).insertOnConflictUpdate(
           palma,
         );
-        var id = await into(registroEnfermedad).insert(e);
+        var id = await into(registroEnfermedad)
+            .insert(e.copyWith(idPalma: Value(idPalma)));
         //Se obtienen los objetos de las imagenes para insertar;
         List<Insertable<ImagenRegistroEnfermedadData>> imagenesCompanions =
             await getImagenesRegistroEnfermedadCompanion(id, imagenes);
@@ -153,16 +159,13 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     return imagenesCompanions;
   }
 
-  Future insertPalmaConPlaga(
-      Insertable<Palma> palma,
-      List<EtapaIndividuosModel> etapasseleccionadas,
-      Insertable<CensoData> c,
-      List<XFile> imagenes) async {
+  Future insertPalmaConPlaga(List<EtapaIndividuosModel> etapasseleccionadas,
+      Insertable<CensoData> c, List<XFile> imagenes) async {
     try {
       return transaction(() async {
-        await into(palmas).insertOnConflictUpdate(
-          palma,
-        );
+        // await into(palmas).insertOnConflictUpdate(
+        //   palma,
+        // );
 
         var id = await into(censo).insert(c);
         // Se obtienen los objetos de las etapas para insertar;
@@ -212,9 +215,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
   }
 
   Future updateSyncPalmas(Palma palma) {
-    return (update(palmas)
-          ..where((t) => t.identificador.equals(palma.identificador)))
-        .write(
+    return (update(palmas)..where((t) => t.id.equals(palma.id))).write(
       const PalmasCompanion(
         sincronizado: Value(true),
       ),
@@ -235,7 +236,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
           .join(
         [
           leftOuterJoin(registroEnfermedad,
-              registroEnfermedad.idPalma.equalsExp(palmas.identificador)),
+              registroEnfermedad.idPalma.equalsExp(palmas.id)),
         ],
       ).get();
     } else {
@@ -244,7 +245,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
           .join(
         [
           leftOuterJoin(registroEnfermedad,
-              registroEnfermedad.idPalma.equalsExp(palmas.identificador)),
+              registroEnfermedad.idPalma.equalsExp(palmas.id)),
         ],
       ).get();
     }
@@ -300,7 +301,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
 
   Future<List<RegistroEnfermedadData>> obtenerRegistroEnfermedad(Palma palma) {
     return (select(registroEnfermedad)
-          ..where((c) => c.idPalma.equals(palma.identificador)))
+          ..where((c) => c.idPalma.equals(palma.id)))
         .get();
   }
 
@@ -320,6 +321,10 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
     }
     return true;
   }
+
+  Future updateRegistroTratamiento(
+          Insertable<RegistroTratamientoData> registro) =>
+      update(registroTratamiento).replace(registro);
 
   Future<RegistroTratamientoData?> obtenerTratamiento(
       RegistroEnfermedadData registroenfermedad) {

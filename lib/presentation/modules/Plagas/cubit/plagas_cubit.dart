@@ -1,12 +1,10 @@
 import 'package:apppalma/data/moor/daos/daos.dart';
-import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/presentation/modules/Plagas/models/etapa_individuo_model.dart';
 import 'package:apppalma/utils/form_status.dart';
 import 'package:apppalma/utils/get_location.dart';
-import 'package:apppalma/utils/get_palma_identificador.dart';
 import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +12,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:apppalma/globals.dart' as globals;
 
-import '../../../constants.dart';
 part 'plagas_state.dart';
 
 class PlagasCubit extends Cubit<PlagasState> {
@@ -78,61 +75,37 @@ class PlagasCubit extends Cubit<PlagasState> {
     final PalmaDao palmaDao = db.palmaDao;
     try {
       emit(state.copyWith(status: FormStatus.submissionInProgress));
-      final String identificadorPalma =
-          generateIdentifier(state.linea!, state.numero!, state.nombreLote!);
-
-      //Se crea o se actualiza la palma.
-      final palmaNueva = PalmasCompanion(
-        orientacion: Value(state.orientacion!),
-        identificador: Value(identificadorPalma),
-        numeroenlinea: Value(state.numero!),
-        numerolinea: Value(state.linea!),
-        nombreLote: Value(state.nombreLote!),
-        estadopalma: const Value(EstadosPalma.pendientePorTratar),
-      );
+      // //Se crea o se actualiza la palma.
+      // final palmaNueva = PalmasCompanion(
+      //   identificador: Value(identificadorPalma),
+      // numeroenlinea: Value(state.numero!),
+      // numerolinea: Value(state.linea!),
+      // orientacion: Value(state.orientacion!),
+      //   nombreLote: Value(state.nombreLote!),
+      //   estadopalma: const Value(EstadosPalma.pendientePorTratar),
+      // );
       final LocationData? locationData = await getCurrentLocation();
 
       //Se actualiza o se crea la palma
       final registroPlag = CensoCompanion(
           fechaCenso: Value(fechacenso),
-          // presenciaLote: Value(presencialote),
-          // presenciaSector: Value(presenciasector),
-          // lineaLimite1: Value(linealimite1),
-          // lineaLimite2: Value(linealimite2),
-          identificador: Value(identificadorPalma),
           responsable: Value(globals.responsable),
-          numeroIndividuos: Value(
-            state.numeroIndividuos,
-          ),
-          observacionCenso: Value(
-            state.observaciones,
-          ),
-          nombrePlaga: Value(
-            state.plagaSeleccionada!.plaga.nombreComunPlaga,
-          ),
-          nombreLote: Value(
-            state.nombreLote!,
-          ),
+          numeroIndividuos: Value(state.numeroIndividuos),
+          observacionCenso: Value(state.observaciones),
+          nombrePlaga: Value(state.plagaSeleccionada!.plaga.nombreComunPlaga),
+          nombreLote: Value(state.nombreLote!),
+          numeroenlinea: Value(state.numero!),
+          numerolinea: Value(state.linea!),
+          orientacion: Value(state.orientacion!),
           longitude: Value(locationData?.longitude),
           latitude: Value(locationData?.latitude));
 
-      await palmaDao.insertPalmaConPlaga(palmaNueva, state.etapasSeleccionada,
-          registroPlag, state.imagenes ?? []);
+      await palmaDao.insertPalmaConPlaga(
+          state.etapasSeleccionada, registroPlag, state.imagenes ?? []);
 
-      //Se inserta el censo
-      // await plagaDao.insertCensoDePlaga(
-      //     fechacenso,
-      //     identificadorPalma,
-      //     state.numeroIndividuos,
-      //     state.observaciones,
-      //     state.plagaSeleccionada!.plaga.nombreComunPlaga,
-      //     state.nombreLote!,
-      //     state.etapasSeleccionada,
-      //     state.imagenes ?? []);
       emit(state.copyWith(status: FormStatus.submissionSuccess));
-      registroExitosoToast();
     } catch (e) {
-      registroFallidoToast(e.toString());
+      emit(state.copyWith(status: FormStatus.submissionFailure));
     }
   }
 }

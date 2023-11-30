@@ -20,7 +20,8 @@ class CensosEnfermedadesList extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(childCount: palmasEnfermas.length,
           (context, index) {
-        final palma = palmasEnfermas.elementAt(index);
+        final reversedIndex = palmasEnfermas.length - index - 1;
+        final palma = palmasEnfermas.elementAt(reversedIndex);
         return Card(
           elevation: 2.0,
           margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 10),

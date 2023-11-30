@@ -6,7 +6,6 @@ class Censo extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idCenso => integer().nullable()();
   DateTimeColumn get fechaCenso => dateTime()();
-  TextColumn get identificador => text()();
   TextColumn get observacionCenso => text().nullable()();
   TextColumn get nombreLote => text()();
   IntColumn get numeroIndividuos => integer().nullable()();
@@ -15,6 +14,9 @@ class Censo extends Table {
       text().withDefault(const Constant('Pendiente por fumigar'))();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   TextColumn get responsable => text()();
+  IntColumn get numerolinea => integer()();
+  IntColumn get numeroenlinea => integer()();
+  TextColumn get orientacion => text()();
   RealColumn get latitude => real().nullable()();
   RealColumn get longitude => real().nullable()();
 }

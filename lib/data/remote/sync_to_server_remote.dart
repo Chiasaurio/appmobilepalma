@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 class SyncToServerRemote {
   SyncToServerRemote();
   final Api _apiInstance = Api.getInstance();
-  Future<bool> syncPalmas(List<Palma> palmas) async {
+  Future<Map<String, dynamic>> syncPalmas(List<Palma> palmas) async {
     try {
       final data = palmas
           .map((e) => {
@@ -18,16 +18,15 @@ class SyncToServerRemote {
                 "nombre_lote": e.nombreLote,
                 "orientacion_palma": e.orientacion,
                 "estado_palma": e.estadopalma,
-                "id_palma": e.identificador,
-                "edad_palma": 0
               })
           .toList();
-      await _apiInstance.post(EndPointConstant.palmas, data: {"data": data});
-      return true;
+      final res = await _apiInstance
+          .post(EndPointConstant.palmas, data: {"data": data});
+      return res;
     } on DioException catch (_) {
-      return false;
+      return {"success": false};
     } catch (e) {
-      return false;
+      return {"success": false};
     }
   }
 
@@ -36,16 +35,17 @@ class SyncToServerRemote {
     try {
       final data = registros.map((e) {
         final registroEnfermedad = {
-          // "id_registro_enfermedad": e.registroEnfermedad.idRegistroEnfermedad,
+          "id_registro_enfermedad": e.registroEnfermedad.idRegistroEnfermedad,
           "hora_registro_enfermedad":
               e.registroEnfermedad.horaRegistro!.toIso8601String(),
           "fecha_registro_enfermedad":
               e.registroEnfermedad.fechaRegistro.toIso8601String(),
           "observacion_registro_enfermedad": e.registroEnfermedad.observaciones,
-          "id_palma": e.registroEnfermedad.idPalma,
+          "id_palma": e.registroEnfermedad.idPalmaFromServer,
           "nombre_enfermedad":
               utf8.encode(e.registroEnfermedad.nombreEnfermedad),
           "id_etapa_enfermedad": e.registroEnfermedad.idEtapaEnfermedad,
+          "dada_de_alta": e.registroEnfermedad.dadaDeAlta,
           "cc_usuario": e.registroEnfermedad.responsable,
         };
         var imagenes = e.imagenes
@@ -100,11 +100,10 @@ class SyncToServerRemote {
     try {
       final data = registros
           .map((e) => {
-                "id_tratamiento": e.id,
                 "hora_tratamiento": e.fechaRegistro.toIso8601String(),
                 "fecha_tratamiento": e.fechaRegistro.toIso8601String(),
                 "descripcion_procedimiento": e.descripcionProcedimiento,
-                "id_registro_enfermedad": e.idRegistroEnfermedad,
+                "id_registro_enfermedad": e.idRegistroEnfermedadFromServer,
                 "id_agroquimico": e.idProductoAgroquimico,
                 "dosis": e.dosis,
                 "unidades": e.unidades,
@@ -134,7 +133,9 @@ class SyncToServerRemote {
           "estado_censo": e.censo.estadoPlaga,
           "cc_usuario": e.censo.responsable,
           "nombre_comun_plaga": utf8.encode(e.censo.nombrePlaga),
-          "id_palma": e.censo.identificador,
+          "numero_linea": e.censo.numerolinea,
+          "numero_en_linea": e.censo.numeroenlinea,
+          "orientacion": e.censo.orientacion,
           "latitud": e.censo.latitude,
           "longitud": e.censo.longitude,
           "numero_individuos": e.censo.numeroIndividuos,

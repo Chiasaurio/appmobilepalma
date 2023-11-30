@@ -7,6 +7,8 @@ class Lotes extends Table {
   TextColumn get nombreLote => text()();
   IntColumn get hectareas => integer()();
   IntColumn get numeropalmas => integer()();
+  IntColumn get numeroLineas => integer()();
+  IntColumn get palmasPorLinea => integer()();
   DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
 
   @override

@@ -14,7 +14,8 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
       update(registroEnfermedad).replace(registro);
 
   Future<RegistroEnfermedadData?> getRegistroEnfermedad(int id) {
-    return (select(registroEnfermedad)..where((r) => r.id.equals(id)))
+    return (select(registroEnfermedad)
+          ..where((r) => r.idRegistroEnfermedad.equals(id)))
         .getSingleOrNull();
   }
 

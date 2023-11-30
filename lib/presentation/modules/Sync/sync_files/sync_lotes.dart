@@ -15,10 +15,13 @@ class SyncLotes {
       List<Insertable<Lote>> lotes = [];
       for (var element in datalotes) {
         LotesCompanion aux = LotesCompanion(
-            nombreLote: Value(element['nombre_lote']),
-            hectareas: const Value(0),
-            numeropalmas: const Value(1000),
-            fechaUltimaActualizacion: Value(fechaHoy));
+          nombreLote: Value(element['nombre_lote']),
+          hectareas: Value(element['hectareas']),
+          numeropalmas: Value(element['numero_palmas']),
+          fechaUltimaActualizacion: Value(fechaHoy),
+          numeroLineas: Value(element['numero_lineas']),
+          palmasPorLinea: Value(element['palmas_por_linea']),
+        );
         lotes.add(aux);
       }
       return lotes;

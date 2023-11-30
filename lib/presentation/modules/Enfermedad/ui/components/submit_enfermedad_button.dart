@@ -3,6 +3,8 @@ import 'package:apppalma/utils/form_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../constants.dart';
+import '../../../LoteDetail/cubit/lote_detail_cubit.dart';
+import '../../../LotesList/cubit/loteslist_cubit.dart';
 import '../../cubit/enfermedad_cubit.dart';
 
 class SubmitEnfermedadButton extends StatelessWidget {
@@ -52,6 +54,14 @@ class SubmitEnfermedadButton extends StatelessWidget {
                             .obtenerPalmasEnfermas(state.nombreLote!);
 
                         if (res) {
+                          BlocProvider.of<LoteslistCubit>(context)
+                              .obtenerTodosLotesWithProcesos();
+                          final stateLote =
+                              BlocProvider.of<LoteDetailCubit>(context).state
+                                  as LoteChoosed;
+                          BlocProvider.of<LoteDetailCubit>(context)
+                              .reloadLote(stateLote.lote.lote.id);
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               backgroundColor: kSuccessColor,

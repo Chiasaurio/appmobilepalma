@@ -7,7 +7,9 @@ class RegistroEnfermedad extends Table {
   IntColumn get idRegistroEnfermedad => integer().nullable()();
   DateTimeColumn get fechaRegistro => dateTime()();
   DateTimeColumn get horaRegistro => dateTime().nullable()();
-  TextColumn get idPalma => text().references(Palmas, #identificador)();
+  IntColumn get idPalma => integer().references(Palmas, #id)();
+  IntColumn get idPalmaFromServer =>
+      integer().references(Palmas, #idPalma).nullable()();
   TextColumn get nombreEnfermedad =>
       text().references(Enfermedades, #nombreEnfermedad)();
   IntColumn get idEtapaEnfermedad =>

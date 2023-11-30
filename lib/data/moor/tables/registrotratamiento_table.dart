@@ -6,6 +6,9 @@ class RegistroTratamiento extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idRegistroEnfermedad =>
       integer().references(RegistroEnfermedad, #id)();
+  IntColumn get idRegistroEnfermedadFromServer => integer()
+      .references(RegistroEnfermedad, #idRegistroEnfermedad)
+      .nullable()();
   IntColumn get idProductoAgroquimico =>
       integer().references(ProductoAgroquimico, #idProductoAgroquimico)();
   TextColumn get tipoControl => text()();
