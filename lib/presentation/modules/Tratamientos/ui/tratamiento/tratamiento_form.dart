@@ -318,9 +318,15 @@ class _TratamientoFormState extends State<TratamientoForm> {
         if (context.mounted) {
           BlocProvider.of<TratamientoCubit>(context)
               .obtenerPalmasEnfermas(palma.nombreLote);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: kSuccessColor,
+              content: Text('Se registró el tratamiento correctamente'),
+            ),
+          );
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
         }
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
       } else {
         registroFallidoToast('Error registrando el tratamiento');
       }

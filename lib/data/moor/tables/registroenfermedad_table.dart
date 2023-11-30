@@ -15,6 +15,7 @@ class RegistroEnfermedad extends Table {
   TextColumn get observaciones => text().nullable()();
   TextColumn get responsable => text().references(Usuario, #ccUsuario)();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
+  BoolColumn get dadaDeAlta => boolean().withDefault(const Constant(false))();
 }
 
 class ImagenRegistroEnfermedad extends Table {

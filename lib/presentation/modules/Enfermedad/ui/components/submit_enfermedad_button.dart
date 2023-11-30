@@ -44,11 +44,29 @@ class SubmitEnfermedadButton extends StatelessWidget {
                           horaSalida.hour,
                           horaSalida.minute);
 
-                      await BlocProvider.of<EnfermedadCubit>(context)
-                          .insertarPalmaConEnfermedad(fechasalida);
+                      final res =
+                          await BlocProvider.of<EnfermedadCubit>(context)
+                              .insertarPalmaConEnfermedad(fechasalida);
                       if (context.mounted) {
                         BlocProvider.of<TratamientoCubit>(context)
                             .obtenerPalmasEnfermas(state.nombreLote!);
+
+                        if (res) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kSuccessColor,
+                              content:
+                                  Text('Se realizó el registro correctamente.'),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kRedColor,
+                              content: Text('Error realizando el registro.'),
+                            ),
+                          );
+                        }
                       }
                     }
                   },

@@ -8,14 +8,14 @@ class OpcionesFitosanitaria extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
       child: Column(children: [
-        _OpcionItem(
-          ruta: '/lote/palmas',
-          nombreLote: nombreLote,
-          text: 'Ver palmas',
-        ),
-        const SizedBox(
-          height: 15,
-        ),
+        // _OpcionItem(
+        //   ruta: '/lote/palmas',
+        //   nombreLote: nombreLote,
+        //   text: 'Ver palmas',
+        // ),
+        // const SizedBox(
+        //   height: 15,
+        // ),
         _OpcionItem(
           ruta: '/lote/censo/enfermedades',
           nombreLote: nombreLote,

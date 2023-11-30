@@ -1,6 +1,4 @@
 import 'package:apppalma/presentation/constants.dart';
-import 'package:apppalma/data/moor/daos/enfermedades_dao.dart';
-import 'package:apppalma/data/moor/daos/palma_daos.dart';
 import 'package:apppalma/data/moor/tables/enfermedades_table.dart';
 import 'package:apppalma/main.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
@@ -11,7 +9,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../components/toasts/toasts.dart';
+import '../../../../data/moor/daos/daos.dart';
 import 'package:apppalma/globals.dart' as globals;
 
 part 'enfermedad_state.dart';
@@ -60,7 +58,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
     emit(state.copyWith(imagenes: imagenes));
   }
 
-  Future<void> insertarPalmaConEnfermedad(
+  Future<bool> insertarPalmaConEnfermedad(
     DateTime fecha,
   ) async {
     try {
@@ -114,9 +112,9 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
       // await registroEnfermedadDao.insertRegistroEnfermedad(
       //     regitroEnf, state.imagenes ?? []);
       emit(state.copyWith(status: FormStatus.submissionSuccess));
-      registroExitosoToast();
+      return true;
     } catch (e) {
-      registroFallidoToast('Error al realizar el registro');
+      return false;
     }
   }
 
@@ -133,5 +131,21 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
     List<Insertable<Etapa>> etapas = map["etapas"] as List<Insertable<Etapa>>;
     final EnfermedadesDao enfermedadDao = db.enfermedadesDao;
     await enfermedadDao.addEnfermedades(enfermedades, etapas);
+  }
+
+  Future<bool> darDeAltaEnfermedad(
+      {required Palma palma,
+      required RegistroEnfermedadData registroEnfermedad}) async {
+    try {
+      final RegistroEnfermedadDao registroEnfermedadDao =
+          db.registroEnfermedadDao;
+      final PalmaDao palmaDao = db.palmaDao;
+      await registroEnfermedadDao
+          .updateRegistro(registroEnfermedad.copyWith(dadaDeAlta: true));
+      await palmaDao.updatePalma(palma.copyWith(estadopalma: "Dada de alta"));
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -7315,6 +7315,16 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("sincronizado" IN (0, 1))'),
       defaultValue: const Constant(false));
+  static const VerificationMeta _dadaDeAltaMeta =
+      const VerificationMeta('dadaDeAlta');
+  @override
+  late final GeneratedColumn<bool> dadaDeAlta = GeneratedColumn<bool>(
+      'dada_de_alta', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("dada_de_alta" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -7326,7 +7336,8 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
         idEtapaEnfermedad,
         observaciones,
         responsable,
-        sincronizado
+        sincronizado,
+        dadaDeAlta
       ];
   @override
   String get aliasedName => _alias ?? 'registro_enfermedad';
@@ -7401,6 +7412,12 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
           sincronizado.isAcceptableOrUnknown(
               data['sincronizado']!, _sincronizadoMeta));
     }
+    if (data.containsKey('dada_de_alta')) {
+      context.handle(
+          _dadaDeAltaMeta,
+          dadaDeAlta.isAcceptableOrUnknown(
+              data['dada_de_alta']!, _dadaDeAltaMeta));
+    }
     return context;
   }
 
@@ -7430,6 +7447,8 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
       sincronizado: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+      dadaDeAlta: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}dada_de_alta'])!,
     );
   }
 
@@ -7451,6 +7470,7 @@ class RegistroEnfermedadData extends DataClass
   final String? observaciones;
   final String responsable;
   final bool sincronizado;
+  final bool dadaDeAlta;
   const RegistroEnfermedadData(
       {required this.id,
       this.idRegistroEnfermedad,
@@ -7461,7 +7481,8 @@ class RegistroEnfermedadData extends DataClass
       this.idEtapaEnfermedad,
       this.observaciones,
       required this.responsable,
-      required this.sincronizado});
+      required this.sincronizado,
+      required this.dadaDeAlta});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -7483,6 +7504,7 @@ class RegistroEnfermedadData extends DataClass
     }
     map['responsable'] = Variable<String>(responsable);
     map['sincronizado'] = Variable<bool>(sincronizado);
+    map['dada_de_alta'] = Variable<bool>(dadaDeAlta);
     return map;
   }
 
@@ -7506,6 +7528,7 @@ class RegistroEnfermedadData extends DataClass
           : Value(observaciones),
       responsable: Value(responsable),
       sincronizado: Value(sincronizado),
+      dadaDeAlta: Value(dadaDeAlta),
     );
   }
 
@@ -7524,6 +7547,7 @@ class RegistroEnfermedadData extends DataClass
       observaciones: serializer.fromJson<String?>(json['observaciones']),
       responsable: serializer.fromJson<String>(json['responsable']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
+      dadaDeAlta: serializer.fromJson<bool>(json['dadaDeAlta']),
     );
   }
   @override
@@ -7540,6 +7564,7 @@ class RegistroEnfermedadData extends DataClass
       'observaciones': serializer.toJson<String?>(observaciones),
       'responsable': serializer.toJson<String>(responsable),
       'sincronizado': serializer.toJson<bool>(sincronizado),
+      'dadaDeAlta': serializer.toJson<bool>(dadaDeAlta),
     };
   }
 
@@ -7553,7 +7578,8 @@ class RegistroEnfermedadData extends DataClass
           Value<int?> idEtapaEnfermedad = const Value.absent(),
           Value<String?> observaciones = const Value.absent(),
           String? responsable,
-          bool? sincronizado}) =>
+          bool? sincronizado,
+          bool? dadaDeAlta}) =>
       RegistroEnfermedadData(
         id: id ?? this.id,
         idRegistroEnfermedad: idRegistroEnfermedad.present
@@ -7571,6 +7597,7 @@ class RegistroEnfermedadData extends DataClass
             observaciones.present ? observaciones.value : this.observaciones,
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
+        dadaDeAlta: dadaDeAlta ?? this.dadaDeAlta,
       );
   @override
   String toString() {
@@ -7584,7 +7611,8 @@ class RegistroEnfermedadData extends DataClass
           ..write('idEtapaEnfermedad: $idEtapaEnfermedad, ')
           ..write('observaciones: $observaciones, ')
           ..write('responsable: $responsable, ')
-          ..write('sincronizado: $sincronizado')
+          ..write('sincronizado: $sincronizado, ')
+          ..write('dadaDeAlta: $dadaDeAlta')
           ..write(')'))
         .toString();
   }
@@ -7600,7 +7628,8 @@ class RegistroEnfermedadData extends DataClass
       idEtapaEnfermedad,
       observaciones,
       responsable,
-      sincronizado);
+      sincronizado,
+      dadaDeAlta);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -7614,7 +7643,8 @@ class RegistroEnfermedadData extends DataClass
           other.idEtapaEnfermedad == this.idEtapaEnfermedad &&
           other.observaciones == this.observaciones &&
           other.responsable == this.responsable &&
-          other.sincronizado == this.sincronizado);
+          other.sincronizado == this.sincronizado &&
+          other.dadaDeAlta == this.dadaDeAlta);
 }
 
 class RegistroEnfermedadCompanion
@@ -7629,6 +7659,7 @@ class RegistroEnfermedadCompanion
   final Value<String?> observaciones;
   final Value<String> responsable;
   final Value<bool> sincronizado;
+  final Value<bool> dadaDeAlta;
   const RegistroEnfermedadCompanion({
     this.id = const Value.absent(),
     this.idRegistroEnfermedad = const Value.absent(),
@@ -7640,6 +7671,7 @@ class RegistroEnfermedadCompanion
     this.observaciones = const Value.absent(),
     this.responsable = const Value.absent(),
     this.sincronizado = const Value.absent(),
+    this.dadaDeAlta = const Value.absent(),
   });
   RegistroEnfermedadCompanion.insert({
     this.id = const Value.absent(),
@@ -7652,6 +7684,7 @@ class RegistroEnfermedadCompanion
     this.observaciones = const Value.absent(),
     required String responsable,
     this.sincronizado = const Value.absent(),
+    this.dadaDeAlta = const Value.absent(),
   })  : fechaRegistro = Value(fechaRegistro),
         idPalma = Value(idPalma),
         nombreEnfermedad = Value(nombreEnfermedad),
@@ -7667,6 +7700,7 @@ class RegistroEnfermedadCompanion
     Expression<String>? observaciones,
     Expression<String>? responsable,
     Expression<bool>? sincronizado,
+    Expression<bool>? dadaDeAlta,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -7680,6 +7714,7 @@ class RegistroEnfermedadCompanion
       if (observaciones != null) 'observaciones': observaciones,
       if (responsable != null) 'responsable': responsable,
       if (sincronizado != null) 'sincronizado': sincronizado,
+      if (dadaDeAlta != null) 'dada_de_alta': dadaDeAlta,
     });
   }
 
@@ -7693,7 +7728,8 @@ class RegistroEnfermedadCompanion
       Value<int?>? idEtapaEnfermedad,
       Value<String?>? observaciones,
       Value<String>? responsable,
-      Value<bool>? sincronizado}) {
+      Value<bool>? sincronizado,
+      Value<bool>? dadaDeAlta}) {
     return RegistroEnfermedadCompanion(
       id: id ?? this.id,
       idRegistroEnfermedad: idRegistroEnfermedad ?? this.idRegistroEnfermedad,
@@ -7705,6 +7741,7 @@ class RegistroEnfermedadCompanion
       observaciones: observaciones ?? this.observaciones,
       responsable: responsable ?? this.responsable,
       sincronizado: sincronizado ?? this.sincronizado,
+      dadaDeAlta: dadaDeAlta ?? this.dadaDeAlta,
     );
   }
 
@@ -7741,6 +7778,9 @@ class RegistroEnfermedadCompanion
     if (sincronizado.present) {
       map['sincronizado'] = Variable<bool>(sincronizado.value);
     }
+    if (dadaDeAlta.present) {
+      map['dada_de_alta'] = Variable<bool>(dadaDeAlta.value);
+    }
     return map;
   }
 
@@ -7756,7 +7796,8 @@ class RegistroEnfermedadCompanion
           ..write('idEtapaEnfermedad: $idEtapaEnfermedad, ')
           ..write('observaciones: $observaciones, ')
           ..write('responsable: $responsable, ')
-          ..write('sincronizado: $sincronizado')
+          ..write('sincronizado: $sincronizado, ')
+          ..write('dadaDeAlta: $dadaDeAlta')
           ..write(')'))
         .toString();
   }

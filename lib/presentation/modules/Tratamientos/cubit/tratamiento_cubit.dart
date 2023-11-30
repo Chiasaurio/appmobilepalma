@@ -69,7 +69,6 @@ class TratamientoCubit extends Cubit<TratamientoState> {
         const estadopalma = EstadosPalma.enTratamiento;
         actualizarPalma(palma, estadopalma);
         emit(state.copyWith(status: TratamientoStatus.success));
-        registroExitosoToast();
 
         return true;
       } else {

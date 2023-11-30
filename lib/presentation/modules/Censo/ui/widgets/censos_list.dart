@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../Enfermedad/cubit/enfermedad_cubit.dart';
 import '../../../Tratamientos/ui/tratamiento/tratamiento_page.dart';
 
 class CensosEnfermedadesList extends StatelessWidget {
@@ -161,7 +162,18 @@ class CensosEnfermedadesList extends StatelessWidget {
                                     builder: (context) =>
                                         const ErradicacionPage()));
                           },
-                          child: const Text("Erradicación"))
+                          child: const Text("Erradicación")),
+                    ],
+                  ),
+                if (palma.palma.estadopalma == EstadosPalma.enTratamiento)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          onPressed: () async {
+                            _darDeAltaDialog(context, palma);
+                          },
+                          child: const Text("Dar de alta"))
                     ],
                   )
               ],
@@ -169,6 +181,109 @@ class CensosEnfermedadesList extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+
+  void _darDeAltaDialog(BuildContext context, PalmaConEnfermedad palma) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('¿Seguro que desea dar de alta el registro?'),
+                const SizedBox(height: 16.0),
+                Row(
+                  children: [
+                    const Text(
+                      'Linea: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(palma.palma.numerolinea.toString())
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Numero: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(palma.palma.numeroenlinea.toString())
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Orientación: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(palma.palma.orientacion.toString())
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Enfermedad: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      palma.enfermedad.nombreEnfermedad,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OutlinedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cerrar')),
+                    ElevatedButton(
+                        onPressed: () async {
+                          final res =
+                              await BlocProvider.of<EnfermedadCubit>(context)
+                                  .darDeAltaEnfermedad(
+                                      palma: palma.palma,
+                                      registroEnfermedad:
+                                          palma.registroEnfermedad);
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                            if (res) {
+                              BlocProvider.of<TratamientoCubit>(context)
+                                  .obtenerPalmasEnfermas(
+                                      palma.palma.nombreLote);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: kSuccessColor,
+                                  content: Text(
+                                      'Se dió de alta el registro correctamente.'),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: kRedColor,
+                                  content:
+                                      Text('Error realizando el registro.'),
+                                ),
+                              );
+                            }
+                          }
+                        },
+                        child: const Text('Confirmar')),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
