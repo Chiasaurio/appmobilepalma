@@ -19,6 +19,11 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
         .getSingleOrNull();
   }
 
+  Future<RegistroEnfermedadData?> getLocalRegistroEnfermedad(int id) {
+    return (select(registroEnfermedad)..where((r) => r.id.equals(id)))
+        .getSingleOrNull();
+  }
+
   Future<void> insertRegistroEnfermedad(
       Insertable<RegistroEnfermedadData> e, List<XFile> imagenes) async {
     try {

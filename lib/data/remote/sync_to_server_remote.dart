@@ -126,6 +126,7 @@ class SyncToServerRemote {
     try {
       final data = censos.map((e) {
         final censo = {
+          "id_censo": e.censo.idCenso,
           "fecha_censo": e.censo.fechaCenso.toIso8601String(),
           "hora_censo": e.censo.fechaCenso.toIso8601String(),
           "observacion_censo": e.censo.observacionCenso,
@@ -176,7 +177,7 @@ class SyncToServerRemote {
                 "fecha_hora_aplicacion": e.fechaAplicacion.toIso8601String(),
                 "fecha_hora_reingreso": e.fechaReingreso.toIso8601String(),
                 "cc_usuario": e.responsable,
-                "id_censo": e.idCenso,
+                "id_censo": e.idCensoFromServer,
                 "id_agroquimico": e.idProductoAgroquimico,
                 "unidades": e.unidades,
               })

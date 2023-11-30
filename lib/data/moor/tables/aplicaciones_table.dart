@@ -1,3 +1,4 @@
+import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:drift/drift.dart';
 
 class Aplicaciones extends Table {
@@ -7,15 +8,11 @@ class Aplicaciones extends Table {
   TextColumn get unidades => text()();
   DateTimeColumn get fechaAplicacion => dateTime()();
   DateTimeColumn get fechaReingreso => dateTime()();
-  IntColumn get idCenso => integer()();
-  IntColumn get idProductoAgroquimico => integer()();
-  TextColumn get responsable => text()();
+  IntColumn get idCenso => integer().references(Censo, #id)();
+  IntColumn get idCensoFromServer =>
+      integer().references(Censo, #idCenso).nullable()();
+  IntColumn get idProductoAgroquimico =>
+      integer().references(ProductoAgroquimico, #idProductoAgroquimico)();
+  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(id_censo) REFERENCES censo(id_censo)',
-        'FOREIGN KEY(id_producto_agroquimico) REFERENCES producto_agroquimico(id_producto_agroquimico)',
-        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
-      ];
 }

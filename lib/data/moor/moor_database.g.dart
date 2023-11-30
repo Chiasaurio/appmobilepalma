@@ -3,508 +3,6 @@
 part of 'moor_database.dart';
 
 // ignore_for_file: type=lint
-class $AplicacionesTable extends Aplicaciones
-    with TableInfo<$AplicacionesTable, Aplicacione> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $AplicacionesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _dosisMeta = const VerificationMeta('dosis');
-  @override
-  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
-      'dosis', aliasedName, false,
-      type: DriftSqlType.double, requiredDuringInsert: true);
-  static const VerificationMeta _areaMeta = const VerificationMeta('area');
-  @override
-  late final GeneratedColumn<int> area = GeneratedColumn<int>(
-      'area', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _unidadesMeta =
-      const VerificationMeta('unidades');
-  @override
-  late final GeneratedColumn<String> unidades = GeneratedColumn<String>(
-      'unidades', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _fechaAplicacionMeta =
-      const VerificationMeta('fechaAplicacion');
-  @override
-  late final GeneratedColumn<DateTime> fechaAplicacion =
-      GeneratedColumn<DateTime>('fecha_aplicacion', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _fechaReingresoMeta =
-      const VerificationMeta('fechaReingreso');
-  @override
-  late final GeneratedColumn<DateTime> fechaReingreso =
-      GeneratedColumn<DateTime>('fecha_reingreso', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _idCensoMeta =
-      const VerificationMeta('idCenso');
-  @override
-  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
-      'id_censo', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _idProductoAgroquimicoMeta =
-      const VerificationMeta('idProductoAgroquimico');
-  @override
-  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
-      'id_producto_agroquimico', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _responsableMeta =
-      const VerificationMeta('responsable');
-  @override
-  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
-      'responsable', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _sincronizadoMeta =
-      const VerificationMeta('sincronizado');
-  @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("sincronizado" IN (0, 1))'),
-      defaultValue: const Constant(false));
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        dosis,
-        area,
-        unidades,
-        fechaAplicacion,
-        fechaReingreso,
-        idCenso,
-        idProductoAgroquimico,
-        responsable,
-        sincronizado
-      ];
-  @override
-  String get aliasedName => _alias ?? 'aplicaciones';
-  @override
-  String get actualTableName => 'aplicaciones';
-  @override
-  VerificationContext validateIntegrity(Insertable<Aplicacione> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('dosis')) {
-      context.handle(
-          _dosisMeta, dosis.isAcceptableOrUnknown(data['dosis']!, _dosisMeta));
-    } else if (isInserting) {
-      context.missing(_dosisMeta);
-    }
-    if (data.containsKey('area')) {
-      context.handle(
-          _areaMeta, area.isAcceptableOrUnknown(data['area']!, _areaMeta));
-    } else if (isInserting) {
-      context.missing(_areaMeta);
-    }
-    if (data.containsKey('unidades')) {
-      context.handle(_unidadesMeta,
-          unidades.isAcceptableOrUnknown(data['unidades']!, _unidadesMeta));
-    } else if (isInserting) {
-      context.missing(_unidadesMeta);
-    }
-    if (data.containsKey('fecha_aplicacion')) {
-      context.handle(
-          _fechaAplicacionMeta,
-          fechaAplicacion.isAcceptableOrUnknown(
-              data['fecha_aplicacion']!, _fechaAplicacionMeta));
-    } else if (isInserting) {
-      context.missing(_fechaAplicacionMeta);
-    }
-    if (data.containsKey('fecha_reingreso')) {
-      context.handle(
-          _fechaReingresoMeta,
-          fechaReingreso.isAcceptableOrUnknown(
-              data['fecha_reingreso']!, _fechaReingresoMeta));
-    } else if (isInserting) {
-      context.missing(_fechaReingresoMeta);
-    }
-    if (data.containsKey('id_censo')) {
-      context.handle(_idCensoMeta,
-          idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
-    } else if (isInserting) {
-      context.missing(_idCensoMeta);
-    }
-    if (data.containsKey('id_producto_agroquimico')) {
-      context.handle(
-          _idProductoAgroquimicoMeta,
-          idProductoAgroquimico.isAcceptableOrUnknown(
-              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_idProductoAgroquimicoMeta);
-    }
-    if (data.containsKey('responsable')) {
-      context.handle(
-          _responsableMeta,
-          responsable.isAcceptableOrUnknown(
-              data['responsable']!, _responsableMeta));
-    } else if (isInserting) {
-      context.missing(_responsableMeta);
-    }
-    if (data.containsKey('sincronizado')) {
-      context.handle(
-          _sincronizadoMeta,
-          sincronizado.isAcceptableOrUnknown(
-              data['sincronizado']!, _sincronizadoMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Aplicacione map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Aplicacione(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      dosis: attachedDatabase.typeMapping
-          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
-      area: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}area'])!,
-      unidades: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}unidades'])!,
-      fechaAplicacion: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_aplicacion'])!,
-      fechaReingreso: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}fecha_reingreso'])!,
-      idCenso: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
-      idProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
-      responsable: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
-      sincronizado: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
-    );
-  }
-
-  @override
-  $AplicacionesTable createAlias(String alias) {
-    return $AplicacionesTable(attachedDatabase, alias);
-  }
-}
-
-class Aplicacione extends DataClass implements Insertable<Aplicacione> {
-  final int id;
-  final double dosis;
-  final int area;
-  final String unidades;
-  final DateTime fechaAplicacion;
-  final DateTime fechaReingreso;
-  final int idCenso;
-  final int idProductoAgroquimico;
-  final String responsable;
-  final bool sincronizado;
-  const Aplicacione(
-      {required this.id,
-      required this.dosis,
-      required this.area,
-      required this.unidades,
-      required this.fechaAplicacion,
-      required this.fechaReingreso,
-      required this.idCenso,
-      required this.idProductoAgroquimico,
-      required this.responsable,
-      required this.sincronizado});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['dosis'] = Variable<double>(dosis);
-    map['area'] = Variable<int>(area);
-    map['unidades'] = Variable<String>(unidades);
-    map['fecha_aplicacion'] = Variable<DateTime>(fechaAplicacion);
-    map['fecha_reingreso'] = Variable<DateTime>(fechaReingreso);
-    map['id_censo'] = Variable<int>(idCenso);
-    map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
-    map['responsable'] = Variable<String>(responsable);
-    map['sincronizado'] = Variable<bool>(sincronizado);
-    return map;
-  }
-
-  AplicacionesCompanion toCompanion(bool nullToAbsent) {
-    return AplicacionesCompanion(
-      id: Value(id),
-      dosis: Value(dosis),
-      area: Value(area),
-      unidades: Value(unidades),
-      fechaAplicacion: Value(fechaAplicacion),
-      fechaReingreso: Value(fechaReingreso),
-      idCenso: Value(idCenso),
-      idProductoAgroquimico: Value(idProductoAgroquimico),
-      responsable: Value(responsable),
-      sincronizado: Value(sincronizado),
-    );
-  }
-
-  factory Aplicacione.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Aplicacione(
-      id: serializer.fromJson<int>(json['id']),
-      dosis: serializer.fromJson<double>(json['dosis']),
-      area: serializer.fromJson<int>(json['area']),
-      unidades: serializer.fromJson<String>(json['unidades']),
-      fechaAplicacion: serializer.fromJson<DateTime>(json['fechaAplicacion']),
-      fechaReingreso: serializer.fromJson<DateTime>(json['fechaReingreso']),
-      idCenso: serializer.fromJson<int>(json['idCenso']),
-      idProductoAgroquimico:
-          serializer.fromJson<int>(json['idProductoAgroquimico']),
-      responsable: serializer.fromJson<String>(json['responsable']),
-      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'dosis': serializer.toJson<double>(dosis),
-      'area': serializer.toJson<int>(area),
-      'unidades': serializer.toJson<String>(unidades),
-      'fechaAplicacion': serializer.toJson<DateTime>(fechaAplicacion),
-      'fechaReingreso': serializer.toJson<DateTime>(fechaReingreso),
-      'idCenso': serializer.toJson<int>(idCenso),
-      'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
-      'responsable': serializer.toJson<String>(responsable),
-      'sincronizado': serializer.toJson<bool>(sincronizado),
-    };
-  }
-
-  Aplicacione copyWith(
-          {int? id,
-          double? dosis,
-          int? area,
-          String? unidades,
-          DateTime? fechaAplicacion,
-          DateTime? fechaReingreso,
-          int? idCenso,
-          int? idProductoAgroquimico,
-          String? responsable,
-          bool? sincronizado}) =>
-      Aplicacione(
-        id: id ?? this.id,
-        dosis: dosis ?? this.dosis,
-        area: area ?? this.area,
-        unidades: unidades ?? this.unidades,
-        fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
-        fechaReingreso: fechaReingreso ?? this.fechaReingreso,
-        idCenso: idCenso ?? this.idCenso,
-        idProductoAgroquimico:
-            idProductoAgroquimico ?? this.idProductoAgroquimico,
-        responsable: responsable ?? this.responsable,
-        sincronizado: sincronizado ?? this.sincronizado,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Aplicacione(')
-          ..write('id: $id, ')
-          ..write('dosis: $dosis, ')
-          ..write('area: $area, ')
-          ..write('unidades: $unidades, ')
-          ..write('fechaAplicacion: $fechaAplicacion, ')
-          ..write('fechaReingreso: $fechaReingreso, ')
-          ..write('idCenso: $idCenso, ')
-          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
-          ..write('responsable: $responsable, ')
-          ..write('sincronizado: $sincronizado')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      id,
-      dosis,
-      area,
-      unidades,
-      fechaAplicacion,
-      fechaReingreso,
-      idCenso,
-      idProductoAgroquimico,
-      responsable,
-      sincronizado);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Aplicacione &&
-          other.id == this.id &&
-          other.dosis == this.dosis &&
-          other.area == this.area &&
-          other.unidades == this.unidades &&
-          other.fechaAplicacion == this.fechaAplicacion &&
-          other.fechaReingreso == this.fechaReingreso &&
-          other.idCenso == this.idCenso &&
-          other.idProductoAgroquimico == this.idProductoAgroquimico &&
-          other.responsable == this.responsable &&
-          other.sincronizado == this.sincronizado);
-}
-
-class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
-  final Value<int> id;
-  final Value<double> dosis;
-  final Value<int> area;
-  final Value<String> unidades;
-  final Value<DateTime> fechaAplicacion;
-  final Value<DateTime> fechaReingreso;
-  final Value<int> idCenso;
-  final Value<int> idProductoAgroquimico;
-  final Value<String> responsable;
-  final Value<bool> sincronizado;
-  const AplicacionesCompanion({
-    this.id = const Value.absent(),
-    this.dosis = const Value.absent(),
-    this.area = const Value.absent(),
-    this.unidades = const Value.absent(),
-    this.fechaAplicacion = const Value.absent(),
-    this.fechaReingreso = const Value.absent(),
-    this.idCenso = const Value.absent(),
-    this.idProductoAgroquimico = const Value.absent(),
-    this.responsable = const Value.absent(),
-    this.sincronizado = const Value.absent(),
-  });
-  AplicacionesCompanion.insert({
-    this.id = const Value.absent(),
-    required double dosis,
-    required int area,
-    required String unidades,
-    required DateTime fechaAplicacion,
-    required DateTime fechaReingreso,
-    required int idCenso,
-    required int idProductoAgroquimico,
-    required String responsable,
-    this.sincronizado = const Value.absent(),
-  })  : dosis = Value(dosis),
-        area = Value(area),
-        unidades = Value(unidades),
-        fechaAplicacion = Value(fechaAplicacion),
-        fechaReingreso = Value(fechaReingreso),
-        idCenso = Value(idCenso),
-        idProductoAgroquimico = Value(idProductoAgroquimico),
-        responsable = Value(responsable);
-  static Insertable<Aplicacione> custom({
-    Expression<int>? id,
-    Expression<double>? dosis,
-    Expression<int>? area,
-    Expression<String>? unidades,
-    Expression<DateTime>? fechaAplicacion,
-    Expression<DateTime>? fechaReingreso,
-    Expression<int>? idCenso,
-    Expression<int>? idProductoAgroquimico,
-    Expression<String>? responsable,
-    Expression<bool>? sincronizado,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (dosis != null) 'dosis': dosis,
-      if (area != null) 'area': area,
-      if (unidades != null) 'unidades': unidades,
-      if (fechaAplicacion != null) 'fecha_aplicacion': fechaAplicacion,
-      if (fechaReingreso != null) 'fecha_reingreso': fechaReingreso,
-      if (idCenso != null) 'id_censo': idCenso,
-      if (idProductoAgroquimico != null)
-        'id_producto_agroquimico': idProductoAgroquimico,
-      if (responsable != null) 'responsable': responsable,
-      if (sincronizado != null) 'sincronizado': sincronizado,
-    });
-  }
-
-  AplicacionesCompanion copyWith(
-      {Value<int>? id,
-      Value<double>? dosis,
-      Value<int>? area,
-      Value<String>? unidades,
-      Value<DateTime>? fechaAplicacion,
-      Value<DateTime>? fechaReingreso,
-      Value<int>? idCenso,
-      Value<int>? idProductoAgroquimico,
-      Value<String>? responsable,
-      Value<bool>? sincronizado}) {
-    return AplicacionesCompanion(
-      id: id ?? this.id,
-      dosis: dosis ?? this.dosis,
-      area: area ?? this.area,
-      unidades: unidades ?? this.unidades,
-      fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
-      fechaReingreso: fechaReingreso ?? this.fechaReingreso,
-      idCenso: idCenso ?? this.idCenso,
-      idProductoAgroquimico:
-          idProductoAgroquimico ?? this.idProductoAgroquimico,
-      responsable: responsable ?? this.responsable,
-      sincronizado: sincronizado ?? this.sincronizado,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (dosis.present) {
-      map['dosis'] = Variable<double>(dosis.value);
-    }
-    if (area.present) {
-      map['area'] = Variable<int>(area.value);
-    }
-    if (unidades.present) {
-      map['unidades'] = Variable<String>(unidades.value);
-    }
-    if (fechaAplicacion.present) {
-      map['fecha_aplicacion'] = Variable<DateTime>(fechaAplicacion.value);
-    }
-    if (fechaReingreso.present) {
-      map['fecha_reingreso'] = Variable<DateTime>(fechaReingreso.value);
-    }
-    if (idCenso.present) {
-      map['id_censo'] = Variable<int>(idCenso.value);
-    }
-    if (idProductoAgroquimico.present) {
-      map['id_producto_agroquimico'] =
-          Variable<int>(idProductoAgroquimico.value);
-    }
-    if (responsable.present) {
-      map['responsable'] = Variable<String>(responsable.value);
-    }
-    if (sincronizado.present) {
-      map['sincronizado'] = Variable<bool>(sincronizado.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('AplicacionesCompanion(')
-          ..write('id: $id, ')
-          ..write('dosis: $dosis, ')
-          ..write('area: $area, ')
-          ..write('unidades: $unidades, ')
-          ..write('fechaAplicacion: $fechaAplicacion, ')
-          ..write('fechaReingreso: $fechaReingreso, ')
-          ..write('idCenso: $idCenso, ')
-          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
-          ..write('responsable: $responsable, ')
-          ..write('sincronizado: $sincronizado')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -1208,6 +706,1439 @@ class CensoCompanion extends UpdateCompanion<CensoData> {
           ..write('orientacion: $orientacion, ')
           ..write('latitude: $latitude, ')
           ..write('longitude: $longitude')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ProductoAgroquimicoTable extends ProductoAgroquimico
+    with TableInfo<$ProductoAgroquimicoTable, ProductoAgroquimicoData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ProductoAgroquimicoTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idProductoAgroquimicoMeta =
+      const VerificationMeta('idProductoAgroquimico');
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nombreProductoAgroquimicoMeta =
+      const VerificationMeta('nombreProductoAgroquimico');
+  @override
+  late final GeneratedColumn<String> nombreProductoAgroquimico =
+      GeneratedColumn<String>('nombre_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _tipoProductoAgroquimicoMeta =
+      const VerificationMeta('tipoProductoAgroquimico');
+  @override
+  late final GeneratedColumn<String> tipoProductoAgroquimico =
+      GeneratedColumn<String>('tipo_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _claseProductoMeta =
+      const VerificationMeta('claseProducto');
+  @override
+  late final GeneratedColumn<String> claseProducto = GeneratedColumn<String>(
+      'clase_producto', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _ingredienteActivoProductoAgroquimicoMeta =
+      const VerificationMeta('ingredienteActivoProductoAgroquimico');
+  @override
+  late final GeneratedColumn<String> ingredienteActivoProductoAgroquimico =
+      GeneratedColumn<String>(
+          'ingrediente_activo_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _periodoCarenciaProductoAgroquimicoMeta =
+      const VerificationMeta('periodoCarenciaProductoAgroquimico');
+  @override
+  late final GeneratedColumn<int> periodoCarenciaProductoAgroquimico =
+      GeneratedColumn<int>(
+          'periodo_carencia_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _presentacionProductoAgroquimicoMeta =
+      const VerificationMeta('presentacionProductoAgroquimico');
+  @override
+  late final GeneratedColumn<String> presentacionProductoAgroquimico =
+      GeneratedColumn<String>(
+          'presentacion_producto_agroquimico', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        idProductoAgroquimico,
+        nombreProductoAgroquimico,
+        tipoProductoAgroquimico,
+        claseProducto,
+        ingredienteActivoProductoAgroquimico,
+        periodoCarenciaProductoAgroquimico,
+        presentacionProductoAgroquimico,
+        fechaUltimaActualizacion
+      ];
+  @override
+  String get aliasedName => _alias ?? 'producto_agroquimico';
+  @override
+  String get actualTableName => 'producto_agroquimico';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ProductoAgroquimicoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id_producto_agroquimico')) {
+      context.handle(
+          _idProductoAgroquimicoMeta,
+          idProductoAgroquimico.isAcceptableOrUnknown(
+              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+    }
+    if (data.containsKey('nombre_producto_agroquimico')) {
+      context.handle(
+          _nombreProductoAgroquimicoMeta,
+          nombreProductoAgroquimico.isAcceptableOrUnknown(
+              data['nombre_producto_agroquimico']!,
+              _nombreProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_nombreProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('tipo_producto_agroquimico')) {
+      context.handle(
+          _tipoProductoAgroquimicoMeta,
+          tipoProductoAgroquimico.isAcceptableOrUnknown(
+              data['tipo_producto_agroquimico']!,
+              _tipoProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_tipoProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('clase_producto')) {
+      context.handle(
+          _claseProductoMeta,
+          claseProducto.isAcceptableOrUnknown(
+              data['clase_producto']!, _claseProductoMeta));
+    } else if (isInserting) {
+      context.missing(_claseProductoMeta);
+    }
+    if (data.containsKey('ingrediente_activo_producto_agroquimico')) {
+      context.handle(
+          _ingredienteActivoProductoAgroquimicoMeta,
+          ingredienteActivoProductoAgroquimico.isAcceptableOrUnknown(
+              data['ingrediente_activo_producto_agroquimico']!,
+              _ingredienteActivoProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_ingredienteActivoProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('periodo_carencia_producto_agroquimico')) {
+      context.handle(
+          _periodoCarenciaProductoAgroquimicoMeta,
+          periodoCarenciaProductoAgroquimico.isAcceptableOrUnknown(
+              data['periodo_carencia_producto_agroquimico']!,
+              _periodoCarenciaProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_periodoCarenciaProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('presentacion_producto_agroquimico')) {
+      context.handle(
+          _presentacionProductoAgroquimicoMeta,
+          presentacionProductoAgroquimico.isAcceptableOrUnknown(
+              data['presentacion_producto_agroquimico']!,
+              _presentacionProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_presentacionProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {idProductoAgroquimico};
+  @override
+  ProductoAgroquimicoData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProductoAgroquimicoData(
+      idProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      nombreProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}nombre_producto_agroquimico'])!,
+      tipoProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}tipo_producto_agroquimico'])!,
+      claseProducto: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}clase_producto'])!,
+      ingredienteActivoProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}ingrediente_activo_producto_agroquimico'])!,
+      periodoCarenciaProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}periodo_carencia_producto_agroquimico'])!,
+      presentacionProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}presentacion_producto_agroquimico'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
+    );
+  }
+
+  @override
+  $ProductoAgroquimicoTable createAlias(String alias) {
+    return $ProductoAgroquimicoTable(attachedDatabase, alias);
+  }
+}
+
+class ProductoAgroquimicoData extends DataClass
+    implements Insertable<ProductoAgroquimicoData> {
+  final int idProductoAgroquimico;
+  final String nombreProductoAgroquimico;
+  final String tipoProductoAgroquimico;
+  final String claseProducto;
+  final String ingredienteActivoProductoAgroquimico;
+  final int periodoCarenciaProductoAgroquimico;
+  final String presentacionProductoAgroquimico;
+  final DateTime? fechaUltimaActualizacion;
+  const ProductoAgroquimicoData(
+      {required this.idProductoAgroquimico,
+      required this.nombreProductoAgroquimico,
+      required this.tipoProductoAgroquimico,
+      required this.claseProducto,
+      required this.ingredienteActivoProductoAgroquimico,
+      required this.periodoCarenciaProductoAgroquimico,
+      required this.presentacionProductoAgroquimico,
+      this.fechaUltimaActualizacion});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
+    map['nombre_producto_agroquimico'] =
+        Variable<String>(nombreProductoAgroquimico);
+    map['tipo_producto_agroquimico'] =
+        Variable<String>(tipoProductoAgroquimico);
+    map['clase_producto'] = Variable<String>(claseProducto);
+    map['ingrediente_activo_producto_agroquimico'] =
+        Variable<String>(ingredienteActivoProductoAgroquimico);
+    map['periodo_carencia_producto_agroquimico'] =
+        Variable<int>(periodoCarenciaProductoAgroquimico);
+    map['presentacion_producto_agroquimico'] =
+        Variable<String>(presentacionProductoAgroquimico);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
+    return map;
+  }
+
+  ProductoAgroquimicoCompanion toCompanion(bool nullToAbsent) {
+    return ProductoAgroquimicoCompanion(
+      idProductoAgroquimico: Value(idProductoAgroquimico),
+      nombreProductoAgroquimico: Value(nombreProductoAgroquimico),
+      tipoProductoAgroquimico: Value(tipoProductoAgroquimico),
+      claseProducto: Value(claseProducto),
+      ingredienteActivoProductoAgroquimico:
+          Value(ingredienteActivoProductoAgroquimico),
+      periodoCarenciaProductoAgroquimico:
+          Value(periodoCarenciaProductoAgroquimico),
+      presentacionProductoAgroquimico: Value(presentacionProductoAgroquimico),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
+    );
+  }
+
+  factory ProductoAgroquimicoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ProductoAgroquimicoData(
+      idProductoAgroquimico:
+          serializer.fromJson<int>(json['idProductoAgroquimico']),
+      nombreProductoAgroquimico:
+          serializer.fromJson<String>(json['nombreProductoAgroquimico']),
+      tipoProductoAgroquimico:
+          serializer.fromJson<String>(json['tipoProductoAgroquimico']),
+      claseProducto: serializer.fromJson<String>(json['claseProducto']),
+      ingredienteActivoProductoAgroquimico: serializer
+          .fromJson<String>(json['ingredienteActivoProductoAgroquimico']),
+      periodoCarenciaProductoAgroquimico:
+          serializer.fromJson<int>(json['periodoCarenciaProductoAgroquimico']),
+      presentacionProductoAgroquimico:
+          serializer.fromJson<String>(json['presentacionProductoAgroquimico']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
+      'nombreProductoAgroquimico':
+          serializer.toJson<String>(nombreProductoAgroquimico),
+      'tipoProductoAgroquimico':
+          serializer.toJson<String>(tipoProductoAgroquimico),
+      'claseProducto': serializer.toJson<String>(claseProducto),
+      'ingredienteActivoProductoAgroquimico':
+          serializer.toJson<String>(ingredienteActivoProductoAgroquimico),
+      'periodoCarenciaProductoAgroquimico':
+          serializer.toJson<int>(periodoCarenciaProductoAgroquimico),
+      'presentacionProductoAgroquimico':
+          serializer.toJson<String>(presentacionProductoAgroquimico),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
+    };
+  }
+
+  ProductoAgroquimicoData copyWith(
+          {int? idProductoAgroquimico,
+          String? nombreProductoAgroquimico,
+          String? tipoProductoAgroquimico,
+          String? claseProducto,
+          String? ingredienteActivoProductoAgroquimico,
+          int? periodoCarenciaProductoAgroquimico,
+          String? presentacionProductoAgroquimico,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
+      ProductoAgroquimicoData(
+        idProductoAgroquimico:
+            idProductoAgroquimico ?? this.idProductoAgroquimico,
+        nombreProductoAgroquimico:
+            nombreProductoAgroquimico ?? this.nombreProductoAgroquimico,
+        tipoProductoAgroquimico:
+            tipoProductoAgroquimico ?? this.tipoProductoAgroquimico,
+        claseProducto: claseProducto ?? this.claseProducto,
+        ingredienteActivoProductoAgroquimico:
+            ingredienteActivoProductoAgroquimico ??
+                this.ingredienteActivoProductoAgroquimico,
+        periodoCarenciaProductoAgroquimico:
+            periodoCarenciaProductoAgroquimico ??
+                this.periodoCarenciaProductoAgroquimico,
+        presentacionProductoAgroquimico: presentacionProductoAgroquimico ??
+            this.presentacionProductoAgroquimico,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ProductoAgroquimicoData(')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('nombreProductoAgroquimico: $nombreProductoAgroquimico, ')
+          ..write('tipoProductoAgroquimico: $tipoProductoAgroquimico, ')
+          ..write('claseProducto: $claseProducto, ')
+          ..write(
+              'ingredienteActivoProductoAgroquimico: $ingredienteActivoProductoAgroquimico, ')
+          ..write(
+              'periodoCarenciaProductoAgroquimico: $periodoCarenciaProductoAgroquimico, ')
+          ..write(
+              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      idProductoAgroquimico,
+      nombreProductoAgroquimico,
+      tipoProductoAgroquimico,
+      claseProducto,
+      ingredienteActivoProductoAgroquimico,
+      periodoCarenciaProductoAgroquimico,
+      presentacionProductoAgroquimico,
+      fechaUltimaActualizacion);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProductoAgroquimicoData &&
+          other.idProductoAgroquimico == this.idProductoAgroquimico &&
+          other.nombreProductoAgroquimico == this.nombreProductoAgroquimico &&
+          other.tipoProductoAgroquimico == this.tipoProductoAgroquimico &&
+          other.claseProducto == this.claseProducto &&
+          other.ingredienteActivoProductoAgroquimico ==
+              this.ingredienteActivoProductoAgroquimico &&
+          other.periodoCarenciaProductoAgroquimico ==
+              this.periodoCarenciaProductoAgroquimico &&
+          other.presentacionProductoAgroquimico ==
+              this.presentacionProductoAgroquimico &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
+}
+
+class ProductoAgroquimicoCompanion
+    extends UpdateCompanion<ProductoAgroquimicoData> {
+  final Value<int> idProductoAgroquimico;
+  final Value<String> nombreProductoAgroquimico;
+  final Value<String> tipoProductoAgroquimico;
+  final Value<String> claseProducto;
+  final Value<String> ingredienteActivoProductoAgroquimico;
+  final Value<int> periodoCarenciaProductoAgroquimico;
+  final Value<String> presentacionProductoAgroquimico;
+  final Value<DateTime?> fechaUltimaActualizacion;
+  const ProductoAgroquimicoCompanion({
+    this.idProductoAgroquimico = const Value.absent(),
+    this.nombreProductoAgroquimico = const Value.absent(),
+    this.tipoProductoAgroquimico = const Value.absent(),
+    this.claseProducto = const Value.absent(),
+    this.ingredienteActivoProductoAgroquimico = const Value.absent(),
+    this.periodoCarenciaProductoAgroquimico = const Value.absent(),
+    this.presentacionProductoAgroquimico = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
+  });
+  ProductoAgroquimicoCompanion.insert({
+    this.idProductoAgroquimico = const Value.absent(),
+    required String nombreProductoAgroquimico,
+    required String tipoProductoAgroquimico,
+    required String claseProducto,
+    required String ingredienteActivoProductoAgroquimico,
+    required int periodoCarenciaProductoAgroquimico,
+    required String presentacionProductoAgroquimico,
+    this.fechaUltimaActualizacion = const Value.absent(),
+  })  : nombreProductoAgroquimico = Value(nombreProductoAgroquimico),
+        tipoProductoAgroquimico = Value(tipoProductoAgroquimico),
+        claseProducto = Value(claseProducto),
+        ingredienteActivoProductoAgroquimico =
+            Value(ingredienteActivoProductoAgroquimico),
+        periodoCarenciaProductoAgroquimico =
+            Value(periodoCarenciaProductoAgroquimico),
+        presentacionProductoAgroquimico =
+            Value(presentacionProductoAgroquimico);
+  static Insertable<ProductoAgroquimicoData> custom({
+    Expression<int>? idProductoAgroquimico,
+    Expression<String>? nombreProductoAgroquimico,
+    Expression<String>? tipoProductoAgroquimico,
+    Expression<String>? claseProducto,
+    Expression<String>? ingredienteActivoProductoAgroquimico,
+    Expression<int>? periodoCarenciaProductoAgroquimico,
+    Expression<String>? presentacionProductoAgroquimico,
+    Expression<DateTime>? fechaUltimaActualizacion,
+  }) {
+    return RawValuesInsertable({
+      if (idProductoAgroquimico != null)
+        'id_producto_agroquimico': idProductoAgroquimico,
+      if (nombreProductoAgroquimico != null)
+        'nombre_producto_agroquimico': nombreProductoAgroquimico,
+      if (tipoProductoAgroquimico != null)
+        'tipo_producto_agroquimico': tipoProductoAgroquimico,
+      if (claseProducto != null) 'clase_producto': claseProducto,
+      if (ingredienteActivoProductoAgroquimico != null)
+        'ingrediente_activo_producto_agroquimico':
+            ingredienteActivoProductoAgroquimico,
+      if (periodoCarenciaProductoAgroquimico != null)
+        'periodo_carencia_producto_agroquimico':
+            periodoCarenciaProductoAgroquimico,
+      if (presentacionProductoAgroquimico != null)
+        'presentacion_producto_agroquimico': presentacionProductoAgroquimico,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
+    });
+  }
+
+  ProductoAgroquimicoCompanion copyWith(
+      {Value<int>? idProductoAgroquimico,
+      Value<String>? nombreProductoAgroquimico,
+      Value<String>? tipoProductoAgroquimico,
+      Value<String>? claseProducto,
+      Value<String>? ingredienteActivoProductoAgroquimico,
+      Value<int>? periodoCarenciaProductoAgroquimico,
+      Value<String>? presentacionProductoAgroquimico,
+      Value<DateTime?>? fechaUltimaActualizacion}) {
+    return ProductoAgroquimicoCompanion(
+      idProductoAgroquimico:
+          idProductoAgroquimico ?? this.idProductoAgroquimico,
+      nombreProductoAgroquimico:
+          nombreProductoAgroquimico ?? this.nombreProductoAgroquimico,
+      tipoProductoAgroquimico:
+          tipoProductoAgroquimico ?? this.tipoProductoAgroquimico,
+      claseProducto: claseProducto ?? this.claseProducto,
+      ingredienteActivoProductoAgroquimico:
+          ingredienteActivoProductoAgroquimico ??
+              this.ingredienteActivoProductoAgroquimico,
+      periodoCarenciaProductoAgroquimico: periodoCarenciaProductoAgroquimico ??
+          this.periodoCarenciaProductoAgroquimico,
+      presentacionProductoAgroquimico: presentacionProductoAgroquimico ??
+          this.presentacionProductoAgroquimico,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (idProductoAgroquimico.present) {
+      map['id_producto_agroquimico'] =
+          Variable<int>(idProductoAgroquimico.value);
+    }
+    if (nombreProductoAgroquimico.present) {
+      map['nombre_producto_agroquimico'] =
+          Variable<String>(nombreProductoAgroquimico.value);
+    }
+    if (tipoProductoAgroquimico.present) {
+      map['tipo_producto_agroquimico'] =
+          Variable<String>(tipoProductoAgroquimico.value);
+    }
+    if (claseProducto.present) {
+      map['clase_producto'] = Variable<String>(claseProducto.value);
+    }
+    if (ingredienteActivoProductoAgroquimico.present) {
+      map['ingrediente_activo_producto_agroquimico'] =
+          Variable<String>(ingredienteActivoProductoAgroquimico.value);
+    }
+    if (periodoCarenciaProductoAgroquimico.present) {
+      map['periodo_carencia_producto_agroquimico'] =
+          Variable<int>(periodoCarenciaProductoAgroquimico.value);
+    }
+    if (presentacionProductoAgroquimico.present) {
+      map['presentacion_producto_agroquimico'] =
+          Variable<String>(presentacionProductoAgroquimico.value);
+    }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProductoAgroquimicoCompanion(')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('nombreProductoAgroquimico: $nombreProductoAgroquimico, ')
+          ..write('tipoProductoAgroquimico: $tipoProductoAgroquimico, ')
+          ..write('claseProducto: $claseProducto, ')
+          ..write(
+              'ingredienteActivoProductoAgroquimico: $ingredienteActivoProductoAgroquimico, ')
+          ..write(
+              'periodoCarenciaProductoAgroquimico: $periodoCarenciaProductoAgroquimico, ')
+          ..write(
+              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $UsuarioTable extends Usuario with TableInfo<$UsuarioTable, UsuarioData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UsuarioTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _ccUsuarioMeta =
+      const VerificationMeta('ccUsuario');
+  @override
+  late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
+      'cc_usuario', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _nombreUsuarioMeta =
+      const VerificationMeta('nombreUsuario');
+  @override
+  late final GeneratedColumn<String> nombreUsuario = GeneratedColumn<String>(
+      'nombre_usuario', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _cargoEmpresaMeta =
+      const VerificationMeta('cargoEmpresa');
+  @override
+  late final GeneratedColumn<String> cargoEmpresa = GeneratedColumn<String>(
+      'cargo_empresa', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _rolMeta = const VerificationMeta('rol');
+  @override
+  late final GeneratedColumn<String> rol = GeneratedColumn<String>(
+      'rol', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _validadoMeta =
+      const VerificationMeta('validado');
+  @override
+  late final GeneratedColumn<bool> validado = GeneratedColumn<bool>(
+      'validado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("validado" IN (0, 1))'));
+  static const VerificationMeta _fechaUltimaActualizacionMeta =
+      const VerificationMeta('fechaUltimaActualizacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
+      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        ccUsuario,
+        nombreUsuario,
+        cargoEmpresa,
+        rol,
+        validado,
+        fechaUltimaActualizacion
+      ];
+  @override
+  String get aliasedName => _alias ?? 'usuario';
+  @override
+  String get actualTableName => 'usuario';
+  @override
+  VerificationContext validateIntegrity(Insertable<UsuarioData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('cc_usuario')) {
+      context.handle(_ccUsuarioMeta,
+          ccUsuario.isAcceptableOrUnknown(data['cc_usuario']!, _ccUsuarioMeta));
+    } else if (isInserting) {
+      context.missing(_ccUsuarioMeta);
+    }
+    if (data.containsKey('nombre_usuario')) {
+      context.handle(
+          _nombreUsuarioMeta,
+          nombreUsuario.isAcceptableOrUnknown(
+              data['nombre_usuario']!, _nombreUsuarioMeta));
+    } else if (isInserting) {
+      context.missing(_nombreUsuarioMeta);
+    }
+    if (data.containsKey('cargo_empresa')) {
+      context.handle(
+          _cargoEmpresaMeta,
+          cargoEmpresa.isAcceptableOrUnknown(
+              data['cargo_empresa']!, _cargoEmpresaMeta));
+    } else if (isInserting) {
+      context.missing(_cargoEmpresaMeta);
+    }
+    if (data.containsKey('rol')) {
+      context.handle(
+          _rolMeta, rol.isAcceptableOrUnknown(data['rol']!, _rolMeta));
+    } else if (isInserting) {
+      context.missing(_rolMeta);
+    }
+    if (data.containsKey('validado')) {
+      context.handle(_validadoMeta,
+          validado.isAcceptableOrUnknown(data['validado']!, _validadoMeta));
+    } else if (isInserting) {
+      context.missing(_validadoMeta);
+    }
+    if (data.containsKey('fecha_ultima_actualizacion')) {
+      context.handle(
+          _fechaUltimaActualizacionMeta,
+          fechaUltimaActualizacion.isAcceptableOrUnknown(
+              data['fecha_ultima_actualizacion']!,
+              _fechaUltimaActualizacionMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {ccUsuario};
+  @override
+  UsuarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UsuarioData(
+      ccUsuario: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cc_usuario'])!,
+      nombreUsuario: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_usuario'])!,
+      cargoEmpresa: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cargo_empresa'])!,
+      rol: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}rol'])!,
+      validado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}validado'])!,
+      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}fecha_ultima_actualizacion']),
+    );
+  }
+
+  @override
+  $UsuarioTable createAlias(String alias) {
+    return $UsuarioTable(attachedDatabase, alias);
+  }
+}
+
+class UsuarioData extends DataClass implements Insertable<UsuarioData> {
+  final String ccUsuario;
+  final String nombreUsuario;
+  final String cargoEmpresa;
+  final String rol;
+  final bool validado;
+  final DateTime? fechaUltimaActualizacion;
+  const UsuarioData(
+      {required this.ccUsuario,
+      required this.nombreUsuario,
+      required this.cargoEmpresa,
+      required this.rol,
+      required this.validado,
+      this.fechaUltimaActualizacion});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['cc_usuario'] = Variable<String>(ccUsuario);
+    map['nombre_usuario'] = Variable<String>(nombreUsuario);
+    map['cargo_empresa'] = Variable<String>(cargoEmpresa);
+    map['rol'] = Variable<String>(rol);
+    map['validado'] = Variable<bool>(validado);
+    if (!nullToAbsent || fechaUltimaActualizacion != null) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion);
+    }
+    return map;
+  }
+
+  UsuarioCompanion toCompanion(bool nullToAbsent) {
+    return UsuarioCompanion(
+      ccUsuario: Value(ccUsuario),
+      nombreUsuario: Value(nombreUsuario),
+      cargoEmpresa: Value(cargoEmpresa),
+      rol: Value(rol),
+      validado: Value(validado),
+      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fechaUltimaActualizacion),
+    );
+  }
+
+  factory UsuarioData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UsuarioData(
+      ccUsuario: serializer.fromJson<String>(json['ccUsuario']),
+      nombreUsuario: serializer.fromJson<String>(json['nombreUsuario']),
+      cargoEmpresa: serializer.fromJson<String>(json['cargoEmpresa']),
+      rol: serializer.fromJson<String>(json['rol']),
+      validado: serializer.fromJson<bool>(json['validado']),
+      fechaUltimaActualizacion:
+          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'ccUsuario': serializer.toJson<String>(ccUsuario),
+      'nombreUsuario': serializer.toJson<String>(nombreUsuario),
+      'cargoEmpresa': serializer.toJson<String>(cargoEmpresa),
+      'rol': serializer.toJson<String>(rol),
+      'validado': serializer.toJson<bool>(validado),
+      'fechaUltimaActualizacion':
+          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
+    };
+  }
+
+  UsuarioData copyWith(
+          {String? ccUsuario,
+          String? nombreUsuario,
+          String? cargoEmpresa,
+          String? rol,
+          bool? validado,
+          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
+      UsuarioData(
+        ccUsuario: ccUsuario ?? this.ccUsuario,
+        nombreUsuario: nombreUsuario ?? this.nombreUsuario,
+        cargoEmpresa: cargoEmpresa ?? this.cargoEmpresa,
+        rol: rol ?? this.rol,
+        validado: validado ?? this.validado,
+        fechaUltimaActualizacion: fechaUltimaActualizacion.present
+            ? fechaUltimaActualizacion.value
+            : this.fechaUltimaActualizacion,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('UsuarioData(')
+          ..write('ccUsuario: $ccUsuario, ')
+          ..write('nombreUsuario: $nombreUsuario, ')
+          ..write('cargoEmpresa: $cargoEmpresa, ')
+          ..write('rol: $rol, ')
+          ..write('validado: $validado, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(ccUsuario, nombreUsuario, cargoEmpresa, rol,
+      validado, fechaUltimaActualizacion);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UsuarioData &&
+          other.ccUsuario == this.ccUsuario &&
+          other.nombreUsuario == this.nombreUsuario &&
+          other.cargoEmpresa == this.cargoEmpresa &&
+          other.rol == this.rol &&
+          other.validado == this.validado &&
+          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
+}
+
+class UsuarioCompanion extends UpdateCompanion<UsuarioData> {
+  final Value<String> ccUsuario;
+  final Value<String> nombreUsuario;
+  final Value<String> cargoEmpresa;
+  final Value<String> rol;
+  final Value<bool> validado;
+  final Value<DateTime?> fechaUltimaActualizacion;
+  final Value<int> rowid;
+  const UsuarioCompanion({
+    this.ccUsuario = const Value.absent(),
+    this.nombreUsuario = const Value.absent(),
+    this.cargoEmpresa = const Value.absent(),
+    this.rol = const Value.absent(),
+    this.validado = const Value.absent(),
+    this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  UsuarioCompanion.insert({
+    required String ccUsuario,
+    required String nombreUsuario,
+    required String cargoEmpresa,
+    required String rol,
+    required bool validado,
+    this.fechaUltimaActualizacion = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : ccUsuario = Value(ccUsuario),
+        nombreUsuario = Value(nombreUsuario),
+        cargoEmpresa = Value(cargoEmpresa),
+        rol = Value(rol),
+        validado = Value(validado);
+  static Insertable<UsuarioData> custom({
+    Expression<String>? ccUsuario,
+    Expression<String>? nombreUsuario,
+    Expression<String>? cargoEmpresa,
+    Expression<String>? rol,
+    Expression<bool>? validado,
+    Expression<DateTime>? fechaUltimaActualizacion,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (ccUsuario != null) 'cc_usuario': ccUsuario,
+      if (nombreUsuario != null) 'nombre_usuario': nombreUsuario,
+      if (cargoEmpresa != null) 'cargo_empresa': cargoEmpresa,
+      if (rol != null) 'rol': rol,
+      if (validado != null) 'validado': validado,
+      if (fechaUltimaActualizacion != null)
+        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  UsuarioCompanion copyWith(
+      {Value<String>? ccUsuario,
+      Value<String>? nombreUsuario,
+      Value<String>? cargoEmpresa,
+      Value<String>? rol,
+      Value<bool>? validado,
+      Value<DateTime?>? fechaUltimaActualizacion,
+      Value<int>? rowid}) {
+    return UsuarioCompanion(
+      ccUsuario: ccUsuario ?? this.ccUsuario,
+      nombreUsuario: nombreUsuario ?? this.nombreUsuario,
+      cargoEmpresa: cargoEmpresa ?? this.cargoEmpresa,
+      rol: rol ?? this.rol,
+      validado: validado ?? this.validado,
+      fechaUltimaActualizacion:
+          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (ccUsuario.present) {
+      map['cc_usuario'] = Variable<String>(ccUsuario.value);
+    }
+    if (nombreUsuario.present) {
+      map['nombre_usuario'] = Variable<String>(nombreUsuario.value);
+    }
+    if (cargoEmpresa.present) {
+      map['cargo_empresa'] = Variable<String>(cargoEmpresa.value);
+    }
+    if (rol.present) {
+      map['rol'] = Variable<String>(rol.value);
+    }
+    if (validado.present) {
+      map['validado'] = Variable<bool>(validado.value);
+    }
+    if (fechaUltimaActualizacion.present) {
+      map['fecha_ultima_actualizacion'] =
+          Variable<DateTime>(fechaUltimaActualizacion.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UsuarioCompanion(')
+          ..write('ccUsuario: $ccUsuario, ')
+          ..write('nombreUsuario: $nombreUsuario, ')
+          ..write('cargoEmpresa: $cargoEmpresa, ')
+          ..write('rol: $rol, ')
+          ..write('validado: $validado, ')
+          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AplicacionesTable extends Aplicaciones
+    with TableInfo<$AplicacionesTable, Aplicacione> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AplicacionesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _dosisMeta = const VerificationMeta('dosis');
+  @override
+  late final GeneratedColumn<double> dosis = GeneratedColumn<double>(
+      'dosis', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _areaMeta = const VerificationMeta('area');
+  @override
+  late final GeneratedColumn<int> area = GeneratedColumn<int>(
+      'area', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _unidadesMeta =
+      const VerificationMeta('unidades');
+  @override
+  late final GeneratedColumn<String> unidades = GeneratedColumn<String>(
+      'unidades', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fechaAplicacionMeta =
+      const VerificationMeta('fechaAplicacion');
+  @override
+  late final GeneratedColumn<DateTime> fechaAplicacion =
+      GeneratedColumn<DateTime>('fecha_aplicacion', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _fechaReingresoMeta =
+      const VerificationMeta('fechaReingreso');
+  @override
+  late final GeneratedColumn<DateTime> fechaReingreso =
+      GeneratedColumn<DateTime>('fecha_reingreso', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _idCensoMeta =
+      const VerificationMeta('idCenso');
+  @override
+  late final GeneratedColumn<int> idCenso = GeneratedColumn<int>(
+      'id_censo', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES censo (id)'));
+  static const VerificationMeta _idCensoFromServerMeta =
+      const VerificationMeta('idCensoFromServer');
+  @override
+  late final GeneratedColumn<int> idCensoFromServer = GeneratedColumn<int>(
+      'id_censo_from_server', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES censo (id_censo)'));
+  static const VerificationMeta _idProductoAgroquimicoMeta =
+      const VerificationMeta('idProductoAgroquimico');
+  @override
+  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
+      'id_producto_agroquimico', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES producto_agroquimico (id_producto_agroquimico)'));
+  static const VerificationMeta _responsableMeta =
+      const VerificationMeta('responsable');
+  @override
+  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
+      'responsable', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES usuario (cc_usuario)'));
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        dosis,
+        area,
+        unidades,
+        fechaAplicacion,
+        fechaReingreso,
+        idCenso,
+        idCensoFromServer,
+        idProductoAgroquimico,
+        responsable,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'aplicaciones';
+  @override
+  String get actualTableName => 'aplicaciones';
+  @override
+  VerificationContext validateIntegrity(Insertable<Aplicacione> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('dosis')) {
+      context.handle(
+          _dosisMeta, dosis.isAcceptableOrUnknown(data['dosis']!, _dosisMeta));
+    } else if (isInserting) {
+      context.missing(_dosisMeta);
+    }
+    if (data.containsKey('area')) {
+      context.handle(
+          _areaMeta, area.isAcceptableOrUnknown(data['area']!, _areaMeta));
+    } else if (isInserting) {
+      context.missing(_areaMeta);
+    }
+    if (data.containsKey('unidades')) {
+      context.handle(_unidadesMeta,
+          unidades.isAcceptableOrUnknown(data['unidades']!, _unidadesMeta));
+    } else if (isInserting) {
+      context.missing(_unidadesMeta);
+    }
+    if (data.containsKey('fecha_aplicacion')) {
+      context.handle(
+          _fechaAplicacionMeta,
+          fechaAplicacion.isAcceptableOrUnknown(
+              data['fecha_aplicacion']!, _fechaAplicacionMeta));
+    } else if (isInserting) {
+      context.missing(_fechaAplicacionMeta);
+    }
+    if (data.containsKey('fecha_reingreso')) {
+      context.handle(
+          _fechaReingresoMeta,
+          fechaReingreso.isAcceptableOrUnknown(
+              data['fecha_reingreso']!, _fechaReingresoMeta));
+    } else if (isInserting) {
+      context.missing(_fechaReingresoMeta);
+    }
+    if (data.containsKey('id_censo')) {
+      context.handle(_idCensoMeta,
+          idCenso.isAcceptableOrUnknown(data['id_censo']!, _idCensoMeta));
+    } else if (isInserting) {
+      context.missing(_idCensoMeta);
+    }
+    if (data.containsKey('id_censo_from_server')) {
+      context.handle(
+          _idCensoFromServerMeta,
+          idCensoFromServer.isAcceptableOrUnknown(
+              data['id_censo_from_server']!, _idCensoFromServerMeta));
+    }
+    if (data.containsKey('id_producto_agroquimico')) {
+      context.handle(
+          _idProductoAgroquimicoMeta,
+          idProductoAgroquimico.isAcceptableOrUnknown(
+              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
+    } else if (isInserting) {
+      context.missing(_idProductoAgroquimicoMeta);
+    }
+    if (data.containsKey('responsable')) {
+      context.handle(
+          _responsableMeta,
+          responsable.isAcceptableOrUnknown(
+              data['responsable']!, _responsableMeta));
+    } else if (isInserting) {
+      context.missing(_responsableMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Aplicacione map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Aplicacione(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      dosis: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
+      area: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}area'])!,
+      unidades: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}unidades'])!,
+      fechaAplicacion: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_aplicacion'])!,
+      fechaReingreso: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}fecha_reingreso'])!,
+      idCenso: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_censo'])!,
+      idCensoFromServer: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_censo_from_server']),
+      idProductoAgroquimico: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
+      responsable: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    );
+  }
+
+  @override
+  $AplicacionesTable createAlias(String alias) {
+    return $AplicacionesTable(attachedDatabase, alias);
+  }
+}
+
+class Aplicacione extends DataClass implements Insertable<Aplicacione> {
+  final int id;
+  final double dosis;
+  final int area;
+  final String unidades;
+  final DateTime fechaAplicacion;
+  final DateTime fechaReingreso;
+  final int idCenso;
+  final int? idCensoFromServer;
+  final int idProductoAgroquimico;
+  final String responsable;
+  final bool sincronizado;
+  const Aplicacione(
+      {required this.id,
+      required this.dosis,
+      required this.area,
+      required this.unidades,
+      required this.fechaAplicacion,
+      required this.fechaReingreso,
+      required this.idCenso,
+      this.idCensoFromServer,
+      required this.idProductoAgroquimico,
+      required this.responsable,
+      required this.sincronizado});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['dosis'] = Variable<double>(dosis);
+    map['area'] = Variable<int>(area);
+    map['unidades'] = Variable<String>(unidades);
+    map['fecha_aplicacion'] = Variable<DateTime>(fechaAplicacion);
+    map['fecha_reingreso'] = Variable<DateTime>(fechaReingreso);
+    map['id_censo'] = Variable<int>(idCenso);
+    if (!nullToAbsent || idCensoFromServer != null) {
+      map['id_censo_from_server'] = Variable<int>(idCensoFromServer);
+    }
+    map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
+    map['responsable'] = Variable<String>(responsable);
+    map['sincronizado'] = Variable<bool>(sincronizado);
+    return map;
+  }
+
+  AplicacionesCompanion toCompanion(bool nullToAbsent) {
+    return AplicacionesCompanion(
+      id: Value(id),
+      dosis: Value(dosis),
+      area: Value(area),
+      unidades: Value(unidades),
+      fechaAplicacion: Value(fechaAplicacion),
+      fechaReingreso: Value(fechaReingreso),
+      idCenso: Value(idCenso),
+      idCensoFromServer: idCensoFromServer == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idCensoFromServer),
+      idProductoAgroquimico: Value(idProductoAgroquimico),
+      responsable: Value(responsable),
+      sincronizado: Value(sincronizado),
+    );
+  }
+
+  factory Aplicacione.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Aplicacione(
+      id: serializer.fromJson<int>(json['id']),
+      dosis: serializer.fromJson<double>(json['dosis']),
+      area: serializer.fromJson<int>(json['area']),
+      unidades: serializer.fromJson<String>(json['unidades']),
+      fechaAplicacion: serializer.fromJson<DateTime>(json['fechaAplicacion']),
+      fechaReingreso: serializer.fromJson<DateTime>(json['fechaReingreso']),
+      idCenso: serializer.fromJson<int>(json['idCenso']),
+      idCensoFromServer: serializer.fromJson<int?>(json['idCensoFromServer']),
+      idProductoAgroquimico:
+          serializer.fromJson<int>(json['idProductoAgroquimico']),
+      responsable: serializer.fromJson<String>(json['responsable']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'dosis': serializer.toJson<double>(dosis),
+      'area': serializer.toJson<int>(area),
+      'unidades': serializer.toJson<String>(unidades),
+      'fechaAplicacion': serializer.toJson<DateTime>(fechaAplicacion),
+      'fechaReingreso': serializer.toJson<DateTime>(fechaReingreso),
+      'idCenso': serializer.toJson<int>(idCenso),
+      'idCensoFromServer': serializer.toJson<int?>(idCensoFromServer),
+      'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
+      'responsable': serializer.toJson<String>(responsable),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
+    };
+  }
+
+  Aplicacione copyWith(
+          {int? id,
+          double? dosis,
+          int? area,
+          String? unidades,
+          DateTime? fechaAplicacion,
+          DateTime? fechaReingreso,
+          int? idCenso,
+          Value<int?> idCensoFromServer = const Value.absent(),
+          int? idProductoAgroquimico,
+          String? responsable,
+          bool? sincronizado}) =>
+      Aplicacione(
+        id: id ?? this.id,
+        dosis: dosis ?? this.dosis,
+        area: area ?? this.area,
+        unidades: unidades ?? this.unidades,
+        fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
+        fechaReingreso: fechaReingreso ?? this.fechaReingreso,
+        idCenso: idCenso ?? this.idCenso,
+        idCensoFromServer: idCensoFromServer.present
+            ? idCensoFromServer.value
+            : this.idCensoFromServer,
+        idProductoAgroquimico:
+            idProductoAgroquimico ?? this.idProductoAgroquimico,
+        responsable: responsable ?? this.responsable,
+        sincronizado: sincronizado ?? this.sincronizado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Aplicacione(')
+          ..write('id: $id, ')
+          ..write('dosis: $dosis, ')
+          ..write('area: $area, ')
+          ..write('unidades: $unidades, ')
+          ..write('fechaAplicacion: $fechaAplicacion, ')
+          ..write('fechaReingreso: $fechaReingreso, ')
+          ..write('idCenso: $idCenso, ')
+          ..write('idCensoFromServer: $idCensoFromServer, ')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      dosis,
+      area,
+      unidades,
+      fechaAplicacion,
+      fechaReingreso,
+      idCenso,
+      idCensoFromServer,
+      idProductoAgroquimico,
+      responsable,
+      sincronizado);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Aplicacione &&
+          other.id == this.id &&
+          other.dosis == this.dosis &&
+          other.area == this.area &&
+          other.unidades == this.unidades &&
+          other.fechaAplicacion == this.fechaAplicacion &&
+          other.fechaReingreso == this.fechaReingreso &&
+          other.idCenso == this.idCenso &&
+          other.idCensoFromServer == this.idCensoFromServer &&
+          other.idProductoAgroquimico == this.idProductoAgroquimico &&
+          other.responsable == this.responsable &&
+          other.sincronizado == this.sincronizado);
+}
+
+class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
+  final Value<int> id;
+  final Value<double> dosis;
+  final Value<int> area;
+  final Value<String> unidades;
+  final Value<DateTime> fechaAplicacion;
+  final Value<DateTime> fechaReingreso;
+  final Value<int> idCenso;
+  final Value<int?> idCensoFromServer;
+  final Value<int> idProductoAgroquimico;
+  final Value<String> responsable;
+  final Value<bool> sincronizado;
+  const AplicacionesCompanion({
+    this.id = const Value.absent(),
+    this.dosis = const Value.absent(),
+    this.area = const Value.absent(),
+    this.unidades = const Value.absent(),
+    this.fechaAplicacion = const Value.absent(),
+    this.fechaReingreso = const Value.absent(),
+    this.idCenso = const Value.absent(),
+    this.idCensoFromServer = const Value.absent(),
+    this.idProductoAgroquimico = const Value.absent(),
+    this.responsable = const Value.absent(),
+    this.sincronizado = const Value.absent(),
+  });
+  AplicacionesCompanion.insert({
+    this.id = const Value.absent(),
+    required double dosis,
+    required int area,
+    required String unidades,
+    required DateTime fechaAplicacion,
+    required DateTime fechaReingreso,
+    required int idCenso,
+    this.idCensoFromServer = const Value.absent(),
+    required int idProductoAgroquimico,
+    required String responsable,
+    this.sincronizado = const Value.absent(),
+  })  : dosis = Value(dosis),
+        area = Value(area),
+        unidades = Value(unidades),
+        fechaAplicacion = Value(fechaAplicacion),
+        fechaReingreso = Value(fechaReingreso),
+        idCenso = Value(idCenso),
+        idProductoAgroquimico = Value(idProductoAgroquimico),
+        responsable = Value(responsable);
+  static Insertable<Aplicacione> custom({
+    Expression<int>? id,
+    Expression<double>? dosis,
+    Expression<int>? area,
+    Expression<String>? unidades,
+    Expression<DateTime>? fechaAplicacion,
+    Expression<DateTime>? fechaReingreso,
+    Expression<int>? idCenso,
+    Expression<int>? idCensoFromServer,
+    Expression<int>? idProductoAgroquimico,
+    Expression<String>? responsable,
+    Expression<bool>? sincronizado,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (dosis != null) 'dosis': dosis,
+      if (area != null) 'area': area,
+      if (unidades != null) 'unidades': unidades,
+      if (fechaAplicacion != null) 'fecha_aplicacion': fechaAplicacion,
+      if (fechaReingreso != null) 'fecha_reingreso': fechaReingreso,
+      if (idCenso != null) 'id_censo': idCenso,
+      if (idCensoFromServer != null) 'id_censo_from_server': idCensoFromServer,
+      if (idProductoAgroquimico != null)
+        'id_producto_agroquimico': idProductoAgroquimico,
+      if (responsable != null) 'responsable': responsable,
+      if (sincronizado != null) 'sincronizado': sincronizado,
+    });
+  }
+
+  AplicacionesCompanion copyWith(
+      {Value<int>? id,
+      Value<double>? dosis,
+      Value<int>? area,
+      Value<String>? unidades,
+      Value<DateTime>? fechaAplicacion,
+      Value<DateTime>? fechaReingreso,
+      Value<int>? idCenso,
+      Value<int?>? idCensoFromServer,
+      Value<int>? idProductoAgroquimico,
+      Value<String>? responsable,
+      Value<bool>? sincronizado}) {
+    return AplicacionesCompanion(
+      id: id ?? this.id,
+      dosis: dosis ?? this.dosis,
+      area: area ?? this.area,
+      unidades: unidades ?? this.unidades,
+      fechaAplicacion: fechaAplicacion ?? this.fechaAplicacion,
+      fechaReingreso: fechaReingreso ?? this.fechaReingreso,
+      idCenso: idCenso ?? this.idCenso,
+      idCensoFromServer: idCensoFromServer ?? this.idCensoFromServer,
+      idProductoAgroquimico:
+          idProductoAgroquimico ?? this.idProductoAgroquimico,
+      responsable: responsable ?? this.responsable,
+      sincronizado: sincronizado ?? this.sincronizado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (dosis.present) {
+      map['dosis'] = Variable<double>(dosis.value);
+    }
+    if (area.present) {
+      map['area'] = Variable<int>(area.value);
+    }
+    if (unidades.present) {
+      map['unidades'] = Variable<String>(unidades.value);
+    }
+    if (fechaAplicacion.present) {
+      map['fecha_aplicacion'] = Variable<DateTime>(fechaAplicacion.value);
+    }
+    if (fechaReingreso.present) {
+      map['fecha_reingreso'] = Variable<DateTime>(fechaReingreso.value);
+    }
+    if (idCenso.present) {
+      map['id_censo'] = Variable<int>(idCenso.value);
+    }
+    if (idCensoFromServer.present) {
+      map['id_censo_from_server'] = Variable<int>(idCensoFromServer.value);
+    }
+    if (idProductoAgroquimico.present) {
+      map['id_producto_agroquimico'] =
+          Variable<int>(idProductoAgroquimico.value);
+    }
+    if (responsable.present) {
+      map['responsable'] = Variable<String>(responsable.value);
+    }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AplicacionesCompanion(')
+          ..write('id: $id, ')
+          ..write('dosis: $dosis, ')
+          ..write('area: $area, ')
+          ..write('unidades: $unidades, ')
+          ..write('fechaAplicacion: $fechaAplicacion, ')
+          ..write('fechaReingreso: $fechaReingreso, ')
+          ..write('idCenso: $idCenso, ')
+          ..write('idCensoFromServer: $idCensoFromServer, ')
+          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
@@ -6548,882 +7479,6 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
   }
 }
 
-class $ProductoAgroquimicoTable extends ProductoAgroquimico
-    with TableInfo<$ProductoAgroquimicoTable, ProductoAgroquimicoData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $ProductoAgroquimicoTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idProductoAgroquimicoMeta =
-      const VerificationMeta('idProductoAgroquimico');
-  @override
-  late final GeneratedColumn<int> idProductoAgroquimico = GeneratedColumn<int>(
-      'id_producto_agroquimico', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _nombreProductoAgroquimicoMeta =
-      const VerificationMeta('nombreProductoAgroquimico');
-  @override
-  late final GeneratedColumn<String> nombreProductoAgroquimico =
-      GeneratedColumn<String>('nombre_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _tipoProductoAgroquimicoMeta =
-      const VerificationMeta('tipoProductoAgroquimico');
-  @override
-  late final GeneratedColumn<String> tipoProductoAgroquimico =
-      GeneratedColumn<String>('tipo_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _claseProductoMeta =
-      const VerificationMeta('claseProducto');
-  @override
-  late final GeneratedColumn<String> claseProducto = GeneratedColumn<String>(
-      'clase_producto', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _ingredienteActivoProductoAgroquimicoMeta =
-      const VerificationMeta('ingredienteActivoProductoAgroquimico');
-  @override
-  late final GeneratedColumn<String> ingredienteActivoProductoAgroquimico =
-      GeneratedColumn<String>(
-          'ingrediente_activo_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _periodoCarenciaProductoAgroquimicoMeta =
-      const VerificationMeta('periodoCarenciaProductoAgroquimico');
-  @override
-  late final GeneratedColumn<int> periodoCarenciaProductoAgroquimico =
-      GeneratedColumn<int>(
-          'periodo_carencia_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _presentacionProductoAgroquimicoMeta =
-      const VerificationMeta('presentacionProductoAgroquimico');
-  @override
-  late final GeneratedColumn<String> presentacionProductoAgroquimico =
-      GeneratedColumn<String>(
-          'presentacion_producto_agroquimico', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _fechaUltimaActualizacionMeta =
-      const VerificationMeta('fechaUltimaActualizacion');
-  @override
-  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
-      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
-          type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  @override
-  List<GeneratedColumn> get $columns => [
-        idProductoAgroquimico,
-        nombreProductoAgroquimico,
-        tipoProductoAgroquimico,
-        claseProducto,
-        ingredienteActivoProductoAgroquimico,
-        periodoCarenciaProductoAgroquimico,
-        presentacionProductoAgroquimico,
-        fechaUltimaActualizacion
-      ];
-  @override
-  String get aliasedName => _alias ?? 'producto_agroquimico';
-  @override
-  String get actualTableName => 'producto_agroquimico';
-  @override
-  VerificationContext validateIntegrity(
-      Insertable<ProductoAgroquimicoData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id_producto_agroquimico')) {
-      context.handle(
-          _idProductoAgroquimicoMeta,
-          idProductoAgroquimico.isAcceptableOrUnknown(
-              data['id_producto_agroquimico']!, _idProductoAgroquimicoMeta));
-    }
-    if (data.containsKey('nombre_producto_agroquimico')) {
-      context.handle(
-          _nombreProductoAgroquimicoMeta,
-          nombreProductoAgroquimico.isAcceptableOrUnknown(
-              data['nombre_producto_agroquimico']!,
-              _nombreProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_nombreProductoAgroquimicoMeta);
-    }
-    if (data.containsKey('tipo_producto_agroquimico')) {
-      context.handle(
-          _tipoProductoAgroquimicoMeta,
-          tipoProductoAgroquimico.isAcceptableOrUnknown(
-              data['tipo_producto_agroquimico']!,
-              _tipoProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_tipoProductoAgroquimicoMeta);
-    }
-    if (data.containsKey('clase_producto')) {
-      context.handle(
-          _claseProductoMeta,
-          claseProducto.isAcceptableOrUnknown(
-              data['clase_producto']!, _claseProductoMeta));
-    } else if (isInserting) {
-      context.missing(_claseProductoMeta);
-    }
-    if (data.containsKey('ingrediente_activo_producto_agroquimico')) {
-      context.handle(
-          _ingredienteActivoProductoAgroquimicoMeta,
-          ingredienteActivoProductoAgroquimico.isAcceptableOrUnknown(
-              data['ingrediente_activo_producto_agroquimico']!,
-              _ingredienteActivoProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_ingredienteActivoProductoAgroquimicoMeta);
-    }
-    if (data.containsKey('periodo_carencia_producto_agroquimico')) {
-      context.handle(
-          _periodoCarenciaProductoAgroquimicoMeta,
-          periodoCarenciaProductoAgroquimico.isAcceptableOrUnknown(
-              data['periodo_carencia_producto_agroquimico']!,
-              _periodoCarenciaProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_periodoCarenciaProductoAgroquimicoMeta);
-    }
-    if (data.containsKey('presentacion_producto_agroquimico')) {
-      context.handle(
-          _presentacionProductoAgroquimicoMeta,
-          presentacionProductoAgroquimico.isAcceptableOrUnknown(
-              data['presentacion_producto_agroquimico']!,
-              _presentacionProductoAgroquimicoMeta));
-    } else if (isInserting) {
-      context.missing(_presentacionProductoAgroquimicoMeta);
-    }
-    if (data.containsKey('fecha_ultima_actualizacion')) {
-      context.handle(
-          _fechaUltimaActualizacionMeta,
-          fechaUltimaActualizacion.isAcceptableOrUnknown(
-              data['fecha_ultima_actualizacion']!,
-              _fechaUltimaActualizacionMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {idProductoAgroquimico};
-  @override
-  ProductoAgroquimicoData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return ProductoAgroquimicoData(
-      idProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}id_producto_agroquimico'])!,
-      nombreProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}nombre_producto_agroquimico'])!,
-      tipoProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}tipo_producto_agroquimico'])!,
-      claseProducto: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}clase_producto'])!,
-      ingredienteActivoProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}ingrediente_activo_producto_agroquimico'])!,
-      periodoCarenciaProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.int,
-          data['${effectivePrefix}periodo_carencia_producto_agroquimico'])!,
-      presentacionProductoAgroquimico: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}presentacion_producto_agroquimico'])!,
-      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime,
-          data['${effectivePrefix}fecha_ultima_actualizacion']),
-    );
-  }
-
-  @override
-  $ProductoAgroquimicoTable createAlias(String alias) {
-    return $ProductoAgroquimicoTable(attachedDatabase, alias);
-  }
-}
-
-class ProductoAgroquimicoData extends DataClass
-    implements Insertable<ProductoAgroquimicoData> {
-  final int idProductoAgroquimico;
-  final String nombreProductoAgroquimico;
-  final String tipoProductoAgroquimico;
-  final String claseProducto;
-  final String ingredienteActivoProductoAgroquimico;
-  final int periodoCarenciaProductoAgroquimico;
-  final String presentacionProductoAgroquimico;
-  final DateTime? fechaUltimaActualizacion;
-  const ProductoAgroquimicoData(
-      {required this.idProductoAgroquimico,
-      required this.nombreProductoAgroquimico,
-      required this.tipoProductoAgroquimico,
-      required this.claseProducto,
-      required this.ingredienteActivoProductoAgroquimico,
-      required this.periodoCarenciaProductoAgroquimico,
-      required this.presentacionProductoAgroquimico,
-      this.fechaUltimaActualizacion});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id_producto_agroquimico'] = Variable<int>(idProductoAgroquimico);
-    map['nombre_producto_agroquimico'] =
-        Variable<String>(nombreProductoAgroquimico);
-    map['tipo_producto_agroquimico'] =
-        Variable<String>(tipoProductoAgroquimico);
-    map['clase_producto'] = Variable<String>(claseProducto);
-    map['ingrediente_activo_producto_agroquimico'] =
-        Variable<String>(ingredienteActivoProductoAgroquimico);
-    map['periodo_carencia_producto_agroquimico'] =
-        Variable<int>(periodoCarenciaProductoAgroquimico);
-    map['presentacion_producto_agroquimico'] =
-        Variable<String>(presentacionProductoAgroquimico);
-    if (!nullToAbsent || fechaUltimaActualizacion != null) {
-      map['fecha_ultima_actualizacion'] =
-          Variable<DateTime>(fechaUltimaActualizacion);
-    }
-    return map;
-  }
-
-  ProductoAgroquimicoCompanion toCompanion(bool nullToAbsent) {
-    return ProductoAgroquimicoCompanion(
-      idProductoAgroquimico: Value(idProductoAgroquimico),
-      nombreProductoAgroquimico: Value(nombreProductoAgroquimico),
-      tipoProductoAgroquimico: Value(tipoProductoAgroquimico),
-      claseProducto: Value(claseProducto),
-      ingredienteActivoProductoAgroquimico:
-          Value(ingredienteActivoProductoAgroquimico),
-      periodoCarenciaProductoAgroquimico:
-          Value(periodoCarenciaProductoAgroquimico),
-      presentacionProductoAgroquimico: Value(presentacionProductoAgroquimico),
-      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
-          ? const Value.absent()
-          : Value(fechaUltimaActualizacion),
-    );
-  }
-
-  factory ProductoAgroquimicoData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return ProductoAgroquimicoData(
-      idProductoAgroquimico:
-          serializer.fromJson<int>(json['idProductoAgroquimico']),
-      nombreProductoAgroquimico:
-          serializer.fromJson<String>(json['nombreProductoAgroquimico']),
-      tipoProductoAgroquimico:
-          serializer.fromJson<String>(json['tipoProductoAgroquimico']),
-      claseProducto: serializer.fromJson<String>(json['claseProducto']),
-      ingredienteActivoProductoAgroquimico: serializer
-          .fromJson<String>(json['ingredienteActivoProductoAgroquimico']),
-      periodoCarenciaProductoAgroquimico:
-          serializer.fromJson<int>(json['periodoCarenciaProductoAgroquimico']),
-      presentacionProductoAgroquimico:
-          serializer.fromJson<String>(json['presentacionProductoAgroquimico']),
-      fechaUltimaActualizacion:
-          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'idProductoAgroquimico': serializer.toJson<int>(idProductoAgroquimico),
-      'nombreProductoAgroquimico':
-          serializer.toJson<String>(nombreProductoAgroquimico),
-      'tipoProductoAgroquimico':
-          serializer.toJson<String>(tipoProductoAgroquimico),
-      'claseProducto': serializer.toJson<String>(claseProducto),
-      'ingredienteActivoProductoAgroquimico':
-          serializer.toJson<String>(ingredienteActivoProductoAgroquimico),
-      'periodoCarenciaProductoAgroquimico':
-          serializer.toJson<int>(periodoCarenciaProductoAgroquimico),
-      'presentacionProductoAgroquimico':
-          serializer.toJson<String>(presentacionProductoAgroquimico),
-      'fechaUltimaActualizacion':
-          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
-    };
-  }
-
-  ProductoAgroquimicoData copyWith(
-          {int? idProductoAgroquimico,
-          String? nombreProductoAgroquimico,
-          String? tipoProductoAgroquimico,
-          String? claseProducto,
-          String? ingredienteActivoProductoAgroquimico,
-          int? periodoCarenciaProductoAgroquimico,
-          String? presentacionProductoAgroquimico,
-          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
-      ProductoAgroquimicoData(
-        idProductoAgroquimico:
-            idProductoAgroquimico ?? this.idProductoAgroquimico,
-        nombreProductoAgroquimico:
-            nombreProductoAgroquimico ?? this.nombreProductoAgroquimico,
-        tipoProductoAgroquimico:
-            tipoProductoAgroquimico ?? this.tipoProductoAgroquimico,
-        claseProducto: claseProducto ?? this.claseProducto,
-        ingredienteActivoProductoAgroquimico:
-            ingredienteActivoProductoAgroquimico ??
-                this.ingredienteActivoProductoAgroquimico,
-        periodoCarenciaProductoAgroquimico:
-            periodoCarenciaProductoAgroquimico ??
-                this.periodoCarenciaProductoAgroquimico,
-        presentacionProductoAgroquimico: presentacionProductoAgroquimico ??
-            this.presentacionProductoAgroquimico,
-        fechaUltimaActualizacion: fechaUltimaActualizacion.present
-            ? fechaUltimaActualizacion.value
-            : this.fechaUltimaActualizacion,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('ProductoAgroquimicoData(')
-          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
-          ..write('nombreProductoAgroquimico: $nombreProductoAgroquimico, ')
-          ..write('tipoProductoAgroquimico: $tipoProductoAgroquimico, ')
-          ..write('claseProducto: $claseProducto, ')
-          ..write(
-              'ingredienteActivoProductoAgroquimico: $ingredienteActivoProductoAgroquimico, ')
-          ..write(
-              'periodoCarenciaProductoAgroquimico: $periodoCarenciaProductoAgroquimico, ')
-          ..write(
-              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      idProductoAgroquimico,
-      nombreProductoAgroquimico,
-      tipoProductoAgroquimico,
-      claseProducto,
-      ingredienteActivoProductoAgroquimico,
-      periodoCarenciaProductoAgroquimico,
-      presentacionProductoAgroquimico,
-      fechaUltimaActualizacion);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is ProductoAgroquimicoData &&
-          other.idProductoAgroquimico == this.idProductoAgroquimico &&
-          other.nombreProductoAgroquimico == this.nombreProductoAgroquimico &&
-          other.tipoProductoAgroquimico == this.tipoProductoAgroquimico &&
-          other.claseProducto == this.claseProducto &&
-          other.ingredienteActivoProductoAgroquimico ==
-              this.ingredienteActivoProductoAgroquimico &&
-          other.periodoCarenciaProductoAgroquimico ==
-              this.periodoCarenciaProductoAgroquimico &&
-          other.presentacionProductoAgroquimico ==
-              this.presentacionProductoAgroquimico &&
-          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
-}
-
-class ProductoAgroquimicoCompanion
-    extends UpdateCompanion<ProductoAgroquimicoData> {
-  final Value<int> idProductoAgroquimico;
-  final Value<String> nombreProductoAgroquimico;
-  final Value<String> tipoProductoAgroquimico;
-  final Value<String> claseProducto;
-  final Value<String> ingredienteActivoProductoAgroquimico;
-  final Value<int> periodoCarenciaProductoAgroquimico;
-  final Value<String> presentacionProductoAgroquimico;
-  final Value<DateTime?> fechaUltimaActualizacion;
-  const ProductoAgroquimicoCompanion({
-    this.idProductoAgroquimico = const Value.absent(),
-    this.nombreProductoAgroquimico = const Value.absent(),
-    this.tipoProductoAgroquimico = const Value.absent(),
-    this.claseProducto = const Value.absent(),
-    this.ingredienteActivoProductoAgroquimico = const Value.absent(),
-    this.periodoCarenciaProductoAgroquimico = const Value.absent(),
-    this.presentacionProductoAgroquimico = const Value.absent(),
-    this.fechaUltimaActualizacion = const Value.absent(),
-  });
-  ProductoAgroquimicoCompanion.insert({
-    this.idProductoAgroquimico = const Value.absent(),
-    required String nombreProductoAgroquimico,
-    required String tipoProductoAgroquimico,
-    required String claseProducto,
-    required String ingredienteActivoProductoAgroquimico,
-    required int periodoCarenciaProductoAgroquimico,
-    required String presentacionProductoAgroquimico,
-    this.fechaUltimaActualizacion = const Value.absent(),
-  })  : nombreProductoAgroquimico = Value(nombreProductoAgroquimico),
-        tipoProductoAgroquimico = Value(tipoProductoAgroquimico),
-        claseProducto = Value(claseProducto),
-        ingredienteActivoProductoAgroquimico =
-            Value(ingredienteActivoProductoAgroquimico),
-        periodoCarenciaProductoAgroquimico =
-            Value(periodoCarenciaProductoAgroquimico),
-        presentacionProductoAgroquimico =
-            Value(presentacionProductoAgroquimico);
-  static Insertable<ProductoAgroquimicoData> custom({
-    Expression<int>? idProductoAgroquimico,
-    Expression<String>? nombreProductoAgroquimico,
-    Expression<String>? tipoProductoAgroquimico,
-    Expression<String>? claseProducto,
-    Expression<String>? ingredienteActivoProductoAgroquimico,
-    Expression<int>? periodoCarenciaProductoAgroquimico,
-    Expression<String>? presentacionProductoAgroquimico,
-    Expression<DateTime>? fechaUltimaActualizacion,
-  }) {
-    return RawValuesInsertable({
-      if (idProductoAgroquimico != null)
-        'id_producto_agroquimico': idProductoAgroquimico,
-      if (nombreProductoAgroquimico != null)
-        'nombre_producto_agroquimico': nombreProductoAgroquimico,
-      if (tipoProductoAgroquimico != null)
-        'tipo_producto_agroquimico': tipoProductoAgroquimico,
-      if (claseProducto != null) 'clase_producto': claseProducto,
-      if (ingredienteActivoProductoAgroquimico != null)
-        'ingrediente_activo_producto_agroquimico':
-            ingredienteActivoProductoAgroquimico,
-      if (periodoCarenciaProductoAgroquimico != null)
-        'periodo_carencia_producto_agroquimico':
-            periodoCarenciaProductoAgroquimico,
-      if (presentacionProductoAgroquimico != null)
-        'presentacion_producto_agroquimico': presentacionProductoAgroquimico,
-      if (fechaUltimaActualizacion != null)
-        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
-    });
-  }
-
-  ProductoAgroquimicoCompanion copyWith(
-      {Value<int>? idProductoAgroquimico,
-      Value<String>? nombreProductoAgroquimico,
-      Value<String>? tipoProductoAgroquimico,
-      Value<String>? claseProducto,
-      Value<String>? ingredienteActivoProductoAgroquimico,
-      Value<int>? periodoCarenciaProductoAgroquimico,
-      Value<String>? presentacionProductoAgroquimico,
-      Value<DateTime?>? fechaUltimaActualizacion}) {
-    return ProductoAgroquimicoCompanion(
-      idProductoAgroquimico:
-          idProductoAgroquimico ?? this.idProductoAgroquimico,
-      nombreProductoAgroquimico:
-          nombreProductoAgroquimico ?? this.nombreProductoAgroquimico,
-      tipoProductoAgroquimico:
-          tipoProductoAgroquimico ?? this.tipoProductoAgroquimico,
-      claseProducto: claseProducto ?? this.claseProducto,
-      ingredienteActivoProductoAgroquimico:
-          ingredienteActivoProductoAgroquimico ??
-              this.ingredienteActivoProductoAgroquimico,
-      periodoCarenciaProductoAgroquimico: periodoCarenciaProductoAgroquimico ??
-          this.periodoCarenciaProductoAgroquimico,
-      presentacionProductoAgroquimico: presentacionProductoAgroquimico ??
-          this.presentacionProductoAgroquimico,
-      fechaUltimaActualizacion:
-          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (idProductoAgroquimico.present) {
-      map['id_producto_agroquimico'] =
-          Variable<int>(idProductoAgroquimico.value);
-    }
-    if (nombreProductoAgroquimico.present) {
-      map['nombre_producto_agroquimico'] =
-          Variable<String>(nombreProductoAgroquimico.value);
-    }
-    if (tipoProductoAgroquimico.present) {
-      map['tipo_producto_agroquimico'] =
-          Variable<String>(tipoProductoAgroquimico.value);
-    }
-    if (claseProducto.present) {
-      map['clase_producto'] = Variable<String>(claseProducto.value);
-    }
-    if (ingredienteActivoProductoAgroquimico.present) {
-      map['ingrediente_activo_producto_agroquimico'] =
-          Variable<String>(ingredienteActivoProductoAgroquimico.value);
-    }
-    if (periodoCarenciaProductoAgroquimico.present) {
-      map['periodo_carencia_producto_agroquimico'] =
-          Variable<int>(periodoCarenciaProductoAgroquimico.value);
-    }
-    if (presentacionProductoAgroquimico.present) {
-      map['presentacion_producto_agroquimico'] =
-          Variable<String>(presentacionProductoAgroquimico.value);
-    }
-    if (fechaUltimaActualizacion.present) {
-      map['fecha_ultima_actualizacion'] =
-          Variable<DateTime>(fechaUltimaActualizacion.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('ProductoAgroquimicoCompanion(')
-          ..write('idProductoAgroquimico: $idProductoAgroquimico, ')
-          ..write('nombreProductoAgroquimico: $nombreProductoAgroquimico, ')
-          ..write('tipoProductoAgroquimico: $tipoProductoAgroquimico, ')
-          ..write('claseProducto: $claseProducto, ')
-          ..write(
-              'ingredienteActivoProductoAgroquimico: $ingredienteActivoProductoAgroquimico, ')
-          ..write(
-              'periodoCarenciaProductoAgroquimico: $periodoCarenciaProductoAgroquimico, ')
-          ..write(
-              'presentacionProductoAgroquimico: $presentacionProductoAgroquimico, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $UsuarioTable extends Usuario with TableInfo<$UsuarioTable, UsuarioData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $UsuarioTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _ccUsuarioMeta =
-      const VerificationMeta('ccUsuario');
-  @override
-  late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
-      'cc_usuario', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
-  static const VerificationMeta _nombreUsuarioMeta =
-      const VerificationMeta('nombreUsuario');
-  @override
-  late final GeneratedColumn<String> nombreUsuario = GeneratedColumn<String>(
-      'nombre_usuario', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _cargoEmpresaMeta =
-      const VerificationMeta('cargoEmpresa');
-  @override
-  late final GeneratedColumn<String> cargoEmpresa = GeneratedColumn<String>(
-      'cargo_empresa', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _rolMeta = const VerificationMeta('rol');
-  @override
-  late final GeneratedColumn<String> rol = GeneratedColumn<String>(
-      'rol', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _validadoMeta =
-      const VerificationMeta('validado');
-  @override
-  late final GeneratedColumn<bool> validado = GeneratedColumn<bool>(
-      'validado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("validado" IN (0, 1))'));
-  static const VerificationMeta _fechaUltimaActualizacionMeta =
-      const VerificationMeta('fechaUltimaActualizacion');
-  @override
-  late final GeneratedColumn<DateTime> fechaUltimaActualizacion =
-      GeneratedColumn<DateTime>('fecha_ultima_actualizacion', aliasedName, true,
-          type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  @override
-  List<GeneratedColumn> get $columns => [
-        ccUsuario,
-        nombreUsuario,
-        cargoEmpresa,
-        rol,
-        validado,
-        fechaUltimaActualizacion
-      ];
-  @override
-  String get aliasedName => _alias ?? 'usuario';
-  @override
-  String get actualTableName => 'usuario';
-  @override
-  VerificationContext validateIntegrity(Insertable<UsuarioData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('cc_usuario')) {
-      context.handle(_ccUsuarioMeta,
-          ccUsuario.isAcceptableOrUnknown(data['cc_usuario']!, _ccUsuarioMeta));
-    } else if (isInserting) {
-      context.missing(_ccUsuarioMeta);
-    }
-    if (data.containsKey('nombre_usuario')) {
-      context.handle(
-          _nombreUsuarioMeta,
-          nombreUsuario.isAcceptableOrUnknown(
-              data['nombre_usuario']!, _nombreUsuarioMeta));
-    } else if (isInserting) {
-      context.missing(_nombreUsuarioMeta);
-    }
-    if (data.containsKey('cargo_empresa')) {
-      context.handle(
-          _cargoEmpresaMeta,
-          cargoEmpresa.isAcceptableOrUnknown(
-              data['cargo_empresa']!, _cargoEmpresaMeta));
-    } else if (isInserting) {
-      context.missing(_cargoEmpresaMeta);
-    }
-    if (data.containsKey('rol')) {
-      context.handle(
-          _rolMeta, rol.isAcceptableOrUnknown(data['rol']!, _rolMeta));
-    } else if (isInserting) {
-      context.missing(_rolMeta);
-    }
-    if (data.containsKey('validado')) {
-      context.handle(_validadoMeta,
-          validado.isAcceptableOrUnknown(data['validado']!, _validadoMeta));
-    } else if (isInserting) {
-      context.missing(_validadoMeta);
-    }
-    if (data.containsKey('fecha_ultima_actualizacion')) {
-      context.handle(
-          _fechaUltimaActualizacionMeta,
-          fechaUltimaActualizacion.isAcceptableOrUnknown(
-              data['fecha_ultima_actualizacion']!,
-              _fechaUltimaActualizacionMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {ccUsuario};
-  @override
-  UsuarioData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UsuarioData(
-      ccUsuario: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}cc_usuario'])!,
-      nombreUsuario: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}nombre_usuario'])!,
-      cargoEmpresa: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}cargo_empresa'])!,
-      rol: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}rol'])!,
-      validado: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}validado'])!,
-      fechaUltimaActualizacion: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime,
-          data['${effectivePrefix}fecha_ultima_actualizacion']),
-    );
-  }
-
-  @override
-  $UsuarioTable createAlias(String alias) {
-    return $UsuarioTable(attachedDatabase, alias);
-  }
-}
-
-class UsuarioData extends DataClass implements Insertable<UsuarioData> {
-  final String ccUsuario;
-  final String nombreUsuario;
-  final String cargoEmpresa;
-  final String rol;
-  final bool validado;
-  final DateTime? fechaUltimaActualizacion;
-  const UsuarioData(
-      {required this.ccUsuario,
-      required this.nombreUsuario,
-      required this.cargoEmpresa,
-      required this.rol,
-      required this.validado,
-      this.fechaUltimaActualizacion});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['cc_usuario'] = Variable<String>(ccUsuario);
-    map['nombre_usuario'] = Variable<String>(nombreUsuario);
-    map['cargo_empresa'] = Variable<String>(cargoEmpresa);
-    map['rol'] = Variable<String>(rol);
-    map['validado'] = Variable<bool>(validado);
-    if (!nullToAbsent || fechaUltimaActualizacion != null) {
-      map['fecha_ultima_actualizacion'] =
-          Variable<DateTime>(fechaUltimaActualizacion);
-    }
-    return map;
-  }
-
-  UsuarioCompanion toCompanion(bool nullToAbsent) {
-    return UsuarioCompanion(
-      ccUsuario: Value(ccUsuario),
-      nombreUsuario: Value(nombreUsuario),
-      cargoEmpresa: Value(cargoEmpresa),
-      rol: Value(rol),
-      validado: Value(validado),
-      fechaUltimaActualizacion: fechaUltimaActualizacion == null && nullToAbsent
-          ? const Value.absent()
-          : Value(fechaUltimaActualizacion),
-    );
-  }
-
-  factory UsuarioData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return UsuarioData(
-      ccUsuario: serializer.fromJson<String>(json['ccUsuario']),
-      nombreUsuario: serializer.fromJson<String>(json['nombreUsuario']),
-      cargoEmpresa: serializer.fromJson<String>(json['cargoEmpresa']),
-      rol: serializer.fromJson<String>(json['rol']),
-      validado: serializer.fromJson<bool>(json['validado']),
-      fechaUltimaActualizacion:
-          serializer.fromJson<DateTime?>(json['fechaUltimaActualizacion']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'ccUsuario': serializer.toJson<String>(ccUsuario),
-      'nombreUsuario': serializer.toJson<String>(nombreUsuario),
-      'cargoEmpresa': serializer.toJson<String>(cargoEmpresa),
-      'rol': serializer.toJson<String>(rol),
-      'validado': serializer.toJson<bool>(validado),
-      'fechaUltimaActualizacion':
-          serializer.toJson<DateTime?>(fechaUltimaActualizacion),
-    };
-  }
-
-  UsuarioData copyWith(
-          {String? ccUsuario,
-          String? nombreUsuario,
-          String? cargoEmpresa,
-          String? rol,
-          bool? validado,
-          Value<DateTime?> fechaUltimaActualizacion = const Value.absent()}) =>
-      UsuarioData(
-        ccUsuario: ccUsuario ?? this.ccUsuario,
-        nombreUsuario: nombreUsuario ?? this.nombreUsuario,
-        cargoEmpresa: cargoEmpresa ?? this.cargoEmpresa,
-        rol: rol ?? this.rol,
-        validado: validado ?? this.validado,
-        fechaUltimaActualizacion: fechaUltimaActualizacion.present
-            ? fechaUltimaActualizacion.value
-            : this.fechaUltimaActualizacion,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('UsuarioData(')
-          ..write('ccUsuario: $ccUsuario, ')
-          ..write('nombreUsuario: $nombreUsuario, ')
-          ..write('cargoEmpresa: $cargoEmpresa, ')
-          ..write('rol: $rol, ')
-          ..write('validado: $validado, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(ccUsuario, nombreUsuario, cargoEmpresa, rol,
-      validado, fechaUltimaActualizacion);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is UsuarioData &&
-          other.ccUsuario == this.ccUsuario &&
-          other.nombreUsuario == this.nombreUsuario &&
-          other.cargoEmpresa == this.cargoEmpresa &&
-          other.rol == this.rol &&
-          other.validado == this.validado &&
-          other.fechaUltimaActualizacion == this.fechaUltimaActualizacion);
-}
-
-class UsuarioCompanion extends UpdateCompanion<UsuarioData> {
-  final Value<String> ccUsuario;
-  final Value<String> nombreUsuario;
-  final Value<String> cargoEmpresa;
-  final Value<String> rol;
-  final Value<bool> validado;
-  final Value<DateTime?> fechaUltimaActualizacion;
-  final Value<int> rowid;
-  const UsuarioCompanion({
-    this.ccUsuario = const Value.absent(),
-    this.nombreUsuario = const Value.absent(),
-    this.cargoEmpresa = const Value.absent(),
-    this.rol = const Value.absent(),
-    this.validado = const Value.absent(),
-    this.fechaUltimaActualizacion = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  UsuarioCompanion.insert({
-    required String ccUsuario,
-    required String nombreUsuario,
-    required String cargoEmpresa,
-    required String rol,
-    required bool validado,
-    this.fechaUltimaActualizacion = const Value.absent(),
-    this.rowid = const Value.absent(),
-  })  : ccUsuario = Value(ccUsuario),
-        nombreUsuario = Value(nombreUsuario),
-        cargoEmpresa = Value(cargoEmpresa),
-        rol = Value(rol),
-        validado = Value(validado);
-  static Insertable<UsuarioData> custom({
-    Expression<String>? ccUsuario,
-    Expression<String>? nombreUsuario,
-    Expression<String>? cargoEmpresa,
-    Expression<String>? rol,
-    Expression<bool>? validado,
-    Expression<DateTime>? fechaUltimaActualizacion,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (ccUsuario != null) 'cc_usuario': ccUsuario,
-      if (nombreUsuario != null) 'nombre_usuario': nombreUsuario,
-      if (cargoEmpresa != null) 'cargo_empresa': cargoEmpresa,
-      if (rol != null) 'rol': rol,
-      if (validado != null) 'validado': validado,
-      if (fechaUltimaActualizacion != null)
-        'fecha_ultima_actualizacion': fechaUltimaActualizacion,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  UsuarioCompanion copyWith(
-      {Value<String>? ccUsuario,
-      Value<String>? nombreUsuario,
-      Value<String>? cargoEmpresa,
-      Value<String>? rol,
-      Value<bool>? validado,
-      Value<DateTime?>? fechaUltimaActualizacion,
-      Value<int>? rowid}) {
-    return UsuarioCompanion(
-      ccUsuario: ccUsuario ?? this.ccUsuario,
-      nombreUsuario: nombreUsuario ?? this.nombreUsuario,
-      cargoEmpresa: cargoEmpresa ?? this.cargoEmpresa,
-      rol: rol ?? this.rol,
-      validado: validado ?? this.validado,
-      fechaUltimaActualizacion:
-          fechaUltimaActualizacion ?? this.fechaUltimaActualizacion,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (ccUsuario.present) {
-      map['cc_usuario'] = Variable<String>(ccUsuario.value);
-    }
-    if (nombreUsuario.present) {
-      map['nombre_usuario'] = Variable<String>(nombreUsuario.value);
-    }
-    if (cargoEmpresa.present) {
-      map['cargo_empresa'] = Variable<String>(cargoEmpresa.value);
-    }
-    if (rol.present) {
-      map['rol'] = Variable<String>(rol.value);
-    }
-    if (validado.present) {
-      map['validado'] = Variable<bool>(validado.value);
-    }
-    if (fechaUltimaActualizacion.present) {
-      map['fecha_ultima_actualizacion'] =
-          Variable<DateTime>(fechaUltimaActualizacion.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('UsuarioCompanion(')
-          ..write('ccUsuario: $ccUsuario, ')
-          ..write('nombreUsuario: $nombreUsuario, ')
-          ..write('cargoEmpresa: $cargoEmpresa, ')
-          ..write('rol: $rol, ')
-          ..write('validado: $validado, ')
-          ..write('fechaUltimaActualizacion: $fechaUltimaActualizacion, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $RegistroEnfermedadTable extends RegistroEnfermedad
     with TableInfo<$RegistroEnfermedadTable, RegistroEnfermedadData> {
   @override
@@ -11745,8 +11800,11 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
-  late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
   late final $CensoTable censo = $CensoTable(this);
+  late final $ProductoAgroquimicoTable productoAgroquimico =
+      $ProductoAgroquimicoTable(this);
+  late final $UsuarioTable usuario = $UsuarioTable(this);
+  late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
   late final $CosechasTable cosechas = $CosechasTable(this);
   late final $CosechaDiariaTable cosechaDiaria = $CosechaDiariaTable(this);
   late final $EnfermedadesTable enfermedades = $EnfermedadesTable(this);
@@ -11760,9 +11818,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $PlateoDiarioTable plateoDiario = $PlateoDiarioTable(this);
   late final $PodasTable podas = $PodasTable(this);
   late final $PodaDiariaTable podaDiaria = $PodaDiariaTable(this);
-  late final $ProductoAgroquimicoTable productoAgroquimico =
-      $ProductoAgroquimicoTable(this);
-  late final $UsuarioTable usuario = $UsuarioTable(this);
   late final $RegistroEnfermedadTable registroEnfermedad =
       $RegistroEnfermedadTable(this);
   late final $ImagenRegistroEnfermedadTable imagenRegistroEnfermedad =
@@ -11807,8 +11862,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-        aplicaciones,
         censo,
+        productoAgroquimico,
+        usuario,
+        aplicaciones,
         cosechas,
         cosechaDiaria,
         enfermedades,
@@ -11822,8 +11879,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         plateoDiario,
         podas,
         podaDiaria,
-        productoAgroquimico,
-        usuario,
         registroEnfermedad,
         imagenRegistroEnfermedad,
         registroTratamiento,

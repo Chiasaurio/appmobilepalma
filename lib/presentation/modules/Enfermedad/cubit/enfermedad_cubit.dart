@@ -147,9 +147,10 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
       final RegistroEnfermedadDao registroEnfermedadDao =
           db.registroEnfermedadDao;
       final PalmaDao palmaDao = db.palmaDao;
-      await registroEnfermedadDao
-          .updateRegistro(registroEnfermedad.copyWith(dadaDeAlta: true));
-      await palmaDao.updatePalma(palma.copyWith(estadopalma: "Dada de alta"));
+      await registroEnfermedadDao.updateRegistro(
+          registroEnfermedad.copyWith(dadaDeAlta: true, sincronizado: false));
+      await palmaDao.updatePalma(
+          palma.copyWith(estadopalma: "Dada de alta", sincronizado: false));
       return true;
     } catch (e) {
       return false;

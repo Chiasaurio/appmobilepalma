@@ -488,7 +488,7 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       //Actualizamos los tratamientos con el id del registro de enfermedad del server.
       for (var tratamiento in state.tratamientosPendientes!) {
         final registroEnfermedad = await registroEnfermedadDao
-            .getRegistroEnfermedad(tratamiento.idRegistroEnfermedad);
+            .getLocalRegistroEnfermedad(tratamiento.idRegistroEnfermedad);
         if (registroEnfermedad != null) {
           if (registroEnfermedad.idRegistroEnfermedad != null) {
             await palmaDao.updateRegistroTratamiento(tratamiento.copyWith(
