@@ -26,7 +26,7 @@ class PodasCubit extends Cubit<PodasStateLoaded> {
         poda: poda, podasDiarias: podasDiarias, isLoaded: true));
   }
 
-  insertarPodaDiaria(
+  Future<void> insertarPodaDiaria(
       DateTime fecha,
       int cantidad,
       Poda poda,

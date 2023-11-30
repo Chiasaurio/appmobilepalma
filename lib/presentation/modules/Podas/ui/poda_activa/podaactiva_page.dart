@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../constants.dart';
+
 class PodaActivaPage extends StatefulWidget {
   final Poda poda;
   final int totalPalmas;
@@ -223,8 +225,17 @@ class _PodaActivaPageState extends State<PodaActivaPage> {
                         BlocProvider.of<PodasCubit>(context)
                             .finalizarPoda(state.poda!, fechasalida);
                         recargarLote(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kSuccessColor,
+                              content:
+                                  Text('Se finalizó la poda correctamente.'),
+                            ),
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }
                       });
                     })
               ],

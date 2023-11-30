@@ -45,7 +45,7 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
     return plateosdiarios;
   }
 
-  insertarPlateoDiario(
+  Future<void> insertarPlateoDiario(
       DateTime fecha,
       int cantidad,
       Plateo plateo,

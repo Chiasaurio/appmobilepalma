@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../constants.dart';
+
 class PlateoActivoVista extends StatefulWidget {
   final Plateo plateo;
   final int totalPalmas;
@@ -227,8 +229,17 @@ class _PlateoActivoVistaState extends State<PlateoActivoVista> {
                         BlocProvider.of<PlateosCubit>(context)
                             .finalizarPlateo(state.plateo!, fechasalida);
                         recargarLote(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kSuccessColor,
+                              content:
+                                  Text('Se finalizó el plateo correctamente.'),
+                            ),
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }
                       });
                     })
               ],

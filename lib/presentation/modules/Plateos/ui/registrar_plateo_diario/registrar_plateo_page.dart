@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import '../../../../components/widgets/orientacion_dropdown.dart';
+import '../../../../constants.dart';
 
 class PlateoDiarioPage extends StatefulWidget {
   final Plateo plateo;
@@ -313,7 +314,7 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
       // formKey.currentState.save();
       // cantidad += plateo.cantidadPlateada;
       final cantidad = int.parse(_cantidadController.text);
-      BlocProvider.of<PlateosCubit>(context).insertarPlateoDiario(
+      await BlocProvider.of<PlateosCubit>(context).insertarPlateoDiario(
           fecha,
           cantidad,
           plateo,
@@ -323,9 +324,16 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
           lineaFin!.toString(),
           numeroPalmaFin!.toString(),
           orientacionFin!);
-      // plateoBloc.insertarPlateoDiario(fecha, cantidad, tipo, plateo.id);
-      // plateoBloc.actualizarPlateoLote(plateo, cantidad);
-      Navigator.pop(context);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: kSuccessColor,
+            content: Text('Se registró la poda correctamente'),
+          ),
+        );
+        Navigator.pop(context);
+      }
     }
   }
 }

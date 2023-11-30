@@ -1,6 +1,7 @@
 import 'package:apppalma/presentation/components/main_button.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
 import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
@@ -315,10 +316,8 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
   void _submit(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
     if (formKey.currentState!.validate()) {
-      // formKey.currentState.save();
-      // cantidad += poda.cantidadPlateada;
       final cantidad = int.parse(_cantidadController.text);
-      BlocProvider.of<PodasCubit>(context).insertarPodaDiaria(
+      await BlocProvider.of<PodasCubit>(context).insertarPodaDiaria(
           fecha,
           cantidad,
           poda,
@@ -328,9 +327,15 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
           lineaFin!.toString(),
           numeroPalmaFin!.toString(),
           orientacionFin!);
-      // podaBloc.insertarpodaDiario(fecha, cantidad, tipo, poda.id);
-      // podaBloc.actualizarpodaLote(poda, cantidad);
-      Navigator.pop(context);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: kSuccessColor,
+            content: Text('Se registró la poda correctamente'),
+          ),
+        );
+        Navigator.pop(context);
+      }
     }
   }
 }
