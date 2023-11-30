@@ -28,15 +28,23 @@ class ErradicacionCubit extends Cubit<ErradicacionConCausa> {
     emit(state.copyWith(observaciones: observaciones));
   }
 
-  erradicarPalma() async {
-    emit(state.copyWith(status: FormStatus.submissionInProgress));
-    TimeOfDay horaRegistro = TimeOfDay.now();
-    DateTime fechaRegistro = DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day, horaRegistro.hour, horaRegistro.minute);
-    final causa = state.palma!.registroEnfermedad.nombreEnfermedad;
-    await actualizarPalmaErradicada(
-        causa, state.palma!.palma, fechaRegistro, state.observaciones);
-    emit(state.copyWith(status: FormStatus.submissionSuccess));
+  Future<void> erradicarPalma() async {
+    try {
+      emit(state.copyWith(status: FormStatus.submissionInProgress));
+      TimeOfDay horaRegistro = TimeOfDay.now();
+      DateTime fechaRegistro = DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+          horaRegistro.hour,
+          horaRegistro.minute);
+      final causa = state.palma!.registroEnfermedad.nombreEnfermedad;
+      await actualizarPalmaErradicada(
+          causa, state.palma!.palma, fechaRegistro, state.observaciones);
+      emit(state.copyWith(status: FormStatus.submissionSuccess));
+    } catch (e) {
+      emit(state.copyWith(status: FormStatus.submissionFailure));
+    }
   }
 
   actualizarPalmaErradicada(

@@ -1,4 +1,5 @@
 import 'package:apppalma/presentation/components/widgets/sliver_app_bar.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Erradicaciones/cubit/erradicacion_cubit.dart';
 import 'package:apppalma/presentation/modules/Erradicaciones/ui/widgets/observaciones_campo.dart';
 import 'package:apppalma/presentation/modules/Tratamientos/cubit/tratamiento_cubit.dart';
@@ -17,9 +18,23 @@ class ErradicacionPage extends StatelessWidget {
     return BlocConsumer<ErradicacionCubit, ErradicacionConCausa>(
       listener: (context, state) {
         if (state.status == FormStatus.submissionSuccess) {
-          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: kSuccessColor,
+              content: Text('Se registró la erradicación correctamente.'),
+            ),
+          );
           BlocProvider.of<TratamientoCubit>(context)
               .obtenerPalmasEnfermas(state.palma!.palma.nombreLote);
+          Navigator.of(context).pop();
+        } else if (state.status == FormStatus.submissionFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: kRedColor,
+              content: Text('Error realizando el registro.'),
+            ),
+          );
+          Navigator.of(context).pop();
         }
       },
       builder: (context, state) {
