@@ -233,26 +233,31 @@ class SyncToServerRemote {
       List<PlateoConPlateosDiarias> registros) async {
     try {
       final data = registros.map((e) {
-        final cosecha = {
-          'idPlateos': e.plateo.idPlateo,
+        final plateo = {
+          'id_plateo': e.plateo.idPlateo,
           'nombre_lote': utf8.encode(e.plateo.nombreLote),
           'tipo_plateo': utf8.encode(e.plateo.tipoPlateo),
           'fecha_ingreso': e.plateo.fechaIngreso.toIso8601String(),
           'fecha_salida': e.plateo.fechaSalida?.toIso8601String(),
           'cantidad_plateada': e.plateo.cantidadPlateada,
-          'estadoPlateo': e.plateo.completado ? 'FINALIZADA' : 'ACTIVA',
+          'estado_plateo': e.plateo.completado ? 'FINALIZADA' : 'ACTIVA',
         };
 
         var diarias = e.plateosDiarias
             .map((d) => {
-                  'id_plateos': d.idPlateo,
-                  'id_plateo_diario': d.id,
+                  'id_plateo': d.idPlateo,
                   'fecha_plateo_diario': d.fecha.toIso8601String(),
                   'cantidad_plateo_diario': d.cantidadPlateada,
+                  'linea_inicio': d.lineaInicio,
+                  'numero_inicio': d.numeroInicio,
+                  'orientacion_inicio': d.orientacionInicio,
+                  'linea_fin': d.lineaFin,
+                  'numero_fin': d.numeroFin,
+                  'orientacion_fin': d.orientacionFin,
                   'cc_usuario': d.responsable,
                 })
             .toList();
-        return {"plateo": cosecha, "diarias": diarias};
+        return {"plateo": plateo, "diarias": diarias};
       }).toList();
       final res = await _apiInstance
           .post(EndPointConstant.plateos, data: {"data": data});

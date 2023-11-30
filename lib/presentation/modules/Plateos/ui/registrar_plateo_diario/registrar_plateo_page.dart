@@ -5,6 +5,9 @@ import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+import '../../../../components/widgets/orientacion_dropdown.dart';
 
 class PlateoDiarioPage extends StatefulWidget {
   final Plateo plateo;
@@ -20,6 +23,7 @@ class PlateoDiarioPage extends StatefulWidget {
 
 class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
   late Plateo plateo;
+  PlateoDiarioData? ultimoPlateoDiario;
   DateTime fecha =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   TimeOfDay horaSalida = TimeOfDay.now();
@@ -32,12 +36,31 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
   late double altoCard;
   late double anchoCard;
   late double margin;
+  int? lineaInicio;
+  int? numeroPalmaInicio;
+  String? orientacionInicio;
+  int? lineaFin;
+  int? numeroPalmaFin;
+  String? orientacionFin;
 
   @override
   void initState() {
     fecha = DateTime(DateTime.now().year, DateTime.now().month,
         DateTime.now().day, horaSalida.hour, horaSalida.minute);
     plateo = widget.plateo;
+    if (BlocProvider.of<PlateosCubit>(context).state.plateosDiarios != null &&
+        BlocProvider.of<PlateosCubit>(context)
+            .state
+            .plateosDiarios!
+            .isNotEmpty) {
+      ultimoPlateoDiario =
+          BlocProvider.of<PlateosCubit>(context).state.plateosDiarios!.last;
+      if (ultimoPlateoDiario != null) {
+        lineaInicio = int.tryParse(ultimoPlateoDiario!.lineaFin);
+        numeroPalmaInicio = int.tryParse(ultimoPlateoDiario!.numeroFin);
+        orientacionInicio = ultimoPlateoDiario!.orientacionFin;
+      }
+    }
     super.initState();
   }
 
@@ -84,30 +107,155 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
             key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  width: anchoCard,
-                  padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 10.0),
-                  child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Text('Detalles de plateo',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18, /*fontWeight: FontWeight.bold*/
-                              )),
-                        ),
-                      ]),
-                ),
+                const Text('Detalles de plateo',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
                 const SizedBox(height: 10),
                 buildFecha(),
                 const SizedBox(height: 10),
                 buildPlateos(),
+                const SizedBox(height: 20),
+                const Text('Donde comenzó',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFoco(),
+                const SizedBox(height: 10),
+                const Text('Donde termino',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFocoFin()
                 // buildTipo()
               ],
             )));
+  }
+
+  Widget _ubicacionDelFoco() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          initialValue: lineaInicio?.toString(),
+          onChanged: (value) => lineaInicio = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaInicio = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          initialValue: numeroPalmaInicio?.toString(),
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(
+          setState: () {
+            setState(() {});
+          },
+          blocCall: (String value) {
+            orientacionInicio = value;
+          },
+          initialValue: orientacionInicio,
+        ),
+      ],
+    );
+  }
+
+  Widget _ubicacionDelFocoFin() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) => lineaFin = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaFin = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(setState: () {
+          setState(() {});
+        }, blocCall: (String value) {
+          orientacionFin = value;
+        }),
+      ],
+    );
   }
 
   Widget buildFecha() {
@@ -129,7 +277,7 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
   Widget buildPlateos() {
     return TextFormField(
       controller: _cantidadController,
-      style: const TextStyle(fontSize: 25),
+      style: const TextStyle(fontSize: 20),
       textAlign: TextAlign.start,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
@@ -147,61 +295,61 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
     );
   }
 
-  Widget buildTipo() {
-    return Container(
-        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
-        margin: const EdgeInsets.all(5.0),
-        child: Column(
-          children: <Widget>[
-            const Row(
-              children: [
-                Expanded(
-                  child: Text('Tipo de plateo',
-                      style: TextStyle(color: Colors.black, fontSize: 16)),
-                ),
-              ],
-            ),
-            _buildTipoPlateo(),
-          ],
-        ));
-  }
+  // Widget buildTipo() {
+  //   return Container(
+  //       padding: const EdgeInsets.fromLTRB(10.0, 5.0, 0, 0),
+  //       margin: const EdgeInsets.all(5.0),
+  //       child: Column(
+  //         children: <Widget>[
+  //           const Row(
+  //             children: [
+  //               Expanded(
+  //                 child: Text('Tipo de plateo',
+  //                     style: TextStyle(color: Colors.black, fontSize: 16)),
+  //               ),
+  //             ],
+  //           ),
+  //           _buildTipoPlateo(),
+  //         ],
+  //       ));
+  // }
 
-  Widget _buildTipoPlateo() {
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Radio<String>(
-              value: 'mecanico',
-              groupValue: tipo,
-              onChanged: (valor) {
-                setState(() {
-                  tipo = valor.toString();
-                });
-              },
-            ),
-            const Text('Mecanico'),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Radio<String>(
-              value: 'quimico',
-              groupValue: tipo,
-              onChanged: (valor) {
-                setState(() {
-                  tipo = valor;
-                });
-              },
-            ),
-            const Text('Quimico'),
-          ],
-        ),
-      ],
-    );
-  }
+  // Widget _buildTipoPlateo() {
+  //   return Column(
+  //     children: <Widget>[
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         children: <Widget>[
+  //           Radio<String>(
+  //             value: 'mecanico',
+  //             groupValue: tipo,
+  //             onChanged: (valor) {
+  //               setState(() {
+  //                 tipo = valor.toString();
+  //               });
+  //             },
+  //           ),
+  //           const Text('Mecanico'),
+  //         ],
+  //       ),
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         children: <Widget>[
+  //           Radio<String>(
+  //             value: 'quimico',
+  //             groupValue: tipo,
+  //             onChanged: (valor) {
+  //               setState(() {
+  //                 tipo = valor;
+  //               });
+  //             },
+  //           ),
+  //           const Text('Quimico'),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildRegistrarPlateo(BuildContext context) {
     return Padding(
@@ -221,8 +369,16 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
       // formKey.currentState.save();
       // cantidad += plateo.cantidadPlateada;
       final cantidad = int.parse(_cantidadController.text);
-      BlocProvider.of<PlateosCubit>(context)
-          .insertarPlateoDiario(fecha, cantidad, tipo!, plateo);
+      BlocProvider.of<PlateosCubit>(context).insertarPlateoDiario(
+          fecha,
+          cantidad,
+          plateo,
+          lineaInicio!.toString(),
+          numeroPalmaInicio!.toString(),
+          orientacionInicio!,
+          lineaFin!.toString(),
+          numeroPalmaFin!.toString(),
+          orientacionFin!);
       // plateoBloc.insertarPlateoDiario(fecha, cantidad, tipo, plateo.id);
       // plateoBloc.actualizarPlateoLote(plateo, cantidad);
       Navigator.pop(context);

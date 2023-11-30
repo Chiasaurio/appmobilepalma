@@ -189,7 +189,9 @@ class _PlateoActivoVistaState extends State<PlateoActivoVista> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PlateoDiarioPage(plateo: plateo)));
+                  builder: (context) => PlateoDiarioPage(
+                        plateo: plateo,
+                      )));
         });
   }
 

@@ -4565,6 +4565,42 @@ class $PlateoDiarioTable extends PlateoDiario
   late final GeneratedColumn<int> cantidadPlateada = GeneratedColumn<int>(
       'cantidad_plateada', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lineaInicioMeta =
+      const VerificationMeta('lineaInicio');
+  @override
+  late final GeneratedColumn<String> lineaInicio = GeneratedColumn<String>(
+      'linea_inicio', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numeroInicioMeta =
+      const VerificationMeta('numeroInicio');
+  @override
+  late final GeneratedColumn<String> numeroInicio = GeneratedColumn<String>(
+      'numero_inicio', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _orientacionInicioMeta =
+      const VerificationMeta('orientacionInicio');
+  @override
+  late final GeneratedColumn<String> orientacionInicio =
+      GeneratedColumn<String>('orientacion_inicio', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _lineaFinMeta =
+      const VerificationMeta('lineaFin');
+  @override
+  late final GeneratedColumn<String> lineaFin = GeneratedColumn<String>(
+      'linea_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numeroFinMeta =
+      const VerificationMeta('numeroFin');
+  @override
+  late final GeneratedColumn<String> numeroFin = GeneratedColumn<String>(
+      'numero_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _orientacionFinMeta =
+      const VerificationMeta('orientacionFin');
+  @override
+  late final GeneratedColumn<String> orientacionFin = GeneratedColumn<String>(
+      'orientacion_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _responsableMeta =
       const VerificationMeta('responsable');
   @override
@@ -4582,8 +4618,20 @@ class $PlateoDiarioTable extends PlateoDiario
           'CHECK ("sincronizado" IN (0, 1))'),
       defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, idPlateo, fecha, cantidadPlateada, responsable, sincronizado];
+  List<GeneratedColumn> get $columns => [
+        id,
+        idPlateo,
+        fecha,
+        cantidadPlateada,
+        lineaInicio,
+        numeroInicio,
+        orientacionInicio,
+        lineaFin,
+        numeroFin,
+        orientacionFin,
+        responsable,
+        sincronizado
+      ];
   @override
   String get aliasedName => _alias ?? 'plateo_diario';
   @override
@@ -4616,6 +4664,50 @@ class $PlateoDiarioTable extends PlateoDiario
     } else if (isInserting) {
       context.missing(_cantidadPlateadaMeta);
     }
+    if (data.containsKey('linea_inicio')) {
+      context.handle(
+          _lineaInicioMeta,
+          lineaInicio.isAcceptableOrUnknown(
+              data['linea_inicio']!, _lineaInicioMeta));
+    } else if (isInserting) {
+      context.missing(_lineaInicioMeta);
+    }
+    if (data.containsKey('numero_inicio')) {
+      context.handle(
+          _numeroInicioMeta,
+          numeroInicio.isAcceptableOrUnknown(
+              data['numero_inicio']!, _numeroInicioMeta));
+    } else if (isInserting) {
+      context.missing(_numeroInicioMeta);
+    }
+    if (data.containsKey('orientacion_inicio')) {
+      context.handle(
+          _orientacionInicioMeta,
+          orientacionInicio.isAcceptableOrUnknown(
+              data['orientacion_inicio']!, _orientacionInicioMeta));
+    } else if (isInserting) {
+      context.missing(_orientacionInicioMeta);
+    }
+    if (data.containsKey('linea_fin')) {
+      context.handle(_lineaFinMeta,
+          lineaFin.isAcceptableOrUnknown(data['linea_fin']!, _lineaFinMeta));
+    } else if (isInserting) {
+      context.missing(_lineaFinMeta);
+    }
+    if (data.containsKey('numero_fin')) {
+      context.handle(_numeroFinMeta,
+          numeroFin.isAcceptableOrUnknown(data['numero_fin']!, _numeroFinMeta));
+    } else if (isInserting) {
+      context.missing(_numeroFinMeta);
+    }
+    if (data.containsKey('orientacion_fin')) {
+      context.handle(
+          _orientacionFinMeta,
+          orientacionFin.isAcceptableOrUnknown(
+              data['orientacion_fin']!, _orientacionFinMeta));
+    } else if (isInserting) {
+      context.missing(_orientacionFinMeta);
+    }
     if (data.containsKey('responsable')) {
       context.handle(
           _responsableMeta,
@@ -4647,6 +4739,18 @@ class $PlateoDiarioTable extends PlateoDiario
           .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
       cantidadPlateada: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}cantidad_plateada'])!,
+      lineaInicio: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}linea_inicio'])!,
+      numeroInicio: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}numero_inicio'])!,
+      orientacionInicio: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}orientacion_inicio'])!,
+      lineaFin: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}linea_fin'])!,
+      numeroFin: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}numero_fin'])!,
+      orientacionFin: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}orientacion_fin'])!,
       responsable: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
       sincronizado: attachedDatabase.typeMapping
@@ -4666,6 +4770,12 @@ class PlateoDiarioData extends DataClass
   final int idPlateo;
   final DateTime fecha;
   final int cantidadPlateada;
+  final String lineaInicio;
+  final String numeroInicio;
+  final String orientacionInicio;
+  final String lineaFin;
+  final String numeroFin;
+  final String orientacionFin;
   final String responsable;
   final bool sincronizado;
   const PlateoDiarioData(
@@ -4673,6 +4783,12 @@ class PlateoDiarioData extends DataClass
       required this.idPlateo,
       required this.fecha,
       required this.cantidadPlateada,
+      required this.lineaInicio,
+      required this.numeroInicio,
+      required this.orientacionInicio,
+      required this.lineaFin,
+      required this.numeroFin,
+      required this.orientacionFin,
       required this.responsable,
       required this.sincronizado});
   @override
@@ -4682,6 +4798,12 @@ class PlateoDiarioData extends DataClass
     map['id_plateo'] = Variable<int>(idPlateo);
     map['fecha'] = Variable<DateTime>(fecha);
     map['cantidad_plateada'] = Variable<int>(cantidadPlateada);
+    map['linea_inicio'] = Variable<String>(lineaInicio);
+    map['numero_inicio'] = Variable<String>(numeroInicio);
+    map['orientacion_inicio'] = Variable<String>(orientacionInicio);
+    map['linea_fin'] = Variable<String>(lineaFin);
+    map['numero_fin'] = Variable<String>(numeroFin);
+    map['orientacion_fin'] = Variable<String>(orientacionFin);
     map['responsable'] = Variable<String>(responsable);
     map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
@@ -4693,6 +4815,12 @@ class PlateoDiarioData extends DataClass
       idPlateo: Value(idPlateo),
       fecha: Value(fecha),
       cantidadPlateada: Value(cantidadPlateada),
+      lineaInicio: Value(lineaInicio),
+      numeroInicio: Value(numeroInicio),
+      orientacionInicio: Value(orientacionInicio),
+      lineaFin: Value(lineaFin),
+      numeroFin: Value(numeroFin),
+      orientacionFin: Value(orientacionFin),
       responsable: Value(responsable),
       sincronizado: Value(sincronizado),
     );
@@ -4706,6 +4834,12 @@ class PlateoDiarioData extends DataClass
       idPlateo: serializer.fromJson<int>(json['idPlateo']),
       fecha: serializer.fromJson<DateTime>(json['fecha']),
       cantidadPlateada: serializer.fromJson<int>(json['cantidadPlateada']),
+      lineaInicio: serializer.fromJson<String>(json['lineaInicio']),
+      numeroInicio: serializer.fromJson<String>(json['numeroInicio']),
+      orientacionInicio: serializer.fromJson<String>(json['orientacionInicio']),
+      lineaFin: serializer.fromJson<String>(json['lineaFin']),
+      numeroFin: serializer.fromJson<String>(json['numeroFin']),
+      orientacionFin: serializer.fromJson<String>(json['orientacionFin']),
       responsable: serializer.fromJson<String>(json['responsable']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
@@ -4718,6 +4852,12 @@ class PlateoDiarioData extends DataClass
       'idPlateo': serializer.toJson<int>(idPlateo),
       'fecha': serializer.toJson<DateTime>(fecha),
       'cantidadPlateada': serializer.toJson<int>(cantidadPlateada),
+      'lineaInicio': serializer.toJson<String>(lineaInicio),
+      'numeroInicio': serializer.toJson<String>(numeroInicio),
+      'orientacionInicio': serializer.toJson<String>(orientacionInicio),
+      'lineaFin': serializer.toJson<String>(lineaFin),
+      'numeroFin': serializer.toJson<String>(numeroFin),
+      'orientacionFin': serializer.toJson<String>(orientacionFin),
       'responsable': serializer.toJson<String>(responsable),
       'sincronizado': serializer.toJson<bool>(sincronizado),
     };
@@ -4728,6 +4868,12 @@ class PlateoDiarioData extends DataClass
           int? idPlateo,
           DateTime? fecha,
           int? cantidadPlateada,
+          String? lineaInicio,
+          String? numeroInicio,
+          String? orientacionInicio,
+          String? lineaFin,
+          String? numeroFin,
+          String? orientacionFin,
           String? responsable,
           bool? sincronizado}) =>
       PlateoDiarioData(
@@ -4735,6 +4881,12 @@ class PlateoDiarioData extends DataClass
         idPlateo: idPlateo ?? this.idPlateo,
         fecha: fecha ?? this.fecha,
         cantidadPlateada: cantidadPlateada ?? this.cantidadPlateada,
+        lineaInicio: lineaInicio ?? this.lineaInicio,
+        numeroInicio: numeroInicio ?? this.numeroInicio,
+        orientacionInicio: orientacionInicio ?? this.orientacionInicio,
+        lineaFin: lineaFin ?? this.lineaFin,
+        numeroFin: numeroFin ?? this.numeroFin,
+        orientacionFin: orientacionFin ?? this.orientacionFin,
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
@@ -4745,6 +4897,12 @@ class PlateoDiarioData extends DataClass
           ..write('idPlateo: $idPlateo, ')
           ..write('fecha: $fecha, ')
           ..write('cantidadPlateada: $cantidadPlateada, ')
+          ..write('lineaInicio: $lineaInicio, ')
+          ..write('numeroInicio: $numeroInicio, ')
+          ..write('orientacionInicio: $orientacionInicio, ')
+          ..write('lineaFin: $lineaFin, ')
+          ..write('numeroFin: $numeroFin, ')
+          ..write('orientacionFin: $orientacionFin, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -4753,7 +4911,18 @@ class PlateoDiarioData extends DataClass
 
   @override
   int get hashCode => Object.hash(
-      id, idPlateo, fecha, cantidadPlateada, responsable, sincronizado);
+      id,
+      idPlateo,
+      fecha,
+      cantidadPlateada,
+      lineaInicio,
+      numeroInicio,
+      orientacionInicio,
+      lineaFin,
+      numeroFin,
+      orientacionFin,
+      responsable,
+      sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4762,6 +4931,12 @@ class PlateoDiarioData extends DataClass
           other.idPlateo == this.idPlateo &&
           other.fecha == this.fecha &&
           other.cantidadPlateada == this.cantidadPlateada &&
+          other.lineaInicio == this.lineaInicio &&
+          other.numeroInicio == this.numeroInicio &&
+          other.orientacionInicio == this.orientacionInicio &&
+          other.lineaFin == this.lineaFin &&
+          other.numeroFin == this.numeroFin &&
+          other.orientacionFin == this.orientacionFin &&
           other.responsable == this.responsable &&
           other.sincronizado == this.sincronizado);
 }
@@ -4771,6 +4946,12 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
   final Value<int> idPlateo;
   final Value<DateTime> fecha;
   final Value<int> cantidadPlateada;
+  final Value<String> lineaInicio;
+  final Value<String> numeroInicio;
+  final Value<String> orientacionInicio;
+  final Value<String> lineaFin;
+  final Value<String> numeroFin;
+  final Value<String> orientacionFin;
   final Value<String> responsable;
   final Value<bool> sincronizado;
   const PlateoDiarioCompanion({
@@ -4778,6 +4959,12 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
     this.idPlateo = const Value.absent(),
     this.fecha = const Value.absent(),
     this.cantidadPlateada = const Value.absent(),
+    this.lineaInicio = const Value.absent(),
+    this.numeroInicio = const Value.absent(),
+    this.orientacionInicio = const Value.absent(),
+    this.lineaFin = const Value.absent(),
+    this.numeroFin = const Value.absent(),
+    this.orientacionFin = const Value.absent(),
     this.responsable = const Value.absent(),
     this.sincronizado = const Value.absent(),
   });
@@ -4786,17 +4973,35 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
     required int idPlateo,
     required DateTime fecha,
     required int cantidadPlateada,
+    required String lineaInicio,
+    required String numeroInicio,
+    required String orientacionInicio,
+    required String lineaFin,
+    required String numeroFin,
+    required String orientacionFin,
     required String responsable,
     this.sincronizado = const Value.absent(),
   })  : idPlateo = Value(idPlateo),
         fecha = Value(fecha),
         cantidadPlateada = Value(cantidadPlateada),
+        lineaInicio = Value(lineaInicio),
+        numeroInicio = Value(numeroInicio),
+        orientacionInicio = Value(orientacionInicio),
+        lineaFin = Value(lineaFin),
+        numeroFin = Value(numeroFin),
+        orientacionFin = Value(orientacionFin),
         responsable = Value(responsable);
   static Insertable<PlateoDiarioData> custom({
     Expression<int>? id,
     Expression<int>? idPlateo,
     Expression<DateTime>? fecha,
     Expression<int>? cantidadPlateada,
+    Expression<String>? lineaInicio,
+    Expression<String>? numeroInicio,
+    Expression<String>? orientacionInicio,
+    Expression<String>? lineaFin,
+    Expression<String>? numeroFin,
+    Expression<String>? orientacionFin,
     Expression<String>? responsable,
     Expression<bool>? sincronizado,
   }) {
@@ -4805,6 +5010,12 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
       if (idPlateo != null) 'id_plateo': idPlateo,
       if (fecha != null) 'fecha': fecha,
       if (cantidadPlateada != null) 'cantidad_plateada': cantidadPlateada,
+      if (lineaInicio != null) 'linea_inicio': lineaInicio,
+      if (numeroInicio != null) 'numero_inicio': numeroInicio,
+      if (orientacionInicio != null) 'orientacion_inicio': orientacionInicio,
+      if (lineaFin != null) 'linea_fin': lineaFin,
+      if (numeroFin != null) 'numero_fin': numeroFin,
+      if (orientacionFin != null) 'orientacion_fin': orientacionFin,
       if (responsable != null) 'responsable': responsable,
       if (sincronizado != null) 'sincronizado': sincronizado,
     });
@@ -4815,6 +5026,12 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
       Value<int>? idPlateo,
       Value<DateTime>? fecha,
       Value<int>? cantidadPlateada,
+      Value<String>? lineaInicio,
+      Value<String>? numeroInicio,
+      Value<String>? orientacionInicio,
+      Value<String>? lineaFin,
+      Value<String>? numeroFin,
+      Value<String>? orientacionFin,
       Value<String>? responsable,
       Value<bool>? sincronizado}) {
     return PlateoDiarioCompanion(
@@ -4822,6 +5039,12 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
       idPlateo: idPlateo ?? this.idPlateo,
       fecha: fecha ?? this.fecha,
       cantidadPlateada: cantidadPlateada ?? this.cantidadPlateada,
+      lineaInicio: lineaInicio ?? this.lineaInicio,
+      numeroInicio: numeroInicio ?? this.numeroInicio,
+      orientacionInicio: orientacionInicio ?? this.orientacionInicio,
+      lineaFin: lineaFin ?? this.lineaFin,
+      numeroFin: numeroFin ?? this.numeroFin,
+      orientacionFin: orientacionFin ?? this.orientacionFin,
       responsable: responsable ?? this.responsable,
       sincronizado: sincronizado ?? this.sincronizado,
     );
@@ -4842,6 +5065,24 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
     if (cantidadPlateada.present) {
       map['cantidad_plateada'] = Variable<int>(cantidadPlateada.value);
     }
+    if (lineaInicio.present) {
+      map['linea_inicio'] = Variable<String>(lineaInicio.value);
+    }
+    if (numeroInicio.present) {
+      map['numero_inicio'] = Variable<String>(numeroInicio.value);
+    }
+    if (orientacionInicio.present) {
+      map['orientacion_inicio'] = Variable<String>(orientacionInicio.value);
+    }
+    if (lineaFin.present) {
+      map['linea_fin'] = Variable<String>(lineaFin.value);
+    }
+    if (numeroFin.present) {
+      map['numero_fin'] = Variable<String>(numeroFin.value);
+    }
+    if (orientacionFin.present) {
+      map['orientacion_fin'] = Variable<String>(orientacionFin.value);
+    }
     if (responsable.present) {
       map['responsable'] = Variable<String>(responsable.value);
     }
@@ -4858,6 +5099,12 @@ class PlateoDiarioCompanion extends UpdateCompanion<PlateoDiarioData> {
           ..write('idPlateo: $idPlateo, ')
           ..write('fecha: $fecha, ')
           ..write('cantidadPlateada: $cantidadPlateada, ')
+          ..write('lineaInicio: $lineaInicio, ')
+          ..write('numeroInicio: $numeroInicio, ')
+          ..write('orientacionInicio: $orientacionInicio, ')
+          ..write('lineaFin: $lineaFin, ')
+          ..write('numeroFin: $numeroFin, ')
+          ..write('orientacionFin: $orientacionFin, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -6141,7 +6388,9 @@ class $UsuarioTable extends Usuario with TableInfo<$UsuarioTable, UsuarioData> {
   @override
   late final GeneratedColumn<String> ccUsuario = GeneratedColumn<String>(
       'cc_usuario', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _nombreUsuarioMeta =
       const VerificationMeta('nombreUsuario');
   @override

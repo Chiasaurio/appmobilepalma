@@ -84,7 +84,7 @@ class TratamientoCubit extends Cubit<TratamientoState> {
 
   actualizarPalma(Palma palma, String estadopalma) {
     final PalmaDao palmaDao = db.palmaDao;
-    final res = palmaDao.updatePalma(
+    palmaDao.updatePalma(
         palma.copyWith(estadopalma: estadopalma, sincronizado: false));
   }
 }

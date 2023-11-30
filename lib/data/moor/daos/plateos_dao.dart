@@ -41,9 +41,9 @@ class PlateoDao extends DatabaseAccessor<AppDatabase> with _$PlateoDaoMixin {
   }
 
   Future updateSyncPlateo(
-      Plateo cosecha, List<PlateoDiarioData> plateosDiarios) {
+      Plateo plateo, List<PlateoDiarioData> plateosDiarios) {
     return transaction(() async {
-      await (update(plateos)..where((t) => t.id.equals(cosecha.id)))
+      await (update(plateos)..where((t) => t.id.equals(plateo.id)))
           .write(const PlateosCompanion(
         sincronizado: Value(true),
       ));

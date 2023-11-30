@@ -21,6 +21,12 @@ class PlateoDiario extends Table {
       integer().customConstraint('NOT NULL REFERENCES plateos(id)')();
   DateTimeColumn get fecha => dateTime()();
   IntColumn get cantidadPlateada => integer()();
+  TextColumn get lineaInicio => text()();
+  TextColumn get numeroInicio => text()();
+  TextColumn get orientacionInicio => text()();
+  TextColumn get lineaFin => text()();
+  TextColumn get numeroFin => text()();
+  TextColumn get orientacionFin => text()();
   TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   @override

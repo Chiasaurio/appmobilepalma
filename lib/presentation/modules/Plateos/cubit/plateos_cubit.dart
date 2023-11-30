@@ -46,16 +46,31 @@ class PlateosCubit extends Cubit<PlateosStateLoaded> {
   }
 
   insertarPlateoDiario(
-      DateTime fecha, int cantidad, String tipo, Plateo plateo) async {
+      DateTime fecha,
+      int cantidad,
+      Plateo plateo,
+      String lineaInicio,
+      String numeroPalmaInicio,
+      String orientacionInicio,
+      String lineaFin,
+      String numeroPalmaFin,
+      String orientacionFin) async {
     final nuevosPlateos = plateo.cantidadPlateada + cantidad;
     final PlateoDao plateoDao = db.plateoDao;
     final plateoDiarioCompanion = PlateoDiarioCompanion(
         cantidadPlateada: Value(cantidad),
         fecha: Value(fecha),
         idPlateo: Value(plateo.id),
+        lineaInicio: Value(lineaInicio),
+        numeroInicio: Value(numeroPalmaInicio),
+        orientacionInicio: Value(orientacionInicio),
+        lineaFin: Value(lineaFin),
+        numeroFin: Value(numeroPalmaFin),
+        orientacionFin: Value(orientacionFin),
         responsable: Value(globals.responsable));
     await plateoDao.insertPlateoDiario(plateoDiarioCompanion);
-    plateoDao.updatePlateo(plateo.copyWith(cantidadPlateada: nuevosPlateos));
+    plateoDao.updatePlateo(
+        plateo.copyWith(cantidadPlateada: nuevosPlateos, sincronizado: false));
     obtenerPlateoActivo(plateo.nombreLote);
   }
 

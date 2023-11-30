@@ -48,27 +48,39 @@ class _BodyState extends State<Body> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Fecha plateo: '),
-                  Text('Tipo plateo: '),
-                  Text('Palmas plateadas: '),
-                ],
-              ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(formatter.format(plateoDiario.fecha)),
-                  Text(plateoDiario.cantidadPlateada.toString()),
+                  _rowText(
+                      'Fecha plateo', formatter.format(plateoDiario.fecha)),
+                  _rowText('Palmas plateadas:',
+                      plateoDiario.cantidadPlateada.toString()),
+                  _rowText('Linea inicio', plateoDiario.lineaInicio),
+                  _rowText('Numero de palma inicio', plateoDiario.numeroInicio),
+                  _rowText(
+                      'Orientación inicio', plateoDiario.orientacionInicio),
+                  _rowText('Linea fin', plateoDiario.lineaFin),
+                  _rowText('Numero de palma fin', plateoDiario.numeroFin),
+                  _rowText('Orientación fin', plateoDiario.orientacionFin),
                 ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _rowText(String title, String value) {
+    return Row(
+      children: [
+        Text(
+          '$title: ',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(value)
+      ],
     );
   }
 
