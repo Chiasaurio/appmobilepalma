@@ -565,8 +565,8 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         if (registroCenso != null) {
           censos.add(registroCenso);
           if (registroCenso.idCenso != null) {
-            nuevasAplicaciones
-                .add(fumigacion.copyWith(idCenso: registroCenso.idCenso));
+            nuevasAplicaciones.add(fumigacion.copyWith(
+                idCensoFromServer: Value(registroCenso.idCenso)));
           }
         }
       }

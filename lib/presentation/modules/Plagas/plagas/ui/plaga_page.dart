@@ -40,7 +40,7 @@ class _PlagaPageState extends State<PlagaPage> with TickerProviderStateMixin {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               backgroundColor: kSuccessColor,
-              content: Text('Se registró la erradicación correctamente.'),
+              content: Text('Se registró el censo de plaga correctamente.'),
             ),
           );
           BlocProvider.of<CensosCubit>(context)
