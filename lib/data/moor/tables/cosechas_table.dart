@@ -24,6 +24,12 @@ class CosechaDiaria extends Table {
   DateTimeColumn get fechaIngreso => dateTime()();
   IntColumn get kilos => integer()();
   IntColumn get cantidadRacimos => integer()();
+  TextColumn get lineaInicio => text()();
+  TextColumn get numeroInicio => text()();
+  TextColumn get orientacionInicio => text()();
+  TextColumn get lineaFin => text()();
+  TextColumn get numeroFin => text()();
+  TextColumn get orientacionFin => text()();
   TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   @override

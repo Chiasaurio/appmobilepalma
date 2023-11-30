@@ -1,5 +1,4 @@
 import 'package:apppalma/main.dart';
-import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/data/moor/daos/cosecha_daos.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/utils/form_status.dart';
@@ -54,7 +53,16 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
   }
 
   insertarCosechaDiaria(
-      DateTime fecha, int racimos, int kilos, Cosecha cosecha) async {
+      DateTime fecha,
+      int racimos,
+      int kilos,
+      Cosecha cosecha,
+      String lineaInicio,
+      String numeroPalmaInicio,
+      String orientacionInicio,
+      String lineaFin,
+      String numeroPalmaFin,
+      String orientacionFin) async {
     try {
       final nuevosRacimos = cosecha.cantidadRacimos + racimos;
       final nuevosKilos = cosecha.kilos + kilos;
@@ -63,8 +71,14 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
       final cosechaDiariaCompanion = CosechaDiariaCompanion(
           fechaIngreso: Value(fecha),
           cantidadRacimos: Value(racimos),
-          responsable: Value(globals.responsable),
           kilos: Value(kilos),
+          lineaInicio: Value(lineaInicio),
+          numeroInicio: Value(numeroPalmaInicio),
+          orientacionInicio: Value(orientacionInicio),
+          lineaFin: Value(lineaFin),
+          numeroFin: Value(numeroPalmaFin),
+          orientacionFin: Value(orientacionFin),
+          responsable: Value(globals.responsable),
           idCosecha: Value(cosecha.id));
       await cosechaDiariaDao.insertCosechaDiaria(cosechaDiariaCompanion);
       cosechaDao.updateCosecha(cosecha.copyWith(
@@ -72,7 +86,9 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
           kilos: nuevosKilos,
           sincronizado: false));
       obtenerCosechaActiva(cosecha.nombreLote);
-    } catch (_) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   finalizarCosecha(Cosecha cosecha, DateTime fechasalida) {
@@ -82,6 +98,5 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
         completada: true,
         sincronizado: false));
     obtenerCosechaActiva(cosecha.nombreLote);
-    successMessageToast('La cosecha se finalizo correctamente');
   }
 }

@@ -5,6 +5,10 @@ import 'package:apppalma/presentation/components/widgets/fecha.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+import '../../../../components/widgets/orientacion_dropdown.dart';
+import '../../../../constants.dart';
 
 class CosechaDiariaPage extends StatefulWidget {
   final Cosecha cosecha;
@@ -43,13 +47,34 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   TimeOfDay horaSalida = TimeOfDay.now();
 
+  CosechaDiariaData? ultimaCosechaDiaria;
+  int? lineaInicio;
+  int? numeroPalmaInicio;
+  String? orientacionInicio;
+  int? lineaFin;
+  int? numeroPalmaFin;
+  String? orientacionFin;
+
   @override
   void initState() {
+    super.initState();
     fecha = DateTime(DateTime.now().year, DateTime.now().month,
         DateTime.now().day, horaSalida.hour, horaSalida.minute);
     cosecha = widget.cosecha;
     nombrelote = cosecha.nombreLote;
-    super.initState();
+    if (BlocProvider.of<CosechaCubit>(context).state.cosechasDiarias != null &&
+        BlocProvider.of<CosechaCubit>(context)
+            .state
+            .cosechasDiarias!
+            .isNotEmpty) {
+      ultimaCosechaDiaria =
+          BlocProvider.of<CosechaCubit>(context).state.cosechasDiarias!.last;
+      if (ultimaCosechaDiaria != null) {
+        lineaInicio = int.tryParse(ultimaCosechaDiaria!.lineaFin);
+        numeroPalmaInicio = int.tryParse(ultimaCosechaDiaria!.numeroFin);
+        orientacionInicio = ultimaCosechaDiaria!.orientacionFin;
+      }
+    }
   }
 
   @override
@@ -61,23 +86,22 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
     margin = anchoCard * 0.04;
 
     return Scaffold(
-      body: Column(
+        body: SingleChildScrollView(
+      child: Column(
         children: [
           HeaderGradient(
-            title: "Registrar cosecha diaria",
+            title: "Cosecha diaria",
             ruta: widget.routeName,
           ),
-          SingleChildScrollView(
-            child: Column(children: <Widget>[
-              buildDatosViaje(context),
-              // card(),
-              SizedBox(height: altoCard * 0.1),
-              _buildRegistrarCosecha(context),
-            ]),
-          ),
+          Column(children: <Widget>[
+            buildDatosViaje(context),
+            // card(),
+            SizedBox(height: altoCard * 0.1),
+            _buildRegistrarCosecha(context),
+          ]),
         ],
       ),
-    );
+    ));
   }
 
   Widget buildDatosViaje(BuildContext context) {
@@ -87,6 +111,7 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
             key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
                   width: anchoCard,
@@ -108,10 +133,142 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
                 buildFecha(),
                 SizedBox(height: altoCard * 0.1),
                 buildCamposCosecha(),
-                // buildRacimos(),
-                // buildPeso(),
+                const SizedBox(height: 20),
+                const Text('Donde comenzó',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFoco(),
+                const SizedBox(height: 10),
+                const Text('Donde termino',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFocoFin()
               ],
             )));
+  }
+
+  Widget _ubicacionDelFoco() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          initialValue: lineaInicio?.toString(),
+          onChanged: (value) => lineaInicio = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaInicio = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          initialValue: numeroPalmaInicio?.toString(),
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(
+          setState: () {
+            setState(() {});
+          },
+          blocCall: (String value) {
+            orientacionInicio = value;
+          },
+          initialValue: orientacionInicio,
+        ),
+      ],
+    );
+  }
+
+  Widget _ubicacionDelFocoFin() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) => lineaFin = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaFin = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(setState: () {
+          setState(() {});
+        }, blocCall: (String value) {
+          orientacionFin = value;
+        }),
+      ],
+    );
   }
 
   Widget buildFecha() {
@@ -190,10 +347,29 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
         final racimos = int.parse(racimoscontroller.text);
         final kilos = int.parse(kiloscontroller.text);
         formKey.currentState!.save();
-        BlocProvider.of<CosechaCubit>(context)
-            .insertarCosechaDiaria(fecha, racimos, kilos, cosecha);
-        Navigator.pop(context);
-      } catch (_) {}
+        BlocProvider.of<CosechaCubit>(context).insertarCosechaDiaria(
+            fecha,
+            racimos,
+            kilos,
+            cosecha,
+            lineaInicio!.toString(),
+            numeroPalmaInicio!.toString(),
+            orientacionInicio!,
+            lineaFin!.toString(),
+            numeroPalmaFin!.toString(),
+            orientacionFin!);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: kSuccessColor,
+              content: Text('Se registró la cosecha correctamente'),
+            ),
+          );
+          Navigator.pop(context);
+        }
+      } catch (e) {
+        print(e);
+      }
     }
   }
 }

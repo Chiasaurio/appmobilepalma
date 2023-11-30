@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../constants.dart';
+
 class CosechaActivaVista extends StatefulWidget {
   final Cosecha cosecha;
   const CosechaActivaVista({Key? key, required this.cosecha}) : super(key: key);
@@ -196,8 +198,17 @@ class _CosechaActivaVistaState extends State<CosechaActivaVista> {
                         BlocProvider.of<CosechaCubit>(context)
                             .finalizarCosecha(state.cosecha!, fechasalida);
                         recargarLote(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kSuccessColor,
+                              content:
+                                  Text('Se finalizó la cosecha correctamente.'),
+                            ),
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }
                       });
                     })
               ],

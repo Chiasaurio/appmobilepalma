@@ -48,22 +48,23 @@ class _BodyState extends State<Body> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Fecha cosecha: '),
-                  Text('Racimos: '),
-                  Text('Kilos: '),
-                ],
-              ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(formatter.format(cosechaDiaria.fechaIngreso)),
-                  Text(cosechaDiaria.cantidadRacimos.toString()),
-                  Text(cosechaDiaria.kilos.toString()),
+                  _rowText('Fecha fertilización',
+                      formatter.format(cosechaDiaria.fechaIngreso)),
+                  _rowText('Cantidad de racimos',
+                      cosechaDiaria.cantidadRacimos.toString()),
+                  _rowText('Kilos', cosechaDiaria.kilos.toString()),
+                  _rowText('Linea inicio', cosechaDiaria.lineaInicio),
+                  _rowText(
+                      'Numero de palma inicio', cosechaDiaria.numeroInicio),
+                  _rowText(
+                      'Orientación inicio', cosechaDiaria.orientacionInicio),
+                  _rowText('Linea fin', cosechaDiaria.lineaFin),
+                  _rowText('Numero de palma fin', cosechaDiaria.numeroFin),
+                  _rowText('Orientación fin', cosechaDiaria.orientacionFin),
                 ],
               ),
             ],
@@ -73,13 +74,15 @@ class _BodyState extends State<Body> {
     );
   }
 
-  onSelectedRow(bool selected, Palma palma) {
-    setState(() {
-      if (selected) {
-        palmaseleccionada = palma;
-      } else {
-        palmaseleccionada = null;
-      }
-    });
+  Widget _rowText(String title, String value) {
+    return Row(
+      children: [
+        Text(
+          '$title: ',
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(value)
+      ],
+    );
   }
 }

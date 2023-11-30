@@ -196,23 +196,28 @@ class SyncToServerRemote {
     try {
       final data = registros.map((e) {
         final cosecha = {
-          'idCosecha': e.cosecha.idCosecha,
+          'id_cosecha': e.cosecha.idCosecha,
           'nombre_lote': utf8.encode(e.cosecha.nombreLote),
           'fecha_ingreso': e.cosecha.fechaIngreso.toIso8601String(),
           'fecha_salida': e.cosecha.fechaSalida?.toIso8601String(),
           'cantidad_racimos': e.cosecha.cantidadRacimos,
           'kilos': e.cosecha.kilos,
-          'idViaje': e.cosecha.idViaje,
-          'estadoCosecha': e.cosecha.completada ? 'FINALIZADA' : 'ACTIVA',
+          'id_viaje': e.cosecha.idViaje,
+          'estado_cosecha': e.cosecha.completada ? 'FINALIZADA' : 'ACTIVA',
         };
 
         var diarias = e.cosechasdiarias
             .map((d) => {
-                  'id_cosecha': d.idCosecha,
                   'id_cosecha_diaria': d.id,
                   'fecha_cosecha': d.fechaIngreso.toIso8601String(),
                   'kilos_racimos_dia': d.kilos,
                   'cantidad_racimos_dia': d.cantidadRacimos,
+                  'linea_inicio': d.lineaInicio,
+                  'numero_inicio': d.numeroInicio,
+                  'orientacion_inicio': d.orientacionInicio,
+                  'linea_fin': d.lineaFin,
+                  'numero_fin': d.numeroFin,
+                  'orientacion_fin': d.orientacionFin,
                   'cc_usuario': d.responsable,
                 })
             .toList();

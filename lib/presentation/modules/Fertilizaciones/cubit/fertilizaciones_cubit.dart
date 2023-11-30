@@ -7,8 +7,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:apppalma/globals.dart' as globals;
 
-import '../../../components/toasts/toasts.dart';
-
 part 'fertilizaciones_state.dart';
 
 class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
