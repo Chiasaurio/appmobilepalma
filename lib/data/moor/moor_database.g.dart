@@ -10123,6 +10123,42 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
   late final GeneratedColumn<String> unidades = GeneratedColumn<String>(
       'unidades', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _lineaInicioMeta =
+      const VerificationMeta('lineaInicio');
+  @override
+  late final GeneratedColumn<String> lineaInicio = GeneratedColumn<String>(
+      'linea_inicio', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numeroInicioMeta =
+      const VerificationMeta('numeroInicio');
+  @override
+  late final GeneratedColumn<String> numeroInicio = GeneratedColumn<String>(
+      'numero_inicio', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _orientacionInicioMeta =
+      const VerificationMeta('orientacionInicio');
+  @override
+  late final GeneratedColumn<String> orientacionInicio =
+      GeneratedColumn<String>('orientacion_inicio', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _lineaFinMeta =
+      const VerificationMeta('lineaFin');
+  @override
+  late final GeneratedColumn<String> lineaFin = GeneratedColumn<String>(
+      'linea_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numeroFinMeta =
+      const VerificationMeta('numeroFin');
+  @override
+  late final GeneratedColumn<String> numeroFin = GeneratedColumn<String>(
+      'numero_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _orientacionFinMeta =
+      const VerificationMeta('orientacionFin');
+  @override
+  late final GeneratedColumn<String> orientacionFin = GeneratedColumn<String>(
+      'orientacion_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _responsableMeta =
       const VerificationMeta('responsable');
   @override
@@ -10153,6 +10189,12 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
         cantidadFertilizada,
         dosis,
         unidades,
+        lineaInicio,
+        numeroInicio,
+        orientacionInicio,
+        lineaFin,
+        numeroFin,
+        orientacionFin,
         responsable,
         nombreFertilizante,
         sincronizado
@@ -10204,6 +10246,50 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
     } else if (isInserting) {
       context.missing(_unidadesMeta);
     }
+    if (data.containsKey('linea_inicio')) {
+      context.handle(
+          _lineaInicioMeta,
+          lineaInicio.isAcceptableOrUnknown(
+              data['linea_inicio']!, _lineaInicioMeta));
+    } else if (isInserting) {
+      context.missing(_lineaInicioMeta);
+    }
+    if (data.containsKey('numero_inicio')) {
+      context.handle(
+          _numeroInicioMeta,
+          numeroInicio.isAcceptableOrUnknown(
+              data['numero_inicio']!, _numeroInicioMeta));
+    } else if (isInserting) {
+      context.missing(_numeroInicioMeta);
+    }
+    if (data.containsKey('orientacion_inicio')) {
+      context.handle(
+          _orientacionInicioMeta,
+          orientacionInicio.isAcceptableOrUnknown(
+              data['orientacion_inicio']!, _orientacionInicioMeta));
+    } else if (isInserting) {
+      context.missing(_orientacionInicioMeta);
+    }
+    if (data.containsKey('linea_fin')) {
+      context.handle(_lineaFinMeta,
+          lineaFin.isAcceptableOrUnknown(data['linea_fin']!, _lineaFinMeta));
+    } else if (isInserting) {
+      context.missing(_lineaFinMeta);
+    }
+    if (data.containsKey('numero_fin')) {
+      context.handle(_numeroFinMeta,
+          numeroFin.isAcceptableOrUnknown(data['numero_fin']!, _numeroFinMeta));
+    } else if (isInserting) {
+      context.missing(_numeroFinMeta);
+    }
+    if (data.containsKey('orientacion_fin')) {
+      context.handle(
+          _orientacionFinMeta,
+          orientacionFin.isAcceptableOrUnknown(
+              data['orientacion_fin']!, _orientacionFinMeta));
+    } else if (isInserting) {
+      context.missing(_orientacionFinMeta);
+    }
     if (data.containsKey('responsable')) {
       context.handle(
           _responsableMeta,
@@ -10248,6 +10334,18 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
           .read(DriftSqlType.double, data['${effectivePrefix}dosis'])!,
       unidades: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}unidades'])!,
+      lineaInicio: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}linea_inicio'])!,
+      numeroInicio: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}numero_inicio'])!,
+      orientacionInicio: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}orientacion_inicio'])!,
+      lineaFin: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}linea_fin'])!,
+      numeroFin: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}numero_fin'])!,
+      orientacionFin: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}orientacion_fin'])!,
       responsable: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
       nombreFertilizante: attachedDatabase.typeMapping.read(
@@ -10271,6 +10369,12 @@ class FertilizacionDiariaData extends DataClass
   final int cantidadFertilizada;
   final double dosis;
   final String unidades;
+  final String lineaInicio;
+  final String numeroInicio;
+  final String orientacionInicio;
+  final String lineaFin;
+  final String numeroFin;
+  final String orientacionFin;
   final String responsable;
   final String nombreFertilizante;
   final bool sincronizado;
@@ -10281,6 +10385,12 @@ class FertilizacionDiariaData extends DataClass
       required this.cantidadFertilizada,
       required this.dosis,
       required this.unidades,
+      required this.lineaInicio,
+      required this.numeroInicio,
+      required this.orientacionInicio,
+      required this.lineaFin,
+      required this.numeroFin,
+      required this.orientacionFin,
       required this.responsable,
       required this.nombreFertilizante,
       required this.sincronizado});
@@ -10293,6 +10403,12 @@ class FertilizacionDiariaData extends DataClass
     map['cantidad_fertilizada'] = Variable<int>(cantidadFertilizada);
     map['dosis'] = Variable<double>(dosis);
     map['unidades'] = Variable<String>(unidades);
+    map['linea_inicio'] = Variable<String>(lineaInicio);
+    map['numero_inicio'] = Variable<String>(numeroInicio);
+    map['orientacion_inicio'] = Variable<String>(orientacionInicio);
+    map['linea_fin'] = Variable<String>(lineaFin);
+    map['numero_fin'] = Variable<String>(numeroFin);
+    map['orientacion_fin'] = Variable<String>(orientacionFin);
     map['responsable'] = Variable<String>(responsable);
     map['nombre_fertilizante'] = Variable<String>(nombreFertilizante);
     map['sincronizado'] = Variable<bool>(sincronizado);
@@ -10307,6 +10423,12 @@ class FertilizacionDiariaData extends DataClass
       cantidadFertilizada: Value(cantidadFertilizada),
       dosis: Value(dosis),
       unidades: Value(unidades),
+      lineaInicio: Value(lineaInicio),
+      numeroInicio: Value(numeroInicio),
+      orientacionInicio: Value(orientacionInicio),
+      lineaFin: Value(lineaFin),
+      numeroFin: Value(numeroFin),
+      orientacionFin: Value(orientacionFin),
       responsable: Value(responsable),
       nombreFertilizante: Value(nombreFertilizante),
       sincronizado: Value(sincronizado),
@@ -10324,6 +10446,12 @@ class FertilizacionDiariaData extends DataClass
           serializer.fromJson<int>(json['cantidadFertilizada']),
       dosis: serializer.fromJson<double>(json['dosis']),
       unidades: serializer.fromJson<String>(json['unidades']),
+      lineaInicio: serializer.fromJson<String>(json['lineaInicio']),
+      numeroInicio: serializer.fromJson<String>(json['numeroInicio']),
+      orientacionInicio: serializer.fromJson<String>(json['orientacionInicio']),
+      lineaFin: serializer.fromJson<String>(json['lineaFin']),
+      numeroFin: serializer.fromJson<String>(json['numeroFin']),
+      orientacionFin: serializer.fromJson<String>(json['orientacionFin']),
       responsable: serializer.fromJson<String>(json['responsable']),
       nombreFertilizante:
           serializer.fromJson<String>(json['nombreFertilizante']),
@@ -10340,6 +10468,12 @@ class FertilizacionDiariaData extends DataClass
       'cantidadFertilizada': serializer.toJson<int>(cantidadFertilizada),
       'dosis': serializer.toJson<double>(dosis),
       'unidades': serializer.toJson<String>(unidades),
+      'lineaInicio': serializer.toJson<String>(lineaInicio),
+      'numeroInicio': serializer.toJson<String>(numeroInicio),
+      'orientacionInicio': serializer.toJson<String>(orientacionInicio),
+      'lineaFin': serializer.toJson<String>(lineaFin),
+      'numeroFin': serializer.toJson<String>(numeroFin),
+      'orientacionFin': serializer.toJson<String>(orientacionFin),
       'responsable': serializer.toJson<String>(responsable),
       'nombreFertilizante': serializer.toJson<String>(nombreFertilizante),
       'sincronizado': serializer.toJson<bool>(sincronizado),
@@ -10353,6 +10487,12 @@ class FertilizacionDiariaData extends DataClass
           int? cantidadFertilizada,
           double? dosis,
           String? unidades,
+          String? lineaInicio,
+          String? numeroInicio,
+          String? orientacionInicio,
+          String? lineaFin,
+          String? numeroFin,
+          String? orientacionFin,
           String? responsable,
           String? nombreFertilizante,
           bool? sincronizado}) =>
@@ -10363,6 +10503,12 @@ class FertilizacionDiariaData extends DataClass
         cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
         dosis: dosis ?? this.dosis,
         unidades: unidades ?? this.unidades,
+        lineaInicio: lineaInicio ?? this.lineaInicio,
+        numeroInicio: numeroInicio ?? this.numeroInicio,
+        orientacionInicio: orientacionInicio ?? this.orientacionInicio,
+        lineaFin: lineaFin ?? this.lineaFin,
+        numeroFin: numeroFin ?? this.numeroFin,
+        orientacionFin: orientacionFin ?? this.orientacionFin,
         responsable: responsable ?? this.responsable,
         nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
         sincronizado: sincronizado ?? this.sincronizado,
@@ -10376,6 +10522,12 @@ class FertilizacionDiariaData extends DataClass
           ..write('cantidadFertilizada: $cantidadFertilizada, ')
           ..write('dosis: $dosis, ')
           ..write('unidades: $unidades, ')
+          ..write('lineaInicio: $lineaInicio, ')
+          ..write('numeroInicio: $numeroInicio, ')
+          ..write('orientacionInicio: $orientacionInicio, ')
+          ..write('lineaFin: $lineaFin, ')
+          ..write('numeroFin: $numeroFin, ')
+          ..write('orientacionFin: $orientacionFin, ')
           ..write('responsable: $responsable, ')
           ..write('nombreFertilizante: $nombreFertilizante, ')
           ..write('sincronizado: $sincronizado')
@@ -10391,6 +10543,12 @@ class FertilizacionDiariaData extends DataClass
       cantidadFertilizada,
       dosis,
       unidades,
+      lineaInicio,
+      numeroInicio,
+      orientacionInicio,
+      lineaFin,
+      numeroFin,
+      orientacionFin,
       responsable,
       nombreFertilizante,
       sincronizado);
@@ -10404,6 +10562,12 @@ class FertilizacionDiariaData extends DataClass
           other.cantidadFertilizada == this.cantidadFertilizada &&
           other.dosis == this.dosis &&
           other.unidades == this.unidades &&
+          other.lineaInicio == this.lineaInicio &&
+          other.numeroInicio == this.numeroInicio &&
+          other.orientacionInicio == this.orientacionInicio &&
+          other.lineaFin == this.lineaFin &&
+          other.numeroFin == this.numeroFin &&
+          other.orientacionFin == this.orientacionFin &&
           other.responsable == this.responsable &&
           other.nombreFertilizante == this.nombreFertilizante &&
           other.sincronizado == this.sincronizado);
@@ -10417,6 +10581,12 @@ class FertilizacionDiariaCompanion
   final Value<int> cantidadFertilizada;
   final Value<double> dosis;
   final Value<String> unidades;
+  final Value<String> lineaInicio;
+  final Value<String> numeroInicio;
+  final Value<String> orientacionInicio;
+  final Value<String> lineaFin;
+  final Value<String> numeroFin;
+  final Value<String> orientacionFin;
   final Value<String> responsable;
   final Value<String> nombreFertilizante;
   final Value<bool> sincronizado;
@@ -10427,6 +10597,12 @@ class FertilizacionDiariaCompanion
     this.cantidadFertilizada = const Value.absent(),
     this.dosis = const Value.absent(),
     this.unidades = const Value.absent(),
+    this.lineaInicio = const Value.absent(),
+    this.numeroInicio = const Value.absent(),
+    this.orientacionInicio = const Value.absent(),
+    this.lineaFin = const Value.absent(),
+    this.numeroFin = const Value.absent(),
+    this.orientacionFin = const Value.absent(),
     this.responsable = const Value.absent(),
     this.nombreFertilizante = const Value.absent(),
     this.sincronizado = const Value.absent(),
@@ -10438,6 +10614,12 @@ class FertilizacionDiariaCompanion
     required int cantidadFertilizada,
     required double dosis,
     required String unidades,
+    required String lineaInicio,
+    required String numeroInicio,
+    required String orientacionInicio,
+    required String lineaFin,
+    required String numeroFin,
+    required String orientacionFin,
     required String responsable,
     required String nombreFertilizante,
     this.sincronizado = const Value.absent(),
@@ -10446,6 +10628,12 @@ class FertilizacionDiariaCompanion
         cantidadFertilizada = Value(cantidadFertilizada),
         dosis = Value(dosis),
         unidades = Value(unidades),
+        lineaInicio = Value(lineaInicio),
+        numeroInicio = Value(numeroInicio),
+        orientacionInicio = Value(orientacionInicio),
+        lineaFin = Value(lineaFin),
+        numeroFin = Value(numeroFin),
+        orientacionFin = Value(orientacionFin),
         responsable = Value(responsable),
         nombreFertilizante = Value(nombreFertilizante);
   static Insertable<FertilizacionDiariaData> custom({
@@ -10455,6 +10643,12 @@ class FertilizacionDiariaCompanion
     Expression<int>? cantidadFertilizada,
     Expression<double>? dosis,
     Expression<String>? unidades,
+    Expression<String>? lineaInicio,
+    Expression<String>? numeroInicio,
+    Expression<String>? orientacionInicio,
+    Expression<String>? lineaFin,
+    Expression<String>? numeroFin,
+    Expression<String>? orientacionFin,
     Expression<String>? responsable,
     Expression<String>? nombreFertilizante,
     Expression<bool>? sincronizado,
@@ -10467,6 +10661,12 @@ class FertilizacionDiariaCompanion
         'cantidad_fertilizada': cantidadFertilizada,
       if (dosis != null) 'dosis': dosis,
       if (unidades != null) 'unidades': unidades,
+      if (lineaInicio != null) 'linea_inicio': lineaInicio,
+      if (numeroInicio != null) 'numero_inicio': numeroInicio,
+      if (orientacionInicio != null) 'orientacion_inicio': orientacionInicio,
+      if (lineaFin != null) 'linea_fin': lineaFin,
+      if (numeroFin != null) 'numero_fin': numeroFin,
+      if (orientacionFin != null) 'orientacion_fin': orientacionFin,
       if (responsable != null) 'responsable': responsable,
       if (nombreFertilizante != null) 'nombre_fertilizante': nombreFertilizante,
       if (sincronizado != null) 'sincronizado': sincronizado,
@@ -10480,6 +10680,12 @@ class FertilizacionDiariaCompanion
       Value<int>? cantidadFertilizada,
       Value<double>? dosis,
       Value<String>? unidades,
+      Value<String>? lineaInicio,
+      Value<String>? numeroInicio,
+      Value<String>? orientacionInicio,
+      Value<String>? lineaFin,
+      Value<String>? numeroFin,
+      Value<String>? orientacionFin,
       Value<String>? responsable,
       Value<String>? nombreFertilizante,
       Value<bool>? sincronizado}) {
@@ -10490,6 +10696,12 @@ class FertilizacionDiariaCompanion
       cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
       dosis: dosis ?? this.dosis,
       unidades: unidades ?? this.unidades,
+      lineaInicio: lineaInicio ?? this.lineaInicio,
+      numeroInicio: numeroInicio ?? this.numeroInicio,
+      orientacionInicio: orientacionInicio ?? this.orientacionInicio,
+      lineaFin: lineaFin ?? this.lineaFin,
+      numeroFin: numeroFin ?? this.numeroFin,
+      orientacionFin: orientacionFin ?? this.orientacionFin,
       responsable: responsable ?? this.responsable,
       nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
       sincronizado: sincronizado ?? this.sincronizado,
@@ -10517,6 +10729,24 @@ class FertilizacionDiariaCompanion
     if (unidades.present) {
       map['unidades'] = Variable<String>(unidades.value);
     }
+    if (lineaInicio.present) {
+      map['linea_inicio'] = Variable<String>(lineaInicio.value);
+    }
+    if (numeroInicio.present) {
+      map['numero_inicio'] = Variable<String>(numeroInicio.value);
+    }
+    if (orientacionInicio.present) {
+      map['orientacion_inicio'] = Variable<String>(orientacionInicio.value);
+    }
+    if (lineaFin.present) {
+      map['linea_fin'] = Variable<String>(lineaFin.value);
+    }
+    if (numeroFin.present) {
+      map['numero_fin'] = Variable<String>(numeroFin.value);
+    }
+    if (orientacionFin.present) {
+      map['orientacion_fin'] = Variable<String>(orientacionFin.value);
+    }
     if (responsable.present) {
       map['responsable'] = Variable<String>(responsable.value);
     }
@@ -10538,6 +10768,12 @@ class FertilizacionDiariaCompanion
           ..write('cantidadFertilizada: $cantidadFertilizada, ')
           ..write('dosis: $dosis, ')
           ..write('unidades: $unidades, ')
+          ..write('lineaInicio: $lineaInicio, ')
+          ..write('numeroInicio: $numeroInicio, ')
+          ..write('orientacionInicio: $orientacionInicio, ')
+          ..write('lineaFin: $lineaFin, ')
+          ..write('numeroFin: $numeroFin, ')
+          ..write('orientacionFin: $orientacionFin, ')
           ..write('responsable: $responsable, ')
           ..write('nombreFertilizante: $nombreFertilizante, ')
           ..write('sincronizado: $sincronizado')

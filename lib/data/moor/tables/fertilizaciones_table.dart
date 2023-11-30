@@ -22,6 +22,12 @@ class FertilizacionDiaria extends Table {
   IntColumn get cantidadFertilizada => integer()();
   RealColumn get dosis => real()();
   TextColumn get unidades => text()();
+  TextColumn get lineaInicio => text()();
+  TextColumn get numeroInicio => text()();
+  TextColumn get orientacionInicio => text()();
+  TextColumn get lineaFin => text()();
+  TextColumn get numeroFin => text()();
+  TextColumn get orientacionFin => text()();
   TextColumn get responsable => text()();
   TextColumn get nombreFertilizante => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();

@@ -1,23 +1,24 @@
-import 'package:apppalma/SyncToServer/ui/sincronizar_a_servidor_page.dart';
-import 'package:apppalma/presentation/modules/Aplicaciones/ui/aplicaciones_page.dart';
-import 'package:apppalma/presentation/modules/Censo/ui/censo_page.dart';
-import 'package:apppalma/presentation/modules/Cosechas/ui/cosecha_page.dart';
-import 'package:apppalma/presentation/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
-import 'package:apppalma/presentation/modules/Enfermedad/enfermedad_page.dart';
-import 'package:apppalma/presentation/modules/Fertilizaciones/ui/fertilizacion_page.dart';
-import 'package:apppalma/presentation/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
-import 'package:apppalma/presentation/modules/Home/home_screen.dart';
-import 'package:apppalma/presentation/modules/Login/ui/login_page.dart';
-import 'package:apppalma/presentation/modules/LotesList/presentation/lotes_page.dart';
-import 'package:apppalma/presentation/modules/Plagas/plagas/ui/plaga_page.dart';
-import 'package:apppalma/presentation/modules/Plateos/ui/plateo_page.dart';
-import 'package:apppalma/presentation/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
-import 'package:apppalma/presentation/modules/Pluviometro/pluviometro_page.dart';
-import 'package:apppalma/presentation/modules/Podas/ui/poda_page.dart';
-import 'package:apppalma/presentation/modules/Podas/ui/registro_podas_diarias/registro_podas_diarias.dart';
-import 'package:apppalma/presentation/modules/Sync/sincronizar_page.dart';
 import 'package:flutter/material.dart';
 
+import 'SyncToServer/ui/sincronizar_a_servidor_page.dart';
+import 'presentation/modules/Aplicaciones/ui/aplicaciones_page.dart';
+import 'presentation/modules/Censo/ui/censo_page.dart';
+import 'presentation/modules/Cosechas/ui/cosecha_page.dart';
+import 'presentation/modules/Cosechas/ui/registro_cosechas_diarias/registro_cosechas_page.dart';
+import 'presentation/modules/Enfermedad/enfermedad_page.dart';
+import 'presentation/modules/Fertilizaciones/ui/fertilizacion_page.dart';
+import 'presentation/modules/Fumigaciones/ui/censos_pendientes_list/censos_pendientes_page.dart';
+import 'presentation/modules/Home/home_screen.dart';
+import 'presentation/modules/Login/ui/login_page.dart';
+import 'presentation/modules/LotesList/presentation/lotes_page.dart';
+import 'presentation/modules/Plagas/plagas/ui/plaga_page.dart';
+import 'presentation/modules/Plateos/ui/plateo_page.dart';
+import 'presentation/modules/Plateos/ui/registro_plateos_diarios/registro_plateos_diarios.dart';
+import 'presentation/modules/Pluviometro/pluviometro_page.dart';
+import 'presentation/modules/Podas/ui/poda_page.dart';
+import 'presentation/modules/Podas/ui/registro_podas_diarias/registro_podas_diarias.dart';
+import 'presentation/modules/Sync/sincronizar_page.dart';
+import 'presentation/modules/Fertilizaciones/ui/registro_fertilizaciones_diarias/registro_fertilizaciones_diarias.dart';
 import 'presentation/modules/Palma/ui/palmas_page.dart';
 import 'presentation/modules/Fumigaciones/ui/fumigacion/registrar_fumigacion_page.dart';
 import 'presentation/modules/Splash/splash_screen.dart';
@@ -137,6 +138,11 @@ class Routes {
       case '/lote/fertilizaciones':
         return MaterialPageRoute(
           builder: (_) => FertilizacionPage(routeName: settings.name!),
+        );
+      case '/lote/fertilizaciones/registrofertilizaciones':
+        return MaterialPageRoute(
+          builder: (_) =>
+              RegistroFertilizacionesDiarias(routeName: settings.name!),
         );
       // case '/lote/palmas/erradicar':
       //   return MaterialPageRoute(

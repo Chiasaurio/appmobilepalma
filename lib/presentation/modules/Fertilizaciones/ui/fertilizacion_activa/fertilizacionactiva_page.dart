@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../constants.dart';
+
 class FertilizacionActivaVista extends StatefulWidget {
   final Fertilizacione fertilizacion;
   final int totalPalmas;
@@ -186,7 +188,7 @@ class _FertilizacionActivaVistaState extends State<FertilizacionActivaVista> {
 
   Widget _buildRegistrarFertilizacion(BuildContext context) {
     return SecondaryButton(
-        text: 'Registrar fertilización diaria',
+        text: 'Fertilización diaria',
         press: () {
           Navigator.push(
               context,
@@ -205,18 +207,18 @@ class _FertilizacionActivaVistaState extends State<FertilizacionActivaVista> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                const ListTile(
-                  contentPadding: EdgeInsets.all(10.0),
-                  title: Text('Ver registros de fertilización',
+                ListTile(
+                  contentPadding: const EdgeInsets.all(10.0),
+                  title: const Text('Ver registros de fertilización',
                       textAlign: TextAlign.center),
-                  // onTap: () => Navigator.pushNamed(
-                  //     context, '/lote/plateos/registroplateos',
-                  //     arguments: plateo),
+                  onTap: () => Navigator.pushNamed(
+                      context, '/lote/fertilizaciones/registrofertilizaciones',
+                      arguments: fertilizacion),
                 ),
                 const Divider(),
                 ListTile(
                     contentPadding: const EdgeInsets.all(10.0),
-                    title: const Text('Finalizar plateo',
+                    title: const Text('Finalizar fertilización',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.red)),
                     onTap: () {
@@ -229,8 +231,17 @@ class _FertilizacionActivaVistaState extends State<FertilizacionActivaVista> {
                             .finalizarFertilizacion(
                                 state.fertilizacion!, fechasalida);
                         recargarLote(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kSuccessColor,
+                              content: Text(
+                                  'Se finalizó la fertilización correctamente.'),
+                            ),
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }
                       });
                     })
               ],

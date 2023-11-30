@@ -63,7 +63,13 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
       String nombreFertilizante,
       double dosis,
       String unidades,
-      Fertilizacione fertilizacion) async {
+      Fertilizacione fertilizacion,
+      String lineaInicio,
+      String numeroPalmaInicio,
+      String orientacionInicio,
+      String lineaFin,
+      String numeroPalmaFin,
+      String orientacionFin) async {
     final nuevosFertilizacion = fertilizacion.cantidadFertilizada + cantidad;
     final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
     final fertilizacionDiariaCompanion = FertilizacionDiariaCompanion(
@@ -73,6 +79,12 @@ class FertilizacionCubit extends Cubit<FertilizacionStateLoaded> {
         nombreFertilizante: Value(nombreFertilizante),
         dosis: Value(dosis),
         unidades: Value(unidades),
+        lineaInicio: Value(lineaInicio),
+        numeroInicio: Value(numeroPalmaInicio),
+        orientacionInicio: Value(orientacionInicio),
+        lineaFin: Value(lineaFin),
+        numeroFin: Value(numeroPalmaFin),
+        orientacionFin: Value(orientacionFin),
         responsable: Value(globals.responsable));
     await fertilizacionDao
         .insertFertilizacionDiaria(fertilizacionDiariaCompanion);

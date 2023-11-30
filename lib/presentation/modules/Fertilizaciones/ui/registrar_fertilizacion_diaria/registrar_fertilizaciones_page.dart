@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:apppalma/utils/utils.dart' as utils;
 
+import '../../../../components/widgets/orientacion_dropdown.dart';
 import '../widgets/lista_fertilizante.dart';
 
 class FertilizacionDiariaPage extends StatefulWidget {
@@ -42,13 +43,40 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
   double? dosis;
   late List<FertilizanteData> fertilizantes;
   FertilizanteData? fertilizante;
+
+  FertilizacionDiariaData? ultimaFertilizacionDiaria;
+  int? lineaInicio;
+  int? numeroPalmaInicio;
+  String? orientacionInicio;
+  int? lineaFin;
+  int? numeroPalmaFin;
+  String? orientacionFin;
+
   @override
   void initState() {
+    super.initState();
     fecha = DateTime(DateTime.now().year, DateTime.now().month,
         DateTime.now().day, horaSalida.hour, horaSalida.minute);
     fertilizacion = widget.fertilizacion;
     BlocProvider.of<FertilizacionCubit>(context).cargarFertilizantes();
-    super.initState();
+    if (BlocProvider.of<FertilizacionCubit>(context)
+                .state
+                .fertilizacionDarias !=
+            null &&
+        BlocProvider.of<FertilizacionCubit>(context)
+            .state
+            .fertilizacionDarias!
+            .isNotEmpty) {
+      ultimaFertilizacionDiaria = BlocProvider.of<FertilizacionCubit>(context)
+          .state
+          .fertilizacionDarias!
+          .last;
+      if (ultimaFertilizacionDiaria != null) {
+        lineaInicio = int.tryParse(ultimaFertilizacionDiaria!.lineaFin);
+        numeroPalmaInicio = int.tryParse(ultimaFertilizacionDiaria!.numeroFin);
+        orientacionInicio = ultimaFertilizacionDiaria!.orientacionFin;
+      }
+    }
   }
 
   @override
@@ -70,14 +98,14 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
       child: Column(
         children: [
           HeaderGradient(
-            title: "Registrar fertilización diaria",
+            title: "Fertilización diaria",
             ruta: widget.routeName,
           ),
           SingleChildScrollView(
             child: Column(children: <Widget>[
-              buildDatosPlateo(context),
+              buildDatosFertilizacion(context),
               SizedBox(height: altoCard * 0.1),
-              _buildRegistrarPlateo(context),
+              _buildRegistrarFertilizacion(context),
             ]),
           ),
         ],
@@ -85,13 +113,14 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
     ));
   }
 
-  Widget buildDatosPlateo(BuildContext context) {
+  Widget buildDatosFertilizacion(BuildContext context) {
     return Container(
         margin: EdgeInsets.all(margin),
         child: Form(
             key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
                   width: anchoCard,
@@ -117,8 +146,142 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
                 buildProducto(),
                 const SizedBox(height: 10),
                 buildDosis(),
+                const SizedBox(height: 20),
+                const Text('Donde comenzó',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFoco(),
+                const SizedBox(height: 10),
+                const Text('Donde termino',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFocoFin()
               ],
             )));
+  }
+
+  Widget _ubicacionDelFoco() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          initialValue: lineaInicio?.toString(),
+          onChanged: (value) => lineaInicio = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaInicio = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          initialValue: numeroPalmaInicio?.toString(),
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(
+          setState: () {
+            setState(() {});
+          },
+          blocCall: (String value) {
+            orientacionInicio = value;
+          },
+          initialValue: orientacionInicio,
+        ),
+      ],
+    );
+  }
+
+  Widget _ubicacionDelFocoFin() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) => lineaFin = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaFin = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(setState: () {
+          setState(() {});
+        }, blocCall: (String value) {
+          orientacionFin = value;
+        }),
+      ],
+    );
   }
 
   Widget buildFecha() {
@@ -140,7 +303,6 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
   Widget buildFertilizadas() {
     return TextFormField(
       controller: _cantidadController,
-      style: const TextStyle(fontSize: 25),
       textAlign: TextAlign.start,
       keyboardType: TextInputType.number,
       decoration: const InputDecoration(
@@ -244,7 +406,7 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
         });
   }
 
-  Widget _buildRegistrarPlateo(BuildContext context) {
+  Widget _buildRegistrarFertilizacion(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
       child: MainButton(
@@ -268,11 +430,25 @@ class _FertilizacionDiariaPageState extends State<FertilizacionDiariaPage> {
           fertilizante!.nombreFertilizante,
           dosis!,
           unidades!,
-          fertilizacion);
+          fertilizacion,
+          lineaInicio!.toString(),
+          numeroPalmaInicio!.toString(),
+          orientacionInicio!,
+          lineaFin!.toString(),
+          numeroPalmaFin!.toString(),
+          orientacionFin!);
 
       // plateoBloc.insertarPlateoDiario(fecha, cantidad, tipo, plateo.id);
       // plateoBloc.actualizarPlateoLote(plateo, cantidad);
-      Navigator.pop(context);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: kSuccessColor,
+            content: Text('Se registró la fertilización correctamente'),
+          ),
+        );
+        Navigator.pop(context);
+      }
     }
   }
 }

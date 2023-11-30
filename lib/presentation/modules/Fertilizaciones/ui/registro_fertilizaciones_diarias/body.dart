@@ -3,8 +3,9 @@ import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
-  final List<PodaDiariaData> podasDiarias;
-  const Body({Key? key, required this.podasDiarias}) : super(key: key);
+  final List<FertilizacionDiariaData> fertilizacionesDiarias;
+  const Body({Key? key, required this.fertilizacionesDiarias})
+      : super(key: key);
   @override
   State<Body> createState() => _BodyState();
 }
@@ -27,16 +28,16 @@ class _BodyState extends State<Body> {
     return Flexible(
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.podasDiarias.length,
+        itemCount: widget.fertilizacionesDiarias.length,
         itemBuilder: (context, index) {
-          return podaDiariaTile(widget.podasDiarias[index]);
+          return fertilizacionDiariaTile(widget.fertilizacionesDiarias[index]);
         },
       ),
     );
     // ]));
   }
 
-  Widget podaDiariaTile(PodaDiariaData podaDiaria) {
+  Widget fertilizacionDiariaTile(FertilizacionDiariaData fertilizacionDiaria) {
     return GestureDetector(
       onTap: () {},
       child: Card(
@@ -52,16 +53,20 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _rowText('Fecha plateo',
-                      formatter.format(podaDiaria.fechaIngreso)),
+                  _rowText('Fecha fertilización',
+                      formatter.format(fertilizacionDiaria.fecha)),
+                  _rowText('Palmas fertilizadas',
+                      fertilizacionDiaria.cantidadFertilizada.toString()),
+                  _rowText('Linea inicio', fertilizacionDiaria.lineaInicio),
+                  _rowText('Numero de palma inicio',
+                      fertilizacionDiaria.numeroInicio),
+                  _rowText('Orientación inicio',
+                      fertilizacionDiaria.orientacionInicio),
+                  _rowText('Linea fin', fertilizacionDiaria.lineaFin),
                   _rowText(
-                      'Palmas podadadas', podaDiaria.cantidadPodada.toString()),
-                  _rowText('Linea inicio', podaDiaria.lineaInicio),
-                  _rowText('Numero de palma inicio', podaDiaria.numeroInicio),
-                  _rowText('Orientación inicio', podaDiaria.orientacionInicio),
-                  _rowText('Linea fin', podaDiaria.lineaFin),
-                  _rowText('Numero de palma fin', podaDiaria.numeroFin),
-                  _rowText('Orientación fin', podaDiaria.orientacionFin),
+                      'Numero de palma fin', fertilizacionDiaria.numeroFin),
+                  _rowText(
+                      'Orientación fin', fertilizacionDiaria.orientacionFin),
                 ],
               ),
             ],
@@ -76,7 +81,7 @@ class _BodyState extends State<Body> {
       children: [
         Text(
           '$title: ',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Text(value)
       ],

@@ -313,24 +313,29 @@ class SyncToServerRemote {
     try {
       final data = registros.map((e) {
         final fertilizacion = {
-          'idFertilizacion': e.fertilizacion.idFertilizacion,
+          'id_fertilizacion': e.fertilizacion.idFertilizacion,
           'nombre_lote': utf8.encode(e.fertilizacion.nombreLote),
           'fecha_ingreso': e.fertilizacion.fechaIngreso.toIso8601String(),
           'fecha_salida': e.fertilizacion.fechaSalida?.toIso8601String(),
           'cantidad_fertilizada': e.fertilizacion.cantidadFertilizada,
-          'estadoFertilizacion':
+          'estado_fertilizacion':
               e.fertilizacion.completado ? 'FINALIZADA' : 'ACTIVA',
         };
 
         var diarias = e.fertilizacionesDiarias
             .map((d) => {
-                  'id_fertilizacion': d.idFertilizacion,
                   'id_fertilizacion_diaria': d.id,
                   'fecha_fertilizacion_diaria': d.fecha.toIso8601String(),
                   'cantidad_fertilizacion_diaria': d.cantidadFertilizada,
                   'dosis': d.dosis,
                   'unidades': d.unidades,
                   'nombre_fertilizante': d.nombreFertilizante,
+                  'linea_inicio': d.lineaInicio,
+                  'numero_inicio': d.numeroInicio,
+                  'orientacion_inicio': d.orientacionInicio,
+                  'linea_fin': d.lineaFin,
+                  'numero_fin': d.numeroFin,
+                  'orientacion_fin': d.orientacionFin,
                   'cc_usuario': d.responsable,
                 })
             .toList();
