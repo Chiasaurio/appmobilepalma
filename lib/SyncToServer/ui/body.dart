@@ -15,8 +15,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    // return BlocBuilder<SyncToServerCubit, SyncToServerState>(
-    //   builder: (context, state) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
       child: Column(

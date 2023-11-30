@@ -1,4 +1,5 @@
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:drift/drift.dart';
 
 class Cosechas extends Table {
@@ -9,7 +10,9 @@ class Cosechas extends Table {
   DateTimeColumn get fechaSalida => dateTime().nullable()();
   IntColumn get cantidadRacimos => integer()();
   IntColumn get kilos => integer()();
-  IntColumn get idViaje => integer().nullable()();
+  IntColumn get idViaje => integer().references(Viajes, #id).nullable()();
+  IntColumn get idViajeFromServer =>
+      integer().references(Viajes, #idViaje).nullable()();
   BoolColumn get completada => boolean().withDefault(const Constant(false))();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 

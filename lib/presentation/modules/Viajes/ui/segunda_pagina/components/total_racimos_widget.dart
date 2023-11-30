@@ -1,3 +1,4 @@
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,14 +25,16 @@ class _TotalRacimosWidgetState extends State<TotalRacimosWidget> {
 
   Widget buildTotalRacimos(num totalRacimos) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      decoration: BoxDecoration(
+          color: kLightBlueColor, borderRadius: BorderRadius.circular(30)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           const Expanded(
             child: Text(
               'Total racimos : ',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 18),
             ),
           ),
           Expanded(

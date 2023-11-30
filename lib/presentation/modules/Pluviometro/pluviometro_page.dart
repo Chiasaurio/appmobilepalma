@@ -5,6 +5,8 @@ import 'package:apppalma/presentation/modules/Pluviometro/cubit/pluviometro_cubi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../constants.dart';
+
 class PluviometroPage extends StatefulWidget {
   final bool? disableBack;
   final String routeName;
@@ -26,7 +28,7 @@ class _PluviometroPageState extends State<PluviometroPage> {
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
           HeaderGradient(
-              title: "Sincronizar",
+              title: "Registrar lluvia",
               ruta: widget.routeName,
               disableBack:
                   widget.disableBack != null ? widget.disableBack! : false,
@@ -46,6 +48,10 @@ class _PluviometroPageState extends State<PluviometroPage> {
                     label: Text(
                       "Cantidad",
                       style: TextStyle(fontSize: 15),
+                    ),
+                    suffix: Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Text('l/m2'),
                     ),
                     contentPadding: EdgeInsets.only(left: 10),
                     enabledBorder: OutlineInputBorder(
@@ -67,8 +73,16 @@ class _PluviometroPageState extends State<PluviometroPage> {
                                   int.parse(_cantidadController.text), fecha!);
 
                       if (result) {
-                        _cantidadController.text = "";
-                        fecha = null;
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kSuccessColor,
+                              content: Text(
+                                  'Se registró la precipitación correctamente.'),
+                            ),
+                          );
+                          Navigator.of(context).pop;
+                        }
                         setState(() {});
                       }
                     }

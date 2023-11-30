@@ -36,6 +36,8 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
 
     final viajesPendientes = await getViajesPendientesSync();
 
+    final precipitacionesPendientes = await getPrecipitacionesPendientesSync();
+
     //Fitosanitarias
     emit(state.copyWith(
         cosechasConDiariasPendientes: cosechasPendientes,
@@ -49,7 +51,19 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         censosPendientes: censosPendientes,
         fumigacionesPendientes: fumigacionesPendientes,
         viajesPendientes: viajesPendientes,
+        precipitacionesPendientes: precipitacionesPendientes,
         loaded: true));
+  }
+
+  Future<List<PrecipitacionData>> getPrecipitacionesPendientesSync() async {
+    try {
+      final LoteDao loteDao = db.loteDao;
+      final precipitaciones =
+          await loteDao.getPrecipitacionesPendientesForSync();
+      return precipitaciones;
+    } catch (e) {
+      return [];
+    }
   }
 
   Future<List<CosechaConCosechasDiarias>>
@@ -234,6 +248,11 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.censosStatus != SyncStatus.success) {
       await syncCensos();
     }
+    if (state.viajesPendientes != null &&
+        state.viajesPendientes!.isNotEmpty &&
+        state.viajesStatus != SyncStatus.success) {
+      await syncViajes();
+    }
     if (state.fumigacionesPendientes != null &&
         state.fumigacionesPendientes!.isNotEmpty &&
         state.fumigacionesStatus != SyncStatus.success &&
@@ -260,20 +279,91 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.fertilizacionesStatus != SyncStatus.success) {
       await syncFertilizaciones();
     }
-    if (state.viajesPendientes != null &&
-        state.viajesPendientes!.isNotEmpty &&
-        state.viajesStatus != SyncStatus.success) {
-      await syncViajes();
+    if (state.precipitacionesPendientes != null &&
+        state.precipitacionesPendientes!.isNotEmpty &&
+        state.precipitacionesStatus != SyncStatus.success) {
+      await syncPrecipitaciones();
+    }
+  }
+
+  Future<bool> syncPrecipitaciones() async {
+    try {
+      emit(state.copyWith(precipitacionesStatus: SyncStatus.loading));
+      final res = await remote
+          .syncPrecipitaciones(state.precipitacionesPendientes ?? []);
+      if (res["success"]) {
+        final LoteDao loteDao = db.loteDao;
+        for (var i in state.precipitacionesPendientes!) {
+          await loteDao.updatePrecipitacion(i);
+        }
+        emit(state.copyWith(precipitacionesStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(precipitacionesStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(precipitacionesStatus: SyncStatus.error));
+      return false;
+    }
+  }
+
+  Future<bool> syncViajes() async {
+    try {
+      emit(state.copyWith(viajesStatus: SyncStatus.loading));
+      final res = await remote.syncViajes(state.viajesPendientes ?? []);
+      if (res["success"]) {
+        final ViajesDao viajesDao = db.viajesDao;
+        var index = 0;
+        var ids = res["viajesIds"];
+        //Toca actualizar los ids locales con los que llegan
+        for (var viaje in state.viajesPendientes!) {
+          if (ids[index] > -1) {
+            //si agrego el viaje se actualiza el id
+            await viajesDao
+                .updateViaje(viaje.copyWith(idViaje: Value(ids[index])));
+          }
+          index++;
+        }
+        for (var i in state.viajesPendientes!) {
+          await viajesDao.updateSyncViaje(i);
+        }
+        emit(state.copyWith(viajesStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(viajesStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(viajesStatus: SyncStatus.error));
+      return false;
     }
   }
 
   Future<bool> syncCosechas() async {
     try {
       emit(state.copyWith(cosechasStatus: SyncStatus.loading));
-      final res = await remote
-          .syncCosechasConDiarias(state.cosechasConDiariasPendientes ?? []);
+      final ViajesDao viajesDao = db.viajesDao;
+      final CosechaDao cosechaDao = db.cosechaDao;
+      List<CosechaConCosechasDiarias> nuevosRegistrosDeCosechas = [];
+      for (var registro in state.cosechasConDiariasPendientes!) {
+        if (registro.cosecha.idViaje != null) {
+          final viaje = await viajesDao.getViaje(registro.cosecha.idViaje!);
+          if (viaje != null) {
+            await cosechaDao.updateCosecha(registro.cosecha
+                .copyWith(idViajeFromServer: Value(viaje.idViaje!)));
+            nuevosRegistrosDeCosechas.add(CosechaConCosechasDiarias(
+                cosechasdiarias: registro.cosechasdiarias,
+                cosecha: registro.cosecha
+                    .copyWith(idViajeFromServer: Value(viaje.idViaje!))));
+          }
+        } else {
+          nuevosRegistrosDeCosechas = state.cosechasConDiariasPendientes!;
+        }
+      }
+      final res =
+          await remote.syncCosechasConDiarias(nuevosRegistrosDeCosechas);
       if (res["success"]) {
-        final CosechaDao cosechaDao = db.cosechaDao;
         var index = 0;
         var ids = res["cosechasIds"];
         //Toca actualizar los ids locales con los que llegan
@@ -584,38 +674,6 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       }
     } catch (e) {
       emit(state.copyWith(fumigacionesStatus: SyncStatus.error));
-      return false;
-    }
-  }
-
-  Future<bool> syncViajes() async {
-    try {
-      emit(state.copyWith(viajesStatus: SyncStatus.loading));
-      final res = await remote.syncViajes(state.viajesPendientes ?? []);
-      if (res["success"]) {
-        final ViajesDao viajesDao = db.viajesDao;
-        var index = 0;
-        var ids = res["viajesIds"];
-        //Toca actualizar los ids locales con los que llegan
-        for (var viaje in state.viajesPendientes!) {
-          if (ids[index] > -1) {
-            //si agrego el viaje se actualiza el id
-            await viajesDao
-                .updateViaje(viaje.copyWith(idViaje: Value(ids[index])));
-          }
-          index++;
-        }
-        for (var i in state.viajesPendientes!) {
-          await viajesDao.updateSyncViaje(i);
-        }
-        emit(state.copyWith(viajesStatus: SyncStatus.success));
-        return true;
-      } else {
-        emit(state.copyWith(viajesStatus: SyncStatus.error));
-        return false;
-      }
-    } catch (e) {
-      emit(state.copyWith(viajesStatus: SyncStatus.error));
       return false;
     }
   }

@@ -64,6 +64,10 @@ class _CardPendientesState extends State<CardPendientes> {
               list: state.viajesPendientes!,
               type: Viaje,
             ),
+            TextSyncPendiente(
+              list: state.precipitacionesPendientes!,
+              type: PrecipitacionData,
+            ),
           ]),
         );
       },
@@ -127,6 +131,10 @@ class TextSyncPendiente extends StatelessWidget {
           case Viaje:
             text = 'viajes pendientes';
             status = state.viajesStatus;
+            break;
+          case PrecipitacionData:
+            text = 'precipitacion pendientes';
+            status = state.precipitacionesStatus;
             break;
 
           default:

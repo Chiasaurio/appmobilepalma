@@ -4,6 +4,7 @@ class EndPointConstant {
   static String tratamientos = "movil/tratamientos";
   static String censosplagas = "movil/censosplagas";
   static String aplicaciones = "movil/aplicaciones";
+  static String precipitaciones = "movil/precipitaciones";
   static String cosechas = "movil/cosechas";
   static String registroenfermedadesobtenerid = "movil/enfermedades/obtenerIds";
   static String plateos = "movil/plateos";

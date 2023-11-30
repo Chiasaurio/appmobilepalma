@@ -1,4 +1,5 @@
 import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Cosechas/cubit/cosecha_cubit.dart';
 import 'package:apppalma/presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,11 @@ class _ListaCosechasState extends State<ListaCosechas> {
           ? buildTabla()
           : const SizedBox(
               height: 100,
-              child: Center(child: Text('no hay cosechas activas'))),
+              child: Center(
+                  child: Text(
+                'No existen cosechas finalizadas',
+                style: TextStyle(color: kLightGreyColor),
+              ))),
     ]);
   }
 

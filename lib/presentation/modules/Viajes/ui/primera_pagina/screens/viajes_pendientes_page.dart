@@ -52,14 +52,6 @@ class _ViajesPendientesPageState extends State<ViajesPendientesPage> {
                       return Body(viajesPendientes: state.viajesPendientes!);
                     } else {
                       return const Text('no hay viajes pendientes');
-                      // return Expanded(
-                      //   child: Container(
-                      //     padding: const EdgeInsets.only(bottom: 125),
-                      // child: const Center(
-                      //   child: Text('no hay viajes pendientes'),
-                      //     ),
-                      //   ),
-                      // );
                     }
                   }),
                   const SizedBox(
@@ -76,15 +68,6 @@ class _ViajesPendientesPageState extends State<ViajesPendientesPage> {
               ))
         ],
       ),
-
-      // floatingActionButton: Padding(
-      //   padding: const EdgeInsets.all(15.0),
-      //   child: MainButton(
-      //       text: 'Registrar nuevo viaje',
-      //       press: () {
-      //
-      //       }),
-      // ),
     );
   }
 }

@@ -13,6 +13,10 @@ class ViajesDao extends DatabaseAccessor<AppDatabase> with _$ViajesDaoMixin {
     return (select(viajes)).get();
   }
 
+  Future<Viaje?> getViaje(int id) {
+    return (select(viajes)..where((r) => r.id.equals(id))).getSingleOrNull();
+  }
+
   Future<List<Viaje>> getRegistrosForSync() {
     return (select(viajes)..where((c) => c.sincronizado.equals(false))).get();
   }

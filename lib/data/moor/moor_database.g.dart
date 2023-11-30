@@ -2144,6 +2144,513 @@ class AplicacionesCompanion extends UpdateCompanion<Aplicacione> {
   }
 }
 
+class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ViajesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idViajeMeta =
+      const VerificationMeta('idViaje');
+  @override
+  late final GeneratedColumn<int> idViaje = GeneratedColumn<int>(
+      'id_viaje', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _horaCargueMeta =
+      const VerificationMeta('horaCargue');
+  @override
+  late final GeneratedColumn<DateTime> horaCargue = GeneratedColumn<DateTime>(
+      'hora_cargue', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _horaSalidaMeta =
+      const VerificationMeta('horaSalida');
+  @override
+  late final GeneratedColumn<DateTime> horaSalida = GeneratedColumn<DateTime>(
+      'hora_salida', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _cantidadRacimosMeta =
+      const VerificationMeta('cantidadRacimos');
+  @override
+  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
+      'cantidad_racimos', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kilosMeta = const VerificationMeta('kilos');
+  @override
+  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
+      'kilos', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _kilosExtractoraMeta =
+      const VerificationMeta('kilosExtractora');
+  @override
+  late final GeneratedColumn<double> kilosExtractora = GeneratedColumn<double>(
+      'kilos_extractora', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _completadoMeta =
+      const VerificationMeta('completado');
+  @override
+  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
+      'completado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("completado" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _responsableMeta =
+      const VerificationMeta('responsable');
+  @override
+  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
+      'responsable', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        idViaje,
+        horaCargue,
+        horaSalida,
+        cantidadRacimos,
+        kilos,
+        kilosExtractora,
+        completado,
+        responsable,
+        sincronizado
+      ];
+  @override
+  String get aliasedName => _alias ?? 'viajes';
+  @override
+  String get actualTableName => 'viajes';
+  @override
+  VerificationContext validateIntegrity(Insertable<Viaje> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_viaje')) {
+      context.handle(_idViajeMeta,
+          idViaje.isAcceptableOrUnknown(data['id_viaje']!, _idViajeMeta));
+    }
+    if (data.containsKey('hora_cargue')) {
+      context.handle(
+          _horaCargueMeta,
+          horaCargue.isAcceptableOrUnknown(
+              data['hora_cargue']!, _horaCargueMeta));
+    } else if (isInserting) {
+      context.missing(_horaCargueMeta);
+    }
+    if (data.containsKey('hora_salida')) {
+      context.handle(
+          _horaSalidaMeta,
+          horaSalida.isAcceptableOrUnknown(
+              data['hora_salida']!, _horaSalidaMeta));
+    }
+    if (data.containsKey('cantidad_racimos')) {
+      context.handle(
+          _cantidadRacimosMeta,
+          cantidadRacimos.isAcceptableOrUnknown(
+              data['cantidad_racimos']!, _cantidadRacimosMeta));
+    } else if (isInserting) {
+      context.missing(_cantidadRacimosMeta);
+    }
+    if (data.containsKey('kilos')) {
+      context.handle(
+          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
+    }
+    if (data.containsKey('kilos_extractora')) {
+      context.handle(
+          _kilosExtractoraMeta,
+          kilosExtractora.isAcceptableOrUnknown(
+              data['kilos_extractora']!, _kilosExtractoraMeta));
+    }
+    if (data.containsKey('completado')) {
+      context.handle(
+          _completadoMeta,
+          completado.isAcceptableOrUnknown(
+              data['completado']!, _completadoMeta));
+    }
+    if (data.containsKey('responsable')) {
+      context.handle(
+          _responsableMeta,
+          responsable.isAcceptableOrUnknown(
+              data['responsable']!, _responsableMeta));
+    } else if (isInserting) {
+      context.missing(_responsableMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Viaje map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Viaje(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idViaje: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id_viaje']),
+      horaCargue: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_cargue'])!,
+      horaSalida: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_salida']),
+      cantidadRacimos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
+      kilos: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kilos']),
+      kilosExtractora: attachedDatabase.typeMapping.read(
+          DriftSqlType.double, data['${effectivePrefix}kilos_extractora']),
+      completado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
+      responsable: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
+    );
+  }
+
+  @override
+  $ViajesTable createAlias(String alias) {
+    return $ViajesTable(attachedDatabase, alias);
+  }
+}
+
+class Viaje extends DataClass implements Insertable<Viaje> {
+  final int id;
+  final int? idViaje;
+  final DateTime horaCargue;
+  final DateTime? horaSalida;
+  final int cantidadRacimos;
+  final int? kilos;
+  final double? kilosExtractora;
+  final bool completado;
+  final String responsable;
+  final bool sincronizado;
+  const Viaje(
+      {required this.id,
+      this.idViaje,
+      required this.horaCargue,
+      this.horaSalida,
+      required this.cantidadRacimos,
+      this.kilos,
+      this.kilosExtractora,
+      required this.completado,
+      required this.responsable,
+      required this.sincronizado});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idViaje != null) {
+      map['id_viaje'] = Variable<int>(idViaje);
+    }
+    map['hora_cargue'] = Variable<DateTime>(horaCargue);
+    if (!nullToAbsent || horaSalida != null) {
+      map['hora_salida'] = Variable<DateTime>(horaSalida);
+    }
+    map['cantidad_racimos'] = Variable<int>(cantidadRacimos);
+    if (!nullToAbsent || kilos != null) {
+      map['kilos'] = Variable<int>(kilos);
+    }
+    if (!nullToAbsent || kilosExtractora != null) {
+      map['kilos_extractora'] = Variable<double>(kilosExtractora);
+    }
+    map['completado'] = Variable<bool>(completado);
+    map['responsable'] = Variable<String>(responsable);
+    map['sincronizado'] = Variable<bool>(sincronizado);
+    return map;
+  }
+
+  ViajesCompanion toCompanion(bool nullToAbsent) {
+    return ViajesCompanion(
+      id: Value(id),
+      idViaje: idViaje == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idViaje),
+      horaCargue: Value(horaCargue),
+      horaSalida: horaSalida == null && nullToAbsent
+          ? const Value.absent()
+          : Value(horaSalida),
+      cantidadRacimos: Value(cantidadRacimos),
+      kilos:
+          kilos == null && nullToAbsent ? const Value.absent() : Value(kilos),
+      kilosExtractora: kilosExtractora == null && nullToAbsent
+          ? const Value.absent()
+          : Value(kilosExtractora),
+      completado: Value(completado),
+      responsable: Value(responsable),
+      sincronizado: Value(sincronizado),
+    );
+  }
+
+  factory Viaje.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Viaje(
+      id: serializer.fromJson<int>(json['id']),
+      idViaje: serializer.fromJson<int?>(json['idViaje']),
+      horaCargue: serializer.fromJson<DateTime>(json['horaCargue']),
+      horaSalida: serializer.fromJson<DateTime?>(json['horaSalida']),
+      cantidadRacimos: serializer.fromJson<int>(json['cantidadRacimos']),
+      kilos: serializer.fromJson<int?>(json['kilos']),
+      kilosExtractora: serializer.fromJson<double?>(json['kilosExtractora']),
+      completado: serializer.fromJson<bool>(json['completado']),
+      responsable: serializer.fromJson<String>(json['responsable']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idViaje': serializer.toJson<int?>(idViaje),
+      'horaCargue': serializer.toJson<DateTime>(horaCargue),
+      'horaSalida': serializer.toJson<DateTime?>(horaSalida),
+      'cantidadRacimos': serializer.toJson<int>(cantidadRacimos),
+      'kilos': serializer.toJson<int?>(kilos),
+      'kilosExtractora': serializer.toJson<double?>(kilosExtractora),
+      'completado': serializer.toJson<bool>(completado),
+      'responsable': serializer.toJson<String>(responsable),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
+    };
+  }
+
+  Viaje copyWith(
+          {int? id,
+          Value<int?> idViaje = const Value.absent(),
+          DateTime? horaCargue,
+          Value<DateTime?> horaSalida = const Value.absent(),
+          int? cantidadRacimos,
+          Value<int?> kilos = const Value.absent(),
+          Value<double?> kilosExtractora = const Value.absent(),
+          bool? completado,
+          String? responsable,
+          bool? sincronizado}) =>
+      Viaje(
+        id: id ?? this.id,
+        idViaje: idViaje.present ? idViaje.value : this.idViaje,
+        horaCargue: horaCargue ?? this.horaCargue,
+        horaSalida: horaSalida.present ? horaSalida.value : this.horaSalida,
+        cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
+        kilos: kilos.present ? kilos.value : this.kilos,
+        kilosExtractora: kilosExtractora.present
+            ? kilosExtractora.value
+            : this.kilosExtractora,
+        completado: completado ?? this.completado,
+        responsable: responsable ?? this.responsable,
+        sincronizado: sincronizado ?? this.sincronizado,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Viaje(')
+          ..write('id: $id, ')
+          ..write('idViaje: $idViaje, ')
+          ..write('horaCargue: $horaCargue, ')
+          ..write('horaSalida: $horaSalida, ')
+          ..write('cantidadRacimos: $cantidadRacimos, ')
+          ..write('kilos: $kilos, ')
+          ..write('kilosExtractora: $kilosExtractora, ')
+          ..write('completado: $completado, ')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      idViaje,
+      horaCargue,
+      horaSalida,
+      cantidadRacimos,
+      kilos,
+      kilosExtractora,
+      completado,
+      responsable,
+      sincronizado);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Viaje &&
+          other.id == this.id &&
+          other.idViaje == this.idViaje &&
+          other.horaCargue == this.horaCargue &&
+          other.horaSalida == this.horaSalida &&
+          other.cantidadRacimos == this.cantidadRacimos &&
+          other.kilos == this.kilos &&
+          other.kilosExtractora == this.kilosExtractora &&
+          other.completado == this.completado &&
+          other.responsable == this.responsable &&
+          other.sincronizado == this.sincronizado);
+}
+
+class ViajesCompanion extends UpdateCompanion<Viaje> {
+  final Value<int> id;
+  final Value<int?> idViaje;
+  final Value<DateTime> horaCargue;
+  final Value<DateTime?> horaSalida;
+  final Value<int> cantidadRacimos;
+  final Value<int?> kilos;
+  final Value<double?> kilosExtractora;
+  final Value<bool> completado;
+  final Value<String> responsable;
+  final Value<bool> sincronizado;
+  const ViajesCompanion({
+    this.id = const Value.absent(),
+    this.idViaje = const Value.absent(),
+    this.horaCargue = const Value.absent(),
+    this.horaSalida = const Value.absent(),
+    this.cantidadRacimos = const Value.absent(),
+    this.kilos = const Value.absent(),
+    this.kilosExtractora = const Value.absent(),
+    this.completado = const Value.absent(),
+    this.responsable = const Value.absent(),
+    this.sincronizado = const Value.absent(),
+  });
+  ViajesCompanion.insert({
+    this.id = const Value.absent(),
+    this.idViaje = const Value.absent(),
+    required DateTime horaCargue,
+    this.horaSalida = const Value.absent(),
+    required int cantidadRacimos,
+    this.kilos = const Value.absent(),
+    this.kilosExtractora = const Value.absent(),
+    this.completado = const Value.absent(),
+    required String responsable,
+    this.sincronizado = const Value.absent(),
+  })  : horaCargue = Value(horaCargue),
+        cantidadRacimos = Value(cantidadRacimos),
+        responsable = Value(responsable);
+  static Insertable<Viaje> custom({
+    Expression<int>? id,
+    Expression<int>? idViaje,
+    Expression<DateTime>? horaCargue,
+    Expression<DateTime>? horaSalida,
+    Expression<int>? cantidadRacimos,
+    Expression<int>? kilos,
+    Expression<double>? kilosExtractora,
+    Expression<bool>? completado,
+    Expression<String>? responsable,
+    Expression<bool>? sincronizado,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idViaje != null) 'id_viaje': idViaje,
+      if (horaCargue != null) 'hora_cargue': horaCargue,
+      if (horaSalida != null) 'hora_salida': horaSalida,
+      if (cantidadRacimos != null) 'cantidad_racimos': cantidadRacimos,
+      if (kilos != null) 'kilos': kilos,
+      if (kilosExtractora != null) 'kilos_extractora': kilosExtractora,
+      if (completado != null) 'completado': completado,
+      if (responsable != null) 'responsable': responsable,
+      if (sincronizado != null) 'sincronizado': sincronizado,
+    });
+  }
+
+  ViajesCompanion copyWith(
+      {Value<int>? id,
+      Value<int?>? idViaje,
+      Value<DateTime>? horaCargue,
+      Value<DateTime?>? horaSalida,
+      Value<int>? cantidadRacimos,
+      Value<int?>? kilos,
+      Value<double?>? kilosExtractora,
+      Value<bool>? completado,
+      Value<String>? responsable,
+      Value<bool>? sincronizado}) {
+    return ViajesCompanion(
+      id: id ?? this.id,
+      idViaje: idViaje ?? this.idViaje,
+      horaCargue: horaCargue ?? this.horaCargue,
+      horaSalida: horaSalida ?? this.horaSalida,
+      cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
+      kilos: kilos ?? this.kilos,
+      kilosExtractora: kilosExtractora ?? this.kilosExtractora,
+      completado: completado ?? this.completado,
+      responsable: responsable ?? this.responsable,
+      sincronizado: sincronizado ?? this.sincronizado,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idViaje.present) {
+      map['id_viaje'] = Variable<int>(idViaje.value);
+    }
+    if (horaCargue.present) {
+      map['hora_cargue'] = Variable<DateTime>(horaCargue.value);
+    }
+    if (horaSalida.present) {
+      map['hora_salida'] = Variable<DateTime>(horaSalida.value);
+    }
+    if (cantidadRacimos.present) {
+      map['cantidad_racimos'] = Variable<int>(cantidadRacimos.value);
+    }
+    if (kilos.present) {
+      map['kilos'] = Variable<int>(kilos.value);
+    }
+    if (kilosExtractora.present) {
+      map['kilos_extractora'] = Variable<double>(kilosExtractora.value);
+    }
+    if (completado.present) {
+      map['completado'] = Variable<bool>(completado.value);
+    }
+    if (responsable.present) {
+      map['responsable'] = Variable<String>(responsable.value);
+    }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ViajesCompanion(')
+          ..write('id: $id, ')
+          ..write('idViaje: $idViaje, ')
+          ..write('horaCargue: $horaCargue, ')
+          ..write('horaSalida: $horaSalida, ')
+          ..write('cantidadRacimos: $cantidadRacimos, ')
+          ..write('kilos: $kilos, ')
+          ..write('kilosExtractora: $kilosExtractora, ')
+          ..write('completado: $completado, ')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -2198,7 +2705,19 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
   @override
   late final GeneratedColumn<int> idViaje = GeneratedColumn<int>(
       'id_viaje', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES viajes (id)'));
+  static const VerificationMeta _idViajeFromServerMeta =
+      const VerificationMeta('idViajeFromServer');
+  @override
+  late final GeneratedColumn<int> idViajeFromServer = GeneratedColumn<int>(
+      'id_viaje_from_server', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES viajes (id_viaje)'));
   static const VerificationMeta _completadaMeta =
       const VerificationMeta('completada');
   @override
@@ -2229,6 +2748,7 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
         cantidadRacimos,
         kilos,
         idViaje,
+        idViajeFromServer,
         completada,
         sincronizado
       ];
@@ -2288,6 +2808,12 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
       context.handle(_idViajeMeta,
           idViaje.isAcceptableOrUnknown(data['id_viaje']!, _idViajeMeta));
     }
+    if (data.containsKey('id_viaje_from_server')) {
+      context.handle(
+          _idViajeFromServerMeta,
+          idViajeFromServer.isAcceptableOrUnknown(
+              data['id_viaje_from_server']!, _idViajeFromServerMeta));
+    }
     if (data.containsKey('completada')) {
       context.handle(
           _completadaMeta,
@@ -2325,6 +2851,8 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
           .read(DriftSqlType.int, data['${effectivePrefix}kilos'])!,
       idViaje: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id_viaje']),
+      idViajeFromServer: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_viaje_from_server']),
       completada: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}completada'])!,
       sincronizado: attachedDatabase.typeMapping
@@ -2347,6 +2875,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   final int cantidadRacimos;
   final int kilos;
   final int? idViaje;
+  final int? idViajeFromServer;
   final bool completada;
   final bool sincronizado;
   const Cosecha(
@@ -2358,6 +2887,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
       required this.cantidadRacimos,
       required this.kilos,
       this.idViaje,
+      this.idViajeFromServer,
       required this.completada,
       required this.sincronizado});
   @override
@@ -2376,6 +2906,9 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
     map['kilos'] = Variable<int>(kilos);
     if (!nullToAbsent || idViaje != null) {
       map['id_viaje'] = Variable<int>(idViaje);
+    }
+    if (!nullToAbsent || idViajeFromServer != null) {
+      map['id_viaje_from_server'] = Variable<int>(idViajeFromServer);
     }
     map['completada'] = Variable<bool>(completada);
     map['sincronizado'] = Variable<bool>(sincronizado);
@@ -2398,6 +2931,9 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
       idViaje: idViaje == null && nullToAbsent
           ? const Value.absent()
           : Value(idViaje),
+      idViajeFromServer: idViajeFromServer == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idViajeFromServer),
       completada: Value(completada),
       sincronizado: Value(sincronizado),
     );
@@ -2415,6 +2951,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
       cantidadRacimos: serializer.fromJson<int>(json['cantidadRacimos']),
       kilos: serializer.fromJson<int>(json['kilos']),
       idViaje: serializer.fromJson<int?>(json['idViaje']),
+      idViajeFromServer: serializer.fromJson<int?>(json['idViajeFromServer']),
       completada: serializer.fromJson<bool>(json['completada']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
@@ -2431,6 +2968,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
       'cantidadRacimos': serializer.toJson<int>(cantidadRacimos),
       'kilos': serializer.toJson<int>(kilos),
       'idViaje': serializer.toJson<int?>(idViaje),
+      'idViajeFromServer': serializer.toJson<int?>(idViajeFromServer),
       'completada': serializer.toJson<bool>(completada),
       'sincronizado': serializer.toJson<bool>(sincronizado),
     };
@@ -2445,6 +2983,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
           int? cantidadRacimos,
           int? kilos,
           Value<int?> idViaje = const Value.absent(),
+          Value<int?> idViajeFromServer = const Value.absent(),
           bool? completada,
           bool? sincronizado}) =>
       Cosecha(
@@ -2456,6 +2995,9 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
         cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
         kilos: kilos ?? this.kilos,
         idViaje: idViaje.present ? idViaje.value : this.idViaje,
+        idViajeFromServer: idViajeFromServer.present
+            ? idViajeFromServer.value
+            : this.idViajeFromServer,
         completada: completada ?? this.completada,
         sincronizado: sincronizado ?? this.sincronizado,
       );
@@ -2470,6 +3012,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
           ..write('cantidadRacimos: $cantidadRacimos, ')
           ..write('kilos: $kilos, ')
           ..write('idViaje: $idViaje, ')
+          ..write('idViajeFromServer: $idViajeFromServer, ')
           ..write('completada: $completada, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -2477,8 +3020,18 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
   }
 
   @override
-  int get hashCode => Object.hash(id, idCosecha, nombreLote, fechaIngreso,
-      fechaSalida, cantidadRacimos, kilos, idViaje, completada, sincronizado);
+  int get hashCode => Object.hash(
+      id,
+      idCosecha,
+      nombreLote,
+      fechaIngreso,
+      fechaSalida,
+      cantidadRacimos,
+      kilos,
+      idViaje,
+      idViajeFromServer,
+      completada,
+      sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2491,6 +3044,7 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
           other.cantidadRacimos == this.cantidadRacimos &&
           other.kilos == this.kilos &&
           other.idViaje == this.idViaje &&
+          other.idViajeFromServer == this.idViajeFromServer &&
           other.completada == this.completada &&
           other.sincronizado == this.sincronizado);
 }
@@ -2504,6 +3058,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
   final Value<int> cantidadRacimos;
   final Value<int> kilos;
   final Value<int?> idViaje;
+  final Value<int?> idViajeFromServer;
   final Value<bool> completada;
   final Value<bool> sincronizado;
   const CosechasCompanion({
@@ -2515,6 +3070,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
     this.cantidadRacimos = const Value.absent(),
     this.kilos = const Value.absent(),
     this.idViaje = const Value.absent(),
+    this.idViajeFromServer = const Value.absent(),
     this.completada = const Value.absent(),
     this.sincronizado = const Value.absent(),
   });
@@ -2527,6 +3083,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
     required int cantidadRacimos,
     required int kilos,
     this.idViaje = const Value.absent(),
+    this.idViajeFromServer = const Value.absent(),
     this.completada = const Value.absent(),
     this.sincronizado = const Value.absent(),
   })  : nombreLote = Value(nombreLote),
@@ -2542,6 +3099,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
     Expression<int>? cantidadRacimos,
     Expression<int>? kilos,
     Expression<int>? idViaje,
+    Expression<int>? idViajeFromServer,
     Expression<bool>? completada,
     Expression<bool>? sincronizado,
   }) {
@@ -2554,6 +3112,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
       if (cantidadRacimos != null) 'cantidad_racimos': cantidadRacimos,
       if (kilos != null) 'kilos': kilos,
       if (idViaje != null) 'id_viaje': idViaje,
+      if (idViajeFromServer != null) 'id_viaje_from_server': idViajeFromServer,
       if (completada != null) 'completada': completada,
       if (sincronizado != null) 'sincronizado': sincronizado,
     });
@@ -2568,6 +3127,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
       Value<int>? cantidadRacimos,
       Value<int>? kilos,
       Value<int?>? idViaje,
+      Value<int?>? idViajeFromServer,
       Value<bool>? completada,
       Value<bool>? sincronizado}) {
     return CosechasCompanion(
@@ -2579,6 +3139,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
       cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
       kilos: kilos ?? this.kilos,
       idViaje: idViaje ?? this.idViaje,
+      idViajeFromServer: idViajeFromServer ?? this.idViajeFromServer,
       completada: completada ?? this.completada,
       sincronizado: sincronizado ?? this.sincronizado,
     );
@@ -2611,6 +3172,9 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
     if (idViaje.present) {
       map['id_viaje'] = Variable<int>(idViaje.value);
     }
+    if (idViajeFromServer.present) {
+      map['id_viaje_from_server'] = Variable<int>(idViajeFromServer.value);
+    }
     if (completada.present) {
       map['completada'] = Variable<bool>(completada.value);
     }
@@ -2631,6 +3195,7 @@ class CosechasCompanion extends UpdateCompanion<Cosecha> {
           ..write('cantidadRacimos: $cantidadRacimos, ')
           ..write('kilos: $kilos, ')
           ..write('idViaje: $idViaje, ')
+          ..write('idViajeFromServer: $idViajeFromServer, ')
           ..write('completada: $completada, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -8970,513 +9535,6 @@ class RegistroTratamientoCompanion
   }
 }
 
-class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $ViajesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _idViajeMeta =
-      const VerificationMeta('idViaje');
-  @override
-  late final GeneratedColumn<int> idViaje = GeneratedColumn<int>(
-      'id_viaje', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _horaCargueMeta =
-      const VerificationMeta('horaCargue');
-  @override
-  late final GeneratedColumn<DateTime> horaCargue = GeneratedColumn<DateTime>(
-      'hora_cargue', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _horaSalidaMeta =
-      const VerificationMeta('horaSalida');
-  @override
-  late final GeneratedColumn<DateTime> horaSalida = GeneratedColumn<DateTime>(
-      'hora_salida', aliasedName, true,
-      type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _cantidadRacimosMeta =
-      const VerificationMeta('cantidadRacimos');
-  @override
-  late final GeneratedColumn<int> cantidadRacimos = GeneratedColumn<int>(
-      'cantidad_racimos', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _kilosMeta = const VerificationMeta('kilos');
-  @override
-  late final GeneratedColumn<int> kilos = GeneratedColumn<int>(
-      'kilos', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _kilosExtractoraMeta =
-      const VerificationMeta('kilosExtractora');
-  @override
-  late final GeneratedColumn<double> kilosExtractora = GeneratedColumn<double>(
-      'kilos_extractora', aliasedName, true,
-      type: DriftSqlType.double, requiredDuringInsert: false);
-  static const VerificationMeta _completadoMeta =
-      const VerificationMeta('completado');
-  @override
-  late final GeneratedColumn<bool> completado = GeneratedColumn<bool>(
-      'completado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("completado" IN (0, 1))'),
-      defaultValue: const Constant(false));
-  static const VerificationMeta _responsableMeta =
-      const VerificationMeta('responsable');
-  @override
-  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
-      'responsable', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _sincronizadoMeta =
-      const VerificationMeta('sincronizado');
-  @override
-  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
-      'sincronizado', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("sincronizado" IN (0, 1))'),
-      defaultValue: const Constant(false));
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        idViaje,
-        horaCargue,
-        horaSalida,
-        cantidadRacimos,
-        kilos,
-        kilosExtractora,
-        completado,
-        responsable,
-        sincronizado
-      ];
-  @override
-  String get aliasedName => _alias ?? 'viajes';
-  @override
-  String get actualTableName => 'viajes';
-  @override
-  VerificationContext validateIntegrity(Insertable<Viaje> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('id_viaje')) {
-      context.handle(_idViajeMeta,
-          idViaje.isAcceptableOrUnknown(data['id_viaje']!, _idViajeMeta));
-    }
-    if (data.containsKey('hora_cargue')) {
-      context.handle(
-          _horaCargueMeta,
-          horaCargue.isAcceptableOrUnknown(
-              data['hora_cargue']!, _horaCargueMeta));
-    } else if (isInserting) {
-      context.missing(_horaCargueMeta);
-    }
-    if (data.containsKey('hora_salida')) {
-      context.handle(
-          _horaSalidaMeta,
-          horaSalida.isAcceptableOrUnknown(
-              data['hora_salida']!, _horaSalidaMeta));
-    }
-    if (data.containsKey('cantidad_racimos')) {
-      context.handle(
-          _cantidadRacimosMeta,
-          cantidadRacimos.isAcceptableOrUnknown(
-              data['cantidad_racimos']!, _cantidadRacimosMeta));
-    } else if (isInserting) {
-      context.missing(_cantidadRacimosMeta);
-    }
-    if (data.containsKey('kilos')) {
-      context.handle(
-          _kilosMeta, kilos.isAcceptableOrUnknown(data['kilos']!, _kilosMeta));
-    }
-    if (data.containsKey('kilos_extractora')) {
-      context.handle(
-          _kilosExtractoraMeta,
-          kilosExtractora.isAcceptableOrUnknown(
-              data['kilos_extractora']!, _kilosExtractoraMeta));
-    }
-    if (data.containsKey('completado')) {
-      context.handle(
-          _completadoMeta,
-          completado.isAcceptableOrUnknown(
-              data['completado']!, _completadoMeta));
-    }
-    if (data.containsKey('responsable')) {
-      context.handle(
-          _responsableMeta,
-          responsable.isAcceptableOrUnknown(
-              data['responsable']!, _responsableMeta));
-    } else if (isInserting) {
-      context.missing(_responsableMeta);
-    }
-    if (data.containsKey('sincronizado')) {
-      context.handle(
-          _sincronizadoMeta,
-          sincronizado.isAcceptableOrUnknown(
-              data['sincronizado']!, _sincronizadoMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Viaje map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Viaje(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      idViaje: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_viaje']),
-      horaCargue: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_cargue'])!,
-      horaSalida: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}hora_salida']),
-      cantidadRacimos: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}cantidad_racimos'])!,
-      kilos: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}kilos']),
-      kilosExtractora: attachedDatabase.typeMapping.read(
-          DriftSqlType.double, data['${effectivePrefix}kilos_extractora']),
-      completado: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}completado'])!,
-      responsable: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
-      sincronizado: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
-    );
-  }
-
-  @override
-  $ViajesTable createAlias(String alias) {
-    return $ViajesTable(attachedDatabase, alias);
-  }
-}
-
-class Viaje extends DataClass implements Insertable<Viaje> {
-  final int id;
-  final int? idViaje;
-  final DateTime horaCargue;
-  final DateTime? horaSalida;
-  final int cantidadRacimos;
-  final int? kilos;
-  final double? kilosExtractora;
-  final bool completado;
-  final String responsable;
-  final bool sincronizado;
-  const Viaje(
-      {required this.id,
-      this.idViaje,
-      required this.horaCargue,
-      this.horaSalida,
-      required this.cantidadRacimos,
-      this.kilos,
-      this.kilosExtractora,
-      required this.completado,
-      required this.responsable,
-      required this.sincronizado});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    if (!nullToAbsent || idViaje != null) {
-      map['id_viaje'] = Variable<int>(idViaje);
-    }
-    map['hora_cargue'] = Variable<DateTime>(horaCargue);
-    if (!nullToAbsent || horaSalida != null) {
-      map['hora_salida'] = Variable<DateTime>(horaSalida);
-    }
-    map['cantidad_racimos'] = Variable<int>(cantidadRacimos);
-    if (!nullToAbsent || kilos != null) {
-      map['kilos'] = Variable<int>(kilos);
-    }
-    if (!nullToAbsent || kilosExtractora != null) {
-      map['kilos_extractora'] = Variable<double>(kilosExtractora);
-    }
-    map['completado'] = Variable<bool>(completado);
-    map['responsable'] = Variable<String>(responsable);
-    map['sincronizado'] = Variable<bool>(sincronizado);
-    return map;
-  }
-
-  ViajesCompanion toCompanion(bool nullToAbsent) {
-    return ViajesCompanion(
-      id: Value(id),
-      idViaje: idViaje == null && nullToAbsent
-          ? const Value.absent()
-          : Value(idViaje),
-      horaCargue: Value(horaCargue),
-      horaSalida: horaSalida == null && nullToAbsent
-          ? const Value.absent()
-          : Value(horaSalida),
-      cantidadRacimos: Value(cantidadRacimos),
-      kilos:
-          kilos == null && nullToAbsent ? const Value.absent() : Value(kilos),
-      kilosExtractora: kilosExtractora == null && nullToAbsent
-          ? const Value.absent()
-          : Value(kilosExtractora),
-      completado: Value(completado),
-      responsable: Value(responsable),
-      sincronizado: Value(sincronizado),
-    );
-  }
-
-  factory Viaje.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Viaje(
-      id: serializer.fromJson<int>(json['id']),
-      idViaje: serializer.fromJson<int?>(json['idViaje']),
-      horaCargue: serializer.fromJson<DateTime>(json['horaCargue']),
-      horaSalida: serializer.fromJson<DateTime?>(json['horaSalida']),
-      cantidadRacimos: serializer.fromJson<int>(json['cantidadRacimos']),
-      kilos: serializer.fromJson<int?>(json['kilos']),
-      kilosExtractora: serializer.fromJson<double?>(json['kilosExtractora']),
-      completado: serializer.fromJson<bool>(json['completado']),
-      responsable: serializer.fromJson<String>(json['responsable']),
-      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'idViaje': serializer.toJson<int?>(idViaje),
-      'horaCargue': serializer.toJson<DateTime>(horaCargue),
-      'horaSalida': serializer.toJson<DateTime?>(horaSalida),
-      'cantidadRacimos': serializer.toJson<int>(cantidadRacimos),
-      'kilos': serializer.toJson<int?>(kilos),
-      'kilosExtractora': serializer.toJson<double?>(kilosExtractora),
-      'completado': serializer.toJson<bool>(completado),
-      'responsable': serializer.toJson<String>(responsable),
-      'sincronizado': serializer.toJson<bool>(sincronizado),
-    };
-  }
-
-  Viaje copyWith(
-          {int? id,
-          Value<int?> idViaje = const Value.absent(),
-          DateTime? horaCargue,
-          Value<DateTime?> horaSalida = const Value.absent(),
-          int? cantidadRacimos,
-          Value<int?> kilos = const Value.absent(),
-          Value<double?> kilosExtractora = const Value.absent(),
-          bool? completado,
-          String? responsable,
-          bool? sincronizado}) =>
-      Viaje(
-        id: id ?? this.id,
-        idViaje: idViaje.present ? idViaje.value : this.idViaje,
-        horaCargue: horaCargue ?? this.horaCargue,
-        horaSalida: horaSalida.present ? horaSalida.value : this.horaSalida,
-        cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
-        kilos: kilos.present ? kilos.value : this.kilos,
-        kilosExtractora: kilosExtractora.present
-            ? kilosExtractora.value
-            : this.kilosExtractora,
-        completado: completado ?? this.completado,
-        responsable: responsable ?? this.responsable,
-        sincronizado: sincronizado ?? this.sincronizado,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Viaje(')
-          ..write('id: $id, ')
-          ..write('idViaje: $idViaje, ')
-          ..write('horaCargue: $horaCargue, ')
-          ..write('horaSalida: $horaSalida, ')
-          ..write('cantidadRacimos: $cantidadRacimos, ')
-          ..write('kilos: $kilos, ')
-          ..write('kilosExtractora: $kilosExtractora, ')
-          ..write('completado: $completado, ')
-          ..write('responsable: $responsable, ')
-          ..write('sincronizado: $sincronizado')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      id,
-      idViaje,
-      horaCargue,
-      horaSalida,
-      cantidadRacimos,
-      kilos,
-      kilosExtractora,
-      completado,
-      responsable,
-      sincronizado);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Viaje &&
-          other.id == this.id &&
-          other.idViaje == this.idViaje &&
-          other.horaCargue == this.horaCargue &&
-          other.horaSalida == this.horaSalida &&
-          other.cantidadRacimos == this.cantidadRacimos &&
-          other.kilos == this.kilos &&
-          other.kilosExtractora == this.kilosExtractora &&
-          other.completado == this.completado &&
-          other.responsable == this.responsable &&
-          other.sincronizado == this.sincronizado);
-}
-
-class ViajesCompanion extends UpdateCompanion<Viaje> {
-  final Value<int> id;
-  final Value<int?> idViaje;
-  final Value<DateTime> horaCargue;
-  final Value<DateTime?> horaSalida;
-  final Value<int> cantidadRacimos;
-  final Value<int?> kilos;
-  final Value<double?> kilosExtractora;
-  final Value<bool> completado;
-  final Value<String> responsable;
-  final Value<bool> sincronizado;
-  const ViajesCompanion({
-    this.id = const Value.absent(),
-    this.idViaje = const Value.absent(),
-    this.horaCargue = const Value.absent(),
-    this.horaSalida = const Value.absent(),
-    this.cantidadRacimos = const Value.absent(),
-    this.kilos = const Value.absent(),
-    this.kilosExtractora = const Value.absent(),
-    this.completado = const Value.absent(),
-    this.responsable = const Value.absent(),
-    this.sincronizado = const Value.absent(),
-  });
-  ViajesCompanion.insert({
-    this.id = const Value.absent(),
-    this.idViaje = const Value.absent(),
-    required DateTime horaCargue,
-    this.horaSalida = const Value.absent(),
-    required int cantidadRacimos,
-    this.kilos = const Value.absent(),
-    this.kilosExtractora = const Value.absent(),
-    this.completado = const Value.absent(),
-    required String responsable,
-    this.sincronizado = const Value.absent(),
-  })  : horaCargue = Value(horaCargue),
-        cantidadRacimos = Value(cantidadRacimos),
-        responsable = Value(responsable);
-  static Insertable<Viaje> custom({
-    Expression<int>? id,
-    Expression<int>? idViaje,
-    Expression<DateTime>? horaCargue,
-    Expression<DateTime>? horaSalida,
-    Expression<int>? cantidadRacimos,
-    Expression<int>? kilos,
-    Expression<double>? kilosExtractora,
-    Expression<bool>? completado,
-    Expression<String>? responsable,
-    Expression<bool>? sincronizado,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (idViaje != null) 'id_viaje': idViaje,
-      if (horaCargue != null) 'hora_cargue': horaCargue,
-      if (horaSalida != null) 'hora_salida': horaSalida,
-      if (cantidadRacimos != null) 'cantidad_racimos': cantidadRacimos,
-      if (kilos != null) 'kilos': kilos,
-      if (kilosExtractora != null) 'kilos_extractora': kilosExtractora,
-      if (completado != null) 'completado': completado,
-      if (responsable != null) 'responsable': responsable,
-      if (sincronizado != null) 'sincronizado': sincronizado,
-    });
-  }
-
-  ViajesCompanion copyWith(
-      {Value<int>? id,
-      Value<int?>? idViaje,
-      Value<DateTime>? horaCargue,
-      Value<DateTime?>? horaSalida,
-      Value<int>? cantidadRacimos,
-      Value<int?>? kilos,
-      Value<double?>? kilosExtractora,
-      Value<bool>? completado,
-      Value<String>? responsable,
-      Value<bool>? sincronizado}) {
-    return ViajesCompanion(
-      id: id ?? this.id,
-      idViaje: idViaje ?? this.idViaje,
-      horaCargue: horaCargue ?? this.horaCargue,
-      horaSalida: horaSalida ?? this.horaSalida,
-      cantidadRacimos: cantidadRacimos ?? this.cantidadRacimos,
-      kilos: kilos ?? this.kilos,
-      kilosExtractora: kilosExtractora ?? this.kilosExtractora,
-      completado: completado ?? this.completado,
-      responsable: responsable ?? this.responsable,
-      sincronizado: sincronizado ?? this.sincronizado,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (idViaje.present) {
-      map['id_viaje'] = Variable<int>(idViaje.value);
-    }
-    if (horaCargue.present) {
-      map['hora_cargue'] = Variable<DateTime>(horaCargue.value);
-    }
-    if (horaSalida.present) {
-      map['hora_salida'] = Variable<DateTime>(horaSalida.value);
-    }
-    if (cantidadRacimos.present) {
-      map['cantidad_racimos'] = Variable<int>(cantidadRacimos.value);
-    }
-    if (kilos.present) {
-      map['kilos'] = Variable<int>(kilos.value);
-    }
-    if (kilosExtractora.present) {
-      map['kilos_extractora'] = Variable<double>(kilosExtractora.value);
-    }
-    if (completado.present) {
-      map['completado'] = Variable<bool>(completado.value);
-    }
-    if (responsable.present) {
-      map['responsable'] = Variable<String>(responsable.value);
-    }
-    if (sincronizado.present) {
-      map['sincronizado'] = Variable<bool>(sincronizado.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('ViajesCompanion(')
-          ..write('id: $id, ')
-          ..write('idViaje: $idViaje, ')
-          ..write('horaCargue: $horaCargue, ')
-          ..write('horaSalida: $horaSalida, ')
-          ..write('cantidadRacimos: $cantidadRacimos, ')
-          ..write('kilos: $kilos, ')
-          ..write('kilosExtractora: $kilosExtractora, ')
-          ..write('completado: $completado, ')
-          ..write('responsable: $responsable, ')
-          ..write('sincronizado: $sincronizado')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $CensoEtapasPlagaTable extends CensoEtapasPlaga
     with TableInfo<$CensoEtapasPlagaTable, CensoEtapasPlagaData> {
   @override
@@ -10076,9 +10134,33 @@ class $PrecipitacionTable extends Precipitacion
   late final GeneratedColumn<int> cantidadPrecipitacion = GeneratedColumn<int>(
       'cantidad_precipitacion', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _responsableMeta =
+      const VerificationMeta('responsable');
   @override
-  List<GeneratedColumn> get $columns =>
-      [idPrecipitacion, fechaRegistroPrecipitacion, cantidadPrecipitacion];
+  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
+      'responsable', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES usuario (cc_usuario)'));
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  @override
+  List<GeneratedColumn> get $columns => [
+        idPrecipitacion,
+        fechaRegistroPrecipitacion,
+        cantidadPrecipitacion,
+        responsable,
+        sincronizado
+      ];
   @override
   String get aliasedName => _alias ?? 'precipitacion';
   @override
@@ -10111,6 +10193,20 @@ class $PrecipitacionTable extends Precipitacion
     } else if (isInserting) {
       context.missing(_cantidadPrecipitacionMeta);
     }
+    if (data.containsKey('responsable')) {
+      context.handle(
+          _responsableMeta,
+          responsable.isAcceptableOrUnknown(
+              data['responsable']!, _responsableMeta));
+    } else if (isInserting) {
+      context.missing(_responsableMeta);
+    }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
     return context;
   }
 
@@ -10127,6 +10223,10 @@ class $PrecipitacionTable extends Precipitacion
           data['${effectivePrefix}fecha_registro_precipitacion'])!,
       cantidadPrecipitacion: attachedDatabase.typeMapping.read(
           DriftSqlType.int, data['${effectivePrefix}cantidad_precipitacion'])!,
+      responsable: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
@@ -10141,10 +10241,14 @@ class PrecipitacionData extends DataClass
   final int idPrecipitacion;
   final DateTime fechaRegistroPrecipitacion;
   final int cantidadPrecipitacion;
+  final String responsable;
+  final bool sincronizado;
   const PrecipitacionData(
       {required this.idPrecipitacion,
       required this.fechaRegistroPrecipitacion,
-      required this.cantidadPrecipitacion});
+      required this.cantidadPrecipitacion,
+      required this.responsable,
+      required this.sincronizado});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -10152,6 +10256,8 @@ class PrecipitacionData extends DataClass
     map['fecha_registro_precipitacion'] =
         Variable<DateTime>(fechaRegistroPrecipitacion);
     map['cantidad_precipitacion'] = Variable<int>(cantidadPrecipitacion);
+    map['responsable'] = Variable<String>(responsable);
+    map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
   }
 
@@ -10160,6 +10266,8 @@ class PrecipitacionData extends DataClass
       idPrecipitacion: Value(idPrecipitacion),
       fechaRegistroPrecipitacion: Value(fechaRegistroPrecipitacion),
       cantidadPrecipitacion: Value(cantidadPrecipitacion),
+      responsable: Value(responsable),
+      sincronizado: Value(sincronizado),
     );
   }
 
@@ -10172,6 +10280,8 @@ class PrecipitacionData extends DataClass
           serializer.fromJson<DateTime>(json['fechaRegistroPrecipitacion']),
       cantidadPrecipitacion:
           serializer.fromJson<int>(json['cantidadPrecipitacion']),
+      responsable: serializer.fromJson<String>(json['responsable']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
   }
   @override
@@ -10182,61 +10292,80 @@ class PrecipitacionData extends DataClass
       'fechaRegistroPrecipitacion':
           serializer.toJson<DateTime>(fechaRegistroPrecipitacion),
       'cantidadPrecipitacion': serializer.toJson<int>(cantidadPrecipitacion),
+      'responsable': serializer.toJson<String>(responsable),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
     };
   }
 
   PrecipitacionData copyWith(
           {int? idPrecipitacion,
           DateTime? fechaRegistroPrecipitacion,
-          int? cantidadPrecipitacion}) =>
+          int? cantidadPrecipitacion,
+          String? responsable,
+          bool? sincronizado}) =>
       PrecipitacionData(
         idPrecipitacion: idPrecipitacion ?? this.idPrecipitacion,
         fechaRegistroPrecipitacion:
             fechaRegistroPrecipitacion ?? this.fechaRegistroPrecipitacion,
         cantidadPrecipitacion:
             cantidadPrecipitacion ?? this.cantidadPrecipitacion,
+        responsable: responsable ?? this.responsable,
+        sincronizado: sincronizado ?? this.sincronizado,
       );
   @override
   String toString() {
     return (StringBuffer('PrecipitacionData(')
           ..write('idPrecipitacion: $idPrecipitacion, ')
           ..write('fechaRegistroPrecipitacion: $fechaRegistroPrecipitacion, ')
-          ..write('cantidadPrecipitacion: $cantidadPrecipitacion')
+          ..write('cantidadPrecipitacion: $cantidadPrecipitacion, ')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      idPrecipitacion, fechaRegistroPrecipitacion, cantidadPrecipitacion);
+  int get hashCode => Object.hash(idPrecipitacion, fechaRegistroPrecipitacion,
+      cantidadPrecipitacion, responsable, sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PrecipitacionData &&
           other.idPrecipitacion == this.idPrecipitacion &&
           other.fechaRegistroPrecipitacion == this.fechaRegistroPrecipitacion &&
-          other.cantidadPrecipitacion == this.cantidadPrecipitacion);
+          other.cantidadPrecipitacion == this.cantidadPrecipitacion &&
+          other.responsable == this.responsable &&
+          other.sincronizado == this.sincronizado);
 }
 
 class PrecipitacionCompanion extends UpdateCompanion<PrecipitacionData> {
   final Value<int> idPrecipitacion;
   final Value<DateTime> fechaRegistroPrecipitacion;
   final Value<int> cantidadPrecipitacion;
+  final Value<String> responsable;
+  final Value<bool> sincronizado;
   const PrecipitacionCompanion({
     this.idPrecipitacion = const Value.absent(),
     this.fechaRegistroPrecipitacion = const Value.absent(),
     this.cantidadPrecipitacion = const Value.absent(),
+    this.responsable = const Value.absent(),
+    this.sincronizado = const Value.absent(),
   });
   PrecipitacionCompanion.insert({
     this.idPrecipitacion = const Value.absent(),
     required DateTime fechaRegistroPrecipitacion,
     required int cantidadPrecipitacion,
+    required String responsable,
+    this.sincronizado = const Value.absent(),
   })  : fechaRegistroPrecipitacion = Value(fechaRegistroPrecipitacion),
-        cantidadPrecipitacion = Value(cantidadPrecipitacion);
+        cantidadPrecipitacion = Value(cantidadPrecipitacion),
+        responsable = Value(responsable);
   static Insertable<PrecipitacionData> custom({
     Expression<int>? idPrecipitacion,
     Expression<DateTime>? fechaRegistroPrecipitacion,
     Expression<int>? cantidadPrecipitacion,
+    Expression<String>? responsable,
+    Expression<bool>? sincronizado,
   }) {
     return RawValuesInsertable({
       if (idPrecipitacion != null) 'id_precipitacion': idPrecipitacion,
@@ -10244,19 +10373,25 @@ class PrecipitacionCompanion extends UpdateCompanion<PrecipitacionData> {
         'fecha_registro_precipitacion': fechaRegistroPrecipitacion,
       if (cantidadPrecipitacion != null)
         'cantidad_precipitacion': cantidadPrecipitacion,
+      if (responsable != null) 'responsable': responsable,
+      if (sincronizado != null) 'sincronizado': sincronizado,
     });
   }
 
   PrecipitacionCompanion copyWith(
       {Value<int>? idPrecipitacion,
       Value<DateTime>? fechaRegistroPrecipitacion,
-      Value<int>? cantidadPrecipitacion}) {
+      Value<int>? cantidadPrecipitacion,
+      Value<String>? responsable,
+      Value<bool>? sincronizado}) {
     return PrecipitacionCompanion(
       idPrecipitacion: idPrecipitacion ?? this.idPrecipitacion,
       fechaRegistroPrecipitacion:
           fechaRegistroPrecipitacion ?? this.fechaRegistroPrecipitacion,
       cantidadPrecipitacion:
           cantidadPrecipitacion ?? this.cantidadPrecipitacion,
+      responsable: responsable ?? this.responsable,
+      sincronizado: sincronizado ?? this.sincronizado,
     );
   }
 
@@ -10274,6 +10409,12 @@ class PrecipitacionCompanion extends UpdateCompanion<PrecipitacionData> {
       map['cantidad_precipitacion'] =
           Variable<int>(cantidadPrecipitacion.value);
     }
+    if (responsable.present) {
+      map['responsable'] = Variable<String>(responsable.value);
+    }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
     return map;
   }
 
@@ -10282,7 +10423,9 @@ class PrecipitacionCompanion extends UpdateCompanion<PrecipitacionData> {
     return (StringBuffer('PrecipitacionCompanion(')
           ..write('idPrecipitacion: $idPrecipitacion, ')
           ..write('fechaRegistroPrecipitacion: $fechaRegistroPrecipitacion, ')
-          ..write('cantidadPrecipitacion: $cantidadPrecipitacion')
+          ..write('cantidadPrecipitacion: $cantidadPrecipitacion, ')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
@@ -11805,6 +11948,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $ProductoAgroquimicoTable(this);
   late final $UsuarioTable usuario = $UsuarioTable(this);
   late final $AplicacionesTable aplicaciones = $AplicacionesTable(this);
+  late final $ViajesTable viajes = $ViajesTable(this);
   late final $CosechasTable cosechas = $CosechasTable(this);
   late final $CosechaDiariaTable cosechaDiaria = $CosechaDiariaTable(this);
   late final $EnfermedadesTable enfermedades = $EnfermedadesTable(this);
@@ -11824,7 +11968,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $ImagenRegistroEnfermedadTable(this);
   late final $RegistroTratamientoTable registroTratamiento =
       $RegistroTratamientoTable(this);
-  late final $ViajesTable viajes = $ViajesTable(this);
   late final $CensoEtapasPlagaTable censoEtapasPlaga =
       $CensoEtapasPlagaTable(this);
   late final $ImagenCensoPlagaTable imagenCensoPlaga =
@@ -11866,6 +12009,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         productoAgroquimico,
         usuario,
         aplicaciones,
+        viajes,
         cosechas,
         cosechaDiaria,
         enfermedades,
@@ -11882,7 +12026,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         registroEnfermedad,
         imagenRegistroEnfermedad,
         registroTratamiento,
-        viajes,
         censoEtapasPlaga,
         imagenCensoPlaga,
         precipitacion,

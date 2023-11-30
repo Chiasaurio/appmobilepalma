@@ -39,7 +39,9 @@ const kYellowColor = Color.fromRGBO(255, 235, 59, 1);
 const kRedColor = Color.fromARGB(255, 210, 20, 20);
 const kpurpleColor = Color(0xff526BF6);
 const kblueColor = Color(0xff67ACF2);
+const kLightBlueColor = Color.fromARGB(255, 191, 219, 247);
 const kDefualtBlueColor = Colors.blue;
+const kLightGreyColor = Color.fromARGB(255, 158, 158, 158);
 
 final tipoControl = ["Biologico", "Químico"];
 final ubicacionPlaga = ["lote", "sector"];

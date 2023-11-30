@@ -20,10 +20,23 @@ showFinalizarViajeDialog(
             if (state.status == FormStatus.submissionSuccess) {
               BlocProvider.of<ViajesPendientesCubit>(context)
                   .getViajesPendientes();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  backgroundColor: kSuccessColor,
+                  content:
+                      Text('Se registro la salida del viaje correctamente.'),
+                ),
+              );
               Navigator.of(context).pop();
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             } else if (state.status == FormStatus.submissionFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  backgroundColor: kRedColor,
+                  content: Text('Error realizando el registro.'),
+                ),
+              );
               Navigator.of(context).pop();
             }
           },

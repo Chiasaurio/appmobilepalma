@@ -13,6 +13,7 @@ class SyncToServerState extends Equatable {
   final List<CensoConEtapas>? censosPendientes;
   final List<Aplicacione>? fumigacionesPendientes;
   final List<Viaje>? viajesPendientes;
+  final List<PrecipitacionData>? precipitacionesPendientes;
   final bool loaded;
   final FormStatus status;
   final SyncStatus cosechasStatus;
@@ -26,6 +27,7 @@ class SyncToServerState extends Equatable {
   final SyncStatus censosStatus;
   final SyncStatus fumigacionesStatus;
   final SyncStatus viajesStatus;
+  final SyncStatus precipitacionesStatus;
 
   const SyncToServerState({
     this.loaded = false,
@@ -41,6 +43,7 @@ class SyncToServerState extends Equatable {
     this.fumigacionesPendientes,
     this.palmasPendientes,
     this.viajesPendientes,
+    this.precipitacionesPendientes,
     this.cosechasStatus = SyncStatus.initial,
     this.podasStatus = SyncStatus.initial,
     this.plateosStatus = SyncStatus.initial,
@@ -52,6 +55,7 @@ class SyncToServerState extends Equatable {
     this.censosStatus = SyncStatus.initial,
     this.fumigacionesStatus = SyncStatus.initial,
     this.viajesStatus = SyncStatus.initial,
+    this.precipitacionesStatus = SyncStatus.initial,
   });
   SyncToServerState copyWith({
     List<PodasConPodasDiarias>? podasConDiariasPendientes,
@@ -68,6 +72,7 @@ class SyncToServerState extends Equatable {
     List<CensoConEtapas>? censosPendientes,
     List<Aplicacione>? fumigacionesPendientes,
     List<Viaje>? viajesPendientes,
+    List<PrecipitacionData>? precipitacionesPendientes,
     SyncStatus? cosechasStatus,
     SyncStatus? podasStatus,
     SyncStatus? plateosStatus,
@@ -79,6 +84,7 @@ class SyncToServerState extends Equatable {
     SyncStatus? censosStatus,
     SyncStatus? fumigacionesStatus,
     SyncStatus? viajesStatus,
+    SyncStatus? precipitacionesStatus,
   }) {
     return SyncToServerState(
       podasConDiariasPendientes:
@@ -103,6 +109,8 @@ class SyncToServerState extends Equatable {
       enfermedadesPendientes:
           enfermedadesPendientes ?? this.enfermedadesPendientes,
       viajesPendientes: viajesPendientes ?? this.viajesPendientes,
+      precipitacionesPendientes:
+          precipitacionesPendientes ?? this.precipitacionesPendientes,
       cosechasStatus: cosechasStatus ?? this.cosechasStatus,
       podasStatus: podasStatus ?? this.podasStatus,
       plateosStatus: plateosStatus ?? this.plateosStatus,
@@ -114,7 +122,9 @@ class SyncToServerState extends Equatable {
       erradicacionesStatus: erradicacionesStatus ?? this.erradicacionesStatus,
       censosStatus: censosStatus ?? this.censosStatus,
       fumigacionesStatus: fumigacionesStatus ?? this.fumigacionesStatus,
-      viajesStatus: viajesStatus ?? this.fumigacionesStatus,
+      viajesStatus: viajesStatus ?? this.viajesStatus,
+      precipitacionesStatus:
+          precipitacionesStatus ?? this.precipitacionesStatus,
     );
   }
 
@@ -130,6 +140,8 @@ class SyncToServerState extends Equatable {
         tratamientosPendientes,
         censosPendientes,
         fumigacionesPendientes,
+        viajesPendientes,
+        precipitacionesPendientes,
         loaded,
         status,
         cosechasStatus,
@@ -142,6 +154,7 @@ class SyncToServerState extends Equatable {
         erradicacionesStatus,
         censosStatus,
         fumigacionesStatus,
-        viajesStatus
+        viajesStatus,
+        precipitacionesStatus
       ];
 }

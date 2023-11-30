@@ -3,6 +3,8 @@ import 'package:apppalma/presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../constants.dart';
+
 class DespacharViajeWidget extends StatefulWidget {
   const DespacharViajeWidget({Key? key}) : super(key: key);
 
@@ -24,7 +26,10 @@ class _DespacharViajeWidgetState extends State<DespacharViajeWidget> {
       },
       builder: (context, state) {
         if (state.cosechasDelViaje.isEmpty) {
-          return const Text('Debe seleccionar por lo menos una cosecha');
+          return const Text(
+            'Debe seleccionar por lo menos una cosecha',
+            style: TextStyle(color: kLightGreyColor),
+          );
         } else {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),

@@ -44,7 +44,13 @@ class _BodyState extends State<Body> {
         const Expanded(
       child: Column(children: <Widget>[
         ListaCosechas(),
+        SizedBox(
+          height: 15,
+        ),
         TotalKilosWidget(),
+        SizedBox(
+          height: 15,
+        ),
         TotalRacimosWidget(),
         SizedBox(
           height: 50,

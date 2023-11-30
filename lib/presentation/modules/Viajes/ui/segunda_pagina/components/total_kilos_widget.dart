@@ -2,6 +2,8 @@ import 'package:apppalma/presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../constants.dart';
+
 class TotalKilosWidget extends StatefulWidget {
   const TotalKilosWidget({Key? key}) : super(key: key);
 
@@ -24,23 +26,20 @@ class _TotalKilosWidgetState extends State<TotalKilosWidget> {
 
   Widget buildTotalKilos(num totalKilos) {
     return Container(
-      // decoration: BoxDecoration(color: Colors.blue[100], boxShadow: [
-      //   BoxShadow(
-      //       color: Colors.grey[200]!, blurRadius: 5, offset: const Offset(0, 4))
-      // ]),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      decoration: BoxDecoration(
+          color: kLightBlueColor, borderRadius: BorderRadius.circular(30)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           const Expanded(
             child: Text(
               'Total kilos : ',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 18),
             ),
           ),
           Expanded(
             child: Text(
-              // 'totalkilos.toString()',
               '$totalKilos',
               style: const TextStyle(color: Colors.black, fontSize: 25),
               textAlign: TextAlign.center,

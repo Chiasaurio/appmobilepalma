@@ -27,8 +27,7 @@ class _PesoExtractoraPageState extends State<PesoExtractoraPage> {
     return Scaffold(
       body: Column(
         children: [
-          HeaderGradient(
-              title: "Registrar peso extractora", ruta: widget.routeName),
+          HeaderGradient(title: "Peso extractora", ruta: widget.routeName),
           const Body(),
         ],
       ),

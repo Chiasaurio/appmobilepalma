@@ -1,5 +1,4 @@
 import 'package:apppalma/main.dart';
-import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/data/moor/daos/cosecha_daos.dart';
 import 'package:apppalma/data/moor/daos/viajes_dao.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
@@ -83,10 +82,8 @@ class ViajeCubit extends Cubit<ViajeInitial> {
         cosechaDao.updateCosecha(
             c.copyWith(idViaje: Value(idViaje), sincronizado: false));
       }
-      successMessageToast('Viaje enviado con éxito');
       emit(state.copyWith(status: FormStatus.submissionSuccess));
     } catch (e) {
-      registroFallidoToast('$e');
       emit(state.copyWith(status: FormStatus.submissionFailure));
     }
   }

@@ -204,7 +204,7 @@ class SyncToServerRemote {
           'fecha_salida': e.cosecha.fechaSalida?.toIso8601String(),
           'cantidad_racimos': e.cosecha.cantidadRacimos,
           'kilos': e.cosecha.kilos,
-          'id_viaje': e.cosecha.idViaje,
+          'id_viaje': e.cosecha.idViajeFromServer,
           'estado_cosecha': e.cosecha.completada ? 'FINALIZADA' : 'ACTIVA',
         };
 
@@ -373,6 +373,27 @@ class SyncToServerRemote {
           .toList();
       final res = await _apiInstance
           .post(EndPointConstant.viajes, data: {"data": data});
+      return res;
+    } on DioException catch (_) {
+      return {"success": false};
+    } catch (e) {
+      return {"success": false};
+    }
+  }
+
+  Future<Map<String, dynamic>> syncPrecipitaciones(
+      List<PrecipitacionData> precipitaciones) async {
+    try {
+      final data = precipitaciones
+          .map((e) => {
+                "fecha_registro_precipitacion":
+                    e.fechaRegistroPrecipitacion.toIso8601String(),
+                "cantidad_precipitacion": e.cantidadPrecipitacion,
+                "cc_usuario": e.responsable,
+              })
+          .toList();
+      final res = await _apiInstance
+          .post(EndPointConstant.precipitaciones, data: {"data": data});
       return res;
     } on DioException catch (_) {
       return {"success": false};

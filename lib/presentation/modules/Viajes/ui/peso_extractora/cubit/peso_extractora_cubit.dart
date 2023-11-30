@@ -6,8 +6,6 @@ import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../components/toasts/toasts.dart';
-
 part 'peso_extractora_state.dart';
 
 class PesoExtractoraCubit extends Cubit<PesoExtractoraState> {
@@ -28,11 +26,8 @@ class PesoExtractoraCubit extends Cubit<PesoExtractoraState> {
       ViajesDao viajesDao = db.viajesDao;
       await viajesDao.updateViaje(state.viaje!.copyWith(
           kilosExtractora: Value(state.pesoExtractora), sincronizado: false));
-      successMessageToast('El peso de la extractora se registro exitosamente');
       emit(state.copyWith(status: FormStatus.submissionSuccess));
     } catch (e) {
-      registroFallidoToast(
-          'Error al registrar el peso, por favor intente de nuevo');
       emit(state.copyWith(status: FormStatus.submissionFailure));
     }
   }
