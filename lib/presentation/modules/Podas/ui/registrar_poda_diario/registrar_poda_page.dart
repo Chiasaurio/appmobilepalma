@@ -5,6 +5,9 @@ import 'package:apppalma/presentation/modules/Podas/cubit/podas_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+import '../../../../components/widgets/orientacion_dropdown.dart';
 
 class PodaDiariaPage extends StatefulWidget {
   final Poda poda;
@@ -33,12 +36,29 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
   late double anchoCard;
   late double margin;
 
+  PodaDiariaData? ultimaPodaDiaria;
+  int? lineaInicio;
+  int? numeroPalmaInicio;
+  String? orientacionInicio;
+  int? lineaFin;
+  int? numeroPalmaFin;
+  String? orientacionFin;
   @override
   void initState() {
+    super.initState();
     fecha = DateTime(DateTime.now().year, DateTime.now().month,
         DateTime.now().day, horaSalida.hour, horaSalida.minute);
     poda = widget.poda;
-    super.initState();
+    if (BlocProvider.of<PodasCubit>(context).state.podasDiarias != null &&
+        BlocProvider.of<PodasCubit>(context).state.podasDiarias!.isNotEmpty) {
+      ultimaPodaDiaria =
+          BlocProvider.of<PodasCubit>(context).state.podasDiarias!.last;
+      if (ultimaPodaDiaria != null) {
+        lineaInicio = int.tryParse(ultimaPodaDiaria!.lineaFin);
+        numeroPalmaInicio = int.tryParse(ultimaPodaDiaria!.numeroFin);
+        orientacionInicio = ultimaPodaDiaria!.orientacionFin;
+      }
+    }
   }
 
   @override
@@ -58,7 +78,8 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
     margin = anchoCard * 0.04;
 
     return Scaffold(
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
       children: [
         HeaderGradient(
           title: "Registrar poda diaria",
@@ -72,7 +93,7 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
           ]),
         ),
       ],
-    ));
+    )));
   }
 
   Widget buildDatospoda(BuildContext context) {
@@ -82,6 +103,7 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
             key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
                   width: anchoCard,
@@ -103,8 +125,142 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
                 buildFecha(),
                 const SizedBox(height: 10),
                 buildPodas(),
+                const SizedBox(height: 20),
+                const Text('Donde comenzó',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFoco(),
+                const SizedBox(height: 10),
+                const Text('Donde termino',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18, /*fontWeight: FontWeight.bold*/
+                    )),
+                _ubicacionDelFocoFin()
               ],
             )));
+  }
+
+  Widget _ubicacionDelFoco() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          initialValue: lineaInicio?.toString(),
+          onChanged: (value) => lineaInicio = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaInicio = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          initialValue: numeroPalmaInicio?.toString(),
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(
+          setState: () {
+            setState(() {});
+          },
+          blocCall: (String value) {
+            orientacionInicio = value;
+          },
+          initialValue: orientacionInicio,
+        ),
+      ],
+    );
+  }
+
+  Widget _ubicacionDelFocoFin() {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) => lineaFin = int.tryParse(value ?? ''),
+          name: 'linea',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Linea",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        FormBuilderTextField(
+          onChanged: (value) {
+            if (value != null && value != '') {
+              numeroPalmaFin = int.tryParse(value)!;
+            }
+          },
+          name: 'numero',
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 18),
+          decoration: const InputDecoration(
+            label: Text(
+              "Número",
+              style: TextStyle(fontSize: 18),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+            ),
+          ),
+          validator: (value) =>
+              value == null || value == '' ? 'Este campo es requerido' : null,
+        ),
+        const SizedBox(height: 15),
+        OrientacionPalmaDropwdown(setState: () {
+          setState(() {});
+        }, blocCall: (String value) {
+          orientacionFin = value;
+        }),
+      ],
+    );
   }
 
   Widget buildFecha() {
@@ -162,8 +318,16 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
       // formKey.currentState.save();
       // cantidad += poda.cantidadPlateada;
       final cantidad = int.parse(_cantidadController.text);
-      BlocProvider.of<PodasCubit>(context)
-          .insertarPodaDiaria(fecha, cantidad, poda);
+      BlocProvider.of<PodasCubit>(context).insertarPodaDiaria(
+          fecha,
+          cantidad,
+          poda,
+          lineaInicio!.toString(),
+          numeroPalmaInicio!.toString(),
+          orientacionInicio!,
+          lineaFin!.toString(),
+          numeroPalmaFin!.toString(),
+          orientacionFin!);
       // podaBloc.insertarpodaDiario(fecha, cantidad, tipo, poda.id);
       // podaBloc.actualizarpodaLote(poda, cantidad);
       Navigator.pop(context);

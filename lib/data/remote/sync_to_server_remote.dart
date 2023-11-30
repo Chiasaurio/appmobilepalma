@@ -274,20 +274,25 @@ class SyncToServerRemote {
     try {
       final data = registros.map((e) {
         final poda = {
-          'idPoda': e.poda.idPoda,
+          'id_poda': e.poda.idPoda,
           'nombre_lote': utf8.encode(e.poda.nombreLote),
           'fecha_ingreso': e.poda.fechaIngreso.toIso8601String(),
           'fecha_salida': e.poda.fechaSalida?.toIso8601String(),
           'cantidad_podada': e.poda.cantidadPodada,
-          'estadoPoda': e.poda.completada ? 'FINALIZADA' : 'ACTIVA',
+          'estado_poda': e.poda.completada ? 'FINALIZADA' : 'ACTIVA',
         };
 
         var diarias = e.podasDiarias
             .map((d) => {
-                  'id_poda': d.idPoda,
                   'id_poda_diaria': d.id,
                   'fecha_poda_diaria': d.fechaIngreso.toIso8601String(),
                   'cantidad_poda_diaria': d.cantidadPodada,
+                  'linea_inicio': d.lineaInicio,
+                  'numero_inicio': d.numeroInicio,
+                  'orientacion_inicio': d.orientacionInicio,
+                  'linea_fin': d.lineaFin,
+                  'numero_fin': d.numeroFin,
+                  'orientacion_fin': d.orientacionFin,
                   'cc_usuario': d.responsable,
                 })
             .toList();

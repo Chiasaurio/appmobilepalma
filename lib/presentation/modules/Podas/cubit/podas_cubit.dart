@@ -26,13 +26,28 @@ class PodasCubit extends Cubit<PodasStateLoaded> {
         poda: poda, podasDiarias: podasDiarias, isLoaded: true));
   }
 
-  insertarPodaDiaria(DateTime fecha, int cantidad, Poda poda) async {
+  insertarPodaDiaria(
+      DateTime fecha,
+      int cantidad,
+      Poda poda,
+      String lineaInicio,
+      String numeroPalmaInicio,
+      String orientacionInicio,
+      String lineaFin,
+      String numeroPalmaFin,
+      String orientacionFin) async {
     final nuevasPodas = poda.cantidadPodada + cantidad;
     final PodaDao podaDao = db.podaDao;
     final podaDiariaCompanion = PodaDiariaCompanion(
         cantidadPodada: Value(cantidad),
         fechaIngreso: Value(fecha),
         idPoda: Value(poda.id),
+        lineaInicio: Value(lineaInicio),
+        numeroInicio: Value(numeroPalmaInicio),
+        orientacionInicio: Value(orientacionInicio),
+        lineaFin: Value(lineaFin),
+        numeroFin: Value(numeroPalmaFin),
+        orientacionFin: Value(orientacionFin),
         responsable: Value(globals.responsable));
     await podaDao.insertPodaDiaria(podaDiariaCompanion);
     podaDao.updatePoda(

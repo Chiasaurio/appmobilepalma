@@ -5564,6 +5564,42 @@ class $PodaDiariaTable extends PodaDiaria
   late final GeneratedColumn<int> cantidadPodada = GeneratedColumn<int>(
       'cantidad_podada', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lineaInicioMeta =
+      const VerificationMeta('lineaInicio');
+  @override
+  late final GeneratedColumn<String> lineaInicio = GeneratedColumn<String>(
+      'linea_inicio', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numeroInicioMeta =
+      const VerificationMeta('numeroInicio');
+  @override
+  late final GeneratedColumn<String> numeroInicio = GeneratedColumn<String>(
+      'numero_inicio', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _orientacionInicioMeta =
+      const VerificationMeta('orientacionInicio');
+  @override
+  late final GeneratedColumn<String> orientacionInicio =
+      GeneratedColumn<String>('orientacion_inicio', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _lineaFinMeta =
+      const VerificationMeta('lineaFin');
+  @override
+  late final GeneratedColumn<String> lineaFin = GeneratedColumn<String>(
+      'linea_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _numeroFinMeta =
+      const VerificationMeta('numeroFin');
+  @override
+  late final GeneratedColumn<String> numeroFin = GeneratedColumn<String>(
+      'numero_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _orientacionFinMeta =
+      const VerificationMeta('orientacionFin');
+  @override
+  late final GeneratedColumn<String> orientacionFin = GeneratedColumn<String>(
+      'orientacion_fin', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _responsableMeta =
       const VerificationMeta('responsable');
   @override
@@ -5581,8 +5617,20 @@ class $PodaDiariaTable extends PodaDiaria
           'CHECK ("sincronizado" IN (0, 1))'),
       defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, idPoda, fechaIngreso, cantidadPodada, responsable, sincronizado];
+  List<GeneratedColumn> get $columns => [
+        id,
+        idPoda,
+        fechaIngreso,
+        cantidadPodada,
+        lineaInicio,
+        numeroInicio,
+        orientacionInicio,
+        lineaFin,
+        numeroFin,
+        orientacionFin,
+        responsable,
+        sincronizado
+      ];
   @override
   String get aliasedName => _alias ?? 'poda_diaria';
   @override
@@ -5617,6 +5665,50 @@ class $PodaDiariaTable extends PodaDiaria
     } else if (isInserting) {
       context.missing(_cantidadPodadaMeta);
     }
+    if (data.containsKey('linea_inicio')) {
+      context.handle(
+          _lineaInicioMeta,
+          lineaInicio.isAcceptableOrUnknown(
+              data['linea_inicio']!, _lineaInicioMeta));
+    } else if (isInserting) {
+      context.missing(_lineaInicioMeta);
+    }
+    if (data.containsKey('numero_inicio')) {
+      context.handle(
+          _numeroInicioMeta,
+          numeroInicio.isAcceptableOrUnknown(
+              data['numero_inicio']!, _numeroInicioMeta));
+    } else if (isInserting) {
+      context.missing(_numeroInicioMeta);
+    }
+    if (data.containsKey('orientacion_inicio')) {
+      context.handle(
+          _orientacionInicioMeta,
+          orientacionInicio.isAcceptableOrUnknown(
+              data['orientacion_inicio']!, _orientacionInicioMeta));
+    } else if (isInserting) {
+      context.missing(_orientacionInicioMeta);
+    }
+    if (data.containsKey('linea_fin')) {
+      context.handle(_lineaFinMeta,
+          lineaFin.isAcceptableOrUnknown(data['linea_fin']!, _lineaFinMeta));
+    } else if (isInserting) {
+      context.missing(_lineaFinMeta);
+    }
+    if (data.containsKey('numero_fin')) {
+      context.handle(_numeroFinMeta,
+          numeroFin.isAcceptableOrUnknown(data['numero_fin']!, _numeroFinMeta));
+    } else if (isInserting) {
+      context.missing(_numeroFinMeta);
+    }
+    if (data.containsKey('orientacion_fin')) {
+      context.handle(
+          _orientacionFinMeta,
+          orientacionFin.isAcceptableOrUnknown(
+              data['orientacion_fin']!, _orientacionFinMeta));
+    } else if (isInserting) {
+      context.missing(_orientacionFinMeta);
+    }
     if (data.containsKey('responsable')) {
       context.handle(
           _responsableMeta,
@@ -5648,6 +5740,18 @@ class $PodaDiariaTable extends PodaDiaria
           DriftSqlType.dateTime, data['${effectivePrefix}fecha_ingreso'])!,
       cantidadPodada: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}cantidad_podada'])!,
+      lineaInicio: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}linea_inicio'])!,
+      numeroInicio: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}numero_inicio'])!,
+      orientacionInicio: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}orientacion_inicio'])!,
+      lineaFin: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}linea_fin'])!,
+      numeroFin: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}numero_fin'])!,
+      orientacionFin: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}orientacion_fin'])!,
       responsable: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
       sincronizado: attachedDatabase.typeMapping
@@ -5666,6 +5770,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
   final int idPoda;
   final DateTime fechaIngreso;
   final int cantidadPodada;
+  final String lineaInicio;
+  final String numeroInicio;
+  final String orientacionInicio;
+  final String lineaFin;
+  final String numeroFin;
+  final String orientacionFin;
   final String responsable;
   final bool sincronizado;
   const PodaDiariaData(
@@ -5673,6 +5783,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
       required this.idPoda,
       required this.fechaIngreso,
       required this.cantidadPodada,
+      required this.lineaInicio,
+      required this.numeroInicio,
+      required this.orientacionInicio,
+      required this.lineaFin,
+      required this.numeroFin,
+      required this.orientacionFin,
       required this.responsable,
       required this.sincronizado});
   @override
@@ -5682,6 +5798,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
     map['id_poda'] = Variable<int>(idPoda);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     map['cantidad_podada'] = Variable<int>(cantidadPodada);
+    map['linea_inicio'] = Variable<String>(lineaInicio);
+    map['numero_inicio'] = Variable<String>(numeroInicio);
+    map['orientacion_inicio'] = Variable<String>(orientacionInicio);
+    map['linea_fin'] = Variable<String>(lineaFin);
+    map['numero_fin'] = Variable<String>(numeroFin);
+    map['orientacion_fin'] = Variable<String>(orientacionFin);
     map['responsable'] = Variable<String>(responsable);
     map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
@@ -5693,6 +5815,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
       idPoda: Value(idPoda),
       fechaIngreso: Value(fechaIngreso),
       cantidadPodada: Value(cantidadPodada),
+      lineaInicio: Value(lineaInicio),
+      numeroInicio: Value(numeroInicio),
+      orientacionInicio: Value(orientacionInicio),
+      lineaFin: Value(lineaFin),
+      numeroFin: Value(numeroFin),
+      orientacionFin: Value(orientacionFin),
       responsable: Value(responsable),
       sincronizado: Value(sincronizado),
     );
@@ -5706,6 +5834,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
       idPoda: serializer.fromJson<int>(json['idPoda']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       cantidadPodada: serializer.fromJson<int>(json['cantidadPodada']),
+      lineaInicio: serializer.fromJson<String>(json['lineaInicio']),
+      numeroInicio: serializer.fromJson<String>(json['numeroInicio']),
+      orientacionInicio: serializer.fromJson<String>(json['orientacionInicio']),
+      lineaFin: serializer.fromJson<String>(json['lineaFin']),
+      numeroFin: serializer.fromJson<String>(json['numeroFin']),
+      orientacionFin: serializer.fromJson<String>(json['orientacionFin']),
       responsable: serializer.fromJson<String>(json['responsable']),
       sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
@@ -5718,6 +5852,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
       'idPoda': serializer.toJson<int>(idPoda),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'cantidadPodada': serializer.toJson<int>(cantidadPodada),
+      'lineaInicio': serializer.toJson<String>(lineaInicio),
+      'numeroInicio': serializer.toJson<String>(numeroInicio),
+      'orientacionInicio': serializer.toJson<String>(orientacionInicio),
+      'lineaFin': serializer.toJson<String>(lineaFin),
+      'numeroFin': serializer.toJson<String>(numeroFin),
+      'orientacionFin': serializer.toJson<String>(orientacionFin),
       'responsable': serializer.toJson<String>(responsable),
       'sincronizado': serializer.toJson<bool>(sincronizado),
     };
@@ -5728,6 +5868,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
           int? idPoda,
           DateTime? fechaIngreso,
           int? cantidadPodada,
+          String? lineaInicio,
+          String? numeroInicio,
+          String? orientacionInicio,
+          String? lineaFin,
+          String? numeroFin,
+          String? orientacionFin,
           String? responsable,
           bool? sincronizado}) =>
       PodaDiariaData(
@@ -5735,6 +5881,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
         idPoda: idPoda ?? this.idPoda,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         cantidadPodada: cantidadPodada ?? this.cantidadPodada,
+        lineaInicio: lineaInicio ?? this.lineaInicio,
+        numeroInicio: numeroInicio ?? this.numeroInicio,
+        orientacionInicio: orientacionInicio ?? this.orientacionInicio,
+        lineaFin: lineaFin ?? this.lineaFin,
+        numeroFin: numeroFin ?? this.numeroFin,
+        orientacionFin: orientacionFin ?? this.orientacionFin,
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
@@ -5745,6 +5897,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
           ..write('idPoda: $idPoda, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('cantidadPodada: $cantidadPodada, ')
+          ..write('lineaInicio: $lineaInicio, ')
+          ..write('numeroInicio: $numeroInicio, ')
+          ..write('orientacionInicio: $orientacionInicio, ')
+          ..write('lineaFin: $lineaFin, ')
+          ..write('numeroFin: $numeroFin, ')
+          ..write('orientacionFin: $orientacionFin, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))
@@ -5753,7 +5911,18 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
 
   @override
   int get hashCode => Object.hash(
-      id, idPoda, fechaIngreso, cantidadPodada, responsable, sincronizado);
+      id,
+      idPoda,
+      fechaIngreso,
+      cantidadPodada,
+      lineaInicio,
+      numeroInicio,
+      orientacionInicio,
+      lineaFin,
+      numeroFin,
+      orientacionFin,
+      responsable,
+      sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -5762,6 +5931,12 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
           other.idPoda == this.idPoda &&
           other.fechaIngreso == this.fechaIngreso &&
           other.cantidadPodada == this.cantidadPodada &&
+          other.lineaInicio == this.lineaInicio &&
+          other.numeroInicio == this.numeroInicio &&
+          other.orientacionInicio == this.orientacionInicio &&
+          other.lineaFin == this.lineaFin &&
+          other.numeroFin == this.numeroFin &&
+          other.orientacionFin == this.orientacionFin &&
           other.responsable == this.responsable &&
           other.sincronizado == this.sincronizado);
 }
@@ -5771,6 +5946,12 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
   final Value<int> idPoda;
   final Value<DateTime> fechaIngreso;
   final Value<int> cantidadPodada;
+  final Value<String> lineaInicio;
+  final Value<String> numeroInicio;
+  final Value<String> orientacionInicio;
+  final Value<String> lineaFin;
+  final Value<String> numeroFin;
+  final Value<String> orientacionFin;
   final Value<String> responsable;
   final Value<bool> sincronizado;
   const PodaDiariaCompanion({
@@ -5778,6 +5959,12 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
     this.idPoda = const Value.absent(),
     this.fechaIngreso = const Value.absent(),
     this.cantidadPodada = const Value.absent(),
+    this.lineaInicio = const Value.absent(),
+    this.numeroInicio = const Value.absent(),
+    this.orientacionInicio = const Value.absent(),
+    this.lineaFin = const Value.absent(),
+    this.numeroFin = const Value.absent(),
+    this.orientacionFin = const Value.absent(),
     this.responsable = const Value.absent(),
     this.sincronizado = const Value.absent(),
   });
@@ -5786,17 +5973,35 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
     required int idPoda,
     required DateTime fechaIngreso,
     required int cantidadPodada,
+    required String lineaInicio,
+    required String numeroInicio,
+    required String orientacionInicio,
+    required String lineaFin,
+    required String numeroFin,
+    required String orientacionFin,
     required String responsable,
     this.sincronizado = const Value.absent(),
   })  : idPoda = Value(idPoda),
         fechaIngreso = Value(fechaIngreso),
         cantidadPodada = Value(cantidadPodada),
+        lineaInicio = Value(lineaInicio),
+        numeroInicio = Value(numeroInicio),
+        orientacionInicio = Value(orientacionInicio),
+        lineaFin = Value(lineaFin),
+        numeroFin = Value(numeroFin),
+        orientacionFin = Value(orientacionFin),
         responsable = Value(responsable);
   static Insertable<PodaDiariaData> custom({
     Expression<int>? id,
     Expression<int>? idPoda,
     Expression<DateTime>? fechaIngreso,
     Expression<int>? cantidadPodada,
+    Expression<String>? lineaInicio,
+    Expression<String>? numeroInicio,
+    Expression<String>? orientacionInicio,
+    Expression<String>? lineaFin,
+    Expression<String>? numeroFin,
+    Expression<String>? orientacionFin,
     Expression<String>? responsable,
     Expression<bool>? sincronizado,
   }) {
@@ -5805,6 +6010,12 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
       if (idPoda != null) 'id_poda': idPoda,
       if (fechaIngreso != null) 'fecha_ingreso': fechaIngreso,
       if (cantidadPodada != null) 'cantidad_podada': cantidadPodada,
+      if (lineaInicio != null) 'linea_inicio': lineaInicio,
+      if (numeroInicio != null) 'numero_inicio': numeroInicio,
+      if (orientacionInicio != null) 'orientacion_inicio': orientacionInicio,
+      if (lineaFin != null) 'linea_fin': lineaFin,
+      if (numeroFin != null) 'numero_fin': numeroFin,
+      if (orientacionFin != null) 'orientacion_fin': orientacionFin,
       if (responsable != null) 'responsable': responsable,
       if (sincronizado != null) 'sincronizado': sincronizado,
     });
@@ -5815,6 +6026,12 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
       Value<int>? idPoda,
       Value<DateTime>? fechaIngreso,
       Value<int>? cantidadPodada,
+      Value<String>? lineaInicio,
+      Value<String>? numeroInicio,
+      Value<String>? orientacionInicio,
+      Value<String>? lineaFin,
+      Value<String>? numeroFin,
+      Value<String>? orientacionFin,
       Value<String>? responsable,
       Value<bool>? sincronizado}) {
     return PodaDiariaCompanion(
@@ -5822,6 +6039,12 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
       idPoda: idPoda ?? this.idPoda,
       fechaIngreso: fechaIngreso ?? this.fechaIngreso,
       cantidadPodada: cantidadPodada ?? this.cantidadPodada,
+      lineaInicio: lineaInicio ?? this.lineaInicio,
+      numeroInicio: numeroInicio ?? this.numeroInicio,
+      orientacionInicio: orientacionInicio ?? this.orientacionInicio,
+      lineaFin: lineaFin ?? this.lineaFin,
+      numeroFin: numeroFin ?? this.numeroFin,
+      orientacionFin: orientacionFin ?? this.orientacionFin,
       responsable: responsable ?? this.responsable,
       sincronizado: sincronizado ?? this.sincronizado,
     );
@@ -5842,6 +6065,24 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
     if (cantidadPodada.present) {
       map['cantidad_podada'] = Variable<int>(cantidadPodada.value);
     }
+    if (lineaInicio.present) {
+      map['linea_inicio'] = Variable<String>(lineaInicio.value);
+    }
+    if (numeroInicio.present) {
+      map['numero_inicio'] = Variable<String>(numeroInicio.value);
+    }
+    if (orientacionInicio.present) {
+      map['orientacion_inicio'] = Variable<String>(orientacionInicio.value);
+    }
+    if (lineaFin.present) {
+      map['linea_fin'] = Variable<String>(lineaFin.value);
+    }
+    if (numeroFin.present) {
+      map['numero_fin'] = Variable<String>(numeroFin.value);
+    }
+    if (orientacionFin.present) {
+      map['orientacion_fin'] = Variable<String>(orientacionFin.value);
+    }
     if (responsable.present) {
       map['responsable'] = Variable<String>(responsable.value);
     }
@@ -5858,6 +6099,12 @@ class PodaDiariaCompanion extends UpdateCompanion<PodaDiariaData> {
           ..write('idPoda: $idPoda, ')
           ..write('fechaIngreso: $fechaIngreso, ')
           ..write('cantidadPodada: $cantidadPodada, ')
+          ..write('lineaInicio: $lineaInicio, ')
+          ..write('numeroInicio: $numeroInicio, ')
+          ..write('orientacionInicio: $orientacionInicio, ')
+          ..write('lineaFin: $lineaFin, ')
+          ..write('numeroFin: $numeroFin, ')
+          ..write('orientacionFin: $orientacionFin, ')
           ..write('responsable: $responsable, ')
           ..write('sincronizado: $sincronizado')
           ..write(')'))

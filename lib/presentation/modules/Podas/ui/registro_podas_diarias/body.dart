@@ -48,28 +48,38 @@ class _BodyState extends State<Body> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Fecha plateo: '),
-                  Text('id de poda: '),
-                  Text('Palmas podadas: '),
-                ],
-              ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(formatter.format(podaDiaria.fechaIngreso)),
-                  Text(podaDiaria.id.toString()),
-                  Text(podaDiaria.cantidadPodada.toString()),
+                  _rowText('Fecha plateo',
+                      formatter.format(podaDiaria.fechaIngreso)),
+                  _rowText(
+                      'Palmas plateadas', podaDiaria.cantidadPodada.toString()),
+                  _rowText('Linea inicio', podaDiaria.lineaInicio),
+                  _rowText('Numero de palma inicio', podaDiaria.numeroInicio),
+                  _rowText('Orientación inicio', podaDiaria.orientacionInicio),
+                  _rowText('Linea fin', podaDiaria.lineaFin),
+                  _rowText('Numero de palma fin', podaDiaria.numeroFin),
+                  _rowText('Orientación fin', podaDiaria.orientacionFin),
                 ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _rowText(String title, String value) {
+    return Row(
+      children: [
+        Text(
+          '$title: ',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(value)
+      ],
     );
   }
 
