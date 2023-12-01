@@ -11941,6 +11941,623 @@ class FertilizanteCompanion extends UpdateCompanion<FertilizanteData> {
   }
 }
 
+class $CensoProductivoTable extends CensoProductivo
+    with TableInfo<$CensoProductivoTable, CensoProductivoData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CensoProductivoTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _idCensoProductivoMeta =
+      const VerificationMeta('idCensoProductivo');
+  @override
+  late final GeneratedColumn<int> idCensoProductivo = GeneratedColumn<int>(
+      'id_censo_productivo', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _fechaCensoMeta =
+      const VerificationMeta('fechaCenso');
+  @override
+  late final GeneratedColumn<DateTime> fechaCenso = GeneratedColumn<DateTime>(
+      'fecha_censo', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _floresFemeninasMeta =
+      const VerificationMeta('floresFemeninas');
+  @override
+  late final GeneratedColumn<int> floresFemeninas = GeneratedColumn<int>(
+      'flores_femeninas', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _floresMasculinasMeta =
+      const VerificationMeta('floresMasculinas');
+  @override
+  late final GeneratedColumn<int> floresMasculinas = GeneratedColumn<int>(
+      'flores_masculinas', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _palmasLeidasMeta =
+      const VerificationMeta('palmasLeidas');
+  @override
+  late final GeneratedColumn<int> palmasLeidas = GeneratedColumn<int>(
+      'palmas_leidas', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _racimosVerdesMeta =
+      const VerificationMeta('racimosVerdes');
+  @override
+  late final GeneratedColumn<int> racimosVerdes = GeneratedColumn<int>(
+      'racimos_verdes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _racimosPintonesMeta =
+      const VerificationMeta('racimosPintones');
+  @override
+  late final GeneratedColumn<int> racimosPintones = GeneratedColumn<int>(
+      'racimos_pintones', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _racimosSobremadurosMeta =
+      const VerificationMeta('racimosSobremaduros');
+  @override
+  late final GeneratedColumn<int> racimosSobremaduros = GeneratedColumn<int>(
+      'racimos_sobremaduros', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _racimosMadurosMeta =
+      const VerificationMeta('racimosMaduros');
+  @override
+  late final GeneratedColumn<int> racimosMaduros = GeneratedColumn<int>(
+      'racimos_maduros', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nombreLoteMeta =
+      const VerificationMeta('nombreLote');
+  @override
+  late final GeneratedColumn<String> nombreLote = GeneratedColumn<String>(
+      'nombre_lote', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES lotes (nombre_lote)'));
+  static const VerificationMeta _responsableMeta =
+      const VerificationMeta('responsable');
+  @override
+  late final GeneratedColumn<String> responsable = GeneratedColumn<String>(
+      'responsable', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES usuario (cc_usuario)'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        idCensoProductivo,
+        fechaCenso,
+        floresFemeninas,
+        floresMasculinas,
+        palmasLeidas,
+        racimosVerdes,
+        racimosPintones,
+        racimosSobremaduros,
+        racimosMaduros,
+        nombreLote,
+        responsable
+      ];
+  @override
+  String get aliasedName => _alias ?? 'censo_productivo';
+  @override
+  String get actualTableName => 'censo_productivo';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<CensoProductivoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('id_censo_productivo')) {
+      context.handle(
+          _idCensoProductivoMeta,
+          idCensoProductivo.isAcceptableOrUnknown(
+              data['id_censo_productivo']!, _idCensoProductivoMeta));
+    }
+    if (data.containsKey('fecha_censo')) {
+      context.handle(
+          _fechaCensoMeta,
+          fechaCenso.isAcceptableOrUnknown(
+              data['fecha_censo']!, _fechaCensoMeta));
+    } else if (isInserting) {
+      context.missing(_fechaCensoMeta);
+    }
+    if (data.containsKey('flores_femeninas')) {
+      context.handle(
+          _floresFemeninasMeta,
+          floresFemeninas.isAcceptableOrUnknown(
+              data['flores_femeninas']!, _floresFemeninasMeta));
+    }
+    if (data.containsKey('flores_masculinas')) {
+      context.handle(
+          _floresMasculinasMeta,
+          floresMasculinas.isAcceptableOrUnknown(
+              data['flores_masculinas']!, _floresMasculinasMeta));
+    }
+    if (data.containsKey('palmas_leidas')) {
+      context.handle(
+          _palmasLeidasMeta,
+          palmasLeidas.isAcceptableOrUnknown(
+              data['palmas_leidas']!, _palmasLeidasMeta));
+    }
+    if (data.containsKey('racimos_verdes')) {
+      context.handle(
+          _racimosVerdesMeta,
+          racimosVerdes.isAcceptableOrUnknown(
+              data['racimos_verdes']!, _racimosVerdesMeta));
+    }
+    if (data.containsKey('racimos_pintones')) {
+      context.handle(
+          _racimosPintonesMeta,
+          racimosPintones.isAcceptableOrUnknown(
+              data['racimos_pintones']!, _racimosPintonesMeta));
+    }
+    if (data.containsKey('racimos_sobremaduros')) {
+      context.handle(
+          _racimosSobremadurosMeta,
+          racimosSobremaduros.isAcceptableOrUnknown(
+              data['racimos_sobremaduros']!, _racimosSobremadurosMeta));
+    }
+    if (data.containsKey('racimos_maduros')) {
+      context.handle(
+          _racimosMadurosMeta,
+          racimosMaduros.isAcceptableOrUnknown(
+              data['racimos_maduros']!, _racimosMadurosMeta));
+    }
+    if (data.containsKey('nombre_lote')) {
+      context.handle(
+          _nombreLoteMeta,
+          nombreLote.isAcceptableOrUnknown(
+              data['nombre_lote']!, _nombreLoteMeta));
+    } else if (isInserting) {
+      context.missing(_nombreLoteMeta);
+    }
+    if (data.containsKey('responsable')) {
+      context.handle(
+          _responsableMeta,
+          responsable.isAcceptableOrUnknown(
+              data['responsable']!, _responsableMeta));
+    } else if (isInserting) {
+      context.missing(_responsableMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CensoProductivoData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CensoProductivoData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      idCensoProductivo: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}id_censo_productivo']),
+      fechaCenso: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha_censo'])!,
+      floresFemeninas: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}flores_femeninas']),
+      floresMasculinas: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}flores_masculinas']),
+      palmasLeidas: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}palmas_leidas']),
+      racimosVerdes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}racimos_verdes']),
+      racimosPintones: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}racimos_pintones']),
+      racimosSobremaduros: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}racimos_sobremaduros']),
+      racimosMaduros: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}racimos_maduros']),
+      nombreLote: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
+      responsable: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
+    );
+  }
+
+  @override
+  $CensoProductivoTable createAlias(String alias) {
+    return $CensoProductivoTable(attachedDatabase, alias);
+  }
+}
+
+class CensoProductivoData extends DataClass
+    implements Insertable<CensoProductivoData> {
+  final int id;
+  final int? idCensoProductivo;
+  final DateTime fechaCenso;
+  final int? floresFemeninas;
+  final int? floresMasculinas;
+  final int? palmasLeidas;
+  final int? racimosVerdes;
+  final int? racimosPintones;
+  final int? racimosSobremaduros;
+  final int? racimosMaduros;
+  final String nombreLote;
+  final String responsable;
+  const CensoProductivoData(
+      {required this.id,
+      this.idCensoProductivo,
+      required this.fechaCenso,
+      this.floresFemeninas,
+      this.floresMasculinas,
+      this.palmasLeidas,
+      this.racimosVerdes,
+      this.racimosPintones,
+      this.racimosSobremaduros,
+      this.racimosMaduros,
+      required this.nombreLote,
+      required this.responsable});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || idCensoProductivo != null) {
+      map['id_censo_productivo'] = Variable<int>(idCensoProductivo);
+    }
+    map['fecha_censo'] = Variable<DateTime>(fechaCenso);
+    if (!nullToAbsent || floresFemeninas != null) {
+      map['flores_femeninas'] = Variable<int>(floresFemeninas);
+    }
+    if (!nullToAbsent || floresMasculinas != null) {
+      map['flores_masculinas'] = Variable<int>(floresMasculinas);
+    }
+    if (!nullToAbsent || palmasLeidas != null) {
+      map['palmas_leidas'] = Variable<int>(palmasLeidas);
+    }
+    if (!nullToAbsent || racimosVerdes != null) {
+      map['racimos_verdes'] = Variable<int>(racimosVerdes);
+    }
+    if (!nullToAbsent || racimosPintones != null) {
+      map['racimos_pintones'] = Variable<int>(racimosPintones);
+    }
+    if (!nullToAbsent || racimosSobremaduros != null) {
+      map['racimos_sobremaduros'] = Variable<int>(racimosSobremaduros);
+    }
+    if (!nullToAbsent || racimosMaduros != null) {
+      map['racimos_maduros'] = Variable<int>(racimosMaduros);
+    }
+    map['nombre_lote'] = Variable<String>(nombreLote);
+    map['responsable'] = Variable<String>(responsable);
+    return map;
+  }
+
+  CensoProductivoCompanion toCompanion(bool nullToAbsent) {
+    return CensoProductivoCompanion(
+      id: Value(id),
+      idCensoProductivo: idCensoProductivo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idCensoProductivo),
+      fechaCenso: Value(fechaCenso),
+      floresFemeninas: floresFemeninas == null && nullToAbsent
+          ? const Value.absent()
+          : Value(floresFemeninas),
+      floresMasculinas: floresMasculinas == null && nullToAbsent
+          ? const Value.absent()
+          : Value(floresMasculinas),
+      palmasLeidas: palmasLeidas == null && nullToAbsent
+          ? const Value.absent()
+          : Value(palmasLeidas),
+      racimosVerdes: racimosVerdes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(racimosVerdes),
+      racimosPintones: racimosPintones == null && nullToAbsent
+          ? const Value.absent()
+          : Value(racimosPintones),
+      racimosSobremaduros: racimosSobremaduros == null && nullToAbsent
+          ? const Value.absent()
+          : Value(racimosSobremaduros),
+      racimosMaduros: racimosMaduros == null && nullToAbsent
+          ? const Value.absent()
+          : Value(racimosMaduros),
+      nombreLote: Value(nombreLote),
+      responsable: Value(responsable),
+    );
+  }
+
+  factory CensoProductivoData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CensoProductivoData(
+      id: serializer.fromJson<int>(json['id']),
+      idCensoProductivo: serializer.fromJson<int?>(json['idCensoProductivo']),
+      fechaCenso: serializer.fromJson<DateTime>(json['fechaCenso']),
+      floresFemeninas: serializer.fromJson<int?>(json['floresFemeninas']),
+      floresMasculinas: serializer.fromJson<int?>(json['floresMasculinas']),
+      palmasLeidas: serializer.fromJson<int?>(json['palmasLeidas']),
+      racimosVerdes: serializer.fromJson<int?>(json['racimosVerdes']),
+      racimosPintones: serializer.fromJson<int?>(json['racimosPintones']),
+      racimosSobremaduros:
+          serializer.fromJson<int?>(json['racimosSobremaduros']),
+      racimosMaduros: serializer.fromJson<int?>(json['racimosMaduros']),
+      nombreLote: serializer.fromJson<String>(json['nombreLote']),
+      responsable: serializer.fromJson<String>(json['responsable']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'idCensoProductivo': serializer.toJson<int?>(idCensoProductivo),
+      'fechaCenso': serializer.toJson<DateTime>(fechaCenso),
+      'floresFemeninas': serializer.toJson<int?>(floresFemeninas),
+      'floresMasculinas': serializer.toJson<int?>(floresMasculinas),
+      'palmasLeidas': serializer.toJson<int?>(palmasLeidas),
+      'racimosVerdes': serializer.toJson<int?>(racimosVerdes),
+      'racimosPintones': serializer.toJson<int?>(racimosPintones),
+      'racimosSobremaduros': serializer.toJson<int?>(racimosSobremaduros),
+      'racimosMaduros': serializer.toJson<int?>(racimosMaduros),
+      'nombreLote': serializer.toJson<String>(nombreLote),
+      'responsable': serializer.toJson<String>(responsable),
+    };
+  }
+
+  CensoProductivoData copyWith(
+          {int? id,
+          Value<int?> idCensoProductivo = const Value.absent(),
+          DateTime? fechaCenso,
+          Value<int?> floresFemeninas = const Value.absent(),
+          Value<int?> floresMasculinas = const Value.absent(),
+          Value<int?> palmasLeidas = const Value.absent(),
+          Value<int?> racimosVerdes = const Value.absent(),
+          Value<int?> racimosPintones = const Value.absent(),
+          Value<int?> racimosSobremaduros = const Value.absent(),
+          Value<int?> racimosMaduros = const Value.absent(),
+          String? nombreLote,
+          String? responsable}) =>
+      CensoProductivoData(
+        id: id ?? this.id,
+        idCensoProductivo: idCensoProductivo.present
+            ? idCensoProductivo.value
+            : this.idCensoProductivo,
+        fechaCenso: fechaCenso ?? this.fechaCenso,
+        floresFemeninas: floresFemeninas.present
+            ? floresFemeninas.value
+            : this.floresFemeninas,
+        floresMasculinas: floresMasculinas.present
+            ? floresMasculinas.value
+            : this.floresMasculinas,
+        palmasLeidas:
+            palmasLeidas.present ? palmasLeidas.value : this.palmasLeidas,
+        racimosVerdes:
+            racimosVerdes.present ? racimosVerdes.value : this.racimosVerdes,
+        racimosPintones: racimosPintones.present
+            ? racimosPintones.value
+            : this.racimosPintones,
+        racimosSobremaduros: racimosSobremaduros.present
+            ? racimosSobremaduros.value
+            : this.racimosSobremaduros,
+        racimosMaduros:
+            racimosMaduros.present ? racimosMaduros.value : this.racimosMaduros,
+        nombreLote: nombreLote ?? this.nombreLote,
+        responsable: responsable ?? this.responsable,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CensoProductivoData(')
+          ..write('id: $id, ')
+          ..write('idCensoProductivo: $idCensoProductivo, ')
+          ..write('fechaCenso: $fechaCenso, ')
+          ..write('floresFemeninas: $floresFemeninas, ')
+          ..write('floresMasculinas: $floresMasculinas, ')
+          ..write('palmasLeidas: $palmasLeidas, ')
+          ..write('racimosVerdes: $racimosVerdes, ')
+          ..write('racimosPintones: $racimosPintones, ')
+          ..write('racimosSobremaduros: $racimosSobremaduros, ')
+          ..write('racimosMaduros: $racimosMaduros, ')
+          ..write('nombreLote: $nombreLote, ')
+          ..write('responsable: $responsable')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      idCensoProductivo,
+      fechaCenso,
+      floresFemeninas,
+      floresMasculinas,
+      palmasLeidas,
+      racimosVerdes,
+      racimosPintones,
+      racimosSobremaduros,
+      racimosMaduros,
+      nombreLote,
+      responsable);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CensoProductivoData &&
+          other.id == this.id &&
+          other.idCensoProductivo == this.idCensoProductivo &&
+          other.fechaCenso == this.fechaCenso &&
+          other.floresFemeninas == this.floresFemeninas &&
+          other.floresMasculinas == this.floresMasculinas &&
+          other.palmasLeidas == this.palmasLeidas &&
+          other.racimosVerdes == this.racimosVerdes &&
+          other.racimosPintones == this.racimosPintones &&
+          other.racimosSobremaduros == this.racimosSobremaduros &&
+          other.racimosMaduros == this.racimosMaduros &&
+          other.nombreLote == this.nombreLote &&
+          other.responsable == this.responsable);
+}
+
+class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
+  final Value<int> id;
+  final Value<int?> idCensoProductivo;
+  final Value<DateTime> fechaCenso;
+  final Value<int?> floresFemeninas;
+  final Value<int?> floresMasculinas;
+  final Value<int?> palmasLeidas;
+  final Value<int?> racimosVerdes;
+  final Value<int?> racimosPintones;
+  final Value<int?> racimosSobremaduros;
+  final Value<int?> racimosMaduros;
+  final Value<String> nombreLote;
+  final Value<String> responsable;
+  const CensoProductivoCompanion({
+    this.id = const Value.absent(),
+    this.idCensoProductivo = const Value.absent(),
+    this.fechaCenso = const Value.absent(),
+    this.floresFemeninas = const Value.absent(),
+    this.floresMasculinas = const Value.absent(),
+    this.palmasLeidas = const Value.absent(),
+    this.racimosVerdes = const Value.absent(),
+    this.racimosPintones = const Value.absent(),
+    this.racimosSobremaduros = const Value.absent(),
+    this.racimosMaduros = const Value.absent(),
+    this.nombreLote = const Value.absent(),
+    this.responsable = const Value.absent(),
+  });
+  CensoProductivoCompanion.insert({
+    this.id = const Value.absent(),
+    this.idCensoProductivo = const Value.absent(),
+    required DateTime fechaCenso,
+    this.floresFemeninas = const Value.absent(),
+    this.floresMasculinas = const Value.absent(),
+    this.palmasLeidas = const Value.absent(),
+    this.racimosVerdes = const Value.absent(),
+    this.racimosPintones = const Value.absent(),
+    this.racimosSobremaduros = const Value.absent(),
+    this.racimosMaduros = const Value.absent(),
+    required String nombreLote,
+    required String responsable,
+  })  : fechaCenso = Value(fechaCenso),
+        nombreLote = Value(nombreLote),
+        responsable = Value(responsable);
+  static Insertable<CensoProductivoData> custom({
+    Expression<int>? id,
+    Expression<int>? idCensoProductivo,
+    Expression<DateTime>? fechaCenso,
+    Expression<int>? floresFemeninas,
+    Expression<int>? floresMasculinas,
+    Expression<int>? palmasLeidas,
+    Expression<int>? racimosVerdes,
+    Expression<int>? racimosPintones,
+    Expression<int>? racimosSobremaduros,
+    Expression<int>? racimosMaduros,
+    Expression<String>? nombreLote,
+    Expression<String>? responsable,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (idCensoProductivo != null) 'id_censo_productivo': idCensoProductivo,
+      if (fechaCenso != null) 'fecha_censo': fechaCenso,
+      if (floresFemeninas != null) 'flores_femeninas': floresFemeninas,
+      if (floresMasculinas != null) 'flores_masculinas': floresMasculinas,
+      if (palmasLeidas != null) 'palmas_leidas': palmasLeidas,
+      if (racimosVerdes != null) 'racimos_verdes': racimosVerdes,
+      if (racimosPintones != null) 'racimos_pintones': racimosPintones,
+      if (racimosSobremaduros != null)
+        'racimos_sobremaduros': racimosSobremaduros,
+      if (racimosMaduros != null) 'racimos_maduros': racimosMaduros,
+      if (nombreLote != null) 'nombre_lote': nombreLote,
+      if (responsable != null) 'responsable': responsable,
+    });
+  }
+
+  CensoProductivoCompanion copyWith(
+      {Value<int>? id,
+      Value<int?>? idCensoProductivo,
+      Value<DateTime>? fechaCenso,
+      Value<int?>? floresFemeninas,
+      Value<int?>? floresMasculinas,
+      Value<int?>? palmasLeidas,
+      Value<int?>? racimosVerdes,
+      Value<int?>? racimosPintones,
+      Value<int?>? racimosSobremaduros,
+      Value<int?>? racimosMaduros,
+      Value<String>? nombreLote,
+      Value<String>? responsable}) {
+    return CensoProductivoCompanion(
+      id: id ?? this.id,
+      idCensoProductivo: idCensoProductivo ?? this.idCensoProductivo,
+      fechaCenso: fechaCenso ?? this.fechaCenso,
+      floresFemeninas: floresFemeninas ?? this.floresFemeninas,
+      floresMasculinas: floresMasculinas ?? this.floresMasculinas,
+      palmasLeidas: palmasLeidas ?? this.palmasLeidas,
+      racimosVerdes: racimosVerdes ?? this.racimosVerdes,
+      racimosPintones: racimosPintones ?? this.racimosPintones,
+      racimosSobremaduros: racimosSobremaduros ?? this.racimosSobremaduros,
+      racimosMaduros: racimosMaduros ?? this.racimosMaduros,
+      nombreLote: nombreLote ?? this.nombreLote,
+      responsable: responsable ?? this.responsable,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (idCensoProductivo.present) {
+      map['id_censo_productivo'] = Variable<int>(idCensoProductivo.value);
+    }
+    if (fechaCenso.present) {
+      map['fecha_censo'] = Variable<DateTime>(fechaCenso.value);
+    }
+    if (floresFemeninas.present) {
+      map['flores_femeninas'] = Variable<int>(floresFemeninas.value);
+    }
+    if (floresMasculinas.present) {
+      map['flores_masculinas'] = Variable<int>(floresMasculinas.value);
+    }
+    if (palmasLeidas.present) {
+      map['palmas_leidas'] = Variable<int>(palmasLeidas.value);
+    }
+    if (racimosVerdes.present) {
+      map['racimos_verdes'] = Variable<int>(racimosVerdes.value);
+    }
+    if (racimosPintones.present) {
+      map['racimos_pintones'] = Variable<int>(racimosPintones.value);
+    }
+    if (racimosSobremaduros.present) {
+      map['racimos_sobremaduros'] = Variable<int>(racimosSobremaduros.value);
+    }
+    if (racimosMaduros.present) {
+      map['racimos_maduros'] = Variable<int>(racimosMaduros.value);
+    }
+    if (nombreLote.present) {
+      map['nombre_lote'] = Variable<String>(nombreLote.value);
+    }
+    if (responsable.present) {
+      map['responsable'] = Variable<String>(responsable.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CensoProductivoCompanion(')
+          ..write('id: $id, ')
+          ..write('idCensoProductivo: $idCensoProductivo, ')
+          ..write('fechaCenso: $fechaCenso, ')
+          ..write('floresFemeninas: $floresFemeninas, ')
+          ..write('floresMasculinas: $floresMasculinas, ')
+          ..write('palmasLeidas: $palmasLeidas, ')
+          ..write('racimosVerdes: $racimosVerdes, ')
+          ..write('racimosPintones: $racimosPintones, ')
+          ..write('racimosSobremaduros: $racimosSobremaduros, ')
+          ..write('racimosMaduros: $racimosMaduros, ')
+          ..write('nombreLote: $nombreLote, ')
+          ..write('responsable: $responsable')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $CensoTable censo = $CensoTable(this);
@@ -11978,6 +12595,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $FertilizacionDiariaTable fertilizacionDiaria =
       $FertilizacionDiariaTable(this);
   late final $FertilizanteTable fertilizante = $FertilizanteTable(this);
+  late final $CensoProductivoTable censoProductivo =
+      $CensoProductivoTable(this);
   late final CosechaDao cosechaDao = CosechaDao(this as AppDatabase);
   late final CosechaDiariaDao cosechaDiariaDao =
       CosechaDiariaDao(this as AppDatabase);
@@ -12000,6 +12619,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       FertilizacionDao(this as AppDatabase);
   late final FertilizanteDao fertilizanteDao =
       FertilizanteDao(this as AppDatabase);
+  late final CensoProductivoDao censoProductivoDao =
+      CensoProductivoDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -12031,6 +12652,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         precipitacion,
         fertilizaciones,
         fertilizacionDiaria,
-        fertilizante
+        fertilizante,
+        censoProductivo
       ];
 }

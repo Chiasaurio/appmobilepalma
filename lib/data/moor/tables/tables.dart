@@ -16,3 +16,4 @@ export 'viajes_table.dart';
 export 'precipitacion.dart';
 export 'fertilizaciones_table.dart';
 export 'fertilizante_table.dart';
+export 'censo_productivo_table.dart';

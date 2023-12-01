@@ -1,3 +1,5 @@
+import 'package:apppalma/presentation/modules/Censo_Productivo/page.dart';
+import 'package:apppalma/presentation/modules/Censo_Productivo/ui/agregar_censo_productivo_page.dart';
 import 'package:flutter/material.dart';
 
 import 'SyncToServer/ui/sincronizar_a_servidor_page.dart';
@@ -143,6 +145,14 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) =>
               RegistroFertilizacionesDiarias(routeName: settings.name!),
+        );
+      case '/lote/censoproductivo':
+        return MaterialPageRoute(
+          builder: (_) => CensoProductivoPage(routeName: settings.name!),
+        );
+      case '/lote/censoproductivo/nuevo':
+        return MaterialPageRoute(
+          builder: (_) => AgregarCensoProductivoPage(routeName: settings.name!),
         );
       // case '/lote/palmas/erradicar':
       //   return MaterialPageRoute(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:apppalma/data/moor/tables/lotes_table.dart';
 import 'opcion_item.dart';
+import 'opcion_green_item.dart';
 
 class OpcionesProductiva extends StatelessWidget {
   final LoteWithProcesos lote;
@@ -45,6 +46,14 @@ class OpcionesProductiva extends StatelessWidget {
             nombreLote: lote.lote.nombreLote,
             textWithObject: 'Continuar fertilización',
             textWithoutObject: 'Nueva fertilización'),
+        const SizedBox(
+          height: 15,
+        ),
+        OpcionGreenItem(
+          ruta: '/lote/censoproductivo',
+          nombreLote: lote.lote.nombreLote,
+          text: 'Censo productivo',
+        ),
       ]),
     );
   }

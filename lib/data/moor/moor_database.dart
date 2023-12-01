@@ -49,7 +49,8 @@ LazyDatabase _openConnection() {
   Fertilizaciones,
   FertilizacionDiaria,
   Fertilizante,
-  Usuario
+  Usuario,
+  CensoProductivo
 ], daos: [
   CosechaDao,
   CosechaDiariaDao,
@@ -65,7 +66,8 @@ LazyDatabase _openConnection() {
   RegistroEnfermedadDao,
   ViajesDao,
   FertilizacionDao,
-  FertilizanteDao
+  FertilizanteDao,
+  CensoProductivoDao
 ])
 class AppDatabase extends _$AppDatabase {
   // we tell the database where to store the data with this constructor

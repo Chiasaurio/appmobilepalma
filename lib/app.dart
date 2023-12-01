@@ -1,5 +1,6 @@
 import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
 import 'package:apppalma/presentation/modules/Censo/cubit/censos_cubit.dart';
+import 'package:apppalma/presentation/modules/Censo_Productivo/cubit/censo_productivo_cubit.dart';
 import 'package:apppalma/presentation/modules/Cosechas/cubit/cosecha_cubit.dart';
 import 'package:apppalma/presentation/modules/Enfermedad/cubit/enfermedad_cubit.dart';
 import 'package:apppalma/presentation/modules/Erradicaciones/cubit/erradicacion_cubit.dart';
@@ -68,6 +69,8 @@ class AppPalma extends StatelessWidget {
             create: (context) => PesoExtractoraCubit()),
         BlocProvider<SyncToServerCubit>(
             create: (context) => SyncToServerCubit()),
+        BlocProvider<CensoProductivoCubit>(
+            create: (context) => CensoProductivoCubit()),
       ],
       child: GestureDetector(
         onTap: () {

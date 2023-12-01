@@ -35,7 +35,7 @@ class HeaderGradient extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: MediaQuery.of(context).padding.top),
             const SizedBox(
-              height: 30,
+              height: 15,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 75.0),

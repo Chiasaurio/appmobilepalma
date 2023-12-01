@@ -12,3 +12,4 @@ export 'registroenfermedad_dao.dart';
 export 'viajes_dao.dart';
 export 'fertilizaciones_dao.dart';
 export 'fertilizante_dao.dart';
+export 'censo_productivo_dao.dart';
