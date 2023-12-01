@@ -20,6 +20,19 @@ class CensoProductivoDao extends DatabaseAccessor<AppDatabase>
         .get();
   }
 
+  Future<List<CensoProductivoData>> getCensosPendientesForSync() {
+    return (select(censoProductivo)..where((c) => c.sincronizado.equals(false)))
+        .get();
+  }
+
+  Future updateCensoSyncTrue(CensoProductivoData censo) {
+    return (update(censoProductivo)..where((t) => t.id.equals(censo.id))).write(
+      const CensoProductivoCompanion(
+        sincronizado: Value(true),
+      ),
+    );
+  }
+
   Future insertCenso(Insertable<CensoProductivoData> censo) =>
       into(censoProductivo).insert(censo);
   Future updateCenso(Insertable<CensoProductivoData> censo) =>

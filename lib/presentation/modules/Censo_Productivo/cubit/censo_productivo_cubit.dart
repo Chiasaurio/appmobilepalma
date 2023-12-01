@@ -71,7 +71,8 @@ class CensoProductivoCubit extends Cubit<CensoProductivoInitial> {
           racimosMaduros: Value(racimosMaduros),
           nombreLote: Value(nombreLote),
           responsable: Value(globals.responsable));
-      await censoProductivoDao.updateCenso(nuevoCenso);
+      await censoProductivoDao
+          .updateCenso(nuevoCenso..copyWith(sincronizado: const Value(false)));
       return true;
     } catch (e) {
       return false;

@@ -68,6 +68,10 @@ class _CardPendientesState extends State<CardPendientes> {
               list: state.precipitacionesPendientes!,
               type: PrecipitacionData,
             ),
+            TextSyncPendiente(
+              list: state.censosProductivosPendientes!,
+              type: CensoProductivoData,
+            ),
           ]),
         );
       },
@@ -136,6 +140,10 @@ class TextSyncPendiente extends StatelessWidget {
             text = 'precipitacion pendientes';
             status = state.precipitacionesStatus;
             break;
+          case CensoProductivoData:
+            text = 'censos productivo pendientes';
+            status = state.censosProductivosStatus;
+            break;
 
           default:
         }
@@ -164,7 +172,7 @@ class TextSyncPendiente extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("${list.length} registros de $text"),
+                  Flexible(child: Text("${list.length} registros de $text")),
                   Container(
                     padding: const EdgeInsets.all(5.0),
                     decoration: const BoxDecoration(

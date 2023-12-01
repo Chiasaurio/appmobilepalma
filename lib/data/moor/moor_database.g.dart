@@ -12028,6 +12028,16 @@ class $CensoProductivoTable extends CensoProductivo
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES usuario (cc_usuario)'));
+  static const VerificationMeta _sincronizadoMeta =
+      const VerificationMeta('sincronizado');
+  @override
+  late final GeneratedColumn<bool> sincronizado = GeneratedColumn<bool>(
+      'sincronizado', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("sincronizado" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -12041,7 +12051,8 @@ class $CensoProductivoTable extends CensoProductivo
         racimosSobremaduros,
         racimosMaduros,
         nombreLote,
-        responsable
+        responsable,
+        sincronizado
       ];
   @override
   String get aliasedName => _alias ?? 'censo_productivo';
@@ -12128,6 +12139,12 @@ class $CensoProductivoTable extends CensoProductivo
     } else if (isInserting) {
       context.missing(_responsableMeta);
     }
+    if (data.containsKey('sincronizado')) {
+      context.handle(
+          _sincronizadoMeta,
+          sincronizado.isAcceptableOrUnknown(
+              data['sincronizado']!, _sincronizadoMeta));
+    }
     return context;
   }
 
@@ -12161,6 +12178,8 @@ class $CensoProductivoTable extends CensoProductivo
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       responsable: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}responsable'])!,
+      sincronizado: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sincronizado'])!,
     );
   }
 
@@ -12184,6 +12203,7 @@ class CensoProductivoData extends DataClass
   final int? racimosMaduros;
   final String nombreLote;
   final String responsable;
+  final bool sincronizado;
   const CensoProductivoData(
       {required this.id,
       this.idCensoProductivo,
@@ -12196,7 +12216,8 @@ class CensoProductivoData extends DataClass
       this.racimosSobremaduros,
       this.racimosMaduros,
       required this.nombreLote,
-      required this.responsable});
+      required this.responsable,
+      required this.sincronizado});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -12228,6 +12249,7 @@ class CensoProductivoData extends DataClass
     }
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['responsable'] = Variable<String>(responsable);
+    map['sincronizado'] = Variable<bool>(sincronizado);
     return map;
   }
 
@@ -12261,6 +12283,7 @@ class CensoProductivoData extends DataClass
           : Value(racimosMaduros),
       nombreLote: Value(nombreLote),
       responsable: Value(responsable),
+      sincronizado: Value(sincronizado),
     );
   }
 
@@ -12281,6 +12304,7 @@ class CensoProductivoData extends DataClass
       racimosMaduros: serializer.fromJson<int?>(json['racimosMaduros']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       responsable: serializer.fromJson<String>(json['responsable']),
+      sincronizado: serializer.fromJson<bool>(json['sincronizado']),
     );
   }
   @override
@@ -12299,6 +12323,7 @@ class CensoProductivoData extends DataClass
       'racimosMaduros': serializer.toJson<int?>(racimosMaduros),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'responsable': serializer.toJson<String>(responsable),
+      'sincronizado': serializer.toJson<bool>(sincronizado),
     };
   }
 
@@ -12314,7 +12339,8 @@ class CensoProductivoData extends DataClass
           Value<int?> racimosSobremaduros = const Value.absent(),
           Value<int?> racimosMaduros = const Value.absent(),
           String? nombreLote,
-          String? responsable}) =>
+          String? responsable,
+          bool? sincronizado}) =>
       CensoProductivoData(
         id: id ?? this.id,
         idCensoProductivo: idCensoProductivo.present
@@ -12341,6 +12367,7 @@ class CensoProductivoData extends DataClass
             racimosMaduros.present ? racimosMaduros.value : this.racimosMaduros,
         nombreLote: nombreLote ?? this.nombreLote,
         responsable: responsable ?? this.responsable,
+        sincronizado: sincronizado ?? this.sincronizado,
       );
   @override
   String toString() {
@@ -12356,7 +12383,8 @@ class CensoProductivoData extends DataClass
           ..write('racimosSobremaduros: $racimosSobremaduros, ')
           ..write('racimosMaduros: $racimosMaduros, ')
           ..write('nombreLote: $nombreLote, ')
-          ..write('responsable: $responsable')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }
@@ -12374,7 +12402,8 @@ class CensoProductivoData extends DataClass
       racimosSobremaduros,
       racimosMaduros,
       nombreLote,
-      responsable);
+      responsable,
+      sincronizado);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -12390,7 +12419,8 @@ class CensoProductivoData extends DataClass
           other.racimosSobremaduros == this.racimosSobremaduros &&
           other.racimosMaduros == this.racimosMaduros &&
           other.nombreLote == this.nombreLote &&
-          other.responsable == this.responsable);
+          other.responsable == this.responsable &&
+          other.sincronizado == this.sincronizado);
 }
 
 class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
@@ -12406,6 +12436,7 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
   final Value<int?> racimosMaduros;
   final Value<String> nombreLote;
   final Value<String> responsable;
+  final Value<bool> sincronizado;
   const CensoProductivoCompanion({
     this.id = const Value.absent(),
     this.idCensoProductivo = const Value.absent(),
@@ -12419,6 +12450,7 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
     this.racimosMaduros = const Value.absent(),
     this.nombreLote = const Value.absent(),
     this.responsable = const Value.absent(),
+    this.sincronizado = const Value.absent(),
   });
   CensoProductivoCompanion.insert({
     this.id = const Value.absent(),
@@ -12433,6 +12465,7 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
     this.racimosMaduros = const Value.absent(),
     required String nombreLote,
     required String responsable,
+    this.sincronizado = const Value.absent(),
   })  : fechaCenso = Value(fechaCenso),
         nombreLote = Value(nombreLote),
         responsable = Value(responsable);
@@ -12449,6 +12482,7 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
     Expression<int>? racimosMaduros,
     Expression<String>? nombreLote,
     Expression<String>? responsable,
+    Expression<bool>? sincronizado,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -12464,6 +12498,7 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
       if (racimosMaduros != null) 'racimos_maduros': racimosMaduros,
       if (nombreLote != null) 'nombre_lote': nombreLote,
       if (responsable != null) 'responsable': responsable,
+      if (sincronizado != null) 'sincronizado': sincronizado,
     });
   }
 
@@ -12479,7 +12514,8 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
       Value<int?>? racimosSobremaduros,
       Value<int?>? racimosMaduros,
       Value<String>? nombreLote,
-      Value<String>? responsable}) {
+      Value<String>? responsable,
+      Value<bool>? sincronizado}) {
     return CensoProductivoCompanion(
       id: id ?? this.id,
       idCensoProductivo: idCensoProductivo ?? this.idCensoProductivo,
@@ -12493,6 +12529,7 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
       racimosMaduros: racimosMaduros ?? this.racimosMaduros,
       nombreLote: nombreLote ?? this.nombreLote,
       responsable: responsable ?? this.responsable,
+      sincronizado: sincronizado ?? this.sincronizado,
     );
   }
 
@@ -12535,6 +12572,9 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
     if (responsable.present) {
       map['responsable'] = Variable<String>(responsable.value);
     }
+    if (sincronizado.present) {
+      map['sincronizado'] = Variable<bool>(sincronizado.value);
+    }
     return map;
   }
 
@@ -12552,7 +12592,8 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
           ..write('racimosSobremaduros: $racimosSobremaduros, ')
           ..write('racimosMaduros: $racimosMaduros, ')
           ..write('nombreLote: $nombreLote, ')
-          ..write('responsable: $responsable')
+          ..write('responsable: $responsable, ')
+          ..write('sincronizado: $sincronizado')
           ..write(')'))
         .toString();
   }

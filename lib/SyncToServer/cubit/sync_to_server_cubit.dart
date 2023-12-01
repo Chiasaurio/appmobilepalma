@@ -38,6 +38,9 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
 
     final precipitacionesPendientes = await getPrecipitacionesPendientesSync();
 
+    final censosProductivosPendientes =
+        await getCensosProductivosPendientesSync();
+
     //Fitosanitarias
     emit(state.copyWith(
         cosechasConDiariasPendientes: cosechasPendientes,
@@ -52,6 +55,7 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         fumigacionesPendientes: fumigacionesPendientes,
         viajesPendientes: viajesPendientes,
         precipitacionesPendientes: precipitacionesPendientes,
+        censosProductivosPendientes: censosProductivosPendientes,
         loaded: true));
   }
 
@@ -61,6 +65,17 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       final precipitaciones =
           await loteDao.getPrecipitacionesPendientesForSync();
       return precipitaciones;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<CensoProductivoData>> getCensosProductivosPendientesSync() async {
+    try {
+      final CensoProductivoDao censoProductivoDao = db.censoProductivoDao;
+      final censosProductivos =
+          await censoProductivoDao.getCensosPendientesForSync();
+      return censosProductivos;
     } catch (e) {
       return [];
     }
@@ -283,6 +298,41 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
         state.precipitacionesPendientes!.isNotEmpty &&
         state.precipitacionesStatus != SyncStatus.success) {
       await syncPrecipitaciones();
+    }
+    if (state.censosProductivosPendientes != null &&
+        state.censosProductivosPendientes!.isNotEmpty &&
+        state.censosProductivosStatus != SyncStatus.success) {
+      await syncCensosProductivos();
+    }
+  }
+
+  Future<bool> syncCensosProductivos() async {
+    try {
+      emit(state.copyWith(censosProductivosStatus: SyncStatus.loading));
+      final res = await remote
+          .syncCensosProductivos(state.censosProductivosPendientes ?? []);
+      if (res["success"]) {
+        final CensoProductivoDao censoProductivoDao = db.censoProductivoDao;
+        var index = 0;
+        List<dynamic> ids = res["censosIds"];
+        for (var censo in state.censosProductivosPendientes!) {
+          if (ids.isNotEmpty && ids[index] > -1) {
+            //si agrego el viaje se actualiza el id
+            await censoProductivoDao.updateCenso(
+                censo.copyWith(idCensoProductivo: Value(ids[index])));
+          }
+          index++;
+          await censoProductivoDao.updateCensoSyncTrue(censo);
+        }
+        emit(state.copyWith(censosProductivosStatus: SyncStatus.success));
+        return true;
+      } else {
+        emit(state.copyWith(censosProductivosStatus: SyncStatus.error));
+        return false;
+      }
+    } catch (e) {
+      emit(state.copyWith(censosProductivosStatus: SyncStatus.error));
+      return false;
     }
   }
 

@@ -39,9 +39,12 @@ class _ListCensosProductivosState extends State<ListCensosProductivos> {
             ),
           );
         } else if (state.censos!.isEmpty) {
-          return const SliverToBoxAdapter(
+          return const SliverFillRemaining(
+            hasScrollBody: false,
             child: Center(
-              child: Text('No hay censos productivos registrados'),
+              child: Text(
+                "No hay censos productivos registrados",
+              ),
             ),
           );
         }

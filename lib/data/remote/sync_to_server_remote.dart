@@ -401,4 +401,32 @@ class SyncToServerRemote {
       return {"success": false};
     }
   }
+
+  Future<Map<String, dynamic>> syncCensosProductivos(
+      List<CensoProductivoData> censos) async {
+    try {
+      final data = censos
+          .map((e) => {
+                "id_censo_productivo": e.idCensoProductivo,
+                "fecha_registro_censo_productivo":
+                    e.fechaCenso.toIso8601String(),
+                "nombre_lote": utf8.encode(e.nombreLote),
+                "cantidad_palmas_leidas": e.palmasLeidas,
+                "cantidad_flores_femeninas": e.floresFemeninas,
+                "cantidad_flores_masculinas": e.floresMasculinas,
+                "cantidad_racimos_verdes": e.racimosVerdes,
+                "cantidad_racimos_pintones": e.racimosPintones,
+                "cantidad_racimos_sobremaduros": e.racimosSobremaduros,
+                "cantidad_racimos_maduros": e.racimosMaduros,
+              })
+          .toList();
+      final res = await _apiInstance
+          .post(EndPointConstant.censoProductivo, data: {"data": data});
+      return res;
+    } on DioException catch (_) {
+      return {"success": false};
+    } catch (e) {
+      return {"success": false};
+    }
+  }
 }

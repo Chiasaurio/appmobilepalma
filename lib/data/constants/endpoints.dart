@@ -11,4 +11,5 @@ class EndPointConstant {
   static String podas = "movil/podas";
   static String fertilizaciones = "movil/fertilizaciones";
   static String viajes = "movil/viajes";
+  static String censoProductivo = "censo-productivo";
 }
