@@ -45,8 +45,6 @@ class _NuevaPodaPageState extends State<NuevaPodaPage> {
                     final res = await iniciarNuevoProcesoAlert(context);
                     if (res != null) {
                       _submit(res);
-                    } else {
-                      print(res);
                     }
                   },
                   icon: const Icon(Icons.add, size: 18),

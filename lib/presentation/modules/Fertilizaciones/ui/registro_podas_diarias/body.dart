@@ -55,7 +55,7 @@ class _BodyState extends State<Body> {
                   _rowText('Fecha plateo',
                       formatter.format(podaDiaria.fechaIngreso)),
                   _rowText(
-                      'Palmas podadadas', podaDiaria.cantidadPodada.toString()),
+                      'Palmas plateadas', podaDiaria.cantidadPodada.toString()),
                   _rowText('Linea inicio', podaDiaria.lineaInicio),
                   _rowText('Numero de palma inicio', podaDiaria.numeroInicio),
                   _rowText('Orientación inicio', podaDiaria.orientacionInicio),

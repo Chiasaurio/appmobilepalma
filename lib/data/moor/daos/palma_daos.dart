@@ -139,9 +139,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
           batch.insertAll(imagenRegistroEnfermedad, imagenesCompanions);
         });
       });
-    } catch (e) {
-      print('Error registrando enfermedad $e');
-    }
+    } catch (_) {}
   }
 
   Future<List<Insertable<ImagenRegistroEnfermedadData>>>
@@ -181,9 +179,7 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
           batch.insertAll(imagenCensoPlaga, imagenesCompanions);
         });
       });
-    } catch (e) {
-      print('Error registrando plaga $e');
-    }
+    } catch (_) {}
   }
 
   List<Insertable<CensoEtapasPlagaData>> getCensoEtapasCompanion(

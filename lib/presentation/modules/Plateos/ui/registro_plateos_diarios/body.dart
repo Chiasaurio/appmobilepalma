@@ -77,7 +77,7 @@ class _BodyState extends State<Body> {
       children: [
         Text(
           '$title: ',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Text(value)
       ],

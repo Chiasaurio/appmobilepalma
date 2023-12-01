@@ -46,8 +46,6 @@ class _NuevaFertilizacionPageState extends State<NuevaFertilizacionPage> {
                     final res = await iniciarNuevoProcesoAlert(context);
                     if (res != null) {
                       _submit(res);
-                    } else {
-                      print(res);
                     }
                   },
                   icon: const Icon(Icons.add, size: 18),

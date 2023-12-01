@@ -49,8 +49,6 @@ class _NuevaPlateoPageState extends State<NuevaPlateoPage> {
                         await iniciarNuevoProcesoAlert(context);
                     if (res != null) {
                       _submit(res.fecha, res.tipo);
-                    } else {
-                      print(res);
                     }
                   },
                   icon: const Icon(Icons.add, size: 18),
