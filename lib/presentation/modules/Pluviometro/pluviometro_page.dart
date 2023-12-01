@@ -81,7 +81,7 @@ class _PluviometroPageState extends State<PluviometroPage> {
                                   'Se registró la precipitación correctamente.'),
                             ),
                           );
-                          Navigator.of(context).pop;
+                          Navigator.of(context).pop();
                         }
                         setState(() {});
                       }
