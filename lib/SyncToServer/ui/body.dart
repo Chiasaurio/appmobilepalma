@@ -1,7 +1,7 @@
-import 'package:apppalma/SyncToServer/ui/subir_a_la_nube_button.dart';
 import 'package:flutter/material.dart';
 
 import 'card_de_pendientes.dart';
+import 'subir_a_la_nube_button.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -15,10 +15,10 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-      child: Column(
-        children: [
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+      sliver: SliverList.list(
+        children: const [
           SizedBox(
             height: 20,
           ),

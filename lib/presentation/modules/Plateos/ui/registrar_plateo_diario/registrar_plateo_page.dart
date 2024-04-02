@@ -1,6 +1,5 @@
 import 'package:apppalma/presentation/components/main_button.dart';
 import 'package:apppalma/presentation/components/widgets/fecha.dart';
-import 'package:apppalma/presentation/components/widgets/header_gradient.dart';
 import 'package:apppalma/presentation/modules/Plateos/cubit/plateos_cubit.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import '../../../../components/widgets/orientacion_dropdown.dart';
+import '../../../../components/widgets/sliver_app_bar.dart';
 import '../../../../constants.dart';
 
 class PlateoDiarioPage extends StatefulWidget {
@@ -82,23 +82,67 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
     margin = anchoCard * 0.04;
 
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        children: [
-          HeaderGradient(
+        body: Form(
+      key: formKey,
+      child: CustomScrollView(
+        slivers: [
+          SliverAppBarGradient(
             title: "Registrar plateo diario",
             ruta: widget.routeName,
           ),
-          SingleChildScrollView(
-            child: Column(children: <Widget>[
-              buildDatosPlateo(context),
+          SliverPadding(
+            padding: const EdgeInsets.all(10),
+            sliver: SliverList(
+                delegate: SliverChildListDelegate([
+              const Text('Detalles de plateo',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18, /*fontWeight: FontWeight.bold*/
+                  )),
+              const SizedBox(height: 10),
+              buildFecha(),
+              const SizedBox(height: 10),
+              buildPlateos(),
+              const SizedBox(height: 20),
+              const Text('Donde comenzó',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18, /*fontWeight: FontWeight.bold*/
+                  )),
+              _ubicacionDelFoco(),
+              const SizedBox(height: 10),
+              const Text('Donde termino',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18, /*fontWeight: FontWeight.bold*/
+                  )),
+              _ubicacionDelFocoFin(),
               SizedBox(height: altoCard * 0.1),
               _buildRegistrarPlateo(context),
-            ]),
-          ),
+            ])),
+          )
         ],
       ),
-    ));
+    )
+        // body: SingleChildScrollView(
+        // child: Column(
+        //   children: [
+        //     HeaderGradient(
+        //       title: "Registrar plateo diario",
+        //       ruta: widget.routeName,
+        //     ),
+        //     SingleChildScrollView(
+        //       child: Column(children: <Widget>[
+        //         buildDatosPlateo(context),
+        // SizedBox(height: altoCard * 0.1),
+        // _buildRegistrarPlateo(context),
+        //       ]),
+        //     ),
+        //   ],
+        // ),
+        // )
+        );
   }
 
   Widget buildDatosPlateo(BuildContext context) {
