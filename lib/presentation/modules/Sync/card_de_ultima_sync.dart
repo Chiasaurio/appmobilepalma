@@ -69,28 +69,23 @@ class TextSyncPendiente extends StatelessWidget {
     SyncStatus status = SyncStatus.initial;
     return BlocBuilder<BajarInfoCubit, BajarInfoState>(
       builder: (context, state) {
-        switch (type) {
-          case Lote _:
-            text = 'Lotes';
-            status = state.estadoLote;
-            break;
-          case Enfermedade _:
-            text = 'Enfermedades';
-            status = state.estadoEnfermedad;
-            break;
-          case Plaga _:
-            text = 'Plagas';
-            status = state.estadoPlaga;
-            break;
-          case ProductoAgroquimicoData _:
-            text = 'Productos agroquimicos';
-            status = state.estadoAgroquimico;
-            break;
-          case FertilizanteData _:
-            text = 'Fertilizantes';
-            status = state.estadoFertilizante;
-            break;
-          default:
+        if (type == Lote) {
+          text = 'Lotes';
+          status = state.estadoLote;
+        } else if (type == Enfermedade) {
+          text = 'Enfermedades';
+          status = state.estadoEnfermedad;
+        } else if (type == Plaga) {
+          text = 'Plagas';
+          status = state.estadoPlaga;
+        } else if (type == ProductoAgroquimicoData) {
+          text = 'Productos agroquimicos';
+          status = state.estadoAgroquimico;
+        } else if (type == FertilizanteData) {
+          text = 'Fertilizantes';
+          status = state.estadoFertilizante;
+        } else {
+          // Handle any other types or a default case if needed
         }
 
         late Widget icon;

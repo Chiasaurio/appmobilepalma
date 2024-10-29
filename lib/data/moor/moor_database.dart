@@ -83,5 +83,9 @@ class AppDatabase extends _$AppDatabase {
         onUpgrade: (migrator, from, to) async {
           if (from == 1) {}
         },
+        beforeOpen: (details) async {
+          await customStatement('PRAGMA foreign_keys = ON');
+          // ....
+        },
       );
 }

@@ -4,6 +4,7 @@ part of 'registroenfermedad_dao.dart';
 
 // ignore_for_file: type=lint
 mixin _$RegistroEnfermedadDaoMixin on DatabaseAccessor<AppDatabase> {
+  $LotesTable get lotes => attachedDatabase.lotes;
   $PalmasTable get palmas => attachedDatabase.palmas;
   $EnfermedadesTable get enfermedades => attachedDatabase.enfermedades;
   $EtapasTable get etapas => attachedDatabase.etapas;

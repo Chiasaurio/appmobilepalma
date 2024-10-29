@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
 
 import '../moor_database.dart';
+import 'plagas_table.dart';
+import 'usuario_table.dart';
 
 class Censo extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -13,7 +15,7 @@ class Censo extends Table {
   TextColumn get estadoPlaga =>
       text().withDefault(const Constant('Pendiente por fumigar'))();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-  TextColumn get responsable => text()();
+  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
   IntColumn get numerolinea => integer()();
   IntColumn get numeroenlinea => integer()();
   TextColumn get orientacion => text()();
@@ -23,28 +25,18 @@ class Censo extends Table {
 
 class CensoEtapasPlaga extends Table {
   IntColumn get idCensoEtapasplaga => integer().autoIncrement()();
-  IntColumn get idCenso => integer()();
-  IntColumn get idEtapasplaga => integer()();
+  IntColumn get idCenso => integer().references(Censo, #id)();
+  IntColumn get idEtapasplaga =>
+      integer().references(EtapasPlaga, #idEtapasPlaga)();
   IntColumn get numeroIndividuos => integer()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(id_censo) REFERENCES censo(id)',
-        'FOREIGN KEY(id_etapasplaga) REFERENCES etapas_plaga(id_etapasplaga)',
-      ];
 }
 
 class ImagenCensoPlaga extends Table {
   IntColumn get idImagenCensoPlaga => integer().autoIncrement()();
-  IntColumn get idCenso => integer()();
+  IntColumn get idCenso => integer().references(Censo, #id)();
   BlobColumn get imagen => blob()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(id_censo) REFERENCES censo(id)',
-      ];
 }
 
 class CensoConEtapas {

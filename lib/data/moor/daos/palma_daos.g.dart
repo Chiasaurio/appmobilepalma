@@ -4,6 +4,7 @@ part of 'palma_daos.dart';
 
 // ignore_for_file: type=lint
 mixin _$PalmaDaoMixin on DatabaseAccessor<AppDatabase> {
+  $LotesTable get lotes => attachedDatabase.lotes;
   $PalmasTable get palmas => attachedDatabase.palmas;
   $EnfermedadesTable get enfermedades => attachedDatabase.enfermedades;
   $EtapasTable get etapas => attachedDatabase.etapas;
@@ -17,6 +18,8 @@ mixin _$PalmaDaoMixin on DatabaseAccessor<AppDatabase> {
   $RegistroTratamientoTable get registroTratamiento =>
       attachedDatabase.registroTratamiento;
   $CensoTable get censo => attachedDatabase.censo;
+  $PlagasTable get plagas => attachedDatabase.plagas;
+  $EtapasPlagaTable get etapasPlaga => attachedDatabase.etapasPlaga;
   $CensoEtapasPlagaTable get censoEtapasPlaga =>
       attachedDatabase.censoEtapasPlaga;
   $ImagenCensoPlagaTable get imagenCensoPlaga =>

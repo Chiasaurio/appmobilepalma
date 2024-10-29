@@ -45,38 +45,43 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
       // appBar: AppBar(
       //   title: const Text('Finca CampoAlegre'),
       // ),
-      body: Column(
-        children: [
-          HeaderGradient(
-              title: "Lista de lotes",
-              ruta: "/lotes",
-              disableBack:
-                  widget.disableBack != null ? widget.disableBack! : false,
-              showDrawer: true),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                BlocBuilder<LoteslistCubit, LoteslistState>(
-                  builder: (context, state) {
-                    if (state is LotesListLoaded) {
-                      loteswithprocesos = state.lotes;
-                      return getLotes();
-                    } else if (state is LoadingLotesError) {
-                      return Center(
-                        child: Text(state.error),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
-          )
-        ],
+      body: Theme(
+        data: Theme.of(context).copyWith(
+          dividerColor: Colors.transparent, // Removes the divider/border color
+        ),
+        child: Column(
+          children: [
+            HeaderGradient(
+                title: "Lista de lotes",
+                ruta: "/lotes",
+                disableBack:
+                    widget.disableBack != null ? widget.disableBack! : false,
+                showDrawer: true),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  BlocBuilder<LoteslistCubit, LoteslistState>(
+                    builder: (context, state) {
+                      if (state is LotesListLoaded) {
+                        loteswithprocesos = state.lotes;
+                        return getLotes();
+                      } else if (state is LoadingLotesError) {
+                        return Center(
+                          child: Text(state.error),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -118,7 +123,7 @@ class _EscogerLotePageState extends State<EscogerLotePage> {
           ],
         ),
         child: ExpansionTile(
-            tilePadding: EdgeInsets.zero,
+            tilePadding: EdgeInsets.only(right: 15),
             key: PageStorageKey<Lote>(loteswithprocesos.lote),
             title: Text(
               loteswithprocesos.lote.nombreLote,

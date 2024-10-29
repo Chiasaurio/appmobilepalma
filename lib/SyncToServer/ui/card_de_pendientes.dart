@@ -95,57 +95,42 @@ class TextSyncPendiente extends StatelessWidget {
     SyncStatus status = SyncStatus.initial;
     return BlocBuilder<SyncToServerCubit, SyncToServerState>(
       builder: (context, state) {
-        switch (type) {
-          case CosechaConCosechasDiarias _:
-            text = 'cosechas pendientes';
-            status = state.cosechasStatus;
-            break;
-          case PodasConPodasDiarias _:
-            text = 'podas pendientes';
-            status = state.podasStatus;
-            break;
-          case PlateoConPlateosDiarias _:
-            text = 'plateos pendientes';
-            status = state.plateosStatus;
-            break;
-          case FertilizacionConFertilizacionesDiarias _:
-            text = 'fertilizaciones pendientes';
-            status = state.fertilizacionesStatus;
-            break;
-          case Palma _:
-            text = 'palmas pendientes';
-            status = state.palmasStatus;
-            break;
-          case RegistroEnfermedadData _:
-            text = 'enfermedades pendientes';
-            status = state.enfermedadesStatus;
-            break;
-          case RegistroTratamientoData _:
-            text = 'tratamientos pendientes';
-            status = state.tratamientosStatus;
-            break;
-          case CensoData _:
-            text = 'censos pendientes';
-            status = state.censosStatus;
-            break;
-          case Aplicacione _:
-            text = 'aplicaciones pendientes';
-            status = state.fumigacionesStatus;
-            break;
-          case Viaje _:
-            text = 'viajes pendientes';
-            status = state.viajesStatus;
-            break;
-          case PrecipitacionData _:
-            text = 'precipitacion pendientes';
-            status = state.precipitacionesStatus;
-            break;
-          case CensoProductivoData _:
-            text = 'censos productivo pendientes';
-            status = state.censosProductivosStatus;
-            break;
-
-          default:
+        if (type == CosechaConCosechasDiarias) {
+          text = 'cosechas pendientes';
+          status = state.cosechasStatus;
+        } else if (type == PodasConPodasDiarias) {
+          text = 'podas pendientes';
+          status = state.podasStatus;
+        } else if (type == PlateoConPlateosDiarias) {
+          text = 'plateos pendientes';
+          status = state.plateosStatus;
+        } else if (type == FertilizacionConFertilizacionesDiarias) {
+          text = 'fertilizaciones pendientes';
+          status = state.fertilizacionesStatus;
+        } else if (type == Palma) {
+          text = 'palmas pendientes';
+          status = state.palmasStatus;
+        } else if (type == RegistroEnfermedadData) {
+          text = 'enfermedades pendientes';
+          status = state.enfermedadesStatus;
+        } else if (type == RegistroTratamientoData) {
+          text = 'tratamientos pendientes';
+          status = state.tratamientosStatus;
+        } else if (type == CensoData) {
+          text = 'censos pendientes';
+          status = state.censosStatus;
+        } else if (type == Aplicacione) {
+          text = 'aplicaciones pendientes';
+          status = state.fumigacionesStatus;
+        } else if (type == Viaje) {
+          text = 'viajes pendientes';
+          status = state.viajesStatus;
+        } else if (type == PrecipitacionData) {
+          text = 'precipitacion pendientes';
+          status = state.precipitacionesStatus;
+        } else if (type == CensoProductivoData) {
+          text = 'censos productivo pendientes';
+          status = state.censosProductivosStatus;
         }
 
         Widget icon = status == SyncStatus.loading

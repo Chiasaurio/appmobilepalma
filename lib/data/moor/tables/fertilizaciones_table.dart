@@ -1,6 +1,9 @@
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
+import 'fertilizante_table.dart';
+import 'usuario_table.dart';
+
 class Fertilizaciones extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idFertilizacion => integer().nullable()();
@@ -17,7 +20,7 @@ class Fertilizaciones extends Table {
 class FertilizacionDiaria extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idFertilizacion =>
-      integer().customConstraint('NOT NULL REFERENCES fertilizaciones(id)')();
+      integer().references(Fertilizaciones, #idFertilizacion)();
   DateTimeColumn get fecha => dateTime()();
   IntColumn get cantidadFertilizada => integer()();
   RealColumn get dosis => real()();
@@ -28,15 +31,10 @@ class FertilizacionDiaria extends Table {
   TextColumn get lineaFin => text()();
   TextColumn get numeroFin => text()();
   TextColumn get orientacionFin => text()();
-  TextColumn get responsable => text()();
-  TextColumn get nombreFertilizante => text()();
+  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get nombreFertilizante =>
+      text().references(Fertilizante, #nombreFertilizante)();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(id_fertilizacion) REFERENCES fertilizacion(id_fertilizacion)',
-        'FOREIGN KEY(nombre_fertilizante) REFERENCES fertilizante(nombre_fertilizante)',
-        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
-      ];
 }
 
 class FertilizacionConFertilizacionesDiarias {

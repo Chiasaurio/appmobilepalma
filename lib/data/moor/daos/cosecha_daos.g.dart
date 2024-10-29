@@ -4,14 +4,14 @@ part of 'cosecha_daos.dart';
 
 // ignore_for_file: type=lint
 mixin _$CosechaDaoMixin on DatabaseAccessor<AppDatabase> {
+  $UsuarioTable get usuario => attachedDatabase.usuario;
   $ViajesTable get viajes => attachedDatabase.viajes;
   $CosechasTable get cosechas => attachedDatabase.cosechas;
-  $UsuarioTable get usuario => attachedDatabase.usuario;
   $CosechaDiariaTable get cosechaDiaria => attachedDatabase.cosechaDiaria;
 }
 mixin _$CosechaDiariaDaoMixin on DatabaseAccessor<AppDatabase> {
+  $UsuarioTable get usuario => attachedDatabase.usuario;
   $ViajesTable get viajes => attachedDatabase.viajes;
   $CosechasTable get cosechas => attachedDatabase.cosechas;
-  $UsuarioTable get usuario => attachedDatabase.usuario;
   $CosechaDiariaTable get cosechaDiaria => attachedDatabase.cosechaDiaria;
 }

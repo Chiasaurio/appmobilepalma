@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
+import 'lotes_table.dart';
+
 class Palmas extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idPalma => integer().nullable()();
-  TextColumn get nombreLote => text()();
+  TextColumn get nombreLote => text().references(Lotes, #nombreLote)();
   IntColumn get numerolinea => integer()();
   IntColumn get numeroenlinea => integer()();
   TextColumn get orientacion => text()();
@@ -20,10 +22,6 @@ class Palmas extends Table {
   @override
   List<Set<Column>> get uniqueKeys => [
         {numerolinea, numeroenlinea, orientacion},
-      ];
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(nombre_lote) REFERENCES lotes(nombre_lote)',
       ];
 }
 

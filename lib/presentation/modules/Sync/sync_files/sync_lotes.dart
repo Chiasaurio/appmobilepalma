@@ -26,8 +26,7 @@ class SyncLotes {
       }
       return lotes;
     } catch (e) {
-      registroFallidoToast('Error al realizar el registro : ${e.toString()}');
-      return [];
+      throw Exception();
     }
   }
 }

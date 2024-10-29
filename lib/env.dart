@@ -1,2 +1,2 @@
-// const baseUrl = 'http://176.31.22.252:3000/';
-const baseUrl = 'http://10.0.2.2:3000/';
+const baseUrl = 'https://7f90-186-112-6-223.ngrok-free.app/';
+// const baseUrl = 'http://10.0.2.2:3000/';

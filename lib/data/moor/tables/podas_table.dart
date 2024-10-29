@@ -1,6 +1,8 @@
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
+import 'usuario_table.dart';
+
 class Podas extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idPoda => integer().nullable()();
@@ -27,12 +29,9 @@ class PodaDiaria extends Table {
   TextColumn get lineaFin => text()();
   TextColumn get numeroFin => text()();
   TextColumn get orientacionFin => text()();
-  TextColumn get responsable => text()();
+  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-  @override
-  List<String> get customConstraints => [
-        'FOREIGN KEY(responsable) REFERENCES usuario(cc_usuario)',
-      ];
 }
 
 class PodasConPodasDiarias {
