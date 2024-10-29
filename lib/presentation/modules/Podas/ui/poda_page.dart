@@ -9,7 +9,7 @@ import '../../../components/widgets/header_gradient.dart';
 
 class PodaPage extends StatefulWidget {
   final String routeName;
-  const PodaPage({Key? key, required this.routeName}) : super(key: key);
+  const PodaPage({super.key, required this.routeName});
   @override
   State<PodaPage> createState() => _PodaPageState();
 }

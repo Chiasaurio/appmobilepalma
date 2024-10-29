@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HeaderCurvo extends StatelessWidget {
-  const HeaderCurvo({Key? key}) : super(key: key);
+  const HeaderCurvo({super.key});
 
   @override
   Widget build(BuildContext context) {

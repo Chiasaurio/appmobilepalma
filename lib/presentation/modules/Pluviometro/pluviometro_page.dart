@@ -73,7 +73,7 @@ class _PluviometroPageState extends State<PluviometroPage> {
                                   int.parse(_cantidadController.text), fecha!);
 
                       if (result) {
-                        if (mounted) {
+                        if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               backgroundColor: kSuccessColor,

@@ -8,7 +8,7 @@ import 'body.dart';
 class AplicacionesPage extends StatelessWidget {
   final String routeName;
 
-  const AplicacionesPage({Key? key, required this.routeName}) : super(key: key);
+  const AplicacionesPage({super.key, required this.routeName});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoteDetailCubit, LoteDetailState>(

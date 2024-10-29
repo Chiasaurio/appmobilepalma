@@ -14,10 +14,9 @@ class CosechaDiariaPage extends StatefulWidget {
   final Cosecha cosecha;
   final String routeName;
   const CosechaDiariaPage(
-      {Key? key,
+      {super.key,
       required this.cosecha,
-      this.routeName = '/lote/cosechas/registrardiarias'})
-      : super(key: key);
+      this.routeName = '/lote/cosechas/registrardiarias'});
   @override
   State<CosechaDiariaPage> createState() => _CosechaDiariaPageState();
 }

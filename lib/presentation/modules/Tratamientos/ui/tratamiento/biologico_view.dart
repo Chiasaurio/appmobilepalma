@@ -5,8 +5,7 @@ class ControlBiologico extends StatefulWidget {
   final List<ProductoAgroquimicoData> productos;
   final Function(ProductoAgroquimicoData) callbackproducto;
   const ControlBiologico(
-      {Key? key, required this.callbackproducto, required this.productos})
-      : super(key: key);
+      {super.key, required this.callbackproducto, required this.productos});
   @override
   State<ControlBiologico> createState() => _ControlBiologicoState();
 }

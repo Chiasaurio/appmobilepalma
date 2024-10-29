@@ -5,7 +5,7 @@ import 'package:apppalma/presentation/modules/LoteDetail/ui/widgets/opciones_pro
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key? key, required this.lote}) : super(key: key);
+  const Body({super.key, required this.lote});
   final LoteWithProcesos lote;
 
   @override

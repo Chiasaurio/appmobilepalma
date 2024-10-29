@@ -8,8 +8,7 @@ import '../../cubit/lote_detail_cubit.dart';
 class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final String routeName;
-  const HeaderLote({Key? key, required this.height, required this.routeName})
-      : super(key: key);
+  const HeaderLote({super.key, required this.height, required this.routeName});
 
   @override
   Widget build(BuildContext context) {

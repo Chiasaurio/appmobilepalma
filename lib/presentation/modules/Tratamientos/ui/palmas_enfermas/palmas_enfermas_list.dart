@@ -7,8 +7,7 @@ import 'package:intl/intl.dart';
 
 class PalmasEnfermasList extends StatefulWidget {
   final List<PalmaConEnfermedad> palmasEnfermas;
-  const PalmasEnfermasList({Key? key, required this.palmasEnfermas})
-      : super(key: key);
+  const PalmasEnfermasList({super.key, required this.palmasEnfermas});
   @override
   State<PalmasEnfermasList> createState() => _PalmasEnfermasListState();
 }

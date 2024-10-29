@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class FechaViajeWidget extends StatefulWidget {
-  const FechaViajeWidget({Key? key}) : super(key: key);
+  const FechaViajeWidget({super.key});
 
   @override
   State<FechaViajeWidget> createState() => _FechaViajeWidgetState();

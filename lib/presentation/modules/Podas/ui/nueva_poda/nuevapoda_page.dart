@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NuevaPodaPage extends StatefulWidget {
   final String nombrelote;
-  const NuevaPodaPage({Key? key, required this.nombrelote}) : super(key: key);
+  const NuevaPodaPage({super.key, required this.nombrelote});
   @override
   State<NuevaPodaPage> createState() => _NuevaPodaPageState();
 }

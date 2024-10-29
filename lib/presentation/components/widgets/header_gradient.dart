@@ -6,13 +6,13 @@ import '../../constants.dart';
 
 class HeaderGradient extends StatelessWidget {
   HeaderGradient({
-    Key? key,
+    super.key,
     required this.title,
     required this.ruta,
     this.disableBack = false,
     this.showDrawer = false,
     this.onPop,
-  }) : super(key: key);
+  });
   final bool disableBack;
   final bool showDrawer;
   final String title;

@@ -8,10 +8,9 @@ class PalmaDetalleScreen extends StatefulWidget {
   final Palma palma;
   final String routeName;
   const PalmaDetalleScreen(
-      {Key? key,
+      {super.key,
       required this.palma,
-      this.routeName = 'lote/palmas/palmadetalle'})
-      : super(key: key);
+      this.routeName = 'lote/palmas/palmadetalle'});
 
   @override
   State<PalmaDetalleScreen> createState() => _PalmaDetalleScreenState();

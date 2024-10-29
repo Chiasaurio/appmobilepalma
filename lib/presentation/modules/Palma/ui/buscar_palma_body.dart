@@ -67,7 +67,7 @@ class _BuscarPalmaBodyState extends State<BuscarPalmaBody> {
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(kpurpleColor),
+          backgroundColor: WidgetStateProperty.all(kpurpleColor),
         ),
         onPressed: () {
           if (_formKey.currentState!.validate()) {

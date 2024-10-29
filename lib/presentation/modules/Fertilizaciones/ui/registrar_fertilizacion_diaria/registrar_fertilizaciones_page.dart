@@ -16,10 +16,9 @@ class FertilizacionDiariaPage extends StatefulWidget {
   final Fertilizacione fertilizacion;
   final String routeName;
   const FertilizacionDiariaPage(
-      {Key? key,
+      {super.key,
       required this.fertilizacion,
-      this.routeName = '/lote/fertilizacion/registrardiarias'})
-      : super(key: key);
+      this.routeName = '/lote/fertilizacion/registrardiarias'});
   @override
   State<FertilizacionDiariaPage> createState() =>
       _FertilizacionDiariaPageState();

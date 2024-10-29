@@ -9,13 +9,13 @@ class SecondaryButton extends StatelessWidget {
   final VoidCallback press;
 
   const SecondaryButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.press,
     this.height = 45,
     this.textSize = 16,
     this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

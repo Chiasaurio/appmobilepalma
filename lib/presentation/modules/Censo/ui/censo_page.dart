@@ -8,7 +8,7 @@ import './body.dart';
 class CensoPage extends StatelessWidget {
   final String routeName;
 
-  const CensoPage({Key? key, required this.routeName}) : super(key: key);
+  const CensoPage({super.key, required this.routeName});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoteDetailCubit, LoteDetailState>(

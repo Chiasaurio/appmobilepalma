@@ -26,6 +26,13 @@ class PlagaConEtapas {
   final Plaga plaga;
   final List<EtapasPlagaData> etapas;
 
+  factory PlagaConEtapas.otraPlagas() {
+    return PlagaConEtapas(
+      plaga: const Plaga(nombreComunPlaga: "Otra"),
+      etapas: [],
+    );
+  }
+
   PlagaConEtapas({
     required this.plaga,
     required this.etapas,

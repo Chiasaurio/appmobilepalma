@@ -9,8 +9,7 @@ import 'palmas_enfermas_list.dart';
 class PalmasEnfermasPage extends StatefulWidget {
   final String routeName;
 
-  const PalmasEnfermasPage({Key? key, required this.routeName})
-      : super(key: key);
+  const PalmasEnfermasPage({super.key, required this.routeName});
 
   @override
   State<PalmasEnfermasPage> createState() => _TratamientoPageState();

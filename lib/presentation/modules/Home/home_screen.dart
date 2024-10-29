@@ -1,4 +1,5 @@
 import 'package:apppalma/presentation/components/widgets/drawer.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/presentation/modules/Login/cubit/authentication_cubit.dart';
 import 'package:apppalma/size_config.dart';
 import 'package:flutter/material.dart';
@@ -54,25 +55,48 @@ class _FincaPageState extends State<FincaPage> {
     );
   }
 
+  final Color colorBlanco = Colors.white.withOpacity(0.7);
+
   Widget buildTitulo() {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [kpurpleColor, kblueColor]),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Sistema de gestión',
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: colorBlanco, fontWeight: FontWeight.bold),
+          ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const Expanded(
+                Expanded(
                   child: Text(
-                    'Inicio',
-                    style: TextStyle(color: Colors.black, fontSize: 35),
+                    DateFormat('yMMMMEEEEd', 'es').format(fecha),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: colorBlanco, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Builder(
                   builder: (BuildContext context) {
                     return IconButton(
-                      icon: const Icon(Icons.menu),
+                      icon: Icon(
+                        Icons.menu,
+                        color: colorBlanco,
+                      ),
                       onPressed: () {
                         Scaffold.of(context).openDrawer();
                       },
@@ -82,8 +106,6 @@ class _FincaPageState extends State<FincaPage> {
                   },
                 ),
               ]),
-          Text(DateFormat('yMMMMEEEEd', 'es').format(fecha),
-              style: const TextStyle(color: Colors.black, fontSize: 15)),
         ],
       ),
     );
@@ -96,6 +118,7 @@ class _FincaPageState extends State<FincaPage> {
           width: double.infinity,
           child: Column(
             children: [
+              const SizedBox(height: 20),
               _crearBotonRedondeado2(
                   'Ver lotes', '/lotes', FontAwesomeIcons.map, context),
               _crearBotonRedondeado2('Pluviometro', '/pluviometro',
@@ -120,7 +143,7 @@ class _FincaPageState extends State<FincaPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: const Color(0xFF95D5B2),
+              color: kLightGreen2,
               borderRadius: BorderRadius.circular(10.0),
               boxShadow: const [
                 BoxShadow(

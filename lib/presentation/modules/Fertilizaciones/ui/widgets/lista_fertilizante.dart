@@ -7,10 +7,9 @@ class ListaFertilizantes extends StatefulWidget {
   final List<FertilizanteData> fertilizantes;
   final Function(FertilizanteData) callbackfertilizante;
   const ListaFertilizantes(
-      {Key? key,
+      {super.key,
       required this.callbackfertilizante,
-      required this.fertilizantes})
-      : super(key: key);
+      required this.fertilizantes});
   @override
   State<ListaFertilizantes> createState() => _ListaFertilizantesState();
 }

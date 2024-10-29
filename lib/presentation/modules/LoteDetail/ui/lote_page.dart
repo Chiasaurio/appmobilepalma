@@ -11,8 +11,7 @@ import 'components/lote_information_widget.dart';
 class LotePage extends StatefulWidget {
   final String routeName;
   final LoteWithProcesos lote;
-  const LotePage({Key? key, required this.routeName, required this.lote})
-      : super(key: key);
+  const LotePage({super.key, required this.routeName, required this.lote});
 
   @override
   State<LotePage> createState() => _LotePageState();

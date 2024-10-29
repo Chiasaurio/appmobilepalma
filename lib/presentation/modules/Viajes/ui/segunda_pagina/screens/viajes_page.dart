@@ -7,7 +7,7 @@ import '../components/body.dart';
 class NuevoViajePage extends StatefulWidget {
   final String routeName;
 
-  const NuevoViajePage({Key? key, required this.routeName}) : super(key: key);
+  const NuevoViajePage({super.key, required this.routeName});
 
   @override
   State<NuevoViajePage> createState() => _NuevoViajePageState();

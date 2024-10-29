@@ -8,9 +8,9 @@ class MySliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget widget;
 
   @override
-  double get minExtent => min ?? 100;
+  double get minExtent => min ?? 120;
   @override
-  double get maxExtent => max ?? 100;
+  double get maxExtent => max ?? 120;
 
   @override
   Widget build(

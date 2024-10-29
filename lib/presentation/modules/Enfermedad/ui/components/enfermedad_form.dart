@@ -279,6 +279,14 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
       },
       name: 'observaciones',
       style: const TextStyle(fontSize: 18),
+      validator: (value) {
+        if (enfermedadconetapas!.enfermedad.nombreEnfermedad == 'Otra') {
+          if (value == null || value.isEmpty) {
+            return 'Este valor es requerido';
+          }
+        }
+        return null;
+      },
       decoration: const InputDecoration(
         label: Text(
           "Observaciones",

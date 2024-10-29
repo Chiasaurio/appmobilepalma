@@ -11,8 +11,7 @@ class SincronizacionPage extends StatefulWidget {
   final bool? disableBack;
   final String routeName;
   const SincronizacionPage(
-      {Key? key, this.disableBack, required this.routeName})
-      : super(key: key);
+      {super.key, this.disableBack, required this.routeName});
 
   @override
   State<SincronizacionPage> createState() => _SincronizacionPageState();

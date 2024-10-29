@@ -7,7 +7,7 @@ part 'enfermedades_dao.g.dart';
 @DriftAccessor(tables: [Enfermedades, Etapas])
 class EnfermedadesDao extends DatabaseAccessor<AppDatabase>
     with _$EnfermedadesDaoMixin {
-  EnfermedadesDao(AppDatabase db) : super(db);
+  EnfermedadesDao(super.db);
 
   Future<List<Enfermedade>> getEnfermedades() {
     return (select(enfermedades)).get();

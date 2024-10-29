@@ -10,13 +10,13 @@ class HeaderApp extends StatefulWidget implements PreferredSizeWidget {
   final bool goBackEnabled;
   final Widget? action;
   const HeaderApp({
-    Key? key,
+    super.key,
     this.height = 60,
     required this.ruta,
     this.selectedIndex,
     this.goBackEnabled = true,
     this.action,
-  }) : super(key: key);
+  });
 
   @override
   State<HeaderApp> createState() => _HeaderAppState();

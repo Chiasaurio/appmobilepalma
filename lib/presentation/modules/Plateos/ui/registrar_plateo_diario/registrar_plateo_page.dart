@@ -14,10 +14,9 @@ class PlateoDiarioPage extends StatefulWidget {
   final Plateo plateo;
   final String routeName;
   const PlateoDiarioPage(
-      {Key? key,
+      {super.key,
       required this.plateo,
-      this.routeName = '/lote/plateos/registrardiarios'})
-      : super(key: key);
+      this.routeName = '/lote/plateos/registrardiarios'});
   @override
   State<PlateoDiarioPage> createState() => _PlateoDiarioPageState();
 }
@@ -369,7 +368,7 @@ class _PlateoDiarioPageState extends State<PlateoDiarioPage> {
           numeroPalmaFin!.toString(),
           orientacionFin!);
 
-      if (mounted) {
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: kSuccessColor,

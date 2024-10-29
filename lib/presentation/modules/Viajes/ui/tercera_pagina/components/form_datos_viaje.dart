@@ -6,7 +6,7 @@ import 'hora_salida_widget.dart';
 
 class FormDatosViaje extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  const FormDatosViaje({Key? key, required this.formKey}) : super(key: key);
+  const FormDatosViaje({super.key, required this.formKey});
 
   @override
   State<FormDatosViaje> createState() => _FormDatosViajeState();

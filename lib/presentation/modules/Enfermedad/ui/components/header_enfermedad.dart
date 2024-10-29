@@ -5,9 +5,9 @@ import '../../../../constants.dart';
 
 class HeaderEnfermedad extends StatelessWidget {
   const HeaderEnfermedad({
-    Key? key,
+    super.key,
     required this.colorBlanco,
-  }) : super(key: key);
+  });
 
   final Color colorBlanco;
 

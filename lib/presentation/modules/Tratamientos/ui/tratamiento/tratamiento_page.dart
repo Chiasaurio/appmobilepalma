@@ -9,8 +9,7 @@ import '../../../../components/widgets/header_gradient.dart';
 class TratamientoPage extends StatefulWidget {
   final String routeName;
   const TratamientoPage(
-      {Key? key, this.routeName = '/lote/aplicaciones/registrartratamiento'})
-      : super(key: key);
+      {super.key, this.routeName = '/lote/aplicaciones/registrartratamiento'});
 
   @override
   State<TratamientoPage> createState() => _TratamientoPageState();

@@ -5,8 +5,7 @@ class SigpaButton extends StatelessWidget {
   final VoidCallback onTap;
   final String text;
 
-  const SigpaButton({Key? key, required this.onTap, required this.text})
-      : super(key: key);
+  const SigpaButton({super.key, required this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {

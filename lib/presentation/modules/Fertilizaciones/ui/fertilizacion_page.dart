@@ -9,8 +9,7 @@ import 'nueva_fertilizacion/nuevafertilizacion_view.dart';
 
 class FertilizacionPage extends StatefulWidget {
   final String routeName;
-  const FertilizacionPage({Key? key, required this.routeName})
-      : super(key: key);
+  const FertilizacionPage({super.key, required this.routeName});
   @override
   State<FertilizacionPage> createState() => _FertilizacionPageState();
 }

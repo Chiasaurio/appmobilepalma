@@ -9,7 +9,7 @@ import 'cosecha_activa/cosechaactiva_page.dart';
 
 class CosechaPage extends StatefulWidget {
   final String routeName;
-  const CosechaPage({Key? key, required this.routeName}) : super(key: key);
+  const CosechaPage({super.key, required this.routeName});
   @override
   State<CosechaPage> createState() => _CosechaPageState();
 }

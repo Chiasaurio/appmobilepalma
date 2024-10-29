@@ -9,8 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RegistrarFumigacionPage extends StatelessWidget {
   final String routeName;
   const RegistrarFumigacionPage(
-      {Key? key, this.routeName = '/lote/aplicaciones/registrartratamiento'})
-      : super(key: key);
+      {super.key, this.routeName = '/lote/aplicaciones/registrartratamiento'});
 
   @override
   Widget build(BuildContext context) {

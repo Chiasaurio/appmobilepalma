@@ -6,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NuevaCosechaPage extends StatefulWidget {
   final String nombrelote;
-  const NuevaCosechaPage({Key? key, required this.nombrelote})
-      : super(key: key);
+  const NuevaCosechaPage({super.key, required this.nombrelote});
   @override
   State<NuevaCosechaPage> createState() => _NuevaCosechaPageState();
 }

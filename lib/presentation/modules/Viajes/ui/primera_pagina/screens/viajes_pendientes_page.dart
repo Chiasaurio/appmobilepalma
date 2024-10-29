@@ -11,8 +11,7 @@ class ViajesPendientesPage extends StatefulWidget {
   final bool? disableBack;
 
   const ViajesPendientesPage(
-      {Key? key, required this.routeName, this.disableBack = false})
-      : super(key: key);
+      {super.key, required this.routeName, this.disableBack = false});
 
   @override
   State<ViajesPendientesPage> createState() => _ViajesPendientesPageState();

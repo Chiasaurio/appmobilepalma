@@ -9,7 +9,7 @@ import 'iniciar_nuevo_proceso_alert.dart';
 
 class NuevaPlateoPage extends StatefulWidget {
   final String nombrelote;
-  const NuevaPlateoPage({Key? key, required this.nombrelote}) : super(key: key);
+  const NuevaPlateoPage({super.key, required this.nombrelote});
   @override
   State<NuevaPlateoPage> createState() => _NuevaPlateoPageState();
 }

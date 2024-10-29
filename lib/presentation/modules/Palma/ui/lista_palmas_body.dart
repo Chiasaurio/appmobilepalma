@@ -7,7 +7,7 @@ import '../cubit/palma_cubit.dart';
 import 'components/palma_seleccionada_info.dart';
 
 class PalmasLoteList extends StatefulWidget {
-  const PalmasLoteList({Key? key}) : super(key: key);
+  const PalmasLoteList({super.key});
   @override
   State<PalmasLoteList> createState() => _PalmasLoteListState();
 }

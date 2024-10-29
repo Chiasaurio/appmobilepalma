@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/moor/tables/tables.dart';
 
 class CardPendientes extends StatefulWidget {
-  const CardPendientes({Key? key}) : super(key: key);
+  const CardPendientes({super.key});
 
   @override
   State<CardPendientes> createState() => _CardPendientesState();
@@ -82,10 +82,10 @@ class _CardPendientesState extends State<CardPendientes> {
 class TextSyncPendiente extends StatelessWidget {
   final Type type;
   const TextSyncPendiente({
-    Key? key,
+    super.key,
     required this.list,
     required this.type,
-  }) : super(key: key);
+  });
 
   final List list;
 
@@ -96,51 +96,51 @@ class TextSyncPendiente extends StatelessWidget {
     return BlocBuilder<SyncToServerCubit, SyncToServerState>(
       builder: (context, state) {
         switch (type) {
-          case CosechaConCosechasDiarias:
+          case CosechaConCosechasDiarias _:
             text = 'cosechas pendientes';
             status = state.cosechasStatus;
             break;
-          case PodasConPodasDiarias:
+          case PodasConPodasDiarias _:
             text = 'podas pendientes';
             status = state.podasStatus;
             break;
-          case PlateoConPlateosDiarias:
+          case PlateoConPlateosDiarias _:
             text = 'plateos pendientes';
             status = state.plateosStatus;
             break;
-          case FertilizacionConFertilizacionesDiarias:
+          case FertilizacionConFertilizacionesDiarias _:
             text = 'fertilizaciones pendientes';
             status = state.fertilizacionesStatus;
             break;
-          case Palma:
+          case Palma _:
             text = 'palmas pendientes';
             status = state.palmasStatus;
             break;
-          case RegistroEnfermedadData:
+          case RegistroEnfermedadData _:
             text = 'enfermedades pendientes';
             status = state.enfermedadesStatus;
             break;
-          case RegistroTratamientoData:
+          case RegistroTratamientoData _:
             text = 'tratamientos pendientes';
             status = state.tratamientosStatus;
             break;
-          case CensoData:
+          case CensoData _:
             text = 'censos pendientes';
             status = state.censosStatus;
             break;
-          case Aplicacione:
+          case Aplicacione _:
             text = 'aplicaciones pendientes';
             status = state.fumigacionesStatus;
             break;
-          case Viaje:
+          case Viaje _:
             text = 'viajes pendientes';
             status = state.viajesStatus;
             break;
-          case PrecipitacionData:
+          case PrecipitacionData _:
             text = 'precipitacion pendientes';
             status = state.precipitacionesStatus;
             break;
-          case CensoProductivoData:
+          case CensoProductivoData _:
             text = 'censos productivo pendientes';
             status = state.censosProductivosStatus;
             break;

@@ -7,8 +7,7 @@ class ListaProductos extends StatefulWidget {
   final List<ProductoAgroquimicoData> productos;
   final Function(ProductoAgroquimicoData) callbackproducto;
   const ListaProductos(
-      {Key? key, required this.callbackproducto, required this.productos})
-      : super(key: key);
+      {super.key, required this.callbackproducto, required this.productos});
   @override
   State<ListaProductos> createState() => _ListaProductosState();
 }

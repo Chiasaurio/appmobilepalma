@@ -9,7 +9,7 @@ import 'plateo_activo/plateoactivo_page.dart';
 
 class PlateoPage extends StatefulWidget {
   final String routeName;
-  const PlateoPage({Key? key, required this.routeName}) : super(key: key);
+  const PlateoPage({super.key, required this.routeName});
   @override
   State<PlateoPage> createState() => _PlateoPageState();
 }

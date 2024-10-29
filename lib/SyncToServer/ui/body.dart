@@ -5,8 +5,8 @@ import 'subir_a_la_nube_button.dart';
 
 class Body extends StatefulWidget {
   const Body({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<Body> createState() => _BodyState();

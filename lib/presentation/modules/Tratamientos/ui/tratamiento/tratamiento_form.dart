@@ -18,10 +18,10 @@ class TratamientoForm extends StatefulWidget {
   final PalmaConEnfermedad palmaConEnfermedad;
   final List<ProductoAgroquimicoData> productos;
   const TratamientoForm({
-    Key? key,
+    super.key,
     required this.palmaConEnfermedad,
     required this.productos,
-  }) : super(key: key);
+  });
   @override
   State<TratamientoForm> createState() => _TratamientoFormState();
 }

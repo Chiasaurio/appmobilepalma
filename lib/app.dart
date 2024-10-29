@@ -29,7 +29,7 @@ import 'presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'globals.dart';
 
 class AppPalma extends StatelessWidget {
-  const AppPalma({Key? key}) : super(key: key);
+  const AppPalma({super.key});
 
   @override
   Widget build(BuildContext context) {

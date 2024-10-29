@@ -6,8 +6,7 @@ class FechaWidget extends StatefulWidget {
   DateTime? fecha;
   Function(DateTime) callback;
 
-  FechaWidget({Key? key, required this.fecha, required this.callback})
-      : super(key: key);
+  FechaWidget({super.key, required this.fecha, required this.callback});
   @override
   State<FechaWidget> createState() => _FechaWidgetState();
 }

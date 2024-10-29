@@ -12,9 +12,9 @@ import '../../PalmaDetail/ui/components/list_registro_enfermedades.dart';
 class PalmaSeleccionadaInfo extends StatefulWidget {
   final PalmaConProcesos palma;
   const PalmaSeleccionadaInfo({
-    Key? key,
+    super.key,
     required this.palma,
-  }) : super(key: key);
+  });
 
   @override
   State<PalmaSeleccionadaInfo> createState() => _PalmaSeleccionadaInfoState();
@@ -113,7 +113,7 @@ class _PalmaSeleccionadaInfoState extends State<PalmaSeleccionadaInfo> {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.green),
+              backgroundColor: WidgetStateProperty.all(Colors.green),
             ),
             onPressed: () {},
             child: const Text('Dar de alta'),
@@ -121,7 +121,7 @@ class _PalmaSeleccionadaInfoState extends State<PalmaSeleccionadaInfo> {
         ),
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.red),
+            backgroundColor: WidgetStateProperty.all(Colors.red),
           ),
           onPressed: () {
             BlocProvider.of<PalmaCubit>(context).initErradicacion();

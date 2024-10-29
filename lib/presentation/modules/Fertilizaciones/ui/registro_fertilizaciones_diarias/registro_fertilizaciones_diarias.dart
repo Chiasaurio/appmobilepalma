@@ -8,8 +8,7 @@ import 'body.dart';
 class RegistroFertilizacionesDiarias extends StatefulWidget {
   final String routeName;
 
-  const RegistroFertilizacionesDiarias({Key? key, required this.routeName})
-      : super(key: key);
+  const RegistroFertilizacionesDiarias({super.key, required this.routeName});
 
   @override
   State<RegistroFertilizacionesDiarias> createState() =>

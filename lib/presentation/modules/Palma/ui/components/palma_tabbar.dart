@@ -7,8 +7,8 @@ class PalmaTabBar extends StatefulWidget {
     required this.rightTab,
     required this.textLeft,
     required this.textRight,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final VoidCallback onTap;
   final bool rightTab;

@@ -13,8 +13,7 @@ import 'dart:math' as math;
 class CensosPendientesPage extends StatefulWidget {
   final String routeName;
 
-  const CensosPendientesPage({Key? key, required this.routeName})
-      : super(key: key);
+  const CensosPendientesPage({super.key, required this.routeName});
 
   @override
   State<CensosPendientesPage> createState() => _CensosPendientesPageState();

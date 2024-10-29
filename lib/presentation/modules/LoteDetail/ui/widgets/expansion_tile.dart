@@ -5,8 +5,8 @@ import '../../../../constants.dart';
 class ExpansionTileWidget extends StatelessWidget {
   final String text;
   final List<Widget> list;
-  const ExpansionTileWidget({Key? key, required this.text, required this.list})
-      : super(key: key);
+  const ExpansionTileWidget(
+      {super.key, required this.text, required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,9 @@ class _ExpansionTileWidget extends StatefulWidget {
   final String text;
   final List<Widget> children;
   const _ExpansionTileWidget({
-    Key? key,
     required this.text,
     required this.children,
-  }) : super(key: key);
+  });
 
   @override
   State<_ExpansionTileWidget> createState() => _ExpansionTileWidgetState();
@@ -57,8 +56,7 @@ class _ExpansionTileWidgetState extends State<_ExpansionTileWidget> {
 class Tile extends StatelessWidget {
   final String text;
   final void Function()? onTap;
-  const Tile({Key? key, required this.onTap, required this.text})
-      : super(key: key);
+  const Tile({super.key, required this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +95,12 @@ class DynamicTile extends StatelessWidget {
   final String ruta;
 
   const DynamicTile(
-      {Key? key,
+      {super.key,
       required this.nombreLote,
       required this.textWithoutObject,
       required this.ruta,
       required this.textWithObject,
-      this.object})
-      : super(key: key);
+      this.object});
 
   @override
   Widget build(BuildContext context) {

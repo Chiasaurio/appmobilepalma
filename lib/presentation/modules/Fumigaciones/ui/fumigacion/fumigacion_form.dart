@@ -18,10 +18,10 @@ class FumigacionForm extends StatefulWidget {
   final CensoData censo;
   final List<ProductoAgroquimicoData> productos;
   const FumigacionForm({
-    Key? key,
+    super.key,
     required this.censo,
     required this.productos,
-  }) : super(key: key);
+  });
   @override
   State<FumigacionForm> createState() => _FumigacionFormState();
 }
@@ -579,7 +579,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
           censo,
           producto!.idProductoAgroquimico,
           area!);
-      if (!mounted) return;
+      if (!context.mounted) return;
       BlocProvider.of<CensosCubit>(context)
           .obtenerCensosPendientes(widget.censo.nombreLote);
       Navigator.of(context).pop();

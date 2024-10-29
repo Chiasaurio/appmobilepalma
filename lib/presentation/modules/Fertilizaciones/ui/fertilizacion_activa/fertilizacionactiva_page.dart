@@ -14,8 +14,7 @@ class FertilizacionActivaVista extends StatefulWidget {
   final Fertilizacione fertilizacion;
   final int totalPalmas;
   const FertilizacionActivaVista(
-      {Key? key, required this.fertilizacion, required this.totalPalmas})
-      : super(key: key);
+      {super.key, required this.fertilizacion, required this.totalPalmas});
   @override
   State<FertilizacionActivaVista> createState() =>
       _FertilizacionActivaVistaState();

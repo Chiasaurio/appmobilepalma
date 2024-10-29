@@ -12,7 +12,7 @@ import '../../../../constants.dart';
 class PlagaPage extends StatefulWidget {
   final String routeName;
 
-  const PlagaPage({Key? key, required this.routeName}) : super(key: key);
+  const PlagaPage({super.key, required this.routeName});
 
   @override
   State<PlagaPage> createState() => _PlagaPageState();

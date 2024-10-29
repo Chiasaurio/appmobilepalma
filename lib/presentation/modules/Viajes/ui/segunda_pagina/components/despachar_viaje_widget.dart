@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../constants.dart';
 
 class DespacharViajeWidget extends StatefulWidget {
-  const DespacharViajeWidget({Key? key}) : super(key: key);
+  const DespacharViajeWidget({super.key});
 
   @override
   State<DespacharViajeWidget> createState() => _DespacharViajeWidgetState();

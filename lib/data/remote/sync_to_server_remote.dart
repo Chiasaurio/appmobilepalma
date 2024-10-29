@@ -418,6 +418,7 @@ class SyncToServerRemote {
                 "cantidad_racimos_pintones": e.racimosPintones,
                 "cantidad_racimos_sobremaduros": e.racimosSobremaduros,
                 "cantidad_racimos_maduros": e.racimosMaduros,
+                "cc_usuario": e.responsable,
               })
           .toList();
       final res = await _apiInstance

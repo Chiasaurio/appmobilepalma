@@ -12,7 +12,7 @@ import '../../../../constants.dart';
 
 class CosechaActivaVista extends StatefulWidget {
   final Cosecha cosecha;
-  const CosechaActivaVista({Key? key, required this.cosecha}) : super(key: key);
+  const CosechaActivaVista({super.key, required this.cosecha});
   @override
   State<CosechaActivaVista> createState() => _CosechaActivaVistaState();
 }

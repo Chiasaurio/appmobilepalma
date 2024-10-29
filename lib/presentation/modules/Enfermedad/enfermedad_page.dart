@@ -10,7 +10,7 @@ import 'ui/components/enfermedad_form.dart';
 class EnfermedadPage extends StatefulWidget {
   final String routeName;
 
-  const EnfermedadPage({Key? key, required this.routeName}) : super(key: key);
+  const EnfermedadPage({super.key, required this.routeName});
   @override
   State<EnfermedadPage> createState() => _EnfermedadPageState();
 }

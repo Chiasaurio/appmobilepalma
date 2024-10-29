@@ -6,11 +6,10 @@ class OrientacionPalmaDropwdown extends StatefulWidget {
   final Function() setState;
   final String? initialValue;
   const OrientacionPalmaDropwdown(
-      {Key? key,
+      {super.key,
       required this.setState,
       required this.blocCall,
-      this.initialValue})
-      : super(key: key);
+      this.initialValue});
 
   @override
   State<OrientacionPalmaDropwdown> createState() =>

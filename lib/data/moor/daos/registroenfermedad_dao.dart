@@ -8,7 +8,7 @@ part 'registroenfermedad_dao.g.dart';
 @DriftAccessor(tables: [RegistroEnfermedad, ImagenRegistroEnfermedad])
 class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
     with _$RegistroEnfermedadDaoMixin {
-  RegistroEnfermedadDao(AppDatabase db) : super(db);
+  RegistroEnfermedadDao(super.db);
 
   Future updateRegistro(Insertable<RegistroEnfermedadData> registro) =>
       update(registroEnfermedad).replace(registro);
@@ -20,7 +20,8 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<RegistroEnfermedadData?> getLocalRegistroEnfermedad(int id) {
-    return (select(registroEnfermedad)..where((r) => r.id.equals(id)))
+    return (select(registroEnfermedad)
+          ..where((r) => r.idRegistroEnfermedad.equals(id)))
         .getSingleOrNull();
   }
 

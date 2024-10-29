@@ -94,8 +94,7 @@ class ConfirmDate extends StatefulWidget {
   final DateTime? fecha;
   final Function(DateTime) callback;
 
-  const ConfirmDate({Key? key, required this.fecha, required this.callback})
-      : super(key: key);
+  const ConfirmDate({super.key, required this.fecha, required this.callback});
   @override
   State<ConfirmDate> createState() => _ConfirmDateState();
 }

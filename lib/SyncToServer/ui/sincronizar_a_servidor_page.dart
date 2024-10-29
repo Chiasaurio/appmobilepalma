@@ -8,8 +8,8 @@ import 'body.dart';
 class SyncToServerPage extends StatefulWidget {
   final String routeName;
   final bool? disableBack;
-  const SyncToServerPage({Key? key, required this.routeName, this.disableBack})
-      : super(key: key);
+  const SyncToServerPage(
+      {super.key, required this.routeName, this.disableBack});
 
   @override
   State<SyncToServerPage> createState() => _SyncToServerPageState();

@@ -7,8 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RegistroPlateosDiarios extends StatefulWidget {
   final String routeName;
 
-  const RegistroPlateosDiarios({Key? key, required this.routeName})
-      : super(key: key);
+  const RegistroPlateosDiarios({super.key, required this.routeName});
   @override
   State<RegistroPlateosDiarios> createState() => _RegistroPlateosDiariosState();
 }

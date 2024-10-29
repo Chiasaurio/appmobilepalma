@@ -10,13 +10,12 @@ class OpcionItem extends StatelessWidget {
   final String ruta;
 
   const OpcionItem(
-      {Key? key,
+      {super.key,
       required this.nombreLote,
       required this.textWithoutObject,
       required this.ruta,
       required this.textWithObject,
-      this.object})
-      : super(key: key);
+      this.object});
 
   @override
   Widget build(BuildContext context) {

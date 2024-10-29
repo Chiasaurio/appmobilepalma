@@ -5,8 +5,7 @@ class HoraWidget extends StatefulWidget {
   TimeOfDay hora;
   Function(TimeOfDay) callback;
 
-  HoraWidget({Key? key, required this.hora, required this.callback})
-      : super(key: key);
+  HoraWidget({super.key, required this.hora, required this.callback});
   @override
   State<HoraWidget> createState() => _HoraWidgetState();
 }

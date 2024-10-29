@@ -17,7 +17,7 @@ part 'lote_dao.g.dart';
   Fertilizaciones
 ])
 class LoteDao extends DatabaseAccessor<AppDatabase> with _$LoteDaoMixin {
-  LoteDao(AppDatabase db) : super(db);
+  LoteDao(super.db);
 
   Future<List<Lote>> getLotes() {
     return (select(lotes)).get();

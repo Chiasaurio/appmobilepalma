@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NameField extends StatefulWidget {
-  const NameField({Key? key}) : super(key: key);
+  const NameField({super.key});
 
   @override
   State<NameField> createState() => _NameFieldState();

@@ -11,8 +11,8 @@ import 'package:intl/intl.dart';
 // class CensosPlagaList extends StatefulWidget {
 //   // final Future<List<CensoData>> future;
 //   final List<CensoData> censosPendientes;
-//   const CensosPlagaList({Key? key, required this.censosPendientes})
-//       : super(key: key);
+//   const CensosPlagaList({super.key, required this.censosPendientes})
+//       ;
 
 //   @override
 //   State<CensosPlagaList> createState() => _CensosPlagaListState();
@@ -139,7 +139,7 @@ import '../../../Censo/cubit/censos_cubit.dart';
 
 class CensosPlagaList extends StatelessWidget {
   final List<CensoData> censosPendientes;
-  CensosPlagaList({Key? key, required this.censosPendientes}) : super(key: key);
+  CensosPlagaList({super.key, required this.censosPendientes});
   final f = DateFormat('yyyy-MM-dd');
 
   @override

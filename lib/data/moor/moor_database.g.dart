@@ -126,9 +126,10 @@ class $CensoTable extends Censo with TableInfo<$CensoTable, CensoData> {
         longitude
       ];
   @override
-  String get aliasedName => _alias ?? 'censo';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'censo';
+  String get actualTableName => $name;
+  static const String $name = 'censo';
   @override
   VerificationContext validateIntegrity(Insertable<CensoData> instance,
       {bool isInserting = false}) {
@@ -450,6 +451,41 @@ class CensoData extends DataClass implements Insertable<CensoData> {
         latitude: latitude.present ? latitude.value : this.latitude,
         longitude: longitude.present ? longitude.value : this.longitude,
       );
+  CensoData copyWithCompanion(CensoCompanion data) {
+    return CensoData(
+      id: data.id.present ? data.id.value : this.id,
+      idCenso: data.idCenso.present ? data.idCenso.value : this.idCenso,
+      fechaCenso:
+          data.fechaCenso.present ? data.fechaCenso.value : this.fechaCenso,
+      observacionCenso: data.observacionCenso.present
+          ? data.observacionCenso.value
+          : this.observacionCenso,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      numeroIndividuos: data.numeroIndividuos.present
+          ? data.numeroIndividuos.value
+          : this.numeroIndividuos,
+      nombrePlaga:
+          data.nombrePlaga.present ? data.nombrePlaga.value : this.nombrePlaga,
+      estadoPlaga:
+          data.estadoPlaga.present ? data.estadoPlaga.value : this.estadoPlaga,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      numerolinea:
+          data.numerolinea.present ? data.numerolinea.value : this.numerolinea,
+      numeroenlinea: data.numeroenlinea.present
+          ? data.numeroenlinea.value
+          : this.numeroenlinea,
+      orientacion:
+          data.orientacion.present ? data.orientacion.value : this.orientacion,
+      latitude: data.latitude.present ? data.latitude.value : this.latitude,
+      longitude: data.longitude.present ? data.longitude.value : this.longitude,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('CensoData(')
@@ -780,9 +816,10 @@ class $ProductoAgroquimicoTable extends ProductoAgroquimico
         fechaUltimaActualizacion
       ];
   @override
-  String get aliasedName => _alias ?? 'producto_agroquimico';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'producto_agroquimico';
+  String get actualTableName => $name;
+  static const String $name = 'producto_agroquimico';
   @override
   VerificationContext validateIntegrity(
       Insertable<ProductoAgroquimicoData> instance,
@@ -1025,6 +1062,38 @@ class ProductoAgroquimicoData extends DataClass
             ? fechaUltimaActualizacion.value
             : this.fechaUltimaActualizacion,
       );
+  ProductoAgroquimicoData copyWithCompanion(ProductoAgroquimicoCompanion data) {
+    return ProductoAgroquimicoData(
+      idProductoAgroquimico: data.idProductoAgroquimico.present
+          ? data.idProductoAgroquimico.value
+          : this.idProductoAgroquimico,
+      nombreProductoAgroquimico: data.nombreProductoAgroquimico.present
+          ? data.nombreProductoAgroquimico.value
+          : this.nombreProductoAgroquimico,
+      tipoProductoAgroquimico: data.tipoProductoAgroquimico.present
+          ? data.tipoProductoAgroquimico.value
+          : this.tipoProductoAgroquimico,
+      claseProducto: data.claseProducto.present
+          ? data.claseProducto.value
+          : this.claseProducto,
+      ingredienteActivoProductoAgroquimico:
+          data.ingredienteActivoProductoAgroquimico.present
+              ? data.ingredienteActivoProductoAgroquimico.value
+              : this.ingredienteActivoProductoAgroquimico,
+      periodoCarenciaProductoAgroquimico:
+          data.periodoCarenciaProductoAgroquimico.present
+              ? data.periodoCarenciaProductoAgroquimico.value
+              : this.periodoCarenciaProductoAgroquimico,
+      presentacionProductoAgroquimico:
+          data.presentacionProductoAgroquimico.present
+              ? data.presentacionProductoAgroquimico.value
+              : this.presentacionProductoAgroquimico,
+      fechaUltimaActualizacion: data.fechaUltimaActualizacion.present
+          ? data.fechaUltimaActualizacion.value
+          : this.fechaUltimaActualizacion,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('ProductoAgroquimicoData(')
@@ -1279,9 +1348,10 @@ class $UsuarioTable extends Usuario with TableInfo<$UsuarioTable, UsuarioData> {
         fechaUltimaActualizacion
       ];
   @override
-  String get aliasedName => _alias ?? 'usuario';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'usuario';
+  String get actualTableName => $name;
+  static const String $name = 'usuario';
   @override
   VerificationContext validateIntegrity(Insertable<UsuarioData> instance,
       {bool isInserting = false}) {
@@ -1445,6 +1515,23 @@ class UsuarioData extends DataClass implements Insertable<UsuarioData> {
             ? fechaUltimaActualizacion.value
             : this.fechaUltimaActualizacion,
       );
+  UsuarioData copyWithCompanion(UsuarioCompanion data) {
+    return UsuarioData(
+      ccUsuario: data.ccUsuario.present ? data.ccUsuario.value : this.ccUsuario,
+      nombreUsuario: data.nombreUsuario.present
+          ? data.nombreUsuario.value
+          : this.nombreUsuario,
+      cargoEmpresa: data.cargoEmpresa.present
+          ? data.cargoEmpresa.value
+          : this.cargoEmpresa,
+      rol: data.rol.present ? data.rol.value : this.rol,
+      validado: data.validado.present ? data.validado.value : this.validado,
+      fechaUltimaActualizacion: data.fechaUltimaActualizacion.present
+          ? data.fechaUltimaActualizacion.value
+          : this.fechaUltimaActualizacion,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('UsuarioData(')
@@ -1691,9 +1778,10 @@ class $AplicacionesTable extends Aplicaciones
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'aplicaciones';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'aplicaciones';
+  String get actualTableName => $name;
+  static const String $name = 'aplicaciones';
   @override
   VerificationContext validateIntegrity(Insertable<Aplicacione> instance,
       {bool isInserting = false}) {
@@ -1935,6 +2023,33 @@ class Aplicacione extends DataClass implements Insertable<Aplicacione> {
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  Aplicacione copyWithCompanion(AplicacionesCompanion data) {
+    return Aplicacione(
+      id: data.id.present ? data.id.value : this.id,
+      dosis: data.dosis.present ? data.dosis.value : this.dosis,
+      area: data.area.present ? data.area.value : this.area,
+      unidades: data.unidades.present ? data.unidades.value : this.unidades,
+      fechaAplicacion: data.fechaAplicacion.present
+          ? data.fechaAplicacion.value
+          : this.fechaAplicacion,
+      fechaReingreso: data.fechaReingreso.present
+          ? data.fechaReingreso.value
+          : this.fechaReingreso,
+      idCenso: data.idCenso.present ? data.idCenso.value : this.idCenso,
+      idCensoFromServer: data.idCensoFromServer.present
+          ? data.idCensoFromServer.value
+          : this.idCensoFromServer,
+      idProductoAgroquimico: data.idProductoAgroquimico.present
+          ? data.idProductoAgroquimico.value
+          : this.idProductoAgroquimico,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Aplicacione(')
@@ -2233,9 +2348,10 @@ class $ViajesTable extends Viajes with TableInfo<$ViajesTable, Viaje> {
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'viajes';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'viajes';
+  String get actualTableName => $name;
+  static const String $name = 'viajes';
   @override
   VerificationContext validateIntegrity(Insertable<Viaje> instance,
       {bool isInserting = false}) {
@@ -2464,6 +2580,31 @@ class Viaje extends DataClass implements Insertable<Viaje> {
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  Viaje copyWithCompanion(ViajesCompanion data) {
+    return Viaje(
+      id: data.id.present ? data.id.value : this.id,
+      idViaje: data.idViaje.present ? data.idViaje.value : this.idViaje,
+      horaCargue:
+          data.horaCargue.present ? data.horaCargue.value : this.horaCargue,
+      horaSalida:
+          data.horaSalida.present ? data.horaSalida.value : this.horaSalida,
+      cantidadRacimos: data.cantidadRacimos.present
+          ? data.cantidadRacimos.value
+          : this.cantidadRacimos,
+      kilos: data.kilos.present ? data.kilos.value : this.kilos,
+      kilosExtractora: data.kilosExtractora.present
+          ? data.kilosExtractora.value
+          : this.kilosExtractora,
+      completado:
+          data.completado.present ? data.completado.value : this.completado,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Viaje(')
@@ -2753,9 +2894,10 @@ class $CosechasTable extends Cosechas with TableInfo<$CosechasTable, Cosecha> {
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'cosechas';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'cosechas';
+  String get actualTableName => $name;
+  static const String $name = 'cosechas';
   @override
   VerificationContext validateIntegrity(Insertable<Cosecha> instance,
       {bool isInserting = false}) {
@@ -3001,6 +3143,33 @@ class Cosecha extends DataClass implements Insertable<Cosecha> {
         completada: completada ?? this.completada,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  Cosecha copyWithCompanion(CosechasCompanion data) {
+    return Cosecha(
+      id: data.id.present ? data.id.value : this.id,
+      idCosecha: data.idCosecha.present ? data.idCosecha.value : this.idCosecha,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      fechaIngreso: data.fechaIngreso.present
+          ? data.fechaIngreso.value
+          : this.fechaIngreso,
+      fechaSalida:
+          data.fechaSalida.present ? data.fechaSalida.value : this.fechaSalida,
+      cantidadRacimos: data.cantidadRacimos.present
+          ? data.cantidadRacimos.value
+          : this.cantidadRacimos,
+      kilos: data.kilos.present ? data.kilos.value : this.kilos,
+      idViaje: data.idViaje.present ? data.idViaje.value : this.idViaje,
+      idViajeFromServer: data.idViajeFromServer.present
+          ? data.idViajeFromServer.value
+          : this.idViajeFromServer,
+      completada:
+          data.completada.present ? data.completada.value : this.completada,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Cosecha(')
@@ -3312,9 +3481,10 @@ class $CosechaDiariaTable extends CosechaDiaria
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'cosecha_diaria';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'cosecha_diaria';
+  String get actualTableName => $name;
+  static const String $name = 'cosecha_diaria';
   @override
   VerificationContext validateIntegrity(Insertable<CosechaDiariaData> instance,
       {bool isInserting = false}) {
@@ -3587,6 +3757,38 @@ class CosechaDiariaData extends DataClass
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  CosechaDiariaData copyWithCompanion(CosechaDiariaCompanion data) {
+    return CosechaDiariaData(
+      id: data.id.present ? data.id.value : this.id,
+      idCosecha: data.idCosecha.present ? data.idCosecha.value : this.idCosecha,
+      fechaIngreso: data.fechaIngreso.present
+          ? data.fechaIngreso.value
+          : this.fechaIngreso,
+      kilos: data.kilos.present ? data.kilos.value : this.kilos,
+      cantidadRacimos: data.cantidadRacimos.present
+          ? data.cantidadRacimos.value
+          : this.cantidadRacimos,
+      lineaInicio:
+          data.lineaInicio.present ? data.lineaInicio.value : this.lineaInicio,
+      numeroInicio: data.numeroInicio.present
+          ? data.numeroInicio.value
+          : this.numeroInicio,
+      orientacionInicio: data.orientacionInicio.present
+          ? data.orientacionInicio.value
+          : this.orientacionInicio,
+      lineaFin: data.lineaFin.present ? data.lineaFin.value : this.lineaFin,
+      numeroFin: data.numeroFin.present ? data.numeroFin.value : this.numeroFin,
+      orientacionFin: data.orientacionFin.present
+          ? data.orientacionFin.value
+          : this.orientacionFin,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('CosechaDiariaData(')
@@ -3852,9 +4054,10 @@ class $EnfermedadesTable extends Enfermedades
   List<GeneratedColumn> get $columns =>
       [nombreEnfermedad, procedimientoEnfermedad, fechaUltimaActualizacion];
   @override
-  String get aliasedName => _alias ?? 'enfermedades';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'enfermedades';
+  String get actualTableName => $name;
+  static const String $name = 'enfermedades';
   @override
   VerificationContext validateIntegrity(Insertable<Enfermedade> instance,
       {bool isInserting = false}) {
@@ -3974,6 +4177,20 @@ class Enfermedade extends DataClass implements Insertable<Enfermedade> {
             ? fechaUltimaActualizacion.value
             : this.fechaUltimaActualizacion,
       );
+  Enfermedade copyWithCompanion(EnfermedadesCompanion data) {
+    return Enfermedade(
+      nombreEnfermedad: data.nombreEnfermedad.present
+          ? data.nombreEnfermedad.value
+          : this.nombreEnfermedad,
+      procedimientoEnfermedad: data.procedimientoEnfermedad.present
+          ? data.procedimientoEnfermedad.value
+          : this.procedimientoEnfermedad,
+      fechaUltimaActualizacion: data.fechaUltimaActualizacion.present
+          ? data.fechaUltimaActualizacion.value
+          : this.fechaUltimaActualizacion,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Enfermedade(')
@@ -4112,9 +4329,10 @@ class $EtapasTable extends Etapas with TableInfo<$EtapasTable, Etapa> {
   List<GeneratedColumn> get $columns =>
       [id, nombreEnfermedad, nombreEtapa, procedimientoEtapa];
   @override
-  String get aliasedName => _alias ?? 'etapas';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'etapas';
+  String get actualTableName => $name;
+  static const String $name = 'etapas';
   @override
   VerificationContext validateIntegrity(Insertable<Etapa> instance,
       {bool isInserting = false}) {
@@ -4235,6 +4453,20 @@ class Etapa extends DataClass implements Insertable<Etapa> {
         nombreEtapa: nombreEtapa ?? this.nombreEtapa,
         procedimientoEtapa: procedimientoEtapa ?? this.procedimientoEtapa,
       );
+  Etapa copyWithCompanion(EtapasCompanion data) {
+    return Etapa(
+      id: data.id.present ? data.id.value : this.id,
+      nombreEnfermedad: data.nombreEnfermedad.present
+          ? data.nombreEnfermedad.value
+          : this.nombreEnfermedad,
+      nombreEtapa:
+          data.nombreEtapa.present ? data.nombreEtapa.value : this.nombreEtapa,
+      procedimientoEtapa: data.procedimientoEtapa.present
+          ? data.procedimientoEtapa.value
+          : this.procedimientoEtapa,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Etapa(')
@@ -4356,9 +4588,10 @@ class $PlagasTable extends Plagas with TableInfo<$PlagasTable, Plaga> {
   List<GeneratedColumn> get $columns =>
       [nombreComunPlaga, fechaUltimaActualizacion];
   @override
-  String get aliasedName => _alias ?? 'plagas';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'plagas';
+  String get actualTableName => $name;
+  static const String $name = 'plagas';
   @override
   VerificationContext validateIntegrity(Insertable<Plaga> instance,
       {bool isInserting = false}) {
@@ -4454,6 +4687,17 @@ class Plaga extends DataClass implements Insertable<Plaga> {
             ? fechaUltimaActualizacion.value
             : this.fechaUltimaActualizacion,
       );
+  Plaga copyWithCompanion(PlagasCompanion data) {
+    return Plaga(
+      nombreComunPlaga: data.nombreComunPlaga.present
+          ? data.nombreComunPlaga.value
+          : this.nombreComunPlaga,
+      fechaUltimaActualizacion: data.fechaUltimaActualizacion.present
+          ? data.fechaUltimaActualizacion.value
+          : this.fechaUltimaActualizacion,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Plaga(')
@@ -4579,9 +4823,10 @@ class $EtapasPlagaTable extends EtapasPlaga
   List<GeneratedColumn> get $columns =>
       [idEtapasPlaga, nombrePlaga, nombreEtapa, procedimientoEtapa];
   @override
-  String get aliasedName => _alias ?? 'etapas_plaga';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'etapas_plaga';
+  String get actualTableName => $name;
+  static const String $name = 'etapas_plaga';
   @override
   VerificationContext validateIntegrity(Insertable<EtapasPlagaData> instance,
       {bool isInserting = false}) {
@@ -4705,6 +4950,21 @@ class EtapasPlagaData extends DataClass implements Insertable<EtapasPlagaData> {
         nombreEtapa: nombreEtapa ?? this.nombreEtapa,
         procedimientoEtapa: procedimientoEtapa ?? this.procedimientoEtapa,
       );
+  EtapasPlagaData copyWithCompanion(EtapasPlagaCompanion data) {
+    return EtapasPlagaData(
+      idEtapasPlaga: data.idEtapasPlaga.present
+          ? data.idEtapasPlaga.value
+          : this.idEtapasPlaga,
+      nombrePlaga:
+          data.nombrePlaga.present ? data.nombrePlaga.value : this.nombrePlaga,
+      nombreEtapa:
+          data.nombreEtapa.present ? data.nombreEtapa.value : this.nombreEtapa,
+      procedimientoEtapa: data.procedimientoEtapa.present
+          ? data.procedimientoEtapa.value
+          : this.procedimientoEtapa,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('EtapasPlagaData(')
@@ -4877,9 +5137,10 @@ class $PalmasTable extends Palmas with TableInfo<$PalmasTable, Palma> {
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'palmas';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'palmas';
+  String get actualTableName => $name;
+  static const String $name = 'palmas';
   @override
   VerificationContext validateIntegrity(Insertable<Palma> instance,
       {bool isInserting = false}) {
@@ -5073,6 +5334,27 @@ class Palma extends DataClass implements Insertable<Palma> {
         estadopalma: estadopalma ?? this.estadopalma,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  Palma copyWithCompanion(PalmasCompanion data) {
+    return Palma(
+      id: data.id.present ? data.id.value : this.id,
+      idPalma: data.idPalma.present ? data.idPalma.value : this.idPalma,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      numerolinea:
+          data.numerolinea.present ? data.numerolinea.value : this.numerolinea,
+      numeroenlinea: data.numeroenlinea.present
+          ? data.numeroenlinea.value
+          : this.numeroenlinea,
+      orientacion:
+          data.orientacion.present ? data.orientacion.value : this.orientacion,
+      estadopalma:
+          data.estadopalma.present ? data.estadopalma.value : this.estadopalma,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Palma(')
@@ -5296,9 +5578,10 @@ class $ErradicacionTable extends Erradicacion
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'erradicacion';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'erradicacion';
+  String get actualTableName => $name;
+  static const String $name = 'erradicacion';
   @override
   VerificationContext validateIntegrity(Insertable<ErradicacionData> instance,
       {bool isInserting = false}) {
@@ -5477,6 +5760,27 @@ class ErradicacionData extends DataClass
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  ErradicacionData copyWithCompanion(ErradicacionCompanion data) {
+    return ErradicacionData(
+      id: data.id.present ? data.id.value : this.id,
+      causaErradicacion: data.causaErradicacion.present
+          ? data.causaErradicacion.value
+          : this.causaErradicacion,
+      idPalma: data.idPalma.present ? data.idPalma.value : this.idPalma,
+      observaciones: data.observaciones.present
+          ? data.observaciones.value
+          : this.observaciones,
+      fechaRegistro: data.fechaRegistro.present
+          ? data.fechaRegistro.value
+          : this.fechaRegistro,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('ErradicacionData(')
@@ -5677,9 +5981,10 @@ class $LotesTable extends Lotes with TableInfo<$LotesTable, Lote> {
         fechaUltimaActualizacion
       ];
   @override
-  String get aliasedName => _alias ?? 'lotes';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'lotes';
+  String get actualTableName => $name;
+  static const String $name = 'lotes';
   @override
   VerificationContext validateIntegrity(Insertable<Lote> instance,
       {bool isInserting = false}) {
@@ -5860,6 +6165,27 @@ class Lote extends DataClass implements Insertable<Lote> {
             ? fechaUltimaActualizacion.value
             : this.fechaUltimaActualizacion,
       );
+  Lote copyWithCompanion(LotesCompanion data) {
+    return Lote(
+      id: data.id.present ? data.id.value : this.id,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      hectareas: data.hectareas.present ? data.hectareas.value : this.hectareas,
+      numeropalmas: data.numeropalmas.present
+          ? data.numeropalmas.value
+          : this.numeropalmas,
+      numeroLineas: data.numeroLineas.present
+          ? data.numeroLineas.value
+          : this.numeroLineas,
+      palmasPorLinea: data.palmasPorLinea.present
+          ? data.palmasPorLinea.value
+          : this.palmasPorLinea,
+      fechaUltimaActualizacion: data.fechaUltimaActualizacion.present
+          ? data.fechaUltimaActualizacion.value
+          : this.fechaUltimaActualizacion,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Lote(')
@@ -6087,9 +6413,10 @@ class $PlateosTable extends Plateos with TableInfo<$PlateosTable, Plateo> {
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'plateos';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'plateos';
+  String get actualTableName => $name;
+  static const String $name = 'plateos';
   @override
   VerificationContext validateIntegrity(Insertable<Plateo> instance,
       {bool isInserting = false}) {
@@ -6297,6 +6624,30 @@ class Plateo extends DataClass implements Insertable<Plateo> {
         completado: completado ?? this.completado,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  Plateo copyWithCompanion(PlateosCompanion data) {
+    return Plateo(
+      id: data.id.present ? data.id.value : this.id,
+      idPlateo: data.idPlateo.present ? data.idPlateo.value : this.idPlateo,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      tipoPlateo:
+          data.tipoPlateo.present ? data.tipoPlateo.value : this.tipoPlateo,
+      fechaIngreso: data.fechaIngreso.present
+          ? data.fechaIngreso.value
+          : this.fechaIngreso,
+      fechaSalida:
+          data.fechaSalida.present ? data.fechaSalida.value : this.fechaSalida,
+      cantidadPlateada: data.cantidadPlateada.present
+          ? data.cantidadPlateada.value
+          : this.cantidadPlateada,
+      completado:
+          data.completado.present ? data.completado.value : this.completado,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Plateo(')
@@ -6565,9 +6916,10 @@ class $PlateoDiarioTable extends PlateoDiario
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'plateo_diario';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'plateo_diario';
+  String get actualTableName => $name;
+  static const String $name = 'plateo_diario';
   @override
   VerificationContext validateIntegrity(Insertable<PlateoDiarioData> instance,
       {bool isInserting = false}) {
@@ -6822,6 +7174,35 @@ class PlateoDiarioData extends DataClass
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  PlateoDiarioData copyWithCompanion(PlateoDiarioCompanion data) {
+    return PlateoDiarioData(
+      id: data.id.present ? data.id.value : this.id,
+      idPlateo: data.idPlateo.present ? data.idPlateo.value : this.idPlateo,
+      fecha: data.fecha.present ? data.fecha.value : this.fecha,
+      cantidadPlateada: data.cantidadPlateada.present
+          ? data.cantidadPlateada.value
+          : this.cantidadPlateada,
+      lineaInicio:
+          data.lineaInicio.present ? data.lineaInicio.value : this.lineaInicio,
+      numeroInicio: data.numeroInicio.present
+          ? data.numeroInicio.value
+          : this.numeroInicio,
+      orientacionInicio: data.orientacionInicio.present
+          ? data.orientacionInicio.value
+          : this.orientacionInicio,
+      lineaFin: data.lineaFin.present ? data.lineaFin.value : this.lineaFin,
+      numeroFin: data.numeroFin.present ? data.numeroFin.value : this.numeroFin,
+      orientacionFin: data.orientacionFin.present
+          ? data.orientacionFin.value
+          : this.orientacionFin,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('PlateoDiarioData(')
@@ -7119,9 +7500,10 @@ class $PodasTable extends Podas with TableInfo<$PodasTable, Poda> {
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'podas';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'podas';
+  String get actualTableName => $name;
+  static const String $name = 'podas';
   @override
   VerificationContext validateIntegrity(Insertable<Poda> instance,
       {bool isInserting = false}) {
@@ -7310,6 +7692,28 @@ class Poda extends DataClass implements Insertable<Poda> {
         completada: completada ?? this.completada,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  Poda copyWithCompanion(PodasCompanion data) {
+    return Poda(
+      id: data.id.present ? data.id.value : this.id,
+      idPoda: data.idPoda.present ? data.idPoda.value : this.idPoda,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      fechaIngreso: data.fechaIngreso.present
+          ? data.fechaIngreso.value
+          : this.fechaIngreso,
+      fechaSalida:
+          data.fechaSalida.present ? data.fechaSalida.value : this.fechaSalida,
+      cantidadPodada: data.cantidadPodada.present
+          ? data.cantidadPodada.value
+          : this.cantidadPodada,
+      completada:
+          data.completada.present ? data.completada.value : this.completada,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Poda(')
@@ -7564,9 +7968,10 @@ class $PodaDiariaTable extends PodaDiaria
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'poda_diaria';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'poda_diaria';
+  String get actualTableName => $name;
+  static const String $name = 'poda_diaria';
   @override
   VerificationContext validateIntegrity(Insertable<PodaDiariaData> instance,
       {bool isInserting = false}) {
@@ -7822,6 +8227,37 @@ class PodaDiariaData extends DataClass implements Insertable<PodaDiariaData> {
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  PodaDiariaData copyWithCompanion(PodaDiariaCompanion data) {
+    return PodaDiariaData(
+      id: data.id.present ? data.id.value : this.id,
+      idPoda: data.idPoda.present ? data.idPoda.value : this.idPoda,
+      fechaIngreso: data.fechaIngreso.present
+          ? data.fechaIngreso.value
+          : this.fechaIngreso,
+      cantidadPodada: data.cantidadPodada.present
+          ? data.cantidadPodada.value
+          : this.cantidadPodada,
+      lineaInicio:
+          data.lineaInicio.present ? data.lineaInicio.value : this.lineaInicio,
+      numeroInicio: data.numeroInicio.present
+          ? data.numeroInicio.value
+          : this.numeroInicio,
+      orientacionInicio: data.orientacionInicio.present
+          ? data.orientacionInicio.value
+          : this.orientacionInicio,
+      lineaFin: data.lineaFin.present ? data.lineaFin.value : this.lineaFin,
+      numeroFin: data.numeroFin.present ? data.numeroFin.value : this.numeroFin,
+      orientacionFin: data.orientacionFin.present
+          ? data.orientacionFin.value
+          : this.orientacionFin,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('PodaDiariaData(')
@@ -8164,9 +8600,10 @@ class $RegistroEnfermedadTable extends RegistroEnfermedad
         dadaDeAlta
       ];
   @override
-  String get aliasedName => _alias ?? 'registro_enfermedad';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'registro_enfermedad';
+  String get actualTableName => $name;
+  static const String $name = 'registro_enfermedad';
   @override
   VerificationContext validateIntegrity(
       Insertable<RegistroEnfermedadData> instance,
@@ -8445,6 +8882,41 @@ class RegistroEnfermedadData extends DataClass
         sincronizado: sincronizado ?? this.sincronizado,
         dadaDeAlta: dadaDeAlta ?? this.dadaDeAlta,
       );
+  RegistroEnfermedadData copyWithCompanion(RegistroEnfermedadCompanion data) {
+    return RegistroEnfermedadData(
+      id: data.id.present ? data.id.value : this.id,
+      idRegistroEnfermedad: data.idRegistroEnfermedad.present
+          ? data.idRegistroEnfermedad.value
+          : this.idRegistroEnfermedad,
+      fechaRegistro: data.fechaRegistro.present
+          ? data.fechaRegistro.value
+          : this.fechaRegistro,
+      horaRegistro: data.horaRegistro.present
+          ? data.horaRegistro.value
+          : this.horaRegistro,
+      idPalma: data.idPalma.present ? data.idPalma.value : this.idPalma,
+      idPalmaFromServer: data.idPalmaFromServer.present
+          ? data.idPalmaFromServer.value
+          : this.idPalmaFromServer,
+      nombreEnfermedad: data.nombreEnfermedad.present
+          ? data.nombreEnfermedad.value
+          : this.nombreEnfermedad,
+      idEtapaEnfermedad: data.idEtapaEnfermedad.present
+          ? data.idEtapaEnfermedad.value
+          : this.idEtapaEnfermedad,
+      observaciones: data.observaciones.present
+          ? data.observaciones.value
+          : this.observaciones,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+      dadaDeAlta:
+          data.dadaDeAlta.present ? data.dadaDeAlta.value : this.dadaDeAlta,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('RegistroEnfermedadData(')
@@ -8710,9 +9182,10 @@ class $ImagenRegistroEnfermedadTable extends ImagenRegistroEnfermedad
   List<GeneratedColumn> get $columns =>
       [idImagenRegistroEnfermedad, idEnfermedad, imagen, sincronizado];
   @override
-  String get aliasedName => _alias ?? 'imagen_registro_enfermedad';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'imagen_registro_enfermedad';
+  String get actualTableName => $name;
+  static const String $name = 'imagen_registro_enfermedad';
   @override
   VerificationContext validateIntegrity(
       Insertable<ImagenRegistroEnfermedadData> instance,
@@ -8840,6 +9313,22 @@ class ImagenRegistroEnfermedadData extends DataClass
         imagen: imagen ?? this.imagen,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  ImagenRegistroEnfermedadData copyWithCompanion(
+      ImagenRegistroEnfermedadCompanion data) {
+    return ImagenRegistroEnfermedadData(
+      idImagenRegistroEnfermedad: data.idImagenRegistroEnfermedad.present
+          ? data.idImagenRegistroEnfermedad.value
+          : this.idImagenRegistroEnfermedad,
+      idEnfermedad: data.idEnfermedad.present
+          ? data.idEnfermedad.value
+          : this.idEnfermedad,
+      imagen: data.imagen.present ? data.imagen.value : this.imagen,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('ImagenRegistroEnfermedadData(')
@@ -9049,9 +9538,10 @@ class $RegistroTratamientoTable extends RegistroTratamiento
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'registro_tratamiento';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'registro_tratamiento';
+  String get actualTableName => $name;
+  static const String $name = 'registro_tratamiento';
   @override
   VerificationContext validateIntegrity(
       Insertable<RegistroTratamientoData> instance,
@@ -9316,6 +9806,37 @@ class RegistroTratamientoData extends DataClass
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  RegistroTratamientoData copyWithCompanion(RegistroTratamientoCompanion data) {
+    return RegistroTratamientoData(
+      id: data.id.present ? data.id.value : this.id,
+      idRegistroEnfermedad: data.idRegistroEnfermedad.present
+          ? data.idRegistroEnfermedad.value
+          : this.idRegistroEnfermedad,
+      idRegistroEnfermedadFromServer:
+          data.idRegistroEnfermedadFromServer.present
+              ? data.idRegistroEnfermedadFromServer.value
+              : this.idRegistroEnfermedadFromServer,
+      idProductoAgroquimico: data.idProductoAgroquimico.present
+          ? data.idProductoAgroquimico.value
+          : this.idProductoAgroquimico,
+      tipoControl:
+          data.tipoControl.present ? data.tipoControl.value : this.tipoControl,
+      dosis: data.dosis.present ? data.dosis.value : this.dosis,
+      descripcionProcedimiento: data.descripcionProcedimiento.present
+          ? data.descripcionProcedimiento.value
+          : this.descripcionProcedimiento,
+      fechaRegistro: data.fechaRegistro.present
+          ? data.fechaRegistro.value
+          : this.fechaRegistro,
+      unidades: data.unidades.present ? data.unidades.value : this.unidades,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('RegistroTratamientoData(')
@@ -9588,9 +10109,10 @@ class $CensoEtapasPlagaTable extends CensoEtapasPlaga
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'censo_etapas_plaga';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'censo_etapas_plaga';
+  String get actualTableName => $name;
+  static const String $name = 'censo_etapas_plaga';
   @override
   VerificationContext validateIntegrity(
       Insertable<CensoEtapasPlagaData> instance,
@@ -9729,6 +10251,24 @@ class CensoEtapasPlagaData extends DataClass
         numeroIndividuos: numeroIndividuos ?? this.numeroIndividuos,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  CensoEtapasPlagaData copyWithCompanion(CensoEtapasPlagaCompanion data) {
+    return CensoEtapasPlagaData(
+      idCensoEtapasplaga: data.idCensoEtapasplaga.present
+          ? data.idCensoEtapasplaga.value
+          : this.idCensoEtapasplaga,
+      idCenso: data.idCenso.present ? data.idCenso.value : this.idCenso,
+      idEtapasplaga: data.idEtapasplaga.present
+          ? data.idEtapasplaga.value
+          : this.idEtapasplaga,
+      numeroIndividuos: data.numeroIndividuos.present
+          ? data.numeroIndividuos.value
+          : this.numeroIndividuos,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('CensoEtapasPlagaData(')
@@ -9884,9 +10424,10 @@ class $ImagenCensoPlagaTable extends ImagenCensoPlaga
   List<GeneratedColumn> get $columns =>
       [idImagenCensoPlaga, idCenso, imagen, sincronizado];
   @override
-  String get aliasedName => _alias ?? 'imagen_censo_plaga';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'imagen_censo_plaga';
+  String get actualTableName => $name;
+  static const String $name = 'imagen_censo_plaga';
   @override
   VerificationContext validateIntegrity(
       Insertable<ImagenCensoPlagaData> instance,
@@ -10005,6 +10546,19 @@ class ImagenCensoPlagaData extends DataClass
         imagen: imagen ?? this.imagen,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  ImagenCensoPlagaData copyWithCompanion(ImagenCensoPlagaCompanion data) {
+    return ImagenCensoPlagaData(
+      idImagenCensoPlaga: data.idImagenCensoPlaga.present
+          ? data.idImagenCensoPlaga.value
+          : this.idImagenCensoPlaga,
+      idCenso: data.idCenso.present ? data.idCenso.value : this.idCenso,
+      imagen: data.imagen.present ? data.imagen.value : this.imagen,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('ImagenCensoPlagaData(')
@@ -10162,9 +10716,10 @@ class $PrecipitacionTable extends Precipitacion
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'precipitacion';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'precipitacion';
+  String get actualTableName => $name;
+  static const String $name = 'precipitacion';
   @override
   VerificationContext validateIntegrity(Insertable<PrecipitacionData> instance,
       {bool isInserting = false}) {
@@ -10312,6 +10867,25 @@ class PrecipitacionData extends DataClass
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  PrecipitacionData copyWithCompanion(PrecipitacionCompanion data) {
+    return PrecipitacionData(
+      idPrecipitacion: data.idPrecipitacion.present
+          ? data.idPrecipitacion.value
+          : this.idPrecipitacion,
+      fechaRegistroPrecipitacion: data.fechaRegistroPrecipitacion.present
+          ? data.fechaRegistroPrecipitacion.value
+          : this.fechaRegistroPrecipitacion,
+      cantidadPrecipitacion: data.cantidadPrecipitacion.present
+          ? data.cantidadPrecipitacion.value
+          : this.cantidadPrecipitacion,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('PrecipitacionData(')
@@ -10508,9 +11082,10 @@ class $FertilizacionesTable extends Fertilizaciones
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'fertilizaciones';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'fertilizaciones';
+  String get actualTableName => $name;
+  static const String $name = 'fertilizaciones';
   @override
   VerificationContext validateIntegrity(Insertable<Fertilizacione> instance,
       {bool isInserting = false}) {
@@ -10705,6 +11280,30 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
         completado: completado ?? this.completado,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  Fertilizacione copyWithCompanion(FertilizacionesCompanion data) {
+    return Fertilizacione(
+      id: data.id.present ? data.id.value : this.id,
+      idFertilizacion: data.idFertilizacion.present
+          ? data.idFertilizacion.value
+          : this.idFertilizacion,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      fechaIngreso: data.fechaIngreso.present
+          ? data.fechaIngreso.value
+          : this.fechaIngreso,
+      fechaSalida:
+          data.fechaSalida.present ? data.fechaSalida.value : this.fechaSalida,
+      cantidadFertilizada: data.cantidadFertilizada.present
+          ? data.cantidadFertilizada.value
+          : this.cantidadFertilizada,
+      completado:
+          data.completado.present ? data.completado.value : this.completado,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('Fertilizacione(')
@@ -10980,9 +11579,10 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'fertilizacion_diaria';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'fertilizacion_diaria';
+  String get actualTableName => $name;
+  static const String $name = 'fertilizacion_diaria';
   @override
   VerificationContext validateIntegrity(
       Insertable<FertilizacionDiariaData> instance,
@@ -11293,6 +11893,42 @@ class FertilizacionDiariaData extends DataClass
         nombreFertilizante: nombreFertilizante ?? this.nombreFertilizante,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  FertilizacionDiariaData copyWithCompanion(FertilizacionDiariaCompanion data) {
+    return FertilizacionDiariaData(
+      id: data.id.present ? data.id.value : this.id,
+      idFertilizacion: data.idFertilizacion.present
+          ? data.idFertilizacion.value
+          : this.idFertilizacion,
+      fecha: data.fecha.present ? data.fecha.value : this.fecha,
+      cantidadFertilizada: data.cantidadFertilizada.present
+          ? data.cantidadFertilizada.value
+          : this.cantidadFertilizada,
+      dosis: data.dosis.present ? data.dosis.value : this.dosis,
+      unidades: data.unidades.present ? data.unidades.value : this.unidades,
+      lineaInicio:
+          data.lineaInicio.present ? data.lineaInicio.value : this.lineaInicio,
+      numeroInicio: data.numeroInicio.present
+          ? data.numeroInicio.value
+          : this.numeroInicio,
+      orientacionInicio: data.orientacionInicio.present
+          ? data.orientacionInicio.value
+          : this.orientacionInicio,
+      lineaFin: data.lineaFin.present ? data.lineaFin.value : this.lineaFin,
+      numeroFin: data.numeroFin.present ? data.numeroFin.value : this.numeroFin,
+      orientacionFin: data.orientacionFin.present
+          ? data.orientacionFin.value
+          : this.orientacionFin,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      nombreFertilizante: data.nombreFertilizante.present
+          ? data.nombreFertilizante.value
+          : this.nombreFertilizante,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('FertilizacionDiariaData(')
@@ -11614,9 +12250,10 @@ class $FertilizanteTable extends Fertilizante
         fechaUltimaActualizacion
       ];
   @override
-  String get aliasedName => _alias ?? 'fertilizante';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'fertilizante';
+  String get actualTableName => $name;
+  static const String $name = 'fertilizante';
   @override
   VerificationContext validateIntegrity(Insertable<FertilizanteData> instance,
       {bool isInserting = false}) {
@@ -11792,6 +12429,26 @@ class FertilizanteData extends DataClass
             ? fechaUltimaActualizacion.value
             : this.fechaUltimaActualizacion,
       );
+  FertilizanteData copyWithCompanion(FertilizanteCompanion data) {
+    return FertilizanteData(
+      nombreFertilizante: data.nombreFertilizante.present
+          ? data.nombreFertilizante.value
+          : this.nombreFertilizante,
+      tipo: data.tipo.present ? data.tipo.value : this.tipo,
+      composicion:
+          data.composicion.present ? data.composicion.value : this.composicion,
+      porcentaje:
+          data.porcentaje.present ? data.porcentaje.value : this.porcentaje,
+      presentacionPnombreFertilizante:
+          data.presentacionPnombreFertilizante.present
+              ? data.presentacionPnombreFertilizante.value
+              : this.presentacionPnombreFertilizante,
+      fechaUltimaActualizacion: data.fechaUltimaActualizacion.present
+          ? data.fechaUltimaActualizacion.value
+          : this.fechaUltimaActualizacion,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('FertilizanteData(')
@@ -12055,9 +12712,10 @@ class $CensoProductivoTable extends CensoProductivo
         sincronizado
       ];
   @override
-  String get aliasedName => _alias ?? 'censo_productivo';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'censo_productivo';
+  String get actualTableName => $name;
+  static const String $name = 'censo_productivo';
   @override
   VerificationContext validateIntegrity(
       Insertable<CensoProductivoData> instance,
@@ -12369,6 +13027,45 @@ class CensoProductivoData extends DataClass
         responsable: responsable ?? this.responsable,
         sincronizado: sincronizado ?? this.sincronizado,
       );
+  CensoProductivoData copyWithCompanion(CensoProductivoCompanion data) {
+    return CensoProductivoData(
+      id: data.id.present ? data.id.value : this.id,
+      idCensoProductivo: data.idCensoProductivo.present
+          ? data.idCensoProductivo.value
+          : this.idCensoProductivo,
+      fechaCenso:
+          data.fechaCenso.present ? data.fechaCenso.value : this.fechaCenso,
+      floresFemeninas: data.floresFemeninas.present
+          ? data.floresFemeninas.value
+          : this.floresFemeninas,
+      floresMasculinas: data.floresMasculinas.present
+          ? data.floresMasculinas.value
+          : this.floresMasculinas,
+      palmasLeidas: data.palmasLeidas.present
+          ? data.palmasLeidas.value
+          : this.palmasLeidas,
+      racimosVerdes: data.racimosVerdes.present
+          ? data.racimosVerdes.value
+          : this.racimosVerdes,
+      racimosPintones: data.racimosPintones.present
+          ? data.racimosPintones.value
+          : this.racimosPintones,
+      racimosSobremaduros: data.racimosSobremaduros.present
+          ? data.racimosSobremaduros.value
+          : this.racimosSobremaduros,
+      racimosMaduros: data.racimosMaduros.present
+          ? data.racimosMaduros.value
+          : this.racimosMaduros,
+      nombreLote:
+          data.nombreLote.present ? data.nombreLote.value : this.nombreLote,
+      responsable:
+          data.responsable.present ? data.responsable.value : this.responsable,
+      sincronizado: data.sincronizado.present
+          ? data.sincronizado.value
+          : this.sincronizado,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('CensoProductivoData(')
@@ -12601,6 +13298,7 @@ class CensoProductivoCompanion extends UpdateCompanion<CensoProductivoData> {
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
+  $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $CensoTable censo = $CensoTable(this);
   late final $ProductoAgroquimicoTable productoAgroquimico =
       $ProductoAgroquimicoTable(this);
@@ -12696,4 +13394,10192 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         fertilizante,
         censoProductivo
       ];
+}
+
+typedef $$CensoTableCreateCompanionBuilder = CensoCompanion Function({
+  Value<int> id,
+  Value<int?> idCenso,
+  required DateTime fechaCenso,
+  Value<String?> observacionCenso,
+  required String nombreLote,
+  Value<int?> numeroIndividuos,
+  required String nombrePlaga,
+  Value<String> estadoPlaga,
+  Value<bool> sincronizado,
+  required String responsable,
+  required int numerolinea,
+  required int numeroenlinea,
+  required String orientacion,
+  Value<double?> latitude,
+  Value<double?> longitude,
+});
+typedef $$CensoTableUpdateCompanionBuilder = CensoCompanion Function({
+  Value<int> id,
+  Value<int?> idCenso,
+  Value<DateTime> fechaCenso,
+  Value<String?> observacionCenso,
+  Value<String> nombreLote,
+  Value<int?> numeroIndividuos,
+  Value<String> nombrePlaga,
+  Value<String> estadoPlaga,
+  Value<bool> sincronizado,
+  Value<String> responsable,
+  Value<int> numerolinea,
+  Value<int> numeroenlinea,
+  Value<String> orientacion,
+  Value<double?> latitude,
+  Value<double?> longitude,
+});
+
+class $$CensoTableFilterComposer extends Composer<_$AppDatabase, $CensoTable> {
+  $$CensoTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idCenso => $composableBuilder(
+      column: $table.idCenso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaCenso => $composableBuilder(
+      column: $table.fechaCenso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get observacionCenso => $composableBuilder(
+      column: $table.observacionCenso,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numeroIndividuos => $composableBuilder(
+      column: $table.numeroIndividuos,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombrePlaga => $composableBuilder(
+      column: $table.nombrePlaga, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get estadoPlaga => $composableBuilder(
+      column: $table.estadoPlaga, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numerolinea => $composableBuilder(
+      column: $table.numerolinea, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numeroenlinea => $composableBuilder(
+      column: $table.numeroenlinea, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacion => $composableBuilder(
+      column: $table.orientacion, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get latitude => $composableBuilder(
+      column: $table.latitude, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get longitude => $composableBuilder(
+      column: $table.longitude, builder: (column) => ColumnFilters(column));
+}
+
+class $$CensoTableOrderingComposer
+    extends Composer<_$AppDatabase, $CensoTable> {
+  $$CensoTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idCenso => $composableBuilder(
+      column: $table.idCenso, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaCenso => $composableBuilder(
+      column: $table.fechaCenso, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get observacionCenso => $composableBuilder(
+      column: $table.observacionCenso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numeroIndividuos => $composableBuilder(
+      column: $table.numeroIndividuos,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombrePlaga => $composableBuilder(
+      column: $table.nombrePlaga, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get estadoPlaga => $composableBuilder(
+      column: $table.estadoPlaga, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numerolinea => $composableBuilder(
+      column: $table.numerolinea, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numeroenlinea => $composableBuilder(
+      column: $table.numeroenlinea,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacion => $composableBuilder(
+      column: $table.orientacion, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get latitude => $composableBuilder(
+      column: $table.latitude, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get longitude => $composableBuilder(
+      column: $table.longitude, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CensoTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CensoTable> {
+  $$CensoTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idCenso =>
+      $composableBuilder(column: $table.idCenso, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaCenso => $composableBuilder(
+      column: $table.fechaCenso, builder: (column) => column);
+
+  GeneratedColumn<String> get observacionCenso => $composableBuilder(
+      column: $table.observacionCenso, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => column);
+
+  GeneratedColumn<int> get numeroIndividuos => $composableBuilder(
+      column: $table.numeroIndividuos, builder: (column) => column);
+
+  GeneratedColumn<String> get nombrePlaga => $composableBuilder(
+      column: $table.nombrePlaga, builder: (column) => column);
+
+  GeneratedColumn<String> get estadoPlaga => $composableBuilder(
+      column: $table.estadoPlaga, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  GeneratedColumn<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => column);
+
+  GeneratedColumn<int> get numerolinea => $composableBuilder(
+      column: $table.numerolinea, builder: (column) => column);
+
+  GeneratedColumn<int> get numeroenlinea => $composableBuilder(
+      column: $table.numeroenlinea, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacion => $composableBuilder(
+      column: $table.orientacion, builder: (column) => column);
+
+  GeneratedColumn<double> get latitude =>
+      $composableBuilder(column: $table.latitude, builder: (column) => column);
+
+  GeneratedColumn<double> get longitude =>
+      $composableBuilder(column: $table.longitude, builder: (column) => column);
+}
+
+class $$CensoTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CensoTable,
+    CensoData,
+    $$CensoTableFilterComposer,
+    $$CensoTableOrderingComposer,
+    $$CensoTableAnnotationComposer,
+    $$CensoTableCreateCompanionBuilder,
+    $$CensoTableUpdateCompanionBuilder,
+    (CensoData, BaseReferences<_$AppDatabase, $CensoTable, CensoData>),
+    CensoData,
+    PrefetchHooks Function()> {
+  $$CensoTableTableManager(_$AppDatabase db, $CensoTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CensoTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CensoTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CensoTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idCenso = const Value.absent(),
+            Value<DateTime> fechaCenso = const Value.absent(),
+            Value<String?> observacionCenso = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<int?> numeroIndividuos = const Value.absent(),
+            Value<String> nombrePlaga = const Value.absent(),
+            Value<String> estadoPlaga = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<int> numerolinea = const Value.absent(),
+            Value<int> numeroenlinea = const Value.absent(),
+            Value<String> orientacion = const Value.absent(),
+            Value<double?> latitude = const Value.absent(),
+            Value<double?> longitude = const Value.absent(),
+          }) =>
+              CensoCompanion(
+            id: id,
+            idCenso: idCenso,
+            fechaCenso: fechaCenso,
+            observacionCenso: observacionCenso,
+            nombreLote: nombreLote,
+            numeroIndividuos: numeroIndividuos,
+            nombrePlaga: nombrePlaga,
+            estadoPlaga: estadoPlaga,
+            sincronizado: sincronizado,
+            responsable: responsable,
+            numerolinea: numerolinea,
+            numeroenlinea: numeroenlinea,
+            orientacion: orientacion,
+            latitude: latitude,
+            longitude: longitude,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idCenso = const Value.absent(),
+            required DateTime fechaCenso,
+            Value<String?> observacionCenso = const Value.absent(),
+            required String nombreLote,
+            Value<int?> numeroIndividuos = const Value.absent(),
+            required String nombrePlaga,
+            Value<String> estadoPlaga = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+            required String responsable,
+            required int numerolinea,
+            required int numeroenlinea,
+            required String orientacion,
+            Value<double?> latitude = const Value.absent(),
+            Value<double?> longitude = const Value.absent(),
+          }) =>
+              CensoCompanion.insert(
+            id: id,
+            idCenso: idCenso,
+            fechaCenso: fechaCenso,
+            observacionCenso: observacionCenso,
+            nombreLote: nombreLote,
+            numeroIndividuos: numeroIndividuos,
+            nombrePlaga: nombrePlaga,
+            estadoPlaga: estadoPlaga,
+            sincronizado: sincronizado,
+            responsable: responsable,
+            numerolinea: numerolinea,
+            numeroenlinea: numeroenlinea,
+            orientacion: orientacion,
+            latitude: latitude,
+            longitude: longitude,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CensoTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $CensoTable,
+    CensoData,
+    $$CensoTableFilterComposer,
+    $$CensoTableOrderingComposer,
+    $$CensoTableAnnotationComposer,
+    $$CensoTableCreateCompanionBuilder,
+    $$CensoTableUpdateCompanionBuilder,
+    (CensoData, BaseReferences<_$AppDatabase, $CensoTable, CensoData>),
+    CensoData,
+    PrefetchHooks Function()>;
+typedef $$ProductoAgroquimicoTableCreateCompanionBuilder
+    = ProductoAgroquimicoCompanion Function({
+  Value<int> idProductoAgroquimico,
+  required String nombreProductoAgroquimico,
+  required String tipoProductoAgroquimico,
+  required String claseProducto,
+  required String ingredienteActivoProductoAgroquimico,
+  required int periodoCarenciaProductoAgroquimico,
+  required String presentacionProductoAgroquimico,
+  Value<DateTime?> fechaUltimaActualizacion,
+});
+typedef $$ProductoAgroquimicoTableUpdateCompanionBuilder
+    = ProductoAgroquimicoCompanion Function({
+  Value<int> idProductoAgroquimico,
+  Value<String> nombreProductoAgroquimico,
+  Value<String> tipoProductoAgroquimico,
+  Value<String> claseProducto,
+  Value<String> ingredienteActivoProductoAgroquimico,
+  Value<int> periodoCarenciaProductoAgroquimico,
+  Value<String> presentacionProductoAgroquimico,
+  Value<DateTime?> fechaUltimaActualizacion,
+});
+
+final class $$ProductoAgroquimicoTableReferences extends BaseReferences<
+    _$AppDatabase, $ProductoAgroquimicoTable, ProductoAgroquimicoData> {
+  $$ProductoAgroquimicoTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$AplicacionesTable, List<Aplicacione>>
+      _aplicacionesRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.aplicaciones,
+              aliasName: $_aliasNameGenerator(
+                  db.productoAgroquimico.idProductoAgroquimico,
+                  db.aplicaciones.idProductoAgroquimico));
+
+  $$AplicacionesTableProcessedTableManager get aplicacionesRefs {
+    final manager = $$AplicacionesTableTableManager($_db, $_db.aplicaciones)
+        .filter((f) => f.idProductoAgroquimico
+            .idProductoAgroquimico($_item.idProductoAgroquimico));
+
+    final cache = $_typedResult.readTableOrNull(_aplicacionesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$RegistroTratamientoTable,
+      List<RegistroTratamientoData>> _registroTratamientoRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.registroTratamiento,
+          aliasName: $_aliasNameGenerator(
+              db.productoAgroquimico.idProductoAgroquimico,
+              db.registroTratamiento.idProductoAgroquimico));
+
+  $$RegistroTratamientoTableProcessedTableManager get registroTratamientoRefs {
+    final manager =
+        $$RegistroTratamientoTableTableManager($_db, $_db.registroTratamiento)
+            .filter((f) => f.idProductoAgroquimico
+                .idProductoAgroquimico($_item.idProductoAgroquimico));
+
+    final cache =
+        $_typedResult.readTableOrNull(_registroTratamientoRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$ProductoAgroquimicoTableFilterComposer
+    extends Composer<_$AppDatabase, $ProductoAgroquimicoTable> {
+  $$ProductoAgroquimicoTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get idProductoAgroquimico => $composableBuilder(
+      column: $table.idProductoAgroquimico,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreProductoAgroquimico => $composableBuilder(
+      column: $table.nombreProductoAgroquimico,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get tipoProductoAgroquimico => $composableBuilder(
+      column: $table.tipoProductoAgroquimico,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get claseProducto => $composableBuilder(
+      column: $table.claseProducto, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get ingredienteActivoProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.ingredienteActivoProductoAgroquimico,
+          builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get periodoCarenciaProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.periodoCarenciaProductoAgroquimico,
+          builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get presentacionProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.presentacionProductoAgroquimico,
+          builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnFilters(column));
+
+  Expression<bool> aplicacionesRefs(
+      Expression<bool> Function($$AplicacionesTableFilterComposer f) f) {
+    final $$AplicacionesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idProductoAgroquimico,
+        referencedTable: $db.aplicaciones,
+        getReferencedColumn: (t) => t.idProductoAgroquimico,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$AplicacionesTableFilterComposer(
+              $db: $db,
+              $table: $db.aplicaciones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> registroTratamientoRefs(
+      Expression<bool> Function($$RegistroTratamientoTableFilterComposer f) f) {
+    final $$RegistroTratamientoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idProductoAgroquimico,
+        referencedTable: $db.registroTratamiento,
+        getReferencedColumn: (t) => t.idProductoAgroquimico,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroTratamientoTableFilterComposer(
+              $db: $db,
+              $table: $db.registroTratamiento,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$ProductoAgroquimicoTableOrderingComposer
+    extends Composer<_$AppDatabase, $ProductoAgroquimicoTable> {
+  $$ProductoAgroquimicoTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get idProductoAgroquimico => $composableBuilder(
+      column: $table.idProductoAgroquimico,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreProductoAgroquimico => $composableBuilder(
+      column: $table.nombreProductoAgroquimico,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get tipoProductoAgroquimico => $composableBuilder(
+      column: $table.tipoProductoAgroquimico,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get claseProducto => $composableBuilder(
+      column: $table.claseProducto,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get ingredienteActivoProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.ingredienteActivoProductoAgroquimico,
+          builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get periodoCarenciaProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.periodoCarenciaProductoAgroquimico,
+          builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get presentacionProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.presentacionProductoAgroquimico,
+          builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$ProductoAgroquimicoTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ProductoAgroquimicoTable> {
+  $$ProductoAgroquimicoTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get idProductoAgroquimico => $composableBuilder(
+      column: $table.idProductoAgroquimico, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreProductoAgroquimico => $composableBuilder(
+      column: $table.nombreProductoAgroquimico, builder: (column) => column);
+
+  GeneratedColumn<String> get tipoProductoAgroquimico => $composableBuilder(
+      column: $table.tipoProductoAgroquimico, builder: (column) => column);
+
+  GeneratedColumn<String> get claseProducto => $composableBuilder(
+      column: $table.claseProducto, builder: (column) => column);
+
+  GeneratedColumn<String> get ingredienteActivoProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.ingredienteActivoProductoAgroquimico,
+          builder: (column) => column);
+
+  GeneratedColumn<int> get periodoCarenciaProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.periodoCarenciaProductoAgroquimico,
+          builder: (column) => column);
+
+  GeneratedColumn<String> get presentacionProductoAgroquimico =>
+      $composableBuilder(
+          column: $table.presentacionProductoAgroquimico,
+          builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion, builder: (column) => column);
+
+  Expression<T> aplicacionesRefs<T extends Object>(
+      Expression<T> Function($$AplicacionesTableAnnotationComposer a) f) {
+    final $$AplicacionesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idProductoAgroquimico,
+        referencedTable: $db.aplicaciones,
+        getReferencedColumn: (t) => t.idProductoAgroquimico,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$AplicacionesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.aplicaciones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> registroTratamientoRefs<T extends Object>(
+      Expression<T> Function($$RegistroTratamientoTableAnnotationComposer a)
+          f) {
+    final $$RegistroTratamientoTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idProductoAgroquimico,
+            referencedTable: $db.registroTratamiento,
+            getReferencedColumn: (t) => t.idProductoAgroquimico,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroTratamientoTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroTratamiento,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$ProductoAgroquimicoTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ProductoAgroquimicoTable,
+    ProductoAgroquimicoData,
+    $$ProductoAgroquimicoTableFilterComposer,
+    $$ProductoAgroquimicoTableOrderingComposer,
+    $$ProductoAgroquimicoTableAnnotationComposer,
+    $$ProductoAgroquimicoTableCreateCompanionBuilder,
+    $$ProductoAgroquimicoTableUpdateCompanionBuilder,
+    (ProductoAgroquimicoData, $$ProductoAgroquimicoTableReferences),
+    ProductoAgroquimicoData,
+    PrefetchHooks Function(
+        {bool aplicacionesRefs, bool registroTratamientoRefs})> {
+  $$ProductoAgroquimicoTableTableManager(
+      _$AppDatabase db, $ProductoAgroquimicoTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ProductoAgroquimicoTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ProductoAgroquimicoTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ProductoAgroquimicoTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> idProductoAgroquimico = const Value.absent(),
+            Value<String> nombreProductoAgroquimico = const Value.absent(),
+            Value<String> tipoProductoAgroquimico = const Value.absent(),
+            Value<String> claseProducto = const Value.absent(),
+            Value<String> ingredienteActivoProductoAgroquimico =
+                const Value.absent(),
+            Value<int> periodoCarenciaProductoAgroquimico =
+                const Value.absent(),
+            Value<String> presentacionProductoAgroquimico =
+                const Value.absent(),
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+          }) =>
+              ProductoAgroquimicoCompanion(
+            idProductoAgroquimico: idProductoAgroquimico,
+            nombreProductoAgroquimico: nombreProductoAgroquimico,
+            tipoProductoAgroquimico: tipoProductoAgroquimico,
+            claseProducto: claseProducto,
+            ingredienteActivoProductoAgroquimico:
+                ingredienteActivoProductoAgroquimico,
+            periodoCarenciaProductoAgroquimico:
+                periodoCarenciaProductoAgroquimico,
+            presentacionProductoAgroquimico: presentacionProductoAgroquimico,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+          ),
+          createCompanionCallback: ({
+            Value<int> idProductoAgroquimico = const Value.absent(),
+            required String nombreProductoAgroquimico,
+            required String tipoProductoAgroquimico,
+            required String claseProducto,
+            required String ingredienteActivoProductoAgroquimico,
+            required int periodoCarenciaProductoAgroquimico,
+            required String presentacionProductoAgroquimico,
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+          }) =>
+              ProductoAgroquimicoCompanion.insert(
+            idProductoAgroquimico: idProductoAgroquimico,
+            nombreProductoAgroquimico: nombreProductoAgroquimico,
+            tipoProductoAgroquimico: tipoProductoAgroquimico,
+            claseProducto: claseProducto,
+            ingredienteActivoProductoAgroquimico:
+                ingredienteActivoProductoAgroquimico,
+            periodoCarenciaProductoAgroquimico:
+                periodoCarenciaProductoAgroquimico,
+            presentacionProductoAgroquimico: presentacionProductoAgroquimico,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$ProductoAgroquimicoTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {aplicacionesRefs = false, registroTratamientoRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (aplicacionesRefs) db.aplicaciones,
+                if (registroTratamientoRefs) db.registroTratamiento
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (aplicacionesRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$ProductoAgroquimicoTableReferences
+                            ._aplicacionesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$ProductoAgroquimicoTableReferences(db, table, p0)
+                                .aplicacionesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems.where(
+                                (e) =>
+                                    e.idProductoAgroquimico ==
+                                    item.idProductoAgroquimico),
+                        typedResults: items),
+                  if (registroTratamientoRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$ProductoAgroquimicoTableReferences
+                            ._registroTratamientoRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$ProductoAgroquimicoTableReferences(db, table, p0)
+                                .registroTratamientoRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems.where(
+                                (e) =>
+                                    e.idProductoAgroquimico ==
+                                    item.idProductoAgroquimico),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$ProductoAgroquimicoTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ProductoAgroquimicoTable,
+    ProductoAgroquimicoData,
+    $$ProductoAgroquimicoTableFilterComposer,
+    $$ProductoAgroquimicoTableOrderingComposer,
+    $$ProductoAgroquimicoTableAnnotationComposer,
+    $$ProductoAgroquimicoTableCreateCompanionBuilder,
+    $$ProductoAgroquimicoTableUpdateCompanionBuilder,
+    (ProductoAgroquimicoData, $$ProductoAgroquimicoTableReferences),
+    ProductoAgroquimicoData,
+    PrefetchHooks Function(
+        {bool aplicacionesRefs, bool registroTratamientoRefs})>;
+typedef $$UsuarioTableCreateCompanionBuilder = UsuarioCompanion Function({
+  required String ccUsuario,
+  required String nombreUsuario,
+  required String cargoEmpresa,
+  required String rol,
+  required bool validado,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+typedef $$UsuarioTableUpdateCompanionBuilder = UsuarioCompanion Function({
+  Value<String> ccUsuario,
+  Value<String> nombreUsuario,
+  Value<String> cargoEmpresa,
+  Value<String> rol,
+  Value<bool> validado,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+
+final class $$UsuarioTableReferences
+    extends BaseReferences<_$AppDatabase, $UsuarioTable, UsuarioData> {
+  $$UsuarioTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$AplicacionesTable, List<Aplicacione>>
+      _aplicacionesRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.aplicaciones,
+              aliasName: $_aliasNameGenerator(
+                  db.usuario.ccUsuario, db.aplicaciones.responsable));
+
+  $$AplicacionesTableProcessedTableManager get aplicacionesRefs {
+    final manager = $$AplicacionesTableTableManager($_db, $_db.aplicaciones)
+        .filter((f) => f.responsable.ccUsuario($_item.ccUsuario));
+
+    final cache = $_typedResult.readTableOrNull(_aplicacionesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$RegistroEnfermedadTable,
+      List<RegistroEnfermedadData>> _registroEnfermedadRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.registroEnfermedad,
+          aliasName: $_aliasNameGenerator(
+              db.usuario.ccUsuario, db.registroEnfermedad.responsable));
+
+  $$RegistroEnfermedadTableProcessedTableManager get registroEnfermedadRefs {
+    final manager =
+        $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
+            .filter((f) => f.responsable.ccUsuario($_item.ccUsuario));
+
+    final cache =
+        $_typedResult.readTableOrNull(_registroEnfermedadRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$RegistroTratamientoTable,
+      List<RegistroTratamientoData>> _registroTratamientoRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.registroTratamiento,
+          aliasName: $_aliasNameGenerator(
+              db.usuario.ccUsuario, db.registroTratamiento.responsable));
+
+  $$RegistroTratamientoTableProcessedTableManager get registroTratamientoRefs {
+    final manager =
+        $$RegistroTratamientoTableTableManager($_db, $_db.registroTratamiento)
+            .filter((f) => f.responsable.ccUsuario($_item.ccUsuario));
+
+    final cache =
+        $_typedResult.readTableOrNull(_registroTratamientoRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$PrecipitacionTable, List<PrecipitacionData>>
+      _precipitacionRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.precipitacion,
+              aliasName: $_aliasNameGenerator(
+                  db.usuario.ccUsuario, db.precipitacion.responsable));
+
+  $$PrecipitacionTableProcessedTableManager get precipitacionRefs {
+    final manager = $$PrecipitacionTableTableManager($_db, $_db.precipitacion)
+        .filter((f) => f.responsable.ccUsuario($_item.ccUsuario));
+
+    final cache = $_typedResult.readTableOrNull(_precipitacionRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$CensoProductivoTable, List<CensoProductivoData>>
+      _censoProductivoRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.censoProductivo,
+              aliasName: $_aliasNameGenerator(
+                  db.usuario.ccUsuario, db.censoProductivo.responsable));
+
+  $$CensoProductivoTableProcessedTableManager get censoProductivoRefs {
+    final manager =
+        $$CensoProductivoTableTableManager($_db, $_db.censoProductivo)
+            .filter((f) => f.responsable.ccUsuario($_item.ccUsuario));
+
+    final cache =
+        $_typedResult.readTableOrNull(_censoProductivoRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$UsuarioTableFilterComposer
+    extends Composer<_$AppDatabase, $UsuarioTable> {
+  $$UsuarioTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get ccUsuario => $composableBuilder(
+      column: $table.ccUsuario, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreUsuario => $composableBuilder(
+      column: $table.nombreUsuario, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get cargoEmpresa => $composableBuilder(
+      column: $table.cargoEmpresa, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get rol => $composableBuilder(
+      column: $table.rol, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get validado => $composableBuilder(
+      column: $table.validado, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnFilters(column));
+
+  Expression<bool> aplicacionesRefs(
+      Expression<bool> Function($$AplicacionesTableFilterComposer f) f) {
+    final $$AplicacionesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.aplicaciones,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$AplicacionesTableFilterComposer(
+              $db: $db,
+              $table: $db.aplicaciones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> registroEnfermedadRefs(
+      Expression<bool> Function($$RegistroEnfermedadTableFilterComposer f) f) {
+    final $$RegistroEnfermedadTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableFilterComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> registroTratamientoRefs(
+      Expression<bool> Function($$RegistroTratamientoTableFilterComposer f) f) {
+    final $$RegistroTratamientoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.registroTratamiento,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroTratamientoTableFilterComposer(
+              $db: $db,
+              $table: $db.registroTratamiento,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> precipitacionRefs(
+      Expression<bool> Function($$PrecipitacionTableFilterComposer f) f) {
+    final $$PrecipitacionTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.precipitacion,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PrecipitacionTableFilterComposer(
+              $db: $db,
+              $table: $db.precipitacion,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> censoProductivoRefs(
+      Expression<bool> Function($$CensoProductivoTableFilterComposer f) f) {
+    final $$CensoProductivoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.censoProductivo,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoProductivoTableFilterComposer(
+              $db: $db,
+              $table: $db.censoProductivo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$UsuarioTableOrderingComposer
+    extends Composer<_$AppDatabase, $UsuarioTable> {
+  $$UsuarioTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get ccUsuario => $composableBuilder(
+      column: $table.ccUsuario, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreUsuario => $composableBuilder(
+      column: $table.nombreUsuario,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get cargoEmpresa => $composableBuilder(
+      column: $table.cargoEmpresa,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get rol => $composableBuilder(
+      column: $table.rol, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get validado => $composableBuilder(
+      column: $table.validado, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$UsuarioTableAnnotationComposer
+    extends Composer<_$AppDatabase, $UsuarioTable> {
+  $$UsuarioTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get ccUsuario =>
+      $composableBuilder(column: $table.ccUsuario, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreUsuario => $composableBuilder(
+      column: $table.nombreUsuario, builder: (column) => column);
+
+  GeneratedColumn<String> get cargoEmpresa => $composableBuilder(
+      column: $table.cargoEmpresa, builder: (column) => column);
+
+  GeneratedColumn<String> get rol =>
+      $composableBuilder(column: $table.rol, builder: (column) => column);
+
+  GeneratedColumn<bool> get validado =>
+      $composableBuilder(column: $table.validado, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion, builder: (column) => column);
+
+  Expression<T> aplicacionesRefs<T extends Object>(
+      Expression<T> Function($$AplicacionesTableAnnotationComposer a) f) {
+    final $$AplicacionesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.aplicaciones,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$AplicacionesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.aplicaciones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> registroEnfermedadRefs<T extends Object>(
+      Expression<T> Function($$RegistroEnfermedadTableAnnotationComposer a) f) {
+    final $$RegistroEnfermedadTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.ccUsuario,
+            referencedTable: $db.registroEnfermedad,
+            getReferencedColumn: (t) => t.responsable,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroEnfermedadTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+
+  Expression<T> registroTratamientoRefs<T extends Object>(
+      Expression<T> Function($$RegistroTratamientoTableAnnotationComposer a)
+          f) {
+    final $$RegistroTratamientoTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.ccUsuario,
+            referencedTable: $db.registroTratamiento,
+            getReferencedColumn: (t) => t.responsable,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroTratamientoTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroTratamiento,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+
+  Expression<T> precipitacionRefs<T extends Object>(
+      Expression<T> Function($$PrecipitacionTableAnnotationComposer a) f) {
+    final $$PrecipitacionTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.precipitacion,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PrecipitacionTableAnnotationComposer(
+              $db: $db,
+              $table: $db.precipitacion,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> censoProductivoRefs<T extends Object>(
+      Expression<T> Function($$CensoProductivoTableAnnotationComposer a) f) {
+    final $$CensoProductivoTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.ccUsuario,
+        referencedTable: $db.censoProductivo,
+        getReferencedColumn: (t) => t.responsable,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoProductivoTableAnnotationComposer(
+              $db: $db,
+              $table: $db.censoProductivo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$UsuarioTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $UsuarioTable,
+    UsuarioData,
+    $$UsuarioTableFilterComposer,
+    $$UsuarioTableOrderingComposer,
+    $$UsuarioTableAnnotationComposer,
+    $$UsuarioTableCreateCompanionBuilder,
+    $$UsuarioTableUpdateCompanionBuilder,
+    (UsuarioData, $$UsuarioTableReferences),
+    UsuarioData,
+    PrefetchHooks Function(
+        {bool aplicacionesRefs,
+        bool registroEnfermedadRefs,
+        bool registroTratamientoRefs,
+        bool precipitacionRefs,
+        bool censoProductivoRefs})> {
+  $$UsuarioTableTableManager(_$AppDatabase db, $UsuarioTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$UsuarioTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$UsuarioTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$UsuarioTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> ccUsuario = const Value.absent(),
+            Value<String> nombreUsuario = const Value.absent(),
+            Value<String> cargoEmpresa = const Value.absent(),
+            Value<String> rol = const Value.absent(),
+            Value<bool> validado = const Value.absent(),
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              UsuarioCompanion(
+            ccUsuario: ccUsuario,
+            nombreUsuario: nombreUsuario,
+            cargoEmpresa: cargoEmpresa,
+            rol: rol,
+            validado: validado,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String ccUsuario,
+            required String nombreUsuario,
+            required String cargoEmpresa,
+            required String rol,
+            required bool validado,
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              UsuarioCompanion.insert(
+            ccUsuario: ccUsuario,
+            nombreUsuario: nombreUsuario,
+            cargoEmpresa: cargoEmpresa,
+            rol: rol,
+            validado: validado,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$UsuarioTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: (
+              {aplicacionesRefs = false,
+              registroEnfermedadRefs = false,
+              registroTratamientoRefs = false,
+              precipitacionRefs = false,
+              censoProductivoRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (aplicacionesRefs) db.aplicaciones,
+                if (registroEnfermedadRefs) db.registroEnfermedad,
+                if (registroTratamientoRefs) db.registroTratamiento,
+                if (precipitacionRefs) db.precipitacion,
+                if (censoProductivoRefs) db.censoProductivo
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (aplicacionesRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$UsuarioTableReferences._aplicacionesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UsuarioTableReferences(db, table, p0)
+                                .aplicacionesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.responsable == item.ccUsuario),
+                        typedResults: items),
+                  if (registroEnfermedadRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$UsuarioTableReferences
+                            ._registroEnfermedadRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UsuarioTableReferences(db, table, p0)
+                                .registroEnfermedadRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.responsable == item.ccUsuario),
+                        typedResults: items),
+                  if (registroTratamientoRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$UsuarioTableReferences
+                            ._registroTratamientoRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UsuarioTableReferences(db, table, p0)
+                                .registroTratamientoRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.responsable == item.ccUsuario),
+                        typedResults: items),
+                  if (precipitacionRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$UsuarioTableReferences
+                            ._precipitacionRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UsuarioTableReferences(db, table, p0)
+                                .precipitacionRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.responsable == item.ccUsuario),
+                        typedResults: items),
+                  if (censoProductivoRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$UsuarioTableReferences
+                            ._censoProductivoRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$UsuarioTableReferences(db, table, p0)
+                                .censoProductivoRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.responsable == item.ccUsuario),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$UsuarioTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $UsuarioTable,
+    UsuarioData,
+    $$UsuarioTableFilterComposer,
+    $$UsuarioTableOrderingComposer,
+    $$UsuarioTableAnnotationComposer,
+    $$UsuarioTableCreateCompanionBuilder,
+    $$UsuarioTableUpdateCompanionBuilder,
+    (UsuarioData, $$UsuarioTableReferences),
+    UsuarioData,
+    PrefetchHooks Function(
+        {bool aplicacionesRefs,
+        bool registroEnfermedadRefs,
+        bool registroTratamientoRefs,
+        bool precipitacionRefs,
+        bool censoProductivoRefs})>;
+typedef $$AplicacionesTableCreateCompanionBuilder = AplicacionesCompanion
+    Function({
+  Value<int> id,
+  required double dosis,
+  required int area,
+  required String unidades,
+  required DateTime fechaAplicacion,
+  required DateTime fechaReingreso,
+  required int idCenso,
+  Value<int?> idCensoFromServer,
+  required int idProductoAgroquimico,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$AplicacionesTableUpdateCompanionBuilder = AplicacionesCompanion
+    Function({
+  Value<int> id,
+  Value<double> dosis,
+  Value<int> area,
+  Value<String> unidades,
+  Value<DateTime> fechaAplicacion,
+  Value<DateTime> fechaReingreso,
+  Value<int> idCenso,
+  Value<int?> idCensoFromServer,
+  Value<int> idProductoAgroquimico,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$AplicacionesTableReferences
+    extends BaseReferences<_$AppDatabase, $AplicacionesTable, Aplicacione> {
+  $$AplicacionesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $CensoTable _idCensoTable(_$AppDatabase db) => db.censo
+      .createAlias($_aliasNameGenerator(db.aplicaciones.idCenso, db.censo.id));
+
+  $$CensoTableProcessedTableManager? get idCenso {
+    if ($_item.idCenso == null) return null;
+    final manager = $$CensoTableTableManager($_db, $_db.censo)
+        .filter((f) => f.id($_item.idCenso!));
+    final item = $_typedResult.readTableOrNull(_idCensoTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $CensoTable _idCensoFromServerTable(_$AppDatabase db) =>
+      db.censo.createAlias($_aliasNameGenerator(
+          db.aplicaciones.idCensoFromServer, db.censo.idCenso));
+
+  $$CensoTableProcessedTableManager? get idCensoFromServer {
+    if ($_item.idCensoFromServer == null) return null;
+    final manager = $$CensoTableTableManager($_db, $_db.censo)
+        .filter((f) => f.idCenso($_item.idCensoFromServer!));
+    final item = $_typedResult.readTableOrNull(_idCensoFromServerTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $ProductoAgroquimicoTable _idProductoAgroquimicoTable(
+          _$AppDatabase db) =>
+      db.productoAgroquimico.createAlias($_aliasNameGenerator(
+          db.aplicaciones.idProductoAgroquimico,
+          db.productoAgroquimico.idProductoAgroquimico));
+
+  $$ProductoAgroquimicoTableProcessedTableManager? get idProductoAgroquimico {
+    if ($_item.idProductoAgroquimico == null) return null;
+    final manager = $$ProductoAgroquimicoTableTableManager(
+            $_db, $_db.productoAgroquimico)
+        .filter((f) => f.idProductoAgroquimico($_item.idProductoAgroquimico!));
+    final item =
+        $_typedResult.readTableOrNull(_idProductoAgroquimicoTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $UsuarioTable _responsableTable(_$AppDatabase db) =>
+      db.usuario.createAlias($_aliasNameGenerator(
+          db.aplicaciones.responsable, db.usuario.ccUsuario));
+
+  $$UsuarioTableProcessedTableManager? get responsable {
+    if ($_item.responsable == null) return null;
+    final manager = $$UsuarioTableTableManager($_db, $_db.usuario)
+        .filter((f) => f.ccUsuario($_item.responsable!));
+    final item = $_typedResult.readTableOrNull(_responsableTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$AplicacionesTableFilterComposer
+    extends Composer<_$AppDatabase, $AplicacionesTable> {
+  $$AplicacionesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get dosis => $composableBuilder(
+      column: $table.dosis, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get area => $composableBuilder(
+      column: $table.area, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get unidades => $composableBuilder(
+      column: $table.unidades, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaAplicacion => $composableBuilder(
+      column: $table.fechaAplicacion,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaReingreso => $composableBuilder(
+      column: $table.fechaReingreso,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$CensoTableFilterComposer get idCenso {
+    final $$CensoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCenso,
+        referencedTable: $db.censo,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoTableFilterComposer(
+              $db: $db,
+              $table: $db.censo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$CensoTableFilterComposer get idCensoFromServer {
+    final $$CensoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCensoFromServer,
+        referencedTable: $db.censo,
+        getReferencedColumn: (t) => t.idCenso,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoTableFilterComposer(
+              $db: $db,
+              $table: $db.censo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ProductoAgroquimicoTableFilterComposer get idProductoAgroquimico {
+    final $$ProductoAgroquimicoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idProductoAgroquimico,
+        referencedTable: $db.productoAgroquimico,
+        getReferencedColumn: (t) => t.idProductoAgroquimico,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ProductoAgroquimicoTableFilterComposer(
+              $db: $db,
+              $table: $db.productoAgroquimico,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableFilterComposer get responsable {
+    final $$UsuarioTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableFilterComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$AplicacionesTableOrderingComposer
+    extends Composer<_$AppDatabase, $AplicacionesTable> {
+  $$AplicacionesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get dosis => $composableBuilder(
+      column: $table.dosis, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get area => $composableBuilder(
+      column: $table.area, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get unidades => $composableBuilder(
+      column: $table.unidades, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaAplicacion => $composableBuilder(
+      column: $table.fechaAplicacion,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaReingreso => $composableBuilder(
+      column: $table.fechaReingreso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$CensoTableOrderingComposer get idCenso {
+    final $$CensoTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCenso,
+        referencedTable: $db.censo,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoTableOrderingComposer(
+              $db: $db,
+              $table: $db.censo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$CensoTableOrderingComposer get idCensoFromServer {
+    final $$CensoTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCensoFromServer,
+        referencedTable: $db.censo,
+        getReferencedColumn: (t) => t.idCenso,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoTableOrderingComposer(
+              $db: $db,
+              $table: $db.censo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ProductoAgroquimicoTableOrderingComposer get idProductoAgroquimico {
+    final $$ProductoAgroquimicoTableOrderingComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idProductoAgroquimico,
+            referencedTable: $db.productoAgroquimico,
+            getReferencedColumn: (t) => t.idProductoAgroquimico,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ProductoAgroquimicoTableOrderingComposer(
+                  $db: $db,
+                  $table: $db.productoAgroquimico,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+
+  $$UsuarioTableOrderingComposer get responsable {
+    final $$UsuarioTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableOrderingComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$AplicacionesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AplicacionesTable> {
+  $$AplicacionesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<double> get dosis =>
+      $composableBuilder(column: $table.dosis, builder: (column) => column);
+
+  GeneratedColumn<int> get area =>
+      $composableBuilder(column: $table.area, builder: (column) => column);
+
+  GeneratedColumn<String> get unidades =>
+      $composableBuilder(column: $table.unidades, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaAplicacion => $composableBuilder(
+      column: $table.fechaAplicacion, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaReingreso => $composableBuilder(
+      column: $table.fechaReingreso, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$CensoTableAnnotationComposer get idCenso {
+    final $$CensoTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCenso,
+        referencedTable: $db.censo,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoTableAnnotationComposer(
+              $db: $db,
+              $table: $db.censo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$CensoTableAnnotationComposer get idCensoFromServer {
+    final $$CensoTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCensoFromServer,
+        referencedTable: $db.censo,
+        getReferencedColumn: (t) => t.idCenso,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoTableAnnotationComposer(
+              $db: $db,
+              $table: $db.censo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ProductoAgroquimicoTableAnnotationComposer get idProductoAgroquimico {
+    final $$ProductoAgroquimicoTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idProductoAgroquimico,
+            referencedTable: $db.productoAgroquimico,
+            getReferencedColumn: (t) => t.idProductoAgroquimico,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ProductoAgroquimicoTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.productoAgroquimico,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+
+  $$UsuarioTableAnnotationComposer get responsable {
+    final $$UsuarioTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableAnnotationComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$AplicacionesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $AplicacionesTable,
+    Aplicacione,
+    $$AplicacionesTableFilterComposer,
+    $$AplicacionesTableOrderingComposer,
+    $$AplicacionesTableAnnotationComposer,
+    $$AplicacionesTableCreateCompanionBuilder,
+    $$AplicacionesTableUpdateCompanionBuilder,
+    (Aplicacione, $$AplicacionesTableReferences),
+    Aplicacione,
+    PrefetchHooks Function(
+        {bool idCenso,
+        bool idCensoFromServer,
+        bool idProductoAgroquimico,
+        bool responsable})> {
+  $$AplicacionesTableTableManager(_$AppDatabase db, $AplicacionesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AplicacionesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AplicacionesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AplicacionesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<double> dosis = const Value.absent(),
+            Value<int> area = const Value.absent(),
+            Value<String> unidades = const Value.absent(),
+            Value<DateTime> fechaAplicacion = const Value.absent(),
+            Value<DateTime> fechaReingreso = const Value.absent(),
+            Value<int> idCenso = const Value.absent(),
+            Value<int?> idCensoFromServer = const Value.absent(),
+            Value<int> idProductoAgroquimico = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              AplicacionesCompanion(
+            id: id,
+            dosis: dosis,
+            area: area,
+            unidades: unidades,
+            fechaAplicacion: fechaAplicacion,
+            fechaReingreso: fechaReingreso,
+            idCenso: idCenso,
+            idCensoFromServer: idCensoFromServer,
+            idProductoAgroquimico: idProductoAgroquimico,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required double dosis,
+            required int area,
+            required String unidades,
+            required DateTime fechaAplicacion,
+            required DateTime fechaReingreso,
+            required int idCenso,
+            Value<int?> idCensoFromServer = const Value.absent(),
+            required int idProductoAgroquimico,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              AplicacionesCompanion.insert(
+            id: id,
+            dosis: dosis,
+            area: area,
+            unidades: unidades,
+            fechaAplicacion: fechaAplicacion,
+            fechaReingreso: fechaReingreso,
+            idCenso: idCenso,
+            idCensoFromServer: idCensoFromServer,
+            idProductoAgroquimico: idProductoAgroquimico,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$AplicacionesTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {idCenso = false,
+              idCensoFromServer = false,
+              idProductoAgroquimico = false,
+              responsable = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idCenso) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idCenso,
+                    referencedTable:
+                        $$AplicacionesTableReferences._idCensoTable(db),
+                    referencedColumn:
+                        $$AplicacionesTableReferences._idCensoTable(db).id,
+                  ) as T;
+                }
+                if (idCensoFromServer) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idCensoFromServer,
+                    referencedTable: $$AplicacionesTableReferences
+                        ._idCensoFromServerTable(db),
+                    referencedColumn: $$AplicacionesTableReferences
+                        ._idCensoFromServerTable(db)
+                        .idCenso,
+                  ) as T;
+                }
+                if (idProductoAgroquimico) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idProductoAgroquimico,
+                    referencedTable: $$AplicacionesTableReferences
+                        ._idProductoAgroquimicoTable(db),
+                    referencedColumn: $$AplicacionesTableReferences
+                        ._idProductoAgroquimicoTable(db)
+                        .idProductoAgroquimico,
+                  ) as T;
+                }
+                if (responsable) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.responsable,
+                    referencedTable:
+                        $$AplicacionesTableReferences._responsableTable(db),
+                    referencedColumn: $$AplicacionesTableReferences
+                        ._responsableTable(db)
+                        .ccUsuario,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$AplicacionesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $AplicacionesTable,
+    Aplicacione,
+    $$AplicacionesTableFilterComposer,
+    $$AplicacionesTableOrderingComposer,
+    $$AplicacionesTableAnnotationComposer,
+    $$AplicacionesTableCreateCompanionBuilder,
+    $$AplicacionesTableUpdateCompanionBuilder,
+    (Aplicacione, $$AplicacionesTableReferences),
+    Aplicacione,
+    PrefetchHooks Function(
+        {bool idCenso,
+        bool idCensoFromServer,
+        bool idProductoAgroquimico,
+        bool responsable})>;
+typedef $$ViajesTableCreateCompanionBuilder = ViajesCompanion Function({
+  Value<int> id,
+  Value<int?> idViaje,
+  required DateTime horaCargue,
+  Value<DateTime?> horaSalida,
+  required int cantidadRacimos,
+  Value<int?> kilos,
+  Value<double?> kilosExtractora,
+  Value<bool> completado,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$ViajesTableUpdateCompanionBuilder = ViajesCompanion Function({
+  Value<int> id,
+  Value<int?> idViaje,
+  Value<DateTime> horaCargue,
+  Value<DateTime?> horaSalida,
+  Value<int> cantidadRacimos,
+  Value<int?> kilos,
+  Value<double?> kilosExtractora,
+  Value<bool> completado,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+class $$ViajesTableFilterComposer
+    extends Composer<_$AppDatabase, $ViajesTable> {
+  $$ViajesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idViaje => $composableBuilder(
+      column: $table.idViaje, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get horaCargue => $composableBuilder(
+      column: $table.horaCargue, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get horaSalida => $composableBuilder(
+      column: $table.horaSalida, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kilos => $composableBuilder(
+      column: $table.kilos, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get kilosExtractora => $composableBuilder(
+      column: $table.kilosExtractora,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+}
+
+class $$ViajesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ViajesTable> {
+  $$ViajesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idViaje => $composableBuilder(
+      column: $table.idViaje, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get horaCargue => $composableBuilder(
+      column: $table.horaCargue, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get horaSalida => $composableBuilder(
+      column: $table.horaSalida, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kilos => $composableBuilder(
+      column: $table.kilos, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get kilosExtractora => $composableBuilder(
+      column: $table.kilosExtractora,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$ViajesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ViajesTable> {
+  $$ViajesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idViaje =>
+      $composableBuilder(column: $table.idViaje, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get horaCargue => $composableBuilder(
+      column: $table.horaCargue, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get horaSalida => $composableBuilder(
+      column: $table.horaSalida, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos, builder: (column) => column);
+
+  GeneratedColumn<int> get kilos =>
+      $composableBuilder(column: $table.kilos, builder: (column) => column);
+
+  GeneratedColumn<double> get kilosExtractora => $composableBuilder(
+      column: $table.kilosExtractora, builder: (column) => column);
+
+  GeneratedColumn<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => column);
+
+  GeneratedColumn<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+}
+
+class $$ViajesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ViajesTable,
+    Viaje,
+    $$ViajesTableFilterComposer,
+    $$ViajesTableOrderingComposer,
+    $$ViajesTableAnnotationComposer,
+    $$ViajesTableCreateCompanionBuilder,
+    $$ViajesTableUpdateCompanionBuilder,
+    (Viaje, BaseReferences<_$AppDatabase, $ViajesTable, Viaje>),
+    Viaje,
+    PrefetchHooks Function()> {
+  $$ViajesTableTableManager(_$AppDatabase db, $ViajesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ViajesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ViajesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ViajesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idViaje = const Value.absent(),
+            Value<DateTime> horaCargue = const Value.absent(),
+            Value<DateTime?> horaSalida = const Value.absent(),
+            Value<int> cantidadRacimos = const Value.absent(),
+            Value<int?> kilos = const Value.absent(),
+            Value<double?> kilosExtractora = const Value.absent(),
+            Value<bool> completado = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ViajesCompanion(
+            id: id,
+            idViaje: idViaje,
+            horaCargue: horaCargue,
+            horaSalida: horaSalida,
+            cantidadRacimos: cantidadRacimos,
+            kilos: kilos,
+            kilosExtractora: kilosExtractora,
+            completado: completado,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idViaje = const Value.absent(),
+            required DateTime horaCargue,
+            Value<DateTime?> horaSalida = const Value.absent(),
+            required int cantidadRacimos,
+            Value<int?> kilos = const Value.absent(),
+            Value<double?> kilosExtractora = const Value.absent(),
+            Value<bool> completado = const Value.absent(),
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ViajesCompanion.insert(
+            id: id,
+            idViaje: idViaje,
+            horaCargue: horaCargue,
+            horaSalida: horaSalida,
+            cantidadRacimos: cantidadRacimos,
+            kilos: kilos,
+            kilosExtractora: kilosExtractora,
+            completado: completado,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ViajesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ViajesTable,
+    Viaje,
+    $$ViajesTableFilterComposer,
+    $$ViajesTableOrderingComposer,
+    $$ViajesTableAnnotationComposer,
+    $$ViajesTableCreateCompanionBuilder,
+    $$ViajesTableUpdateCompanionBuilder,
+    (Viaje, BaseReferences<_$AppDatabase, $ViajesTable, Viaje>),
+    Viaje,
+    PrefetchHooks Function()>;
+typedef $$CosechasTableCreateCompanionBuilder = CosechasCompanion Function({
+  Value<int> id,
+  Value<int?> idCosecha,
+  required String nombreLote,
+  required DateTime fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  required int cantidadRacimos,
+  required int kilos,
+  Value<int?> idViaje,
+  Value<int?> idViajeFromServer,
+  Value<bool> completada,
+  Value<bool> sincronizado,
+});
+typedef $$CosechasTableUpdateCompanionBuilder = CosechasCompanion Function({
+  Value<int> id,
+  Value<int?> idCosecha,
+  Value<String> nombreLote,
+  Value<DateTime> fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  Value<int> cantidadRacimos,
+  Value<int> kilos,
+  Value<int?> idViaje,
+  Value<int?> idViajeFromServer,
+  Value<bool> completada,
+  Value<bool> sincronizado,
+});
+
+final class $$CosechasTableReferences
+    extends BaseReferences<_$AppDatabase, $CosechasTable, Cosecha> {
+  $$CosechasTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ViajesTable _idViajeTable(_$AppDatabase db) => db.viajes
+      .createAlias($_aliasNameGenerator(db.cosechas.idViaje, db.viajes.id));
+
+  $$ViajesTableProcessedTableManager? get idViaje {
+    if ($_item.idViaje == null) return null;
+    final manager = $$ViajesTableTableManager($_db, $_db.viajes)
+        .filter((f) => f.id($_item.idViaje!));
+    final item = $_typedResult.readTableOrNull(_idViajeTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $ViajesTable _idViajeFromServerTable(_$AppDatabase db) =>
+      db.viajes.createAlias($_aliasNameGenerator(
+          db.cosechas.idViajeFromServer, db.viajes.idViaje));
+
+  $$ViajesTableProcessedTableManager? get idViajeFromServer {
+    if ($_item.idViajeFromServer == null) return null;
+    final manager = $$ViajesTableTableManager($_db, $_db.viajes)
+        .filter((f) => f.idViaje($_item.idViajeFromServer!));
+    final item = $_typedResult.readTableOrNull(_idViajeFromServerTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<$CosechaDiariaTable, List<CosechaDiariaData>>
+      _cosechaDiariaRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.cosechaDiaria,
+              aliasName: $_aliasNameGenerator(
+                  db.cosechas.id, db.cosechaDiaria.idCosecha));
+
+  $$CosechaDiariaTableProcessedTableManager get cosechaDiariaRefs {
+    final manager = $$CosechaDiariaTableTableManager($_db, $_db.cosechaDiaria)
+        .filter((f) => f.idCosecha.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_cosechaDiariaRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$CosechasTableFilterComposer
+    extends Composer<_$AppDatabase, $CosechasTable> {
+  $$CosechasTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idCosecha => $composableBuilder(
+      column: $table.idCosecha, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kilos => $composableBuilder(
+      column: $table.kilos, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get completada => $composableBuilder(
+      column: $table.completada, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$ViajesTableFilterComposer get idViaje {
+    final $$ViajesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idViaje,
+        referencedTable: $db.viajes,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ViajesTableFilterComposer(
+              $db: $db,
+              $table: $db.viajes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ViajesTableFilterComposer get idViajeFromServer {
+    final $$ViajesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idViajeFromServer,
+        referencedTable: $db.viajes,
+        getReferencedColumn: (t) => t.idViaje,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ViajesTableFilterComposer(
+              $db: $db,
+              $table: $db.viajes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> cosechaDiariaRefs(
+      Expression<bool> Function($$CosechaDiariaTableFilterComposer f) f) {
+    final $$CosechaDiariaTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.cosechaDiaria,
+        getReferencedColumn: (t) => t.idCosecha,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CosechaDiariaTableFilterComposer(
+              $db: $db,
+              $table: $db.cosechaDiaria,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$CosechasTableOrderingComposer
+    extends Composer<_$AppDatabase, $CosechasTable> {
+  $$CosechasTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idCosecha => $composableBuilder(
+      column: $table.idCosecha, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kilos => $composableBuilder(
+      column: $table.kilos, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get completada => $composableBuilder(
+      column: $table.completada, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$ViajesTableOrderingComposer get idViaje {
+    final $$ViajesTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idViaje,
+        referencedTable: $db.viajes,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ViajesTableOrderingComposer(
+              $db: $db,
+              $table: $db.viajes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ViajesTableOrderingComposer get idViajeFromServer {
+    final $$ViajesTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idViajeFromServer,
+        referencedTable: $db.viajes,
+        getReferencedColumn: (t) => t.idViaje,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ViajesTableOrderingComposer(
+              $db: $db,
+              $table: $db.viajes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$CosechasTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CosechasTable> {
+  $$CosechasTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idCosecha =>
+      $composableBuilder(column: $table.idCosecha, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos, builder: (column) => column);
+
+  GeneratedColumn<int> get kilos =>
+      $composableBuilder(column: $table.kilos, builder: (column) => column);
+
+  GeneratedColumn<bool> get completada => $composableBuilder(
+      column: $table.completada, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$ViajesTableAnnotationComposer get idViaje {
+    final $$ViajesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idViaje,
+        referencedTable: $db.viajes,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ViajesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.viajes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ViajesTableAnnotationComposer get idViajeFromServer {
+    final $$ViajesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idViajeFromServer,
+        referencedTable: $db.viajes,
+        getReferencedColumn: (t) => t.idViaje,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ViajesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.viajes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> cosechaDiariaRefs<T extends Object>(
+      Expression<T> Function($$CosechaDiariaTableAnnotationComposer a) f) {
+    final $$CosechaDiariaTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.cosechaDiaria,
+        getReferencedColumn: (t) => t.idCosecha,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CosechaDiariaTableAnnotationComposer(
+              $db: $db,
+              $table: $db.cosechaDiaria,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$CosechasTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CosechasTable,
+    Cosecha,
+    $$CosechasTableFilterComposer,
+    $$CosechasTableOrderingComposer,
+    $$CosechasTableAnnotationComposer,
+    $$CosechasTableCreateCompanionBuilder,
+    $$CosechasTableUpdateCompanionBuilder,
+    (Cosecha, $$CosechasTableReferences),
+    Cosecha,
+    PrefetchHooks Function(
+        {bool idViaje, bool idViajeFromServer, bool cosechaDiariaRefs})> {
+  $$CosechasTableTableManager(_$AppDatabase db, $CosechasTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CosechasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CosechasTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CosechasTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idCosecha = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<DateTime> fechaIngreso = const Value.absent(),
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            Value<int> cantidadRacimos = const Value.absent(),
+            Value<int> kilos = const Value.absent(),
+            Value<int?> idViaje = const Value.absent(),
+            Value<int?> idViajeFromServer = const Value.absent(),
+            Value<bool> completada = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CosechasCompanion(
+            id: id,
+            idCosecha: idCosecha,
+            nombreLote: nombreLote,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadRacimos: cantidadRacimos,
+            kilos: kilos,
+            idViaje: idViaje,
+            idViajeFromServer: idViajeFromServer,
+            completada: completada,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idCosecha = const Value.absent(),
+            required String nombreLote,
+            required DateTime fechaIngreso,
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            required int cantidadRacimos,
+            required int kilos,
+            Value<int?> idViaje = const Value.absent(),
+            Value<int?> idViajeFromServer = const Value.absent(),
+            Value<bool> completada = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CosechasCompanion.insert(
+            id: id,
+            idCosecha: idCosecha,
+            nombreLote: nombreLote,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadRacimos: cantidadRacimos,
+            kilos: kilos,
+            idViaje: idViaje,
+            idViajeFromServer: idViajeFromServer,
+            completada: completada,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$CosechasTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: (
+              {idViaje = false,
+              idViajeFromServer = false,
+              cosechaDiariaRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (cosechaDiariaRefs) db.cosechaDiaria
+              ],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idViaje) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idViaje,
+                    referencedTable:
+                        $$CosechasTableReferences._idViajeTable(db),
+                    referencedColumn:
+                        $$CosechasTableReferences._idViajeTable(db).id,
+                  ) as T;
+                }
+                if (idViajeFromServer) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idViajeFromServer,
+                    referencedTable:
+                        $$CosechasTableReferences._idViajeFromServerTable(db),
+                    referencedColumn: $$CosechasTableReferences
+                        ._idViajeFromServerTable(db)
+                        .idViaje,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (cosechaDiariaRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$CosechasTableReferences
+                            ._cosechaDiariaRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$CosechasTableReferences(db, table, p0)
+                                .cosechaDiariaRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.idCosecha == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$CosechasTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $CosechasTable,
+    Cosecha,
+    $$CosechasTableFilterComposer,
+    $$CosechasTableOrderingComposer,
+    $$CosechasTableAnnotationComposer,
+    $$CosechasTableCreateCompanionBuilder,
+    $$CosechasTableUpdateCompanionBuilder,
+    (Cosecha, $$CosechasTableReferences),
+    Cosecha,
+    PrefetchHooks Function(
+        {bool idViaje, bool idViajeFromServer, bool cosechaDiariaRefs})>;
+typedef $$CosechaDiariaTableCreateCompanionBuilder = CosechaDiariaCompanion
+    Function({
+  Value<int> id,
+  required int idCosecha,
+  required DateTime fechaIngreso,
+  required int kilos,
+  required int cantidadRacimos,
+  required String lineaInicio,
+  required String numeroInicio,
+  required String orientacionInicio,
+  required String lineaFin,
+  required String numeroFin,
+  required String orientacionFin,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$CosechaDiariaTableUpdateCompanionBuilder = CosechaDiariaCompanion
+    Function({
+  Value<int> id,
+  Value<int> idCosecha,
+  Value<DateTime> fechaIngreso,
+  Value<int> kilos,
+  Value<int> cantidadRacimos,
+  Value<String> lineaInicio,
+  Value<String> numeroInicio,
+  Value<String> orientacionInicio,
+  Value<String> lineaFin,
+  Value<String> numeroFin,
+  Value<String> orientacionFin,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$CosechaDiariaTableReferences extends BaseReferences<_$AppDatabase,
+    $CosechaDiariaTable, CosechaDiariaData> {
+  $$CosechaDiariaTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $CosechasTable _idCosechaTable(_$AppDatabase db) =>
+      db.cosechas.createAlias(
+          $_aliasNameGenerator(db.cosechaDiaria.idCosecha, db.cosechas.id));
+
+  $$CosechasTableProcessedTableManager? get idCosecha {
+    if ($_item.idCosecha == null) return null;
+    final manager = $$CosechasTableTableManager($_db, $_db.cosechas)
+        .filter((f) => f.id($_item.idCosecha!));
+    final item = $_typedResult.readTableOrNull(_idCosechaTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$CosechaDiariaTableFilterComposer
+    extends Composer<_$AppDatabase, $CosechaDiariaTable> {
+  $$CosechaDiariaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kilos => $composableBuilder(
+      column: $table.kilos, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$CosechasTableFilterComposer get idCosecha {
+    final $$CosechasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCosecha,
+        referencedTable: $db.cosechas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CosechasTableFilterComposer(
+              $db: $db,
+              $table: $db.cosechas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$CosechaDiariaTableOrderingComposer
+    extends Composer<_$AppDatabase, $CosechaDiariaTable> {
+  $$CosechaDiariaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kilos => $composableBuilder(
+      column: $table.kilos, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$CosechasTableOrderingComposer get idCosecha {
+    final $$CosechasTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCosecha,
+        referencedTable: $db.cosechas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CosechasTableOrderingComposer(
+              $db: $db,
+              $table: $db.cosechas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$CosechaDiariaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CosechaDiariaTable> {
+  $$CosechaDiariaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => column);
+
+  GeneratedColumn<int> get kilos =>
+      $composableBuilder(column: $table.kilos, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadRacimos => $composableBuilder(
+      column: $table.cantidadRacimos, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaFin =>
+      $composableBuilder(column: $table.lineaFin, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroFin =>
+      $composableBuilder(column: $table.numeroFin, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin, builder: (column) => column);
+
+  GeneratedColumn<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$CosechasTableAnnotationComposer get idCosecha {
+    final $$CosechasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idCosecha,
+        referencedTable: $db.cosechas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CosechasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.cosechas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$CosechaDiariaTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CosechaDiariaTable,
+    CosechaDiariaData,
+    $$CosechaDiariaTableFilterComposer,
+    $$CosechaDiariaTableOrderingComposer,
+    $$CosechaDiariaTableAnnotationComposer,
+    $$CosechaDiariaTableCreateCompanionBuilder,
+    $$CosechaDiariaTableUpdateCompanionBuilder,
+    (CosechaDiariaData, $$CosechaDiariaTableReferences),
+    CosechaDiariaData,
+    PrefetchHooks Function({bool idCosecha})> {
+  $$CosechaDiariaTableTableManager(_$AppDatabase db, $CosechaDiariaTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CosechaDiariaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CosechaDiariaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CosechaDiariaTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> idCosecha = const Value.absent(),
+            Value<DateTime> fechaIngreso = const Value.absent(),
+            Value<int> kilos = const Value.absent(),
+            Value<int> cantidadRacimos = const Value.absent(),
+            Value<String> lineaInicio = const Value.absent(),
+            Value<String> numeroInicio = const Value.absent(),
+            Value<String> orientacionInicio = const Value.absent(),
+            Value<String> lineaFin = const Value.absent(),
+            Value<String> numeroFin = const Value.absent(),
+            Value<String> orientacionFin = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CosechaDiariaCompanion(
+            id: id,
+            idCosecha: idCosecha,
+            fechaIngreso: fechaIngreso,
+            kilos: kilos,
+            cantidadRacimos: cantidadRacimos,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int idCosecha,
+            required DateTime fechaIngreso,
+            required int kilos,
+            required int cantidadRacimos,
+            required String lineaInicio,
+            required String numeroInicio,
+            required String orientacionInicio,
+            required String lineaFin,
+            required String numeroFin,
+            required String orientacionFin,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CosechaDiariaCompanion.insert(
+            id: id,
+            idCosecha: idCosecha,
+            fechaIngreso: fechaIngreso,
+            kilos: kilos,
+            cantidadRacimos: cantidadRacimos,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$CosechaDiariaTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({idCosecha = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idCosecha) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idCosecha,
+                    referencedTable:
+                        $$CosechaDiariaTableReferences._idCosechaTable(db),
+                    referencedColumn:
+                        $$CosechaDiariaTableReferences._idCosechaTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$CosechaDiariaTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $CosechaDiariaTable,
+    CosechaDiariaData,
+    $$CosechaDiariaTableFilterComposer,
+    $$CosechaDiariaTableOrderingComposer,
+    $$CosechaDiariaTableAnnotationComposer,
+    $$CosechaDiariaTableCreateCompanionBuilder,
+    $$CosechaDiariaTableUpdateCompanionBuilder,
+    (CosechaDiariaData, $$CosechaDiariaTableReferences),
+    CosechaDiariaData,
+    PrefetchHooks Function({bool idCosecha})>;
+typedef $$EnfermedadesTableCreateCompanionBuilder = EnfermedadesCompanion
+    Function({
+  required String nombreEnfermedad,
+  required String procedimientoEnfermedad,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+typedef $$EnfermedadesTableUpdateCompanionBuilder = EnfermedadesCompanion
+    Function({
+  Value<String> nombreEnfermedad,
+  Value<String> procedimientoEnfermedad,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+
+final class $$EnfermedadesTableReferences
+    extends BaseReferences<_$AppDatabase, $EnfermedadesTable, Enfermedade> {
+  $$EnfermedadesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$EtapasTable, List<Etapa>> _etapasRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.etapas,
+          aliasName: $_aliasNameGenerator(
+              db.enfermedades.nombreEnfermedad, db.etapas.nombreEnfermedad));
+
+  $$EtapasTableProcessedTableManager get etapasRefs {
+    final manager = $$EtapasTableTableManager($_db, $_db.etapas).filter(
+        (f) => f.nombreEnfermedad.nombreEnfermedad($_item.nombreEnfermedad));
+
+    final cache = $_typedResult.readTableOrNull(_etapasRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$RegistroEnfermedadTable,
+      List<RegistroEnfermedadData>> _registroEnfermedadRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.registroEnfermedad,
+          aliasName: $_aliasNameGenerator(db.enfermedades.nombreEnfermedad,
+              db.registroEnfermedad.nombreEnfermedad));
+
+  $$RegistroEnfermedadTableProcessedTableManager get registroEnfermedadRefs {
+    final manager =
+        $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
+            .filter((f) =>
+                f.nombreEnfermedad.nombreEnfermedad($_item.nombreEnfermedad));
+
+    final cache =
+        $_typedResult.readTableOrNull(_registroEnfermedadRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$EnfermedadesTableFilterComposer
+    extends Composer<_$AppDatabase, $EnfermedadesTable> {
+  $$EnfermedadesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get nombreEnfermedad => $composableBuilder(
+      column: $table.nombreEnfermedad,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get procedimientoEnfermedad => $composableBuilder(
+      column: $table.procedimientoEnfermedad,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnFilters(column));
+
+  Expression<bool> etapasRefs(
+      Expression<bool> Function($$EtapasTableFilterComposer f) f) {
+    final $$EtapasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.etapas,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EtapasTableFilterComposer(
+              $db: $db,
+              $table: $db.etapas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> registroEnfermedadRefs(
+      Expression<bool> Function($$RegistroEnfermedadTableFilterComposer f) f) {
+    final $$RegistroEnfermedadTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableFilterComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$EnfermedadesTableOrderingComposer
+    extends Composer<_$AppDatabase, $EnfermedadesTable> {
+  $$EnfermedadesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get nombreEnfermedad => $composableBuilder(
+      column: $table.nombreEnfermedad,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get procedimientoEnfermedad => $composableBuilder(
+      column: $table.procedimientoEnfermedad,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$EnfermedadesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EnfermedadesTable> {
+  $$EnfermedadesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get nombreEnfermedad => $composableBuilder(
+      column: $table.nombreEnfermedad, builder: (column) => column);
+
+  GeneratedColumn<String> get procedimientoEnfermedad => $composableBuilder(
+      column: $table.procedimientoEnfermedad, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion, builder: (column) => column);
+
+  Expression<T> etapasRefs<T extends Object>(
+      Expression<T> Function($$EtapasTableAnnotationComposer a) f) {
+    final $$EtapasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.etapas,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EtapasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.etapas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> registroEnfermedadRefs<T extends Object>(
+      Expression<T> Function($$RegistroEnfermedadTableAnnotationComposer a) f) {
+    final $$RegistroEnfermedadTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.nombreEnfermedad,
+            referencedTable: $db.registroEnfermedad,
+            getReferencedColumn: (t) => t.nombreEnfermedad,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroEnfermedadTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$EnfermedadesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $EnfermedadesTable,
+    Enfermedade,
+    $$EnfermedadesTableFilterComposer,
+    $$EnfermedadesTableOrderingComposer,
+    $$EnfermedadesTableAnnotationComposer,
+    $$EnfermedadesTableCreateCompanionBuilder,
+    $$EnfermedadesTableUpdateCompanionBuilder,
+    (Enfermedade, $$EnfermedadesTableReferences),
+    Enfermedade,
+    PrefetchHooks Function({bool etapasRefs, bool registroEnfermedadRefs})> {
+  $$EnfermedadesTableTableManager(_$AppDatabase db, $EnfermedadesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EnfermedadesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EnfermedadesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EnfermedadesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> nombreEnfermedad = const Value.absent(),
+            Value<String> procedimientoEnfermedad = const Value.absent(),
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              EnfermedadesCompanion(
+            nombreEnfermedad: nombreEnfermedad,
+            procedimientoEnfermedad: procedimientoEnfermedad,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String nombreEnfermedad,
+            required String procedimientoEnfermedad,
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              EnfermedadesCompanion.insert(
+            nombreEnfermedad: nombreEnfermedad,
+            procedimientoEnfermedad: procedimientoEnfermedad,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$EnfermedadesTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {etapasRefs = false, registroEnfermedadRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (etapasRefs) db.etapas,
+                if (registroEnfermedadRefs) db.registroEnfermedad
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (etapasRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$EnfermedadesTableReferences._etapasRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$EnfermedadesTableReferences(db, table, p0)
+                                .etapasRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) =>
+                                e.nombreEnfermedad == item.nombreEnfermedad),
+                        typedResults: items),
+                  if (registroEnfermedadRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$EnfermedadesTableReferences
+                            ._registroEnfermedadRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$EnfermedadesTableReferences(db, table, p0)
+                                .registroEnfermedadRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) =>
+                                e.nombreEnfermedad == item.nombreEnfermedad),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$EnfermedadesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $EnfermedadesTable,
+    Enfermedade,
+    $$EnfermedadesTableFilterComposer,
+    $$EnfermedadesTableOrderingComposer,
+    $$EnfermedadesTableAnnotationComposer,
+    $$EnfermedadesTableCreateCompanionBuilder,
+    $$EnfermedadesTableUpdateCompanionBuilder,
+    (Enfermedade, $$EnfermedadesTableReferences),
+    Enfermedade,
+    PrefetchHooks Function({bool etapasRefs, bool registroEnfermedadRefs})>;
+typedef $$EtapasTableCreateCompanionBuilder = EtapasCompanion Function({
+  Value<int> id,
+  required String nombreEnfermedad,
+  required String nombreEtapa,
+  required String procedimientoEtapa,
+});
+typedef $$EtapasTableUpdateCompanionBuilder = EtapasCompanion Function({
+  Value<int> id,
+  Value<String> nombreEnfermedad,
+  Value<String> nombreEtapa,
+  Value<String> procedimientoEtapa,
+});
+
+final class $$EtapasTableReferences
+    extends BaseReferences<_$AppDatabase, $EtapasTable, Etapa> {
+  $$EtapasTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $EnfermedadesTable _nombreEnfermedadTable(_$AppDatabase db) =>
+      db.enfermedades.createAlias($_aliasNameGenerator(
+          db.etapas.nombreEnfermedad, db.enfermedades.nombreEnfermedad));
+
+  $$EnfermedadesTableProcessedTableManager? get nombreEnfermedad {
+    if ($_item.nombreEnfermedad == null) return null;
+    final manager = $$EnfermedadesTableTableManager($_db, $_db.enfermedades)
+        .filter((f) => f.nombreEnfermedad($_item.nombreEnfermedad!));
+    final item = $_typedResult.readTableOrNull(_nombreEnfermedadTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<$RegistroEnfermedadTable,
+      List<RegistroEnfermedadData>> _registroEnfermedadRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.registroEnfermedad,
+          aliasName: $_aliasNameGenerator(
+              db.etapas.id, db.registroEnfermedad.idEtapaEnfermedad));
+
+  $$RegistroEnfermedadTableProcessedTableManager get registroEnfermedadRefs {
+    final manager =
+        $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
+            .filter((f) => f.idEtapaEnfermedad.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_registroEnfermedadRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$EtapasTableFilterComposer
+    extends Composer<_$AppDatabase, $EtapasTable> {
+  $$EtapasTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreEtapa => $composableBuilder(
+      column: $table.nombreEtapa, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get procedimientoEtapa => $composableBuilder(
+      column: $table.procedimientoEtapa,
+      builder: (column) => ColumnFilters(column));
+
+  $$EnfermedadesTableFilterComposer get nombreEnfermedad {
+    final $$EnfermedadesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.enfermedades,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EnfermedadesTableFilterComposer(
+              $db: $db,
+              $table: $db.enfermedades,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> registroEnfermedadRefs(
+      Expression<bool> Function($$RegistroEnfermedadTableFilterComposer f) f) {
+    final $$RegistroEnfermedadTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.idEtapaEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableFilterComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$EtapasTableOrderingComposer
+    extends Composer<_$AppDatabase, $EtapasTable> {
+  $$EtapasTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreEtapa => $composableBuilder(
+      column: $table.nombreEtapa, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get procedimientoEtapa => $composableBuilder(
+      column: $table.procedimientoEtapa,
+      builder: (column) => ColumnOrderings(column));
+
+  $$EnfermedadesTableOrderingComposer get nombreEnfermedad {
+    final $$EnfermedadesTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.enfermedades,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EnfermedadesTableOrderingComposer(
+              $db: $db,
+              $table: $db.enfermedades,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$EtapasTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EtapasTable> {
+  $$EtapasTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreEtapa => $composableBuilder(
+      column: $table.nombreEtapa, builder: (column) => column);
+
+  GeneratedColumn<String> get procedimientoEtapa => $composableBuilder(
+      column: $table.procedimientoEtapa, builder: (column) => column);
+
+  $$EnfermedadesTableAnnotationComposer get nombreEnfermedad {
+    final $$EnfermedadesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.enfermedades,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EnfermedadesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.enfermedades,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> registroEnfermedadRefs<T extends Object>(
+      Expression<T> Function($$RegistroEnfermedadTableAnnotationComposer a) f) {
+    final $$RegistroEnfermedadTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.registroEnfermedad,
+            getReferencedColumn: (t) => t.idEtapaEnfermedad,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroEnfermedadTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$EtapasTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $EtapasTable,
+    Etapa,
+    $$EtapasTableFilterComposer,
+    $$EtapasTableOrderingComposer,
+    $$EtapasTableAnnotationComposer,
+    $$EtapasTableCreateCompanionBuilder,
+    $$EtapasTableUpdateCompanionBuilder,
+    (Etapa, $$EtapasTableReferences),
+    Etapa,
+    PrefetchHooks Function(
+        {bool nombreEnfermedad, bool registroEnfermedadRefs})> {
+  $$EtapasTableTableManager(_$AppDatabase db, $EtapasTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EtapasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EtapasTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EtapasTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> nombreEnfermedad = const Value.absent(),
+            Value<String> nombreEtapa = const Value.absent(),
+            Value<String> procedimientoEtapa = const Value.absent(),
+          }) =>
+              EtapasCompanion(
+            id: id,
+            nombreEnfermedad: nombreEnfermedad,
+            nombreEtapa: nombreEtapa,
+            procedimientoEtapa: procedimientoEtapa,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String nombreEnfermedad,
+            required String nombreEtapa,
+            required String procedimientoEtapa,
+          }) =>
+              EtapasCompanion.insert(
+            id: id,
+            nombreEnfermedad: nombreEnfermedad,
+            nombreEtapa: nombreEtapa,
+            procedimientoEtapa: procedimientoEtapa,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$EtapasTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: (
+              {nombreEnfermedad = false, registroEnfermedadRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (registroEnfermedadRefs) db.registroEnfermedad
+              ],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (nombreEnfermedad) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.nombreEnfermedad,
+                    referencedTable:
+                        $$EtapasTableReferences._nombreEnfermedadTable(db),
+                    referencedColumn: $$EtapasTableReferences
+                        ._nombreEnfermedadTable(db)
+                        .nombreEnfermedad,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (registroEnfermedadRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$EtapasTableReferences
+                            ._registroEnfermedadRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$EtapasTableReferences(db, table, p0)
+                                .registroEnfermedadRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.idEtapaEnfermedad == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$EtapasTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $EtapasTable,
+    Etapa,
+    $$EtapasTableFilterComposer,
+    $$EtapasTableOrderingComposer,
+    $$EtapasTableAnnotationComposer,
+    $$EtapasTableCreateCompanionBuilder,
+    $$EtapasTableUpdateCompanionBuilder,
+    (Etapa, $$EtapasTableReferences),
+    Etapa,
+    PrefetchHooks Function(
+        {bool nombreEnfermedad, bool registroEnfermedadRefs})>;
+typedef $$PlagasTableCreateCompanionBuilder = PlagasCompanion Function({
+  required String nombreComunPlaga,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+typedef $$PlagasTableUpdateCompanionBuilder = PlagasCompanion Function({
+  Value<String> nombreComunPlaga,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+
+final class $$PlagasTableReferences
+    extends BaseReferences<_$AppDatabase, $PlagasTable, Plaga> {
+  $$PlagasTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$EtapasPlagaTable, List<EtapasPlagaData>>
+      _etapasPlagaRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.etapasPlaga,
+              aliasName: $_aliasNameGenerator(
+                  db.plagas.nombreComunPlaga, db.etapasPlaga.nombrePlaga));
+
+  $$EtapasPlagaTableProcessedTableManager get etapasPlagaRefs {
+    final manager = $$EtapasPlagaTableTableManager($_db, $_db.etapasPlaga)
+        .filter((f) => f.nombrePlaga.nombreComunPlaga($_item.nombreComunPlaga));
+
+    final cache = $_typedResult.readTableOrNull(_etapasPlagaRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$PlagasTableFilterComposer
+    extends Composer<_$AppDatabase, $PlagasTable> {
+  $$PlagasTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get nombreComunPlaga => $composableBuilder(
+      column: $table.nombreComunPlaga,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnFilters(column));
+
+  Expression<bool> etapasPlagaRefs(
+      Expression<bool> Function($$EtapasPlagaTableFilterComposer f) f) {
+    final $$EtapasPlagaTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreComunPlaga,
+        referencedTable: $db.etapasPlaga,
+        getReferencedColumn: (t) => t.nombrePlaga,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EtapasPlagaTableFilterComposer(
+              $db: $db,
+              $table: $db.etapasPlaga,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PlagasTableOrderingComposer
+    extends Composer<_$AppDatabase, $PlagasTable> {
+  $$PlagasTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get nombreComunPlaga => $composableBuilder(
+      column: $table.nombreComunPlaga,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$PlagasTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PlagasTable> {
+  $$PlagasTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get nombreComunPlaga => $composableBuilder(
+      column: $table.nombreComunPlaga, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion, builder: (column) => column);
+
+  Expression<T> etapasPlagaRefs<T extends Object>(
+      Expression<T> Function($$EtapasPlagaTableAnnotationComposer a) f) {
+    final $$EtapasPlagaTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreComunPlaga,
+        referencedTable: $db.etapasPlaga,
+        getReferencedColumn: (t) => t.nombrePlaga,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EtapasPlagaTableAnnotationComposer(
+              $db: $db,
+              $table: $db.etapasPlaga,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PlagasTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PlagasTable,
+    Plaga,
+    $$PlagasTableFilterComposer,
+    $$PlagasTableOrderingComposer,
+    $$PlagasTableAnnotationComposer,
+    $$PlagasTableCreateCompanionBuilder,
+    $$PlagasTableUpdateCompanionBuilder,
+    (Plaga, $$PlagasTableReferences),
+    Plaga,
+    PrefetchHooks Function({bool etapasPlagaRefs})> {
+  $$PlagasTableTableManager(_$AppDatabase db, $PlagasTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PlagasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PlagasTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PlagasTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> nombreComunPlaga = const Value.absent(),
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PlagasCompanion(
+            nombreComunPlaga: nombreComunPlaga,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String nombreComunPlaga,
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PlagasCompanion.insert(
+            nombreComunPlaga: nombreComunPlaga,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$PlagasTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({etapasPlagaRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (etapasPlagaRefs) db.etapasPlaga],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (etapasPlagaRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$PlagasTableReferences._etapasPlagaRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$PlagasTableReferences(db, table, p0)
+                                .etapasPlagaRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems.where(
+                                (e) => e.nombrePlaga == item.nombreComunPlaga),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PlagasTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PlagasTable,
+    Plaga,
+    $$PlagasTableFilterComposer,
+    $$PlagasTableOrderingComposer,
+    $$PlagasTableAnnotationComposer,
+    $$PlagasTableCreateCompanionBuilder,
+    $$PlagasTableUpdateCompanionBuilder,
+    (Plaga, $$PlagasTableReferences),
+    Plaga,
+    PrefetchHooks Function({bool etapasPlagaRefs})>;
+typedef $$EtapasPlagaTableCreateCompanionBuilder = EtapasPlagaCompanion
+    Function({
+  Value<int> idEtapasPlaga,
+  required String nombrePlaga,
+  required String nombreEtapa,
+  required String procedimientoEtapa,
+});
+typedef $$EtapasPlagaTableUpdateCompanionBuilder = EtapasPlagaCompanion
+    Function({
+  Value<int> idEtapasPlaga,
+  Value<String> nombrePlaga,
+  Value<String> nombreEtapa,
+  Value<String> procedimientoEtapa,
+});
+
+final class $$EtapasPlagaTableReferences
+    extends BaseReferences<_$AppDatabase, $EtapasPlagaTable, EtapasPlagaData> {
+  $$EtapasPlagaTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $PlagasTable _nombrePlagaTable(_$AppDatabase db) =>
+      db.plagas.createAlias($_aliasNameGenerator(
+          db.etapasPlaga.nombrePlaga, db.plagas.nombreComunPlaga));
+
+  $$PlagasTableProcessedTableManager? get nombrePlaga {
+    if ($_item.nombrePlaga == null) return null;
+    final manager = $$PlagasTableTableManager($_db, $_db.plagas)
+        .filter((f) => f.nombreComunPlaga($_item.nombrePlaga!));
+    final item = $_typedResult.readTableOrNull(_nombrePlagaTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$EtapasPlagaTableFilterComposer
+    extends Composer<_$AppDatabase, $EtapasPlagaTable> {
+  $$EtapasPlagaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get idEtapasPlaga => $composableBuilder(
+      column: $table.idEtapasPlaga, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreEtapa => $composableBuilder(
+      column: $table.nombreEtapa, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get procedimientoEtapa => $composableBuilder(
+      column: $table.procedimientoEtapa,
+      builder: (column) => ColumnFilters(column));
+
+  $$PlagasTableFilterComposer get nombrePlaga {
+    final $$PlagasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombrePlaga,
+        referencedTable: $db.plagas,
+        getReferencedColumn: (t) => t.nombreComunPlaga,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlagasTableFilterComposer(
+              $db: $db,
+              $table: $db.plagas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$EtapasPlagaTableOrderingComposer
+    extends Composer<_$AppDatabase, $EtapasPlagaTable> {
+  $$EtapasPlagaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get idEtapasPlaga => $composableBuilder(
+      column: $table.idEtapasPlaga,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreEtapa => $composableBuilder(
+      column: $table.nombreEtapa, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get procedimientoEtapa => $composableBuilder(
+      column: $table.procedimientoEtapa,
+      builder: (column) => ColumnOrderings(column));
+
+  $$PlagasTableOrderingComposer get nombrePlaga {
+    final $$PlagasTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombrePlaga,
+        referencedTable: $db.plagas,
+        getReferencedColumn: (t) => t.nombreComunPlaga,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlagasTableOrderingComposer(
+              $db: $db,
+              $table: $db.plagas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$EtapasPlagaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EtapasPlagaTable> {
+  $$EtapasPlagaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get idEtapasPlaga => $composableBuilder(
+      column: $table.idEtapasPlaga, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreEtapa => $composableBuilder(
+      column: $table.nombreEtapa, builder: (column) => column);
+
+  GeneratedColumn<String> get procedimientoEtapa => $composableBuilder(
+      column: $table.procedimientoEtapa, builder: (column) => column);
+
+  $$PlagasTableAnnotationComposer get nombrePlaga {
+    final $$PlagasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombrePlaga,
+        referencedTable: $db.plagas,
+        getReferencedColumn: (t) => t.nombreComunPlaga,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlagasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.plagas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$EtapasPlagaTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $EtapasPlagaTable,
+    EtapasPlagaData,
+    $$EtapasPlagaTableFilterComposer,
+    $$EtapasPlagaTableOrderingComposer,
+    $$EtapasPlagaTableAnnotationComposer,
+    $$EtapasPlagaTableCreateCompanionBuilder,
+    $$EtapasPlagaTableUpdateCompanionBuilder,
+    (EtapasPlagaData, $$EtapasPlagaTableReferences),
+    EtapasPlagaData,
+    PrefetchHooks Function({bool nombrePlaga})> {
+  $$EtapasPlagaTableTableManager(_$AppDatabase db, $EtapasPlagaTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EtapasPlagaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EtapasPlagaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EtapasPlagaTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> idEtapasPlaga = const Value.absent(),
+            Value<String> nombrePlaga = const Value.absent(),
+            Value<String> nombreEtapa = const Value.absent(),
+            Value<String> procedimientoEtapa = const Value.absent(),
+          }) =>
+              EtapasPlagaCompanion(
+            idEtapasPlaga: idEtapasPlaga,
+            nombrePlaga: nombrePlaga,
+            nombreEtapa: nombreEtapa,
+            procedimientoEtapa: procedimientoEtapa,
+          ),
+          createCompanionCallback: ({
+            Value<int> idEtapasPlaga = const Value.absent(),
+            required String nombrePlaga,
+            required String nombreEtapa,
+            required String procedimientoEtapa,
+          }) =>
+              EtapasPlagaCompanion.insert(
+            idEtapasPlaga: idEtapasPlaga,
+            nombrePlaga: nombrePlaga,
+            nombreEtapa: nombreEtapa,
+            procedimientoEtapa: procedimientoEtapa,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$EtapasPlagaTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({nombrePlaga = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (nombrePlaga) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.nombrePlaga,
+                    referencedTable:
+                        $$EtapasPlagaTableReferences._nombrePlagaTable(db),
+                    referencedColumn: $$EtapasPlagaTableReferences
+                        ._nombrePlagaTable(db)
+                        .nombreComunPlaga,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$EtapasPlagaTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $EtapasPlagaTable,
+    EtapasPlagaData,
+    $$EtapasPlagaTableFilterComposer,
+    $$EtapasPlagaTableOrderingComposer,
+    $$EtapasPlagaTableAnnotationComposer,
+    $$EtapasPlagaTableCreateCompanionBuilder,
+    $$EtapasPlagaTableUpdateCompanionBuilder,
+    (EtapasPlagaData, $$EtapasPlagaTableReferences),
+    EtapasPlagaData,
+    PrefetchHooks Function({bool nombrePlaga})>;
+typedef $$PalmasTableCreateCompanionBuilder = PalmasCompanion Function({
+  Value<int> id,
+  Value<int?> idPalma,
+  required String nombreLote,
+  required int numerolinea,
+  required int numeroenlinea,
+  required String orientacion,
+  required String estadopalma,
+  Value<bool> sincronizado,
+});
+typedef $$PalmasTableUpdateCompanionBuilder = PalmasCompanion Function({
+  Value<int> id,
+  Value<int?> idPalma,
+  Value<String> nombreLote,
+  Value<int> numerolinea,
+  Value<int> numeroenlinea,
+  Value<String> orientacion,
+  Value<String> estadopalma,
+  Value<bool> sincronizado,
+});
+
+final class $$PalmasTableReferences
+    extends BaseReferences<_$AppDatabase, $PalmasTable, Palma> {
+  $$PalmasTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$ErradicacionTable, List<ErradicacionData>>
+      _erradicacionRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.erradicacion,
+              aliasName:
+                  $_aliasNameGenerator(db.palmas.id, db.erradicacion.idPalma));
+
+  $$ErradicacionTableProcessedTableManager get erradicacionRefs {
+    final manager = $$ErradicacionTableTableManager($_db, $_db.erradicacion)
+        .filter((f) => f.idPalma.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_erradicacionRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$PalmasTableFilterComposer
+    extends Composer<_$AppDatabase, $PalmasTable> {
+  $$PalmasTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idPalma => $composableBuilder(
+      column: $table.idPalma, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numerolinea => $composableBuilder(
+      column: $table.numerolinea, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numeroenlinea => $composableBuilder(
+      column: $table.numeroenlinea, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacion => $composableBuilder(
+      column: $table.orientacion, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get estadopalma => $composableBuilder(
+      column: $table.estadopalma, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> erradicacionRefs(
+      Expression<bool> Function($$ErradicacionTableFilterComposer f) f) {
+    final $$ErradicacionTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.erradicacion,
+        getReferencedColumn: (t) => t.idPalma,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ErradicacionTableFilterComposer(
+              $db: $db,
+              $table: $db.erradicacion,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PalmasTableOrderingComposer
+    extends Composer<_$AppDatabase, $PalmasTable> {
+  $$PalmasTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idPalma => $composableBuilder(
+      column: $table.idPalma, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numerolinea => $composableBuilder(
+      column: $table.numerolinea, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numeroenlinea => $composableBuilder(
+      column: $table.numeroenlinea,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacion => $composableBuilder(
+      column: $table.orientacion, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get estadopalma => $composableBuilder(
+      column: $table.estadopalma, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$PalmasTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PalmasTable> {
+  $$PalmasTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idPalma =>
+      $composableBuilder(column: $table.idPalma, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => column);
+
+  GeneratedColumn<int> get numerolinea => $composableBuilder(
+      column: $table.numerolinea, builder: (column) => column);
+
+  GeneratedColumn<int> get numeroenlinea => $composableBuilder(
+      column: $table.numeroenlinea, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacion => $composableBuilder(
+      column: $table.orientacion, builder: (column) => column);
+
+  GeneratedColumn<String> get estadopalma => $composableBuilder(
+      column: $table.estadopalma, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  Expression<T> erradicacionRefs<T extends Object>(
+      Expression<T> Function($$ErradicacionTableAnnotationComposer a) f) {
+    final $$ErradicacionTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.erradicacion,
+        getReferencedColumn: (t) => t.idPalma,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ErradicacionTableAnnotationComposer(
+              $db: $db,
+              $table: $db.erradicacion,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PalmasTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PalmasTable,
+    Palma,
+    $$PalmasTableFilterComposer,
+    $$PalmasTableOrderingComposer,
+    $$PalmasTableAnnotationComposer,
+    $$PalmasTableCreateCompanionBuilder,
+    $$PalmasTableUpdateCompanionBuilder,
+    (Palma, $$PalmasTableReferences),
+    Palma,
+    PrefetchHooks Function({bool erradicacionRefs})> {
+  $$PalmasTableTableManager(_$AppDatabase db, $PalmasTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PalmasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PalmasTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PalmasTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idPalma = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<int> numerolinea = const Value.absent(),
+            Value<int> numeroenlinea = const Value.absent(),
+            Value<String> orientacion = const Value.absent(),
+            Value<String> estadopalma = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PalmasCompanion(
+            id: id,
+            idPalma: idPalma,
+            nombreLote: nombreLote,
+            numerolinea: numerolinea,
+            numeroenlinea: numeroenlinea,
+            orientacion: orientacion,
+            estadopalma: estadopalma,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idPalma = const Value.absent(),
+            required String nombreLote,
+            required int numerolinea,
+            required int numeroenlinea,
+            required String orientacion,
+            required String estadopalma,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PalmasCompanion.insert(
+            id: id,
+            idPalma: idPalma,
+            nombreLote: nombreLote,
+            numerolinea: numerolinea,
+            numeroenlinea: numeroenlinea,
+            orientacion: orientacion,
+            estadopalma: estadopalma,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$PalmasTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({erradicacionRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (erradicacionRefs) db.erradicacion],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (erradicacionRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$PalmasTableReferences._erradicacionRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$PalmasTableReferences(db, table, p0)
+                                .erradicacionRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.idPalma == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PalmasTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PalmasTable,
+    Palma,
+    $$PalmasTableFilterComposer,
+    $$PalmasTableOrderingComposer,
+    $$PalmasTableAnnotationComposer,
+    $$PalmasTableCreateCompanionBuilder,
+    $$PalmasTableUpdateCompanionBuilder,
+    (Palma, $$PalmasTableReferences),
+    Palma,
+    PrefetchHooks Function({bool erradicacionRefs})>;
+typedef $$ErradicacionTableCreateCompanionBuilder = ErradicacionCompanion
+    Function({
+  Value<int> id,
+  Value<String?> causaErradicacion,
+  required int idPalma,
+  Value<String?> observaciones,
+  required DateTime fechaRegistro,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$ErradicacionTableUpdateCompanionBuilder = ErradicacionCompanion
+    Function({
+  Value<int> id,
+  Value<String?> causaErradicacion,
+  Value<int> idPalma,
+  Value<String?> observaciones,
+  Value<DateTime> fechaRegistro,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$ErradicacionTableReferences extends BaseReferences<_$AppDatabase,
+    $ErradicacionTable, ErradicacionData> {
+  $$ErradicacionTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $PalmasTable _idPalmaTable(_$AppDatabase db) => db.palmas
+      .createAlias($_aliasNameGenerator(db.erradicacion.idPalma, db.palmas.id));
+
+  $$PalmasTableProcessedTableManager? get idPalma {
+    if ($_item.idPalma == null) return null;
+    final manager = $$PalmasTableTableManager($_db, $_db.palmas)
+        .filter((f) => f.id($_item.idPalma!));
+    final item = $_typedResult.readTableOrNull(_idPalmaTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$ErradicacionTableFilterComposer
+    extends Composer<_$AppDatabase, $ErradicacionTable> {
+  $$ErradicacionTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get causaErradicacion => $composableBuilder(
+      column: $table.causaErradicacion,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get observaciones => $composableBuilder(
+      column: $table.observaciones, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$PalmasTableFilterComposer get idPalma {
+    final $$PalmasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalma,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableFilterComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ErradicacionTableOrderingComposer
+    extends Composer<_$AppDatabase, $ErradicacionTable> {
+  $$ErradicacionTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get causaErradicacion => $composableBuilder(
+      column: $table.causaErradicacion,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get observaciones => $composableBuilder(
+      column: $table.observaciones,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$PalmasTableOrderingComposer get idPalma {
+    final $$PalmasTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalma,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableOrderingComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ErradicacionTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ErradicacionTable> {
+  $$ErradicacionTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get causaErradicacion => $composableBuilder(
+      column: $table.causaErradicacion, builder: (column) => column);
+
+  GeneratedColumn<String> get observaciones => $composableBuilder(
+      column: $table.observaciones, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro, builder: (column) => column);
+
+  GeneratedColumn<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$PalmasTableAnnotationComposer get idPalma {
+    final $$PalmasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalma,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ErradicacionTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ErradicacionTable,
+    ErradicacionData,
+    $$ErradicacionTableFilterComposer,
+    $$ErradicacionTableOrderingComposer,
+    $$ErradicacionTableAnnotationComposer,
+    $$ErradicacionTableCreateCompanionBuilder,
+    $$ErradicacionTableUpdateCompanionBuilder,
+    (ErradicacionData, $$ErradicacionTableReferences),
+    ErradicacionData,
+    PrefetchHooks Function({bool idPalma})> {
+  $$ErradicacionTableTableManager(_$AppDatabase db, $ErradicacionTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ErradicacionTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ErradicacionTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ErradicacionTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> causaErradicacion = const Value.absent(),
+            Value<int> idPalma = const Value.absent(),
+            Value<String?> observaciones = const Value.absent(),
+            Value<DateTime> fechaRegistro = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ErradicacionCompanion(
+            id: id,
+            causaErradicacion: causaErradicacion,
+            idPalma: idPalma,
+            observaciones: observaciones,
+            fechaRegistro: fechaRegistro,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String?> causaErradicacion = const Value.absent(),
+            required int idPalma,
+            Value<String?> observaciones = const Value.absent(),
+            required DateTime fechaRegistro,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ErradicacionCompanion.insert(
+            id: id,
+            causaErradicacion: causaErradicacion,
+            idPalma: idPalma,
+            observaciones: observaciones,
+            fechaRegistro: fechaRegistro,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$ErradicacionTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({idPalma = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idPalma) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idPalma,
+                    referencedTable:
+                        $$ErradicacionTableReferences._idPalmaTable(db),
+                    referencedColumn:
+                        $$ErradicacionTableReferences._idPalmaTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$ErradicacionTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ErradicacionTable,
+    ErradicacionData,
+    $$ErradicacionTableFilterComposer,
+    $$ErradicacionTableOrderingComposer,
+    $$ErradicacionTableAnnotationComposer,
+    $$ErradicacionTableCreateCompanionBuilder,
+    $$ErradicacionTableUpdateCompanionBuilder,
+    (ErradicacionData, $$ErradicacionTableReferences),
+    ErradicacionData,
+    PrefetchHooks Function({bool idPalma})>;
+typedef $$LotesTableCreateCompanionBuilder = LotesCompanion Function({
+  Value<int> id,
+  required String nombreLote,
+  required int hectareas,
+  required int numeropalmas,
+  required int numeroLineas,
+  required int palmasPorLinea,
+  Value<DateTime?> fechaUltimaActualizacion,
+});
+typedef $$LotesTableUpdateCompanionBuilder = LotesCompanion Function({
+  Value<int> id,
+  Value<String> nombreLote,
+  Value<int> hectareas,
+  Value<int> numeropalmas,
+  Value<int> numeroLineas,
+  Value<int> palmasPorLinea,
+  Value<DateTime?> fechaUltimaActualizacion,
+});
+
+final class $$LotesTableReferences
+    extends BaseReferences<_$AppDatabase, $LotesTable, Lote> {
+  $$LotesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$CensoProductivoTable, List<CensoProductivoData>>
+      _censoProductivoRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.censoProductivo,
+              aliasName: $_aliasNameGenerator(
+                  db.lotes.nombreLote, db.censoProductivo.nombreLote));
+
+  $$CensoProductivoTableProcessedTableManager get censoProductivoRefs {
+    final manager =
+        $$CensoProductivoTableTableManager($_db, $_db.censoProductivo)
+            .filter((f) => f.nombreLote.nombreLote($_item.nombreLote));
+
+    final cache =
+        $_typedResult.readTableOrNull(_censoProductivoRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$LotesTableFilterComposer extends Composer<_$AppDatabase, $LotesTable> {
+  $$LotesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get hectareas => $composableBuilder(
+      column: $table.hectareas, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numeropalmas => $composableBuilder(
+      column: $table.numeropalmas, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numeroLineas => $composableBuilder(
+      column: $table.numeroLineas, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get palmasPorLinea => $composableBuilder(
+      column: $table.palmasPorLinea,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnFilters(column));
+
+  Expression<bool> censoProductivoRefs(
+      Expression<bool> Function($$CensoProductivoTableFilterComposer f) f) {
+    final $$CensoProductivoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreLote,
+        referencedTable: $db.censoProductivo,
+        getReferencedColumn: (t) => t.nombreLote,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoProductivoTableFilterComposer(
+              $db: $db,
+              $table: $db.censoProductivo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$LotesTableOrderingComposer
+    extends Composer<_$AppDatabase, $LotesTable> {
+  $$LotesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get hectareas => $composableBuilder(
+      column: $table.hectareas, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numeropalmas => $composableBuilder(
+      column: $table.numeropalmas,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numeroLineas => $composableBuilder(
+      column: $table.numeroLineas,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get palmasPorLinea => $composableBuilder(
+      column: $table.palmasPorLinea,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$LotesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $LotesTable> {
+  $$LotesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => column);
+
+  GeneratedColumn<int> get hectareas =>
+      $composableBuilder(column: $table.hectareas, builder: (column) => column);
+
+  GeneratedColumn<int> get numeropalmas => $composableBuilder(
+      column: $table.numeropalmas, builder: (column) => column);
+
+  GeneratedColumn<int> get numeroLineas => $composableBuilder(
+      column: $table.numeroLineas, builder: (column) => column);
+
+  GeneratedColumn<int> get palmasPorLinea => $composableBuilder(
+      column: $table.palmasPorLinea, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion, builder: (column) => column);
+
+  Expression<T> censoProductivoRefs<T extends Object>(
+      Expression<T> Function($$CensoProductivoTableAnnotationComposer a) f) {
+    final $$CensoProductivoTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreLote,
+        referencedTable: $db.censoProductivo,
+        getReferencedColumn: (t) => t.nombreLote,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$CensoProductivoTableAnnotationComposer(
+              $db: $db,
+              $table: $db.censoProductivo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$LotesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $LotesTable,
+    Lote,
+    $$LotesTableFilterComposer,
+    $$LotesTableOrderingComposer,
+    $$LotesTableAnnotationComposer,
+    $$LotesTableCreateCompanionBuilder,
+    $$LotesTableUpdateCompanionBuilder,
+    (Lote, $$LotesTableReferences),
+    Lote,
+    PrefetchHooks Function({bool censoProductivoRefs})> {
+  $$LotesTableTableManager(_$AppDatabase db, $LotesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$LotesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LotesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LotesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<int> hectareas = const Value.absent(),
+            Value<int> numeropalmas = const Value.absent(),
+            Value<int> numeroLineas = const Value.absent(),
+            Value<int> palmasPorLinea = const Value.absent(),
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+          }) =>
+              LotesCompanion(
+            id: id,
+            nombreLote: nombreLote,
+            hectareas: hectareas,
+            numeropalmas: numeropalmas,
+            numeroLineas: numeroLineas,
+            palmasPorLinea: palmasPorLinea,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String nombreLote,
+            required int hectareas,
+            required int numeropalmas,
+            required int numeroLineas,
+            required int palmasPorLinea,
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+          }) =>
+              LotesCompanion.insert(
+            id: id,
+            nombreLote: nombreLote,
+            hectareas: hectareas,
+            numeropalmas: numeropalmas,
+            numeroLineas: numeroLineas,
+            palmasPorLinea: palmasPorLinea,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$LotesTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({censoProductivoRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (censoProductivoRefs) db.censoProductivo
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (censoProductivoRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$LotesTableReferences
+                            ._censoProductivoRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$LotesTableReferences(db, table, p0)
+                                .censoProductivoRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.nombreLote == item.nombreLote),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$LotesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $LotesTable,
+    Lote,
+    $$LotesTableFilterComposer,
+    $$LotesTableOrderingComposer,
+    $$LotesTableAnnotationComposer,
+    $$LotesTableCreateCompanionBuilder,
+    $$LotesTableUpdateCompanionBuilder,
+    (Lote, $$LotesTableReferences),
+    Lote,
+    PrefetchHooks Function({bool censoProductivoRefs})>;
+typedef $$PlateosTableCreateCompanionBuilder = PlateosCompanion Function({
+  Value<int> id,
+  Value<int?> idPlateo,
+  required String nombreLote,
+  required String tipoPlateo,
+  required DateTime fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  required int cantidadPlateada,
+  Value<bool> completado,
+  Value<bool> sincronizado,
+});
+typedef $$PlateosTableUpdateCompanionBuilder = PlateosCompanion Function({
+  Value<int> id,
+  Value<int?> idPlateo,
+  Value<String> nombreLote,
+  Value<String> tipoPlateo,
+  Value<DateTime> fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  Value<int> cantidadPlateada,
+  Value<bool> completado,
+  Value<bool> sincronizado,
+});
+
+final class $$PlateosTableReferences
+    extends BaseReferences<_$AppDatabase, $PlateosTable, Plateo> {
+  $$PlateosTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$PlateoDiarioTable, List<PlateoDiarioData>>
+      _plateoDiarioRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+          db.plateoDiario,
+          aliasName:
+              $_aliasNameGenerator(db.plateos.id, db.plateoDiario.idPlateo));
+
+  $$PlateoDiarioTableProcessedTableManager get plateoDiarioRefs {
+    final manager = $$PlateoDiarioTableTableManager($_db, $_db.plateoDiario)
+        .filter((f) => f.idPlateo.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_plateoDiarioRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$PlateosTableFilterComposer
+    extends Composer<_$AppDatabase, $PlateosTable> {
+  $$PlateosTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idPlateo => $composableBuilder(
+      column: $table.idPlateo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get tipoPlateo => $composableBuilder(
+      column: $table.tipoPlateo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadPlateada => $composableBuilder(
+      column: $table.cantidadPlateada,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> plateoDiarioRefs(
+      Expression<bool> Function($$PlateoDiarioTableFilterComposer f) f) {
+    final $$PlateoDiarioTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.plateoDiario,
+        getReferencedColumn: (t) => t.idPlateo,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlateoDiarioTableFilterComposer(
+              $db: $db,
+              $table: $db.plateoDiario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PlateosTableOrderingComposer
+    extends Composer<_$AppDatabase, $PlateosTable> {
+  $$PlateosTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idPlateo => $composableBuilder(
+      column: $table.idPlateo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get tipoPlateo => $composableBuilder(
+      column: $table.tipoPlateo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadPlateada => $composableBuilder(
+      column: $table.cantidadPlateada,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$PlateosTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PlateosTable> {
+  $$PlateosTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idPlateo =>
+      $composableBuilder(column: $table.idPlateo, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => column);
+
+  GeneratedColumn<String> get tipoPlateo => $composableBuilder(
+      column: $table.tipoPlateo, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadPlateada => $composableBuilder(
+      column: $table.cantidadPlateada, builder: (column) => column);
+
+  GeneratedColumn<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  Expression<T> plateoDiarioRefs<T extends Object>(
+      Expression<T> Function($$PlateoDiarioTableAnnotationComposer a) f) {
+    final $$PlateoDiarioTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.plateoDiario,
+        getReferencedColumn: (t) => t.idPlateo,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlateoDiarioTableAnnotationComposer(
+              $db: $db,
+              $table: $db.plateoDiario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PlateosTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PlateosTable,
+    Plateo,
+    $$PlateosTableFilterComposer,
+    $$PlateosTableOrderingComposer,
+    $$PlateosTableAnnotationComposer,
+    $$PlateosTableCreateCompanionBuilder,
+    $$PlateosTableUpdateCompanionBuilder,
+    (Plateo, $$PlateosTableReferences),
+    Plateo,
+    PrefetchHooks Function({bool plateoDiarioRefs})> {
+  $$PlateosTableTableManager(_$AppDatabase db, $PlateosTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PlateosTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PlateosTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PlateosTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idPlateo = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<String> tipoPlateo = const Value.absent(),
+            Value<DateTime> fechaIngreso = const Value.absent(),
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            Value<int> cantidadPlateada = const Value.absent(),
+            Value<bool> completado = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PlateosCompanion(
+            id: id,
+            idPlateo: idPlateo,
+            nombreLote: nombreLote,
+            tipoPlateo: tipoPlateo,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadPlateada: cantidadPlateada,
+            completado: completado,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idPlateo = const Value.absent(),
+            required String nombreLote,
+            required String tipoPlateo,
+            required DateTime fechaIngreso,
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            required int cantidadPlateada,
+            Value<bool> completado = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PlateosCompanion.insert(
+            id: id,
+            idPlateo: idPlateo,
+            nombreLote: nombreLote,
+            tipoPlateo: tipoPlateo,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadPlateada: cantidadPlateada,
+            completado: completado,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$PlateosTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({plateoDiarioRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (plateoDiarioRefs) db.plateoDiario],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (plateoDiarioRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$PlateosTableReferences._plateoDiarioRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$PlateosTableReferences(db, table, p0)
+                                .plateoDiarioRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.idPlateo == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PlateosTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PlateosTable,
+    Plateo,
+    $$PlateosTableFilterComposer,
+    $$PlateosTableOrderingComposer,
+    $$PlateosTableAnnotationComposer,
+    $$PlateosTableCreateCompanionBuilder,
+    $$PlateosTableUpdateCompanionBuilder,
+    (Plateo, $$PlateosTableReferences),
+    Plateo,
+    PrefetchHooks Function({bool plateoDiarioRefs})>;
+typedef $$PlateoDiarioTableCreateCompanionBuilder = PlateoDiarioCompanion
+    Function({
+  Value<int> id,
+  required int idPlateo,
+  required DateTime fecha,
+  required int cantidadPlateada,
+  required String lineaInicio,
+  required String numeroInicio,
+  required String orientacionInicio,
+  required String lineaFin,
+  required String numeroFin,
+  required String orientacionFin,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$PlateoDiarioTableUpdateCompanionBuilder = PlateoDiarioCompanion
+    Function({
+  Value<int> id,
+  Value<int> idPlateo,
+  Value<DateTime> fecha,
+  Value<int> cantidadPlateada,
+  Value<String> lineaInicio,
+  Value<String> numeroInicio,
+  Value<String> orientacionInicio,
+  Value<String> lineaFin,
+  Value<String> numeroFin,
+  Value<String> orientacionFin,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$PlateoDiarioTableReferences extends BaseReferences<_$AppDatabase,
+    $PlateoDiarioTable, PlateoDiarioData> {
+  $$PlateoDiarioTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $PlateosTable _idPlateoTable(_$AppDatabase db) =>
+      db.plateos.createAlias(
+          $_aliasNameGenerator(db.plateoDiario.idPlateo, db.plateos.id));
+
+  $$PlateosTableProcessedTableManager? get idPlateo {
+    if ($_item.idPlateo == null) return null;
+    final manager = $$PlateosTableTableManager($_db, $_db.plateos)
+        .filter((f) => f.id($_item.idPlateo!));
+    final item = $_typedResult.readTableOrNull(_idPlateoTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$PlateoDiarioTableFilterComposer
+    extends Composer<_$AppDatabase, $PlateoDiarioTable> {
+  $$PlateoDiarioTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fecha => $composableBuilder(
+      column: $table.fecha, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadPlateada => $composableBuilder(
+      column: $table.cantidadPlateada,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$PlateosTableFilterComposer get idPlateo {
+    final $$PlateosTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPlateo,
+        referencedTable: $db.plateos,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlateosTableFilterComposer(
+              $db: $db,
+              $table: $db.plateos,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PlateoDiarioTableOrderingComposer
+    extends Composer<_$AppDatabase, $PlateoDiarioTable> {
+  $$PlateoDiarioTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fecha => $composableBuilder(
+      column: $table.fecha, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadPlateada => $composableBuilder(
+      column: $table.cantidadPlateada,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$PlateosTableOrderingComposer get idPlateo {
+    final $$PlateosTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPlateo,
+        referencedTable: $db.plateos,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlateosTableOrderingComposer(
+              $db: $db,
+              $table: $db.plateos,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PlateoDiarioTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PlateoDiarioTable> {
+  $$PlateoDiarioTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fecha =>
+      $composableBuilder(column: $table.fecha, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadPlateada => $composableBuilder(
+      column: $table.cantidadPlateada, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaFin =>
+      $composableBuilder(column: $table.lineaFin, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroFin =>
+      $composableBuilder(column: $table.numeroFin, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin, builder: (column) => column);
+
+  GeneratedColumn<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$PlateosTableAnnotationComposer get idPlateo {
+    final $$PlateosTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPlateo,
+        referencedTable: $db.plateos,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlateosTableAnnotationComposer(
+              $db: $db,
+              $table: $db.plateos,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PlateoDiarioTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PlateoDiarioTable,
+    PlateoDiarioData,
+    $$PlateoDiarioTableFilterComposer,
+    $$PlateoDiarioTableOrderingComposer,
+    $$PlateoDiarioTableAnnotationComposer,
+    $$PlateoDiarioTableCreateCompanionBuilder,
+    $$PlateoDiarioTableUpdateCompanionBuilder,
+    (PlateoDiarioData, $$PlateoDiarioTableReferences),
+    PlateoDiarioData,
+    PrefetchHooks Function({bool idPlateo})> {
+  $$PlateoDiarioTableTableManager(_$AppDatabase db, $PlateoDiarioTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PlateoDiarioTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PlateoDiarioTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PlateoDiarioTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> idPlateo = const Value.absent(),
+            Value<DateTime> fecha = const Value.absent(),
+            Value<int> cantidadPlateada = const Value.absent(),
+            Value<String> lineaInicio = const Value.absent(),
+            Value<String> numeroInicio = const Value.absent(),
+            Value<String> orientacionInicio = const Value.absent(),
+            Value<String> lineaFin = const Value.absent(),
+            Value<String> numeroFin = const Value.absent(),
+            Value<String> orientacionFin = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PlateoDiarioCompanion(
+            id: id,
+            idPlateo: idPlateo,
+            fecha: fecha,
+            cantidadPlateada: cantidadPlateada,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int idPlateo,
+            required DateTime fecha,
+            required int cantidadPlateada,
+            required String lineaInicio,
+            required String numeroInicio,
+            required String orientacionInicio,
+            required String lineaFin,
+            required String numeroFin,
+            required String orientacionFin,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PlateoDiarioCompanion.insert(
+            id: id,
+            idPlateo: idPlateo,
+            fecha: fecha,
+            cantidadPlateada: cantidadPlateada,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$PlateoDiarioTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({idPlateo = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idPlateo) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idPlateo,
+                    referencedTable:
+                        $$PlateoDiarioTableReferences._idPlateoTable(db),
+                    referencedColumn:
+                        $$PlateoDiarioTableReferences._idPlateoTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PlateoDiarioTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PlateoDiarioTable,
+    PlateoDiarioData,
+    $$PlateoDiarioTableFilterComposer,
+    $$PlateoDiarioTableOrderingComposer,
+    $$PlateoDiarioTableAnnotationComposer,
+    $$PlateoDiarioTableCreateCompanionBuilder,
+    $$PlateoDiarioTableUpdateCompanionBuilder,
+    (PlateoDiarioData, $$PlateoDiarioTableReferences),
+    PlateoDiarioData,
+    PrefetchHooks Function({bool idPlateo})>;
+typedef $$PodasTableCreateCompanionBuilder = PodasCompanion Function({
+  Value<int> id,
+  Value<int?> idPoda,
+  required String nombreLote,
+  required DateTime fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  required int cantidadPodada,
+  Value<bool> completada,
+  Value<bool> sincronizado,
+});
+typedef $$PodasTableUpdateCompanionBuilder = PodasCompanion Function({
+  Value<int> id,
+  Value<int?> idPoda,
+  Value<String> nombreLote,
+  Value<DateTime> fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  Value<int> cantidadPodada,
+  Value<bool> completada,
+  Value<bool> sincronizado,
+});
+
+final class $$PodasTableReferences
+    extends BaseReferences<_$AppDatabase, $PodasTable, Poda> {
+  $$PodasTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$PodaDiariaTable, List<PodaDiariaData>>
+      _podaDiariaRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+          db.podaDiaria,
+          aliasName: $_aliasNameGenerator(db.podas.id, db.podaDiaria.idPoda));
+
+  $$PodaDiariaTableProcessedTableManager get podaDiariaRefs {
+    final manager = $$PodaDiariaTableTableManager($_db, $_db.podaDiaria)
+        .filter((f) => f.idPoda.id($_item.id));
+
+    final cache = $_typedResult.readTableOrNull(_podaDiariaRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$PodasTableFilterComposer extends Composer<_$AppDatabase, $PodasTable> {
+  $$PodasTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idPoda => $composableBuilder(
+      column: $table.idPoda, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadPodada => $composableBuilder(
+      column: $table.cantidadPodada,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get completada => $composableBuilder(
+      column: $table.completada, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> podaDiariaRefs(
+      Expression<bool> Function($$PodaDiariaTableFilterComposer f) f) {
+    final $$PodaDiariaTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.podaDiaria,
+        getReferencedColumn: (t) => t.idPoda,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PodaDiariaTableFilterComposer(
+              $db: $db,
+              $table: $db.podaDiaria,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PodasTableOrderingComposer
+    extends Composer<_$AppDatabase, $PodasTable> {
+  $$PodasTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idPoda => $composableBuilder(
+      column: $table.idPoda, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadPodada => $composableBuilder(
+      column: $table.cantidadPodada,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get completada => $composableBuilder(
+      column: $table.completada, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$PodasTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PodasTable> {
+  $$PodasTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idPoda =>
+      $composableBuilder(column: $table.idPoda, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadPodada => $composableBuilder(
+      column: $table.cantidadPodada, builder: (column) => column);
+
+  GeneratedColumn<bool> get completada => $composableBuilder(
+      column: $table.completada, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  Expression<T> podaDiariaRefs<T extends Object>(
+      Expression<T> Function($$PodaDiariaTableAnnotationComposer a) f) {
+    final $$PodaDiariaTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.podaDiaria,
+        getReferencedColumn: (t) => t.idPoda,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PodaDiariaTableAnnotationComposer(
+              $db: $db,
+              $table: $db.podaDiaria,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PodasTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PodasTable,
+    Poda,
+    $$PodasTableFilterComposer,
+    $$PodasTableOrderingComposer,
+    $$PodasTableAnnotationComposer,
+    $$PodasTableCreateCompanionBuilder,
+    $$PodasTableUpdateCompanionBuilder,
+    (Poda, $$PodasTableReferences),
+    Poda,
+    PrefetchHooks Function({bool podaDiariaRefs})> {
+  $$PodasTableTableManager(_$AppDatabase db, $PodasTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PodasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PodasTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PodasTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idPoda = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<DateTime> fechaIngreso = const Value.absent(),
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            Value<int> cantidadPodada = const Value.absent(),
+            Value<bool> completada = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PodasCompanion(
+            id: id,
+            idPoda: idPoda,
+            nombreLote: nombreLote,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadPodada: cantidadPodada,
+            completada: completada,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idPoda = const Value.absent(),
+            required String nombreLote,
+            required DateTime fechaIngreso,
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            required int cantidadPodada,
+            Value<bool> completada = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PodasCompanion.insert(
+            id: id,
+            idPoda: idPoda,
+            nombreLote: nombreLote,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadPodada: cantidadPodada,
+            completada: completada,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $$PodasTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({podaDiariaRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (podaDiariaRefs) db.podaDiaria],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (podaDiariaRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable:
+                            $$PodasTableReferences._podaDiariaRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$PodasTableReferences(db, table, p0)
+                                .podaDiariaRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.idPoda == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PodasTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PodasTable,
+    Poda,
+    $$PodasTableFilterComposer,
+    $$PodasTableOrderingComposer,
+    $$PodasTableAnnotationComposer,
+    $$PodasTableCreateCompanionBuilder,
+    $$PodasTableUpdateCompanionBuilder,
+    (Poda, $$PodasTableReferences),
+    Poda,
+    PrefetchHooks Function({bool podaDiariaRefs})>;
+typedef $$PodaDiariaTableCreateCompanionBuilder = PodaDiariaCompanion Function({
+  Value<int> id,
+  required int idPoda,
+  required DateTime fechaIngreso,
+  required int cantidadPodada,
+  required String lineaInicio,
+  required String numeroInicio,
+  required String orientacionInicio,
+  required String lineaFin,
+  required String numeroFin,
+  required String orientacionFin,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$PodaDiariaTableUpdateCompanionBuilder = PodaDiariaCompanion Function({
+  Value<int> id,
+  Value<int> idPoda,
+  Value<DateTime> fechaIngreso,
+  Value<int> cantidadPodada,
+  Value<String> lineaInicio,
+  Value<String> numeroInicio,
+  Value<String> orientacionInicio,
+  Value<String> lineaFin,
+  Value<String> numeroFin,
+  Value<String> orientacionFin,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$PodaDiariaTableReferences
+    extends BaseReferences<_$AppDatabase, $PodaDiariaTable, PodaDiariaData> {
+  $$PodaDiariaTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $PodasTable _idPodaTable(_$AppDatabase db) => db.podas
+      .createAlias($_aliasNameGenerator(db.podaDiaria.idPoda, db.podas.id));
+
+  $$PodasTableProcessedTableManager? get idPoda {
+    if ($_item.idPoda == null) return null;
+    final manager = $$PodasTableTableManager($_db, $_db.podas)
+        .filter((f) => f.id($_item.idPoda!));
+    final item = $_typedResult.readTableOrNull(_idPodaTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$PodaDiariaTableFilterComposer
+    extends Composer<_$AppDatabase, $PodaDiariaTable> {
+  $$PodaDiariaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadPodada => $composableBuilder(
+      column: $table.cantidadPodada,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$PodasTableFilterComposer get idPoda {
+    final $$PodasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPoda,
+        referencedTable: $db.podas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PodasTableFilterComposer(
+              $db: $db,
+              $table: $db.podas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PodaDiariaTableOrderingComposer
+    extends Composer<_$AppDatabase, $PodaDiariaTable> {
+  $$PodaDiariaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadPodada => $composableBuilder(
+      column: $table.cantidadPodada,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$PodasTableOrderingComposer get idPoda {
+    final $$PodasTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPoda,
+        referencedTable: $db.podas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PodasTableOrderingComposer(
+              $db: $db,
+              $table: $db.podas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PodaDiariaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PodaDiariaTable> {
+  $$PodaDiariaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadPodada => $composableBuilder(
+      column: $table.cantidadPodada, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaFin =>
+      $composableBuilder(column: $table.lineaFin, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroFin =>
+      $composableBuilder(column: $table.numeroFin, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin, builder: (column) => column);
+
+  GeneratedColumn<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$PodasTableAnnotationComposer get idPoda {
+    final $$PodasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPoda,
+        referencedTable: $db.podas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PodasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.podas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PodaDiariaTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PodaDiariaTable,
+    PodaDiariaData,
+    $$PodaDiariaTableFilterComposer,
+    $$PodaDiariaTableOrderingComposer,
+    $$PodaDiariaTableAnnotationComposer,
+    $$PodaDiariaTableCreateCompanionBuilder,
+    $$PodaDiariaTableUpdateCompanionBuilder,
+    (PodaDiariaData, $$PodaDiariaTableReferences),
+    PodaDiariaData,
+    PrefetchHooks Function({bool idPoda})> {
+  $$PodaDiariaTableTableManager(_$AppDatabase db, $PodaDiariaTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PodaDiariaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PodaDiariaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PodaDiariaTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> idPoda = const Value.absent(),
+            Value<DateTime> fechaIngreso = const Value.absent(),
+            Value<int> cantidadPodada = const Value.absent(),
+            Value<String> lineaInicio = const Value.absent(),
+            Value<String> numeroInicio = const Value.absent(),
+            Value<String> orientacionInicio = const Value.absent(),
+            Value<String> lineaFin = const Value.absent(),
+            Value<String> numeroFin = const Value.absent(),
+            Value<String> orientacionFin = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PodaDiariaCompanion(
+            id: id,
+            idPoda: idPoda,
+            fechaIngreso: fechaIngreso,
+            cantidadPodada: cantidadPodada,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int idPoda,
+            required DateTime fechaIngreso,
+            required int cantidadPodada,
+            required String lineaInicio,
+            required String numeroInicio,
+            required String orientacionInicio,
+            required String lineaFin,
+            required String numeroFin,
+            required String orientacionFin,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PodaDiariaCompanion.insert(
+            id: id,
+            idPoda: idPoda,
+            fechaIngreso: fechaIngreso,
+            cantidadPodada: cantidadPodada,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$PodaDiariaTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({idPoda = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idPoda) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idPoda,
+                    referencedTable:
+                        $$PodaDiariaTableReferences._idPodaTable(db),
+                    referencedColumn:
+                        $$PodaDiariaTableReferences._idPodaTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PodaDiariaTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PodaDiariaTable,
+    PodaDiariaData,
+    $$PodaDiariaTableFilterComposer,
+    $$PodaDiariaTableOrderingComposer,
+    $$PodaDiariaTableAnnotationComposer,
+    $$PodaDiariaTableCreateCompanionBuilder,
+    $$PodaDiariaTableUpdateCompanionBuilder,
+    (PodaDiariaData, $$PodaDiariaTableReferences),
+    PodaDiariaData,
+    PrefetchHooks Function({bool idPoda})>;
+typedef $$RegistroEnfermedadTableCreateCompanionBuilder
+    = RegistroEnfermedadCompanion Function({
+  Value<int> id,
+  Value<int?> idRegistroEnfermedad,
+  required DateTime fechaRegistro,
+  Value<DateTime?> horaRegistro,
+  required int idPalma,
+  Value<int?> idPalmaFromServer,
+  required String nombreEnfermedad,
+  Value<int?> idEtapaEnfermedad,
+  Value<String?> observaciones,
+  required String responsable,
+  Value<bool> sincronizado,
+  Value<bool> dadaDeAlta,
+});
+typedef $$RegistroEnfermedadTableUpdateCompanionBuilder
+    = RegistroEnfermedadCompanion Function({
+  Value<int> id,
+  Value<int?> idRegistroEnfermedad,
+  Value<DateTime> fechaRegistro,
+  Value<DateTime?> horaRegistro,
+  Value<int> idPalma,
+  Value<int?> idPalmaFromServer,
+  Value<String> nombreEnfermedad,
+  Value<int?> idEtapaEnfermedad,
+  Value<String?> observaciones,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+  Value<bool> dadaDeAlta,
+});
+
+final class $$RegistroEnfermedadTableReferences extends BaseReferences<
+    _$AppDatabase, $RegistroEnfermedadTable, RegistroEnfermedadData> {
+  $$RegistroEnfermedadTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $PalmasTable _idPalmaTable(_$AppDatabase db) => db.palmas.createAlias(
+      $_aliasNameGenerator(db.registroEnfermedad.idPalma, db.palmas.id));
+
+  $$PalmasTableProcessedTableManager? get idPalma {
+    if ($_item.idPalma == null) return null;
+    final manager = $$PalmasTableTableManager($_db, $_db.palmas)
+        .filter((f) => f.id($_item.idPalma!));
+    final item = $_typedResult.readTableOrNull(_idPalmaTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $PalmasTable _idPalmaFromServerTable(_$AppDatabase db) =>
+      db.palmas.createAlias($_aliasNameGenerator(
+          db.registroEnfermedad.idPalmaFromServer, db.palmas.idPalma));
+
+  $$PalmasTableProcessedTableManager? get idPalmaFromServer {
+    if ($_item.idPalmaFromServer == null) return null;
+    final manager = $$PalmasTableTableManager($_db, $_db.palmas)
+        .filter((f) => f.idPalma($_item.idPalmaFromServer!));
+    final item = $_typedResult.readTableOrNull(_idPalmaFromServerTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $EnfermedadesTable _nombreEnfermedadTable(_$AppDatabase db) =>
+      db.enfermedades.createAlias($_aliasNameGenerator(
+          db.registroEnfermedad.nombreEnfermedad,
+          db.enfermedades.nombreEnfermedad));
+
+  $$EnfermedadesTableProcessedTableManager? get nombreEnfermedad {
+    if ($_item.nombreEnfermedad == null) return null;
+    final manager = $$EnfermedadesTableTableManager($_db, $_db.enfermedades)
+        .filter((f) => f.nombreEnfermedad($_item.nombreEnfermedad!));
+    final item = $_typedResult.readTableOrNull(_nombreEnfermedadTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $EtapasTable _idEtapaEnfermedadTable(_$AppDatabase db) =>
+      db.etapas.createAlias($_aliasNameGenerator(
+          db.registroEnfermedad.idEtapaEnfermedad, db.etapas.id));
+
+  $$EtapasTableProcessedTableManager? get idEtapaEnfermedad {
+    if ($_item.idEtapaEnfermedad == null) return null;
+    final manager = $$EtapasTableTableManager($_db, $_db.etapas)
+        .filter((f) => f.id($_item.idEtapaEnfermedad!));
+    final item = $_typedResult.readTableOrNull(_idEtapaEnfermedadTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $UsuarioTable _responsableTable(_$AppDatabase db) =>
+      db.usuario.createAlias($_aliasNameGenerator(
+          db.registroEnfermedad.responsable, db.usuario.ccUsuario));
+
+  $$UsuarioTableProcessedTableManager? get responsable {
+    if ($_item.responsable == null) return null;
+    final manager = $$UsuarioTableTableManager($_db, $_db.usuario)
+        .filter((f) => f.ccUsuario($_item.responsable!));
+    final item = $_typedResult.readTableOrNull(_responsableTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<$ImagenRegistroEnfermedadTable,
+      List<ImagenRegistroEnfermedadData>> _imagenRegistroEnfermedadRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.imagenRegistroEnfermedad,
+          aliasName: $_aliasNameGenerator(db.registroEnfermedad.id,
+              db.imagenRegistroEnfermedad.idEnfermedad));
+
+  $$ImagenRegistroEnfermedadTableProcessedTableManager
+      get imagenRegistroEnfermedadRefs {
+    final manager = $$ImagenRegistroEnfermedadTableTableManager(
+            $_db, $_db.imagenRegistroEnfermedad)
+        .filter((f) => f.idEnfermedad.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_imagenRegistroEnfermedadRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$RegistroEnfermedadTableFilterComposer
+    extends Composer<_$AppDatabase, $RegistroEnfermedadTable> {
+  $$RegistroEnfermedadTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idRegistroEnfermedad => $composableBuilder(
+      column: $table.idRegistroEnfermedad,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get horaRegistro => $composableBuilder(
+      column: $table.horaRegistro, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get observaciones => $composableBuilder(
+      column: $table.observaciones, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get dadaDeAlta => $composableBuilder(
+      column: $table.dadaDeAlta, builder: (column) => ColumnFilters(column));
+
+  $$PalmasTableFilterComposer get idPalma {
+    final $$PalmasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalma,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableFilterComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$PalmasTableFilterComposer get idPalmaFromServer {
+    final $$PalmasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalmaFromServer,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.idPalma,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableFilterComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$EnfermedadesTableFilterComposer get nombreEnfermedad {
+    final $$EnfermedadesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.enfermedades,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EnfermedadesTableFilterComposer(
+              $db: $db,
+              $table: $db.enfermedades,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$EtapasTableFilterComposer get idEtapaEnfermedad {
+    final $$EtapasTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idEtapaEnfermedad,
+        referencedTable: $db.etapas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EtapasTableFilterComposer(
+              $db: $db,
+              $table: $db.etapas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableFilterComposer get responsable {
+    final $$UsuarioTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableFilterComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> imagenRegistroEnfermedadRefs(
+      Expression<bool> Function($$ImagenRegistroEnfermedadTableFilterComposer f)
+          f) {
+    final $$ImagenRegistroEnfermedadTableFilterComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.imagenRegistroEnfermedad,
+            getReferencedColumn: (t) => t.idEnfermedad,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ImagenRegistroEnfermedadTableFilterComposer(
+                  $db: $db,
+                  $table: $db.imagenRegistroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$RegistroEnfermedadTableOrderingComposer
+    extends Composer<_$AppDatabase, $RegistroEnfermedadTable> {
+  $$RegistroEnfermedadTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idRegistroEnfermedad => $composableBuilder(
+      column: $table.idRegistroEnfermedad,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get horaRegistro => $composableBuilder(
+      column: $table.horaRegistro,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get observaciones => $composableBuilder(
+      column: $table.observaciones,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get dadaDeAlta => $composableBuilder(
+      column: $table.dadaDeAlta, builder: (column) => ColumnOrderings(column));
+
+  $$PalmasTableOrderingComposer get idPalma {
+    final $$PalmasTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalma,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableOrderingComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$PalmasTableOrderingComposer get idPalmaFromServer {
+    final $$PalmasTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalmaFromServer,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.idPalma,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableOrderingComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$EnfermedadesTableOrderingComposer get nombreEnfermedad {
+    final $$EnfermedadesTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.enfermedades,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EnfermedadesTableOrderingComposer(
+              $db: $db,
+              $table: $db.enfermedades,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$EtapasTableOrderingComposer get idEtapaEnfermedad {
+    final $$EtapasTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idEtapaEnfermedad,
+        referencedTable: $db.etapas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EtapasTableOrderingComposer(
+              $db: $db,
+              $table: $db.etapas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableOrderingComposer get responsable {
+    final $$UsuarioTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableOrderingComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$RegistroEnfermedadTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RegistroEnfermedadTable> {
+  $$RegistroEnfermedadTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idRegistroEnfermedad => $composableBuilder(
+      column: $table.idRegistroEnfermedad, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get horaRegistro => $composableBuilder(
+      column: $table.horaRegistro, builder: (column) => column);
+
+  GeneratedColumn<String> get observaciones => $composableBuilder(
+      column: $table.observaciones, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  GeneratedColumn<bool> get dadaDeAlta => $composableBuilder(
+      column: $table.dadaDeAlta, builder: (column) => column);
+
+  $$PalmasTableAnnotationComposer get idPalma {
+    final $$PalmasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalma,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$PalmasTableAnnotationComposer get idPalmaFromServer {
+    final $$PalmasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idPalmaFromServer,
+        referencedTable: $db.palmas,
+        getReferencedColumn: (t) => t.idPalma,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PalmasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.palmas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$EnfermedadesTableAnnotationComposer get nombreEnfermedad {
+    final $$EnfermedadesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreEnfermedad,
+        referencedTable: $db.enfermedades,
+        getReferencedColumn: (t) => t.nombreEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EnfermedadesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.enfermedades,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$EtapasTableAnnotationComposer get idEtapaEnfermedad {
+    final $$EtapasTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idEtapaEnfermedad,
+        referencedTable: $db.etapas,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$EtapasTableAnnotationComposer(
+              $db: $db,
+              $table: $db.etapas,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableAnnotationComposer get responsable {
+    final $$UsuarioTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableAnnotationComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> imagenRegistroEnfermedadRefs<T extends Object>(
+      Expression<T> Function(
+              $$ImagenRegistroEnfermedadTableAnnotationComposer a)
+          f) {
+    final $$ImagenRegistroEnfermedadTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.imagenRegistroEnfermedad,
+            getReferencedColumn: (t) => t.idEnfermedad,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ImagenRegistroEnfermedadTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.imagenRegistroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$RegistroEnfermedadTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $RegistroEnfermedadTable,
+    RegistroEnfermedadData,
+    $$RegistroEnfermedadTableFilterComposer,
+    $$RegistroEnfermedadTableOrderingComposer,
+    $$RegistroEnfermedadTableAnnotationComposer,
+    $$RegistroEnfermedadTableCreateCompanionBuilder,
+    $$RegistroEnfermedadTableUpdateCompanionBuilder,
+    (RegistroEnfermedadData, $$RegistroEnfermedadTableReferences),
+    RegistroEnfermedadData,
+    PrefetchHooks Function(
+        {bool idPalma,
+        bool idPalmaFromServer,
+        bool nombreEnfermedad,
+        bool idEtapaEnfermedad,
+        bool responsable,
+        bool imagenRegistroEnfermedadRefs})> {
+  $$RegistroEnfermedadTableTableManager(
+      _$AppDatabase db, $RegistroEnfermedadTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$RegistroEnfermedadTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RegistroEnfermedadTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RegistroEnfermedadTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idRegistroEnfermedad = const Value.absent(),
+            Value<DateTime> fechaRegistro = const Value.absent(),
+            Value<DateTime?> horaRegistro = const Value.absent(),
+            Value<int> idPalma = const Value.absent(),
+            Value<int?> idPalmaFromServer = const Value.absent(),
+            Value<String> nombreEnfermedad = const Value.absent(),
+            Value<int?> idEtapaEnfermedad = const Value.absent(),
+            Value<String?> observaciones = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+            Value<bool> dadaDeAlta = const Value.absent(),
+          }) =>
+              RegistroEnfermedadCompanion(
+            id: id,
+            idRegistroEnfermedad: idRegistroEnfermedad,
+            fechaRegistro: fechaRegistro,
+            horaRegistro: horaRegistro,
+            idPalma: idPalma,
+            idPalmaFromServer: idPalmaFromServer,
+            nombreEnfermedad: nombreEnfermedad,
+            idEtapaEnfermedad: idEtapaEnfermedad,
+            observaciones: observaciones,
+            responsable: responsable,
+            sincronizado: sincronizado,
+            dadaDeAlta: dadaDeAlta,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idRegistroEnfermedad = const Value.absent(),
+            required DateTime fechaRegistro,
+            Value<DateTime?> horaRegistro = const Value.absent(),
+            required int idPalma,
+            Value<int?> idPalmaFromServer = const Value.absent(),
+            required String nombreEnfermedad,
+            Value<int?> idEtapaEnfermedad = const Value.absent(),
+            Value<String?> observaciones = const Value.absent(),
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+            Value<bool> dadaDeAlta = const Value.absent(),
+          }) =>
+              RegistroEnfermedadCompanion.insert(
+            id: id,
+            idRegistroEnfermedad: idRegistroEnfermedad,
+            fechaRegistro: fechaRegistro,
+            horaRegistro: horaRegistro,
+            idPalma: idPalma,
+            idPalmaFromServer: idPalmaFromServer,
+            nombreEnfermedad: nombreEnfermedad,
+            idEtapaEnfermedad: idEtapaEnfermedad,
+            observaciones: observaciones,
+            responsable: responsable,
+            sincronizado: sincronizado,
+            dadaDeAlta: dadaDeAlta,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$RegistroEnfermedadTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {idPalma = false,
+              idPalmaFromServer = false,
+              nombreEnfermedad = false,
+              idEtapaEnfermedad = false,
+              responsable = false,
+              imagenRegistroEnfermedadRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (imagenRegistroEnfermedadRefs) db.imagenRegistroEnfermedad
+              ],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idPalma) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idPalma,
+                    referencedTable:
+                        $$RegistroEnfermedadTableReferences._idPalmaTable(db),
+                    referencedColumn: $$RegistroEnfermedadTableReferences
+                        ._idPalmaTable(db)
+                        .id,
+                  ) as T;
+                }
+                if (idPalmaFromServer) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idPalmaFromServer,
+                    referencedTable: $$RegistroEnfermedadTableReferences
+                        ._idPalmaFromServerTable(db),
+                    referencedColumn: $$RegistroEnfermedadTableReferences
+                        ._idPalmaFromServerTable(db)
+                        .idPalma,
+                  ) as T;
+                }
+                if (nombreEnfermedad) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.nombreEnfermedad,
+                    referencedTable: $$RegistroEnfermedadTableReferences
+                        ._nombreEnfermedadTable(db),
+                    referencedColumn: $$RegistroEnfermedadTableReferences
+                        ._nombreEnfermedadTable(db)
+                        .nombreEnfermedad,
+                  ) as T;
+                }
+                if (idEtapaEnfermedad) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idEtapaEnfermedad,
+                    referencedTable: $$RegistroEnfermedadTableReferences
+                        ._idEtapaEnfermedadTable(db),
+                    referencedColumn: $$RegistroEnfermedadTableReferences
+                        ._idEtapaEnfermedadTable(db)
+                        .id,
+                  ) as T;
+                }
+                if (responsable) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.responsable,
+                    referencedTable: $$RegistroEnfermedadTableReferences
+                        ._responsableTable(db),
+                    referencedColumn: $$RegistroEnfermedadTableReferences
+                        ._responsableTable(db)
+                        .ccUsuario,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (imagenRegistroEnfermedadRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$RegistroEnfermedadTableReferences
+                            ._imagenRegistroEnfermedadRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$RegistroEnfermedadTableReferences(db, table, p0)
+                                .imagenRegistroEnfermedadRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.idEnfermedad == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$RegistroEnfermedadTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $RegistroEnfermedadTable,
+    RegistroEnfermedadData,
+    $$RegistroEnfermedadTableFilterComposer,
+    $$RegistroEnfermedadTableOrderingComposer,
+    $$RegistroEnfermedadTableAnnotationComposer,
+    $$RegistroEnfermedadTableCreateCompanionBuilder,
+    $$RegistroEnfermedadTableUpdateCompanionBuilder,
+    (RegistroEnfermedadData, $$RegistroEnfermedadTableReferences),
+    RegistroEnfermedadData,
+    PrefetchHooks Function(
+        {bool idPalma,
+        bool idPalmaFromServer,
+        bool nombreEnfermedad,
+        bool idEtapaEnfermedad,
+        bool responsable,
+        bool imagenRegistroEnfermedadRefs})>;
+typedef $$ImagenRegistroEnfermedadTableCreateCompanionBuilder
+    = ImagenRegistroEnfermedadCompanion Function({
+  Value<int> idImagenRegistroEnfermedad,
+  required int idEnfermedad,
+  required Uint8List imagen,
+  Value<bool> sincronizado,
+});
+typedef $$ImagenRegistroEnfermedadTableUpdateCompanionBuilder
+    = ImagenRegistroEnfermedadCompanion Function({
+  Value<int> idImagenRegistroEnfermedad,
+  Value<int> idEnfermedad,
+  Value<Uint8List> imagen,
+  Value<bool> sincronizado,
+});
+
+final class $$ImagenRegistroEnfermedadTableReferences extends BaseReferences<
+    _$AppDatabase,
+    $ImagenRegistroEnfermedadTable,
+    ImagenRegistroEnfermedadData> {
+  $$ImagenRegistroEnfermedadTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $RegistroEnfermedadTable _idEnfermedadTable(_$AppDatabase db) =>
+      db.registroEnfermedad.createAlias($_aliasNameGenerator(
+          db.imagenRegistroEnfermedad.idEnfermedad, db.registroEnfermedad.id));
+
+  $$RegistroEnfermedadTableProcessedTableManager? get idEnfermedad {
+    if ($_item.idEnfermedad == null) return null;
+    final manager =
+        $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
+            .filter((f) => f.id($_item.idEnfermedad!));
+    final item = $_typedResult.readTableOrNull(_idEnfermedadTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$ImagenRegistroEnfermedadTableFilterComposer
+    extends Composer<_$AppDatabase, $ImagenRegistroEnfermedadTable> {
+  $$ImagenRegistroEnfermedadTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get idImagenRegistroEnfermedad => $composableBuilder(
+      column: $table.idImagenRegistroEnfermedad,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get imagen => $composableBuilder(
+      column: $table.imagen, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$RegistroEnfermedadTableFilterComposer get idEnfermedad {
+    final $$RegistroEnfermedadTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idEnfermedad,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableFilterComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ImagenRegistroEnfermedadTableOrderingComposer
+    extends Composer<_$AppDatabase, $ImagenRegistroEnfermedadTable> {
+  $$ImagenRegistroEnfermedadTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get idImagenRegistroEnfermedad => $composableBuilder(
+      column: $table.idImagenRegistroEnfermedad,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get imagen => $composableBuilder(
+      column: $table.imagen, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$RegistroEnfermedadTableOrderingComposer get idEnfermedad {
+    final $$RegistroEnfermedadTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idEnfermedad,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableOrderingComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$ImagenRegistroEnfermedadTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ImagenRegistroEnfermedadTable> {
+  $$ImagenRegistroEnfermedadTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get idImagenRegistroEnfermedad => $composableBuilder(
+      column: $table.idImagenRegistroEnfermedad, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get imagen =>
+      $composableBuilder(column: $table.imagen, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$RegistroEnfermedadTableAnnotationComposer get idEnfermedad {
+    final $$RegistroEnfermedadTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idEnfermedad,
+            referencedTable: $db.registroEnfermedad,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroEnfermedadTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+}
+
+class $$ImagenRegistroEnfermedadTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ImagenRegistroEnfermedadTable,
+    ImagenRegistroEnfermedadData,
+    $$ImagenRegistroEnfermedadTableFilterComposer,
+    $$ImagenRegistroEnfermedadTableOrderingComposer,
+    $$ImagenRegistroEnfermedadTableAnnotationComposer,
+    $$ImagenRegistroEnfermedadTableCreateCompanionBuilder,
+    $$ImagenRegistroEnfermedadTableUpdateCompanionBuilder,
+    (ImagenRegistroEnfermedadData, $$ImagenRegistroEnfermedadTableReferences),
+    ImagenRegistroEnfermedadData,
+    PrefetchHooks Function({bool idEnfermedad})> {
+  $$ImagenRegistroEnfermedadTableTableManager(
+      _$AppDatabase db, $ImagenRegistroEnfermedadTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ImagenRegistroEnfermedadTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ImagenRegistroEnfermedadTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ImagenRegistroEnfermedadTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> idImagenRegistroEnfermedad = const Value.absent(),
+            Value<int> idEnfermedad = const Value.absent(),
+            Value<Uint8List> imagen = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ImagenRegistroEnfermedadCompanion(
+            idImagenRegistroEnfermedad: idImagenRegistroEnfermedad,
+            idEnfermedad: idEnfermedad,
+            imagen: imagen,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> idImagenRegistroEnfermedad = const Value.absent(),
+            required int idEnfermedad,
+            required Uint8List imagen,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ImagenRegistroEnfermedadCompanion.insert(
+            idImagenRegistroEnfermedad: idImagenRegistroEnfermedad,
+            idEnfermedad: idEnfermedad,
+            imagen: imagen,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$ImagenRegistroEnfermedadTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({idEnfermedad = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idEnfermedad) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idEnfermedad,
+                    referencedTable: $$ImagenRegistroEnfermedadTableReferences
+                        ._idEnfermedadTable(db),
+                    referencedColumn: $$ImagenRegistroEnfermedadTableReferences
+                        ._idEnfermedadTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$ImagenRegistroEnfermedadTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $ImagenRegistroEnfermedadTable,
+        ImagenRegistroEnfermedadData,
+        $$ImagenRegistroEnfermedadTableFilterComposer,
+        $$ImagenRegistroEnfermedadTableOrderingComposer,
+        $$ImagenRegistroEnfermedadTableAnnotationComposer,
+        $$ImagenRegistroEnfermedadTableCreateCompanionBuilder,
+        $$ImagenRegistroEnfermedadTableUpdateCompanionBuilder,
+        (
+          ImagenRegistroEnfermedadData,
+          $$ImagenRegistroEnfermedadTableReferences
+        ),
+        ImagenRegistroEnfermedadData,
+        PrefetchHooks Function({bool idEnfermedad})>;
+typedef $$RegistroTratamientoTableCreateCompanionBuilder
+    = RegistroTratamientoCompanion Function({
+  Value<int> id,
+  required int idRegistroEnfermedad,
+  Value<int?> idRegistroEnfermedadFromServer,
+  required int idProductoAgroquimico,
+  required String tipoControl,
+  required double dosis,
+  Value<String?> descripcionProcedimiento,
+  required DateTime fechaRegistro,
+  required String unidades,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$RegistroTratamientoTableUpdateCompanionBuilder
+    = RegistroTratamientoCompanion Function({
+  Value<int> id,
+  Value<int> idRegistroEnfermedad,
+  Value<int?> idRegistroEnfermedadFromServer,
+  Value<int> idProductoAgroquimico,
+  Value<String> tipoControl,
+  Value<double> dosis,
+  Value<String?> descripcionProcedimiento,
+  Value<DateTime> fechaRegistro,
+  Value<String> unidades,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$RegistroTratamientoTableReferences extends BaseReferences<
+    _$AppDatabase, $RegistroTratamientoTable, RegistroTratamientoData> {
+  $$RegistroTratamientoTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $RegistroEnfermedadTable _idRegistroEnfermedadTable(
+          _$AppDatabase db) =>
+      db.registroEnfermedad.createAlias($_aliasNameGenerator(
+          db.registroTratamiento.idRegistroEnfermedad,
+          db.registroEnfermedad.id));
+
+  $$RegistroEnfermedadTableProcessedTableManager? get idRegistroEnfermedad {
+    if ($_item.idRegistroEnfermedad == null) return null;
+    final manager =
+        $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
+            .filter((f) => f.id($_item.idRegistroEnfermedad!));
+    final item =
+        $_typedResult.readTableOrNull(_idRegistroEnfermedadTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $RegistroEnfermedadTable _idRegistroEnfermedadFromServerTable(
+          _$AppDatabase db) =>
+      db.registroEnfermedad.createAlias($_aliasNameGenerator(
+          db.registroTratamiento.idRegistroEnfermedadFromServer,
+          db.registroEnfermedad.idRegistroEnfermedad));
+
+  $$RegistroEnfermedadTableProcessedTableManager?
+      get idRegistroEnfermedadFromServer {
+    if ($_item.idRegistroEnfermedadFromServer == null) return null;
+    final manager =
+        $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
+            .filter((f) =>
+                f.idRegistroEnfermedad($_item.idRegistroEnfermedadFromServer!));
+    final item = $_typedResult
+        .readTableOrNull(_idRegistroEnfermedadFromServerTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $ProductoAgroquimicoTable _idProductoAgroquimicoTable(
+          _$AppDatabase db) =>
+      db.productoAgroquimico.createAlias($_aliasNameGenerator(
+          db.registroTratamiento.idProductoAgroquimico,
+          db.productoAgroquimico.idProductoAgroquimico));
+
+  $$ProductoAgroquimicoTableProcessedTableManager? get idProductoAgroquimico {
+    if ($_item.idProductoAgroquimico == null) return null;
+    final manager = $$ProductoAgroquimicoTableTableManager(
+            $_db, $_db.productoAgroquimico)
+        .filter((f) => f.idProductoAgroquimico($_item.idProductoAgroquimico!));
+    final item =
+        $_typedResult.readTableOrNull(_idProductoAgroquimicoTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $UsuarioTable _responsableTable(_$AppDatabase db) =>
+      db.usuario.createAlias($_aliasNameGenerator(
+          db.registroTratamiento.responsable, db.usuario.ccUsuario));
+
+  $$UsuarioTableProcessedTableManager? get responsable {
+    if ($_item.responsable == null) return null;
+    final manager = $$UsuarioTableTableManager($_db, $_db.usuario)
+        .filter((f) => f.ccUsuario($_item.responsable!));
+    final item = $_typedResult.readTableOrNull(_responsableTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$RegistroTratamientoTableFilterComposer
+    extends Composer<_$AppDatabase, $RegistroTratamientoTable> {
+  $$RegistroTratamientoTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get tipoControl => $composableBuilder(
+      column: $table.tipoControl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get dosis => $composableBuilder(
+      column: $table.dosis, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get descripcionProcedimiento => $composableBuilder(
+      column: $table.descripcionProcedimiento,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get unidades => $composableBuilder(
+      column: $table.unidades, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$RegistroEnfermedadTableFilterComposer get idRegistroEnfermedad {
+    final $$RegistroEnfermedadTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idRegistroEnfermedad,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableFilterComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$RegistroEnfermedadTableFilterComposer get idRegistroEnfermedadFromServer {
+    final $$RegistroEnfermedadTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idRegistroEnfermedadFromServer,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.idRegistroEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableFilterComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ProductoAgroquimicoTableFilterComposer get idProductoAgroquimico {
+    final $$ProductoAgroquimicoTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idProductoAgroquimico,
+        referencedTable: $db.productoAgroquimico,
+        getReferencedColumn: (t) => t.idProductoAgroquimico,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$ProductoAgroquimicoTableFilterComposer(
+              $db: $db,
+              $table: $db.productoAgroquimico,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableFilterComposer get responsable {
+    final $$UsuarioTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableFilterComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$RegistroTratamientoTableOrderingComposer
+    extends Composer<_$AppDatabase, $RegistroTratamientoTable> {
+  $$RegistroTratamientoTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get tipoControl => $composableBuilder(
+      column: $table.tipoControl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get dosis => $composableBuilder(
+      column: $table.dosis, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get descripcionProcedimiento => $composableBuilder(
+      column: $table.descripcionProcedimiento,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get unidades => $composableBuilder(
+      column: $table.unidades, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$RegistroEnfermedadTableOrderingComposer get idRegistroEnfermedad {
+    final $$RegistroEnfermedadTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idRegistroEnfermedad,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableOrderingComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$RegistroEnfermedadTableOrderingComposer get idRegistroEnfermedadFromServer {
+    final $$RegistroEnfermedadTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idRegistroEnfermedadFromServer,
+        referencedTable: $db.registroEnfermedad,
+        getReferencedColumn: (t) => t.idRegistroEnfermedad,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$RegistroEnfermedadTableOrderingComposer(
+              $db: $db,
+              $table: $db.registroEnfermedad,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$ProductoAgroquimicoTableOrderingComposer get idProductoAgroquimico {
+    final $$ProductoAgroquimicoTableOrderingComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idProductoAgroquimico,
+            referencedTable: $db.productoAgroquimico,
+            getReferencedColumn: (t) => t.idProductoAgroquimico,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ProductoAgroquimicoTableOrderingComposer(
+                  $db: $db,
+                  $table: $db.productoAgroquimico,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+
+  $$UsuarioTableOrderingComposer get responsable {
+    final $$UsuarioTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableOrderingComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$RegistroTratamientoTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RegistroTratamientoTable> {
+  $$RegistroTratamientoTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get tipoControl => $composableBuilder(
+      column: $table.tipoControl, builder: (column) => column);
+
+  GeneratedColumn<double> get dosis =>
+      $composableBuilder(column: $table.dosis, builder: (column) => column);
+
+  GeneratedColumn<String> get descripcionProcedimiento => $composableBuilder(
+      column: $table.descripcionProcedimiento, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaRegistro => $composableBuilder(
+      column: $table.fechaRegistro, builder: (column) => column);
+
+  GeneratedColumn<String> get unidades =>
+      $composableBuilder(column: $table.unidades, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$RegistroEnfermedadTableAnnotationComposer get idRegistroEnfermedad {
+    final $$RegistroEnfermedadTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idRegistroEnfermedad,
+            referencedTable: $db.registroEnfermedad,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroEnfermedadTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+
+  $$RegistroEnfermedadTableAnnotationComposer
+      get idRegistroEnfermedadFromServer {
+    final $$RegistroEnfermedadTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idRegistroEnfermedadFromServer,
+            referencedTable: $db.registroEnfermedad,
+            getReferencedColumn: (t) => t.idRegistroEnfermedad,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$RegistroEnfermedadTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.registroEnfermedad,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+
+  $$ProductoAgroquimicoTableAnnotationComposer get idProductoAgroquimico {
+    final $$ProductoAgroquimicoTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.idProductoAgroquimico,
+            referencedTable: $db.productoAgroquimico,
+            getReferencedColumn: (t) => t.idProductoAgroquimico,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$ProductoAgroquimicoTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.productoAgroquimico,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return composer;
+  }
+
+  $$UsuarioTableAnnotationComposer get responsable {
+    final $$UsuarioTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableAnnotationComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$RegistroTratamientoTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $RegistroTratamientoTable,
+    RegistroTratamientoData,
+    $$RegistroTratamientoTableFilterComposer,
+    $$RegistroTratamientoTableOrderingComposer,
+    $$RegistroTratamientoTableAnnotationComposer,
+    $$RegistroTratamientoTableCreateCompanionBuilder,
+    $$RegistroTratamientoTableUpdateCompanionBuilder,
+    (RegistroTratamientoData, $$RegistroTratamientoTableReferences),
+    RegistroTratamientoData,
+    PrefetchHooks Function(
+        {bool idRegistroEnfermedad,
+        bool idRegistroEnfermedadFromServer,
+        bool idProductoAgroquimico,
+        bool responsable})> {
+  $$RegistroTratamientoTableTableManager(
+      _$AppDatabase db, $RegistroTratamientoTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$RegistroTratamientoTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RegistroTratamientoTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RegistroTratamientoTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> idRegistroEnfermedad = const Value.absent(),
+            Value<int?> idRegistroEnfermedadFromServer = const Value.absent(),
+            Value<int> idProductoAgroquimico = const Value.absent(),
+            Value<String> tipoControl = const Value.absent(),
+            Value<double> dosis = const Value.absent(),
+            Value<String?> descripcionProcedimiento = const Value.absent(),
+            Value<DateTime> fechaRegistro = const Value.absent(),
+            Value<String> unidades = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              RegistroTratamientoCompanion(
+            id: id,
+            idRegistroEnfermedad: idRegistroEnfermedad,
+            idRegistroEnfermedadFromServer: idRegistroEnfermedadFromServer,
+            idProductoAgroquimico: idProductoAgroquimico,
+            tipoControl: tipoControl,
+            dosis: dosis,
+            descripcionProcedimiento: descripcionProcedimiento,
+            fechaRegistro: fechaRegistro,
+            unidades: unidades,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int idRegistroEnfermedad,
+            Value<int?> idRegistroEnfermedadFromServer = const Value.absent(),
+            required int idProductoAgroquimico,
+            required String tipoControl,
+            required double dosis,
+            Value<String?> descripcionProcedimiento = const Value.absent(),
+            required DateTime fechaRegistro,
+            required String unidades,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              RegistroTratamientoCompanion.insert(
+            id: id,
+            idRegistroEnfermedad: idRegistroEnfermedad,
+            idRegistroEnfermedadFromServer: idRegistroEnfermedadFromServer,
+            idProductoAgroquimico: idProductoAgroquimico,
+            tipoControl: tipoControl,
+            dosis: dosis,
+            descripcionProcedimiento: descripcionProcedimiento,
+            fechaRegistro: fechaRegistro,
+            unidades: unidades,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$RegistroTratamientoTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: (
+              {idRegistroEnfermedad = false,
+              idRegistroEnfermedadFromServer = false,
+              idProductoAgroquimico = false,
+              responsable = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idRegistroEnfermedad) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idRegistroEnfermedad,
+                    referencedTable: $$RegistroTratamientoTableReferences
+                        ._idRegistroEnfermedadTable(db),
+                    referencedColumn: $$RegistroTratamientoTableReferences
+                        ._idRegistroEnfermedadTable(db)
+                        .id,
+                  ) as T;
+                }
+                if (idRegistroEnfermedadFromServer) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idRegistroEnfermedadFromServer,
+                    referencedTable: $$RegistroTratamientoTableReferences
+                        ._idRegistroEnfermedadFromServerTable(db),
+                    referencedColumn: $$RegistroTratamientoTableReferences
+                        ._idRegistroEnfermedadFromServerTable(db)
+                        .idRegistroEnfermedad,
+                  ) as T;
+                }
+                if (idProductoAgroquimico) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idProductoAgroquimico,
+                    referencedTable: $$RegistroTratamientoTableReferences
+                        ._idProductoAgroquimicoTable(db),
+                    referencedColumn: $$RegistroTratamientoTableReferences
+                        ._idProductoAgroquimicoTable(db)
+                        .idProductoAgroquimico,
+                  ) as T;
+                }
+                if (responsable) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.responsable,
+                    referencedTable: $$RegistroTratamientoTableReferences
+                        ._responsableTable(db),
+                    referencedColumn: $$RegistroTratamientoTableReferences
+                        ._responsableTable(db)
+                        .ccUsuario,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$RegistroTratamientoTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $RegistroTratamientoTable,
+    RegistroTratamientoData,
+    $$RegistroTratamientoTableFilterComposer,
+    $$RegistroTratamientoTableOrderingComposer,
+    $$RegistroTratamientoTableAnnotationComposer,
+    $$RegistroTratamientoTableCreateCompanionBuilder,
+    $$RegistroTratamientoTableUpdateCompanionBuilder,
+    (RegistroTratamientoData, $$RegistroTratamientoTableReferences),
+    RegistroTratamientoData,
+    PrefetchHooks Function(
+        {bool idRegistroEnfermedad,
+        bool idRegistroEnfermedadFromServer,
+        bool idProductoAgroquimico,
+        bool responsable})>;
+typedef $$CensoEtapasPlagaTableCreateCompanionBuilder
+    = CensoEtapasPlagaCompanion Function({
+  Value<int> idCensoEtapasplaga,
+  required int idCenso,
+  required int idEtapasplaga,
+  required int numeroIndividuos,
+  Value<bool> sincronizado,
+});
+typedef $$CensoEtapasPlagaTableUpdateCompanionBuilder
+    = CensoEtapasPlagaCompanion Function({
+  Value<int> idCensoEtapasplaga,
+  Value<int> idCenso,
+  Value<int> idEtapasplaga,
+  Value<int> numeroIndividuos,
+  Value<bool> sincronizado,
+});
+
+class $$CensoEtapasPlagaTableFilterComposer
+    extends Composer<_$AppDatabase, $CensoEtapasPlagaTable> {
+  $$CensoEtapasPlagaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get idCensoEtapasplaga => $composableBuilder(
+      column: $table.idCensoEtapasplaga,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idCenso => $composableBuilder(
+      column: $table.idCenso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idEtapasplaga => $composableBuilder(
+      column: $table.idEtapasplaga, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get numeroIndividuos => $composableBuilder(
+      column: $table.numeroIndividuos,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+}
+
+class $$CensoEtapasPlagaTableOrderingComposer
+    extends Composer<_$AppDatabase, $CensoEtapasPlagaTable> {
+  $$CensoEtapasPlagaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get idCensoEtapasplaga => $composableBuilder(
+      column: $table.idCensoEtapasplaga,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idCenso => $composableBuilder(
+      column: $table.idCenso, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idEtapasplaga => $composableBuilder(
+      column: $table.idEtapasplaga,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get numeroIndividuos => $composableBuilder(
+      column: $table.numeroIndividuos,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$CensoEtapasPlagaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CensoEtapasPlagaTable> {
+  $$CensoEtapasPlagaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get idCensoEtapasplaga => $composableBuilder(
+      column: $table.idCensoEtapasplaga, builder: (column) => column);
+
+  GeneratedColumn<int> get idCenso =>
+      $composableBuilder(column: $table.idCenso, builder: (column) => column);
+
+  GeneratedColumn<int> get idEtapasplaga => $composableBuilder(
+      column: $table.idEtapasplaga, builder: (column) => column);
+
+  GeneratedColumn<int> get numeroIndividuos => $composableBuilder(
+      column: $table.numeroIndividuos, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+}
+
+class $$CensoEtapasPlagaTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CensoEtapasPlagaTable,
+    CensoEtapasPlagaData,
+    $$CensoEtapasPlagaTableFilterComposer,
+    $$CensoEtapasPlagaTableOrderingComposer,
+    $$CensoEtapasPlagaTableAnnotationComposer,
+    $$CensoEtapasPlagaTableCreateCompanionBuilder,
+    $$CensoEtapasPlagaTableUpdateCompanionBuilder,
+    (
+      CensoEtapasPlagaData,
+      BaseReferences<_$AppDatabase, $CensoEtapasPlagaTable,
+          CensoEtapasPlagaData>
+    ),
+    CensoEtapasPlagaData,
+    PrefetchHooks Function()> {
+  $$CensoEtapasPlagaTableTableManager(
+      _$AppDatabase db, $CensoEtapasPlagaTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CensoEtapasPlagaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CensoEtapasPlagaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CensoEtapasPlagaTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> idCensoEtapasplaga = const Value.absent(),
+            Value<int> idCenso = const Value.absent(),
+            Value<int> idEtapasplaga = const Value.absent(),
+            Value<int> numeroIndividuos = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CensoEtapasPlagaCompanion(
+            idCensoEtapasplaga: idCensoEtapasplaga,
+            idCenso: idCenso,
+            idEtapasplaga: idEtapasplaga,
+            numeroIndividuos: numeroIndividuos,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> idCensoEtapasplaga = const Value.absent(),
+            required int idCenso,
+            required int idEtapasplaga,
+            required int numeroIndividuos,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CensoEtapasPlagaCompanion.insert(
+            idCensoEtapasplaga: idCensoEtapasplaga,
+            idCenso: idCenso,
+            idEtapasplaga: idEtapasplaga,
+            numeroIndividuos: numeroIndividuos,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CensoEtapasPlagaTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $CensoEtapasPlagaTable,
+    CensoEtapasPlagaData,
+    $$CensoEtapasPlagaTableFilterComposer,
+    $$CensoEtapasPlagaTableOrderingComposer,
+    $$CensoEtapasPlagaTableAnnotationComposer,
+    $$CensoEtapasPlagaTableCreateCompanionBuilder,
+    $$CensoEtapasPlagaTableUpdateCompanionBuilder,
+    (
+      CensoEtapasPlagaData,
+      BaseReferences<_$AppDatabase, $CensoEtapasPlagaTable,
+          CensoEtapasPlagaData>
+    ),
+    CensoEtapasPlagaData,
+    PrefetchHooks Function()>;
+typedef $$ImagenCensoPlagaTableCreateCompanionBuilder
+    = ImagenCensoPlagaCompanion Function({
+  Value<int> idImagenCensoPlaga,
+  required int idCenso,
+  required Uint8List imagen,
+  Value<bool> sincronizado,
+});
+typedef $$ImagenCensoPlagaTableUpdateCompanionBuilder
+    = ImagenCensoPlagaCompanion Function({
+  Value<int> idImagenCensoPlaga,
+  Value<int> idCenso,
+  Value<Uint8List> imagen,
+  Value<bool> sincronizado,
+});
+
+class $$ImagenCensoPlagaTableFilterComposer
+    extends Composer<_$AppDatabase, $ImagenCensoPlagaTable> {
+  $$ImagenCensoPlagaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get idImagenCensoPlaga => $composableBuilder(
+      column: $table.idImagenCensoPlaga,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idCenso => $composableBuilder(
+      column: $table.idCenso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get imagen => $composableBuilder(
+      column: $table.imagen, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+}
+
+class $$ImagenCensoPlagaTableOrderingComposer
+    extends Composer<_$AppDatabase, $ImagenCensoPlagaTable> {
+  $$ImagenCensoPlagaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get idImagenCensoPlaga => $composableBuilder(
+      column: $table.idImagenCensoPlaga,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idCenso => $composableBuilder(
+      column: $table.idCenso, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get imagen => $composableBuilder(
+      column: $table.imagen, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$ImagenCensoPlagaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ImagenCensoPlagaTable> {
+  $$ImagenCensoPlagaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get idImagenCensoPlaga => $composableBuilder(
+      column: $table.idImagenCensoPlaga, builder: (column) => column);
+
+  GeneratedColumn<int> get idCenso =>
+      $composableBuilder(column: $table.idCenso, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get imagen =>
+      $composableBuilder(column: $table.imagen, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+}
+
+class $$ImagenCensoPlagaTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ImagenCensoPlagaTable,
+    ImagenCensoPlagaData,
+    $$ImagenCensoPlagaTableFilterComposer,
+    $$ImagenCensoPlagaTableOrderingComposer,
+    $$ImagenCensoPlagaTableAnnotationComposer,
+    $$ImagenCensoPlagaTableCreateCompanionBuilder,
+    $$ImagenCensoPlagaTableUpdateCompanionBuilder,
+    (
+      ImagenCensoPlagaData,
+      BaseReferences<_$AppDatabase, $ImagenCensoPlagaTable,
+          ImagenCensoPlagaData>
+    ),
+    ImagenCensoPlagaData,
+    PrefetchHooks Function()> {
+  $$ImagenCensoPlagaTableTableManager(
+      _$AppDatabase db, $ImagenCensoPlagaTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ImagenCensoPlagaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ImagenCensoPlagaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ImagenCensoPlagaTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> idImagenCensoPlaga = const Value.absent(),
+            Value<int> idCenso = const Value.absent(),
+            Value<Uint8List> imagen = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ImagenCensoPlagaCompanion(
+            idImagenCensoPlaga: idImagenCensoPlaga,
+            idCenso: idCenso,
+            imagen: imagen,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> idImagenCensoPlaga = const Value.absent(),
+            required int idCenso,
+            required Uint8List imagen,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              ImagenCensoPlagaCompanion.insert(
+            idImagenCensoPlaga: idImagenCensoPlaga,
+            idCenso: idCenso,
+            imagen: imagen,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ImagenCensoPlagaTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ImagenCensoPlagaTable,
+    ImagenCensoPlagaData,
+    $$ImagenCensoPlagaTableFilterComposer,
+    $$ImagenCensoPlagaTableOrderingComposer,
+    $$ImagenCensoPlagaTableAnnotationComposer,
+    $$ImagenCensoPlagaTableCreateCompanionBuilder,
+    $$ImagenCensoPlagaTableUpdateCompanionBuilder,
+    (
+      ImagenCensoPlagaData,
+      BaseReferences<_$AppDatabase, $ImagenCensoPlagaTable,
+          ImagenCensoPlagaData>
+    ),
+    ImagenCensoPlagaData,
+    PrefetchHooks Function()>;
+typedef $$PrecipitacionTableCreateCompanionBuilder = PrecipitacionCompanion
+    Function({
+  Value<int> idPrecipitacion,
+  required DateTime fechaRegistroPrecipitacion,
+  required int cantidadPrecipitacion,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$PrecipitacionTableUpdateCompanionBuilder = PrecipitacionCompanion
+    Function({
+  Value<int> idPrecipitacion,
+  Value<DateTime> fechaRegistroPrecipitacion,
+  Value<int> cantidadPrecipitacion,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$PrecipitacionTableReferences extends BaseReferences<_$AppDatabase,
+    $PrecipitacionTable, PrecipitacionData> {
+  $$PrecipitacionTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $UsuarioTable _responsableTable(_$AppDatabase db) =>
+      db.usuario.createAlias($_aliasNameGenerator(
+          db.precipitacion.responsable, db.usuario.ccUsuario));
+
+  $$UsuarioTableProcessedTableManager? get responsable {
+    if ($_item.responsable == null) return null;
+    final manager = $$UsuarioTableTableManager($_db, $_db.usuario)
+        .filter((f) => f.ccUsuario($_item.responsable!));
+    final item = $_typedResult.readTableOrNull(_responsableTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$PrecipitacionTableFilterComposer
+    extends Composer<_$AppDatabase, $PrecipitacionTable> {
+  $$PrecipitacionTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get idPrecipitacion => $composableBuilder(
+      column: $table.idPrecipitacion,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaRegistroPrecipitacion => $composableBuilder(
+      column: $table.fechaRegistroPrecipitacion,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadPrecipitacion => $composableBuilder(
+      column: $table.cantidadPrecipitacion,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$UsuarioTableFilterComposer get responsable {
+    final $$UsuarioTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableFilterComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PrecipitacionTableOrderingComposer
+    extends Composer<_$AppDatabase, $PrecipitacionTable> {
+  $$PrecipitacionTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get idPrecipitacion => $composableBuilder(
+      column: $table.idPrecipitacion,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaRegistroPrecipitacion =>
+      $composableBuilder(
+          column: $table.fechaRegistroPrecipitacion,
+          builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadPrecipitacion => $composableBuilder(
+      column: $table.cantidadPrecipitacion,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$UsuarioTableOrderingComposer get responsable {
+    final $$UsuarioTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableOrderingComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PrecipitacionTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PrecipitacionTable> {
+  $$PrecipitacionTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get idPrecipitacion => $composableBuilder(
+      column: $table.idPrecipitacion, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaRegistroPrecipitacion =>
+      $composableBuilder(
+          column: $table.fechaRegistroPrecipitacion,
+          builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadPrecipitacion => $composableBuilder(
+      column: $table.cantidadPrecipitacion, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$UsuarioTableAnnotationComposer get responsable {
+    final $$UsuarioTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableAnnotationComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$PrecipitacionTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PrecipitacionTable,
+    PrecipitacionData,
+    $$PrecipitacionTableFilterComposer,
+    $$PrecipitacionTableOrderingComposer,
+    $$PrecipitacionTableAnnotationComposer,
+    $$PrecipitacionTableCreateCompanionBuilder,
+    $$PrecipitacionTableUpdateCompanionBuilder,
+    (PrecipitacionData, $$PrecipitacionTableReferences),
+    PrecipitacionData,
+    PrefetchHooks Function({bool responsable})> {
+  $$PrecipitacionTableTableManager(_$AppDatabase db, $PrecipitacionTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PrecipitacionTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PrecipitacionTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PrecipitacionTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> idPrecipitacion = const Value.absent(),
+            Value<DateTime> fechaRegistroPrecipitacion = const Value.absent(),
+            Value<int> cantidadPrecipitacion = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PrecipitacionCompanion(
+            idPrecipitacion: idPrecipitacion,
+            fechaRegistroPrecipitacion: fechaRegistroPrecipitacion,
+            cantidadPrecipitacion: cantidadPrecipitacion,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> idPrecipitacion = const Value.absent(),
+            required DateTime fechaRegistroPrecipitacion,
+            required int cantidadPrecipitacion,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              PrecipitacionCompanion.insert(
+            idPrecipitacion: idPrecipitacion,
+            fechaRegistroPrecipitacion: fechaRegistroPrecipitacion,
+            cantidadPrecipitacion: cantidadPrecipitacion,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$PrecipitacionTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({responsable = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (responsable) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.responsable,
+                    referencedTable:
+                        $$PrecipitacionTableReferences._responsableTable(db),
+                    referencedColumn: $$PrecipitacionTableReferences
+                        ._responsableTable(db)
+                        .ccUsuario,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PrecipitacionTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PrecipitacionTable,
+    PrecipitacionData,
+    $$PrecipitacionTableFilterComposer,
+    $$PrecipitacionTableOrderingComposer,
+    $$PrecipitacionTableAnnotationComposer,
+    $$PrecipitacionTableCreateCompanionBuilder,
+    $$PrecipitacionTableUpdateCompanionBuilder,
+    (PrecipitacionData, $$PrecipitacionTableReferences),
+    PrecipitacionData,
+    PrefetchHooks Function({bool responsable})>;
+typedef $$FertilizacionesTableCreateCompanionBuilder = FertilizacionesCompanion
+    Function({
+  Value<int> id,
+  Value<int?> idFertilizacion,
+  required String nombreLote,
+  required DateTime fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  required int cantidadFertilizada,
+  Value<bool> completado,
+  Value<bool> sincronizado,
+});
+typedef $$FertilizacionesTableUpdateCompanionBuilder = FertilizacionesCompanion
+    Function({
+  Value<int> id,
+  Value<int?> idFertilizacion,
+  Value<String> nombreLote,
+  Value<DateTime> fechaIngreso,
+  Value<DateTime?> fechaSalida,
+  Value<int> cantidadFertilizada,
+  Value<bool> completado,
+  Value<bool> sincronizado,
+});
+
+final class $$FertilizacionesTableReferences extends BaseReferences<
+    _$AppDatabase, $FertilizacionesTable, Fertilizacione> {
+  $$FertilizacionesTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$FertilizacionDiariaTable,
+      List<FertilizacionDiariaData>> _fertilizacionDiariaRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.fertilizacionDiaria,
+          aliasName: $_aliasNameGenerator(
+              db.fertilizaciones.id, db.fertilizacionDiaria.idFertilizacion));
+
+  $$FertilizacionDiariaTableProcessedTableManager get fertilizacionDiariaRefs {
+    final manager =
+        $$FertilizacionDiariaTableTableManager($_db, $_db.fertilizacionDiaria)
+            .filter((f) => f.idFertilizacion.id($_item.id));
+
+    final cache =
+        $_typedResult.readTableOrNull(_fertilizacionDiariaRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$FertilizacionesTableFilterComposer
+    extends Composer<_$AppDatabase, $FertilizacionesTable> {
+  $$FertilizacionesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idFertilizacion => $composableBuilder(
+      column: $table.idFertilizacion,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadFertilizada => $composableBuilder(
+      column: $table.cantidadFertilizada,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> fertilizacionDiariaRefs(
+      Expression<bool> Function($$FertilizacionDiariaTableFilterComposer f) f) {
+    final $$FertilizacionDiariaTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.fertilizacionDiaria,
+        getReferencedColumn: (t) => t.idFertilizacion,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$FertilizacionDiariaTableFilterComposer(
+              $db: $db,
+              $table: $db.fertilizacionDiaria,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$FertilizacionesTableOrderingComposer
+    extends Composer<_$AppDatabase, $FertilizacionesTable> {
+  $$FertilizacionesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idFertilizacion => $composableBuilder(
+      column: $table.idFertilizacion,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadFertilizada => $composableBuilder(
+      column: $table.cantidadFertilizada,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$FertilizacionesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FertilizacionesTable> {
+  $$FertilizacionesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idFertilizacion => $composableBuilder(
+      column: $table.idFertilizacion, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreLote => $composableBuilder(
+      column: $table.nombreLote, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaIngreso => $composableBuilder(
+      column: $table.fechaIngreso, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaSalida => $composableBuilder(
+      column: $table.fechaSalida, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadFertilizada => $composableBuilder(
+      column: $table.cantidadFertilizada, builder: (column) => column);
+
+  GeneratedColumn<bool> get completado => $composableBuilder(
+      column: $table.completado, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  Expression<T> fertilizacionDiariaRefs<T extends Object>(
+      Expression<T> Function($$FertilizacionDiariaTableAnnotationComposer a)
+          f) {
+    final $$FertilizacionDiariaTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.fertilizacionDiaria,
+            getReferencedColumn: (t) => t.idFertilizacion,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$FertilizacionDiariaTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.fertilizacionDiaria,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
+    return f(composer);
+  }
+}
+
+class $$FertilizacionesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $FertilizacionesTable,
+    Fertilizacione,
+    $$FertilizacionesTableFilterComposer,
+    $$FertilizacionesTableOrderingComposer,
+    $$FertilizacionesTableAnnotationComposer,
+    $$FertilizacionesTableCreateCompanionBuilder,
+    $$FertilizacionesTableUpdateCompanionBuilder,
+    (Fertilizacione, $$FertilizacionesTableReferences),
+    Fertilizacione,
+    PrefetchHooks Function({bool fertilizacionDiariaRefs})> {
+  $$FertilizacionesTableTableManager(
+      _$AppDatabase db, $FertilizacionesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FertilizacionesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FertilizacionesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FertilizacionesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idFertilizacion = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<DateTime> fechaIngreso = const Value.absent(),
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            Value<int> cantidadFertilizada = const Value.absent(),
+            Value<bool> completado = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              FertilizacionesCompanion(
+            id: id,
+            idFertilizacion: idFertilizacion,
+            nombreLote: nombreLote,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadFertilizada: cantidadFertilizada,
+            completado: completado,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idFertilizacion = const Value.absent(),
+            required String nombreLote,
+            required DateTime fechaIngreso,
+            Value<DateTime?> fechaSalida = const Value.absent(),
+            required int cantidadFertilizada,
+            Value<bool> completado = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              FertilizacionesCompanion.insert(
+            id: id,
+            idFertilizacion: idFertilizacion,
+            nombreLote: nombreLote,
+            fechaIngreso: fechaIngreso,
+            fechaSalida: fechaSalida,
+            cantidadFertilizada: cantidadFertilizada,
+            completado: completado,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$FertilizacionesTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({fertilizacionDiariaRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (fertilizacionDiariaRefs) db.fertilizacionDiaria
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (fertilizacionDiariaRefs)
+                    await $_getPrefetchedData(
+                        currentTable: table,
+                        referencedTable: $$FertilizacionesTableReferences
+                            ._fertilizacionDiariaRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$FertilizacionesTableReferences(db, table, p0)
+                                .fertilizacionDiariaRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.idFertilizacion == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$FertilizacionesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $FertilizacionesTable,
+    Fertilizacione,
+    $$FertilizacionesTableFilterComposer,
+    $$FertilizacionesTableOrderingComposer,
+    $$FertilizacionesTableAnnotationComposer,
+    $$FertilizacionesTableCreateCompanionBuilder,
+    $$FertilizacionesTableUpdateCompanionBuilder,
+    (Fertilizacione, $$FertilizacionesTableReferences),
+    Fertilizacione,
+    PrefetchHooks Function({bool fertilizacionDiariaRefs})>;
+typedef $$FertilizacionDiariaTableCreateCompanionBuilder
+    = FertilizacionDiariaCompanion Function({
+  Value<int> id,
+  required int idFertilizacion,
+  required DateTime fecha,
+  required int cantidadFertilizada,
+  required double dosis,
+  required String unidades,
+  required String lineaInicio,
+  required String numeroInicio,
+  required String orientacionInicio,
+  required String lineaFin,
+  required String numeroFin,
+  required String orientacionFin,
+  required String responsable,
+  required String nombreFertilizante,
+  Value<bool> sincronizado,
+});
+typedef $$FertilizacionDiariaTableUpdateCompanionBuilder
+    = FertilizacionDiariaCompanion Function({
+  Value<int> id,
+  Value<int> idFertilizacion,
+  Value<DateTime> fecha,
+  Value<int> cantidadFertilizada,
+  Value<double> dosis,
+  Value<String> unidades,
+  Value<String> lineaInicio,
+  Value<String> numeroInicio,
+  Value<String> orientacionInicio,
+  Value<String> lineaFin,
+  Value<String> numeroFin,
+  Value<String> orientacionFin,
+  Value<String> responsable,
+  Value<String> nombreFertilizante,
+  Value<bool> sincronizado,
+});
+
+final class $$FertilizacionDiariaTableReferences extends BaseReferences<
+    _$AppDatabase, $FertilizacionDiariaTable, FertilizacionDiariaData> {
+  $$FertilizacionDiariaTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $FertilizacionesTable _idFertilizacionTable(_$AppDatabase db) =>
+      db.fertilizaciones.createAlias($_aliasNameGenerator(
+          db.fertilizacionDiaria.idFertilizacion, db.fertilizaciones.id));
+
+  $$FertilizacionesTableProcessedTableManager? get idFertilizacion {
+    if ($_item.idFertilizacion == null) return null;
+    final manager =
+        $$FertilizacionesTableTableManager($_db, $_db.fertilizaciones)
+            .filter((f) => f.id($_item.idFertilizacion!));
+    final item = $_typedResult.readTableOrNull(_idFertilizacionTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$FertilizacionDiariaTableFilterComposer
+    extends Composer<_$AppDatabase, $FertilizacionDiariaTable> {
+  $$FertilizacionDiariaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fecha => $composableBuilder(
+      column: $table.fecha, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cantidadFertilizada => $composableBuilder(
+      column: $table.cantidadFertilizada,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get dosis => $composableBuilder(
+      column: $table.dosis, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get unidades => $composableBuilder(
+      column: $table.unidades, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nombreFertilizante => $composableBuilder(
+      column: $table.nombreFertilizante,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$FertilizacionesTableFilterComposer get idFertilizacion {
+    final $$FertilizacionesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idFertilizacion,
+        referencedTable: $db.fertilizaciones,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$FertilizacionesTableFilterComposer(
+              $db: $db,
+              $table: $db.fertilizaciones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$FertilizacionDiariaTableOrderingComposer
+    extends Composer<_$AppDatabase, $FertilizacionDiariaTable> {
+  $$FertilizacionDiariaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fecha => $composableBuilder(
+      column: $table.fecha, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cantidadFertilizada => $composableBuilder(
+      column: $table.cantidadFertilizada,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get dosis => $composableBuilder(
+      column: $table.dosis, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get unidades => $composableBuilder(
+      column: $table.unidades, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lineaFin => $composableBuilder(
+      column: $table.lineaFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get numeroFin => $composableBuilder(
+      column: $table.numeroFin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nombreFertilizante => $composableBuilder(
+      column: $table.nombreFertilizante,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$FertilizacionesTableOrderingComposer get idFertilizacion {
+    final $$FertilizacionesTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idFertilizacion,
+        referencedTable: $db.fertilizaciones,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$FertilizacionesTableOrderingComposer(
+              $db: $db,
+              $table: $db.fertilizaciones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$FertilizacionDiariaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FertilizacionDiariaTable> {
+  $$FertilizacionDiariaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fecha =>
+      $composableBuilder(column: $table.fecha, builder: (column) => column);
+
+  GeneratedColumn<int> get cantidadFertilizada => $composableBuilder(
+      column: $table.cantidadFertilizada, builder: (column) => column);
+
+  GeneratedColumn<double> get dosis =>
+      $composableBuilder(column: $table.dosis, builder: (column) => column);
+
+  GeneratedColumn<String> get unidades =>
+      $composableBuilder(column: $table.unidades, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaInicio => $composableBuilder(
+      column: $table.lineaInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroInicio => $composableBuilder(
+      column: $table.numeroInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionInicio => $composableBuilder(
+      column: $table.orientacionInicio, builder: (column) => column);
+
+  GeneratedColumn<String> get lineaFin =>
+      $composableBuilder(column: $table.lineaFin, builder: (column) => column);
+
+  GeneratedColumn<String> get numeroFin =>
+      $composableBuilder(column: $table.numeroFin, builder: (column) => column);
+
+  GeneratedColumn<String> get orientacionFin => $composableBuilder(
+      column: $table.orientacionFin, builder: (column) => column);
+
+  GeneratedColumn<String> get responsable => $composableBuilder(
+      column: $table.responsable, builder: (column) => column);
+
+  GeneratedColumn<String> get nombreFertilizante => $composableBuilder(
+      column: $table.nombreFertilizante, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$FertilizacionesTableAnnotationComposer get idFertilizacion {
+    final $$FertilizacionesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.idFertilizacion,
+        referencedTable: $db.fertilizaciones,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$FertilizacionesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.fertilizaciones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$FertilizacionDiariaTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $FertilizacionDiariaTable,
+    FertilizacionDiariaData,
+    $$FertilizacionDiariaTableFilterComposer,
+    $$FertilizacionDiariaTableOrderingComposer,
+    $$FertilizacionDiariaTableAnnotationComposer,
+    $$FertilizacionDiariaTableCreateCompanionBuilder,
+    $$FertilizacionDiariaTableUpdateCompanionBuilder,
+    (FertilizacionDiariaData, $$FertilizacionDiariaTableReferences),
+    FertilizacionDiariaData,
+    PrefetchHooks Function({bool idFertilizacion})> {
+  $$FertilizacionDiariaTableTableManager(
+      _$AppDatabase db, $FertilizacionDiariaTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FertilizacionDiariaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FertilizacionDiariaTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FertilizacionDiariaTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> idFertilizacion = const Value.absent(),
+            Value<DateTime> fecha = const Value.absent(),
+            Value<int> cantidadFertilizada = const Value.absent(),
+            Value<double> dosis = const Value.absent(),
+            Value<String> unidades = const Value.absent(),
+            Value<String> lineaInicio = const Value.absent(),
+            Value<String> numeroInicio = const Value.absent(),
+            Value<String> orientacionInicio = const Value.absent(),
+            Value<String> lineaFin = const Value.absent(),
+            Value<String> numeroFin = const Value.absent(),
+            Value<String> orientacionFin = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<String> nombreFertilizante = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              FertilizacionDiariaCompanion(
+            id: id,
+            idFertilizacion: idFertilizacion,
+            fecha: fecha,
+            cantidadFertilizada: cantidadFertilizada,
+            dosis: dosis,
+            unidades: unidades,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            nombreFertilizante: nombreFertilizante,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int idFertilizacion,
+            required DateTime fecha,
+            required int cantidadFertilizada,
+            required double dosis,
+            required String unidades,
+            required String lineaInicio,
+            required String numeroInicio,
+            required String orientacionInicio,
+            required String lineaFin,
+            required String numeroFin,
+            required String orientacionFin,
+            required String responsable,
+            required String nombreFertilizante,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              FertilizacionDiariaCompanion.insert(
+            id: id,
+            idFertilizacion: idFertilizacion,
+            fecha: fecha,
+            cantidadFertilizada: cantidadFertilizada,
+            dosis: dosis,
+            unidades: unidades,
+            lineaInicio: lineaInicio,
+            numeroInicio: numeroInicio,
+            orientacionInicio: orientacionInicio,
+            lineaFin: lineaFin,
+            numeroFin: numeroFin,
+            orientacionFin: orientacionFin,
+            responsable: responsable,
+            nombreFertilizante: nombreFertilizante,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$FertilizacionDiariaTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({idFertilizacion = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (idFertilizacion) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.idFertilizacion,
+                    referencedTable: $$FertilizacionDiariaTableReferences
+                        ._idFertilizacionTable(db),
+                    referencedColumn: $$FertilizacionDiariaTableReferences
+                        ._idFertilizacionTable(db)
+                        .id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$FertilizacionDiariaTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $FertilizacionDiariaTable,
+    FertilizacionDiariaData,
+    $$FertilizacionDiariaTableFilterComposer,
+    $$FertilizacionDiariaTableOrderingComposer,
+    $$FertilizacionDiariaTableAnnotationComposer,
+    $$FertilizacionDiariaTableCreateCompanionBuilder,
+    $$FertilizacionDiariaTableUpdateCompanionBuilder,
+    (FertilizacionDiariaData, $$FertilizacionDiariaTableReferences),
+    FertilizacionDiariaData,
+    PrefetchHooks Function({bool idFertilizacion})>;
+typedef $$FertilizanteTableCreateCompanionBuilder = FertilizanteCompanion
+    Function({
+  required String nombreFertilizante,
+  required String tipo,
+  required String composicion,
+  required double porcentaje,
+  required String presentacionPnombreFertilizante,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+typedef $$FertilizanteTableUpdateCompanionBuilder = FertilizanteCompanion
+    Function({
+  Value<String> nombreFertilizante,
+  Value<String> tipo,
+  Value<String> composicion,
+  Value<double> porcentaje,
+  Value<String> presentacionPnombreFertilizante,
+  Value<DateTime?> fechaUltimaActualizacion,
+  Value<int> rowid,
+});
+
+class $$FertilizanteTableFilterComposer
+    extends Composer<_$AppDatabase, $FertilizanteTable> {
+  $$FertilizanteTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get nombreFertilizante => $composableBuilder(
+      column: $table.nombreFertilizante,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get tipo => $composableBuilder(
+      column: $table.tipo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get composicion => $composableBuilder(
+      column: $table.composicion, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get porcentaje => $composableBuilder(
+      column: $table.porcentaje, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get presentacionPnombreFertilizante =>
+      $composableBuilder(
+          column: $table.presentacionPnombreFertilizante,
+          builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnFilters(column));
+}
+
+class $$FertilizanteTableOrderingComposer
+    extends Composer<_$AppDatabase, $FertilizanteTable> {
+  $$FertilizanteTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get nombreFertilizante => $composableBuilder(
+      column: $table.nombreFertilizante,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get tipo => $composableBuilder(
+      column: $table.tipo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get composicion => $composableBuilder(
+      column: $table.composicion, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get porcentaje => $composableBuilder(
+      column: $table.porcentaje, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get presentacionPnombreFertilizante =>
+      $composableBuilder(
+          column: $table.presentacionPnombreFertilizante,
+          builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$FertilizanteTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FertilizanteTable> {
+  $$FertilizanteTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get nombreFertilizante => $composableBuilder(
+      column: $table.nombreFertilizante, builder: (column) => column);
+
+  GeneratedColumn<String> get tipo =>
+      $composableBuilder(column: $table.tipo, builder: (column) => column);
+
+  GeneratedColumn<String> get composicion => $composableBuilder(
+      column: $table.composicion, builder: (column) => column);
+
+  GeneratedColumn<double> get porcentaje => $composableBuilder(
+      column: $table.porcentaje, builder: (column) => column);
+
+  GeneratedColumn<String> get presentacionPnombreFertilizante =>
+      $composableBuilder(
+          column: $table.presentacionPnombreFertilizante,
+          builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaUltimaActualizacion => $composableBuilder(
+      column: $table.fechaUltimaActualizacion, builder: (column) => column);
+}
+
+class $$FertilizanteTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $FertilizanteTable,
+    FertilizanteData,
+    $$FertilizanteTableFilterComposer,
+    $$FertilizanteTableOrderingComposer,
+    $$FertilizanteTableAnnotationComposer,
+    $$FertilizanteTableCreateCompanionBuilder,
+    $$FertilizanteTableUpdateCompanionBuilder,
+    (
+      FertilizanteData,
+      BaseReferences<_$AppDatabase, $FertilizanteTable, FertilizanteData>
+    ),
+    FertilizanteData,
+    PrefetchHooks Function()> {
+  $$FertilizanteTableTableManager(_$AppDatabase db, $FertilizanteTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FertilizanteTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FertilizanteTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FertilizanteTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> nombreFertilizante = const Value.absent(),
+            Value<String> tipo = const Value.absent(),
+            Value<String> composicion = const Value.absent(),
+            Value<double> porcentaje = const Value.absent(),
+            Value<String> presentacionPnombreFertilizante =
+                const Value.absent(),
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              FertilizanteCompanion(
+            nombreFertilizante: nombreFertilizante,
+            tipo: tipo,
+            composicion: composicion,
+            porcentaje: porcentaje,
+            presentacionPnombreFertilizante: presentacionPnombreFertilizante,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String nombreFertilizante,
+            required String tipo,
+            required String composicion,
+            required double porcentaje,
+            required String presentacionPnombreFertilizante,
+            Value<DateTime?> fechaUltimaActualizacion = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              FertilizanteCompanion.insert(
+            nombreFertilizante: nombreFertilizante,
+            tipo: tipo,
+            composicion: composicion,
+            porcentaje: porcentaje,
+            presentacionPnombreFertilizante: presentacionPnombreFertilizante,
+            fechaUltimaActualizacion: fechaUltimaActualizacion,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$FertilizanteTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $FertilizanteTable,
+    FertilizanteData,
+    $$FertilizanteTableFilterComposer,
+    $$FertilizanteTableOrderingComposer,
+    $$FertilizanteTableAnnotationComposer,
+    $$FertilizanteTableCreateCompanionBuilder,
+    $$FertilizanteTableUpdateCompanionBuilder,
+    (
+      FertilizanteData,
+      BaseReferences<_$AppDatabase, $FertilizanteTable, FertilizanteData>
+    ),
+    FertilizanteData,
+    PrefetchHooks Function()>;
+typedef $$CensoProductivoTableCreateCompanionBuilder = CensoProductivoCompanion
+    Function({
+  Value<int> id,
+  Value<int?> idCensoProductivo,
+  required DateTime fechaCenso,
+  Value<int?> floresFemeninas,
+  Value<int?> floresMasculinas,
+  Value<int?> palmasLeidas,
+  Value<int?> racimosVerdes,
+  Value<int?> racimosPintones,
+  Value<int?> racimosSobremaduros,
+  Value<int?> racimosMaduros,
+  required String nombreLote,
+  required String responsable,
+  Value<bool> sincronizado,
+});
+typedef $$CensoProductivoTableUpdateCompanionBuilder = CensoProductivoCompanion
+    Function({
+  Value<int> id,
+  Value<int?> idCensoProductivo,
+  Value<DateTime> fechaCenso,
+  Value<int?> floresFemeninas,
+  Value<int?> floresMasculinas,
+  Value<int?> palmasLeidas,
+  Value<int?> racimosVerdes,
+  Value<int?> racimosPintones,
+  Value<int?> racimosSobremaduros,
+  Value<int?> racimosMaduros,
+  Value<String> nombreLote,
+  Value<String> responsable,
+  Value<bool> sincronizado,
+});
+
+final class $$CensoProductivoTableReferences extends BaseReferences<
+    _$AppDatabase, $CensoProductivoTable, CensoProductivoData> {
+  $$CensoProductivoTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $LotesTable _nombreLoteTable(_$AppDatabase db) => db.lotes.createAlias(
+      $_aliasNameGenerator(db.censoProductivo.nombreLote, db.lotes.nombreLote));
+
+  $$LotesTableProcessedTableManager? get nombreLote {
+    if ($_item.nombreLote == null) return null;
+    final manager = $$LotesTableTableManager($_db, $_db.lotes)
+        .filter((f) => f.nombreLote($_item.nombreLote!));
+    final item = $_typedResult.readTableOrNull(_nombreLoteTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static $UsuarioTable _responsableTable(_$AppDatabase db) =>
+      db.usuario.createAlias($_aliasNameGenerator(
+          db.censoProductivo.responsable, db.usuario.ccUsuario));
+
+  $$UsuarioTableProcessedTableManager? get responsable {
+    if ($_item.responsable == null) return null;
+    final manager = $$UsuarioTableTableManager($_db, $_db.usuario)
+        .filter((f) => f.ccUsuario($_item.responsable!));
+    final item = $_typedResult.readTableOrNull(_responsableTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$CensoProductivoTableFilterComposer
+    extends Composer<_$AppDatabase, $CensoProductivoTable> {
+  $$CensoProductivoTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get idCensoProductivo => $composableBuilder(
+      column: $table.idCensoProductivo,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fechaCenso => $composableBuilder(
+      column: $table.fechaCenso, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get floresFemeninas => $composableBuilder(
+      column: $table.floresFemeninas,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get floresMasculinas => $composableBuilder(
+      column: $table.floresMasculinas,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get palmasLeidas => $composableBuilder(
+      column: $table.palmasLeidas, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get racimosVerdes => $composableBuilder(
+      column: $table.racimosVerdes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get racimosPintones => $composableBuilder(
+      column: $table.racimosPintones,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get racimosSobremaduros => $composableBuilder(
+      column: $table.racimosSobremaduros,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get racimosMaduros => $composableBuilder(
+      column: $table.racimosMaduros,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => ColumnFilters(column));
+
+  $$LotesTableFilterComposer get nombreLote {
+    final $$LotesTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreLote,
+        referencedTable: $db.lotes,
+        getReferencedColumn: (t) => t.nombreLote,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$LotesTableFilterComposer(
+              $db: $db,
+              $table: $db.lotes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableFilterComposer get responsable {
+    final $$UsuarioTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableFilterComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$CensoProductivoTableOrderingComposer
+    extends Composer<_$AppDatabase, $CensoProductivoTable> {
+  $$CensoProductivoTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get idCensoProductivo => $composableBuilder(
+      column: $table.idCensoProductivo,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fechaCenso => $composableBuilder(
+      column: $table.fechaCenso, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get floresFemeninas => $composableBuilder(
+      column: $table.floresFemeninas,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get floresMasculinas => $composableBuilder(
+      column: $table.floresMasculinas,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get palmasLeidas => $composableBuilder(
+      column: $table.palmasLeidas,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get racimosVerdes => $composableBuilder(
+      column: $table.racimosVerdes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get racimosPintones => $composableBuilder(
+      column: $table.racimosPintones,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get racimosSobremaduros => $composableBuilder(
+      column: $table.racimosSobremaduros,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get racimosMaduros => $composableBuilder(
+      column: $table.racimosMaduros,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado,
+      builder: (column) => ColumnOrderings(column));
+
+  $$LotesTableOrderingComposer get nombreLote {
+    final $$LotesTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreLote,
+        referencedTable: $db.lotes,
+        getReferencedColumn: (t) => t.nombreLote,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$LotesTableOrderingComposer(
+              $db: $db,
+              $table: $db.lotes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableOrderingComposer get responsable {
+    final $$UsuarioTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableOrderingComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$CensoProductivoTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CensoProductivoTable> {
+  $$CensoProductivoTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get idCensoProductivo => $composableBuilder(
+      column: $table.idCensoProductivo, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fechaCenso => $composableBuilder(
+      column: $table.fechaCenso, builder: (column) => column);
+
+  GeneratedColumn<int> get floresFemeninas => $composableBuilder(
+      column: $table.floresFemeninas, builder: (column) => column);
+
+  GeneratedColumn<int> get floresMasculinas => $composableBuilder(
+      column: $table.floresMasculinas, builder: (column) => column);
+
+  GeneratedColumn<int> get palmasLeidas => $composableBuilder(
+      column: $table.palmasLeidas, builder: (column) => column);
+
+  GeneratedColumn<int> get racimosVerdes => $composableBuilder(
+      column: $table.racimosVerdes, builder: (column) => column);
+
+  GeneratedColumn<int> get racimosPintones => $composableBuilder(
+      column: $table.racimosPintones, builder: (column) => column);
+
+  GeneratedColumn<int> get racimosSobremaduros => $composableBuilder(
+      column: $table.racimosSobremaduros, builder: (column) => column);
+
+  GeneratedColumn<int> get racimosMaduros => $composableBuilder(
+      column: $table.racimosMaduros, builder: (column) => column);
+
+  GeneratedColumn<bool> get sincronizado => $composableBuilder(
+      column: $table.sincronizado, builder: (column) => column);
+
+  $$LotesTableAnnotationComposer get nombreLote {
+    final $$LotesTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.nombreLote,
+        referencedTable: $db.lotes,
+        getReferencedColumn: (t) => t.nombreLote,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$LotesTableAnnotationComposer(
+              $db: $db,
+              $table: $db.lotes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $$UsuarioTableAnnotationComposer get responsable {
+    final $$UsuarioTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.responsable,
+        referencedTable: $db.usuario,
+        getReferencedColumn: (t) => t.ccUsuario,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$UsuarioTableAnnotationComposer(
+              $db: $db,
+              $table: $db.usuario,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$CensoProductivoTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CensoProductivoTable,
+    CensoProductivoData,
+    $$CensoProductivoTableFilterComposer,
+    $$CensoProductivoTableOrderingComposer,
+    $$CensoProductivoTableAnnotationComposer,
+    $$CensoProductivoTableCreateCompanionBuilder,
+    $$CensoProductivoTableUpdateCompanionBuilder,
+    (CensoProductivoData, $$CensoProductivoTableReferences),
+    CensoProductivoData,
+    PrefetchHooks Function({bool nombreLote, bool responsable})> {
+  $$CensoProductivoTableTableManager(
+      _$AppDatabase db, $CensoProductivoTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CensoProductivoTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CensoProductivoTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CensoProductivoTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idCensoProductivo = const Value.absent(),
+            Value<DateTime> fechaCenso = const Value.absent(),
+            Value<int?> floresFemeninas = const Value.absent(),
+            Value<int?> floresMasculinas = const Value.absent(),
+            Value<int?> palmasLeidas = const Value.absent(),
+            Value<int?> racimosVerdes = const Value.absent(),
+            Value<int?> racimosPintones = const Value.absent(),
+            Value<int?> racimosSobremaduros = const Value.absent(),
+            Value<int?> racimosMaduros = const Value.absent(),
+            Value<String> nombreLote = const Value.absent(),
+            Value<String> responsable = const Value.absent(),
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CensoProductivoCompanion(
+            id: id,
+            idCensoProductivo: idCensoProductivo,
+            fechaCenso: fechaCenso,
+            floresFemeninas: floresFemeninas,
+            floresMasculinas: floresMasculinas,
+            palmasLeidas: palmasLeidas,
+            racimosVerdes: racimosVerdes,
+            racimosPintones: racimosPintones,
+            racimosSobremaduros: racimosSobremaduros,
+            racimosMaduros: racimosMaduros,
+            nombreLote: nombreLote,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int?> idCensoProductivo = const Value.absent(),
+            required DateTime fechaCenso,
+            Value<int?> floresFemeninas = const Value.absent(),
+            Value<int?> floresMasculinas = const Value.absent(),
+            Value<int?> palmasLeidas = const Value.absent(),
+            Value<int?> racimosVerdes = const Value.absent(),
+            Value<int?> racimosPintones = const Value.absent(),
+            Value<int?> racimosSobremaduros = const Value.absent(),
+            Value<int?> racimosMaduros = const Value.absent(),
+            required String nombreLote,
+            required String responsable,
+            Value<bool> sincronizado = const Value.absent(),
+          }) =>
+              CensoProductivoCompanion.insert(
+            id: id,
+            idCensoProductivo: idCensoProductivo,
+            fechaCenso: fechaCenso,
+            floresFemeninas: floresFemeninas,
+            floresMasculinas: floresMasculinas,
+            palmasLeidas: palmasLeidas,
+            racimosVerdes: racimosVerdes,
+            racimosPintones: racimosPintones,
+            racimosSobremaduros: racimosSobremaduros,
+            racimosMaduros: racimosMaduros,
+            nombreLote: nombreLote,
+            responsable: responsable,
+            sincronizado: sincronizado,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$CensoProductivoTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({nombreLote = false, responsable = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (nombreLote) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.nombreLote,
+                    referencedTable:
+                        $$CensoProductivoTableReferences._nombreLoteTable(db),
+                    referencedColumn: $$CensoProductivoTableReferences
+                        ._nombreLoteTable(db)
+                        .nombreLote,
+                  ) as T;
+                }
+                if (responsable) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.responsable,
+                    referencedTable:
+                        $$CensoProductivoTableReferences._responsableTable(db),
+                    referencedColumn: $$CensoProductivoTableReferences
+                        ._responsableTable(db)
+                        .ccUsuario,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$CensoProductivoTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $CensoProductivoTable,
+    CensoProductivoData,
+    $$CensoProductivoTableFilterComposer,
+    $$CensoProductivoTableOrderingComposer,
+    $$CensoProductivoTableAnnotationComposer,
+    $$CensoProductivoTableCreateCompanionBuilder,
+    $$CensoProductivoTableUpdateCompanionBuilder,
+    (CensoProductivoData, $$CensoProductivoTableReferences),
+    CensoProductivoData,
+    PrefetchHooks Function({bool nombreLote, bool responsable})>;
+
+class $AppDatabaseManager {
+  final _$AppDatabase _db;
+  $AppDatabaseManager(this._db);
+  $$CensoTableTableManager get censo =>
+      $$CensoTableTableManager(_db, _db.censo);
+  $$ProductoAgroquimicoTableTableManager get productoAgroquimico =>
+      $$ProductoAgroquimicoTableTableManager(_db, _db.productoAgroquimico);
+  $$UsuarioTableTableManager get usuario =>
+      $$UsuarioTableTableManager(_db, _db.usuario);
+  $$AplicacionesTableTableManager get aplicaciones =>
+      $$AplicacionesTableTableManager(_db, _db.aplicaciones);
+  $$ViajesTableTableManager get viajes =>
+      $$ViajesTableTableManager(_db, _db.viajes);
+  $$CosechasTableTableManager get cosechas =>
+      $$CosechasTableTableManager(_db, _db.cosechas);
+  $$CosechaDiariaTableTableManager get cosechaDiaria =>
+      $$CosechaDiariaTableTableManager(_db, _db.cosechaDiaria);
+  $$EnfermedadesTableTableManager get enfermedades =>
+      $$EnfermedadesTableTableManager(_db, _db.enfermedades);
+  $$EtapasTableTableManager get etapas =>
+      $$EtapasTableTableManager(_db, _db.etapas);
+  $$PlagasTableTableManager get plagas =>
+      $$PlagasTableTableManager(_db, _db.plagas);
+  $$EtapasPlagaTableTableManager get etapasPlaga =>
+      $$EtapasPlagaTableTableManager(_db, _db.etapasPlaga);
+  $$PalmasTableTableManager get palmas =>
+      $$PalmasTableTableManager(_db, _db.palmas);
+  $$ErradicacionTableTableManager get erradicacion =>
+      $$ErradicacionTableTableManager(_db, _db.erradicacion);
+  $$LotesTableTableManager get lotes =>
+      $$LotesTableTableManager(_db, _db.lotes);
+  $$PlateosTableTableManager get plateos =>
+      $$PlateosTableTableManager(_db, _db.plateos);
+  $$PlateoDiarioTableTableManager get plateoDiario =>
+      $$PlateoDiarioTableTableManager(_db, _db.plateoDiario);
+  $$PodasTableTableManager get podas =>
+      $$PodasTableTableManager(_db, _db.podas);
+  $$PodaDiariaTableTableManager get podaDiaria =>
+      $$PodaDiariaTableTableManager(_db, _db.podaDiaria);
+  $$RegistroEnfermedadTableTableManager get registroEnfermedad =>
+      $$RegistroEnfermedadTableTableManager(_db, _db.registroEnfermedad);
+  $$ImagenRegistroEnfermedadTableTableManager get imagenRegistroEnfermedad =>
+      $$ImagenRegistroEnfermedadTableTableManager(
+          _db, _db.imagenRegistroEnfermedad);
+  $$RegistroTratamientoTableTableManager get registroTratamiento =>
+      $$RegistroTratamientoTableTableManager(_db, _db.registroTratamiento);
+  $$CensoEtapasPlagaTableTableManager get censoEtapasPlaga =>
+      $$CensoEtapasPlagaTableTableManager(_db, _db.censoEtapasPlaga);
+  $$ImagenCensoPlagaTableTableManager get imagenCensoPlaga =>
+      $$ImagenCensoPlagaTableTableManager(_db, _db.imagenCensoPlaga);
+  $$PrecipitacionTableTableManager get precipitacion =>
+      $$PrecipitacionTableTableManager(_db, _db.precipitacion);
+  $$FertilizacionesTableTableManager get fertilizaciones =>
+      $$FertilizacionesTableTableManager(_db, _db.fertilizaciones);
+  $$FertilizacionDiariaTableTableManager get fertilizacionDiaria =>
+      $$FertilizacionDiariaTableTableManager(_db, _db.fertilizacionDiaria);
+  $$FertilizanteTableTableManager get fertilizante =>
+      $$FertilizanteTableTableManager(_db, _db.fertilizante);
+  $$CensoProductivoTableTableManager get censoProductivo =>
+      $$CensoProductivoTableTableManager(_db, _db.censoProductivo);
 }

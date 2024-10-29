@@ -5,8 +5,7 @@ class GreyButton extends StatelessWidget {
   final VoidCallback onTap;
   final String text;
 
-  const GreyButton({required Key key, required this.onTap, required this.text})
-      : super(key: key);
+  const GreyButton({super.key, required this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {

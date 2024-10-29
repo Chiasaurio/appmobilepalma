@@ -7,8 +7,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class PalmaSinRegistrosInfo extends StatefulWidget {
   const PalmaSinRegistrosInfo({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<PalmaSinRegistrosInfo> createState() => _PalmaSinRegistrosInfoState();
@@ -161,7 +161,7 @@ class _PalmaSinRegistrosInfoState extends State<PalmaSinRegistrosInfo> {
         // ),
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.red),
+            backgroundColor: WidgetStateProperty.all(Colors.red),
           ),
           onPressed: () {
             BlocProvider.of<PalmaCubit>(context).initErradicacion();

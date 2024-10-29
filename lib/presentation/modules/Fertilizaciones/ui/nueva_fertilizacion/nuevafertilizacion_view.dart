@@ -6,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NuevaFertilizacionPage extends StatefulWidget {
   final String nombrelote;
-  const NuevaFertilizacionPage({Key? key, required this.nombrelote})
-      : super(key: key);
+  const NuevaFertilizacionPage({super.key, required this.nombrelote});
   @override
   State<NuevaFertilizacionPage> createState() => _NuevaFertilizacionPageState();
 }

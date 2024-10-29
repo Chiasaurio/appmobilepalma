@@ -30,7 +30,7 @@ class ProcedimientosEnfermedad {
 
 const String nombreFinca = 'FINCA CAMPOALEGRE';
 
-const kPrimaryColor = Color(0xFF2D6A4F);
+const kPrimaryColor = Color.fromARGB(255, 93, 133, 112);
 const kLightGreen = Color(0xFF95D5B2);
 const kSuccessColor = Color.fromRGBO(76, 175, 80, 1);
 const kLightGreen2 = Color.fromARGB(255, 196, 255, 222);

@@ -14,8 +14,7 @@ class PodaActivaPage extends StatefulWidget {
   final Poda poda;
   final int totalPalmas;
   const PodaActivaPage(
-      {Key? key, required this.poda, required this.totalPalmas})
-      : super(key: key);
+      {super.key, required this.poda, required this.totalPalmas});
 
   @override
   State<PodaActivaPage> createState() => _PodaActivaPageState();

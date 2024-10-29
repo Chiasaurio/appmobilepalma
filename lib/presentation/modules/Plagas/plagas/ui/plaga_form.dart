@@ -1,4 +1,5 @@
 import 'package:apppalma/data/moor/tables/plagas_table.dart';
+import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:apppalma/presentation/components/widgets/orientacion_dropdown.dart';
 import 'package:apppalma/presentation/modules/Camera/imagenes_registro_widget.dart';
 import 'package:apppalma/presentation/modules/Plagas/cubit/plagas_cubit.dart';
@@ -16,10 +17,10 @@ class PlagaForm extends StatefulWidget {
   final List<PlagaConEtapas> plagas;
   final String nombreLote;
   const PlagaForm({
-    Key? key,
+    super.key,
     required this.nombreLote,
     required this.plagas,
-  }) : super(key: key);
+  });
   @override
   State<PlagaForm> createState() => _PlagaFormState();
 }
@@ -44,6 +45,16 @@ class _PlagaFormState extends State<PlagaForm> {
   late PlagasCubit cubit;
 
   List<XFile> imagenes = [];
+
+  List<PlagaConEtapas> plagas = [];
+
+  @override
+  void initState() {
+    plagas = List.from(widget.plagas);
+    plagas.add(PlagaConEtapas.otraPlagas());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     cubit = context.read<PlagasCubit>();
@@ -112,7 +123,7 @@ class _PlagaFormState extends State<PlagaForm> {
   Widget buildPlaga() {
     List<DropdownMenuItem<PlagaConEtapas>> getOpcionesDropdown() {
       List<DropdownMenuItem<PlagaConEtapas>> lista = [];
-      for (var plagaconetapas in widget.plagas) {
+      for (var plagaconetapas in plagas) {
         lista.add(DropdownMenuItem(
           value: plagaconetapas,
           child: Text(plagaconetapas.plaga.nombreComunPlaga),
@@ -319,6 +330,14 @@ class _PlagaFormState extends State<PlagaForm> {
       },
       name: 'observaciones',
       style: const TextStyle(fontSize: 18),
+      validator: (value) {
+        if (plagaconetapas!.plaga.nombreComunPlaga == 'Otra') {
+          if (value == null || value.isEmpty) {
+            return 'Este valor es requerido';
+          }
+        }
+        return null;
+      },
       decoration: const InputDecoration(
         label: Text(
           "Observaciones",

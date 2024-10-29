@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../constants.dart';
 
 class TotalKilosWidget extends StatefulWidget {
-  const TotalKilosWidget({Key? key}) : super(key: key);
+  const TotalKilosWidget({super.key});
 
   @override
   State<TotalKilosWidget> createState() => _TotalKilosWidgetState();

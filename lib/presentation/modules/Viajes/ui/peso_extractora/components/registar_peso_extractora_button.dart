@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegistrarPesoExtractoraButton extends StatefulWidget {
-  const RegistrarPesoExtractoraButton({Key? key}) : super(key: key);
+  const RegistrarPesoExtractoraButton({super.key});
 
   @override
   State<RegistrarPesoExtractoraButton> createState() =>

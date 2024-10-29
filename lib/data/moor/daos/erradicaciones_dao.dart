@@ -7,7 +7,7 @@ part 'erradicaciones_dao.g.dart';
 @DriftAccessor(tables: [Erradicacion])
 class ErradicacionesDao extends DatabaseAccessor<AppDatabase>
     with _$ErradicacionesDaoMixin {
-  ErradicacionesDao(AppDatabase db) : super(db);
+  ErradicacionesDao(super.db);
 
   Future insertErradicacion(Insertable<ErradicacionData> e) =>
       into(erradicacion).insert(e);

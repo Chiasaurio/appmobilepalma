@@ -6,13 +6,13 @@ import '../../constants.dart';
 
 class SliverAppBarGradient extends StatelessWidget {
   SliverAppBarGradient({
-    Key? key,
+    super.key,
     required this.title,
     required this.ruta,
     this.disableBack = false,
     this.showDrawer = false,
     this.onPop,
-  }) : super(key: key);
+  });
   final bool disableBack;
   final bool showDrawer;
   final String title;
@@ -27,11 +27,12 @@ class SliverAppBarGradient extends StatelessWidget {
       delegate: MySliverPersistentHeaderDelegate(
         Container(
           decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [kpurpleColor, kblueColor])),
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [kpurpleColor, kblueColor]),
+          ),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

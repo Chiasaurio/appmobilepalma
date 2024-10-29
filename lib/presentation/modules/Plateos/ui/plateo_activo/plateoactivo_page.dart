@@ -14,8 +14,7 @@ class PlateoActivoVista extends StatefulWidget {
   final Plateo plateo;
   final int totalPalmas;
   const PlateoActivoVista(
-      {Key? key, required this.plateo, required this.totalPalmas})
-      : super(key: key);
+      {super.key, required this.plateo, required this.totalPalmas});
   @override
   State<PlateoActivoVista> createState() => _PlateoActivoVistaState();
 }

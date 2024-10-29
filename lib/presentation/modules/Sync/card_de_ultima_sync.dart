@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardUltimaSync extends StatefulWidget {
-  const CardUltimaSync({Key? key}) : super(key: key);
+  const CardUltimaSync({super.key});
 
   @override
   State<CardUltimaSync> createState() => _CardUltimaSyncsState();
@@ -56,10 +56,10 @@ class _CardUltimaSyncsState extends State<CardUltimaSync> {
 class TextSyncPendiente extends StatelessWidget {
   final Type type;
   const TextSyncPendiente({
-    Key? key,
+    super.key,
     required this.fechaUltimaActualizacion,
     required this.type,
-  }) : super(key: key);
+  });
 
   final String? fechaUltimaActualizacion;
 
@@ -70,23 +70,23 @@ class TextSyncPendiente extends StatelessWidget {
     return BlocBuilder<BajarInfoCubit, BajarInfoState>(
       builder: (context, state) {
         switch (type) {
-          case Lote:
+          case Lote _:
             text = 'Lotes';
             status = state.estadoLote;
             break;
-          case Enfermedade:
+          case Enfermedade _:
             text = 'Enfermedades';
             status = state.estadoEnfermedad;
             break;
-          case Plaga:
+          case Plaga _:
             text = 'Plagas';
             status = state.estadoPlaga;
             break;
-          case ProductoAgroquimicoData:
+          case ProductoAgroquimicoData _:
             text = 'Productos agroquimicos';
             status = state.estadoAgroquimico;
             break;
-          case FertilizanteData:
+          case FertilizanteData _:
             text = 'Fertilizantes';
             status = state.estadoFertilizante;
             break;

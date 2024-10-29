@@ -8,11 +8,10 @@ class OpcionGreenItem extends StatelessWidget {
   final String ruta;
 
   const OpcionGreenItem(
-      {Key? key,
+      {super.key,
       required this.nombreLote,
       required this.ruta,
-      required this.text})
-      : super(key: key);
+      required this.text});
 
   @override
   Widget build(BuildContext context) {

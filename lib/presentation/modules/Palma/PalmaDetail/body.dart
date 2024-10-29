@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Body extends StatefulWidget {
   final PalmaConProcesos palmaConProcesos;
 
-  const Body({Key? key, required this.palmaConProcesos}) : super(key: key);
+  const Body({super.key, required this.palmaConProcesos});
   @override
   State<Body> createState() => _BodyState();
 }

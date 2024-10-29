@@ -6,11 +6,11 @@ class MainButton extends StatelessWidget {
   final VoidCallback press;
   final bool bold;
   const MainButton({
-    Key? key,
+    super.key,
     this.bold = false,
     required this.text,
     required this.press,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HoraCarga extends StatefulWidget {
-  const HoraCarga({Key? key}) : super(key: key);
+  const HoraCarga({super.key});
 
   @override
   State<HoraCarga> createState() => _HoraCargaState();

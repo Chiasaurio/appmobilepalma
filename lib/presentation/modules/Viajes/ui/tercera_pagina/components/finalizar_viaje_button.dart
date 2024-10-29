@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'finalizar_viaje_dialog.dart';
 
 class FinalizarViajeButton extends StatefulWidget {
-  const FinalizarViajeButton({Key? key}) : super(key: key);
+  const FinalizarViajeButton({super.key});
 
   @override
   State<FinalizarViajeButton> createState() => _FinalizarViajeButtonState();

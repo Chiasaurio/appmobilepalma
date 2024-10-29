@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   final List<PodaDiariaData> podasDiarias;
-  const Body({Key? key, required this.podasDiarias}) : super(key: key);
+  const Body({super.key, required this.podasDiarias});
   @override
   State<Body> createState() => _BodyState();
 }

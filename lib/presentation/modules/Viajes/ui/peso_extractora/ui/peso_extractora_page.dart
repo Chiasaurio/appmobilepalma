@@ -9,8 +9,7 @@ class PesoExtractoraPage extends StatefulWidget {
   final String routeName;
   final Viaje viaje;
   const PesoExtractoraPage(
-      {Key? key, required this.routeName, required this.viaje})
-      : super(key: key);
+      {super.key, required this.routeName, required this.viaje});
 
   @override
   State<PesoExtractoraPage> createState() => _PesoExtractoraPageState();

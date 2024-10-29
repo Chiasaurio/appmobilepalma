@@ -6,7 +6,7 @@ import 'despachar_viaje_widget.dart';
 import 'lista_cosechas_widget.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({super.key});
 
   @override
   State<Body> createState() => _BodyState();

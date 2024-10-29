@@ -14,10 +14,9 @@ class PodaDiariaPage extends StatefulWidget {
   final Poda poda;
   final String routeName;
   const PodaDiariaPage(
-      {Key? key,
+      {super.key,
       required this.poda,
-      this.routeName = '/lote/podas/registrardiarios'})
-      : super(key: key);
+      this.routeName = '/lote/podas/registrardiarios'});
   @override
   State<PodaDiariaPage> createState() => _PodaDiariaPageState();
 }
@@ -327,7 +326,7 @@ class _PodaDiariaPageState extends State<PodaDiariaPage> {
           lineaFin!.toString(),
           numeroPalmaFin!.toString(),
           orientacionFin!);
-      if (mounted) {
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: kSuccessColor,

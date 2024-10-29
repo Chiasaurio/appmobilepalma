@@ -15,7 +15,7 @@ part 'plagas_daos.g.dart';
   'getIdCenso': 'SELECT * FROM censo ORDER BY id_censo DESC LIMIT 1;'
 })
 class PlagasDao extends DatabaseAccessor<AppDatabase> with _$PlagasDaoMixin {
-  PlagasDao(AppDatabase db) : super(db);
+  PlagasDao(super.db);
 
   Future<List<PlagaConEtapas>> obtenerPlagaConEtapas() async {
     final rows = (select(plagas))

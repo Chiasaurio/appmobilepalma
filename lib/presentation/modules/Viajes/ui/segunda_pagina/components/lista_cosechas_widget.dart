@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListaCosechas extends StatefulWidget {
-  const ListaCosechas({Key? key}) : super(key: key);
+  const ListaCosechas({super.key});
 
   @override
   State<ListaCosechas> createState() => _ListaCosechasState();
