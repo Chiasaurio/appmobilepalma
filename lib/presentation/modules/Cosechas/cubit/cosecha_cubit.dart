@@ -86,7 +86,9 @@ class CosechaCubit extends Cubit<CosechaStateLoaded> {
           kilos: nuevosKilos,
           sincronizado: false));
       obtenerCosechaActiva(cosecha.nombreLote);
-    } catch (_) {}
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   finalizarCosecha(Cosecha cosecha, DateTime fechasalida) {

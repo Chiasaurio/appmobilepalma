@@ -1,4 +1,3 @@
-import 'package:apppalma/data/moor/tables/tables.dart';
 import 'package:drift/drift.dart';
 
 class Viajes extends Table {
@@ -10,6 +9,6 @@ class Viajes extends Table {
   IntColumn get kilos => integer().nullable()();
   RealColumn get kilosExtractora => real().nullable()();
   BoolColumn get completado => boolean().withDefault(const Constant(false))();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }

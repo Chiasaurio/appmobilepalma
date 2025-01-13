@@ -2,7 +2,6 @@ import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
 import 'fertilizante_table.dart';
-import 'usuario_table.dart';
 
 class Fertilizaciones extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -31,7 +30,7 @@ class FertilizacionDiaria extends Table {
   TextColumn get lineaFin => text()();
   TextColumn get numeroFin => text()();
   TextColumn get orientacionFin => text()();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   TextColumn get nombreFertilizante =>
       text().references(Fertilizante, #nombreFertilizante)();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();

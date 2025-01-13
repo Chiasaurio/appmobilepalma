@@ -369,12 +369,11 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               backgroundColor: kRedColor,
-              content: Text('Error registrando la cosecha.'),
+              content: Text(e.toString()),
             ),
           );
-          Navigator.pop(context);
         }
       }
     }

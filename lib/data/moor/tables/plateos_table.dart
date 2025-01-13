@@ -1,8 +1,6 @@
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
-import 'usuario_table.dart';
-
 class Plateos extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idPlateo => integer().nullable()();
@@ -29,7 +27,7 @@ class PlateoDiario extends Table {
   TextColumn get lineaFin => text()();
   TextColumn get numeroFin => text()();
   TextColumn get orientacionFin => text()();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }
 

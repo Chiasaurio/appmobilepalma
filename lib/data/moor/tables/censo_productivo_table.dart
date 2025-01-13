@@ -14,6 +14,6 @@ class CensoProductivo extends Table {
   IntColumn get racimosSobremaduros => integer().nullable()();
   IntColumn get racimosMaduros => integer().nullable()();
   TextColumn get nombreLote => text().references(Lotes, #nombreLote)();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }

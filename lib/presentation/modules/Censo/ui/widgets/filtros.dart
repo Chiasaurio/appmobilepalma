@@ -16,8 +16,7 @@ class FiltrosEnfermedades extends StatelessWidget {
               builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Wrap(
             children: [
               GestureDetector(
                 onTap: () => BlocProvider.of<TratamientoCubit>(context)
@@ -25,6 +24,7 @@ class FiltrosEnfermedades extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   height: 30,
+                  width: 80,
                   decoration: BoxDecoration(
                       color: state.filtro == null || state.filtro == ''
                           ? Colors.white
@@ -51,6 +51,7 @@ class FiltrosEnfermedades extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   height: 30,
+                  width: 140,
                   decoration: BoxDecoration(
                       color: state.filtro == EstadosPalma.pendientePorTratar
                           ? Colors.white
@@ -65,11 +66,12 @@ class FiltrosEnfermedades extends StatelessWidget {
                       ],
                       borderRadius: BorderRadius.circular(10)),
                   child: const Center(
-                      child: Text(EstadosPalma.pendientePorTratar)),
+                    child: Text('Pendiente tratar'),
+                  ),
                 ),
               ),
               const SizedBox(
-                width: 10,
+                width: 5,
               ),
               GestureDetector(
                 onTap: () => BlocProvider.of<TratamientoCubit>(context)
@@ -78,6 +80,7 @@ class FiltrosEnfermedades extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   height: 30,
+                  width: 114,
                   decoration: BoxDecoration(
                       color: state.filtro == EstadosPalma.pendientePorErradicar
                           ? Colors.white

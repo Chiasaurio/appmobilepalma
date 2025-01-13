@@ -121,6 +121,7 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
       emit(state.copyWith(status: FormStatus.submissionSuccess));
       return true;
     } catch (e) {
+      print(e);
       return false;
     }
   }

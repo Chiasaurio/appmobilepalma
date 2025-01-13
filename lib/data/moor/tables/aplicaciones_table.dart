@@ -13,6 +13,6 @@ class Aplicaciones extends Table {
       integer().references(Censo, #idCenso).nullable()();
   IntColumn get idProductoAgroquimico =>
       integer().references(ProductoAgroquimico, #idProductoAgroquimico)();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }

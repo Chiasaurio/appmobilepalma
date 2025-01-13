@@ -124,14 +124,15 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       );
 
   Future insertPalmaConEnfermedad(Insertable<Palma> palma,
-      RegistroEnfermedadCompanion e, List<XFile> imagenes) async {
+      RegistroEnfermedadCompanion enfermedad, List<XFile> imagenes) async {
     try {
       return transaction(() async {
         final idPalma = await into(palmas).insertOnConflictUpdate(
           palma,
         );
-        var id = await into(registroEnfermedad)
-            .insert(e.copyWith(idPalma: Value(idPalma)));
+        final enfermedadWithPalma =
+            enfermedad.copyWith(idPalma: Value(idPalma));
+        var id = await into(registroEnfermedad).insert(enfermedadWithPalma);
         //Se obtienen los objetos de las imagenes para insertar;
         List<Insertable<ImagenRegistroEnfermedadData>> imagenesCompanions =
             await getImagenesRegistroEnfermedadCompanion(id, imagenes);
@@ -139,7 +140,9 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
           batch.insertAll(imagenRegistroEnfermedad, imagenesCompanions);
         });
       });
-    } catch (_) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<List<Insertable<ImagenRegistroEnfermedadData>>>

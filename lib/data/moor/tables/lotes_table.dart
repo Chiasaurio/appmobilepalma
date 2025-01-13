@@ -11,8 +11,12 @@ class Lotes extends Table {
   IntColumn get palmasPorLinea => integer()();
   DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
 
+  // @override
+  // List<String> get customConstraints => ['UNIQUE (nombre_lote)'];
   @override
-  List<String> get customConstraints => ['UNIQUE (nombre_lote)'];
+  List<Set<Column>> get uniqueKeys => [
+        {nombreLote},
+      ];
 }
 
 class LoteWithProcesos extends Equatable {

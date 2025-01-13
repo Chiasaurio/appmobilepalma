@@ -6,6 +6,5 @@ part of 'erradicaciones_dao.dart';
 mixin _$ErradicacionesDaoMixin on DatabaseAccessor<AppDatabase> {
   $LotesTable get lotes => attachedDatabase.lotes;
   $PalmasTable get palmas => attachedDatabase.palmas;
-  $UsuarioTable get usuario => attachedDatabase.usuario;
   $ErradicacionTable get erradicacion => attachedDatabase.erradicacion;
 }

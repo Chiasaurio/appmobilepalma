@@ -16,7 +16,7 @@ class RegistroTratamiento extends Table {
   TextColumn get descripcionProcedimiento => text().nullable()();
   DateTimeColumn get fechaRegistro => dateTime()();
   TextColumn get unidades => text()();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }
 

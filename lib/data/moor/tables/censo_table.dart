@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 
 import '../moor_database.dart';
 import 'plagas_table.dart';
-import 'usuario_table.dart';
 
 class Censo extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -15,12 +14,17 @@ class Censo extends Table {
   TextColumn get estadoPlaga =>
       text().withDefault(const Constant('Pendiente por fumigar'))();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   IntColumn get numerolinea => integer()();
   IntColumn get numeroenlinea => integer()();
   TextColumn get orientacion => text()();
   RealColumn get latitude => real().nullable()();
   RealColumn get longitude => real().nullable()();
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+        {idCenso},
+      ];
 }
 
 class CensoEtapasPlaga extends Table {

@@ -9,15 +9,20 @@ class RegistroEnfermedad extends Table {
   DateTimeColumn get horaRegistro => dateTime().nullable()();
   IntColumn get idPalma => integer().references(Palmas, #id)();
   IntColumn get idPalmaFromServer =>
-      integer().references(Palmas, #idPalma).nullable()();
+      integer().nullable().references(Palmas, #idPalma)();
   TextColumn get nombreEnfermedad =>
       text().references(Enfermedades, #nombreEnfermedad)();
   IntColumn get idEtapaEnfermedad =>
       integer().nullable().references(Etapas, #id)();
   TextColumn get observaciones => text().nullable()();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
   BoolColumn get dadaDeAlta => boolean().withDefault(const Constant(false))();
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+        {idRegistroEnfermedad},
+      ];
 }
 
 class ImagenRegistroEnfermedad extends Table {

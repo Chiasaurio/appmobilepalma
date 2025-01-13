@@ -22,6 +22,7 @@ class Palmas extends Table {
   @override
   List<Set<Column>> get uniqueKeys => [
         {numerolinea, numeroenlinea, orientacion},
+        {idPalma},
       ];
 }
 

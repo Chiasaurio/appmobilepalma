@@ -22,8 +22,7 @@ class Cosechas extends Table {
 
 class CosechaDiaria extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get idCosecha =>
-      integer().customConstraint('NOT NULL REFERENCES cosechas(id)')();
+  IntColumn get idCosecha => integer().references(Cosechas, #id)();
   DateTimeColumn get fechaIngreso => dateTime()();
   IntColumn get kilos => integer()();
   IntColumn get cantidadRacimos => integer()();
@@ -33,7 +32,7 @@ class CosechaDiaria extends Table {
   TextColumn get lineaFin => text()();
   TextColumn get numeroFin => text()();
   TextColumn get orientacionFin => text()();
-  TextColumn get responsable => text().references(Usuario, #ccUsuario)();
+  TextColumn get responsable => text()();
   BoolColumn get sincronizado => boolean().withDefault(const Constant(false))();
 }
 
