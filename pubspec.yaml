@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.3.2 <4.0.0"
+    sdk: ^3.5.3
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,10 +31,10 @@ dependencies:
     sdk: flutter
   flutter_localizations: # Add this line
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^9.0.0
   dio: ^5.0.1
   drift: ^2.21.0
-  drift_flutter: ^0.1.0
+  drift_flutter: ^0.2.4
   equatable: ^2.0.3
   flutter_form_builder: ^9.1.0
   flutter_secure_storage: ^9.2.2
@@ -52,7 +52,7 @@ dependencies:
   easy_sidemenu: ^0.6.0
   google_fonts: ^6.2.1
   google_maps_flutter: ^2.2.5
-  location: ^7.0.1
+  location: ^8.0.0
   image_picker: ^1.0.2
 dev_dependencies:
   drift_dev: ^2.21.0
