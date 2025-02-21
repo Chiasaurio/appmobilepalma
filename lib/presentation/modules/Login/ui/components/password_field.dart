@@ -22,45 +22,42 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
-        return Material(
-          elevation: 2.0,
-          shadowColor: Colors.grey,
-          child: TextField(
-            obscureText: _isHideenPassword,
-            onChanged: (value) {
-              BlocProvider.of<LoginCubit>(context).passwordChanged(value);
-            },
-            decoration: InputDecoration(
-              // errorText: state.password.invalid ? 'Contraseña muy corta' : null,
-              filled: true,
-              fillColor: Colors.white,
-              hintText: 'Ingrese su contraseña',
-              hintStyle: const TextStyle(fontSize: 16),
-              contentPadding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppPalmaColors.error),
-              ),
-              suffixIcon: InkWell(
-                onTap: _togglePasswordView,
-                child: _isHideenPassword
-                    ? const Icon(
-                        Icons.visibility_off_outlined,
-                        color: AppPalmaColors.darkgrey,
-                      )
-                    : const Icon(
-                        Icons.remove_red_eye_outlined,
-                        color: AppPalmaColors.blue,
-                      ),
-              ),
+        return TextField(
+          obscureText: _isHideenPassword,
+          onChanged: (value) {
+            BlocProvider.of<LoginCubit>(context).passwordChanged(value);
+          },
+          decoration: InputDecoration(
+            errorText:
+                state.password.isNotValid ? 'Contraseña muy corta' : null,
+            filled: true,
+            fillColor: Colors.white,
+            hintText: 'Ingrese su contraseña',
+            hintStyle: const TextStyle(fontSize: 16),
+            contentPadding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppPalmaColors.error),
+            ),
+            suffixIcon: InkWell(
+              onTap: _togglePasswordView,
+              child: _isHideenPassword
+                  ? const Icon(
+                      Icons.visibility_off_outlined,
+                      color: AppPalmaColors.darkgrey,
+                    )
+                  : const Icon(
+                      Icons.remove_red_eye_outlined,
+                      color: AppPalmaColors.blue,
+                    ),
             ),
           ),
         );

@@ -15,35 +15,31 @@ class _NameFieldState extends State<NameField> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
-        return Material(
-          elevation: 2.0,
-          shadowColor: Colors.grey,
-          child: TextField(
-              keyboardType: TextInputType.text,
-              onChanged: (value) {
-                BlocProvider.of<LoginCubit>(context).nameChanged(value);
-              },
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                errorText:
-                    state.name.isValid ? 'Por favor ingrese un usuario' : null,
-                hintText: 'Usuario',
-                hintStyle: const TextStyle(fontSize: 16),
-                contentPadding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: AppPalmaColors.error),
-                ),
-              )),
+        return TextField(
+          keyboardType: TextInputType.text,
+          onChanged: (value) {
+            BlocProvider.of<LoginCubit>(context).nameChanged(value);
+          },
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            errorText: !state.name.isValid ? 'Ingrese un usuario valido' : null,
+            hintText: 'Usuario',
+            hintStyle: const TextStyle(fontSize: 16),
+            contentPadding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppPalmaColors.error),
+            ),
+          ),
         );
       },
     );
