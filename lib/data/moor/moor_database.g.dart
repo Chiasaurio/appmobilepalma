@@ -10659,8 +10659,8 @@ class $FertilizacionesTable extends Fertilizaciones
       const VerificationMeta('idFertilizacion');
   @override
   late final GeneratedColumn<int> idFertilizacion = GeneratedColumn<int>(
-      'id_fertilizacion', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+      'id_fertilizacion', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _nombreLoteMeta =
       const VerificationMeta('nombreLote');
   @override
@@ -10734,6 +10734,8 @@ class $FertilizacionesTable extends Fertilizaciones
           _idFertilizacionMeta,
           idFertilizacion.isAcceptableOrUnknown(
               data['id_fertilizacion']!, _idFertilizacionMeta));
+    } else if (isInserting) {
+      context.missing(_idFertilizacionMeta);
     }
     if (data.containsKey('nombre_lote')) {
       context.handle(
@@ -10789,7 +10791,7 @@ class $FertilizacionesTable extends Fertilizaciones
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       idFertilizacion: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion']),
+          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion'])!,
       nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       fechaIngreso: attachedDatabase.typeMapping.read(
@@ -10813,7 +10815,7 @@ class $FertilizacionesTable extends Fertilizaciones
 
 class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   final int id;
-  final int? idFertilizacion;
+  final int idFertilizacion;
   final String nombreLote;
   final DateTime fechaIngreso;
   final DateTime? fechaSalida;
@@ -10822,7 +10824,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   final bool sincronizado;
   const Fertilizacione(
       {required this.id,
-      this.idFertilizacion,
+      required this.idFertilizacion,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
@@ -10833,9 +10835,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || idFertilizacion != null) {
-      map['id_fertilizacion'] = Variable<int>(idFertilizacion);
-    }
+    map['id_fertilizacion'] = Variable<int>(idFertilizacion);
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
@@ -10850,9 +10850,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   FertilizacionesCompanion toCompanion(bool nullToAbsent) {
     return FertilizacionesCompanion(
       id: Value(id),
-      idFertilizacion: idFertilizacion == null && nullToAbsent
-          ? const Value.absent()
-          : Value(idFertilizacion),
+      idFertilizacion: Value(idFertilizacion),
       nombreLote: Value(nombreLote),
       fechaIngreso: Value(fechaIngreso),
       fechaSalida: fechaSalida == null && nullToAbsent
@@ -10869,7 +10867,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Fertilizacione(
       id: serializer.fromJson<int>(json['id']),
-      idFertilizacion: serializer.fromJson<int?>(json['idFertilizacion']),
+      idFertilizacion: serializer.fromJson<int>(json['idFertilizacion']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
@@ -10884,7 +10882,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'idFertilizacion': serializer.toJson<int?>(idFertilizacion),
+      'idFertilizacion': serializer.toJson<int>(idFertilizacion),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
@@ -10896,7 +10894,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
 
   Fertilizacione copyWith(
           {int? id,
-          Value<int?> idFertilizacion = const Value.absent(),
+          int? idFertilizacion,
           String? nombreLote,
           DateTime? fechaIngreso,
           Value<DateTime?> fechaSalida = const Value.absent(),
@@ -10905,9 +10903,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
           bool? sincronizado}) =>
       Fertilizacione(
         id: id ?? this.id,
-        idFertilizacion: idFertilizacion.present
-            ? idFertilizacion.value
-            : this.idFertilizacion,
+        idFertilizacion: idFertilizacion ?? this.idFertilizacion,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
@@ -10973,7 +10969,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
 
 class FertilizacionesCompanion extends UpdateCompanion<Fertilizacione> {
   final Value<int> id;
-  final Value<int?> idFertilizacion;
+  final Value<int> idFertilizacion;
   final Value<String> nombreLote;
   final Value<DateTime> fechaIngreso;
   final Value<DateTime?> fechaSalida;
@@ -10992,14 +10988,15 @@ class FertilizacionesCompanion extends UpdateCompanion<Fertilizacione> {
   });
   FertilizacionesCompanion.insert({
     this.id = const Value.absent(),
-    this.idFertilizacion = const Value.absent(),
+    required int idFertilizacion,
     required String nombreLote,
     required DateTime fechaIngreso,
     this.fechaSalida = const Value.absent(),
     required int cantidadFertilizada,
     this.completado = const Value.absent(),
     this.sincronizado = const Value.absent(),
-  })  : nombreLote = Value(nombreLote),
+  })  : idFertilizacion = Value(idFertilizacion),
+        nombreLote = Value(nombreLote),
         fechaIngreso = Value(fechaIngreso),
         cantidadFertilizada = Value(cantidadFertilizada);
   static Insertable<Fertilizacione> custom({
@@ -11027,7 +11024,7 @@ class FertilizacionesCompanion extends UpdateCompanion<Fertilizacione> {
 
   FertilizacionesCompanion copyWith(
       {Value<int>? id,
-      Value<int?>? idFertilizacion,
+      Value<int>? idFertilizacion,
       Value<String>? nombreLote,
       Value<DateTime>? fechaIngreso,
       Value<DateTime?>? fechaSalida,
@@ -11511,9 +11508,9 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
       const VerificationMeta('idFertilizacion');
   @override
   late final GeneratedColumn<int> idFertilizacion = GeneratedColumn<int>(
-      'id_fertilizacion', aliasedName, false,
+      'id_fertilizacion', aliasedName, true,
       type: DriftSqlType.int,
-      requiredDuringInsert: true,
+      requiredDuringInsert: false,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES fertilizaciones (id_fertilizacion)'));
   static const VerificationMeta _fechaMeta = const VerificationMeta('fecha');
@@ -11636,8 +11633,6 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
           _idFertilizacionMeta,
           idFertilizacion.isAcceptableOrUnknown(
               data['id_fertilizacion']!, _idFertilizacionMeta));
-    } else if (isInserting) {
-      context.missing(_idFertilizacionMeta);
     }
     if (data.containsKey('fecha')) {
       context.handle(
@@ -11744,7 +11739,7 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       idFertilizacion: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion']),
       fecha: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
       cantidadFertilizada: attachedDatabase.typeMapping.read(
@@ -11783,7 +11778,7 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
 class FertilizacionDiariaData extends DataClass
     implements Insertable<FertilizacionDiariaData> {
   final int id;
-  final int idFertilizacion;
+  final int? idFertilizacion;
   final DateTime fecha;
   final int cantidadFertilizada;
   final double dosis;
@@ -11799,7 +11794,7 @@ class FertilizacionDiariaData extends DataClass
   final bool sincronizado;
   const FertilizacionDiariaData(
       {required this.id,
-      required this.idFertilizacion,
+      this.idFertilizacion,
       required this.fecha,
       required this.cantidadFertilizada,
       required this.dosis,
@@ -11817,7 +11812,9 @@ class FertilizacionDiariaData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['id_fertilizacion'] = Variable<int>(idFertilizacion);
+    if (!nullToAbsent || idFertilizacion != null) {
+      map['id_fertilizacion'] = Variable<int>(idFertilizacion);
+    }
     map['fecha'] = Variable<DateTime>(fecha);
     map['cantidad_fertilizada'] = Variable<int>(cantidadFertilizada);
     map['dosis'] = Variable<double>(dosis);
@@ -11837,7 +11834,9 @@ class FertilizacionDiariaData extends DataClass
   FertilizacionDiariaCompanion toCompanion(bool nullToAbsent) {
     return FertilizacionDiariaCompanion(
       id: Value(id),
-      idFertilizacion: Value(idFertilizacion),
+      idFertilizacion: idFertilizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idFertilizacion),
       fecha: Value(fecha),
       cantidadFertilizada: Value(cantidadFertilizada),
       dosis: Value(dosis),
@@ -11859,7 +11858,7 @@ class FertilizacionDiariaData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FertilizacionDiariaData(
       id: serializer.fromJson<int>(json['id']),
-      idFertilizacion: serializer.fromJson<int>(json['idFertilizacion']),
+      idFertilizacion: serializer.fromJson<int?>(json['idFertilizacion']),
       fecha: serializer.fromJson<DateTime>(json['fecha']),
       cantidadFertilizada:
           serializer.fromJson<int>(json['cantidadFertilizada']),
@@ -11882,7 +11881,7 @@ class FertilizacionDiariaData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'idFertilizacion': serializer.toJson<int>(idFertilizacion),
+      'idFertilizacion': serializer.toJson<int?>(idFertilizacion),
       'fecha': serializer.toJson<DateTime>(fecha),
       'cantidadFertilizada': serializer.toJson<int>(cantidadFertilizada),
       'dosis': serializer.toJson<double>(dosis),
@@ -11901,7 +11900,7 @@ class FertilizacionDiariaData extends DataClass
 
   FertilizacionDiariaData copyWith(
           {int? id,
-          int? idFertilizacion,
+          Value<int?> idFertilizacion = const Value.absent(),
           DateTime? fecha,
           int? cantidadFertilizada,
           double? dosis,
@@ -11917,7 +11916,9 @@ class FertilizacionDiariaData extends DataClass
           bool? sincronizado}) =>
       FertilizacionDiariaData(
         id: id ?? this.id,
-        idFertilizacion: idFertilizacion ?? this.idFertilizacion,
+        idFertilizacion: idFertilizacion.present
+            ? idFertilizacion.value
+            : this.idFertilizacion,
         fecha: fecha ?? this.fecha,
         cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
         dosis: dosis ?? this.dosis,
@@ -12031,7 +12032,7 @@ class FertilizacionDiariaData extends DataClass
 class FertilizacionDiariaCompanion
     extends UpdateCompanion<FertilizacionDiariaData> {
   final Value<int> id;
-  final Value<int> idFertilizacion;
+  final Value<int?> idFertilizacion;
   final Value<DateTime> fecha;
   final Value<int> cantidadFertilizada;
   final Value<double> dosis;
@@ -12064,7 +12065,7 @@ class FertilizacionDiariaCompanion
   });
   FertilizacionDiariaCompanion.insert({
     this.id = const Value.absent(),
-    required int idFertilizacion,
+    this.idFertilizacion = const Value.absent(),
     required DateTime fecha,
     required int cantidadFertilizada,
     required double dosis,
@@ -12078,8 +12079,7 @@ class FertilizacionDiariaCompanion
     required String responsable,
     required String nombreFertilizante,
     this.sincronizado = const Value.absent(),
-  })  : idFertilizacion = Value(idFertilizacion),
-        fecha = Value(fecha),
+  })  : fecha = Value(fecha),
         cantidadFertilizada = Value(cantidadFertilizada),
         dosis = Value(dosis),
         unidades = Value(unidades),
@@ -12130,7 +12130,7 @@ class FertilizacionDiariaCompanion
 
   FertilizacionDiariaCompanion copyWith(
       {Value<int>? id,
-      Value<int>? idFertilizacion,
+      Value<int?>? idFertilizacion,
       Value<DateTime>? fecha,
       Value<int>? cantidadFertilizada,
       Value<double>? dosis,
@@ -13459,7 +13459,7 @@ final class $$CensoTableReferences
   $$CensoEtapasPlagaTableProcessedTableManager get censoEtapasPlagaRefs {
     final manager =
         $$CensoEtapasPlagaTableTableManager($_db, $_db.censoEtapasPlaga)
-            .filter((f) => f.idCenso.id($_item.id));
+            .filter((f) => f.idCenso.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_censoEtapasPlagaRefsTable($_db));
@@ -13476,7 +13476,7 @@ final class $$CensoTableReferences
   $$ImagenCensoPlagaTableProcessedTableManager get imagenCensoPlagaRefs {
     final manager =
         $$ImagenCensoPlagaTableTableManager($_db, $_db.imagenCensoPlaga)
-            .filter((f) => f.idCenso.id($_item.id));
+            .filter((f) => f.idCenso.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_imagenCensoPlagaRefsTable($_db));
@@ -13926,8 +13926,8 @@ final class $$ProductoAgroquimicoTableReferences extends BaseReferences<
 
   $$AplicacionesTableProcessedTableManager get aplicacionesRefs {
     final manager = $$AplicacionesTableTableManager($_db, $_db.aplicaciones)
-        .filter((f) => f.idProductoAgroquimico
-            .idProductoAgroquimico($_item.idProductoAgroquimico));
+        .filter((f) => f.idProductoAgroquimico.idProductoAgroquimico
+            .sqlEquals($_itemColumn<int>('id_producto_agroquimico')!));
 
     final cache = $_typedResult.readTableOrNull(_aplicacionesRefsTable($_db));
     return ProcessedTableManager(
@@ -13945,8 +13945,8 @@ final class $$ProductoAgroquimicoTableReferences extends BaseReferences<
   $$RegistroTratamientoTableProcessedTableManager get registroTratamientoRefs {
     final manager =
         $$RegistroTratamientoTableTableManager($_db, $_db.registroTratamiento)
-            .filter((f) => f.idProductoAgroquimico
-                .idProductoAgroquimico($_item.idProductoAgroquimico));
+            .filter((f) => f.idProductoAgroquimico.idProductoAgroquimico
+                .sqlEquals($_itemColumn<int>('id_producto_agroquimico')!));
 
     final cache =
         $_typedResult.readTableOrNull(_registroTratamientoRefsTable($_db));
@@ -14344,10 +14344,11 @@ final class $$AplicacionesTableReferences
   static $CensoTable _idCensoTable(_$AppDatabase db) => db.censo
       .createAlias($_aliasNameGenerator(db.aplicaciones.idCenso, db.censo.id));
 
-  $$CensoTableProcessedTableManager? get idCenso {
-    if ($_item.idCenso == null) return null;
+  $$CensoTableProcessedTableManager get idCenso {
+    final $_column = $_itemColumn<int>('id_censo')!;
+
     final manager = $$CensoTableTableManager($_db, $_db.censo)
-        .filter((f) => f.id($_item.idCenso!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idCensoTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -14359,9 +14360,10 @@ final class $$AplicacionesTableReferences
           db.aplicaciones.idCensoFromServer, db.censo.idCenso));
 
   $$CensoTableProcessedTableManager? get idCensoFromServer {
-    if ($_item.idCensoFromServer == null) return null;
+    final $_column = $_itemColumn<int>('id_censo_from_server');
+    if ($_column == null) return null;
     final manager = $$CensoTableTableManager($_db, $_db.censo)
-        .filter((f) => f.idCenso($_item.idCensoFromServer!));
+        .filter((f) => f.idCenso.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idCensoFromServerTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -14374,11 +14376,12 @@ final class $$AplicacionesTableReferences
           db.aplicaciones.idProductoAgroquimico,
           db.productoAgroquimico.idProductoAgroquimico));
 
-  $$ProductoAgroquimicoTableProcessedTableManager? get idProductoAgroquimico {
-    if ($_item.idProductoAgroquimico == null) return null;
-    final manager = $$ProductoAgroquimicoTableTableManager(
-            $_db, $_db.productoAgroquimico)
-        .filter((f) => f.idProductoAgroquimico($_item.idProductoAgroquimico!));
+  $$ProductoAgroquimicoTableProcessedTableManager get idProductoAgroquimico {
+    final $_column = $_itemColumn<int>('id_producto_agroquimico')!;
+
+    final manager =
+        $$ProductoAgroquimicoTableTableManager($_db, $_db.productoAgroquimico)
+            .filter((f) => f.idProductoAgroquimico.sqlEquals($_column));
     final item =
         $_typedResult.readTableOrNull(_idProductoAgroquimicoTable($_db));
     if (item == null) return manager;
@@ -15107,9 +15110,10 @@ final class $$CosechasTableReferences
       .createAlias($_aliasNameGenerator(db.cosechas.idViaje, db.viajes.id));
 
   $$ViajesTableProcessedTableManager? get idViaje {
-    if ($_item.idViaje == null) return null;
+    final $_column = $_itemColumn<int>('id_viaje');
+    if ($_column == null) return null;
     final manager = $$ViajesTableTableManager($_db, $_db.viajes)
-        .filter((f) => f.id($_item.idViaje!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idViajeTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -15121,9 +15125,10 @@ final class $$CosechasTableReferences
           db.cosechas.idViajeFromServer, db.viajes.idViaje));
 
   $$ViajesTableProcessedTableManager? get idViajeFromServer {
-    if ($_item.idViajeFromServer == null) return null;
+    final $_column = $_itemColumn<int>('id_viaje_from_server');
+    if ($_column == null) return null;
     final manager = $$ViajesTableTableManager($_db, $_db.viajes)
-        .filter((f) => f.idViaje($_item.idViajeFromServer!));
+        .filter((f) => f.idViaje.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idViajeFromServerTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -15138,7 +15143,7 @@ final class $$CosechasTableReferences
 
   $$CosechaDiariaTableProcessedTableManager get cosechaDiariaRefs {
     final manager = $$CosechaDiariaTableTableManager($_db, $_db.cosechaDiaria)
-        .filter((f) => f.idCosecha.id($_item.id));
+        .filter((f) => f.idCosecha.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_cosechaDiariaRefsTable($_db));
     return ProcessedTableManager(
@@ -15624,10 +15629,11 @@ final class $$CosechaDiariaTableReferences extends BaseReferences<_$AppDatabase,
       db.cosechas.createAlias(
           $_aliasNameGenerator(db.cosechaDiaria.idCosecha, db.cosechas.id));
 
-  $$CosechasTableProcessedTableManager? get idCosecha {
-    if ($_item.idCosecha == null) return null;
+  $$CosechasTableProcessedTableManager get idCosecha {
+    final $_column = $_itemColumn<int>('id_cosecha')!;
+
     final manager = $$CosechasTableTableManager($_db, $_db.cosechas)
-        .filter((f) => f.id($_item.idCosecha!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idCosechaTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -16006,8 +16012,9 @@ final class $$EnfermedadesTableReferences
               db.enfermedades.nombreEnfermedad, db.etapas.nombreEnfermedad));
 
   $$EtapasTableProcessedTableManager get etapasRefs {
-    final manager = $$EtapasTableTableManager($_db, $_db.etapas).filter(
-        (f) => f.nombreEnfermedad.nombreEnfermedad($_item.nombreEnfermedad));
+    final manager = $$EtapasTableTableManager($_db, $_db.etapas).filter((f) => f
+        .nombreEnfermedad.nombreEnfermedad
+        .sqlEquals($_itemColumn<String>('nombre_enfermedad')!));
 
     final cache = $_typedResult.readTableOrNull(_etapasRefsTable($_db));
     return ProcessedTableManager(
@@ -16024,8 +16031,8 @@ final class $$EnfermedadesTableReferences
   $$RegistroEnfermedadTableProcessedTableManager get registroEnfermedadRefs {
     final manager =
         $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
-            .filter((f) =>
-                f.nombreEnfermedad.nombreEnfermedad($_item.nombreEnfermedad));
+            .filter((f) => f.nombreEnfermedad.nombreEnfermedad
+                .sqlEquals($_itemColumn<String>('nombre_enfermedad')!));
 
     final cache =
         $_typedResult.readTableOrNull(_registroEnfermedadRefsTable($_db));
@@ -16311,10 +16318,11 @@ final class $$EtapasTableReferences
       db.enfermedades.createAlias($_aliasNameGenerator(
           db.etapas.nombreEnfermedad, db.enfermedades.nombreEnfermedad));
 
-  $$EnfermedadesTableProcessedTableManager? get nombreEnfermedad {
-    if ($_item.nombreEnfermedad == null) return null;
+  $$EnfermedadesTableProcessedTableManager get nombreEnfermedad {
+    final $_column = $_itemColumn<String>('nombre_enfermedad')!;
+
     final manager = $$EnfermedadesTableTableManager($_db, $_db.enfermedades)
-        .filter((f) => f.nombreEnfermedad($_item.nombreEnfermedad!));
+        .filter((f) => f.nombreEnfermedad.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_nombreEnfermedadTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -16329,9 +16337,10 @@ final class $$EtapasTableReferences
               db.etapas.id, db.registroEnfermedad.idEtapaEnfermedad));
 
   $$RegistroEnfermedadTableProcessedTableManager get registroEnfermedadRefs {
-    final manager =
-        $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
-            .filter((f) => f.idEtapaEnfermedad.id($_item.id));
+    final manager = $$RegistroEnfermedadTableTableManager(
+            $_db, $_db.registroEnfermedad)
+        .filter(
+            (f) => f.idEtapaEnfermedad.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_registroEnfermedadRefsTable($_db));
@@ -16644,7 +16653,8 @@ final class $$PlagasTableReferences
 
   $$EtapasPlagaTableProcessedTableManager get etapasPlagaRefs {
     final manager = $$EtapasPlagaTableTableManager($_db, $_db.etapasPlaga)
-        .filter((f) => f.nombrePlaga.nombreComunPlaga($_item.nombreComunPlaga));
+        .filter((f) => f.nombrePlaga.nombreComunPlaga
+            .sqlEquals($_itemColumn<String>('nombre_comun_plaga')!));
 
     final cache = $_typedResult.readTableOrNull(_etapasPlagaRefsTable($_db));
     return ProcessedTableManager(
@@ -16853,10 +16863,11 @@ final class $$EtapasPlagaTableReferences
       db.plagas.createAlias($_aliasNameGenerator(
           db.etapasPlaga.nombrePlaga, db.plagas.nombreComunPlaga));
 
-  $$PlagasTableProcessedTableManager? get nombrePlaga {
-    if ($_item.nombrePlaga == null) return null;
+  $$PlagasTableProcessedTableManager get nombrePlaga {
+    final $_column = $_itemColumn<String>('nombre_plaga')!;
+
     final manager = $$PlagasTableTableManager($_db, $_db.plagas)
-        .filter((f) => f.nombreComunPlaga($_item.nombrePlaga!));
+        .filter((f) => f.nombreComunPlaga.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_nombrePlagaTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -16871,8 +16882,9 @@ final class $$EtapasPlagaTableReferences
 
   $$CensoEtapasPlagaTableProcessedTableManager get censoEtapasPlagaRefs {
     final manager =
-        $$CensoEtapasPlagaTableTableManager($_db, $_db.censoEtapasPlaga)
-            .filter((f) => f.idEtapasplaga.idEtapasPlaga($_item.idEtapasPlaga));
+        $$CensoEtapasPlagaTableTableManager($_db, $_db.censoEtapasPlaga).filter(
+            (f) => f.idEtapasplaga.idEtapasPlaga
+                .sqlEquals($_itemColumn<int>('id_etapas_plaga')!));
 
     final cache =
         $_typedResult.readTableOrNull(_censoEtapasPlagaRefsTable($_db));
@@ -17192,8 +17204,9 @@ final class $$LotesTableReferences
               $_aliasNameGenerator(db.lotes.nombreLote, db.palmas.nombreLote));
 
   $$PalmasTableProcessedTableManager get palmasRefs {
-    final manager = $$PalmasTableTableManager($_db, $_db.palmas)
-        .filter((f) => f.nombreLote.nombreLote($_item.nombreLote));
+    final manager = $$PalmasTableTableManager($_db, $_db.palmas).filter((f) => f
+        .nombreLote.nombreLote
+        .sqlEquals($_itemColumn<String>('nombre_lote')!));
 
     final cache = $_typedResult.readTableOrNull(_palmasRefsTable($_db));
     return ProcessedTableManager(
@@ -17208,8 +17221,9 @@ final class $$LotesTableReferences
 
   $$CensoProductivoTableProcessedTableManager get censoProductivoRefs {
     final manager =
-        $$CensoProductivoTableTableManager($_db, $_db.censoProductivo)
-            .filter((f) => f.nombreLote.nombreLote($_item.nombreLote));
+        $$CensoProductivoTableTableManager($_db, $_db.censoProductivo).filter(
+            (f) => f.nombreLote.nombreLote
+                .sqlEquals($_itemColumn<String>('nombre_lote')!));
 
     final cache =
         $_typedResult.readTableOrNull(_censoProductivoRefsTable($_db));
@@ -17543,10 +17557,11 @@ final class $$PalmasTableReferences
   static $LotesTable _nombreLoteTable(_$AppDatabase db) => db.lotes.createAlias(
       $_aliasNameGenerator(db.palmas.nombreLote, db.lotes.nombreLote));
 
-  $$LotesTableProcessedTableManager? get nombreLote {
-    if ($_item.nombreLote == null) return null;
+  $$LotesTableProcessedTableManager get nombreLote {
+    final $_column = $_itemColumn<String>('nombre_lote')!;
+
     final manager = $$LotesTableTableManager($_db, $_db.lotes)
-        .filter((f) => f.nombreLote($_item.nombreLote!));
+        .filter((f) => f.nombreLote.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_nombreLoteTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -17561,7 +17576,7 @@ final class $$PalmasTableReferences
 
   $$ErradicacionTableProcessedTableManager get erradicacionRefs {
     final manager = $$ErradicacionTableTableManager($_db, $_db.erradicacion)
-        .filter((f) => f.idPalma.id($_item.id));
+        .filter((f) => f.idPalma.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_erradicacionRefsTable($_db));
     return ProcessedTableManager(
@@ -17924,10 +17939,11 @@ final class $$ErradicacionTableReferences extends BaseReferences<_$AppDatabase,
   static $PalmasTable _idPalmaTable(_$AppDatabase db) => db.palmas
       .createAlias($_aliasNameGenerator(db.erradicacion.idPalma, db.palmas.id));
 
-  $$PalmasTableProcessedTableManager? get idPalma {
-    if ($_item.idPalma == null) return null;
+  $$PalmasTableProcessedTableManager get idPalma {
+    final $_column = $_itemColumn<int>('id_palma')!;
+
     final manager = $$PalmasTableTableManager($_db, $_db.palmas)
-        .filter((f) => f.id($_item.idPalma!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idPalmaTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -18233,7 +18249,7 @@ final class $$PlateosTableReferences
 
   $$PlateoDiarioTableProcessedTableManager get plateoDiarioRefs {
     final manager = $$PlateoDiarioTableTableManager($_db, $_db.plateoDiario)
-        .filter((f) => f.idPlateo.id($_item.id));
+        .filter((f) => f.idPlateo.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_plateoDiarioRefsTable($_db));
     return ProcessedTableManager(
@@ -18545,10 +18561,11 @@ final class $$PlateoDiarioTableReferences extends BaseReferences<_$AppDatabase,
       db.plateos.createAlias(
           $_aliasNameGenerator(db.plateoDiario.idPlateo, db.plateos.id));
 
-  $$PlateosTableProcessedTableManager? get idPlateo {
-    if ($_item.idPlateo == null) return null;
+  $$PlateosTableProcessedTableManager get idPlateo {
+    final $_column = $_itemColumn<int>('id_plateo')!;
+
     final manager = $$PlateosTableTableManager($_db, $_db.plateos)
-        .filter((f) => f.id($_item.idPlateo!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idPlateoTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -18919,7 +18936,7 @@ final class $$PodasTableReferences
 
   $$PodaDiariaTableProcessedTableManager get podaDiariaRefs {
     final manager = $$PodaDiariaTableTableManager($_db, $_db.podaDiaria)
-        .filter((f) => f.idPoda.id($_item.id));
+        .filter((f) => f.idPoda.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_podaDiariaRefsTable($_db));
     return ProcessedTableManager(
@@ -19214,10 +19231,11 @@ final class $$PodaDiariaTableReferences
   static $PodasTable _idPodaTable(_$AppDatabase db) => db.podas
       .createAlias($_aliasNameGenerator(db.podaDiaria.idPoda, db.podas.id));
 
-  $$PodasTableProcessedTableManager? get idPoda {
-    if ($_item.idPoda == null) return null;
+  $$PodasTableProcessedTableManager get idPoda {
+    final $_column = $_itemColumn<int>('id_poda')!;
+
     final manager = $$PodasTableTableManager($_db, $_db.podas)
-        .filter((f) => f.id($_item.idPoda!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idPodaTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -19596,10 +19614,11 @@ final class $$RegistroEnfermedadTableReferences extends BaseReferences<
   static $PalmasTable _idPalmaTable(_$AppDatabase db) => db.palmas.createAlias(
       $_aliasNameGenerator(db.registroEnfermedad.idPalma, db.palmas.id));
 
-  $$PalmasTableProcessedTableManager? get idPalma {
-    if ($_item.idPalma == null) return null;
+  $$PalmasTableProcessedTableManager get idPalma {
+    final $_column = $_itemColumn<int>('id_palma')!;
+
     final manager = $$PalmasTableTableManager($_db, $_db.palmas)
-        .filter((f) => f.id($_item.idPalma!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idPalmaTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -19611,9 +19630,10 @@ final class $$RegistroEnfermedadTableReferences extends BaseReferences<
           db.registroEnfermedad.idPalmaFromServer, db.palmas.idPalma));
 
   $$PalmasTableProcessedTableManager? get idPalmaFromServer {
-    if ($_item.idPalmaFromServer == null) return null;
+    final $_column = $_itemColumn<int>('id_palma_from_server');
+    if ($_column == null) return null;
     final manager = $$PalmasTableTableManager($_db, $_db.palmas)
-        .filter((f) => f.idPalma($_item.idPalmaFromServer!));
+        .filter((f) => f.idPalma.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idPalmaFromServerTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -19625,10 +19645,11 @@ final class $$RegistroEnfermedadTableReferences extends BaseReferences<
           db.registroEnfermedad.nombreEnfermedad,
           db.enfermedades.nombreEnfermedad));
 
-  $$EnfermedadesTableProcessedTableManager? get nombreEnfermedad {
-    if ($_item.nombreEnfermedad == null) return null;
+  $$EnfermedadesTableProcessedTableManager get nombreEnfermedad {
+    final $_column = $_itemColumn<String>('nombre_enfermedad')!;
+
     final manager = $$EnfermedadesTableTableManager($_db, $_db.enfermedades)
-        .filter((f) => f.nombreEnfermedad($_item.nombreEnfermedad!));
+        .filter((f) => f.nombreEnfermedad.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_nombreEnfermedadTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -19640,9 +19661,10 @@ final class $$RegistroEnfermedadTableReferences extends BaseReferences<
           db.registroEnfermedad.idEtapaEnfermedad, db.etapas.id));
 
   $$EtapasTableProcessedTableManager? get idEtapaEnfermedad {
-    if ($_item.idEtapaEnfermedad == null) return null;
+    final $_column = $_itemColumn<int>('id_etapa_enfermedad');
+    if ($_column == null) return null;
     final manager = $$EtapasTableTableManager($_db, $_db.etapas)
-        .filter((f) => f.id($_item.idEtapaEnfermedad!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idEtapaEnfermedadTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -19660,7 +19682,7 @@ final class $$RegistroEnfermedadTableReferences extends BaseReferences<
       get imagenRegistroEnfermedadRefs {
     final manager = $$ImagenRegistroEnfermedadTableTableManager(
             $_db, $_db.imagenRegistroEnfermedad)
-        .filter((f) => f.idEnfermedad.id($_item.id));
+        .filter((f) => f.idEnfermedad.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_imagenRegistroEnfermedadRefsTable($_db));
@@ -20290,11 +20312,12 @@ final class $$ImagenRegistroEnfermedadTableReferences extends BaseReferences<
       db.registroEnfermedad.createAlias($_aliasNameGenerator(
           db.imagenRegistroEnfermedad.idEnfermedad, db.registroEnfermedad.id));
 
-  $$RegistroEnfermedadTableProcessedTableManager? get idEnfermedad {
-    if ($_item.idEnfermedad == null) return null;
+  $$RegistroEnfermedadTableProcessedTableManager get idEnfermedad {
+    final $_column = $_itemColumn<int>('id_enfermedad')!;
+
     final manager =
         $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
-            .filter((f) => f.id($_item.idEnfermedad!));
+            .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idEnfermedadTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -20574,11 +20597,12 @@ final class $$RegistroTratamientoTableReferences extends BaseReferences<
           db.registroTratamiento.idRegistroEnfermedad,
           db.registroEnfermedad.id));
 
-  $$RegistroEnfermedadTableProcessedTableManager? get idRegistroEnfermedad {
-    if ($_item.idRegistroEnfermedad == null) return null;
+  $$RegistroEnfermedadTableProcessedTableManager get idRegistroEnfermedad {
+    final $_column = $_itemColumn<int>('id_registro_enfermedad')!;
+
     final manager =
         $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
-            .filter((f) => f.id($_item.idRegistroEnfermedad!));
+            .filter((f) => f.id.sqlEquals($_column));
     final item =
         $_typedResult.readTableOrNull(_idRegistroEnfermedadTable($_db));
     if (item == null) return manager;
@@ -20594,11 +20618,11 @@ final class $$RegistroTratamientoTableReferences extends BaseReferences<
 
   $$RegistroEnfermedadTableProcessedTableManager?
       get idRegistroEnfermedadFromServer {
-    if ($_item.idRegistroEnfermedadFromServer == null) return null;
+    final $_column = $_itemColumn<int>('id_registro_enfermedad_from_server');
+    if ($_column == null) return null;
     final manager =
         $$RegistroEnfermedadTableTableManager($_db, $_db.registroEnfermedad)
-            .filter((f) =>
-                f.idRegistroEnfermedad($_item.idRegistroEnfermedadFromServer!));
+            .filter((f) => f.idRegistroEnfermedad.sqlEquals($_column));
     final item = $_typedResult
         .readTableOrNull(_idRegistroEnfermedadFromServerTable($_db));
     if (item == null) return manager;
@@ -20612,11 +20636,12 @@ final class $$RegistroTratamientoTableReferences extends BaseReferences<
           db.registroTratamiento.idProductoAgroquimico,
           db.productoAgroquimico.idProductoAgroquimico));
 
-  $$ProductoAgroquimicoTableProcessedTableManager? get idProductoAgroquimico {
-    if ($_item.idProductoAgroquimico == null) return null;
-    final manager = $$ProductoAgroquimicoTableTableManager(
-            $_db, $_db.productoAgroquimico)
-        .filter((f) => f.idProductoAgroquimico($_item.idProductoAgroquimico!));
+  $$ProductoAgroquimicoTableProcessedTableManager get idProductoAgroquimico {
+    final $_column = $_itemColumn<int>('id_producto_agroquimico')!;
+
+    final manager =
+        $$ProductoAgroquimicoTableTableManager($_db, $_db.productoAgroquimico)
+            .filter((f) => f.idProductoAgroquimico.sqlEquals($_column));
     final item =
         $_typedResult.readTableOrNull(_idProductoAgroquimicoTable($_db));
     if (item == null) return manager;
@@ -21106,10 +21131,11 @@ final class $$CensoEtapasPlagaTableReferences extends BaseReferences<
   static $CensoTable _idCensoTable(_$AppDatabase db) => db.censo.createAlias(
       $_aliasNameGenerator(db.censoEtapasPlaga.idCenso, db.censo.id));
 
-  $$CensoTableProcessedTableManager? get idCenso {
-    if ($_item.idCenso == null) return null;
+  $$CensoTableProcessedTableManager get idCenso {
+    final $_column = $_itemColumn<int>('id_censo')!;
+
     final manager = $$CensoTableTableManager($_db, $_db.censo)
-        .filter((f) => f.id($_item.idCenso!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idCensoTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -21120,10 +21146,11 @@ final class $$CensoEtapasPlagaTableReferences extends BaseReferences<
       db.etapasPlaga.createAlias($_aliasNameGenerator(
           db.censoEtapasPlaga.idEtapasplaga, db.etapasPlaga.idEtapasPlaga));
 
-  $$EtapasPlagaTableProcessedTableManager? get idEtapasplaga {
-    if ($_item.idEtapasplaga == null) return null;
+  $$EtapasPlagaTableProcessedTableManager get idEtapasplaga {
+    final $_column = $_itemColumn<int>('id_etapasplaga')!;
+
     final manager = $$EtapasPlagaTableTableManager($_db, $_db.etapasPlaga)
-        .filter((f) => f.idEtapasPlaga($_item.idEtapasplaga!));
+        .filter((f) => f.idEtapasPlaga.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idEtapasplagaTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -21454,10 +21481,11 @@ final class $$ImagenCensoPlagaTableReferences extends BaseReferences<
   static $CensoTable _idCensoTable(_$AppDatabase db) => db.censo.createAlias(
       $_aliasNameGenerator(db.imagenCensoPlaga.idCenso, db.censo.id));
 
-  $$CensoTableProcessedTableManager? get idCenso {
-    if ($_item.idCenso == null) return null;
+  $$CensoTableProcessedTableManager get idCenso {
+    final $_column = $_itemColumn<int>('id_censo')!;
+
     final manager = $$CensoTableTableManager($_db, $_db.censo)
-        .filter((f) => f.id($_item.idCenso!));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idCensoTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -21868,7 +21896,7 @@ typedef $$PrecipitacionTableProcessedTableManager = ProcessedTableManager<
 typedef $$FertilizacionesTableCreateCompanionBuilder = FertilizacionesCompanion
     Function({
   Value<int> id,
-  Value<int?> idFertilizacion,
+  required int idFertilizacion,
   required String nombreLote,
   required DateTime fechaIngreso,
   Value<DateTime?> fechaSalida,
@@ -21879,7 +21907,7 @@ typedef $$FertilizacionesTableCreateCompanionBuilder = FertilizacionesCompanion
 typedef $$FertilizacionesTableUpdateCompanionBuilder = FertilizacionesCompanion
     Function({
   Value<int> id,
-  Value<int?> idFertilizacion,
+  Value<int> idFertilizacion,
   Value<String> nombreLote,
   Value<DateTime> fechaIngreso,
   Value<DateTime?> fechaSalida,
@@ -21901,10 +21929,10 @@ final class $$FertilizacionesTableReferences extends BaseReferences<
               db.fertilizacionDiaria.idFertilizacion));
 
   $$FertilizacionDiariaTableProcessedTableManager get fertilizacionDiariaRefs {
-    final manager = $$FertilizacionDiariaTableTableManager(
-            $_db, $_db.fertilizacionDiaria)
-        .filter(
-            (f) => f.idFertilizacion.idFertilizacion($_item.idFertilizacion));
+    final manager =
+        $$FertilizacionDiariaTableTableManager($_db, $_db.fertilizacionDiaria)
+            .filter((f) => f.idFertilizacion.idFertilizacion
+                .sqlEquals($_itemColumn<int>('id_fertilizacion')!));
 
     final cache =
         $_typedResult.readTableOrNull(_fertilizacionDiariaRefsTable($_db));
@@ -22090,7 +22118,7 @@ class $$FertilizacionesTableTableManager extends RootTableManager<
               $$FertilizacionesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int?> idFertilizacion = const Value.absent(),
+            Value<int> idFertilizacion = const Value.absent(),
             Value<String> nombreLote = const Value.absent(),
             Value<DateTime> fechaIngreso = const Value.absent(),
             Value<DateTime?> fechaSalida = const Value.absent(),
@@ -22110,7 +22138,7 @@ class $$FertilizacionesTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int?> idFertilizacion = const Value.absent(),
+            required int idFertilizacion,
             required String nombreLote,
             required DateTime fechaIngreso,
             Value<DateTime?> fechaSalida = const Value.absent(),
@@ -22208,10 +22236,10 @@ final class $$FertilizanteTableReferences extends BaseReferences<_$AppDatabase,
               db.fertilizacionDiaria.nombreFertilizante));
 
   $$FertilizacionDiariaTableProcessedTableManager get fertilizacionDiariaRefs {
-    final manager = $$FertilizacionDiariaTableTableManager(
-            $_db, $_db.fertilizacionDiaria)
-        .filter((f) =>
-            f.nombreFertilizante.nombreFertilizante($_item.nombreFertilizante));
+    final manager =
+        $$FertilizacionDiariaTableTableManager($_db, $_db.fertilizacionDiaria)
+            .filter((f) => f.nombreFertilizante.nombreFertilizante
+                .sqlEquals($_itemColumn<String>('nombre_fertilizante')!));
 
     final cache =
         $_typedResult.readTableOrNull(_fertilizacionDiariaRefsTable($_db));
@@ -22468,7 +22496,7 @@ typedef $$FertilizanteTableProcessedTableManager = ProcessedTableManager<
 typedef $$FertilizacionDiariaTableCreateCompanionBuilder
     = FertilizacionDiariaCompanion Function({
   Value<int> id,
-  required int idFertilizacion,
+  Value<int?> idFertilizacion,
   required DateTime fecha,
   required int cantidadFertilizada,
   required double dosis,
@@ -22486,7 +22514,7 @@ typedef $$FertilizacionDiariaTableCreateCompanionBuilder
 typedef $$FertilizacionDiariaTableUpdateCompanionBuilder
     = FertilizacionDiariaCompanion Function({
   Value<int> id,
-  Value<int> idFertilizacion,
+  Value<int?> idFertilizacion,
   Value<DateTime> fecha,
   Value<int> cantidadFertilizada,
   Value<double> dosis,
@@ -22513,10 +22541,11 @@ final class $$FertilizacionDiariaTableReferences extends BaseReferences<
           db.fertilizaciones.idFertilizacion));
 
   $$FertilizacionesTableProcessedTableManager? get idFertilizacion {
-    if ($_item.idFertilizacion == null) return null;
+    final $_column = $_itemColumn<int>('id_fertilizacion');
+    if ($_column == null) return null;
     final manager =
         $$FertilizacionesTableTableManager($_db, $_db.fertilizaciones)
-            .filter((f) => f.idFertilizacion($_item.idFertilizacion!));
+            .filter((f) => f.idFertilizacion.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idFertilizacionTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -22528,10 +22557,11 @@ final class $$FertilizacionDiariaTableReferences extends BaseReferences<
           db.fertilizacionDiaria.nombreFertilizante,
           db.fertilizante.nombreFertilizante));
 
-  $$FertilizanteTableProcessedTableManager? get nombreFertilizante {
-    if ($_item.nombreFertilizante == null) return null;
+  $$FertilizanteTableProcessedTableManager get nombreFertilizante {
+    final $_column = $_itemColumn<String>('nombre_fertilizante')!;
+
     final manager = $$FertilizanteTableTableManager($_db, $_db.fertilizante)
-        .filter((f) => f.nombreFertilizante($_item.nombreFertilizante!));
+        .filter((f) => f.nombreFertilizante.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_nombreFertilizanteTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -22841,7 +22871,7 @@ class $$FertilizacionDiariaTableTableManager extends RootTableManager<
                   $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int> idFertilizacion = const Value.absent(),
+            Value<int?> idFertilizacion = const Value.absent(),
             Value<DateTime> fecha = const Value.absent(),
             Value<int> cantidadFertilizada = const Value.absent(),
             Value<double> dosis = const Value.absent(),
@@ -22875,7 +22905,7 @@ class $$FertilizacionDiariaTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required int idFertilizacion,
+            Value<int?> idFertilizacion = const Value.absent(),
             required DateTime fecha,
             required int cantidadFertilizada,
             required double dosis,
@@ -23201,10 +23231,11 @@ final class $$CensoProductivoTableReferences extends BaseReferences<
   static $LotesTable _nombreLoteTable(_$AppDatabase db) => db.lotes.createAlias(
       $_aliasNameGenerator(db.censoProductivo.nombreLote, db.lotes.nombreLote));
 
-  $$LotesTableProcessedTableManager? get nombreLote {
-    if ($_item.nombreLote == null) return null;
+  $$LotesTableProcessedTableManager get nombreLote {
+    final $_column = $_itemColumn<String>('nombre_lote')!;
+
     final manager = $$LotesTableTableManager($_db, $_db.lotes)
-        .filter((f) => f.nombreLote($_item.nombreLote!));
+        .filter((f) => f.nombreLote.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_nombreLoteTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(

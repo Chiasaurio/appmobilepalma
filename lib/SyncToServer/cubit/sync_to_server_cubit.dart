@@ -482,14 +482,14 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
       if (res["success"]) {
         final FertilizacionDao fertilizacionDao = db.fertilizacionDao;
         var index = 0;
-        var ids = res["fertilizacionesIds"];
+        List<int> ids = res["fertilizacionesIds"];
         //Toca actualizar los ids locales con los que llegan
         for (var fertilizacion in state.fertilizacionesConDiariasPendientes!) {
           if (ids[index] > -1) {
             //si agrego la cosecha, toca actualizar el id
             await fertilizacionDao.updateFertilizacion(fertilizacion
                 .fertilizacion
-                .copyWith(idFertilizacion: Value(ids[index])));
+                .copyWith(idFertilizacion: ids[index]));
           }
           index++;
         }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../data/moor/moor_database.dart';
+import '../../data/moor/moor_database.dart';
 
 class PalmaConProcesos extends Equatable {
   final Palma palma;

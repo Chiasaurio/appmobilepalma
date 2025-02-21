@@ -5,7 +5,7 @@ import 'fertilizante_table.dart';
 
 class Fertilizaciones extends Table {
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get idFertilizacion => integer().nullable()();
+  IntColumn get idFertilizacion => integer()();
   TextColumn get nombreLote => text()();
   DateTimeColumn get fechaIngreso => dateTime()();
   DateTimeColumn get fechaSalida => dateTime().nullable()();
@@ -19,7 +19,7 @@ class Fertilizaciones extends Table {
 class FertilizacionDiaria extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get idFertilizacion =>
-      integer().references(Fertilizaciones, #idFertilizacion)();
+      integer().references(Fertilizaciones, #idFertilizacion).nullable()();
   DateTimeColumn get fecha => dateTime()();
   IntColumn get cantidadFertilizada => integer()();
   RealColumn get dosis => real()();

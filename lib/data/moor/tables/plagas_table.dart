@@ -15,9 +15,6 @@ class EtapasPlaga extends Table {
       .customConstraint('NOT NULL REFERENCES plagas(nombre_comun_plaga)')();
   TextColumn get nombreEtapa => text()();
   TextColumn get procedimientoEtapa => text()();
-  // TextColumn get nombreLote => text()();
-  // IntColumn get numerolinea => integer()();
-  // IntColumn get numeroenlinea => integer()();
   @override
   List<String> get customConstraints => ['UNIQUE (nombre_plaga, nombre_etapa)'];
 }
