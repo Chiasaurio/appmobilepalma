@@ -9,12 +9,12 @@ import 'package:intl/intl.dart';
 
 import '../sync_files/sync_files.dart';
 
-part 'bajar_info_state.dart';
+part 'sync_to_device_state.dart';
 
 enum SyncStatus { initial, loading, success, error }
 
-class BajarInfoCubit extends Cubit<BajarInfoState> {
-  BajarInfoCubit() : super(const BajarInfoState());
+class SynToDeviceCubit extends Cubit<SyncToDeviceState> {
+  SynToDeviceCubit() : super(const SyncToDeviceState());
   final db = getIt<AppDatabase>();
   DateFormat f = DateFormat('EEEE, d MMMM y', 'es');
 
@@ -25,7 +25,7 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
   SyncFertilizantes syncFertilizantes = SyncFertilizantes();
 
   void getFechasUltimaActualizacion() async {
-    emit(const BajarInfoState());
+    emit(const SyncToDeviceState());
     //Obtener fechas ultima actualización.
     final loteFechaUltimaActualizacion =
         await getLotesFechaUltimaActualizacion();
@@ -185,11 +185,14 @@ class BajarInfoCubit extends Cubit<BajarInfoState> {
       emit(state.copyWith(estadoAgroquimico: SyncStatus.loading));
       final ProductoAgroquimicoDao productoAgroquimicoDao =
           db.productoAgroquimicoDao;
+
       List<Insertable<ProductoAgroquimicoData>> dataproductos =
           await syncproductos.getProductos();
+
       if (dataproductos.isEmpty) {
         emit(state.copyWith(estadoAgroquimico: SyncStatus.error));
       } else {
+        await productoAgroquimicoDao.deleteProducts();
         await productoAgroquimicoDao.insertProductos(dataproductos);
         emit(state.copyWith(estadoAgroquimico: SyncStatus.success));
       }

@@ -4,10 +4,10 @@ import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/moor/daos/daos.dart';
-import '../../data/moor/tables/tables.dart';
-import '../../main.dart';
-import '../../utils/form_status.dart';
+import '../../../../data/moor/daos/daos.dart';
+import '../../../../data/moor/tables/tables.dart';
+import '../../../../main.dart';
+import '../../../../utils/form_status.dart';
 
 part 'sync_to_server_state.dart';
 

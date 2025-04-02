@@ -293,21 +293,22 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
         SizedBox(height: height * 0.0009),
         Row(
           children: <Widget>[
-            Expanded(child: _buildCantidad('cantidad racimos')),
+            Expanded(
+                child: _buildCantidad('cantidad racimos', racimoscontroller)),
           ],
         ),
         const SizedBox(height: 10),
         Row(
           children: <Widget>[
-            Expanded(child: _buildCantidad('kilos')),
+            Expanded(child: _buildCantidad('kilos', kiloscontroller)),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildCantidad(String campo) {
-    return TextFormField(
+  Widget _buildCantidad(String campo, TextEditingController controller) {
+    /* return TextFormField(
       controller: campo == 'kilos' ? kiloscontroller : racimoscontroller,
       style: const TextStyle(fontSize: 25),
       textAlign: TextAlign.start,
@@ -324,6 +325,26 @@ class _CosechaDiariaPageState extends State<CosechaDiariaPage> {
       ),
       validator: (String? value) =>
           value != '' ? null : 'Debe ingresar un valor',
+    ); */
+    return FormBuilderTextField(
+      // initialValue: lineaInicio?.toString(),
+      // onChanged: (value) => lineaInicio = int.tryParse(value ?? ''),
+      controller: controller,
+      name: campo,
+      keyboardType: TextInputType.number,
+      style: const TextStyle(fontSize: 18),
+      decoration: InputDecoration(
+        label: Text(
+          campo,
+          style: TextStyle(fontSize: 18),
+        ),
+        contentPadding: EdgeInsets.only(left: 10),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey), //<-- SEE HERE
+        ),
+      ),
+      validator: (value) =>
+          value == null || value == '' ? 'Este campo es requerido' : null,
     );
   }
 

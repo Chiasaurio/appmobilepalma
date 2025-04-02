@@ -1,9 +1,9 @@
-import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
+import 'package:apppalma/presentation/modules/SyncToServer/cubit/sync_to_server_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../presentation/constants.dart';
-import '../../utils/form_status.dart';
+import '../../../constants.dart';
+import '../../../../utils/form_status.dart';
 
 class SubirALaNubeButton extends StatelessWidget {
   const SubirALaNubeButton({super.key});

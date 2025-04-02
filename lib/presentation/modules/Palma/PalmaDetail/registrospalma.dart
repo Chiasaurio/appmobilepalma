@@ -1,4 +1,4 @@
-import 'package:apppalma/domain/palma/models/palma_con_procesos_model.dart';
+import 'package:apppalma/presentation/models/palma_con_procesos_model.dart';
 import 'package:apppalma/presentation/modules/Palma/PalmaDetail/body.dart';
 import 'package:apppalma/presentation/components/custom_appbar.dart';
 import 'package:apppalma/data/moor/moor_database.dart';

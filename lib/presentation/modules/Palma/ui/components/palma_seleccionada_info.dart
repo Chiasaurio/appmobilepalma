@@ -1,4 +1,4 @@
-import 'package:apppalma/domain/palma/models/palma_con_procesos_model.dart';
+import 'package:apppalma/presentation/models/palma_con_procesos_model.dart';
 import 'package:apppalma/presentation/modules/Palma/cubit/palma_cubit.dart';
 import 'package:apppalma/presentation/modules/Palma/ui/erradicacion/submit_erradicacion_button.dart';
 import 'package:apppalma/utils/form_status.dart';

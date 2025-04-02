@@ -34,4 +34,12 @@ class ProductoAgroquimicoDao extends DatabaseAccessor<AppDatabase>
       });
     } catch (_) {}
   }
+
+  deleteProducts() async {
+    try {
+      await batch((b) {
+        b.deleteAll(productoAgroquimico);
+      });
+    } catch (_) {}
+  }
 }

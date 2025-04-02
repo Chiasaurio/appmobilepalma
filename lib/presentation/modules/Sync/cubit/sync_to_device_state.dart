@@ -1,7 +1,7 @@
-part of 'bajar_info_cubit.dart';
+part of 'sync_to_device_cubit.dart';
 
-class BajarInfoState extends Equatable {
-  const BajarInfoState({
+class SyncToDeviceState extends Equatable {
+  const SyncToDeviceState({
     this.estadoLote = SyncStatus.initial,
     this.estadoEnfermedad = SyncStatus.initial,
     this.estadoPlaga = SyncStatus.initial,
@@ -39,7 +39,7 @@ class BajarInfoState extends Equatable {
         fertilizanteFechaUltimaActualizacion
       ];
 
-  BajarInfoState copyWith({
+  SyncToDeviceState copyWith({
     SyncStatus? estadoLote,
     SyncStatus? estadoEnfermedad,
     SyncStatus? estadoPlaga,
@@ -51,7 +51,7 @@ class BajarInfoState extends Equatable {
     String? agroquimicoFechaUltimaActualizacion,
     String? fertilizanteFechaUltimaActualizacion,
   }) {
-    return BajarInfoState(
+    return SyncToDeviceState(
       estadoLote: estadoLote ?? this.estadoLote,
       estadoEnfermedad: estadoEnfermedad ?? this.estadoEnfermedad,
       estadoPlaga: estadoPlaga ?? this.estadoPlaga,

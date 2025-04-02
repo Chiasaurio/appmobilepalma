@@ -1,10 +1,10 @@
-import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
+import 'package:apppalma/presentation/modules/SyncToServer/cubit/sync_to_server_cubit.dart';
 import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/moor/tables/tables.dart';
+import '../../../../data/moor/tables/tables.dart';
 
 class CardPendientes extends StatefulWidget {
   const CardPendientes({super.key});

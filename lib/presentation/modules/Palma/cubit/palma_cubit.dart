@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:apppalma/domain/palma/models/palma_con_procesos_model.dart';
+import 'package:apppalma/presentation/models/palma_con_procesos_model.dart';
 import 'package:apppalma/presentation/components/toasts/toasts.dart';
 import 'package:apppalma/data/moor/daos/daos.dart';
 import 'package:apppalma/main.dart';

@@ -20,8 +20,7 @@ class RegistroEnfermedadDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<RegistroEnfermedadData?> getLocalRegistroEnfermedad(int id) {
-    return (select(registroEnfermedad)
-          ..where((r) => r.idRegistroEnfermedad.equals(id)))
+    return (select(registroEnfermedad)..where((r) => r.id.equals(id)))
         .getSingleOrNull();
   }
 

@@ -253,7 +253,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
           label: Text(
-            'Area (hectareas)',
+            'Area (m2)',
             style: TextStyle(fontSize: 15),
           ),
           contentPadding: EdgeInsets.only(left: 10),

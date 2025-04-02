@@ -1,4 +1,4 @@
-import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
+import 'package:apppalma/presentation/modules/SyncToServer/cubit/sync_to_server_cubit.dart';
 import 'package:apppalma/presentation/components/widgets/drawer.dart';
 import 'package:apppalma/presentation/components/widgets/sliver_app_bar.dart';
 import 'package:flutter/material.dart';

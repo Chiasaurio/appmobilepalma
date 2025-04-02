@@ -2,8 +2,17 @@ import 'package:apppalma/data/api.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:drift/drift.dart';
 
+import '../../../../main.dart';
+
+class SyncFromServerDataAgroquimicos {
+  final List<Insertable<ProductoAgroquimicoData>> serverProducts;
+
+  SyncFromServerDataAgroquimicos({required this.serverProducts});
+}
+
 class SyncProductosAgroquimicos {
   final Api _apiInstance = Api.getInstance();
+  final db = getIt<AppDatabase>();
 
   Future<List<Insertable<ProductoAgroquimicoData>>> getProductos() async {
     try {
@@ -12,7 +21,9 @@ class SyncProductosAgroquimicos {
       final resp = await _apiInstance.get('agroquimicoTodas');
       dataproductos = resp['data'];
       List<Insertable<ProductoAgroquimicoData>> productos = [];
+      List<int> idsFromServer = [];
       for (var element in dataproductos) {
+        idsFromServer.add(element['id_producto_agroquimico']);
         ProductoAgroquimicoCompanion aux = ProductoAgroquimicoCompanion(
             idProductoAgroquimico: Value(element['id_producto_agroquimico']),
             nombreProductoAgroquimico:
@@ -29,6 +40,7 @@ class SyncProductosAgroquimicos {
             fechaUltimaActualizacion: Value(fechaHoy));
         productos.add(aux);
       }
+
       return productos;
     } catch (e) {
       return [];

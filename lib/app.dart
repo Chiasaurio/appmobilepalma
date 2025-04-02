@@ -1,4 +1,4 @@
-import 'package:apppalma/SyncToServer/cubit/sync_to_server_cubit.dart';
+import 'package:apppalma/presentation/modules/SyncToServer/cubit/sync_to_server_cubit.dart';
 import 'package:apppalma/presentation/modules/Censo/cubit/censos_cubit.dart';
 import 'package:apppalma/presentation/modules/Censo_Productivo/cubit/censo_productivo_cubit.dart';
 import 'package:apppalma/presentation/modules/Cosechas/cubit/cosecha_cubit.dart';
@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'presentation/modules/Sync/cubit/bajar_info_cubit.dart';
+import 'presentation/modules/Sync/cubit/sync_to_device_cubit.dart';
 import 'presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'globals.dart';
 
@@ -38,7 +38,7 @@ class AppPalma extends StatelessWidget {
     // final userRepository = UserRepository();
     return MultiBlocProvider(
       providers: [
-        BlocProvider<BajarInfoCubit>(create: (context) => BajarInfoCubit()),
+        BlocProvider<SynToDeviceCubit>(create: (context) => SynToDeviceCubit()),
         BlocProvider<AuthenticationCubit>(
             create: (context) => AuthenticationCubit()),
         BlocProvider<LoginCubit>(create: (context) => LoginCubit()),

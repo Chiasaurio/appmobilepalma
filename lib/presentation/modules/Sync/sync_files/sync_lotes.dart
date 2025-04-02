@@ -25,7 +25,7 @@ class SyncLotes {
       }
       return lotes;
     } catch (e) {
-      throw Exception();
+      throw Exception(e);
     }
   }
 }

@@ -22,8 +22,14 @@ class FumigacionCubit extends Cubit<FumigacionState> {
   Future<void> obtenerProductos(CensoData censo) async {
     final ProductoAgroquimicoDao productosDao = db.productoAgroquimicoDao;
     List<ProductoAgroquimicoData> productos = await productosDao.getProductos();
-    emit(state.copyWith(
-        censo: censo, productos: productos, productosLoaded: true));
+    List<ProductoAgroquimicoData> aux = [];
+    for (var element in productos) {
+      if (element.nombreProductoAgroquimico != "hola" &&
+          element.nombreProductoAgroquimico != 'prueba') {
+        aux.add(element);
+      }
+    }
+    emit(state.copyWith(censo: censo, productos: aux, productosLoaded: true));
   }
 
   registrarAplicacion(

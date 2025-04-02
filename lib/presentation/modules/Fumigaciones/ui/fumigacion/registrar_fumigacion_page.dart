@@ -16,7 +16,6 @@ class RegistrarFumigacionPage extends StatelessWidget {
     return BlocConsumer<FumigacionCubit, FumigacionState>(
       listener: (context, state) {
         if (state.status == FormStatus.submissionSuccess) {
-          // BlocProvider.of<FumigacionCubit>(context).clear();
           BlocProvider.of<CensosCubit>(context)
               .obtenerCensosPendientes(state.censo!.nombreLote);
           Navigator.of(context).pop();
@@ -31,12 +30,6 @@ class RegistrarFumigacionPage extends StatelessWidget {
             SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
               if (state.productosLoaded) {
-                // return SliverList(
-                //     delegate: SliverChildListDelegate([
-                //   const Center(
-                //     child: CircularProgressIndicator(),
-                //   )
-                // ]));
                 return FumigacionForm(
                     censo: state.censo!, productos: state.productos!);
               } else {

@@ -1,6 +1,6 @@
 import 'package:apppalma/presentation/constants.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
-import 'package:apppalma/presentation/modules/Sync/cubit/bajar_info_cubit.dart';
+import 'package:apppalma/presentation/modules/Sync/cubit/sync_to_device_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +15,7 @@ class CardUltimaSync extends StatefulWidget {
 class _CardUltimaSyncsState extends State<CardUltimaSync> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BajarInfoCubit, BajarInfoState>(
+    return BlocConsumer<SynToDeviceCubit, SyncToDeviceState>(
       listener: (context, state) {
         setState(() {});
       },
@@ -67,7 +67,7 @@ class TextSyncPendiente extends StatelessWidget {
   Widget build(BuildContext context) {
     String text = '';
     SyncStatus status = SyncStatus.initial;
-    return BlocBuilder<BajarInfoCubit, BajarInfoState>(
+    return BlocBuilder<SynToDeviceCubit, SyncToDeviceState>(
       builder: (context, state) {
         if (type == Lote) {
           text = 'Lotes';

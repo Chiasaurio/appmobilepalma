@@ -2,7 +2,7 @@ import 'package:apppalma/presentation/modules/Censo_Productivo/page.dart';
 import 'package:apppalma/presentation/modules/Censo_Productivo/ui/agregar_censo_productivo_page.dart';
 import 'package:flutter/material.dart';
 
-import 'SyncToServer/ui/sincronizar_a_servidor_page.dart';
+import 'presentation/modules/SyncToServer/ui/sincronizar_a_servidor_page.dart';
 import 'presentation/modules/Aplicaciones/ui/aplicaciones_page.dart';
 import 'presentation/modules/Censo/ui/censo_page.dart';
 import 'presentation/modules/Cosechas/ui/cosecha_page.dart';

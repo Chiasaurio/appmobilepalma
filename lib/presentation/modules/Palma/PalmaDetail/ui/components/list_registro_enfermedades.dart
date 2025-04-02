@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:apppalma/domain/palma/models/palma_con_procesos_model.dart';
+import 'package:apppalma/presentation/models/palma_con_procesos_model.dart';
 import 'package:flutter/material.dart';
 
 class RegistroEnfermedadesList extends StatefulWidget {

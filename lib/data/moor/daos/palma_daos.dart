@@ -249,8 +249,8 @@ class PalmaDao extends DatabaseAccessor<AppDatabase> with _$PalmaDaoMixin {
       ).get();
     }
     List<PalmaConEnfermedad> result = [];
-    Etapa? etapa;
     for (var resultRow in rows) {
+      Etapa? etapa;
       final nombreEnfermedad =
           resultRow.readTableOrNull(registroEnfermedad)?.nombreEnfermedad;
       if (nombreEnfermedad != null) {

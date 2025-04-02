@@ -1,11 +1,10 @@
 import 'package:apppalma/presentation/components/widgets/drawer.dart';
 import 'package:apppalma/presentation/modules/Sync/card_de_ultima_sync.dart';
-import 'package:apppalma/presentation/modules/Sync/cubit/bajar_info_cubit.dart';
+import 'package:apppalma/presentation/modules/Sync/cubit/sync_to_device_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../components/widgets/header_gradient.dart';
-import 'sync_bloc.dart';
 
 class SincronizacionPage extends StatefulWidget {
   final bool? disableBack;
@@ -20,13 +19,12 @@ class SincronizacionPage extends StatefulWidget {
 class _SincronizacionPageState extends State<SincronizacionPage> {
   @override
   void initState() {
-    BlocProvider.of<BajarInfoCubit>(context).getFechasUltimaActualizacion();
+    BlocProvider.of<SynToDeviceCubit>(context).getFechasUltimaActualizacion();
     super.initState();
   }
 
   final DateTime fecha =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-  SyncBloc syncBloc = SyncBloc();
 
   late String ruta;
   bool cargandobool = false;
@@ -52,7 +50,7 @@ class _SincronizacionPageState extends State<SincronizacionPage> {
               child: ElevatedButton(
                 child: const Text("Sincronizar"),
                 onPressed: () {
-                  BlocProvider.of<BajarInfoCubit>(context)
+                  BlocProvider.of<SynToDeviceCubit>(context)
                       .bajarRegistrosDelServidor();
                 },
               ),
