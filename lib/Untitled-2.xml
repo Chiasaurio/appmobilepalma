@@ -1,0 +1,56 @@
+INSERT INTO public."PALMA" (id_palma, nombre_lote, numero_linea, numero_en_linea, orientacion_palma, estado_palma)
+VALUES
+-- Palmas del lote ACUEDUCTO
+(1001, 'ACUEDUCTO', 1, 1, 'NORTE-SUR', 'Pendiente por tratar'),
+(1002, 'ACUEDUCTO', 1, 2, 'SUR-NORTE', 'Pendiente por tratar'),
+(1003, 'ACUEDUCTO', 2, 1, 'ORIENTE-OCCIDENTE', 'Pendiente por tratar'),
+(1004, 'ACUEDUCTO', 2, 2, 'NORTE-SUR', 'Pendiente por tratar'),
+
+-- Palmas del lote BELLA ISLA 2015
+(2001, 'BELLA ISLA 2015', 1, 1, 'SUR-NORTE', 'Pendiente por tratar'),
+(2002, 'BELLA ISLA 2015', 1, 2, 'ORIENTE-OCCIDENTE', 'Pendiente por tratar'),
+(2003, 'BELLA ISLA 2015', 2, 1, 'NORTE-SUR', 'Pendiente por tratar'),
+(2004, 'BELLA ISLA 2015', 2, 2, 'SUR-NORTE', 'Pendiente por tratar'),
+
+-- Palmas del lote BOGOTA A
+(3001, 'BOGOTA A', 1, 1, 'ORIENTE-OCCIDENTE', 'Pendiente por tratar'),
+(3002, 'BOGOTA A', 1, 2, 'NORTE-SUR', 'Pendiente por tratar'),
+(3003, 'BOGOTA A', 2, 1, 'SUR-NORTE', 'Pendiente por tratar'),
+(3004, 'BOGOTA A', 2, 2, 'ORIENTE-OCCIDENTE', 'Pendiente por tratar');
+
+
+INSERT INTO public."REGISTRO_ENFERMEDAD" 
+(id_registro_enfermedad, fecha_registro_enfermedad, hora_registro_enfermedad, id_palma, nombre_enfermedad, id_etapa_enfermedad, observacion_registro_enfermedad, cc_usuario, dada_de_alta)
+VALUES
+(5001, '2024-03-12', '2024-03-12 09:00:00', 1001, 'Marchitez sorpresiva', 105, 'Amarillamiento en hojas bajas', '1098765432', false),
+(5002, '2024-04-05', '2024-04-05 14:30:00', 1002, 'Marchitez Letal', 104, 'Frutos caídos prematuramente', '1098765432', false),
+(5003, '2024-05-18', '2024-05-18 11:15:00', 1003, 'Caidez', NULL, 'Palma con caída de hojas', '1098765432', false),
+(5004, '2024-06-10', '2024-06-10 08:45:00', 1004, 'Pudrición basal de estípite', NULL, 'Lesión en la base del estípite', '1098765432', false),
+
+(5005, '2024-07-22', '2024-07-22 15:20:00', 2001, 'Rayo', NULL, 'Palma dañada por descarga eléctrica', '1098765432', false),
+(5006, '2024-08-30', '2024-08-30 10:05:00', 2002, 'Pudrición de Cogollo', 122, 'Cogollo con necrosis parcial', '1098765432', false),
+(5007, '2024-09-14', '2024-09-14 13:40:00', 2003, 'Marchitez sorpresiva', 105, 'Palma debilitada', '1098765432', false),
+(5008, '2024-10-01', '2024-10-01 16:50:00', 2004, 'Pudrición de Cogollo', 104, 'Síntomas en etapa avanzada', '1098765432', false),
+
+(5009, '2025-01-09', '2025-01-09 09:10:00', 3001, 'Marchitez Letal', 104, 'Palma amarillenta y seca', '1098765432', false),
+(5010, '2025-02-18', '2025-02-18 11:30:00', 3002, 'Caidez', NULL, 'Fronda caída sin causa aparente', '1098765432', false),
+(5011, '2025-03-22', '2025-03-22 14:00:00', 3003, 'Pudrición de Cogollo', 122, 'Brotes destruidos por hongo', '1098765432', false),
+(5012, '2025-04-15', '2025-04-15 08:20:00', 3004, 'Rayo', NULL, 'Palma afectada tras tormenta', '1098765432', false);
+
+
+INSERT INTO public."IMAGEN_REGISTRO_ENFERMEDAD" 
+(id, id_registro_enfermedad, imagen)
+VALUES
+(9001, 5001, decode('89504E470D0A', 'hex')),
+(9002, 5002, decode('FFD8FFE000104A', 'hex')),
+(9003, 5003, decode('89504E470D0A', 'hex')),
+(9004, 5004, decode('FFD8FFE000104A', 'hex')),
+(9005, 5005, decode('89504E470D0A', 'hex')),
+(9006, 5006, decode('FFD8FFE000104A', 'hex')),
+(9007, 5007, decode('89504E470D0A', 'hex')),
+(9008, 5008, decode('FFD8FFE000104A', 'hex')),
+(9009, 5009, decode('89504E470D0A', 'hex')),
+(9010, 5010, decode('FFD8FFE000104A', 'hex')),
+(9011, 5011, decode('89504E470D0A', 'hex')),
+(9012, 5012, decode('FFD8FFE000104A', 'hex'));
+w

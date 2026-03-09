@@ -1,0 +1,322 @@
+INSERT INTO public."USUARIO" (cc_usuario, nombre_usuario, cargo_empresa, contrasena_usuario, rol, validado, telefono, correo) VALUES
+('1098800112', 'Maggie', 'trabajador de campo', NULL, 'user', true, NULL, NULL),
+('1098800113', 'Betty', 'administrador', 'maggie2024', 'admin', true, NULL, NULL),
+('5', 'Fulano de Tal', 'supervisor de campo', '$2a$10$J.QDfsGA59cZbBWmVXBWCuka2CmDwwA8Wmg25qT/Jm93hhIFkt8De', 'user', false, NULL, NULL),
+('3456123', '34563456', 'Administrador', '$2a$10$43pOp.t6ZnKhQdpK4BjTl.jn6wEGXaljWNv8QIGNsL.pCrm.YRIr.', 'user', true, NULL, NULL),
+('1098765432', 'Arom Matias', 'Administrador', '$2a$12$MvsTao5TrlZWNxbejvaepe7bpLp6K.q.3zMs8m6amQVp/jRkFu8ri', 'admin', true, NULL, NULL),
+('1098800111', 'Pedro Hernando', 'Administrador', '$2a$10$nzds8HCceLdlnEsIyqWnaua3ZTVpPlQPlRM6ryE6X9mBo1AOW4/gu', 'admin', true, NULL, NULL),
+('12345', 'Matías de la Oz', 'administrador', '$2a$10$IQdNC3Wc3cf6/FfjY0ZUXuLpTJMm5N1cy5YNOqDS7yXBnQk/hkwe2', 'user', false, NULL, NULL);
+
+-- INSERT para tabla LOTE
+INSERT INTO public."LOTE" ("año_siembra", hectareas, nombre_lote, numero_palmas, material_siembra, fue_borrado, mapa, numero_lineas, palmas_por_linea) VALUES
+(2015, 10, 'BELLA ISLA 2015', 1404, '2', false, NULL, 52, 27),
+(2008, 26, 'BOGOTA A', 3750, '3', false, NULL, 150, 25),
+(2008, 13, 'BOGOTA B', 1896, 'NO HAY', false, NULL, 79, 24),
+(2008, 32, 'CAÑO COTIZA', 4540, 'NO HAY', false, NULL, 227, 20),
+(2008, 14, 'CASA VIEJA', 2064, 'NO HAY', false, NULL, 86, 24),
+(2008, 5, 'CEMENTERIO', 760, 'NO HAY', false, '<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>lote acueducto.kmz</name>
+	<Style id="sn_ylw-pushpin">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ff7f55aa</color>
+			<width>2</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>4d7f55aa</color>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="msn_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_ylw-pushpin">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+			</Icon>
+			<hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<BalloonStyle>
+		</BalloonStyle>
+		<LineStyle>
+			<color>ff7f55aa</color>
+			<width>2</width>
+		</LineStyle>
+		<PolyStyle>
+			<color>4d7f55aa</color>
+		</PolyStyle>
+	</Style>
+	<Placemark>
+		<name>lote acueducto</name>
+		<styleUrl>#msn_ylw-pushpin</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						-73.63045932577035,6.899828529131772,0 -73.63038215622456,6.89896603860391,0 -73.63031723744729,6.898396242692056,0 -73.63026235376948,6.89789493770914,0 -73.63022212153427,6.897737724683215,0 -73.63013882488096,6.897730280254442,0 -73.62998885254586,6.897638773414841,0 -73.62989412399729,6.897654218237787,0 -73.6298511266389,6.897640961483482,0 -73.62982879125688,6.897493109485293,0 -73.62986756162334,6.89737131244814,0 -73.62991825108196,6.897191634802595,0 -73.62992435748316,6.89707133697463,0 -73.62991284278111,6.896979876171097,0 -73.62993700996408,6.896892380842748,0 -73.62998158081642,6.896838931804417,0 -73.63004898907452,6.89676818186586,0 -73.63004251723281,6.896690745969181,0 -73.63003912427735,6.896601113292409,0 -73.63010113072292,6.896467069136403,0 -73.62997993074603,6.896320255425267,0 -73.62975084918547,6.89620102217408,0 -73.62949028156271,6.896072552236388,0 -73.62939641783689,6.896037683713242,0 -73.62926593970551,6.895980224440457,0 -73.62919741092932,6.895940797122563,0 -73.62913937279599,6.895906487684676,0 -73.62911056912384,6.895925577422017,0 -73.62905143795656,6.895973420495179,0 -73.62900485135485,6.896015156524682,0 -73.62892292737672,6.896091382372881,0 -73.62884553911198,6.896171621446927,0 -73.62877140328077,6.896253277676513,0 -73.62868850401537,6.896320971834524,0 -73.62864314591485,6.896366715840627,0 -73.62860876885908,6.896429814013932,0 -73.62858580393977,6.896518777576886,0 -73.62858386284309,6.896597978593139,0 -73.62859728671616,6.896699796764046,0 -73.62863205494848,6.896836538773348,0 -73.62866437810364,6.896967004225308,0 -73.6287076391616,6.897101064315264,0 -73.62873504233936,6.897232512813358,0 -73.62875361385895,6.897367950706446,0 -73.62877858745908,6.897395882262557,0 -73.62878644309828,6.897472983290852,0 -73.62880789213787,6.89755526667917,0 -73.62880757063751,6.897725204101749,0 -73.62878823735071,6.897843594119511,0 -73.62878997656638,6.897956813723555,0 -73.6287657338886,6.898051238711853,0 -73.62871984759137,6.898177943550894,0 -73.62869040708411,6.898280941393899,0 -73.62868478096111,6.898388305528588,0 -73.62869151825062,6.898495398345566,0 -73.62868373016779,6.898627990884488,0 -73.62868840378478,6.89870455881879,0 -73.62866208726328,6.898860279364349,0 -73.62865690207477,6.898960364396723,0 -73.62864946932487,6.899066546117516,0 -73.62863811312261,6.899229903395017,0 -73.62861640852388,6.899359157609107,0 -73.62857721255836,6.8995095716616,0 -73.6285699819348,6.899637427578953,0 -73.6285722874091,6.899744261439824,0 -73.62857784083217,6.899855027321252,0 -73.62859126423541,6.899965506020723,0 -73.62858245958363,6.900023643874538,0 -73.62857333112071,6.900075614922397,0 -73.62856766956327,6.900081785096537,0 -73.62856578483856,6.900087913304765,0 -73.62855624310684,6.900143872802278,0 -73.62854236295304,6.900229973357827,0 -73.62852244588885,6.900309125461715,0 -73.62850840641204,6.90041546907112,0 -73.62847983351965,6.900543142574707,0 -73.62846840254014,6.900621121638949,0 -73.62847590281845,6.900722921273655,0 -73.62848191492196,6.900902371763224,0 -73.62848651367474,6.901094953847296,0 -73.62849434341224,6.90127176191573,0 -73.62851934479977,6.90141700088946,0 -73.62855122027023,6.901549958808383,0 -73.6285849888972,6.90163263162897,0 -73.62860507249508,6.901732873504898,0 -73.62864082901065,6.901897449874044,0 -73.62867472968631,6.902044314119086,0 -73.62873821991671,6.902013597722028,0 -73.62882605752519,6.901921668229137,0 -73.6289043845883,6.901877269160829,0 -73.62900700854644,6.901810694642685,0 -73.62909023245257,6.901729294627489,0 -73.6291633210321,6.901661805604564,0 -73.62920306484166,6.901594634003009,0 -73.62928504971433,6.901487740931708,0 -73.62936548027034,6.901385763555388,0 -73.62940709908729,6.901296760452938,0 -73.62946099462249,6.901231056570252,0 -73.62953372490138,6.901157199886859,0 -73.62958063115426,6.901076803023511,0 -73.62963916925227,6.900974794903926,0 -73.62970534490061,6.900889662864072,0 -73.62976055548981,6.900834218139689,0 -73.62988717892243,6.900705454221793,0 -73.62994267437806,6.900604465122441,0 -73.63000253267703,6.900500553714788,0 -73.63006461835516,6.900440521541485,0 -73.6301501755806,6.900385292048345,0 -73.63027275311906,6.900302434582175,0 -73.63035306687274,6.900239149405633,0 -73.6304726320767,6.900170724122684,0 -73.63045932577035,6.899828529131772,0 
+
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>', 38, 20),
+(2010, 6, 'ELECTRIFICADORA ALTO', 882, 'NO HAY', false, NULL, 49, 18),
+(2010, 8, 'ELECTRIFICADORA BAJO', 1160, 'NO HAY', false, NULL, 58, 20),
+(2015, 12, 'EL GUAMO 2015', 1738, 'NO HAY', false, NULL, 79, 22),
+(2008, 13, 'GANADERIA', 1848, '4', false, NULL, 77, 24),
+(2015, 8, 'LA CEIBA 2015', 1176, 'NO HAY', false, NULL, 56, 21),
+(2015, 5, 'LOMITA 2015', 660, 'NO HAY', false, NULL, 33, 20),
+(2010, 10, 'VEGA DEL RIO', 1440, 'NO HAY', false, NULL, 60, 24),
+(2008, 7, 'ACUEDUCTO', 1197, 'NO HAY', false, '<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>KML Samples</name>
+    <open>1</open>
+    <description>Unleash your creativity with the help of these examples!</description>
+    <Style id="downArrowIcon">
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pal4/icon28.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="globeIcon">
+      <IconStyle>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pal3/icon19.png</href>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <width>2</width>
+      </LineStyle>
+    </Style>
+    <Style id="transPurpleLineGreenPoly">
+      <LineStyle>
+        <color>7fff00ff</color>
+        <width>4</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7f00ff00</color>
+      </PolyStyle>
+    </Style>
+    <Style id="yellowLineGreenPoly">
+      <LineStyle>
+        <color>7f00ffff</color>
+        <width>4</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7f00ff00</color>
+      </PolyStyle>
+    </Style>
+    <Style id="thickBlackLine">
+      <LineStyle>
+        <color>87000000</color>
+        <width>10</width>
+      </LineStyle>
+    </Style>
+    <Style id="redLineBluePoly">
+      <LineStyle>
+        <color>ff0000ff</color>
+      </LineStyle>
+      <PolyStyle>
+        <color>ffff0000</color>
+      </PolyStyle>
+    </Style>
+    <Style id="blueLineRedPoly">
+      <LineStyle>
+        <color>ffff0000</color>
+      </LineStyle>
+      <PolyStyle>
+        <color>ff0000ff</color>
+      </PolyStyle>
+    </Style>
+    <Style id="transRedPoly">
+      <LineStyle>
+        <width>1.5</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7d0000ff</color>
+      </PolyStyle>
+    </Style>
+    <Style id="transBluePoly">
+      <LineStyle>
+        <width>1.5</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7dff0000</color>
+      </PolyStyle>
+    </Style>
+    <Style id="transGreenPoly">
+      <LineStyle>
+        <width>1.5</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7d00ff00</color>
+      </PolyStyle>
+    </Style>
+    <Style id="transYellowPoly">
+      <LineStyle>
+        <width>1.5</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7d00ffff</color>
+      </PolyStyle>
+    </Style>
+    <Style id="noDrivingDirections">
+      <BalloonStyle>
+        <text><![CDATA[
+          <b>$[name]</b>
+          <br /><br />
+          $[description]
+        ]]></text>
+      </BalloonStyle>
+    </Style>
+    <Folder>
+      <name>Placemarks</name>
+      <description>These are just some of the different kinds of placemarks with
+        which you can mark your favorite places</description>
+      <LookAt>
+        <longitude>-122.0839597145766</longitude>
+        <latitude>37.42222904525232</latitude>
+        <altitude>0</altitude>
+        <heading>-148.4122922628044</heading>
+        <tilt>40.5575073395506</tilt>
+        <range>500.6566641072245</range>
+      </LookAt>
+      <Placemark>
+        <name>Simple placemark</name>
+        <description>Attached to the ground. Intelligently places itself at the
+          height of the underlying terrain.</description>
+        <Point>
+          <coordinates>-122.0822035425683,37.42228990140251,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Floating placemark</name>
+        <visibility>0</visibility>
+        <description>Floats a defined distance above the ground.</description>
+        <LookAt>
+          <longitude>-122.0839597145766</longitude>
+          <latitude>37.42222904525232</latitude>
+          <altitude>0</altitude>
+          <heading>-148.4122922628044</heading>
+          <tilt>40.5575073395506</tilt>
+          <range>500.6566641072245</range>
+        </LookAt>
+        <styleUrl>#downArrowIcon</styleUrl>
+        <Point>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <coordinates>-122.084075,37.4220033612141,50</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Extruded placemark</name>
+        <visibility>0</visibility>
+        <description>Tethered to the ground by a customizable
+          "tail"</description>
+        <LookAt>
+          <longitude>-122.0845787421525</longitude>
+          <latitude>37.42215078737763</latitude>
+          <altitude>0</altitude>
+          <heading>-148.4126684946234</heading>
+          <tilt>40.55750733918048</tilt>
+          <range>365.2646606980322</range>
+        </LookAt>
+        <styleUrl>#globeIcon</styleUrl>
+        <Point>
+          <extrude>1</extrude>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <coordinates>-122.0857667006183,37.42156927867553,50</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>', 57, 21);
+
+-- INSERT para tabla ENFERMEDAD
+INSERT INTO public."ENFERMEDAD" (nombre_enfermedad, procedimiento_tratamiento_enfermedad, fue_borrado, causa_erradicacion_enfermedad) VALUES
+('Marchitez sorpresiva', 'Erradicación', false, NULL),
+('Marchitez Letal', 'Erradicación', false, NULL),
+('Caidez', 'Ninguno no hay', false, NULL),
+('Pudrición basal de estípite', 'ninguna', false, NULL),
+('Rayo', 'Erradicación', false, NULL),
+('Pudrición de Cogollo', 'Ninguno.', false, NULL);
+
+-- INSERT para tabla ETAPAS_ENFERMEDAD
+INSERT INTO public."ETAPAS_ENFERMEDAD" (etapa_enfermedad, id_etapa_enfermedad, nombre_enfermedad, tratamiento_etapa_enfermedad, fue_borrado) VALUES
+('sarasa', 120, 'Pudrición de Cogollo', 'sarasa', true),
+('sarasa', 118, 'Pudrición de Cogollo', 'sarasasa', true),
+('sarasa', 119, 'Pudrición de Cogollo', 'sarasasa', true),
+('cambiada', 103, 'Pudrición de Cogollo', 'ninguno', true),
+('Prueba nueva', 123, 'Pudrición de Cogollo', 'Nueva', true),
+('cráter', 105, 'Pudrición de Cogollo', 'Erradicación', false),
+('avanzado', 104, 'Pudrición de Cogollo', 'ninguno', false),
+('sarasa', 121, 'Pudrición de Cogollo', 'sarasa', false),
+('hongo canibal', 122, 'Pudrición de Cogollo', 'Ajo con canela', false);
+
+-- INSERT para tabla PLAGA
+INSERT INTO public."PLAGA" (nombre_comun_plaga, fue_borrado) VALUES
+('Gusano barrenador', false),
+('Ácaro', false),
+('Termita', false),
+('Cochinilla', false),
+('Hormiga cortadora de hoja', false),
+('Escarabajo de la corteza', false),
+('preuba 1', true),
+('Pulgón', true),
+('Picudo amarillo', false);
+
+
+-- INSERT para tabla ETAPAS_PLAGA
+INSERT INTO public."ETAPAS_PLAGA" (id_etapa_plaga, nombre_etapa_plaga, procedimiento_etapa_plaga, nombre_comun_plaga, fue_borrado) VALUES
+(30, 'larva', 'ninguno', 'Gusano barrenador', true),
+(26, 'bebe', 'insectisida', 'Gusano barrenador', true),
+(35, 'adulto', 'insectisida', 'Gusano barrenador', true),
+(22, 'adulto', 'no hay', 'Ácaro', false),
+(20, 'huevo', 'no hay', 'Pulgón', false),
+(21, 'adulto', 'no hay', 'Pulgón', false),
+(19, 'larva', 'no hay', 'Pulgón', false),
+(23, 'adulto', 'descripción', 'Picudo amarillo', false),
+(24, 'larva', 'descripción', 'Picudo amarillo', false),
+(25, 'huevo', 'descripción', 'Picudo amarillo', false);
+
+INSERT INTO public."PRODUCTO_AGROQUIMICO" (id_producto_agroquimico, nombre_producto_agroquimico, tipo_producto_agroquimico, ingrediente_activo_producto_agroquimico, periodo_carencia_producto_agroquimico, fue_borrado, presentacion_producto_agroquimico, clase_producto) VALUES
+(4, 'bacteria', 'Bactericida', 'bacteriass', 2, true, 'botella', 'quimico'),
+(5, 'peroxido', 'Funjicida', 'oxido', 2, true, 'botella', 'quimico'),
+(6, 'rttttt', 'Insectisida', 'rtttt', 2, true, 'botella', 'quimico'),
+(3, 'herbi', 'Herbicida', 'hojas', 2, true, 'botella', 'quimico'),
+(7, 'fungus', 'Funjicida', 'champiñones', 2, true, 'botella', 'Biologico'),
+(2, 'fungusito', 'Funjicida', 'champiñones', 1, false, 'botella', 'Químico'),
+(8, 'Raticida', 'quimico', 'sdfgh', 4, true, 'fgh', 'ghfgh'),
+(9, 'hola', 'Herbicida', 'bicarbonato', 12, false, 'polvo', 'Químico'),
+(11, 'tttt', 'Funjicida', 'ffff', 7, true, 'ffff', 'Biologico'),
+(13, 'prueba', 'Funjicida', 'nosee', 23, false, 'ni idea', 'Biologico'),
+(14, 'Hormigicida', 'Insectisida', 'mizina', 13, false, 'envase de 300ml', 'Químico'),
+(12, 'qqqq', 'Insectisida', 'fff', 6, true, 'ffff', 'Químico'),
+(10, 'Bactoadios', 'Bactericida', 'levadura', 12, false, '300 gr', 'Biologico');
+
+INSERT INTO public."FERTILIZANTE" (
+nombre_fertilizante, tipo, composicion, porcentaje, fue_borrado) VALUES (
+'Fertimax 20-20-20'::character varying, 'orgánico'::character varying, 'Fósforo'::character varying, '0.2'::character varying, false::boolean)
+ returning nombre_fertilizante;

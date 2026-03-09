@@ -1,0 +1,37 @@
+import 'package:apppalma/data/moor/moor_database.dart';
+import 'package:drift/drift.dart';
+
+class Plagas extends Table {
+  TextColumn get nombreComunPlaga => text()();
+  DateTimeColumn get fechaUltimaActualizacion => dateTime().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {nombreComunPlaga};
+}
+
+class EtapasPlaga extends Table {
+  IntColumn get idEtapasPlaga => integer().autoIncrement()();
+  TextColumn get nombrePlaga => text()
+      .customConstraint('NOT NULL REFERENCES plagas(nombre_comun_plaga)')();
+  TextColumn get nombreEtapa => text()();
+  TextColumn get procedimientoEtapa => text()();
+  @override
+  List<String> get customConstraints => ['UNIQUE (nombre_plaga, nombre_etapa)'];
+}
+
+class PlagaConEtapas {
+  final Plaga plaga;
+  final List<EtapasPlagaData> etapas;
+
+  factory PlagaConEtapas.otraPlagas() {
+    return PlagaConEtapas(
+      plaga: const Plaga(nombreComunPlaga: "Otra"),
+      etapas: [],
+    );
+  }
+
+  PlagaConEtapas({
+    required this.plaga,
+    required this.etapas,
+  });
+}

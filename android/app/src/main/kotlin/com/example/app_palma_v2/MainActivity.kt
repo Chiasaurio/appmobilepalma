@@ -1,0 +1,5 @@
+package com.chiamayra.sigpa
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
