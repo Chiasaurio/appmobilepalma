@@ -1,5 +1,7 @@
+import 'package:apppalma/env.dart';
 import 'package:apppalma/presentation/components/main_button_square.dart';
 import 'package:apppalma/presentation/components/theme.dart';
+import 'package:apppalma/presentation/components/widgets/logo_sigpa.dart';
 import 'package:apppalma/presentation/modules/Login/ui/components/name_field.dart';
 import 'package:apppalma/presentation/modules/Login/ui/components/password_field.dart';
 import 'package:apppalma/presentation/modules/Login/ui/cubit/login_cubit.dart';
@@ -50,48 +52,50 @@ class LoginPage extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsets.only(top: paddingTop + 50, left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 200,
-                  height: 250,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      scale: 1,
-                      image: AssetImage("assets/images/palma-logo.png"),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
+          child: Column(
+            spacing: 10,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LogoSigpa(),
+              TextFormField(
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  hintText: 'Remote',
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 ),
-                const NameField(),
-                const SizedBox(
-                  height: 10,
+                onChanged: (value) {
+                  BaseApi.baseUrl = value;
+                },
+              ),
+              Text('Inicia sesión',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium!
+                      .copyWith(fontWeight: FontWeight.bold)),
+              const NameField(),
+              const PasswordField(),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: BlocBuilder<LoginCubit, LoginState>(
+                  builder: (context, state) {
+                    return MainButtonSquare(
+                        text: 'Login',
+                        press: () {
+                          if (state.status == FormzSubmissionStatus.initial ||
+                              state.status == FormzSubmissionStatus.failure) {
+                            BlocProvider.of<LoginCubit>(context)
+                                .signUpFormSubmitted();
+                          }
+                        });
+                  },
                 ),
-                const PasswordField(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: BlocBuilder<LoginCubit, LoginState>(
-                    builder: (context, state) {
-                      return MainButtonSquare(
-                          text: 'Login',
-                          press: () {
-                            if (state.status == FormzSubmissionStatus.initial ||
-                                state.status == FormzSubmissionStatus.failure) {
-                              BlocProvider.of<LoginCubit>(context)
-                                  .signUpFormSubmitted();
-                            }
-                          });
-                    },
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

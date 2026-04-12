@@ -46,4 +46,7 @@ const kLightGreyColor = Color.fromARGB(255, 158, 158, 158);
 final tipoControl = ["Biologico", "Químico"];
 final ubicacionPlaga = ["lote", "sector"];
 
+const kAppPrimaryColor = Color(0xFF1a936f);
+const kAppGradientColor = Color(0xFF27dfa8);
+
 List<String> orientaciones = ['NORTE-SUR', 'SUR-NORTE', 'ORIENTE-OCCIDENTE'];

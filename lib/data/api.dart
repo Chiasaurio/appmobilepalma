@@ -8,7 +8,7 @@ import '../env.dart';
 
 class Api {
   final _storage = const secure.FlutterSecureStorage();
-  final _baseUrl = baseUrl;
+  final _baseUrl = BaseApi.baseUrl;
   static final Dio _dio = Dio();
   final Map<String, String> _headers = {};
   static final Api _instance = Api._();

@@ -12,7 +12,7 @@ enum AuthenticationStatus { unknown, authenticated, unauthenticated, error }
 class AuthenticationRepository {
   final _controller = StreamController<AuthenticationStatus>.broadcast();
   final _storage = const secure.FlutterSecureStorage();
-  final _baseUrl = baseUrl;
+  // final _baseUrl = BaseApi.baseUrl;
   final Dio _dio = Dio();
   Map<String, String> cookies = {};
 
@@ -37,7 +37,7 @@ class AuthenticationRepository {
     try {
       final body =
           jsonEncode({'cc_usuario': ccUsuario, 'contrasena_usuario': password});
-      final res = await _dio.post('${_baseUrl}login',
+      final res = await _dio.post('${BaseApi.baseUrl}login',
           data: body,
           options: Options(
               headers: {HttpHeaders.contentTypeHeader: 'application/json'},

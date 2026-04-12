@@ -1,2 +1,5 @@
-const baseUrl = 'https://simon.uis.edu.co/sigpa/api/';
-// const baseUrl = 'https://f5a7-167-0-32-249.ngrok-free.app/';
+class BaseApi {
+  // static String baseUrl = 'https://simon.uis.edu.co/sigpa/api/';
+  // static String baseUrl = 'http://10.0.2.2:3000/sigpa/api/';
+  static String baseUrl = '';
+}

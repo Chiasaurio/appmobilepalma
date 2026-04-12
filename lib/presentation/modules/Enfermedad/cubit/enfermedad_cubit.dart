@@ -66,8 +66,8 @@ class EnfermedadCubit extends Cubit<EnfermedadState> {
       String estadoPalma = '';
       final palmaExistente = await palmaDao.obtenerPalma(state.nombreLote!,
           state.lineaPalma!, state.numeroPalma!, state.orientacion!);
-      if (state.enfermedadSeleccionada!.procedimientoEnfermedad ==
-          "Erradicación") {
+      if (state.enfermedadSeleccionada!.procedimientoEnfermedad
+          .contains("Erradicación")) {
         estadoPalma = EstadosPalma.pendientePorErradicar;
       } else if (palmaExistente != null) {
         if (palmaExistente.estadopalma == EstadosPalma.pendientePorErradicar) {

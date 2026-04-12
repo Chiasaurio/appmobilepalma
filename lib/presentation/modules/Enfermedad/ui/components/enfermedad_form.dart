@@ -38,7 +38,7 @@ class _EnfermedadFormState extends State<EnfermedadForm> {
   @override
   void initState() {
     enfermedades = List.from(widget.enfermedades!);
-    enfermedades.add(EnfermedadConEtapas.otraEnfermedad());
+    // enfermedades.add(EnfermedadConEtapas.otraEnfermedad());
     super.initState();
   }
 

@@ -10659,8 +10659,8 @@ class $FertilizacionesTable extends Fertilizaciones
       const VerificationMeta('idFertilizacion');
   @override
   late final GeneratedColumn<int> idFertilizacion = GeneratedColumn<int>(
-      'id_fertilizacion', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'id_fertilizacion', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nombreLoteMeta =
       const VerificationMeta('nombreLote');
   @override
@@ -10734,8 +10734,6 @@ class $FertilizacionesTable extends Fertilizaciones
           _idFertilizacionMeta,
           idFertilizacion.isAcceptableOrUnknown(
               data['id_fertilizacion']!, _idFertilizacionMeta));
-    } else if (isInserting) {
-      context.missing(_idFertilizacionMeta);
     }
     if (data.containsKey('nombre_lote')) {
       context.handle(
@@ -10791,7 +10789,7 @@ class $FertilizacionesTable extends Fertilizaciones
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       idFertilizacion: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion']),
       nombreLote: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nombre_lote'])!,
       fechaIngreso: attachedDatabase.typeMapping.read(
@@ -10815,7 +10813,7 @@ class $FertilizacionesTable extends Fertilizaciones
 
 class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   final int id;
-  final int idFertilizacion;
+  final int? idFertilizacion;
   final String nombreLote;
   final DateTime fechaIngreso;
   final DateTime? fechaSalida;
@@ -10824,7 +10822,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   final bool sincronizado;
   const Fertilizacione(
       {required this.id,
-      required this.idFertilizacion,
+      this.idFertilizacion,
       required this.nombreLote,
       required this.fechaIngreso,
       this.fechaSalida,
@@ -10835,7 +10833,9 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['id_fertilizacion'] = Variable<int>(idFertilizacion);
+    if (!nullToAbsent || idFertilizacion != null) {
+      map['id_fertilizacion'] = Variable<int>(idFertilizacion);
+    }
     map['nombre_lote'] = Variable<String>(nombreLote);
     map['fecha_ingreso'] = Variable<DateTime>(fechaIngreso);
     if (!nullToAbsent || fechaSalida != null) {
@@ -10850,7 +10850,9 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
   FertilizacionesCompanion toCompanion(bool nullToAbsent) {
     return FertilizacionesCompanion(
       id: Value(id),
-      idFertilizacion: Value(idFertilizacion),
+      idFertilizacion: idFertilizacion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(idFertilizacion),
       nombreLote: Value(nombreLote),
       fechaIngreso: Value(fechaIngreso),
       fechaSalida: fechaSalida == null && nullToAbsent
@@ -10867,7 +10869,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Fertilizacione(
       id: serializer.fromJson<int>(json['id']),
-      idFertilizacion: serializer.fromJson<int>(json['idFertilizacion']),
+      idFertilizacion: serializer.fromJson<int?>(json['idFertilizacion']),
       nombreLote: serializer.fromJson<String>(json['nombreLote']),
       fechaIngreso: serializer.fromJson<DateTime>(json['fechaIngreso']),
       fechaSalida: serializer.fromJson<DateTime?>(json['fechaSalida']),
@@ -10882,7 +10884,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'idFertilizacion': serializer.toJson<int>(idFertilizacion),
+      'idFertilizacion': serializer.toJson<int?>(idFertilizacion),
       'nombreLote': serializer.toJson<String>(nombreLote),
       'fechaIngreso': serializer.toJson<DateTime>(fechaIngreso),
       'fechaSalida': serializer.toJson<DateTime?>(fechaSalida),
@@ -10894,7 +10896,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
 
   Fertilizacione copyWith(
           {int? id,
-          int? idFertilizacion,
+          Value<int?> idFertilizacion = const Value.absent(),
           String? nombreLote,
           DateTime? fechaIngreso,
           Value<DateTime?> fechaSalida = const Value.absent(),
@@ -10903,7 +10905,9 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
           bool? sincronizado}) =>
       Fertilizacione(
         id: id ?? this.id,
-        idFertilizacion: idFertilizacion ?? this.idFertilizacion,
+        idFertilizacion: idFertilizacion.present
+            ? idFertilizacion.value
+            : this.idFertilizacion,
         nombreLote: nombreLote ?? this.nombreLote,
         fechaIngreso: fechaIngreso ?? this.fechaIngreso,
         fechaSalida: fechaSalida.present ? fechaSalida.value : this.fechaSalida,
@@ -10969,7 +10973,7 @@ class Fertilizacione extends DataClass implements Insertable<Fertilizacione> {
 
 class FertilizacionesCompanion extends UpdateCompanion<Fertilizacione> {
   final Value<int> id;
-  final Value<int> idFertilizacion;
+  final Value<int?> idFertilizacion;
   final Value<String> nombreLote;
   final Value<DateTime> fechaIngreso;
   final Value<DateTime?> fechaSalida;
@@ -10988,15 +10992,14 @@ class FertilizacionesCompanion extends UpdateCompanion<Fertilizacione> {
   });
   FertilizacionesCompanion.insert({
     this.id = const Value.absent(),
-    required int idFertilizacion,
+    this.idFertilizacion = const Value.absent(),
     required String nombreLote,
     required DateTime fechaIngreso,
     this.fechaSalida = const Value.absent(),
     required int cantidadFertilizada,
     this.completado = const Value.absent(),
     this.sincronizado = const Value.absent(),
-  })  : idFertilizacion = Value(idFertilizacion),
-        nombreLote = Value(nombreLote),
+  })  : nombreLote = Value(nombreLote),
         fechaIngreso = Value(fechaIngreso),
         cantidadFertilizada = Value(cantidadFertilizada);
   static Insertable<Fertilizacione> custom({
@@ -11024,7 +11027,7 @@ class FertilizacionesCompanion extends UpdateCompanion<Fertilizacione> {
 
   FertilizacionesCompanion copyWith(
       {Value<int>? id,
-      Value<int>? idFertilizacion,
+      Value<int?>? idFertilizacion,
       Value<String>? nombreLote,
       Value<DateTime>? fechaIngreso,
       Value<DateTime?>? fechaSalida,
@@ -11508,11 +11511,11 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
       const VerificationMeta('idFertilizacion');
   @override
   late final GeneratedColumn<int> idFertilizacion = GeneratedColumn<int>(
-      'id_fertilizacion', aliasedName, true,
+      'id_fertilizacion', aliasedName, false,
       type: DriftSqlType.int,
-      requiredDuringInsert: false,
+      requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES fertilizaciones (id_fertilizacion)'));
+          'REFERENCES fertilizaciones (id)'));
   static const VerificationMeta _fechaMeta = const VerificationMeta('fecha');
   @override
   late final GeneratedColumn<DateTime> fecha = GeneratedColumn<DateTime>(
@@ -11633,6 +11636,8 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
           _idFertilizacionMeta,
           idFertilizacion.isAcceptableOrUnknown(
               data['id_fertilizacion']!, _idFertilizacionMeta));
+    } else if (isInserting) {
+      context.missing(_idFertilizacionMeta);
     }
     if (data.containsKey('fecha')) {
       context.handle(
@@ -11739,7 +11744,7 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       idFertilizacion: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion']),
+          .read(DriftSqlType.int, data['${effectivePrefix}id_fertilizacion'])!,
       fecha: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}fecha'])!,
       cantidadFertilizada: attachedDatabase.typeMapping.read(
@@ -11778,7 +11783,7 @@ class $FertilizacionDiariaTable extends FertilizacionDiaria
 class FertilizacionDiariaData extends DataClass
     implements Insertable<FertilizacionDiariaData> {
   final int id;
-  final int? idFertilizacion;
+  final int idFertilizacion;
   final DateTime fecha;
   final int cantidadFertilizada;
   final double dosis;
@@ -11794,7 +11799,7 @@ class FertilizacionDiariaData extends DataClass
   final bool sincronizado;
   const FertilizacionDiariaData(
       {required this.id,
-      this.idFertilizacion,
+      required this.idFertilizacion,
       required this.fecha,
       required this.cantidadFertilizada,
       required this.dosis,
@@ -11812,9 +11817,7 @@ class FertilizacionDiariaData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || idFertilizacion != null) {
-      map['id_fertilizacion'] = Variable<int>(idFertilizacion);
-    }
+    map['id_fertilizacion'] = Variable<int>(idFertilizacion);
     map['fecha'] = Variable<DateTime>(fecha);
     map['cantidad_fertilizada'] = Variable<int>(cantidadFertilizada);
     map['dosis'] = Variable<double>(dosis);
@@ -11834,9 +11837,7 @@ class FertilizacionDiariaData extends DataClass
   FertilizacionDiariaCompanion toCompanion(bool nullToAbsent) {
     return FertilizacionDiariaCompanion(
       id: Value(id),
-      idFertilizacion: idFertilizacion == null && nullToAbsent
-          ? const Value.absent()
-          : Value(idFertilizacion),
+      idFertilizacion: Value(idFertilizacion),
       fecha: Value(fecha),
       cantidadFertilizada: Value(cantidadFertilizada),
       dosis: Value(dosis),
@@ -11858,7 +11859,7 @@ class FertilizacionDiariaData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FertilizacionDiariaData(
       id: serializer.fromJson<int>(json['id']),
-      idFertilizacion: serializer.fromJson<int?>(json['idFertilizacion']),
+      idFertilizacion: serializer.fromJson<int>(json['idFertilizacion']),
       fecha: serializer.fromJson<DateTime>(json['fecha']),
       cantidadFertilizada:
           serializer.fromJson<int>(json['cantidadFertilizada']),
@@ -11881,7 +11882,7 @@ class FertilizacionDiariaData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'idFertilizacion': serializer.toJson<int?>(idFertilizacion),
+      'idFertilizacion': serializer.toJson<int>(idFertilizacion),
       'fecha': serializer.toJson<DateTime>(fecha),
       'cantidadFertilizada': serializer.toJson<int>(cantidadFertilizada),
       'dosis': serializer.toJson<double>(dosis),
@@ -11900,7 +11901,7 @@ class FertilizacionDiariaData extends DataClass
 
   FertilizacionDiariaData copyWith(
           {int? id,
-          Value<int?> idFertilizacion = const Value.absent(),
+          int? idFertilizacion,
           DateTime? fecha,
           int? cantidadFertilizada,
           double? dosis,
@@ -11916,9 +11917,7 @@ class FertilizacionDiariaData extends DataClass
           bool? sincronizado}) =>
       FertilizacionDiariaData(
         id: id ?? this.id,
-        idFertilizacion: idFertilizacion.present
-            ? idFertilizacion.value
-            : this.idFertilizacion,
+        idFertilizacion: idFertilizacion ?? this.idFertilizacion,
         fecha: fecha ?? this.fecha,
         cantidadFertilizada: cantidadFertilizada ?? this.cantidadFertilizada,
         dosis: dosis ?? this.dosis,
@@ -12032,7 +12031,7 @@ class FertilizacionDiariaData extends DataClass
 class FertilizacionDiariaCompanion
     extends UpdateCompanion<FertilizacionDiariaData> {
   final Value<int> id;
-  final Value<int?> idFertilizacion;
+  final Value<int> idFertilizacion;
   final Value<DateTime> fecha;
   final Value<int> cantidadFertilizada;
   final Value<double> dosis;
@@ -12065,7 +12064,7 @@ class FertilizacionDiariaCompanion
   });
   FertilizacionDiariaCompanion.insert({
     this.id = const Value.absent(),
-    this.idFertilizacion = const Value.absent(),
+    required int idFertilizacion,
     required DateTime fecha,
     required int cantidadFertilizada,
     required double dosis,
@@ -12079,7 +12078,8 @@ class FertilizacionDiariaCompanion
     required String responsable,
     required String nombreFertilizante,
     this.sincronizado = const Value.absent(),
-  })  : fecha = Value(fecha),
+  })  : idFertilizacion = Value(idFertilizacion),
+        fecha = Value(fecha),
         cantidadFertilizada = Value(cantidadFertilizada),
         dosis = Value(dosis),
         unidades = Value(unidades),
@@ -12130,7 +12130,7 @@ class FertilizacionDiariaCompanion
 
   FertilizacionDiariaCompanion copyWith(
       {Value<int>? id,
-      Value<int?>? idFertilizacion,
+      Value<int>? idFertilizacion,
       Value<DateTime>? fecha,
       Value<int>? cantidadFertilizada,
       Value<double>? dosis,
@@ -21896,7 +21896,7 @@ typedef $$PrecipitacionTableProcessedTableManager = ProcessedTableManager<
 typedef $$FertilizacionesTableCreateCompanionBuilder = FertilizacionesCompanion
     Function({
   Value<int> id,
-  required int idFertilizacion,
+  Value<int?> idFertilizacion,
   required String nombreLote,
   required DateTime fechaIngreso,
   Value<DateTime?> fechaSalida,
@@ -21907,7 +21907,7 @@ typedef $$FertilizacionesTableCreateCompanionBuilder = FertilizacionesCompanion
 typedef $$FertilizacionesTableUpdateCompanionBuilder = FertilizacionesCompanion
     Function({
   Value<int> id,
-  Value<int> idFertilizacion,
+  Value<int?> idFertilizacion,
   Value<String> nombreLote,
   Value<DateTime> fechaIngreso,
   Value<DateTime?> fechaSalida,
@@ -21925,14 +21925,14 @@ final class $$FertilizacionesTableReferences extends BaseReferences<
       List<FertilizacionDiariaData>> _fertilizacionDiariaRefsTable(
           _$AppDatabase db) =>
       MultiTypedResultKey.fromTable(db.fertilizacionDiaria,
-          aliasName: $_aliasNameGenerator(db.fertilizaciones.idFertilizacion,
-              db.fertilizacionDiaria.idFertilizacion));
+          aliasName: $_aliasNameGenerator(
+              db.fertilizaciones.id, db.fertilizacionDiaria.idFertilizacion));
 
   $$FertilizacionDiariaTableProcessedTableManager get fertilizacionDiariaRefs {
-    final manager =
-        $$FertilizacionDiariaTableTableManager($_db, $_db.fertilizacionDiaria)
-            .filter((f) => f.idFertilizacion.idFertilizacion
-                .sqlEquals($_itemColumn<int>('id_fertilizacion')!));
+    final manager = $$FertilizacionDiariaTableTableManager(
+            $_db, $_db.fertilizacionDiaria)
+        .filter(
+            (f) => f.idFertilizacion.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_fertilizacionDiariaRefsTable($_db));
@@ -21980,7 +21980,7 @@ class $$FertilizacionesTableFilterComposer
       Expression<bool> Function($$FertilizacionDiariaTableFilterComposer f) f) {
     final $$FertilizacionDiariaTableFilterComposer composer = $composerBuilder(
         composer: this,
-        getCurrentColumn: (t) => t.idFertilizacion,
+        getCurrentColumn: (t) => t.id,
         referencedTable: $db.fertilizacionDiaria,
         getReferencedColumn: (t) => t.idFertilizacion,
         builder: (joinBuilder,
@@ -22075,7 +22075,7 @@ class $$FertilizacionesTableAnnotationComposer
     final $$FertilizacionDiariaTableAnnotationComposer composer =
         $composerBuilder(
             composer: this,
-            getCurrentColumn: (t) => t.idFertilizacion,
+            getCurrentColumn: (t) => t.id,
             referencedTable: $db.fertilizacionDiaria,
             getReferencedColumn: (t) => t.idFertilizacion,
             builder: (joinBuilder,
@@ -22118,7 +22118,7 @@ class $$FertilizacionesTableTableManager extends RootTableManager<
               $$FertilizacionesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int> idFertilizacion = const Value.absent(),
+            Value<int?> idFertilizacion = const Value.absent(),
             Value<String> nombreLote = const Value.absent(),
             Value<DateTime> fechaIngreso = const Value.absent(),
             Value<DateTime?> fechaSalida = const Value.absent(),
@@ -22138,7 +22138,7 @@ class $$FertilizacionesTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required int idFertilizacion,
+            Value<int?> idFertilizacion = const Value.absent(),
             required String nombreLote,
             required DateTime fechaIngreso,
             Value<DateTime?> fechaSalida = const Value.absent(),
@@ -22180,9 +22180,8 @@ class $$FertilizacionesTableTableManager extends RootTableManager<
                             $$FertilizacionesTableReferences(db, table, p0)
                                 .fertilizacionDiariaRefs,
                         referencedItemsForCurrentItem:
-                            (item, referencedItems) => referencedItems.where(
-                                (e) =>
-                                    e.idFertilizacion == item.idFertilizacion),
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.idFertilizacion == item.id),
                         typedResults: items)
                 ];
               },
@@ -22496,7 +22495,7 @@ typedef $$FertilizanteTableProcessedTableManager = ProcessedTableManager<
 typedef $$FertilizacionDiariaTableCreateCompanionBuilder
     = FertilizacionDiariaCompanion Function({
   Value<int> id,
-  Value<int?> idFertilizacion,
+  required int idFertilizacion,
   required DateTime fecha,
   required int cantidadFertilizada,
   required double dosis,
@@ -22514,7 +22513,7 @@ typedef $$FertilizacionDiariaTableCreateCompanionBuilder
 typedef $$FertilizacionDiariaTableUpdateCompanionBuilder
     = FertilizacionDiariaCompanion Function({
   Value<int> id,
-  Value<int?> idFertilizacion,
+  Value<int> idFertilizacion,
   Value<DateTime> fecha,
   Value<int> cantidadFertilizada,
   Value<double> dosis,
@@ -22537,15 +22536,14 @@ final class $$FertilizacionDiariaTableReferences extends BaseReferences<
 
   static $FertilizacionesTable _idFertilizacionTable(_$AppDatabase db) =>
       db.fertilizaciones.createAlias($_aliasNameGenerator(
-          db.fertilizacionDiaria.idFertilizacion,
-          db.fertilizaciones.idFertilizacion));
+          db.fertilizacionDiaria.idFertilizacion, db.fertilizaciones.id));
 
-  $$FertilizacionesTableProcessedTableManager? get idFertilizacion {
-    final $_column = $_itemColumn<int>('id_fertilizacion');
-    if ($_column == null) return null;
+  $$FertilizacionesTableProcessedTableManager get idFertilizacion {
+    final $_column = $_itemColumn<int>('id_fertilizacion')!;
+
     final manager =
         $$FertilizacionesTableTableManager($_db, $_db.fertilizaciones)
-            .filter((f) => f.idFertilizacion.sqlEquals($_column));
+            .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_idFertilizacionTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -22625,7 +22623,7 @@ class $$FertilizacionDiariaTableFilterComposer
         composer: this,
         getCurrentColumn: (t) => t.idFertilizacion,
         referencedTable: $db.fertilizaciones,
-        getReferencedColumn: (t) => t.idFertilizacion,
+        getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
@@ -22719,7 +22717,7 @@ class $$FertilizacionDiariaTableOrderingComposer
         composer: this,
         getCurrentColumn: (t) => t.idFertilizacion,
         referencedTable: $db.fertilizaciones,
-        getReferencedColumn: (t) => t.idFertilizacion,
+        getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
@@ -22808,7 +22806,7 @@ class $$FertilizacionDiariaTableAnnotationComposer
         composer: this,
         getCurrentColumn: (t) => t.idFertilizacion,
         referencedTable: $db.fertilizaciones,
-        getReferencedColumn: (t) => t.idFertilizacion,
+        getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
@@ -22871,7 +22869,7 @@ class $$FertilizacionDiariaTableTableManager extends RootTableManager<
                   $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int?> idFertilizacion = const Value.absent(),
+            Value<int> idFertilizacion = const Value.absent(),
             Value<DateTime> fecha = const Value.absent(),
             Value<int> cantidadFertilizada = const Value.absent(),
             Value<double> dosis = const Value.absent(),
@@ -22905,7 +22903,7 @@ class $$FertilizacionDiariaTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<int?> idFertilizacion = const Value.absent(),
+            required int idFertilizacion,
             required DateTime fecha,
             required int cantidadFertilizada,
             required double dosis,
@@ -22969,7 +22967,7 @@ class $$FertilizacionDiariaTableTableManager extends RootTableManager<
                         ._idFertilizacionTable(db),
                     referencedColumn: $$FertilizacionDiariaTableReferences
                         ._idFertilizacionTable(db)
-                        .idFertilizacion,
+                        .id,
                   ) as T;
                 }
                 if (nombreFertilizante) {

@@ -18,18 +18,20 @@ class HeaderGradient extends StatelessWidget {
   final String title;
   final String ruta;
   final VoidCallback? onPop;
-  final Color colorBlanco = Colors.white.withOpacity(0.7);
+  final Color colorBlanco = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 100 + SizeConfig.paddingTop,
       decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [kpurpleColor, kblueColor])),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
+        color: kAppPrimaryColor,
+        // gradient: LinearGradient(
+        //     begin: Alignment.topCenter,
+        //     end: Alignment.bottomCenter,
+        //     colors: [kpurpleColor, kblueColor]),
+      ),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

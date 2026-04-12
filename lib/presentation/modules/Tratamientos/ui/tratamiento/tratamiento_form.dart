@@ -136,7 +136,7 @@ class _TratamientoFormState extends State<TratamientoForm> {
     return Column(
       children: [
         _buildDosis(),
-        FormBuilderChoiceChip<String>(
+        FormBuilderChoiceChips<String>(
           validator: (value) {
             return value != null ? null : "El campo es necesario.";
           },

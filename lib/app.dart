@@ -78,9 +78,7 @@ class AppPalma extends StatelessWidget {
         },
         child: MaterialApp(
           title: 'Smart Spotter',
-          theme: ThemeData(
-            fontFamily: GoogleFonts.roboto().fontFamily,
-          ),
+          theme: ThemeData(fontFamily: GoogleFonts.roboto().fontFamily),
           debugShowCheckedModeBanner: false,
           initialRoute: '/splash',
           localizationsDelegates: const [GlobalMaterialLocalizations.delegate],

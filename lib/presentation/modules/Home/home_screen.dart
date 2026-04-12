@@ -55,18 +55,12 @@ class _FincaPageState extends State<FincaPage> {
     );
   }
 
-  final Color colorBlanco = Colors.white.withOpacity(0.7);
-
   Widget buildTitulo() {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [kpurpleColor, kblueColor]),
-      ),
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
+          color: kAppPrimaryColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -75,10 +69,10 @@ class _FincaPageState extends State<FincaPage> {
           ),
           Text(
             'Sistema de gestión',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall!
-                .copyWith(color: colorBlanco, fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +81,9 @@ class _FincaPageState extends State<FincaPage> {
                   child: Text(
                     DateFormat('yMMMMEEEEd', 'es').format(fecha),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: colorBlanco, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                 ),
                 Builder(
@@ -95,7 +91,7 @@ class _FincaPageState extends State<FincaPage> {
                     return IconButton(
                       icon: Icon(
                         Icons.menu,
-                        color: colorBlanco,
+                        color: Colors.white,
                       ),
                       onPressed: () {
                         Scaffold.of(context).openDrawer();

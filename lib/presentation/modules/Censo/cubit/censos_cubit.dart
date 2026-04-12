@@ -1,26 +1,20 @@
 import 'package:apppalma/data/moor/daos/plagas_daos.dart';
 import 'package:apppalma/data/moor/moor_database.dart';
 import 'package:apppalma/main.dart';
+import 'package:apppalma/presentation/constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'censos_state.dart';
 
 class CensosCubit extends Cubit<CensosState> {
-  CensosCubit() : super(const CensosState());
+  CensosCubit([AppDatabase? database])
+      : db = database ?? getIt<AppDatabase>(),
+        super(const CensosState());
 
-  final db = getIt<AppDatabase>();
+  final AppDatabase db;
 
-  // Future<void> obtenerCensosPendientes(String nombreLote,
-  //     [String? filtro]) async {
-  //   emit(CensosState(status: CensoStatus.loading, filtro: filtro));
-  //   final PlagasDao plagasDao = db.plagasDao;
-  //   List<CensoData> censos = await plagasDao.getCensosPendientes(nombreLote);
-  //   emit(CensosState(censos: censos));
-  // }
-
-  Future<void> obtenerCensosPendientes(String nombreLote,
-      [String? filtro]) async {
+  Future<void> obtenerCensosPendientes(String nombreLote, [String? filtro]) async {
     emit(CensosState(status: CensoStatus.loading, filtro: filtro));
     final PlagasDao plagasDao = db.plagasDao;
     List<CensoData> censos = [];
@@ -41,8 +35,7 @@ class CensosCubit extends Cubit<CensosState> {
 
   Future<void> daraltaCenso(CensoData censo) async {
     final PlagasDao plagasDao = db.plagasDao;
-    plagasDao.updateCenso(
-        censo.copyWith(estadoPlaga: 'eliminado', sincronizado: false));
+    plagasDao.updateCenso(censo.copyWith(estadoPlaga: EstadosPlaga.eliminado, sincronizado: false));
     obtenerTodosCensos();
   }
 

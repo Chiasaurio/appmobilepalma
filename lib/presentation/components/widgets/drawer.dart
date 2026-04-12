@@ -1,3 +1,4 @@
+import 'package:apppalma/presentation/components/widgets/logo_sigpa.dart';
 import 'package:apppalma/presentation/modules/Login/cubit/authentication_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,18 +16,26 @@ class SideDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const SizedBox(
-            height: 250,
-            width: 70,
+          // const SizedBox(
+          //   height: 250,
+          //   width: 70,
+          //   child: DrawerHeader(
+          //     decoration: BoxDecoration(
+          //       image: DecorationImage(
+          //         scale: 1,
+          //         image: AssetImage("assets/images/palm-tree.png"),
+          //         fit: BoxFit.fill,
+          //       ),
+          //     ),
+          //     child: Text(""),
+          //   ),
+          // ),
+
+          SizedBox(
+            height: 150,
             child: DrawerHeader(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  scale: 1,
-                  image: AssetImage("assets/images/palma-logo.png"),
-                  fit: BoxFit.fill,
-                ),
-              ),
-              child: Text(""),
+              decoration: const BoxDecoration(color: Color(0xFF1a936f)),
+              child: LogoSigpa(),
             ),
           ),
           ListTile(

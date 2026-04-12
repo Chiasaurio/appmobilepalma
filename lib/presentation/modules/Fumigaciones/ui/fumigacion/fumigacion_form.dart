@@ -192,7 +192,7 @@ class _FumigacionFormState extends State<FumigacionForm> {
     return Column(
       children: [
         _buildDosis(),
-        FormBuilderChoiceChip<String>(
+        FormBuilderChoiceChips<String>(
           validator: (value) {
             return value != null ? null : "El campo es necesario.";
           },
