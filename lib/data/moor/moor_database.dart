@@ -71,7 +71,7 @@ LazyDatabase _openConnection() {
 ])
 class AppDatabase extends _$AppDatabase {
   // we tell the database where to store the data with this constructor
-  AppDatabase() : super(_openConnection());
+  AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   // you should bump this number whenever you change or add a table definition. Migrations
   // are covered later in this readme.

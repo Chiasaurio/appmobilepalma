@@ -17,7 +17,7 @@ class SyncToServerCubit extends Cubit<SyncToServerState> {
   SyncToServerCubit() : super(const SyncToServerState());
   final db = getIt<AppDatabase>();
   final remote = SyncToServerRemote();
-  void getRegistrosPendientes() async {
+  Future<void> getRegistrosPendientes() async {
     emit(const SyncToServerState());
     final cosechasPendientes = await getCosechasPendientesSincronizar();
     final podasPendientes = await getPodasPendientesSincronizar();

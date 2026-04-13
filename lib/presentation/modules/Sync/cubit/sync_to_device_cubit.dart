@@ -24,7 +24,7 @@ class SynToDeviceCubit extends Cubit<SyncToDeviceState> {
   SyncProductosAgroquimicos syncproductos = SyncProductosAgroquimicos();
   SyncFertilizantes syncFertilizantes = SyncFertilizantes();
 
-  void getFechasUltimaActualizacion() async {
+  Future<void> getFechasUltimaActualizacion() async {
     emit(const SyncToDeviceState());
     //Obtener fechas ultima actualización.
     final loteFechaUltimaActualizacion =

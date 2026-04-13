@@ -34,6 +34,7 @@ class _CensosPendientesPageState extends State<CensosPendientesPage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(body: BlocBuilder<CensosCubit, CensosState>(
       builder: (context, state) {
         return CustomScrollView(

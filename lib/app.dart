@@ -23,13 +23,14 @@ import 'package:apppalma/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'presentation/modules/Sync/cubit/sync_to_device_cubit.dart';
 import 'presentation/modules/Viajes/cubit/viaje_cubit.dart';
 import 'globals.dart';
 
 class AppPalma extends StatelessWidget {
-  const AppPalma({super.key});
+  const AppPalma({super.key, this.initialRoute = '/splash'});
+
+  final String initialRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +79,9 @@ class AppPalma extends StatelessWidget {
         },
         child: MaterialApp(
           title: 'Smart Spotter',
-          theme: ThemeData(fontFamily: GoogleFonts.roboto().fontFamily),
+          theme: ThemeData(fontFamily: 'Roboto'),
           debugShowCheckedModeBanner: false,
-          initialRoute: '/splash',
+          initialRoute: initialRoute,
           localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
           supportedLocales: const [Locale('en')],
           onGenerateRoute: Routes.generateRoutes,

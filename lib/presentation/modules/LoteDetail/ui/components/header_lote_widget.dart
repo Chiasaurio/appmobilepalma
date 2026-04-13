@@ -12,6 +12,7 @@ class HeaderLote extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final paddingTop = SizeConfig.paddingTop;
     return BlocBuilder<LoteDetailCubit, LoteDetailState>(
       builder: (context, state) {
