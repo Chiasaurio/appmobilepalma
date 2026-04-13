@@ -15,6 +15,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final paddingTop = SizeConfig.paddingTop;
     return Scaffold(
       backgroundColor: AppPalmaColors.grey,

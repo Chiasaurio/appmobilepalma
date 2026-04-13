@@ -113,3 +113,7 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+# FVM Version Cache
+.fvm/
+coverage
